@@ -3,7 +3,7 @@
 ## Description: Installs FWS.
 
 ddev composer install
-ddev drush site:install minimal --verbose -y
+ddev drush site:install minimal --verbose -y --site-name="U.S. Fish & Wildlife Service"
 ddev drush recipe ../recipes/fws-core
 # ddev drush webform-libraries-download
 ddev drush cr
