@@ -1,0 +1,135 @@
+/*  Images can be styled in one of 2 ways. The search can return a gallery of images or the standard list of teasers.
+* The standard teaser is basically handled from the global teaser.scss file in this directory. This file focuses on the 
+* gallery display. The same view mode is used (teaser) but a class in the search app is set to alter the looks.
+*/
+
+.gallery-view {
+
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+
+    @include tablet {
+        gap: 1%;
+    }
+    .search-results-meta {
+        flex-basis: 100%;
+    }
+
+    .mat-card {
+        flex-basis: 48%;
+        padding: 0;
+        min-width: 0; 
+
+        @include tablet {
+            flex-basis: 32%;
+        }
+        @include desktop {
+            flex-basis: 24%;
+        }
+
+        .layout--twocol-section {
+            position: relative;
+            flex-direction: column;
+            margin-bottom: 0px;
+
+            .teaser-thumbnail {
+                width: 100% !important;
+                padding: 0 !important;
+                margin-bottom: 0px !important;
+            }
+
+            .layout__region--second {
+
+                //components that are in the teaser that we don't display in gallery view
+                .block-field-blockmediaimagename,
+                .block-field-blockmediaimagefield-media-caption,
+                section.teaser-metadata,
+                .block-field-blockmediafws-remote-videoname,
+                .block-field-blockmediafws-remote-videofield-media-caption {
+                    display: none;
+                }
+            }
+            //show the title on hovers
+            &:hover {
+                .block-field-blockmediaimagename,
+                .block-field-blockmediafws-remote-videoname {
+                    display: block;
+                }
+                section.teaser-title {
+                    position: absolute;
+                    bottom: 0px;
+                    color: white;
+                    display: -webkit-box;
+                    overflow: hidden;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    padding: 0px 10px;
+                    a {
+                        color: white;
+                        text-decoration: none;
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+                .teaser-thumbnail {
+
+                    .field--type-image, .field--name-name {
+                        a {
+                            &:after {
+                                content: '';
+                                @include absolute(0, 0, 0, 0);
+                                background: $color-black-gradient;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.masonry-view {
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: masonry;
+
+    .search-results-meta {
+        display: none;
+    }
+    
+    .mat-card {
+        padding: 0;
+
+        .layout--twocol-section {
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            .teaser-thumbnail {
+                width: 100% !important;
+                padding: 0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            .layout__region--second {
+
+                section.teaser-title {
+                    display: -webkit-box;
+                    overflow: hidden;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
+                //components that are in the teaser that we don't display in gallery view
+                .block-field-blockmediaimagefield-media-caption,
+                section.teaser-metadata {
+                    display: none;
+                }
+            }
+        }
+    }
+      
+}

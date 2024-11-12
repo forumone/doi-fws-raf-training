@@ -1,0 +1,103 @@
+global-styling:
+  version: 1.0
+  css:
+    theme:
+      styles/css/styles.css: {}
+      components/icomoon/icomoon.css: {}
+      //fonts.googleapis.com/css?family=Source+Sans+Pro:200i,400,400i,600,600i,700,700i,900&display=swap": { type: external, minified: true }
+      //fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i,900&display=swap": { type: external, minified: true }
+
+  js:
+    js/script.js: {}
+    js/loadMore.js: {}
+    js/loadMoreText.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - core/drupal.ajax
+
+# this is for things that need to be altered in the admin theme and this library
+# is added via a hook_page_attachments
+admin.overrides:
+  css:
+    theme:
+      styles/css/admin-overrides.css: {}
+
+slick:
+  version: VERSION
+  js:
+    /libraries/slick/slick/slick.js: {}
+  css:
+    theme:
+      /libraries/slick/slick/slick.css: {}
+      /libraries/slick/slick/slick-theme.css: {}
+
+home:
+  js:
+    js/home.js: {}
+  dependencies:
+    - core/jquery
+
+faqs:
+  js:
+    js/faqs.js: {}
+  dependencies:
+    - core/jquery
+
+questions_answers:
+  js:
+    js/questions_answers.js:
+  dependencies:
+    - core/jquery
+
+activity:
+  js:
+    js/activity.js: {}
+  dependencies:
+    - core/jquery
+
+fontawesome:
+  css:
+    theme:
+      components/fontawesome-pro/css/all.css: {}
+
+select2:
+  js:
+    /libraries/select2/dist/js/select2.js: {}
+  css:
+    theme:
+      /libraries/select2/dist/css/select2.css: {}
+
+owlcarousel:
+  js:
+    /libraries/owlcarousel2/dist/owl.carousel.js: {}
+  css:
+    theme:
+      /libraries/owlcarousel2/dist/assets/owl.carousel.css: {}
+
+# CSS libraries for Layout plugins.
+layouts:
+  version: VERSION
+  css:
+    theme:
+      styles/css/layouts.css: {}
+
+clipboardjs:
+  version: "1.0.1"
+  license:
+    name: GPL-2.0-or-later
+    url: https://www.gnu.org/licenses/gpl.html
+    gpl-compatible: true
+  js:
+    /libraries/clipboard.js/dist/clipboard.js: {}
+
+copy-photo-credit:
+  js: 
+    js/copy_credit_to_clipboard.js: {}
+  dependencies:
+    - fws_gov/clipboardjs
+    - core/jquery
+    - core/once
+    - core/drupal
+

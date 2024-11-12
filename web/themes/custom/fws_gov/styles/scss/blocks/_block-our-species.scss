@@ -1,0 +1,31 @@
+.our-species {
+  .field--name-field-our-species-description {
+    margin: 15px 0 19px;
+  }
+
+  
+}
+
+.field--name-field-promotable-species {
+  display: flex;
+  flex-wrap: wrap;
+
+  > .field--item {
+    margin: 0px 10px;
+  }
+
+  .field--item {
+      @include mobile-xs {
+          width: 100%;
+      }
+  }
+}
+
+.program.species,
+.facility.species {
+  .field--name-field-promotable-species {
+    > .field--item {
+      width: 100%;
+    }
+  }
+}

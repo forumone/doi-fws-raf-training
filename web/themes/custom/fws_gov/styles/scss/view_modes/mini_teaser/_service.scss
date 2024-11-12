@@ -1,0 +1,13 @@
+article.service.mini-teaser {
+    .layout--twocol-section {
+        .layout__region--second {
+            .teaser-metadata {
+                .field--name-type {
+                    @include desktop {
+                        @include mini-teaser-icon('\f49c');
+                    }
+                }
+            }
+        }
+    }
+}

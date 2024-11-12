@@ -1,0 +1,69 @@
+entity.fws_search_app_config.collection:
+  path: '/admin/config/search/fws-search-app-config'
+  defaults:
+    _entity_list: 'fws_search_app_config'
+    _title: 'FWS Search app configuration'
+  requirements:
+    _permission: 'administer site configuration'
+  
+entity.fws_search_app_config.add_form:
+  path: '/admin/config/search/fws-search-app-config/add'
+  defaults:
+    _entity_form: 'fws_search_app_config.add'
+    _title: 'Add FWS Search app config'
+  requirements:
+    _permission: 'administer site configuration'
+  
+entity.fws_search_app_config.edit_form:
+  path: '/admin/config/search/fws-search-app-config/{fws_search_app_config}'
+  defaults:
+    _entity_form: 'fws_search_app_config.edit'
+    _title: 'Edit FWS Search app config'
+  requirements:
+    _permission: 'administer site configuration'
+  
+entity.fws_search_app_config.delete_form:
+  path: '/admin/config/search/fws-search-app-config/{fws_search_app_config}/delete'
+  defaults:
+    _entity_form: 'fws_search_app_config.delete'
+    _title: 'Delete FWS Search app config'
+  requirements:
+    _permission: 'administer site configuration'
+
+fws_search.settings:
+  path: '/admin/config/search/fws-search'
+  defaults:
+    _form: '\Drupal\fws_search\Form\FwsSearchConfigForm'
+    _title: 'FWS Search Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+  
+fws_search.info:
+  path: /fws_search/{app_machine_name}/info
+  methods: 'GET'
+  defaults:
+    _controller: '\Drupal\fws_search\Controller\FwsSearch::info'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      app_machine_name:
+        type: string
+fws_search.search:
+  path: /fws_search/{app_machine_name}
+  methods: [GET,POST]
+  defaults:
+    _controller: '\Drupal\fws_search\Controller\FwsSearch::search'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      app_machine_name:
+        type: string
+
+# fws_search.test:
+#   path: /test
+#   defaults:
+#     _controller: '\Drupal\fws_search\Controller\FwsSearch::test'
+#   requirements:
+#     _permission: 'access content'

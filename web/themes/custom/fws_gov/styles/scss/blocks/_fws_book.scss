@@ -1,0 +1,63 @@
+.menu--subpage--book{
+    .has-children{
+        .menu-toggle::after {
+            content: "\f077";
+            font-family: "Font Awesome 5 Pro";
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            text-rendering: auto;
+            font-variant: normal;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    }
+    .has-children.expanded {
+        .menu-toggle::after {
+            content: "\f078";
+            font-family: "Font Awesome 5 Pro";
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            text-rendering: auto;
+            font-variant: normal;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    }
+    .book-menu-parent {
+        display:flex;
+        justify-content: space-between;
+        width:100%;
+    
+        .book-menu-link, .menu-toggle {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        a.menu-toggle.is-active {
+            border-left:0 !important;
+        }
+    }
+}
+.page-node-type-book, .page-node-type-package-parent, 
+.page-node-type-package-subpage{
+    ul.links{
+        margin-top:20px;
+        li {
+            width:100%;
+            text-align: right;
+        }
+        li.book-printer, li.statistics-counter {
+            display:none;
+        }
+    }
+}
+
+.block-fws-book {
+    .book-admin {
+        text-align: center;
+        margin-top:60px;
+        font-weight:bold;
+    }
+}

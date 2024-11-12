@@ -1,0 +1,77 @@
+article.teaser.species {
+    .layout--twocol-section {
+        .layout__region--second {
+
+            // .teaser-metadata {
+            //     .field--name-type {
+            //         @include desktop {
+            //             @include icon('\f1b0', 18px, 700, 39px, $icon-default-bg-color);
+            //             &:before {
+            //                 width: 40px;
+            //                 height: 40px;
+            //                 margin-right: 10px;
+            //                 background: $views-row-bg-accent;
+            //                 border-radius: 50%;
+            //                 text-align: center;
+            //             }
+            //         }
+            //     }
+            // }
+
+            .block-field-blocknodespeciesfield-fws-focus {
+                display: inline-block;
+                width: auto;
+
+                .fws-focus {
+                    margin-right: 10px;
+                }
+            }
+
+            .block-field-blocknodespeciestitle {
+                span {
+                    font-style: italic;
+                }
+                
+            }
+
+            .block-field-blocknodespeciesfield-common-name {
+                .field--name-field-common-name {
+                    font-size: 17px;
+                    .field--item {
+                        display: inline;
+
+                        &:after {
+                            content: ', ';
+                        }
+
+                        &:last-child {
+                            &:after {
+                                content: '';
+                            }
+                        }
+                    }
+                }
+            }
+
+            .block-field-blocknodespeciesfield-fws-focus {
+                flex-basis: 100%;
+                .field--name-field-fws-focus {
+                    font-size: 16px;
+                }
+            }
+
+
+            .field--name-field-species-kingdom div {
+                font-weight: bold;
+            }
+
+            .teaser-metadata {
+                align-items: flex-start;
+
+                @include tablet {
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

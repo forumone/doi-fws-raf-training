@@ -1,0 +1,57 @@
+.block-views-exposed-filter-blockspecies-viewing-species-viewing {
+  position: relative;
+  padding-left: 20px;
+  display: none;
+  @include desktop {
+    display: block;
+  }
+
+  h3.block-title {
+    font-size: $font-size-base;
+    margin-bottom: 23px;
+  }
+
+  .form-item .form-text {
+    width: 100%;
+    height: 36px;
+    margin-top: 6px;
+    padding: 5px 10px;
+    border-radius: 0;
+    border: 1px solid $input-border;
+    @include font($font-size-deck-md, 400, $font-family-base, 36px, $views-exposed-filer-text-color);
+    @include placeholder {
+      @include font($font-size-deck-md, 400, $font-family-base, 36px, $views-exposed-filer-text-color);
+    }
+  }
+
+  .form-item:not(.checkbox):not(.form-item-title) {
+    margin: 17px 0;
+  }
+
+  .input-group-addon {
+    display: none;
+  }
+
+  .checkbox {
+    margin-top: 8px;
+  }
+
+  // Hidden title filter groups.
+  .panel-heading {
+    display: none;
+  }
+
+  .panel {
+    border: 0 none;
+    box-shadow: none;
+
+    &-body {
+      padding: 0;
+    }
+  }
+
+  .help-block {
+    @include font($font-size-deck-md, 400, $font-family-base, 1.25, $color-extra-dark-grey);
+    margin-bottom: 1px;
+  }
+}

@@ -1,0 +1,27 @@
+.view-id-facility_social_media {
+    .social-media-icons {
+        font-size: 0;
+        display: block;
+        margin: 10px 0px 0px 25px;
+        @include icon('\f39e', 18px, 700, 39px, white);
+        &:before {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background: #205493;
+            border-radius: 50%;
+            text-align: center;
+            font-family: 'Font Awesome 5 Brands' !important;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    .facebook {
+        @include icon('\f39e', 18px, 700, 39px, white);
+    }
+    .twitter {
+        @include icon('\f099', 18px, 700, 39px, white);    
+    }
+}

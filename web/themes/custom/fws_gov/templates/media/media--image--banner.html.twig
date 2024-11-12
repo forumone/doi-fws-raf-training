@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a media item.
+ *
+ * Available variables:
+ * - media: The media item, with limited access to object properties and
+ *   methods. Only method names starting with "get", "has", or "is" and
+ *   a few common methods such as "id", "label", and "bundle" are available.
+ *   For example:
+ *   - entity.getEntityTypeId() will return the entity type ID.
+ *   - entity.hasField('field_example') returns TRUE if the entity includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   Calling other methods, such as entity.delete(), will result in
+ *   an exception.
+ *   See \Drupal\Core\Entity\EntityInterface for a full list of methods.
+ * - name: Name of the media item.
+ * - content: Media content.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{#
+/**
+ * This custom template is used to add in some standard markup for the stying of banner image credits. 
+ * This is similar to media--image.html.twig, but single banner images are used on Story and Press Release nodes and
+ * a few other places. This used to have its own media type of banner image, but now its an image bundle, with a
+ * banner view mode and this template adds class of "banner-image" that is used in some of the javascript. 
+ * The first key piece is the addition of the class "image-with-credit" and the view mode as 
+ * a class. Second is the markup that creates the attribution.
+ *
+#}
+<div{{ attributes.addClass('banner-image', view_mode) }}>
+    <div class="image-with-credit">
+    {{ title_suffix.contextual_links }}
+
+    {# just the image #}
+    {{ content.field_media_image }}
+
+    {% if attribution is not empty %}
+        <div class="attribution">
+            {{attribution}}
+        </div>
+    {% endif %}
+    </div>
+</div>

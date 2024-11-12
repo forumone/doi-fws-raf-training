@@ -1,0 +1,27 @@
+.path-taxonomy {
+
+    .news-category-title {
+        .layout__region {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            .block-field-blocktaxonomy-termstory-news-categoryfield-icon {
+                flex: 0 0 40px;
+                margin-right: 10px;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .block-field-blocktaxonomy-termstory-news-categoryname {
+                @include h1;
+                margin-top: 0px;
+                flex: 0 0 auto;
+            }
+        }
+        }
+    }
+    

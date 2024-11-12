@@ -1,0 +1,5 @@
+entity.fws_search_app_config.add_form:
+    route_name: 'entity.fws_search_app_config.add_form'
+    title: 'Add Search app config'
+    appears_on:
+      - entity.fws_search_app_config.collection

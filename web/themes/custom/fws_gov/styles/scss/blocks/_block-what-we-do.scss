@@ -1,0 +1,37 @@
+.what-we-do {
+  > h2 {
+    margin: 0;
+  }
+
+  .our-services,
+  .our-project-and-initiatives,
+  .our-law-and-regulations {
+    > a {
+      margin-top: 20px;
+      display: inline-block;
+    }
+  }
+
+  .field--name-field-our-services-image,
+  .field--name-field-our-project-image,
+  .field--name-field-our-laws-image {
+    margin-top: 20px;
+
+    @include tablet {
+      float: left;
+      margin: 20px 30px 20px 0;
+    }
+
+    img {
+      @include mobile-down {
+        object-fit: cover;
+        width: 100%;
+        height: 320px;
+      }
+    }
+  }
+
+  div.simple-btn {
+    margin-top: 15px;
+  }
+}

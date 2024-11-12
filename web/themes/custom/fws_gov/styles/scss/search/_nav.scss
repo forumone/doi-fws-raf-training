@@ -1,0 +1,25 @@
+ nav.search-menu {
+    border-bottom: 1px solid #CBCCCC;
+    width: 100%;
+    .menu--search-menu {
+        
+        > li {
+            display: inline-block;
+            > a {
+                color: $text-color;
+                padding: 10px 25px;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &.is-active,
+                &.active-trail {
+                    font-weight: bold;
+                    border-bottom: 3px solid $link-color;
+                    color: $link-color;
+                }
+            }
+        }
+    }
+ }

@@ -1,0 +1,90 @@
+article.question-and-answer.full {
+
+    p.content-type {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+    h1.page-title {
+        margin-top: 0;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .field--name-body {
+        margin-bottom: 30px;
+    }
+    .field--name-field-node-reference {
+        margin-bottom: 40px;
+    }
+
+    .paragraph.question-answer {
+        margin-bottom: 20px;
+        .question {
+            width: 100%;
+            margin: 0;
+            font-weight: normal;
+            position: relative;
+            cursor: pointer;
+            color: $link-color;
+            font-size: 17px;
+            padding-right: 40px;
+            background-color: #F7F9FB;
+            padding: 15px 50px 15px 25px;
+
+            @include icon('\f078', 15px, 400, 32px, $icon-default-bg-color, 'after');
+            &:after {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-weight: bold;
+                color: $link-color;
+                width: 30px;
+                height: 30px;
+                background: #d8d8d8;
+                border-radius: 50%;
+                text-align: center;
+            }
+        }
+        .answer {
+            padding-right: 40px;
+            height: 0px;
+            opacity: 0;
+            font-size: 17px;
+            // -webkit-transition: all 1s;
+            // -moz-transition: all 1s;
+            // -o-transition: all 1s;
+            // transition:all 1s;
+            * {
+                height: 0;
+                opacity: 0;
+            }
+        }
+    }
+
+    .paragraph.question-answer.open {
+        .question {
+            margin-bottom: 12px;
+            @include icon('\f077', 15px, 400, 32px, $icon-default-bg-color, 'after');
+            &:after {
+                font-weight: bold;
+                background-color: $link-color;
+                color: white;
+            }
+        }
+        .answer {
+            height: auto;
+            padding: 25px;
+            opacity: 1;
+            // -webkit-transition: all 1s;
+            // -moz-transition: all 1s;
+            // -o-transition: all 1s;
+            // transition:all 1s;
+            * {
+                height: auto;
+                opacity: 1;
+            }
+        }
+    }
+
+}

@@ -6,6 +6,7 @@
     "require": {
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.7",
+        "drupal/acquia_search": "^3.1",
         "drupal/admin_toolbar": "^3.4",
         "drupal/admin_toolbar_tools": "^3.4",
         "drupal/allowed_formats": "^3.0",
@@ -36,6 +37,8 @@
         "drush/drush": "^11 || ^12 || ^13",
         "oomphinc/composer-installers-extender": "^2.0",
         "owlcarousel2/owlcarousel2": "^2.3.4",
+        "select2/select2": "4.0.10",
+        "kenwheeler/slick": "^1.8.1",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
     },
@@ -54,6 +57,31 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "kenwheeler/slick",
+                "version": "1.8.1",
+                "type": "drupal-library",
+                "source": {
+                "url": "https://github.com/kenwheeler/slick",
+                "type": "git",
+                "reference": "v1.8.1"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "select2/select2",
+                "version": "4.0.10",
+                "type": "drupal-library",
+                "dist": {
+                "url": "https://github.com/select2/select2/archive/develop.zip",
+                "type": "zip"
+                }
+            }
         },
         {
             "type": "package",

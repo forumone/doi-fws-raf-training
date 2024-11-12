@@ -1,0 +1,7 @@
+<div class="spotlight-card-list list-length{{items|length}}">
+    {% for item in items %}
+        <article class="card card{{loop.index}} cards{{loop.length}}">
+            {{ item.content }}
+        </article>
+    {% endfor %}
+</div>

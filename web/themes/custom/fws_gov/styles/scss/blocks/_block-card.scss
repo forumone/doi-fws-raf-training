@@ -1,0 +1,68 @@
+$card-gutter-width: 12.5px;
+$card-deck-padding: 20px;
+
+// News card and  tabs category.
+.items-card {
+  .view-content {
+    @include card-wrapper-settings();
+  }
+  .views-row {
+    @include card-settings();
+  }
+
+  // Tabs category.
+  .view-filters {
+    .form-radios {
+      .control-label {
+        position: relative;
+        display: inline-block;
+        padding: 6px 17.5px 9px;
+        letter-spacing: 0.57px;
+        text-decoration: none;
+        text-transform: uppercase;
+        @include font($font-size-base, 700, $font-family-base, 1.29, $views-tab-item-text-color);
+      }
+
+      input {
+        display: none;
+      }
+      input:checked ~ label {
+        background: $tabs-bg-color;
+        color: $link-color;
+
+        &:before {
+          content: '';
+          @include absolute(auto, 0, 0, 0);
+          height: 4px;
+          width: 100%;
+          background: $icon-bg-green;
+        }
+      }
+    }
+  }
+
+  // Hidden/visible filters category news for the device size
+  // because there should be a select list on the mobile devices.
+  .form--inline > [id*='edit-type-1'] {
+    display: none;
+    @include tablet {
+      display: block;
+    }
+  }
+
+  .form-item-type-2.form-type-select {
+    float: none;
+    margin: 0;
+    @include tablet {
+      display: none;
+    }
+
+    select {
+      min-height: 42px;
+    }
+  }
+
+  .form-actions {
+    display: none;
+  }
+}

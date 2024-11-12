@@ -1,0 +1,343 @@
+$slider-arrow-top: 50%;
+// different mockups appear to have different heights...
+$default-banner-height: 530px;
+$fws-banner-top-margin: -90px;
+
+@mixin banner-paceholder{
+  background-color: #205493;
+  width: 100%;
+  padding-bottom: 145%;
+  position: relative;
+  @include mobile-up {
+    padding-bottom: 61.84%;
+  }
+  @include tablet {
+    padding-bottom: 36.79%;
+  }
+  @include desktop {
+    padding-bottom: 30.41%;
+  }
+  @include desktop-large {
+    padding-bottom: 27.73%;
+  }
+  .block-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+@mixin deck-slide {
+  .deck-slide {
+    @include absolute(auto, 0, 0, 0);
+    background: rgba($color-white, 0.8);
+    padding: 10px 20px;
+    text-align: center;
+
+    .field--name-field-title,
+    .views-field-title {
+      @include font($font-size-base, 700, $font-family-base, 1.1, #003366);
+      text-transform: uppercase;
+    }
+
+    .field--name-field-link,
+    .views-field-view-node {
+      margin-top: 1px;
+      text-transform: uppercase;
+
+      a {
+        font-size: $font-size-base;
+        font-weight: 700;
+        letter-spacing: 0.57px;
+      }
+    }
+  }
+}
+
+section#block-fwsbanner,
+section.block-views-blocknews-banner-slideshow-stories-slideshow {
+  position: relative;
+
+  @include mobile-xs {
+    margin-top: 0px;
+  }
+
+  ///*height: $default-banner-height;
+  //overflow: hidden;*/
+  // this negative margin is to pull the banner up under the nav header
+  // it does not exist on the div.banner since that will exist on all pages (even if empty)
+  // so this rule then has an effect only on pages that actually have a banner
+  margin-top: $fws-banner-top-margin;
+
+  // push the contextual edit link down so it's not under the nav header
+  >.block-container>.contextual {
+    top: ($fws-banner-top-margin*-1);
+  }
+
+  .fws-banner-title {
+    @include title-merri;
+    @include absolute(48%, 50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 0px 20px;
+    z-index: 10;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    @include mobile-up {
+      @include absolute(60%, 50%);
+    }
+    @include desktop-large {
+      max-width: 1170px;
+    }
+    @include desktop {
+      max-width: 970px;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  //puts the image for carousels and banners in the middle
+  .field--name-field-image, .views-field-field-banner-image, .field--name-field-media-image {
+    display: flex;
+    justify-content: center;
+    background: #1A4476;
+  }
+  .views-field-fieldset {
+    position: relative;
+  }
+
+
+  // when the banner contains field_banner_image
+  .field--name-field-banner-image {
+    .contextual-region {
+      position: initial;
+    }
+  }
+
+  .slick-dotted.slick-slider {
+    // in the banner we want things positioned relative to the banner block itself
+    position: initial;
+  }
+
+  .form-group {
+    margin-bottom:0;
+  }
+
+  .attribution {
+    display: none;
+  }
+  .attribution.show {
+    a {
+        font-size: 14px;
+        padding-left:10px;
+    }
+  }
+  /* Fix bug with slides showing up stacked on first load of page  */
+  .field--name-field-banner-slideshow {
+    overflow: hidden;
+    .field--item:nth-child(n+1) {
+      display: none;
+    }
+  }
+  .field--name-field-banner-slideshow.slick-initialized {
+    display: block;
+    .field--item:nth-child(n+1) {
+      display: block;
+    }
+  }
+}
+
+// Fix for banner on news page stacking all the banners on load
+.block-views-blocknews-banner-slideshow-stories-slideshow {
+  .view-content {
+    overflow: hidden;
+    .views-row:nth-child(n+1) {
+      display: none;
+    }
+  }
+  .view-content.slick-initialized {
+    display: block;
+    .views-row:nth-child(n+1) {
+      display: block;
+    }
+  }
+  
+  @include banner-paceholder();
+
+  .view-content.slick-slider {
+    position:relative;
+    z-index: 5;
+    .slick-list, .slick-track, .slick-slide, .slick-slide > div,
+    .views-row, .views-field-field-banner-image, .views-field-field-banner-image > div.field-content,
+    .image-with-credit, .image-with-credit > picture, .image-with-credit img {
+      z-index: 5;
+      position: relative;
+    }
+    .views-field-fieldset {
+      .deck-slide {
+        z-index: 7;
+      }
+    }
+  }
+
+  .fws-banner-title {
+    position:relative;
+    z-index: 10;
+  }
+  .slick-arrow {
+    z-index: 6 !important;
+    position: absolute;
+  }
+  .slick-dots {
+    position: static;
+  }
+}
+
+// Added since deck-slide can be 
+.slick-slider {
+  @include deck-slide();
+}
+
+// these rules are not specific to banners
+.field--name-field-banner-slideshow, .slick-dotted {
+
+  .paragraph--type--slide {
+    position: relative;
+  }
+  
+  @include deck-slide();
+
+  &.slick-slider {
+
+    // Arrows.
+    .slick-arrow {
+      position: absolute;
+      top: $slider-arrow-top;
+      // so aligns with header
+      transform: translateY(-50%);
+      bottom: auto;
+      z-index: 2;
+      pointer-events: none;
+
+      &.right {
+        right: 50px;
+      }
+
+      &.left {
+        left: 50px;
+      }
+
+      button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba($color-white, 0.87);
+        border: 0 none;
+        box-shadow: none;
+        cursor: pointer;
+        pointer-events: auto;
+
+        &:before {
+          @include font(36px, normal, inherit, 39px, $link-color);
+        }
+
+        &.prev:before {
+          margin-left: -2px;
+        }
+
+        &.next:before {
+          margin-right: -2px;
+        }
+      }
+    }
+
+    // Dots.
+    .slick-dots {
+      position: static;
+
+      li {
+        width: 14px;
+        height: 14px;
+        margin: 10px;
+        margin-bottom:0;
+      }
+
+      button {
+        width: 14px;
+        height: 14px;
+        border: 2px solid $slideshow-slick-dots-border-color;
+        border-radius: 50%;
+
+        &:before {
+          display: none;
+        }
+      }
+
+      li.slick-active button {
+        background: $slideshow-slick-dots-active-bg-color;
+      }
+    }
+
+    &.slick-dotted {
+      margin-bottom: 0;
+    }
+
+    .slick-slide {
+      position: relative;
+    }
+  }
+}
+
+// This keeps the top banner image from causing a content shift
+#block-fwsbanner {
+    @include banner-paceholder();
+    
+    .field--name-field-banner-slideshow {
+      position:relative;
+      z-index: 5;
+
+      .slick-list, .slick-track, .slick-slide, .slick-slide > div,
+      .field--item, .paragraph--type--slide, .paragraph--type--slide > div.field--name-field-image,
+      .image-with-credit, .image-with-credit > picture, .image-with-credit img {
+        z-index: 5;
+        position: relative;
+      }
+      .paragraph--type--slide {
+        .deck-slide {
+          z-index: 7;
+        }
+      }
+    }
+
+    .fws-banner-title {
+      position:relative;
+      z-index: 10;
+    }
+    .slick-arrow {
+      z-index: 6;
+      position: absolute;
+    }
+    .slick-dots {
+      position: static;
+    }
+}
+.block-fws-banner, .block-views-blocknews-banner-slideshow-stories-slideshow {
+  .image-with-credit:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background: rgba(0,0,0,.35);
+    z-index: 6;
+  }
+}

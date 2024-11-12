@@ -1,0 +1,17 @@
+.view-library-categories, .block-views-blocklibrary-categories-featured {
+    .view-content {
+        @include card-wrapper-settings();
+    }
+    .views-row {
+        @include card-settings();
+        .taxonomy-term.taxonomy-card {
+            @include card-base;
+        }
+    }
+    .view-footer {
+        .all-categories-button {
+            margin-top: 30px;
+            margin-left: 10px;
+        }
+    }
+}

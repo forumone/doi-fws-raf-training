@@ -1,0 +1,37 @@
+div.card.initiative_category {
+    .card-description {
+        .field--name-field-short-description {
+            @include font(17px, normal, $font-family-base, 1.4);
+            height: 7em;
+            -webkit-line-clamp: 4;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden; 
+            padding: 0px; 
+        }
+    }
+}
+
+article.initiative-card.card {
+    .card-image {
+        .field--name-field-representative-image {
+            margin: 0;
+        }
+        > a {
+            position: relative;
+            z-index: 2;
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.60) 55%, rgba(0, 0, 0, 0.80) 100%);
+            }
+        }
+
+    }
+}
+

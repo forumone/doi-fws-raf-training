@@ -1,0 +1,27 @@
+article.drug.full {
+
+  section.margin-bottom-block {
+    margin-bottom: 20px;
+  }
+  
+  .field--name-field-target-pathogens,
+  .field--name-field-method-of-administration,
+  .field--name-field-required-fee {
+    .field--label {
+      font-weight: 700;
+    }
+  }
+
+  .staff-profile {
+    .block-field-blocknodestaff-profilefield-phone {
+      a {
+        @include phone-icon;
+      }
+    }
+    .block-field-blocknodestaff-profilefield-email {
+      a {
+        @include email-icon;
+      }
+    }
+  }
+}

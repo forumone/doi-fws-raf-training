@@ -1,0 +1,25 @@
+{
+  "name": "fws_gulp",
+  "version": "1.0.1",
+  "scripts": {
+    "start": "gulp"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-pro": "^5.11.2"
+  },
+  "devDependencies": {
+    "breakpoint-sass": "^2.7.0",
+    "browser-sync": "^2.18.1",
+    "compass-mixins": "^0.12.10",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-watch": "^4.3.10",
+    "node-sass-globbing": "0.0.23"
+  }
+}

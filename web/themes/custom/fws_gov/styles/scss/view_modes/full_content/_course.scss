@@ -1,0 +1,25 @@
+article.course.full, article.course-session.full {
+    .field--item {
+        margin-bottom: 15px;
+    }
+}
+
+.view-display-id-course_sessions_by_course {
+    .view-content {
+        .views-row {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+}
+
+.field--name-field-course-id {
+    .register-text {
+        margin-top: 8px;
+        font-size: .8em;
+    }
+}

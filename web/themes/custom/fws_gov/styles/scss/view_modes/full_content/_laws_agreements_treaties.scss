@@ -1,0 +1,31 @@
+article.laws-agreements-treaties.full {
+    .field--name-field-image {
+        float: left;
+        padding: 0px 20px 0px 0px;
+
+        @include mobile-xs {
+            float: none;
+            padding: 0px;
+        }
+    }
+
+    .field:not(.field--name-body) {
+        clear: both;
+    }
+
+    .field {
+        margin-bottom: 15px;
+
+        .field--label {
+            margin-bottom: 0px;
+        }
+    }
+
+    .field--name-field-related-documents,
+    .field--name-field-related-laws,
+    .field--name-field-program {
+        .field--label {
+            @include h3;
+        }
+    }
+}

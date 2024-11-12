@@ -47,11 +47,13 @@ install:
   - views
   - views_ui
   # Contrib
+  - acquia_search
   - admin_toolbar
   - admin_toolbar_tools
   - admin_toolbar_search
   - bootstrap
   - components
+  - default_content
   - field_group
   - jquery_ui_draggable
   - jquery_ui_resizable
@@ -72,6 +74,8 @@ install:
   - we_megamenu
   # Custom
   - fws
+  - fws_gov
+  - fws_search
 
 config:
   import:
@@ -156,13 +160,16 @@ config:
     block.block.claro_tools:
       simple_config_update:
         status: false
-    block.block.fws_tools:
+    block.block.fws_gov_branding:
+      simple_config_update:
+        region: navigation
+    block.block.fws_gov_tools:
       simple_config_update:
         status: false
-    block.block.fws_page_title:
+    block.block.fws_gov_page_title:
       simple_config_update:
         status: false
-    block.block.fws_admin:
+    block.block.fws_gov_admin:
       simple_config_update:
         status: false
     node.settings:
@@ -171,7 +178,7 @@ config:
     system.theme:
       simple_config_update:
         admin: 'claro'
-        default: 'fws'
+        default: 'fws_gov'
     # Set metatag defaults.
     metatag.metatag_defaults.global:
       simple_config_update:

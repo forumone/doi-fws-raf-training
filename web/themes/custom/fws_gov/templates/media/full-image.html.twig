@@ -1,0 +1,111 @@
+{# this determines when we need to add on the organization to the credit, if the credit is a rendered staff profile we are printing that as a whole, and i can't figure out how to concatenate a string on to the end of the render array, this varialbe tells me when i have to do that manually later in the code after the render array for staff profile is printed.  #}
+{% set credit = '' %}
+
+{# Staff profile reference trumps all other credits even when multiple values are filled in #}
+{% if media.field_staff_profile_reference.target_id and media.field_media_credit.value and media.field_credit_organization.value %}
+    {% set credit = media.field_staff_profile_reference.entity.label  ~ '/' ~  media.field_credit_organization.value %}
+{# Staff profile reference and organization, pull the value from staff profile and concatenate with org value #}
+{% elseif media.field_staff_profile_reference.target_id and media.field_credit_organization.value %} 
+    {% set credit = media.field_staff_profile_reference.entity.label  ~ '/' ~  media.field_credit_organization.value %}
+{# if we just have a credit and org, concatenate those 2 #}
+{% elseif media.field_media_credit.value and media.field_credit_organization.value %}
+    {% set credit = media.field_media_credit.value ~ '/' ~  media.field_credit_organization.value %}
+{# only staff profile by itslef #}
+{% elseif media.field_staff_profile_reference.target_id %}
+    {% set credit = media.field_staff_profile_reference.entity.label %}
+{% elseif media.field_media_credit.value %}
+    {% set credit = media.field_media_credit.value %}
+{% else %}
+    {% set credit = media.field_credit_organization.value %}
+{% endif %}
+
+{# Again the staff profile reference trumps any other links - if it's set we will use the link to the profile for both the author and source credits #}
+{% if media.field_staff_profile_reference.target_id  %}
+    {# when we have a staff profile reference we don't want a source link #}
+    {% set credit_source_link = '' %}
+    {% set credit_author_link = path('entity.node.canonical', {'node':  media.field_staff_profile_reference.target_id}) %}
+{% elseif media.field_credit_source_link.uri or media.field_author_link.uri %}
+    {% if media.field_credit_source_link.uri  %}
+        {% set credit_source_link = media.field_credit_source_link.uri %}
+    {% endif %}
+    {% if media.field_author_link.uri  %}
+        {% set credit_author_link = media.field_author_link.uri %}
+    {% endif %}
+{% endif %}
+
+<div{{ attributes.addClass('media-full-content', 'image') }}>
+    {{ title_suffix.contextual_links }}
+    <div class="left">
+        {# This image itself #}
+        <div class="media-full-image">
+            {{ content.field_media_image}}
+        </div>
+    </div>
+    <div class="right">
+        {# Download button with various styles to choose from #}
+        {% if image_style_urls is not empty %}
+            <div class="dropdown">
+                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary">
+                    Download
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dLabel">
+                    {% for key,value in image_style_urls %}
+                        <li><a href="{{value.url}}" download="{{ (value.filename) }}">{{ value.display_name }}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        {% endif %}
+        {# Photo Credit #}
+        {% if credit is not empty %}
+        <div class="image-credit field">
+            <div class="field--label">Photo By/Credit</div>
+            {% if credit_author_link is not empty %}
+                <a href="{{credit_author_link}}">{{ credit }}</a>
+            {% else %}
+                <p>{{ credit }}</p>
+            {% endif %}
+        </div>
+
+        {# Build the copy credit to look like "Media name | credit, license, link_to_this_page" #}
+        {% set credit_copy = name ~ ", " ~ credit %}
+        {% if media.field_creative_commons_license.0.entity.name.value is not empty %}
+            {% set credit_copy = credit_copy ~ ', ' ~ media.field_creative_commons_license.0.entity.name.value %}
+        {% endif %}
+        {% set path = url('<current>') %}
+        {% set  credit_copy = credit_copy ~ ', ' ~ path['#markup'] %}
+
+        {# copy image credit to clipboard #}
+        {{ attach_library('fws_gov/copy-photo-credit') }}
+        <button data-clipboard-text="{{credit_copy}}" class="btn btn-clipboard" id="copy-button">
+            Copy Credit
+        </button>
+        {% endif %}
+
+        {# Date Shot Created - This field should use the value in circa if there is one #}
+        {% if media.field_circa.value is not empty or media.field_document_publication_date.value is not empty %}
+            <div class="date-shot-created field">
+                <div class="field--label">Date Shot/Created</div>
+                {% if media.field_circa.value is not empty %}
+                    Circa {{ media.field_circa.value }}
+                {% else %}
+                    {{ media.field_document_publication_date.value|date("m/d/Y") }}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {# Media rights/license #}
+        {{content.field_creative_commons_license}}
+
+        {# Media type set in fws_media.module preprocess #}
+        <div class="media-type field">{{ media_type }}</div>
+
+        {# caption #}
+        {{content.field_media_caption}}
+
+        {# Everything after caption is controlled with the manage display of the media entity #}
+
+        {{ content|without('field_creative_commons_license', 'field_media_image', 'field_media_credit', 'field_credit_organization', 'field_media_caption', 'field_staff_profile_reference', 'field_author_link', 'field_credit_source_link') }}
+    </div>
+
+</div>

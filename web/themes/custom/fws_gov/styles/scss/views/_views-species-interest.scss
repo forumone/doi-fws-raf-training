@@ -1,0 +1,53 @@
+.species-interest {
+
+  .field--name-field-species-of-interest {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
+
+  .explore {
+    padding: 10px;
+
+    @include mobile-down {
+      width: 50%;
+    }
+
+    @include mobile-xs {
+      width: 100%;
+    }
+  }
+}
+
+// Views species interest.
+.view-explore-the-taxonomic-tree.species-interest {
+  margin-top: 50px;
+  padding: 53px 30px 78px;
+
+  @include tablet {
+    margin-top: 61px;
+    padding: 53px 50px 78px;
+
+    .custom-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
+}
+
+//this class is on all ilmplementation of this block
+.species-of-interest-block {
+  .block-title {
+    margin-bottom: 23px;
+  }
+
+  .field--name-body {
+    margin-bottom: 20px;
+  }
+}
+
+// Block species interest
+//this class only on the block placed in the block manager UI (not layout builder layouts)
+#block-speciesofinterest {
+  padding: 25px 0 50px 0;
+}

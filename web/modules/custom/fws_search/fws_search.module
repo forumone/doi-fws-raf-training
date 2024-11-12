@@ -1,0 +1,147 @@
+<?php
+
+use Drupal\Core\Cache\Cache;
+use Drupal\user\Entity\User;
+use Drupal\Core\Form\FormState;
+
+/**
+ * In production all indexes have their solr server configured to an instance backed by acquia_search.
+ * In development the backing server is the default solr implementation (not having acquia locally).
+ * This can create the situation where indexes edited locally will lose very important third party settings,
+ * specifically acquia_search.use_edismax=0 when edited and saved causing bad behavior in production.
+ * 
+ * Adding back this third party setting locally so that if/when developers create/edit solr indexes the
+ * configuration that acquia needs is in place (even though not used in development environments).
+ * 
+ * The code below was lifted from
+ * @see docroot/modules/contrib/acquia_search/acquia_search.module acquia_search_form_search_api_index_edit_form_alter
+ * and altered to force the value to 0.
+ * 
+ * Along with this change the fws_search module has had the acquia_search module added as a parent
+ * dependency to ensure that dependency also makes it into the solr index configs.
+ */
+function fws_search_form_search_api_index_edit_form_alter(&$form, FormState $form_state) {
+    $form['third_party_settings']['acquia_search'] = [
+        '#tree' => TRUE,
+        '#type' => 'details',
+        '#title' => t('Acquia Search Solr'),
+        '#open' => TRUE,
+      ];
+      $form['third_party_settings']['acquia_search']['use_edismax'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Enable eDisMax'),
+        '#description' => t('Use Extended DisMax Query Parser.'),
+        '#default_value' => 0,
+      ];
+}
+
+function fws_search_theme($existing, $type, $theme, $path) {
+    return [
+        'search_app' => [
+            'variables' => [
+                'app_config' => NULL,
+            ],
+            'path' => $path . '/templates',
+            'template' => 'search_app',
+        ],
+    ];
+}
+
+function fws_search_library_info_build() {
+    /** @var \Drupal\Core\File\FileSystemInterface */
+    $file_system = \Drupal::service('file_system');
+
+    $libraries = [];
+    $module_path = \Drupal::service('extension.list.module')->getPath('fws_search');
+    // TODO this will only work for a watch a build will container hashes in the resulting
+    // files and will also have css but enough for a quick prototype.
+    $js = [];
+    $css = [];
+    $dist_path = 'app';
+    foreach($file_system->scanDirectory($module_path.'/'.$dist_path,'/\.(js|css)$/') as $file => $record) {
+        $rel = $record->filename;
+        if(preg_match('/\.js$/',$rel)) {
+            $key = preg_replace('/^([^\.]+)\.(.*)$/','${1}',$rel);
+            if(preg_match('/-es/',$key)) {
+                // use the -es5 variant and ignore the -es2015 ??
+                if(preg_match('/-es5$/',$key)) {
+                    $key = preg_replace('/-es5$/','',$key);
+                    $js[$key] = $rel;
+                }
+            } else {
+                $js[$key] = $rel;
+            }
+        } else {
+            $css[] = $rel;
+        }
+    }
+    $libraries['fws_search.app'] = [
+        'js' => []
+    ];
+    // put the JavaScript into the library in a specific order
+    foreach(['runtime','inline','polyfills','scripts','styles','vendor','main'] as $key) {
+        if(isset($js[$key])) {
+            $libraries['fws_search.app']['js'][$dist_path.'/'.$js[$key]] = [];
+        }
+    }
+    $libraries['fws_search.app']['css']['theme'] = [
+        // for material
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap' => ['type' => 'external'],
+        'https://fonts.googleapis.com/icon?family=Material+Icons' => ['type' => 'external'],
+    ];
+    if(count($css) > 0) {
+        foreach($css as $css_f) {
+            $libraries['fws_search.app']['css']['theme'][$dist_path.'/'.$css_f] = [];
+        }
+    }
+    //dd($libraries);
+    return $libraries;
+}
+
+/**
+ * Implements hook_cron()
+ */
+function fws_search_cron() {
+    $configs = \Drupal\fws_search\Entity\SearchAppConfig::getAllSearchAppConfigs();
+    $logger = \Drupal::logger('fws_search');
+    $state = \Drupal::state();
+    foreach($configs as $config) {
+        $id = $config->id;
+        $cache_tag = 'fws_search:'.$id;
+        $expiry_time = $state->get($cache_tag);
+        if($expiry_time && time() > $expiry_time) {
+            $expiry = date('d M Y H:i:s', $expiry_time);
+            $logger->info("'${cache_tag}' with expiry of '${expiry}' has expired, purging.");
+            Cache::invalidateTags([$cache_tag]);
+            $state->delete($cache_tag);
+        }
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_search_form_alter(&$form, &$form_state, $form_id) {
+    if(isset($form['field_key_words'])) {
+        $user = User::load(\Drupal::currentUser()->id());
+        if($user->hasPermission('edit search keywords') == false) {
+         $form['field_key_words']['#access'] = false;
+        }
+    }
+}
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function fws_search_node_view_alter(&$build) {
+
+    $current_path = \Drupal::service('path.current')->getPath();
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    
+    $aliases = ['/search', '/search/images', '/search/videos', '/search/audio', '/search/documents'];
+    //attaching the retain keywords search only to the search pages by alias
+    if(in_array($alias, $aliases)) {
+        //these libraries are for the full view of programs
+        $build['#attached']['library'][] = 'fws_search/retain_search_keywords';
+    }
+}
