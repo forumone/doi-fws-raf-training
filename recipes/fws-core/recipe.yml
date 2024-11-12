@@ -21,6 +21,7 @@ install:
   # Core
   - allowed_formats
   - ckeditor5
+  - claro
   - config
   - content_moderation
   - help
@@ -49,11 +50,11 @@ install:
   - admin_toolbar
   - admin_toolbar_tools
   - admin_toolbar_search
+  - bootstrap
   - components
   - field_group
-  - gin
-  - gin_login
-  - gin_toolbar
+  - jquery_ui_draggable
+  - jquery_ui_resizable
   - linkit
   - metatag
   - node_revision_delete
@@ -68,6 +69,9 @@ install:
   - webp
   - webform
   - webform_ui
+  - we_megamenu
+  # Custom
+  - fws
 
 config:
   import:
@@ -107,18 +111,8 @@ config:
     admin_toolbar: '*'
     admin_toolbar_tools: '*'
     admin_toolbar_search: '*'
+    bootstrap: '*'
     field_group: '*'
-    gin:
-      - gin.settings
-      - block.block.gin_breadcrumbs
-      - block.block.gin_content
-      - block.block.gin_help
-      - block.block.gin_local_actions
-      - block.block.gin_messages
-      - block.block.gin_page_title
-      - block.block.gin_primary_local_tasks
-    gin_toolbar: '*'
-    gin_login: '*'
     linkit: '*'
     metatag: '*'
     node_revision_delete: '*'
@@ -141,40 +135,43 @@ config:
         page.front: /user
         page.403: /node/17
         page.404: /node/15
-    # Set and unset Gin blocks.
-    block.block.gin_admin:
+    # Set and unset Claro blocks.
+    block.block.claro_admin:
       simple_config_update:
         status: false
-    block.block.gin_branding:
+    block.block.claro_branding:
       simple_config_update:
         status: false
-    block.block.gin_local_actions:
+    block.block.claro_local_actions:
       simple_config_update:
         region: content
         weight: -10
-    block.block.gin_local_tasks:
+    block.block.claro_local_tasks:
       simple_config_update:
         status: false
-    block.block.gin_page_title:
+    block.block.claro_page_title:
       simple_config_update:
         region: header
         weight: -10
-    block.block.gin_primary_local_tasks:
-      simple_config_update:
-        region: header
-        weight: -5
-        settings.secondary: true
-    block.block.gin_tools:
+    block.block.claro_tools:
       simple_config_update:
         status: false
-    # Update the admin theme to Gin in Theme settings.
+    block.block.fws_tools:
+      simple_config_update:
+        status: false
+    block.block.fws_page_title:
+      simple_config_update:
+        status: false
+    block.block.fws_admin:
+      simple_config_update:
+        status: false
     node.settings:
       simple_config_update:
         use_admin_theme: true
     system.theme:
       simple_config_update:
-        admin: 'gin'
-        default: 'gin'
+        admin: 'claro'
+        default: 'fws'
     # Set metatag defaults.
     metatag.metatag_defaults.global:
       simple_config_update:
