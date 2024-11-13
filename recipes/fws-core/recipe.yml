@@ -75,6 +75,7 @@ install:
   # Custom
   - fws
   - fws_gov
+  - fws_raf
   - fws_search
 
 config:
@@ -160,16 +161,16 @@ config:
     block.block.claro_tools:
       simple_config_update:
         status: false
-    block.block.fws_gov_branding:
+    block.block.fws_raf_branding:
       simple_config_update:
         region: navigation
-    block.block.fws_gov_tools:
+    block.block.fws_raf_tools:
       simple_config_update:
         status: false
-    block.block.fws_gov_page_title:
+    block.block.fws_raf_page_title:
       simple_config_update:
         status: false
-    block.block.fws_gov_admin:
+    block.block.fws_raf_admin:
       simple_config_update:
         status: false
     node.settings:
@@ -178,7 +179,7 @@ config:
     system.theme:
       simple_config_update:
         admin: 'claro'
-        default: 'fws_gov'
+        default: 'fws_raf'
     # Set metatag defaults.
     metatag.metatag_defaults.global:
       simple_config_update:

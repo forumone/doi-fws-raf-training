@@ -5,9 +5,9 @@ dependencies:
   module:
     - fws_search
   theme:
-    - fws_gov
-id: fws_gov_fwsmainsearchblock
-theme: fws_gov
+    - fws_raf
+id: fws_raf_fwsmainsearchblock
+theme: fws_raf
 region: navigation_collapsible
 weight: 0
 provider: null

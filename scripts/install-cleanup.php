@@ -78,11 +78,11 @@ try {
   \Drupal::database()->merge('we_megamenu')
     ->key([
       'menu_name' => 'main',
-      'theme' => 'fws_gov',
+      'theme' => 'fws_raf',
     ])
     ->fields([
       'menu_name' => 'main',
-      'theme' => 'fws_gov',
+      'theme' => 'fws_raf',
       'data_config' => $jsonConfig,
     ])
     ->execute();

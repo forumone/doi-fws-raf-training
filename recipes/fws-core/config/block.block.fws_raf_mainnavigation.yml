@@ -5,9 +5,9 @@ dependencies:
   module:
     - we_megamenu
   theme:
-    - fws_gov
-id: fws_gov_mainnavigation
-theme: fws_gov
+    - fws_raf
+id: fws_raf_mainnavigation
+theme: fws_raf
 region: navigation_collapsible
 weight: -3
 provider: null

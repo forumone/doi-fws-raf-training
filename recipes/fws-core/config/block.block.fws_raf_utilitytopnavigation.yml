@@ -7,9 +7,9 @@ dependencies:
   module:
     - system
   theme:
-    - fws_gov
-id: fws_gov_utilitytopnavigation
-theme: fws_gov
+    - fws_raf
+id: fws_raf_utilitytopnavigation
+theme: fws_raf
 region: navigation_collapsible
 weight: -4
 provider: null
