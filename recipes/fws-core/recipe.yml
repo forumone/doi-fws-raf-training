@@ -21,6 +21,7 @@ install:
   # Core
   - allowed_formats
   - ckeditor5
+  - block_content
   - claro
   - config
   - content_moderation
@@ -63,6 +64,7 @@ install:
   - pathauto
   - redirect
   - responsive_image
+  - social_media_links
   - svg_image
   - svg_image_responsive
   - taxonomy_access_fix
@@ -145,13 +147,6 @@ config:
       simple_config_update:
         status: false
     block.block.claro_branding:
-      simple_config_update:
-        status: false
-    block.block.claro_local_actions:
-      simple_config_update:
-        region: content
-        weight: -10
-    block.block.claro_local_tasks:
       simple_config_update:
         status: false
     block.block.claro_page_title:
