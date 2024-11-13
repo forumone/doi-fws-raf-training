@@ -1,0 +1,5 @@
+global-styling:
+  version: 1.0
+  css:
+    theme:
+      styles/css/raf-styles.css: {}
