@@ -41,7 +41,8 @@
         "owlcarousel2/owlcarousel2": "^2.3.4",
         "select2/select2": "4.0.10",
         "vlucas/phpdotenv": "^5.1",
-        "webflo/drupal-finder": "^1.2"
+        "webflo/drupal-finder": "^1.2",
+        "promet/fws-gov": "dev-promet"
     },
     "require-dev": {
         "drupal/core-dev": "^10.2.0",
@@ -58,6 +59,18 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "promet/fws-gov",
+                "version": "dev-promet",
+                "source": {
+                    "url": "https://gitlab.djcase.com/promet/fws-gov.git",
+                    "type": "git",
+                    "reference": "promet"
+                }
+            }
         },
         {
             "type": "package",
@@ -169,13 +182,17 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/"
         ],
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/"
         ]
     }
 }

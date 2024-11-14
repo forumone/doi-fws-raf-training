@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "899a84be8cd4660126ef64f2c5941ab4",
+    "content-hash": "849a26edea587a160af5bdb4221fc46a",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -6228,6 +6228,16 @@
                 "source": "https://github.com/phpowermove/docblock/tree/v4.0"
             },
             "time": "2021-09-22T16:57:06+00:00"
+        },
+        {
+            "name": "promet/fws-gov",
+            "version": "dev-promet",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.djcase.com/promet/fws-gov.git",
+                "reference": "promet"
+            },
+            "type": "library"
         },
         {
             "name": "psr/cache",
@@ -15831,7 +15841,8 @@
         "drupal/default_content": 15,
         "drupal/node_revision_delete": 5,
         "drupal/viewfield": 10,
-        "drupal/webp": 5
+        "drupal/webp": 5,
+        "promet/fws-gov": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
