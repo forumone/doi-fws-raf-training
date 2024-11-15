@@ -183,6 +183,9 @@ config:
     block.block.fws_raf_branding:
       simple_config_update:
         region: navigation
+    block.block.fws_raf_local_tasks:
+      simple_config_update:
+        region: header
     block.block.fws_raf_tools:
       simple_config_update:
         status: false
