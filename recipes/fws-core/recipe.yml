@@ -47,6 +47,12 @@ install:
   - taxonomy
   - views
   - views_ui
+  - entity
+  - range
+  - rules
+  - typed_data
+  - rest
+  - serialization
   # Contrib
   - acquia_search
   - admin_toolbar
@@ -74,6 +80,24 @@ install:
   - webform
   - webform_ui
   - we_megamenu
+  - bpmn_io
+  - eca_modeller_bpmn
+  - eca_ui
+  - eca
+  - login_gov
+  - quiz
+  - openid_connect
+  - externalauth
+  - key_asymmetric
+  - key
+  - views_bulk_operations
+  - views_data_export
+  - csv_serialization
+  - visualization_charts
+  - datatables
+  - charts
+  - charts_highcharts
+  - charts_highcharts_maps
   # Custom
   - fws
   - fws_gov
