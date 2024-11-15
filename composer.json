@@ -33,6 +33,7 @@
         "drupal/pathauto": "^1.12",
         "drupal/quiz": "^6.0@alpha",
         "drupal/redirect": "^1.9",
+        "drupal/rules": "^4.0",
         "drupal/social_media_links": "^2.10",
         "drupal/svg_image_responsive": "^3.0",
         "drupal/taxonomy_access_fix": "^4.0",
@@ -212,7 +213,8 @@
         "post-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
             "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/"
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "cp -r vendor/promet/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ],
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
@@ -220,7 +222,8 @@
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
             "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/"
+            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "cp -r vendor/promet/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ]
     }
 }

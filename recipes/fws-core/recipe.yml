@@ -49,7 +49,6 @@ install:
   - views_ui
   - entity
   - range
-  - rules
   - typed_data
   - rest
   - serialization
@@ -70,6 +69,7 @@ install:
   - pathauto
   - redirect
   - responsive_image
+  - rules
   - social_media_links
   - svg_image
   - svg_image_responsive
