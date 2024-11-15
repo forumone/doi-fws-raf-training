@@ -11,7 +11,6 @@ recipes:
   - core/recipes/restricted_html_format
   # Adding user roles
   - core/recipes/administrator_role
-  - core/recipes/content_editor_role
   # Adding core recommended maintenance modules
   - core/recipes/core_recommended_maintenance
   # Add FWS paragraphs recipe
