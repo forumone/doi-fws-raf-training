@@ -9,6 +9,7 @@ This is the FWS reusable application for FWS projects. It provides a base config
 - [Getting Started](#getting-started)
   - [Using DDEV](#using-ddev)
   - [Using Docksal](#using-docksal)
+- [Testing](#testing)
 - [Theming](#theming)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
@@ -23,6 +24,7 @@ The FWS reusable application is designed to streamline the development of Drupal
 - **Git**: For cloning the repository.
 - **Docker**: Required by both DDEV and Docksal.
 - **DDEV** or **Docksal**: Local development environments.
+- **Node.js**: Required for running Cypress tests.
 
 ## Getting Started
 
@@ -88,6 +90,30 @@ You can set up the project locally using either DDEV or Docksal. Follow the inst
 
    This command runs the installation script that performs the same steps as the DDEV installation.
 
+## Testing
+
+To run Cypress tests:
+
+1. Navigate to the Cypress test directory:
+   ```bash
+   cd tests/cypress
+   ```
+
+2. Install Node.js using nvm:
+   ```bash
+   nvm install
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Run Cypress tests:
+   ```bash
+   npm run cypress
+   ```
+
 ## Theming
 
 The application uses the `fws_raf` theme, which is a subtheme of the Bootstrap-based `fws_gov` theme. The parent theme is automatically installed via Composer dependencies during the installation process.
@@ -100,5 +126,7 @@ project-root/
 ├── .docksal/               # Docksal configuration
 ├── recipes/                # FWS installation recipes
 ├── scripts/               # Installation and utility scripts
+├── tests/                 # Test files
+│   └── cypress/          # Cypress test suite
 └── README.md
 ```
