@@ -3,3 +3,9 @@ global-styling:
   css:
     theme:
       styles/css/raf-styles.css: {}
+  js:
+    js/script-raf.js: { weight: -1 }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
