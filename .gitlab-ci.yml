@@ -11,21 +11,16 @@ setup:
   stage: build
   image: ubuntu:20.04
   before_script:
-    # Add PHP repository
     - apt-get update
     - apt-get install -y software-properties-common
     - add-apt-repository ppa:ondrej/php
-    # Install Node.js repository
     - apt-get install -y ca-certificates curl gnupg
     - mkdir -p /etc/apt/keyrings
     - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
     - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-    # Update and install dependencies
     - apt-get update
-    - apt-get install -y curl php8.1-cli php8.1-mbstring php8.1-sqlite3 php8.1-xml unzip git nodejs
-    # Install Composer
+    - apt-get install -y curl php8.3-cli php8.3-mbstring php8.3-sqlite3 php8.3-xml unzip git nodejs
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    # Install npm (comes with Node.js)
   script:
     - composer install
     - composer validate
@@ -35,19 +30,15 @@ test:
   stage: test
   image: ubuntu:20.04
   before_script:
-    # Add PHP repository
     - apt-get update
     - apt-get install -y software-properties-common
     - add-apt-repository ppa:ondrej/php
-    # Install Node.js repository
     - apt-get install -y ca-certificates curl gnupg
     - mkdir -p /etc/apt/keyrings
     - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
     - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-    # Update and install dependencies
     - apt-get update
-    - apt-get install -y php8.1-cli php8.1-mbstring php8.1-sqlite3 php8.1-xml xvfb curl nodejs
-    # Set up Drupal
+    - apt-get install -y php8.3-cli php8.3-mbstring php8.3-sqlite3 php8.3-xml xvfb curl nodejs
     - php ./web/core/scripts/drupal install minimal --verbose --yes --db-url=sqlite://tmp/site.sqlite --account-name=admin --account-pass=admin
     - php ./web/core/scripts/runserver.php "$SIMPLETEST_BASE_URL" &
     - until curl -s "$SIMPLETEST_BASE_URL"; do true; done > /dev/null
