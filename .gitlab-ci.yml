@@ -4,30 +4,9 @@ variables:
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
 
 default:
-  image: php:8.2-cli
-
-.php_template: &php_template
-  before_script:
-    # Install required dependencies
-    - apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libwebp-dev \
-        libxpm-dev \
-        libzip-dev \
-        libsqlite3-dev \
-        unzip git curl npm xvfb
-    # Configure and install gd
-    - docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm
-    - docker-php-ext-install -j$(nproc) gd sqlite3
-    # Install Composer
-    - curl -sS https://getcomposer.org/installer | php
-    - mv composer.phar /usr/local/bin/composer
-    - composer --verbose self-update --$COMPOSER_CHANNEL
+  image: docksal/ci-agent:php8.2
 
 build:php8.2:
-  <<: *php_template
   variables:
     COMPOSER_CHANNEL: "stable"
   script:
@@ -35,9 +14,6 @@ build:php8.2:
     - composer --verbose validate
     - composer --verbose install
     - composer normalize --dry-run
-    - test ! -d web/libraries/dropzone
-    - composer require bower-asset/dropzone
-    - test -d web/libraries/dropzone
     - ./vendor/bin/drush site-install minimal --verbose --yes --db-url=sqlite://tmp/site.sqlite --account-name=admin --account-pass=admin
     - php core/scripts/drupal -v recipe ../recipes/fws-core
     - ./vendor/bin/drush runserver "$SIMPLETEST_BASE_URL" &
@@ -51,27 +27,10 @@ build:php8.2:
     - npm run cypress
 
 test-composer:
-  image: php:8.2-cli
+  image: docksal/ci-agent:php8.2
   variables:
     COMPOSER_VERSION: "2.2"
     COMPOSER_CHANNEL: "stable"
-  before_script:
-    # Install required dependencies
-    - apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libwebp-dev \
-        libxpm-dev \
-        libzip-dev \
-        libsqlite3-dev \
-        unzip git curl
-    # Configure and install gd
-    - docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm
-    - docker-php-ext-install -j$(nproc) gd sqlite3
-    # Install Composer
-    - curl -sS https://getcomposer.org/installer | php -- --version=$COMPOSER_VERSION
-    - mv composer.phar /usr/local/bin/composer
   script:
     - composer --version
     - |
