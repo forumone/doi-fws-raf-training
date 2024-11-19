@@ -17,7 +17,7 @@ test:
       - node_modules/
   before_script:
     # Update package lists and install basic requirements
-    - apt-get update && apt-get install -y software-properties-common ca-certificates curl gnupg
+    - apt-get update && apt-get install -y software-properties-common ca-certificates curl gnupg git
 
     # Add PHP repository
     - add-apt-repository -y ppa:ondrej/php
