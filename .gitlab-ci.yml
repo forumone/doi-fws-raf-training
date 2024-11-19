@@ -4,7 +4,7 @@ variables:
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
 
 default:
-  image: docksal/ci-agent:php8.2
+  image: docksal/ci-agent:2.12-php8.2
 
 build:php8.2:
   variables:
@@ -27,7 +27,7 @@ build:php8.2:
     - npm run cypress
 
 test-composer:
-  image: docksal/ci-agent:php8.2
+  image: docksal/ci-agent:2.12-php8.2
   variables:
     COMPOSER_VERSION: "2.2"
     COMPOSER_CHANNEL: "stable"
