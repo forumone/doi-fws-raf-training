@@ -7,35 +7,50 @@ stages:
   - build
   - test
 
-ddev-setup:
+setup:
   stage: build
-  image: ghcr.io/ddev/ddev-gitlab-ci:v1.23
-  variables:
-    FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR: 1
-  services:
-    - docker:dind
+  image: ubuntu:20.04
+  before_script:
+    # Update and install required dependencies
+    - apt-get update && apt-get install -y \
+        curl \
+        php-cli \
+        php-mbstring \
+        php-sqlite3 \
+        php-xml \
+        unzip \
+        git \
+        composer \
+        npm
+    # Install Drupal dependencies
+    - composer install
+    - composer validate
   script:
-    - ddev config global --no-bind-mounts=true
-    - ddev config --project-type=drupal10 --php-version=8.2
-    - ddev start
-    - ddev composer install
-    - ddev composer validate
+    # Validate the project setup
+    - composer normalize --dry-run
 
-test:php8.2:
+test:
   stage: test
-  needs: [ddev-setup]
-  image: ghcr.io/ddev/ddev-gitlab-ci:v1.23
-  variables:
-    FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR: 1
-  services:
-    - docker:dind
-  script:
-    - ddev composer normalize --dry-run
-    - ddev drush site-install minimal --verbose --yes --db-url=sqlite://tmp/site.sqlite --account-name=admin --account-pass=admin
-    - ddev php core/scripts/drupal -v recipe ../recipes/fws-core
-    - ddev drush runserver "$SIMPLETEST_BASE_URL" &
+  image: ubuntu:20.04
+  before_script:
+    # Ensure required dependencies are installed
+    - apt-get update && apt-get install -y \
+        php-cli \
+        php-mbstring \
+        php-sqlite3 \
+        php-xml \
+        xvfb \
+        curl \
+        npm
+    # Set up a Drupal site
+    - php ./web/core/scripts/drupal install minimal --verbose --yes --db-url=sqlite://tmp/site.sqlite --account-name=admin --account-pass=admin
+    - php ./web/core/scripts/runserver.php "$SIMPLETEST_BASE_URL" &
+    # Wait for server to be ready
     - until curl -s "$SIMPLETEST_BASE_URL"; do true; done > /dev/null
-    - ddev phpunit -c ./web/core ./web/core/modules/user/tests/src/Unit/UserAccessControlHandlerTest.php
+  script:
+    # Run PHPUnit tests
+    - ./vendor/bin/phpunit -c ./web/core ./web/core/modules/user/tests/src/Unit/UserAccessControlHandlerTest.php
+    # Set up Cypress for end-to-end tests
     - cd tests/cypress
     - npm install
     - cp cypress.config.js.shippable cypress.config.js
