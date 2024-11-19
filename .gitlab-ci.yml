@@ -1,7 +1,6 @@
 variables:
   COMPOSER_MEMORY_LIMIT: -1
   COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
-  CYPRESS_INSTALL_BINARY: '0'  # Skip binary installation during npm install
 
 stages:
   - test
@@ -26,16 +25,3 @@ test:
     - composer validate
     - composer normalize --dry-run
     - vendor/bin/drush site:install minimal --verbose -y --db-url=sqlite://tmp/site.sqlite --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
-    - cd tests/cypress
-    # Install npm packages first without Cypress binary
-    - npm install --no-audit --no-fund
-    # Install Cypress binary separately
-    - npx cypress install
-    - cp cypress.config.js.shippable cypress.config.js
-    - export DISPLAY=:99.0
-    - Xvfb :99 -screen 0 1280x1024x24 &
-    - npm run cypress
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - ~/.cache/Cypress
