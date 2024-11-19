@@ -1,9 +1,9 @@
-include: []  # If you need to include other CI files, add them here as an array
+include: []
 
 variables:
   COMPOSER_MEMORY_LIMIT: -1
   COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
-  DEBIAN_FRONTEND: noninteractive  # Prevents interactive prompts during apt installation
+  DEBIAN_FRONTEND: noninteractive
 
 stages:
   - test
@@ -37,6 +37,12 @@ test:
         php8.3-zip
         xvfb
         nodejs
+        unzip  # Required for Composer
+
+    # Install Composer
+    - curl -sS https://getcomposer.org/installer | php
+    - mv composer.phar /usr/local/bin/composer
+    - chmod +x /usr/local/bin/composer
 
     # Configure Composer authentication
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
