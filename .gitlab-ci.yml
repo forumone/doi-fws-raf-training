@@ -1,6 +1,7 @@
 variables:
   COMPOSER_MEMORY_LIMIT: -1
   COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
+  NPM_CONFIG_LOGLEVEL: "verbose"
 
 stages:
   - test
@@ -20,15 +21,20 @@ test:
     - apt-get install -y php8.3-cli php8.3-mbstring php8.3-sqlite3 php8.3-xml php8.3-curl php8.3-gd php8.3-zip xvfb curl nodejs unzip git
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
-    - node -v  # Verify Node.js version
-    - npm -v   # Verify npm version
+    - node -v
+    - npm -v
+    - npm cache clean --force
+    - npm config set registry https://registry.npmjs.org/
+    - npm config list
   script:
     - composer install
     - composer validate
     - composer normalize --dry-run
     - vendor/bin/drush site:install minimal --verbose -y --db-url=sqlite://tmp/site.sqlite --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
     - cd tests/cypress
-    - npm install --no-audit --no-fund
+    - ls -la
+    - npm config list
+    - npm install --no-audit --no-fund --verbose --no-package-lock
     - cp cypress.config.js.shippable cypress.config.js
     - export DISPLAY=:99.0
     - Xvfb :99 -screen 0 1280x1024x24 &
