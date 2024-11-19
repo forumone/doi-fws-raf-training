@@ -2,6 +2,7 @@ variables:
   COMPOSER_MEMORY_LIMIT: -1
   SIMPLETEST_DB: "sqlite://tmp/site.sqlite"
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
+  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
 
 stages:
   - build
@@ -21,6 +22,7 @@ setup:
     - apt-get update
     - apt-get install -y curl php8.3-cli php8.3-mbstring php8.3-sqlite3 php8.3-xml php8.3-curl php8.3-gd php8.3-zip unzip git nodejs
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
   script:
     - composer install
     - composer validate
@@ -39,6 +41,7 @@ test:
     - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
     - apt-get update
     - apt-get install -y php8.3-cli php8.3-mbstring php8.3-sqlite3 php8.3-xml php8.3-curl php8.3-gd php8.3-zip xvfb curl nodejs
+    - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
     - php ./web/core/scripts/drupal install minimal --verbose --yes --db-url=sqlite://tmp/site.sqlite --account-name=admin --account-pass=admin
     - php ./web/core/scripts/runserver.php "$SIMPLETEST_BASE_URL" &
     - until curl -s "$SIMPLETEST_BASE_URL"; do true; done > /dev/null
