@@ -47,13 +47,18 @@ test:
     # Configure Composer authentication
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
 
-    # Install Drupal using SQLite
-    - php ./web/core/scripts/drupal install minimal
-        --verbose
-        --yes
-        --db-url=sqlite://tmp/site.sqlite
-        --account-name=admin
-        --account-pass=admin
+    # Install Drupal dependencies via Composer
+    - composer install
+
+    # Install Drupal using Drush
+    - vendor/bin/drush site:install minimal
+      --verbose
+      --yes
+      --db-url=sqlite://tmp/site.sqlite
+      --account-name=admin
+      --account-pass=admin
+      --root=web
+
   script:
     - echo "Add your test commands here"
   artifacts:
