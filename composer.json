@@ -77,8 +77,8 @@
                 "name": "promet/fws-gov",
                 "version": "dev-promet",
                 "source": {
-                    "url": "https://gitlab.djcase.com/promet/fws-gov.git",
                     "type": "git",
+                    "url": "https://gitlab.djcase.com/promet/fws-gov.git",
                     "reference": "promet"
                 }
             }
@@ -87,12 +87,12 @@
             "type": "package",
             "package": {
                 "name": "kenwheeler/slick",
-                "version": "1.8.1",
                 "type": "drupal-library",
+                "version": "1.8.1",
                 "source": {
-                "url": "https://github.com/kenwheeler/slick",
-                "type": "git",
-                "reference": "v1.8.1"
+                    "type": "git",
+                    "url": "https://github.com/kenwheeler/slick",
+                    "reference": "v1.8.1"
                 }
             }
         },
@@ -100,11 +100,11 @@
             "type": "package",
             "package": {
                 "name": "select2/select2",
-                "version": "4.0.10",
                 "type": "drupal-library",
+                "version": "4.0.10",
                 "dist": {
-                "url": "https://github.com/select2/select2/archive/develop.zip",
-                "type": "zip"
+                    "type": "zip",
+                    "url": "https://github.com/select2/select2/archive/develop.zip"
                 }
             }
         },
@@ -112,11 +112,11 @@
             "type": "package",
             "package": {
                 "name": "owlcarousel2/owlcarousel2",
-                "version": "2.3.4",
                 "type": "drupal-library",
+                "version": "2.3.4",
                 "dist": {
-                "url": "https://github.com/OwlCarousel2/OwlCarousel2/archive/develop.zip",
-                "type": "zip"
+                    "type": "zip",
+                    "url": "https://github.com/OwlCarousel2/OwlCarousel2/archive/develop.zip"
                 }
             }
         },
@@ -124,17 +124,17 @@
             "type": "package",
             "package": {
                 "name": "highcharts/maps",
-                "version": "11.1.0",
                 "type": "drupal-library",
+                "version": "11.1.0",
+                "require": {
+                    "composer/installers": "^1.0 || ^2.0"
+                },
                 "extra": {
                     "installer-name": "highcharts_maps"
                 },
                 "dist": {
-                    "url": "https://code.highcharts.com/maps/11.1.0/modules/map.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
+                    "type": "file",
+                    "url": "https://code.highcharts.com/maps/11.1.0/modules/map.js"
                 }
             }
         }
