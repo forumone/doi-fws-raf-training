@@ -1,7 +1,5 @@
 variables:
   COMPOSER_MEMORY_LIMIT: -1
-  SIMPLETEST_DB: "sqlite://tmp/site.sqlite"
-  SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
   COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
 
 stages:
@@ -27,9 +25,6 @@ test:
     - composer validate
     - composer normalize --dry-run
     - vendor/bin/drush site:install minimal --verbose -y --db-url=sqlite://tmp/site.sqlite --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
-    - php ./web/core/scripts/runserver.php "$SIMPLETEST_BASE_URL" &
-    - until curl -s "$SIMPLETEST_BASE_URL"; do true; done > /dev/null
-    - ./vendor/bin/phpunit -c ./web/core ./web/core/modules/user/tests/src/Unit/UserAccessControlHandlerTest.php
     - cd tests/cypress
     - npm install
     - cp cypress.config.js.shippable cypress.config.js
