@@ -1,0 +1,24 @@
+uuid: a5fc174e-e06f-4de6-ad50-1d088cf23913
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee_animal_id
+    - node.type.pi
+id: node.pi.field_animal
+field_name: field_animal
+entity_type: node
+bundle: pi
+label: Manatee
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee_animal_id: manatee_animal_id
+field_type: entity_reference

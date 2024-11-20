@@ -1,0 +1,19 @@
+uuid: fea4a671-4954-4953-9c18-26bcd9014eca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.rearing_type
+    - taxonomy.vocabulary.rearing
+id: taxonomy_term.rearing.rearing_type
+field_name: rearing_type
+entity_type: taxonomy_term
+bundle: rearing
+label: 'Rearing Type'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

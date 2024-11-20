@@ -1,0 +1,11 @@
+uuid: 5051f994-477d-42c0-a2f3-80c20e9a917f
+langcode: en
+status: true
+dependencies: {  }
+name: Manatee
+type: manatee
+description: 'Stores all information associated with a manatee.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

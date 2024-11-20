@@ -1,0 +1,21 @@
+uuid: d23b6827-615b-42fa-8c33-7fd53d23550d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_estimated
+    - node.type.manatee_release
+id: node.manatee_release.field_weight_estimated
+field_name: field_weight_estimated
+entity_type: node
+bundle: manatee_release
+label: 'Weight Estimated'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

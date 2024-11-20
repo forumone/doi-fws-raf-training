@@ -1,0 +1,22 @@
+uuid: 48e89bf9-eeb9-4edd-83b6-2a7796190c56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments
+    - node.type.manatee_rescue
+  module:
+    - text
+id: node.manatee_rescue.field_comments
+field_name: field_comments
+entity_type: node
+bundle: manatee_rescue
+label: 'Additional Narrative'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

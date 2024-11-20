@@ -1,0 +1,19 @@
+uuid: 35823791-2bc9-401f-9524-b031d7292040
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.lookup_description
+    - taxonomy.vocabulary.rearing
+id: taxonomy_term.rearing.lookup_description
+field_name: lookup_description
+entity_type: taxonomy_term
+bundle: rearing
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

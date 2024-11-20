@@ -1,0 +1,9 @@
+uuid: 110306ca-7db9-45a2-a9ec-f16183065f4e
+langcode: en
+status: true
+dependencies: {  }
+name: State
+vid: state
+description: 'Lookup table for State'
+weight: 0
+new_revision: false

@@ -1,0 +1,24 @@
+uuid: 854e920c-86b5-407d-b3a5-3169f50a1756
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.status_report
+    - taxonomy.vocabulary.org
+id: node.status_report.field_org
+field_name: field_org
+entity_type: node
+bundle: status_report
+label: Facility
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+field_type: entity_reference

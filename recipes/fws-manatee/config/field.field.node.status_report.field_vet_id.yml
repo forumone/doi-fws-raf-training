@@ -1,0 +1,19 @@
+uuid: c907e701-b027-487a-9284-2148c37688cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vet_id
+    - node.type.status_report
+id: node.status_report.field_vet_id
+field_name: field_vet_id
+entity_type: node
+bundle: status_report
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,24 @@
+uuid: 4b04c3b1-bc93-4d13-803c-56e62ce7a988
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.manatee_prerelease
+    - taxonomy.vocabulary.org
+id: node.manatee_prerelease.field_org
+field_name: field_org
+entity_type: node
+bundle: manatee_prerelease
+label: Org
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+field_type: entity_reference

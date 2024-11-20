@@ -1,0 +1,21 @@
+uuid: 592f42ce-e8c0-4c26-a79f-a77a777ba10e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_state
+    - node.type.manatee_rescue
+id: node.manatee_rescue.field_state
+field_name: field_state
+entity_type: node
+bundle: manatee_rescue
+label: State
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

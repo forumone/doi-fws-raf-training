@@ -1,0 +1,19 @@
+uuid: 82148ccb-fe8a-4a56-8d67-3b2297ca2903
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_health_diag
+field_name: field_health_diag
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

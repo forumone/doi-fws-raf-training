@@ -1,0 +1,23 @@
+uuid: abb2ccc3-fc07-4009-bcc1-38438a2f8ba9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.transfer
+id: node.transfer.field_weight
+field_name: field_weight
+entity_type: node
+bundle: transfer
+label: Weight
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

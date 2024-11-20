@@ -1,0 +1,11 @@
+uuid: b6972613-283e-4ea8-904f-663cd890ab4a
+langcode: en
+status: true
+dependencies: {  }
+name: 'Manatee Pre-release'
+type: manatee_prerelease
+description: 'Stores information entered before the release of a manatee.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

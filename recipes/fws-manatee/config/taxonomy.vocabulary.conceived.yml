@@ -1,0 +1,9 @@
+uuid: 5d4c2e4b-7ad3-45fc-b4bb-e78a05c50c68
+langcode: en
+status: true
+dependencies: {  }
+name: 'Conceived Location'
+vid: conceived
+description: 'Lookup table for whether conceived in wild or in captivity'
+weight: 0
+new_revision: false

@@ -1,0 +1,23 @@
+uuid: fa14454c-8d7d-48f2-8609-fcf96a10126f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility
+    - node.type.manatee_death
+id: node.manatee_death.field_facility
+field_name: field_facility
+entity_type: node
+bundle: manatee_death
+label: Facility
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles:
+      org: org
+field_type: entity_reference

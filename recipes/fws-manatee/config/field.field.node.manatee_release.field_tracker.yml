@@ -1,0 +1,19 @@
+uuid: 3d747186-a9df-441f-8b60-facb6ac58e0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tracker
+    - node.type.manatee_release
+id: node.manatee_release.field_tracker
+field_name: field_tracker
+entity_type: node
+bundle: manatee_release
+label: Tracker
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

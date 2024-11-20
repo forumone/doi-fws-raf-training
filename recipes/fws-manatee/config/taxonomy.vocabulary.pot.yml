@@ -1,0 +1,9 @@
+uuid: 67eec84b-8d45-44e6-83b3-f4ceeeb1ea9f
+langcode: en
+status: true
+dependencies: {  }
+name: 'Pot Status'
+vid: pot
+description: 'Lookup table for pot status'
+weight: 0
+new_revision: false

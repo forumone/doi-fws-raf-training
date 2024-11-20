@@ -1,0 +1,19 @@
+uuid: b895a469-35cb-40c6-b54f-8ed5b2648c44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.conceive_text
+    - taxonomy.vocabulary.conceived
+id: taxonomy_term.conceived.conceive_text
+field_name: conceive_text
+entity_type: taxonomy_term
+bundle: conceived
+label: 'Conceive Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

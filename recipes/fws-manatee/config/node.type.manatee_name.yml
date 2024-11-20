@@ -1,0 +1,11 @@
+uuid: fad8796d-3b7f-4661-8ef2-b6035ff9ffd0
+langcode: en
+status: true
+dependencies: {  }
+name: 'Manatee Name'
+type: manatee_name
+description: 'Stores all names associated with a manatee.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,19 @@
+uuid: 71930285-e405-4440-922a-c9521ca147bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.group_code
+    - taxonomy.vocabulary.security_group
+id: taxonomy_term.security_group.group_code
+field_name: group_code
+entity_type: taxonomy_term
+bundle: security_group
+label: 'Group Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

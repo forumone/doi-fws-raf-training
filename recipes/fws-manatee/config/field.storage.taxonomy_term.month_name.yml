@@ -1,0 +1,21 @@
+uuid: 7572f494-1b75-45cd-812c-83d4e1a30497
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.month_name
+field_name: month_name
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 10
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

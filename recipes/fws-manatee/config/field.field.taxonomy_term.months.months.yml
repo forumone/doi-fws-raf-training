@@ -1,0 +1,19 @@
+uuid: 02f6d0e8-eee0-40e2-acb4-d0f956bb0762
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.months
+    - taxonomy.vocabulary.months
+id: taxonomy_term.months.months
+field_name: months
+entity_type: taxonomy_term
+bundle: months
+label: 'Months Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

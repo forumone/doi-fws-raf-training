@@ -1,0 +1,24 @@
+uuid: 2c4674fb-0e23-4779-a87b-c6c8feacc015
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_to_facility
+    - node.type.transfer
+    - taxonomy.vocabulary.org
+id: node.transfer.field_to_facility
+field_name: field_to_facility
+entity_type: node
+bundle: transfer
+label: 'To Facility'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+field_type: entity_reference

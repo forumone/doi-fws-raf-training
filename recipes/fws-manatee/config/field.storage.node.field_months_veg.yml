@@ -1,0 +1,20 @@
+uuid: 9c8d20d6-aa7e-403d-bc94-5d4afe70a6ab
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_months_veg
+field_name: field_months_veg
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

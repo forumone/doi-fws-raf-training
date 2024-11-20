@@ -1,0 +1,21 @@
+uuid: 1d25fb92-b498-4d20-8de1-3c9462ac8833
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.house_animals
+    - taxonomy.vocabulary.org
+id: taxonomy_term.org.house_animals
+field_name: house_animals
+entity_type: taxonomy_term
+bundle: org
+label: 'Can House Animals'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

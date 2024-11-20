@@ -1,0 +1,19 @@
+uuid: 72e5e840-fcb1-4624-9b91-77a5beaa7346
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_waterway
+    - node.type.manatee_prerelease
+id: node.manatee_prerelease.field_waterway
+field_name: field_waterway
+entity_type: node
+bundle: manatee_prerelease
+label: Waterway
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

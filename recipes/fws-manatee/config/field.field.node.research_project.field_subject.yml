@@ -1,0 +1,19 @@
+uuid: 7df0669e-9630-4d8e-a256-fd89ee1a62c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subject
+    - node.type.research_project
+id: node.research_project.field_subject
+field_name: field_subject
+entity_type: node
+bundle: research_project
+label: 'Subject/Research Question'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

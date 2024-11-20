@@ -1,0 +1,24 @@
+uuid: 84985f18-26dc-46ff-8f1a-3a6624b082a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reason
+    - node.type.transfer
+    - taxonomy.vocabulary.transfer_reason
+id: node.transfer.field_reason
+field_name: field_reason
+entity_type: node
+bundle: transfer
+label: 'Transfer Reason'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      transfer_reason: transfer_reason
+field_type: entity_reference

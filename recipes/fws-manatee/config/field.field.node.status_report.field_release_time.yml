@@ -1,0 +1,24 @@
+uuid: a434753c-ee27-480c-a816-741cac16312c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_release_time
+    - node.type.status_report
+    - taxonomy.vocabulary.release_time
+id: node.status_report.field_release_time
+field_name: field_release_time
+entity_type: node
+bundle: status_report
+label: 'Release Time'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      release_time: release_time
+field_type: entity_reference

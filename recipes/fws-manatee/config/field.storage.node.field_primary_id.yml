@@ -1,0 +1,18 @@
+uuid: 9deef34b-d527-4b9f-ae3c-cef3cfa6be43
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_primary_id
+field_name: field_primary_id
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

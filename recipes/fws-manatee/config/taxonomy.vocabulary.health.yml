@@ -1,0 +1,9 @@
+uuid: 8720ee85-0fed-4982-b6f4-168688788ee9
+langcode: en
+status: true
+dependencies: {  }
+name: 'Health Status'
+vid: health
+description: 'Lookup table for health status'
+weight: 0
+new_revision: false

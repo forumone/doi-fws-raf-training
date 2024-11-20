@@ -1,0 +1,19 @@
+uuid: 08e459fb-a762-479c-a150-d0b008f725a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.event_code
+    - taxonomy.vocabulary.event
+id: taxonomy_term.event.event_code
+field_name: event_code
+entity_type: taxonomy_term
+bundle: event
+label: 'Event Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

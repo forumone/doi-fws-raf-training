@@ -1,0 +1,19 @@
+uuid: 99837b31-0893-457b-bd07-0db012f43102
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.blood_code
+    - taxonomy.vocabulary.blood
+id: taxonomy_term.blood.blood_code
+field_name: blood_code
+entity_type: taxonomy_term
+bundle: blood
+label: 'Blood Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

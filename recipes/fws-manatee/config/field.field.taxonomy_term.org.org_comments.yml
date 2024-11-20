@@ -1,0 +1,19 @@
+uuid: e27ea81d-94b3-427a-a307-e31b2f81bbd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.org_comments
+    - taxonomy.vocabulary.org
+id: taxonomy_term.org.org_comments
+field_name: org_comments
+entity_type: taxonomy_term
+bundle: org
+label: Comments
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

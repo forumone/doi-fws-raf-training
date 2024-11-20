@@ -1,0 +1,19 @@
+uuid: 1feee846-8e3e-462d-90e9-0380b2c0f08a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.status_code
+    - taxonomy.vocabulary.release_status
+id: taxonomy_term.release_status.status_code
+field_name: status_code
+entity_type: taxonomy_term
+bundle: release_status
+label: 'Status Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

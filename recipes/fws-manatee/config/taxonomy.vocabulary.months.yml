@@ -1,0 +1,9 @@
+uuid: 272cd18a-8bee-4063-90e4-6d62c1d35496
+langcode: en
+status: true
+dependencies: {  }
+name: 'Treatment Months'
+vid: months
+description: 'Lookup table for months of treatment. Lists numbers 0-12 and >12.'
+weight: 0
+new_revision: false

@@ -1,0 +1,20 @@
+uuid: f08f99e4-daea-41d4-994d-57e626aa52b2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_months_water_exposure
+field_name: field_months_water_exposure
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

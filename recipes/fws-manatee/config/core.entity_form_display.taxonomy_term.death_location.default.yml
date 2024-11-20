@@ -1,0 +1,78 @@
+uuid: af55a269-09e9-4fe7-987a-663f9430e200
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.death_location.active
+    - field.field.taxonomy_term.death_location.death_loc
+    - field.field.taxonomy_term.death_location.death_location
+    - taxonomy.vocabulary.death_location
+  module:
+    - path
+    - text
+id: taxonomy_term.death_location.default
+targetEntityType: taxonomy_term
+bundle: death_location
+mode: default
+content:
+  active:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  death_loc:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  death_location:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden: {  }
