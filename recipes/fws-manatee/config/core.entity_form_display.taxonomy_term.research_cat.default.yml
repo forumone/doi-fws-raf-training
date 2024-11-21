@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.research_cat.field_research_category
-    - field.field.taxonomy_term.research_cat.field_research_notes
     - taxonomy.vocabulary.research_cat
   module:
     - path
@@ -44,14 +43,6 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_research_category:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_research_notes:
     type: string_textfield
     weight: 0
     region: content
