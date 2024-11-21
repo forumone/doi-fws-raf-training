@@ -1,0 +1,67 @@
+include: []
+
+variables:
+  COMPOSER_MEMORY_LIMIT: -1
+  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
+  DEBIAN_FRONTEND: noninteractive
+
+stages:
+  - test
+
+test:
+  stage: test
+  image: ubuntu:20.04
+  cache:
+    paths:
+      - vendor/
+      - node_modules/
+  before_script:
+    # Update package lists and install basic requirements
+    - apt-get update && apt-get install -y software-properties-common ca-certificates curl gnupg git
+
+    # Add PHP repository
+    - add-apt-repository -y ppa:ondrej/php
+
+    # Add NodeJS repository
+    - mkdir -p /etc/apt/keyrings
+    - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+
+    # Install all required packages
+    - apt-get update && apt-get install -y php8.3-cli
+        php8.3-mbstring
+        php8.3-sqlite3
+        php8.3-xml
+        php8.3-curl
+        php8.3-gd
+        php8.3-zip
+        xvfb
+        nodejs
+        unzip  # Required for Composer
+
+    # Install Composer
+    - curl -sS https://getcomposer.org/installer | php
+    - mv composer.phar /usr/local/bin/composer
+    - chmod +x /usr/local/bin/composer
+
+    # Configure Composer authentication
+    - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
+
+    # Install Drupal dependencies via Composer
+    - composer install
+
+    # Install Drupal using Drush
+    - vendor/bin/drush site:install minimal
+      --verbose
+      --yes
+      --db-url=sqlite://tmp/site.sqlite
+      --account-name=admin
+      --account-pass=admin
+      --root=web
+
+  script:
+    - echo "Add your test commands here"
+  artifacts:
+    paths:
+      - ./web/sites/default/files
+    expire_in: 1 week

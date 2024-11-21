@@ -1,0 +1,37 @@
+name: FWS RAF
+type: theme
+description: FWS RAF subtheme
+package: FWS Gov
+core_version_requirement: ^9 || ^10
+base theme: fws_gov
+
+libraries:
+  - fws_gov/global-styling
+  - fws_raf/global-styling
+  - fws_gov/slick
+  - fws_gov/fontawesome
+  - fws_gov/select2
+  - fws_gov/owlcarousel
+
+ckeditor5-stylesheets:
+  - ../fws_gov/components/fontawesome-pro/css/all.css
+  - ../fws_gov/styles/css/ckeditor-styles.css
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  banner: 'Banner'
+  content: 'Content'
+  full_width_content: 'Full width content (After main content)'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer_left: 'Footer Left Half'
+  footer_right_left: 'Footer Right Half  (left side)'
+  footer_right_middle: 'Footer Right Half (middle)'
+  footer_right_right: 'Footer Right Half (right side)'
+  footer_bottom: 'Footer bottom'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'

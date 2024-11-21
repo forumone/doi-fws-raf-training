@@ -1,0 +1,25 @@
+uuid: 59f9c549-7d44-4f8c-afa7-bf01b9878652
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-menu-site-links
+  module:
+    - system
+  theme:
+    - fws_raf
+id: fws_raf_footermenusitelinks
+theme: fws_raf
+region: footer_right_middle
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer-menu-site-links'
+settings:
+  id: 'system_menu_block:footer-menu-site-links'
+  label: 'Footer Menu - Site Links'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

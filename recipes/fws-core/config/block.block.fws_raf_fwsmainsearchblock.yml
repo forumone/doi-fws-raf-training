@@ -1,0 +1,20 @@
+uuid: 9f44b14e-b007-4a99-a4f0-b6829bb652f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - fws_search
+  theme:
+    - fws_raf
+id: fws_raf_fwsmainsearchblock
+theme: fws_raf
+region: navigation_collapsible
+weight: 0
+provider: null
+plugin: fws_search_form_block
+settings:
+  id: fws_search_form_block
+  label: Search
+  label_display: '0'
+  provider: fws_search
+visibility: {  }

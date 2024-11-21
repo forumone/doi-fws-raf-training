@@ -1,0 +1,220 @@
+name: 'FWS Core'
+description: 'FWS base configuration, content types, permissions and sample content.'
+type: 'Site'
+recipes:
+  # Core recipes with basic functionality
+  # Adding tags vocabulary and taxonomy field to article
+  - core/recipes/tags_taxonomy
+  # Adding format editors
+  - core/recipes/basic_html_format_editor
+  - core/recipes/full_html_format_editor
+  - core/recipes/restricted_html_format
+  # Adding user roles
+  - core/recipes/administrator_role
+  # Adding core recommended maintenance modules
+  - core/recipes/core_recommended_maintenance
+  # Add FWS paragraphs recipe
+  - ../recipes/fws-paragraphs
+
+install:
+  # Core
+  - allowed_formats
+  - ckeditor5
+  - block_content
+  - claro
+  - config
+  - content_moderation
+  - help
+  - contextual
+  - datetime
+  - datetime_range
+  - editor
+  - field_ui
+  - file
+  - history
+  - image
+  - language
+  - link
+  - media
+  - media_library
+  - menu_link_content
+  - menu_ui
+  - node
+  - options
+  - path
+  - shortcut
+  - taxonomy
+  - views
+  - views_ui
+  - entity
+  - range
+  - typed_data
+  - rest
+  - serialization
+  # Contrib
+  - acquia_search
+  - admin_toolbar
+  - admin_toolbar_tools
+  - admin_toolbar_search
+  - bootstrap
+  - components
+  - default_content
+  - field_group
+  - jquery_ui_draggable
+  - jquery_ui_resizable
+  - linkit
+  - metatag
+  - node_revision_delete
+  - pathauto
+  - redirect
+  - responsive_image
+  - rules
+  - social_media_links
+  - svg_image
+  - svg_image_responsive
+  - taxonomy_access_fix
+  - twig_field_value
+  - twig_tweak
+  - webp
+  - webform
+  - webform_ui
+  - we_megamenu
+  - bpmn_io
+  - eca_modeller_bpmn
+  - eca_ui
+  - eca
+  - login_gov
+  - quiz
+  - openid_connect
+  - externalauth
+  - key_asymmetric
+  - key
+  - views_bulk_operations
+  - views_data_export
+  - csv_serialization
+  - visualization_charts
+  - datatables
+  - charts
+  - charts_highcharts
+  - charts_highcharts_maps
+  # Custom
+  - fws
+  - fws_gov
+  - fws_raf
+  - fws_search
+
+config:
+  import:
+    content_moderation: '*'
+    shortcut: '*'
+    editor: '*'
+    file: '*'
+    field_ui: '*'
+    media_library:
+      - core.entity_view_mode.media.media_library
+      - core.entity_form_mode.media.media_library
+      - image.style.media_library
+      - views.view.media_library
+    media:
+      - core.entity_view_mode.media.full
+      - system.action.media_delete_action
+      - system.action.media_publish_action
+      - system.action.media_save_action
+      - system.action.media_unpublish_action
+      - views.view.media
+    image:
+      - image.style.medium
+      - image.style.large
+      - image.style.thumbnail
+    menu_ui: '*'
+    node:
+      - views.view.content
+      - views.view.content_recent
+    datetime: '*'
+    datetime_range: '*'
+    views: '*'
+    views_ui: '*'
+    user:
+      # View to list users.
+      - views.view.user_admin_people
+    #contrib
+    admin_toolbar: '*'
+    admin_toolbar_tools: '*'
+    admin_toolbar_search: '*'
+    bootstrap: '*'
+    field_group: '*'
+    linkit: '*'
+    metatag: '*'
+    node_revision_delete: '*'
+    pathauto: '*'
+    paragraphs: '*'
+    paragraphs_ee: '*'
+    paragraphs_features: '*'
+    redirect: '*'
+    responsive_image: '*'
+    svg_image: '*'
+    svg_image_responsive: '*'
+    taxonomy_access_fix: '*'
+    viewfield: '*'
+    webp: '*'
+
+  actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.front: /user
+        page.403: /node/17
+        page.404: /node/15
+    # Set and unset Claro blocks.
+    block.block.claro_admin:
+      simple_config_update:
+        status: false
+    block.block.claro_branding:
+      simple_config_update:
+        status: false
+    block.block.claro_page_title:
+      simple_config_update:
+        region: header
+        weight: -10
+    block.block.claro_tools:
+      simple_config_update:
+        status: false
+    block.block.fws_raf_branding:
+      simple_config_update:
+        region: navigation
+    block.block.fws_raf_local_tasks:
+      simple_config_update:
+        region: header
+    block.block.fws_raf_tools:
+      simple_config_update:
+        status: false
+    block.block.fws_raf_page_title:
+      simple_config_update:
+        status: false
+    block.block.fws_raf_admin:
+      simple_config_update:
+        status: false
+    node.settings:
+      simple_config_update:
+        use_admin_theme: true
+    system.theme:
+      simple_config_update:
+        admin: 'claro'
+        default: 'fws_raf'
+    # Set metatag defaults.
+    metatag.metatag_defaults.global:
+      simple_config_update:
+        tags.canonical_url: '[current-page:url]'
+        tags.title: '[current-page:title] | [site:name]'
+    metatag.metatag_defaults.node:
+      simple_config_update:
+        tags.abstract: '[node:summary]'
+        tags.canonical_url: '[node:url]'
+        tags.description: '[node:summary]'
+     # Set permissions for content editor role.
+    user.role.content_editor:
+      ensure_exists:
+        id: content_editor
+      grantPermissions:
+        - 'use text format basic_html'
+        - 'use text format full_html'
