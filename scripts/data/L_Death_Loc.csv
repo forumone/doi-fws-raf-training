@@ -1,0 +1,7 @@
+"DeathLoc","DeathLocation","Description","Active"
+AftRel,After Release,,Y
+No,Did not Die During Rescue,,N
+PriorTr,Prior to Treatment,,Y
+Rehab,During Rehabilitation,,Y
+Resc,During Rescue,,Y
+Trans,During Transport,,Y

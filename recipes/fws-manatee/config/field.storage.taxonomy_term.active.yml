@@ -1,17 +1,14 @@
-uuid: 7ce46438-f9a6-4a0e-afb9-b40f3e577110
+uuid: 9543b6b0-9bae-43bc-b9c5-08b84b555c65
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.active
+id: taxonomy_term.field_active
 field_name: active
 entity_type: taxonomy_term
-type: string
-settings:
-  max_length: 1
-  case_sensitive: false
-  is_ascii: false
+type: boolean
+settings: {  }
 module: core
 locked: false
 cardinality: 1

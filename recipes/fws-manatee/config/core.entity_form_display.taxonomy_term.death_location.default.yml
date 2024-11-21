@@ -3,25 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.death_location.active
     - field.field.taxonomy_term.death_location.death_location
+    - field.field.taxonomy_term.death_location.active
     - taxonomy.vocabulary.death_location
   module:
     - path
     - text
+_core:
+  default_config_hash: R7x4m1X7vITPTcypySK-VBS0CbV8NsgIaNUiwXzdueA
 id: taxonomy_term.death_location.default
 targetEntityType: taxonomy_term
 bundle: death_location
 mode: default
 content:
-  active:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   death_location:
     type: string_textfield
     weight: 0
@@ -37,6 +31,13 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  active:
+    type: boolean_checkbox
+    weight: 101
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   langcode:
     type: language_select
