@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.death_cause.cause_id
     - field.field.taxonomy_term.death_cause.death_cause
     - field.field.taxonomy_term.death_cause.death_cause_detail
     - taxonomy.vocabulary.death_cause
@@ -15,14 +14,6 @@ targetEntityType: taxonomy_term
 bundle: death_cause
 mode: default
 content:
-  cause_id:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   death_cause:
     type: string_textfield
     weight: 0

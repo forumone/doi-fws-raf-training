@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.taxonomy_term.org.active
     - field.field.taxonomy_term.org.house_animals
-    - field.field.taxonomy_term.org.org
     - field.field.taxonomy_term.org.org_comments
     - field.field.taxonomy_term.org.organization
     - field.field.taxonomy_term.org.transporter
@@ -52,14 +51,6 @@ content:
   name:
     type: string_textfield
     weight: -5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  org:
-    type: string_textfield
-    weight: 0
     region: content
     settings:
       size: 60

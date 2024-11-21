@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.status_month.month
     - field.field.taxonomy_term.status_month.month_name
     - taxonomy.vocabulary.status_month
   module:
@@ -28,14 +27,6 @@ content:
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  month:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   month_name:
     type: string_textfield

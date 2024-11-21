@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.death_location.active
-    - field.field.taxonomy_term.death_location.death_loc
     - field.field.taxonomy_term.death_location.death_location
     - taxonomy.vocabulary.death_location
   module:
@@ -16,14 +15,6 @@ bundle: death_location
 mode: default
 content:
   active:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  death_loc:
     type: string_textfield
     weight: 0
     region: content

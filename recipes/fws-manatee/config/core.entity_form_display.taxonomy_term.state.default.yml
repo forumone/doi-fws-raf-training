@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.state.state
     - field.field.taxonomy_term.state.state_name
     - taxonomy.vocabulary.state
   module:
@@ -42,14 +41,6 @@ content:
     weight: 30
     region: content
     settings: {  }
-    third_party_settings: {  }
-  state:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   state_name:
     type: string_textfield

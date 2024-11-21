@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.sex.sex
     - field.field.taxonomy_term.sex.sex_details
     - taxonomy.vocabulary.sex
   module:
@@ -42,14 +41,6 @@ content:
     weight: 30
     region: content
     settings: {  }
-    third_party_settings: {  }
-  sex:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   sex_details:
     type: string_textfield

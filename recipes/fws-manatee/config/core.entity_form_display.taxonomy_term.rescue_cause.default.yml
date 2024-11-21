@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.rescue_cause.cause_id
     - field.field.taxonomy_term.rescue_cause.rescue_cause
     - field.field.taxonomy_term.rescue_cause.rescue_cause_detail
     - field.field.taxonomy_term.rescue_cause.rescue_notes
@@ -16,14 +15,6 @@ targetEntityType: taxonomy_term
 bundle: rescue_cause
 mode: default
 content:
-  cause_id:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   description:
     type: text_textfield
     weight: 0

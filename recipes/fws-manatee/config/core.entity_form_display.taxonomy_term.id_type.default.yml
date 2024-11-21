@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.id_type.id_details
-    - field.field.taxonomy_term.id_type.id_type
     - field.field.taxonomy_term.id_type.type_of_id
     - taxonomy.vocabulary.id_type
   module:
@@ -24,14 +23,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
   id_details:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  id_type:
     type: string_textfield
     weight: 0
     region: content

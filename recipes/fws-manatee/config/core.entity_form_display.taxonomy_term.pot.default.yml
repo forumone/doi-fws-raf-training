@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.pot.pot
     - field.field.taxonomy_term.pot.pot_details
     - field.field.taxonomy_term.pot.pot_status
     - taxonomy.vocabulary.pot
@@ -43,14 +42,6 @@ content:
     weight: 30
     region: content
     settings: {  }
-    third_party_settings: {  }
-  pot:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   pot_details:
     type: string_textfield

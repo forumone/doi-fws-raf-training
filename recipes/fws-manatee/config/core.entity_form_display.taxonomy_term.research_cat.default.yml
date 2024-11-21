@@ -44,14 +44,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  research:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   research_category:
     type: string_textfield
     weight: 0

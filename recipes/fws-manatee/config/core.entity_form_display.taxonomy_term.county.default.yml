@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.county.county
     - field.field.taxonomy_term.county.state
     - taxonomy.vocabulary.county
   module:
@@ -14,14 +13,6 @@ targetEntityType: taxonomy_term
 bundle: county
 mode: default
 content:
-  county:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   description:
     type: text_textfield
     weight: 0

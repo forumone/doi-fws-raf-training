@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.tag_type.tag_type_text
-    - field.field.taxonomy_term.tag_type.type
     - taxonomy.vocabulary.tag_type
   module:
     - path
@@ -51,14 +50,6 @@ content:
       display_label: true
     third_party_settings: {  }
   tag_type_text:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  type:
     type: string_textfield
     weight: 0
     region: content

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.budget_time.budget_code
     - field.field.taxonomy_term.budget_time.budget_text
     - taxonomy.vocabulary.budget_time
   module:
@@ -14,14 +13,6 @@ targetEntityType: taxonomy_term
 bundle: budget_time
 mode: default
 content:
-  budget_code:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   budget_text:
     type: string_textfield
     weight: 0

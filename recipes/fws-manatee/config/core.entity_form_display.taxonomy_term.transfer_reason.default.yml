@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.transfer_reason.reason
     - field.field.taxonomy_term.transfer_reason.transfer_reason
     - taxonomy.vocabulary.transfer_reason
   module:
@@ -42,14 +41,6 @@ content:
     weight: 30
     region: content
     settings: {  }
-    third_party_settings: {  }
-  reason:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   status:
     type: boolean_checkbox
