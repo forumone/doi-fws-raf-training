@@ -1,0 +1,29 @@
+"CauseID","RescueCause","RescueCauseDetail","Description"
+BoBo,Watercraft,Both,
+BoIm,Watercraft,Impact,
+BoPr,Watercraft,Propeller,
+BoUn,Watercraft,Undetermined,
+Calf,Calf of Rescued Mother,,"A dependent calf that has been captured because its mother was injured. Calf is usually uninjured, but is dependent on the rescued mother for survival."
+Enta,Entanglement,,"Manatees that have become entangled in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+Huma,Other Human Related,Other Human Related,Manatees rescued due to other human causes.
+Inc ,Incidental,,Uninjured manatee caught incidentally (or on purpose to lure another animal) during a rescue or during a health assessment.
+Mom ,Mother of Rescued Calf,,"A mother of a dependent calf that has been captured because its calf was injured.  Mother usually uninjured, but the calf is dependent on her for survival."
+NaBi,Natural,Birth complications,"Added during database load.  No Historical records will be coded with birth complications, but it will be available going forward"
+NaBu,Natural,Bouyancy Problem,
+NaCs,Natural,Cold Stress,
+NaDh,Natural,Dehydrated,
+NaDp,Natural,Orphan Calf,
+NaEm,Natural,Emaciated,
+NaNS,Natural,Not Suitable Habitat,
+NaOt,Natural,Other,
+NaRe,Natural,Red Tide,
+NaTi,Natural,Tidally Stranded,
+NaUn,Natural,Undetermined,
+Othe,Other,,Cause of rescue is not on this list.  Call FWS to update the list with another reason
+TrCu,Entrapment,Culvert/Pipe,
+TrGa,Entrapment,Flood Gates/Locks,
+TrNB,Entrapment,Natural Barrier,
+TrOt,Entrapment,Other,
+TrPo,Entrapment,Power Plant,""
+TrWC,Entrapment,Other Water Control Structure,
+Unk ,Undetermined,,Used for historic records only where cause of rescue in past is unknown

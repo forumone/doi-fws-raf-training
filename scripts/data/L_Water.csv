@@ -1,0 +1,4 @@
+"Type","WaterType","Description"
+B,Brackish/Saltwater,Water has salt content
+F,Fresh,Fresh water
+U,Unknown,"Water type not noted, or not known"

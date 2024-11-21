@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.permit_type.field_permit_details
     - field.field.taxonomy_term.permit_type.field_permit_type
     - taxonomy.vocabulary.permit_type
   module:
@@ -42,14 +41,6 @@ content:
     weight: 30
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_permit_details:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_permit_type:
     type: string_textfield
