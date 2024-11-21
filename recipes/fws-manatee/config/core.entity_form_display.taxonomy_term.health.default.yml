@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.health.field_health_details
     - field.field.taxonomy_term.health.field_health_status
     - taxonomy.vocabulary.health
   module:
@@ -16,14 +15,6 @@ mode: default
 content:
   description:
     type: text_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_health_details:
-    type: string_textfield
     weight: 0
     region: content
     settings:

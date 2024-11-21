@@ -1,0 +1,7 @@
+"IDType","TypeofId","Description"
+F,Facility,Used in Facility systems
+M,Mortality,State Mortality System
+P,Photo-ID,ID used by MIPs Photo ID
+R,Rescue,Rescue ID given animal by field station on rescue
+T,Tag,Tag Ids are used to track tagged animals
+U,Unidentified,Historical record with an unrecognized id
