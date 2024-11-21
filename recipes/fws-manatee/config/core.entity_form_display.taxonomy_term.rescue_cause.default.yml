@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.taxonomy_term.rescue_cause.field_rescue_cause
     - field.field.taxonomy_term.rescue_cause.field_rescue_cause_detail
-    - field.field.taxonomy_term.rescue_cause.field_rescue_notes
     - taxonomy.vocabulary.rescue_cause
   module:
     - path
@@ -53,14 +52,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_rescue_cause_detail:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rescue_notes:
     type: string_textfield
     weight: 0
     region: content
