@@ -1,0 +1,19 @@
+uuid: 17e6cb63-b7c3-456c-bb8d-83f31fa8e1c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal_id
+    - node.type.manatee
+id: node.manatee.field_animal_id
+field_name: field_animal_id
+entity_type: node
+bundle: manatee
+label: 'Animal ID'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

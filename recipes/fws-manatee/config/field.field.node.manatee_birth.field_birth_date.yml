@@ -1,0 +1,21 @@
+uuid: 2de2436b-3436-48b7-8c27-ba7464fce7d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_birth_date
+    - node.type.manatee_birth
+  module:
+    - datetime
+id: node.manatee_birth.field_birth_date
+field_name: field_birth_date
+entity_type: node
+bundle: manatee_birth
+label: 'Birth Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

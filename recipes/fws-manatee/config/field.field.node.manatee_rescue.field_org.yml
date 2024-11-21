@@ -1,0 +1,21 @@
+uuid: 07948a7b-dd96-4d8c-a05a-c5bda4269f5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.manatee_rescue
+id: node.manatee_rescue.field_org
+field_name: field_org
+entity_type: node
+bundle: manatee_rescue
+label: 'Facility/Field Station'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

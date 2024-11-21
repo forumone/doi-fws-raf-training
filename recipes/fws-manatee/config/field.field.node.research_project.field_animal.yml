@@ -1,0 +1,24 @@
+uuid: f701d5f3-8a58-4ffb-a0b4-e607a4005de9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee_animal_id
+    - node.type.research_project
+id: node.research_project.field_animal
+field_name: field_animal
+entity_type: node
+bundle: research_project
+label: Manatee
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee_animal_id: manatee_animal_id
+field_type: entity_reference

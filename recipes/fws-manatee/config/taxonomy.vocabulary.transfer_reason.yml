@@ -1,0 +1,9 @@
+uuid: 0cd7a726-7cf6-4610-8150-5db44b64dbd1
+langcode: en
+status: true
+dependencies: {  }
+name: 'Transfer Reasons'
+vid: transfer_reason
+description: 'Lookup table for transfer reasons'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: d5ade478-f2a3-444e-9ec6-7e762f9340ce
+langcode: en
+status: true
+dependencies: {  }
+name: 'Water Types'
+vid: water
+description: 'Lookup table for defining water types by salinity'
+weight: 0
+new_revision: false

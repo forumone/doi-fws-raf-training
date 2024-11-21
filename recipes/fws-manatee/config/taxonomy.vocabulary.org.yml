@@ -1,0 +1,9 @@
+uuid: 30fc3eff-9de1-4834-8fa1-5ebb5b8c6fcf
+langcode: en
+status: true
+dependencies: {  }
+name: Organizations
+vid: org
+description: 'Lookup table for all information about organizations'
+weight: 0
+new_revision: false

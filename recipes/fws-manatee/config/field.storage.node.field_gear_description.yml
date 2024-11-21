@@ -1,0 +1,19 @@
+uuid: 4b028e8b-437a-4ce0-8da6-f14aea9d4801
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_gear_description
+field_name: field_gear_description
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

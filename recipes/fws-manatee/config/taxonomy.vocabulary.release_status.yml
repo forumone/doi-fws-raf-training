@@ -1,0 +1,9 @@
+uuid: f8b223ce-d7f4-493e-9c54-ddd5d8d45e17
+langcode: en
+status: true
+dependencies: {  }
+name: 'Release Status'
+vid: release_status
+description: 'Lookup table defining release status'
+weight: 0
+new_revision: false

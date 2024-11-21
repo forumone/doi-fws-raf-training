@@ -1,0 +1,76 @@
+uuid: 4e4b6851-2bc0-4692-a276-29760da56de3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.manatee_entangle.field_animal
+    - field.field.node.manatee_entangle.field_entanglement_location
+    - field.field.node.manatee_entangle.field_gear_description
+    - field.field.node.manatee_entangle.field_gear_type
+    - field.field.node.manatee_entangle.field_rescue_date
+    - field.field.node.manatee_entangle.field_rescue_per_day
+    - node.type.manatee_entangle
+  module:
+    - datetime
+    - user
+id: node.manatee_entangle.default
+targetEntityType: node
+bundle: manatee_entangle
+mode: default
+content:
+  field_animal:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_entanglement_location:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_gear_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_gear_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_rescue_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_rescue_per_day:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

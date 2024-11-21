@@ -1,0 +1,69 @@
+uuid: 628a9bfc-0133-4180-adb6-b10ea1d38a13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tag_type.tag_type_text
+    - field.field.taxonomy_term.tag_type.type
+    - taxonomy.vocabulary.tag_type
+  module:
+    - path
+    - text
+id: taxonomy_term.tag_type.default
+targetEntityType: taxonomy_term
+bundle: tag_type
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  tag_type_text:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  type:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

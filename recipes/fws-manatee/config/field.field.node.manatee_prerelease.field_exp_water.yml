@@ -1,0 +1,21 @@
+uuid: d133cc44-60ba-4d6d-b05c-7844aa63c256
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_exp_water
+    - node.type.manatee_prerelease
+id: node.manatee_prerelease.field_exp_water
+field_name: field_exp_water
+entity_type: node
+bundle: manatee_prerelease
+label: 'Exp Water'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

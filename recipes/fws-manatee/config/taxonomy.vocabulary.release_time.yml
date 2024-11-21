@@ -1,0 +1,9 @@
+uuid: 127673ec-2769-4c56-b3bd-ca5769070f6c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Release Time'
+vid: release_time
+description: 'Lookup table defining release Time'
+weight: 0
+new_revision: false

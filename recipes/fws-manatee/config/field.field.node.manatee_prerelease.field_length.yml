@@ -1,0 +1,23 @@
+uuid: 373e7884-127a-423f-8bad-eb787a3df1ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length
+    - node.type.manatee_prerelease
+id: node.manatee_prerelease.field_length
+field_name: field_length
+entity_type: node
+bundle: manatee_prerelease
+label: Length
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

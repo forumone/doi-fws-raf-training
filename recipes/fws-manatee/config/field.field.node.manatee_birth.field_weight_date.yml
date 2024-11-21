@@ -1,0 +1,21 @@
+uuid: eb2ee6b6-7bec-4619-8f99-67c69c47a7e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.manatee_birth
+  module:
+    - datetime
+id: node.manatee_birth.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: manatee_birth
+label: 'Weight Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

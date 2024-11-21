@@ -1,0 +1,21 @@
+uuid: 7c7ee81b-5b2c-42a6-9b40-16ddf818d80f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_county
+    - node.type.manatee_rescue
+id: node.manatee_rescue.field_county
+field_name: field_county
+entity_type: node
+bundle: manatee_rescue
+label: County
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

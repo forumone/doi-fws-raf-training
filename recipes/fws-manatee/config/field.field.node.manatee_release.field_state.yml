@@ -1,0 +1,24 @@
+uuid: 2d13300f-1887-4d27-850a-c90738518ee4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_state
+    - node.type.manatee_release
+    - taxonomy.vocabulary.state
+id: node.manatee_release.field_state
+field_name: field_state
+entity_type: node
+bundle: manatee_release
+label: State
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      state: state
+field_type: entity_reference

@@ -1,0 +1,11 @@
+uuid: 41bea1a5-648b-4444-8b8e-754bb109d513
+langcode: en
+status: true
+dependencies: {  }
+name: Transfer
+type: transfer
+description: 'Stores information associated with the transfer of a manatee'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,21 @@
+uuid: ca5e0000-98a6-4104-862b-7b7f0287286f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility
+    - node.type.manatee_release
+id: node.manatee_release.field_facility
+field_name: field_facility
+entity_type: node
+bundle: manatee_release
+label: 'Facility/Field Station'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

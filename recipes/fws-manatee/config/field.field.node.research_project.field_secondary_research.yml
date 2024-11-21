@@ -1,0 +1,24 @@
+uuid: 268a4d6f-d960-4c31-9fe4-24184b9ab662
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_research
+    - node.type.research_project
+    - taxonomy.vocabulary.research_cat
+id: node.research_project.field_secondary_research
+field_name: field_secondary_research
+entity_type: node
+bundle: research_project
+label: 'Secondary Research Category'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      research_cat: research_cat
+field_type: entity_reference

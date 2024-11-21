@@ -1,0 +1,9 @@
+uuid: 4266ac43-7cf4-4716-b2e8-8f45ec3bd4e6
+langcode: en
+status: true
+dependencies: {  }
+name: 'Pregnancy Status'
+vid: pregnant
+description: 'Lookup table for suspected pregnant'
+weight: 0
+new_revision: false

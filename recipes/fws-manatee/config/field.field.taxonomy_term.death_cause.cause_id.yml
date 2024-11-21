@@ -1,0 +1,19 @@
+uuid: 25d612f7-6db2-4302-9c03-ca8f8426b744
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.cause_id
+    - taxonomy.vocabulary.death_cause
+id: taxonomy_term.death_cause.cause_id
+field_name: cause_id
+entity_type: taxonomy_term
+bundle: death_cause
+label: 'Cause ID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

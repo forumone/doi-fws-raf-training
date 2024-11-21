@@ -1,0 +1,22 @@
+uuid: a3aea439-9453-4cf8-b8fe-8a9ceb71bf54
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments
+    - node.type.manatee_death
+  module:
+    - text
+id: node.manatee_death.field_comments
+field_name: field_comments
+entity_type: node
+bundle: manatee_death
+label: 'Additional Narrative'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

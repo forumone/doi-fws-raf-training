@@ -1,0 +1,24 @@
+uuid: 1746ee06-f6c7-4d82-b4c0-430ea43bf732
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_budget_time
+    - node.type.research_project
+    - taxonomy.vocabulary.budget_time
+id: node.research_project.field_budget_time
+field_name: field_budget_time
+entity_type: node
+bundle: research_project
+label: 'Budget Time'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      budget_time: budget_time
+field_type: entity_reference

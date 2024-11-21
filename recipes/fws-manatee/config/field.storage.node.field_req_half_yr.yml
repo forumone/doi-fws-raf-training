@@ -1,0 +1,27 @@
+uuid: 588b76ea-b73f-48af-906d-374262a75c4b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_req_half_yr
+field_name: field_req_half_yr
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: Jan-Jun
+    -
+      value: '2'
+      label: July-Dec
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

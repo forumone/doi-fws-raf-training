@@ -1,0 +1,19 @@
+uuid: 726de9bf-194e-4b79-9f5b-e5915bc77cc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.transfer_reason
+    - taxonomy.vocabulary.transfer_reason
+id: taxonomy_term.transfer_reason.transfer_reason
+field_name: transfer_reason
+entity_type: taxonomy_term
+bundle: transfer_reason
+label: 'Transfer Reason Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

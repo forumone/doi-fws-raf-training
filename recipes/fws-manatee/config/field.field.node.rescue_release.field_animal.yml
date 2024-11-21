@@ -1,0 +1,24 @@
+uuid: 0b7a059e-1d1f-48f3-89d3-2d214a7113c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee
+    - node.type.rescue_release
+id: node.rescue_release.field_animal
+field_name: field_animal
+entity_type: node
+bundle: rescue_release
+label: Manatee
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee: manatee
+field_type: entity_reference

@@ -1,0 +1,21 @@
+uuid: 36feb3b6-9a1f-4005-a867-b7447ffb063e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_transfer_date
+    - node.type.transfer
+  module:
+    - datetime
+id: node.transfer.field_transfer_date
+field_name: field_transfer_date
+entity_type: node
+bundle: transfer
+label: 'Transfer Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

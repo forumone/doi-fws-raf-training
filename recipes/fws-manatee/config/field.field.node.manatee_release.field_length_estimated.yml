@@ -1,0 +1,21 @@
+uuid: f25f8eab-7c54-4485-8f86-5c281eaffc5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_estimated
+    - node.type.manatee_release
+id: node.manatee_release.field_length_estimated
+field_name: field_length_estimated
+entity_type: node
+bundle: manatee_release
+label: 'Length Estimated'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

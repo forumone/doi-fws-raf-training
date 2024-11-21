@@ -1,0 +1,9 @@
+uuid: 9bf3cd2d-a769-4d3f-9318-110b30a9c984
+langcode: en
+status: true
+dependencies: {  }
+name: 'Status Report Month'
+vid: status_month
+description: 'Lookup table for months for status'
+weight: 0
+new_revision: false

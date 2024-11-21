@@ -1,0 +1,23 @@
+uuid: 88863fd6-a0f5-46fe-8109-5a744b4535f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_latitude
+    - node.type.manatee_rescue
+id: node.manatee_rescue.field_latitude
+field_name: field_latitude
+entity_type: node
+bundle: manatee_rescue
+label: Latitude
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

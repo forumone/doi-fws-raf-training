@@ -1,0 +1,9 @@
+uuid: 114ff70f-0d05-410b-a09d-430358ca98c6
+langcode: en
+status: true
+dependencies: {  }
+name: 'Gear Type'
+vid: gear_type
+description: 'Lookup table for cause of death'
+weight: 0
+new_revision: false

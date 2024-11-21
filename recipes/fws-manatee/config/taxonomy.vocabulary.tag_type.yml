@@ -1,0 +1,9 @@
+uuid: 17993f29-c915-4405-abf6-f20247c95144
+langcode: en
+status: true
+dependencies: {  }
+name: 'Tag Types'
+vid: tag_type
+description: 'Lookup table for tag type'
+weight: 0
+new_revision: false

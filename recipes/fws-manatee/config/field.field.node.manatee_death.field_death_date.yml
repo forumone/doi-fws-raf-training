@@ -1,0 +1,21 @@
+uuid: ebcde5f5-1c62-40d1-bde2-208b05b5532d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_death_date
+    - node.type.manatee_death
+  module:
+    - datetime
+id: node.manatee_death.field_death_date
+field_name: field_death_date
+entity_type: node
+bundle: manatee_death
+label: 'Death Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

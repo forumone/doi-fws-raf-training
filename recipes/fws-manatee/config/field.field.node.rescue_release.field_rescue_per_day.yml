@@ -1,0 +1,23 @@
+uuid: e9289bd8-16d1-4d6f-b00a-dad25371b665
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rescue_per_day
+    - node.type.rescue_release
+id: node.rescue_release.field_rescue_per_day
+field_name: field_rescue_per_day
+entity_type: node
+bundle: rescue_release
+label: 'Rescues Per Day'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

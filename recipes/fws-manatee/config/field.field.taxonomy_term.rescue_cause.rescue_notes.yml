@@ -1,0 +1,19 @@
+uuid: ff9d8e68-8e36-484f-b0fa-c99a80a8c500
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.rescue_notes
+    - taxonomy.vocabulary.rescue_cause
+id: taxonomy_term.rescue_cause.rescue_notes
+field_name: rescue_notes
+entity_type: taxonomy_term
+bundle: rescue_cause
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

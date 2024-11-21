@@ -1,0 +1,19 @@
+uuid: f8075373-7e0e-48ba-86a3-60156b705e66
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_pi
+field_name: field_pi
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
