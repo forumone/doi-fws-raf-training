@@ -1,0 +1,73 @@
+"Org","Organization","Active","HouseAnimals","Transporter","Comments"
+AL,Amber Lake,0,0,1,""
+AQE,Aquarium Encounters,1,1,1,
+BREV,Brevard Zoo,1,0,1,
+BSSP,Blue Spring State Park,1,0,0,
+CG,Florida Coast Guard,0,0,1,""
+CHASS,Crystal River/Chassahowitzka NWR,1,0,1,
+CIN,Cincinnati Zoo,1,1,1,""
+CMA,"Clearwater Marine Aquarium
+
+",1,1,1,
+COL,Columbus Zoo,1,1,1,
+CSN,Caribbean Stranding Network,1,1,1,
+CTT,Conservation TT,0,0,0,""
+DEP,Department of Environmental Protection,1,0,1,
+DERM,Dade Environmental Resource Management,1,0,1,
+DISL,Dauphin Island Sea lab,1,1,1,Does not have LOA assists with GOM rescues
+DNR,Department of Natural Resources,0,0,0,
+DRC,Dolphin Research Center (Florida Keys),1,1,1,
+DYN,Dynamac,0,0,0,Added in July 2009 database load
+FDEP,Florida Department of Environmental Protection,0,0,0,
+FLAQ,"	
+Florida Aquarium",1,1,0,
+FLPL,Florida Power and Light,0,0,1,
+FMP,Florida Marine Power,0,0,0,
+FMRI,Florida Marine Research Institute,0,0,0,""
+FWC,Florida Fish & Wildlife Conservation Commission,1,0,0,
+FWCEC,FWC East Coast Field Station,1,0,1,Added in July 2009 database load
+FWCIR,FWC Indian River Field Station,1,0,1,
+FWCNE,FWC Northeast Field Station,1,0,1,
+FWCSW,FWC Southwest Field Station,1,0,1,
+FWCT,FWC Tequesta Field Station,1,0,1,
+FWD,Florida Wildlife Department,0,0,0,
+FWS,Fish and Wildlife Service,1,0,1,
+GADNR,Georgia Dept of Natural Resources,1,0,1,
+GAQ,Georgia Aquarium,1,1,1,
+HB,Harbor Branch,0,0,0,""
+HorPool,Horiizon Pool,1,1,0,""
+HSSWP,Homosassa Springs Wildlife State Park,1,1,1,""
+IMMS,Institute for Marine Mammal Studies,1,1,1,Does not have LOA-assist with GOM rescues
+JAX,Jacksonvillle Zoo,1,1,1,""
+JFO,FWS Jacksonville Field Office,1,0,1,
+LPZ,Lowry Park Zoo,1,1,1,
+LVS,Living Seas Epcot,1,1,1,
+MAH,Midway Animal Hospital,0,0,0,
+MARINELAND,Marineland,0,0,0,
+MC,Manatee Co,0,0,0,
+MINWR,Merritt Island National Wildlife Refuge,0,0,0,
+MMPL,FMRI Marine Mammal Pathobiology Lab,1,1,1,
+MOTE,Mote Marine Lab,1,1,1,
+MSQ,Miami Seaquarium,0,1,1,
+MZ,Mayaguez Zoo,0,1,1,""
+NA,Not Applicable,0,0,1,
+OW,Ocean World,0,0,1,
+PRDNR,Puerto Rico Department of Natural Resources,1,0,1,""
+PRZ,Puerto Rico Zoo,1,1,1,""
+RBNER,Rookery Bay National Estuarine Research,1,0,1,
+SFM,South Florida Museum,1,1,0,
+SFWMD,South Florida Water Management District,0,0,0,
+SIRENIA,USGS Sirenia,1,0,0,""
+SMC,Save The Manatee Club,0,0,0,""
+StPeteAq,St Pete Aquarium,0,0,1,
+SWC,SeaWorld California,1,1,1,
+SWF,SeaWorld Florida,1,1,1,
+SWT,SeaWorld Texas,1,1,1,""
+TSA,"Texas State Aquarium
+
+",1,1,1,
+UF,University of Florida,1,0,0,
+UNK,Unknown,1,1,1,""
+WNFH,Welaka National Fish Hatchery ,1,1,0,
+WT,Wildlife Trust,1,0,1,""
+Zoo Miami ,Zoo Miami,1,1,1, 

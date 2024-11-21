@@ -18,12 +18,11 @@ bundle: org
 mode: default
 content:
   field_active:
-    type: string_textfield
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   description:
     type: text_textfield
@@ -34,12 +33,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_house_animals:
-    type: string_textfield
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -86,11 +84,10 @@ content:
       display_label: true
     third_party_settings: {  }
   field_transporter:
-    type: string_textfield
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
 hidden: {  }
