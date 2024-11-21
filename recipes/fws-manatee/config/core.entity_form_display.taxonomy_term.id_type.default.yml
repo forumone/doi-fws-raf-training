@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.id_type.id_details
-    - field.field.taxonomy_term.id_type.type_of_id
+    - field.field.taxonomy_term.id_type.field_id_details
+    - field.field.taxonomy_term.id_type.field_type_of_id
     - taxonomy.vocabulary.id_type
   module:
     - path
@@ -22,7 +22,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  id_details:
+  field_id_details:
     type: string_textfield
     weight: 0
     region: content
@@ -58,7 +58,7 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  type_of_id:
+  field_type_of_id:
     type: string_textfield
     weight: 0
     region: content

@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.status_month.month_name
+    - field.field.taxonomy_term.status_month.field_month_name
     - taxonomy.vocabulary.status_month
   module:
     - path
@@ -28,7 +28,7 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  month_name:
+  field_month_name:
     type: string_textfield
     weight: 0
     region: content

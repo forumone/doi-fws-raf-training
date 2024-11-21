@@ -1,0 +1,21 @@
+uuid: bf8c017a-e14d-4635-b81b-ef965f9eab4b
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_org_comments
+field_name: field_org_comments
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 100
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

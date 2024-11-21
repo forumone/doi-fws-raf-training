@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.rearing.rearing_type
+    - field.field.taxonomy_term.rearing.field_rearing_type
     - taxonomy.vocabulary.rearing
   module:
     - path
@@ -42,7 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  rearing_type:
+  field_rearing_type:
     type: string_textfield
     weight: 0
     region: content

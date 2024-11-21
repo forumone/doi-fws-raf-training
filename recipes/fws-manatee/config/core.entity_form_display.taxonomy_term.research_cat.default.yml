@@ -3,9 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.research_cat.research
-    - field.field.taxonomy_term.research_cat.research_category
-    - field.field.taxonomy_term.research_cat.research_notes
+    - field.field.taxonomy_term.research_cat.field_research_category
+    - field.field.taxonomy_term.research_cat.field_research_notes
     - taxonomy.vocabulary.research_cat
   module:
     - path
@@ -44,7 +43,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  research_category:
+  field_research_category:
     type: string_textfield
     weight: 0
     region: content
@@ -52,7 +51,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  research_notes:
+  field_research_notes:
     type: string_textfield
     weight: 0
     region: content

@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.conditioning.conditioning_type
+    - field.field.taxonomy_term.conditioning.field_conditioning_type
     - taxonomy.vocabulary.conditioning
   module:
     - path
@@ -13,7 +13,7 @@ targetEntityType: taxonomy_term
 bundle: conditioning
 mode: default
 content:
-  conditioning_type:
+  field_conditioning_type:
     type: string_textfield
     weight: 0
     region: content

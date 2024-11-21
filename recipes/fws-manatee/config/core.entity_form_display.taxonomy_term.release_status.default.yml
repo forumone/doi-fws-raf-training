@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.release_status.active
-    - field.field.taxonomy_term.release_status.release_status
+    - field.field.taxonomy_term.release_status.field_active
+    - field.field.taxonomy_term.release_status.field_release_status
     - taxonomy.vocabulary.release_status
   module:
     - path
@@ -14,7 +14,7 @@ targetEntityType: taxonomy_term
 bundle: release_status
 mode: default
 content:
-  active:
+  field_active:
     type: string_textfield
     weight: 0
     region: content
@@ -51,7 +51,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  release_status:
+  field_release_status:
     type: string_textfield
     weight: 0
     region: content

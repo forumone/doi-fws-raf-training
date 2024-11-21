@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.health.health_details
-    - field.field.taxonomy_term.health.health_status
+    - field.field.taxonomy_term.health.field_health_details
+    - field.field.taxonomy_term.health.field_health_status
     - taxonomy.vocabulary.health
   module:
     - path
@@ -22,7 +22,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  health_details:
+  field_health_details:
     type: string_textfield
     weight: 0
     region: content
@@ -30,7 +30,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  health_status:
+  field_health_status:
     type: string_textfield
     weight: 0
     region: content

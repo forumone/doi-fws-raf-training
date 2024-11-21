@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.county.state
+    - field.field.taxonomy_term.county.field_state
     - taxonomy.vocabulary.county
   module:
     - path
@@ -42,7 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  state:
+  field_state:
     type: string_textfield
     weight: 0
     region: content

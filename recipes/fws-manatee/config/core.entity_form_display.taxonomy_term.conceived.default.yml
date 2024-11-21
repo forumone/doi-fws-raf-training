@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.conceived.conceive_text
+    - field.field.taxonomy_term.conceived.field_conceive_text
     - taxonomy.vocabulary.conceived
   module:
     - path
@@ -13,7 +13,7 @@ targetEntityType: taxonomy_term
 bundle: conceived
 mode: default
 content:
-  conceive_text:
+  field_conceive_text:
     type: string_textfield
     weight: 0
     region: content

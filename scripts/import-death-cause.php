@@ -62,8 +62,8 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term = Term::create([
       'vid' => $vocabulary,
       'name' => $name,
-      'death_cause' => $death_cause,
-      'death_cause_detail' => $death_cause_detail,
+      'field_death_cause' => $death_cause,
+      'field_death_cause_detail' => $death_cause_detail,
       'description' => [
         'value' => $description,
         'format' => 'basic_html',

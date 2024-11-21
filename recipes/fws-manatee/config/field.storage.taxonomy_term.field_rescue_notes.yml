@@ -1,0 +1,21 @@
+uuid: 8ff3f6d3-d67a-4581-8ba4-17b204e57220
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_rescue_notes
+field_name: field_rescue_notes
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 500
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

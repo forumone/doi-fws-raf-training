@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.death_location.death_location
-    - field.field.taxonomy_term.death_location.active
+    - field.field.taxonomy_term.death_location.field_death_location
+    - field.field.taxonomy_term.death_location.field_active
     - taxonomy.vocabulary.death_location
   module:
     - path
@@ -16,7 +16,7 @@ targetEntityType: taxonomy_term
 bundle: death_location
 mode: default
 content:
-  death_location:
+  field_death_location:
     type: string_textfield
     weight: 0
     region: content
@@ -32,7 +32,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  active:
+  field_active:
     type: boolean_checkbox
     weight: 101
     region: content

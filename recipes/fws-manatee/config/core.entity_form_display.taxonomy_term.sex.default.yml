@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.sex.sex_details
+    - field.field.taxonomy_term.sex.field_sex_details
     - taxonomy.vocabulary.sex
   module:
     - path
@@ -42,7 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  sex_details:
+  field_sex_details:
     type: string_textfield
     weight: 0
     region: content

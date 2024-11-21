@@ -1,0 +1,19 @@
+uuid: 64ffcad5-a6a7-4abb-bfe4-f74516b6a48d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_death_cause_detail
+    - taxonomy.vocabulary.death_cause
+id: taxonomy_term.death_cause.field_death_cause_detail
+field_name: field_death_cause_detail
+entity_type: taxonomy_term
+bundle: death_cause
+label: 'Death Cause Detail'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

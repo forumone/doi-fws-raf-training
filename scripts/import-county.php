@@ -54,7 +54,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term = Term::create([
       'vid' => $vocabulary,
       'name' => $county,
-      'state' => $state,
+      'field_state' => $state,
       'status' => 1,
     ]);
 

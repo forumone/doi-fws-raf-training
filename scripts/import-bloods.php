@@ -62,7 +62,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term = Term::create([
       'vid' => $vocabulary,
       'name' => $bloods,
-      'blood_text' => $bloods_taken,
+      'field_blood_text' => $bloods_taken,
       'description' => [
         'value' => $description,
         'format' => 'basic_html',

@@ -1,0 +1,19 @@
+uuid: e136e4d5-f2bf-4bdd-bbf0-4caa80e64831
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_rescue_type
+    - taxonomy.vocabulary.rescue_type
+id: taxonomy_term.rescue_type.field_rescue_type
+field_name: field_rescue_type
+entity_type: taxonomy_term
+bundle: rescue_type
+label: 'Rescue Type Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

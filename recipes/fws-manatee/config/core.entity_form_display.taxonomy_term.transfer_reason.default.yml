@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.transfer_reason.transfer_reason
+    - field.field.taxonomy_term.transfer_reason.field_transfer_reason
     - taxonomy.vocabulary.transfer_reason
   module:
     - path
@@ -49,7 +49,7 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  transfer_reason:
+  field_transfer_reason:
     type: string_textfield
     weight: 0
     region: content

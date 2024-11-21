@@ -54,7 +54,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term = Term::create([
       'vid' => $vocabulary,
       'name' => $cond,
-      'conditioning_type' => $conditioning_type,
+      'field_conditioning_type' => $conditioning_type,
       'description' => [
         'value' => $description,
         'format' => 'basic_html',

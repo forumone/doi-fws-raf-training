@@ -1,0 +1,19 @@
+uuid: 3f32549c-16e7-4bde-9010-ec67de373e5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_health_status
+    - taxonomy.vocabulary.health
+id: taxonomy_term.health.field_health_status
+field_name: field_health_status
+entity_type: taxonomy_term
+bundle: health
+label: 'Health Status'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

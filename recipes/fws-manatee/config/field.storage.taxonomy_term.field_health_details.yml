@@ -1,0 +1,21 @@
+uuid: 5ae89219-70e0-4e96-a6a1-5e71cbeb1ea4
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_health_details
+field_name: field_health_details
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 500
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
