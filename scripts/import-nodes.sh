@@ -14,6 +14,7 @@ scripts=(
 "../scripts/import-manatee-name.php"
 "../scripts/import-other-names.php"
 "../scripts/import-pre-release.php"
+"../scripts/import-release.php"
 )
 
 # Color codes for output
