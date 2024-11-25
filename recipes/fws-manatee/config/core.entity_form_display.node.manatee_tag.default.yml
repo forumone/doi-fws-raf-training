@@ -53,14 +53,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_event_date:
-    type: entity_reference_autocomplete
+    type: datetime_default
     weight: 0
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_tag_id:
     type: string_textfield
