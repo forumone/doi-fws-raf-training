@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: 'Other Names'
 type: other_names
-description: null
+description: 'Stores all names associated with a manatee that are identified in other manatee databases. For example, an animal may be given a name in the MIPS database'
 help: null
 new_revision: true
 preview_mode: 1

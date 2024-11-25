@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.other_names.field_animal
     - field.field.node.other_names.field_name
     - field.field.node.other_names.field_system
     - field.field.node.other_names.field_system_id
@@ -20,14 +19,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_animal:
-    type: string_textfield
-    weight: 124
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_name:
     type: string_textfield
