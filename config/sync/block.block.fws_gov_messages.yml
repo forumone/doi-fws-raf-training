@@ -1,0 +1,22 @@
+uuid: 8b0b663f-e2b9-4821-9f39-0ef04e41efaa
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fws_gov
+_core:
+  default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
+id: fws_gov_messages
+theme: fws_gov
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

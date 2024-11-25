@@ -1,0 +1,24 @@
+uuid: 82fb8e9b-24f1-4c19-bd6a-738e1e817ce5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.manatee_birth
+_core:
+  default_config_hash: 1-rkieP7esxF1JOXf684WaSH359a9bGFVDSuJHxXC9I
+id: node.manatee_birth.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: manatee_birth
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+field_type: entity_reference

@@ -1,0 +1,24 @@
+uuid: 1559fc05-3b12-4d6e-9cbb-70828e640083
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_cause_detail
+    - node.type.manatee_rescue
+  module:
+    - text
+_core:
+  default_config_hash: Ys9ubvwutmbC8b45OUX1Sd6uWpcpw2-CVNk6SI2JvmY
+id: node.manatee_rescue.field_secondary_cause_detail
+field_name: field_secondary_cause_detail
+entity_type: node
+bundle: manatee_rescue
+label: 'Secondary Cause Detail'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

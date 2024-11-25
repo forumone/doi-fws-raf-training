@@ -1,0 +1,21 @@
+uuid: 102b964c-cd99-4831-a428-85d13c6960f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pot_status
+    - node.type.manatee_rescue
+_core:
+  default_config_hash: XI4yKZ6boabuVeHHIFJ245zy6z3sOyHOf2yLf__Yovk
+id: node.manatee_rescue.field_pot_status
+field_name: field_pot_status
+entity_type: node
+bundle: manatee_rescue
+label: 'Pot Status'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

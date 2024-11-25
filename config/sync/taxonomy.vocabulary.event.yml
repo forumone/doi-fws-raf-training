@@ -1,0 +1,11 @@
+uuid: 0f8b8459-1469-4a45-8091-c642d23a1067
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Xu0-eL4f_trISIwGNGF2m2D0fn7tvQA1mw8WBFdYVUE
+name: Events
+vid: event
+description: 'Lookup table for events in manatee life'
+weight: 0
+new_revision: false

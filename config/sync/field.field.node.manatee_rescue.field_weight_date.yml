@@ -1,0 +1,23 @@
+uuid: 0ec798c2-10a9-44cc-8d2a-5a0bd6519c41
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.manatee_rescue
+  module:
+    - datetime
+_core:
+  default_config_hash: KD2BvcQz8rjBqJQr6cRrpGufPKYh6QGVat63QC6JqIY
+id: node.manatee_rescue.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: manatee_rescue
+label: 'Weight Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

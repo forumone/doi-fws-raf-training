@@ -1,0 +1,23 @@
+uuid: 771e07c7-a31d-4a11-9354-12a87e36cbfc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_transporter
+    - node.type.manatee_rescue
+_core:
+  default_config_hash: Ajz3d1u_qikmPv-Z59-_vuc07VqV-YJYaveo3FBqZOA
+id: node.manatee_rescue.field_transporter
+field_name: field_transporter
+entity_type: node
+bundle: manatee_rescue
+label: Transporter
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

@@ -62,7 +62,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_conceived' => [
         'target_id' => get_conceive_location_term_id($conceive),
       ],
-      'field_facility' => $org,
+      'field_org' => [
+        'target_id' => get_org_term_id($org),
+      ],
       'field_veterinarian' => [
         'target_id' => get_user_id($vet_id),
       ],
@@ -232,4 +234,39 @@ function get_user_id($username) {
   }
   // Default user ID.
   return 1;
+}
+
+/**
+ * Helper function to get Organizations taxonomy term ID.
+ *
+ * @param string $org_name
+ *   The name of the organization.
+ *
+ * @return int|null
+ *   The term ID or NULL on failure.
+ */
+function get_org_term_id($org_name) {
+  if (empty($org_name)) {
+    return NULL;
+  }
+
+  $terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadByProperties([
+  // Ensure the machine name matches.
+      'vid' => 'organizations',
+      'name' => $org_name,
+    ]);
+
+  if (!empty($terms)) {
+    return reset($terms)->id();
+  }
+
+  // Create term if it doesn't exist.
+  $term = Term::create([
+    'vid' => 'organizations',
+    'name' => $org_name,
+  ]);
+  $term->save();
+  return $term->id();
 }

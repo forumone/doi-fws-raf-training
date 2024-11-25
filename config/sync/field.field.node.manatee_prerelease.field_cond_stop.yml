@@ -1,0 +1,23 @@
+uuid: 9c3d3360-a8b9-4637-a8be-8e083a23718c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cond_stop
+    - node.type.manatee_prerelease
+_core:
+  default_config_hash: pFpGRZhwCeTCYG_haLRqEnviAtG5V-3nc0ZxKmmo8MU
+id: node.manatee_prerelease.field_cond_stop
+field_name: field_cond_stop
+entity_type: node
+bundle: manatee_prerelease
+label: 'Cond Stop'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,11 @@
+uuid: 1bff721e-3e70-4b06-8063-d0a9b15fb106
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: zEqV_dCm5JrU5Dq1eu14fYaSYNII5InYZZm8gUru_3E
+name: 'Research Systems'
+vid: system
+description: 'Lookup table for names of other manatee research systems'
+weight: 0
+new_revision: false

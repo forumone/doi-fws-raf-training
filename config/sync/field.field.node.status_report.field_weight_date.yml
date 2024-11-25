@@ -1,0 +1,23 @@
+uuid: 31a4a713-f0df-4bb3-baf7-0b29006a9335
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.status_report
+  module:
+    - datetime
+_core:
+  default_config_hash: FY83g-nm0YyujkQjIE_uQen19zGHW58t7KTmrOxpyDs
+id: node.status_report.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: status_report
+label: 'Weight Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

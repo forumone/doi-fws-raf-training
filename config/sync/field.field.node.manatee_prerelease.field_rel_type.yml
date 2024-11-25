@@ -1,0 +1,26 @@
+uuid: 014aec73-2fc4-4273-808f-38bd2e91c5f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rel_type
+    - node.type.manatee_prerelease
+    - taxonomy.vocabulary.water
+_core:
+  default_config_hash: vKtU8rRUjlnCFCNhIfQEgvMcp4BlEOvH6yNYBx0RKqU
+id: node.manatee_prerelease.field_rel_type
+field_name: field_rel_type
+entity_type: node
+bundle: manatee_prerelease
+label: 'Rel Type'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      water: water
+field_type: entity_reference

@@ -1,0 +1,25 @@
+uuid: 37fa8280-b6d3-4436-960a-377bf5c42325
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_req_year
+    - node.type.status_report
+_core:
+  default_config_hash: FqOCadlQP-RfBTJxGvpgYKRGx4pJ5ZIBxH82_WQ3iKo
+id: node.status_report.field_req_year
+field_name: field_req_year
+entity_type: node
+bundle: status_report
+label: 'Year Report'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

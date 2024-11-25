@@ -1,0 +1,11 @@
+uuid: 7ec66cd9-f20b-4b48-8142-422f3fa30b27
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Dkz3kQXMB-GlkA_DwPOYTb5tAYewoxC-Bf0HQ9axo3o
+name: Sex
+vid: sex
+description: 'Lookup table for sex of manatee'
+weight: 0
+new_revision: false

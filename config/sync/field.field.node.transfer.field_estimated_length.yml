@@ -1,0 +1,23 @@
+uuid: 38ff07f7-c8e8-48c3-85ec-8ed95b88734a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_estimated_length
+    - node.type.transfer
+_core:
+  default_config_hash: _O6_3bylC5sa41dLye2LqiJ-Gsbra3UixLBGfH-nbgU
+id: node.transfer.field_estimated_length
+field_name: field_estimated_length
+entity_type: node
+bundle: transfer
+label: 'Estimated Length?'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

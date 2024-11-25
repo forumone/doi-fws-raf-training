@@ -1,0 +1,22 @@
+uuid: 535ec1ba-b4a8-48b8-9bf1-b92a6a8bfb4d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+_core:
+  default_config_hash: bD7Oo991gsSHKTMnmaSyG8E6SKB6k0FSLTlXRcCaDus
+id: node.field_facility
+field_name: field_facility
+entity_type: node
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

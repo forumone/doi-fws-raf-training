@@ -1,0 +1,107 @@
+uuid: 8be10c75-5237-4f57-ac46-0d1f855e684c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.manatee_death.field_animal
+    - field.field.node.manatee_death.field_cause_id
+    - field.field.node.manatee_death.field_comments
+    - field.field.node.manatee_death.field_death_date
+    - field.field.node.manatee_death.field_death_location
+    - field.field.node.manatee_death.field_euthanasia
+    - field.field.node.manatee_death.field_org
+    - field.field.node.manatee_death.field_other_text
+    - field.field.node.manatee_death.field_veterinarian
+    - node.type.manatee_death
+  module:
+    - datetime
+    - text
+    - user
+_core:
+  default_config_hash: G0dP5nJp0f1MVvuwqUTx8qffy4kC8NmFuePAVSUDvfg
+id: node.manatee_death.default
+targetEntityType: node
+bundle: manatee_death
+mode: default
+content:
+  field_animal:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_cause_id:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_comments:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_death_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_death_location:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_euthanasia:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_org:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_other_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_veterinarian:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

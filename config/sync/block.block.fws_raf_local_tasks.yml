@@ -1,0 +1,22 @@
+uuid: afb0c542-65ea-48d5-954c-7935b8bcec0b
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: T0wbI6qVdThbbIqXDZFg_1VZ3_ittXBdEoUH7d7ux_E
+id: fws_raf_local_tasks
+theme: fws_raf
+region: header
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

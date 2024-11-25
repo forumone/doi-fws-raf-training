@@ -1,0 +1,23 @@
+uuid: 01ddfb8e-5341-4a7e-8636-e4d41677aeb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.manatee_death
+_core:
+  default_config_hash: ZfFnXLlIWJdDjqKKv2mGTFQv27Sp6cyOlMq4gn2105E
+id: node.manatee_death.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: manatee_death
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

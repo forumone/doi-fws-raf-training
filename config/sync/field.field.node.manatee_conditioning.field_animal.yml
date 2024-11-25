@@ -1,0 +1,26 @@
+uuid: 52dd8531-6b3f-4831-aad3-437e8d579091
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee
+    - node.type.manatee_conditioning
+_core:
+  default_config_hash: 7zYVbk-5mX57kz6VsT8pwRXxYe4B5qn6pnIia8oz0WE
+id: node.manatee_conditioning.field_animal
+field_name: field_animal
+entity_type: node
+bundle: manatee_conditioning
+label: Manatee
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee: manatee
+field_type: entity_reference

@@ -1,0 +1,13 @@
+uuid: 37b6928d-22ff-43b5-8a18-aad35a8c64ae
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: rpwvgyEURXLz_JjgMCrkS1rUv-0k3L79BpO-ReN7fDI
+id: node
+label: Content
+tags:
+  title: '[node:title] | [site:name]'
+  description: '[node:summary]'
+  canonical_url: '[node:url]'
+  abstract: '[node:summary]'

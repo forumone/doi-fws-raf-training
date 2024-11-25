@@ -1,0 +1,26 @@
+uuid: ab327ca1-b7e9-4ff3-8b77-6c1fcff06a32
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee
+    - node.type.transfer
+_core:
+  default_config_hash: _Ohw9BYeTJLZeN6vW2_YbZYHb9QG4yn1z2maHOam6ik
+id: node.transfer.field_animal
+field_name: field_animal
+entity_type: node
+bundle: transfer
+label: Manatee
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee: manatee
+field_type: entity_reference

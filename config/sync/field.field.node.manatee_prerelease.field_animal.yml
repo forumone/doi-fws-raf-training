@@ -1,0 +1,26 @@
+uuid: 56c93467-73be-47cb-919f-df90a854dd2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_animal
+    - node.type.manatee_animal_id
+    - node.type.manatee_prerelease
+_core:
+  default_config_hash: DKJ1LkeMMzVKqvzp9aN_M7fAJK2LEQyNvJx6FjAELRw
+id: node.manatee_prerelease.field_animal
+field_name: field_animal
+entity_type: node
+bundle: manatee_prerelease
+label: Animal
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      manatee_animal_id: manatee_animal_id
+field_type: entity_reference

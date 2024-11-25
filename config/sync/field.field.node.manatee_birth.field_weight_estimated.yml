@@ -1,0 +1,23 @@
+uuid: fcf1d817-92a4-4836-bb54-3765eca8282e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_estimated
+    - node.type.manatee_birth
+_core:
+  default_config_hash: VbECAZjH4oAsFixNNhiqyVVl7xk0BYCfzKtlMkSumXc
+id: node.manatee_birth.field_weight_estimated
+field_name: field_weight_estimated
+entity_type: node
+bundle: manatee_birth
+label: 'Weight Estimated?'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

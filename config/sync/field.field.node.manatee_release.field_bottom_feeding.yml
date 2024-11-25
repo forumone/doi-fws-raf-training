@@ -1,0 +1,23 @@
+uuid: 583590a5-0e08-4743-84ba-abeb542e79a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bottom_feeding
+    - node.type.manatee_release
+_core:
+  default_config_hash: cD0v0r2D1I6MAMSl438xo5mA0sln2-cIAoK2CzKjkfY
+id: node.manatee_release.field_bottom_feeding
+field_name: field_bottom_feeding
+entity_type: node
+bundle: manatee_release
+label: 'Bottom Feeding'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

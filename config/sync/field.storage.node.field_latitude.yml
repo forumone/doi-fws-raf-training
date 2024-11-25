@@ -1,0 +1,22 @@
+uuid: fa77f491-2c9c-43cd-a82f-3c2d7645871e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: hIAxb1YDxxIqDMa3cEQZDQfGLlJZwV7RBI2QSjrUepU
+id: node.field_latitude
+field_name: field_latitude
+entity_type: node
+type: decimal
+settings:
+  precision: 12
+  scale: 7
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

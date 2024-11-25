@@ -1,0 +1,23 @@
+uuid: 6229190b-d168-4f97-b944-d99d79fbc1eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dam
+    - node.type.manatee
+_core:
+  default_config_hash: KE5ORnP9uATSNtOVLahWJBqkzteapBujn0IuH_ViaLI
+id: node.manatee.field_dam
+field_name: field_dam
+entity_type: node
+bundle: manatee
+label: Dam
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings: {  }
+field_type: entity_reference

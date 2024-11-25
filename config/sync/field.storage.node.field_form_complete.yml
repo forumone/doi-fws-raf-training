@@ -1,0 +1,20 @@
+uuid: 3f55114f-947f-47ed-bebc-d1bdd8b30138
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: mCtyQJM02lT2tiTyO7xoKDiJXJfDcIqGBzveymUEuig
+id: node.field_form_complete
+field_name: field_form_complete
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

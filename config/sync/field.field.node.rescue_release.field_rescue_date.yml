@@ -1,0 +1,23 @@
+uuid: 18c73120-af46-449b-b30a-63ad0b5d01a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rescue_date
+    - node.type.rescue_release
+  module:
+    - datetime
+_core:
+  default_config_hash: irkDY2hHnz1N81oKIKEp_QxWADASS-z3jtPb5B8aM3U
+id: node.rescue_release.field_rescue_date
+field_name: field_rescue_date
+entity_type: node
+bundle: rescue_release
+label: 'Rescue Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,148 @@
+uuid: b7d06a74-90d6-4781-9518-73ef546bbbea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.transfer.field_animal
+    - field.field.node.transfer.field_comments
+    - field.field.node.transfer.field_estimated_length
+    - field.field.node.transfer.field_estimated_weight
+    - field.field.node.transfer.field_from_facility
+    - field.field.node.transfer.field_length
+    - field.field.node.transfer.field_length_date
+    - field.field.node.transfer.field_reason
+    - field.field.node.transfer.field_to_facility
+    - field.field.node.transfer.field_transfer_date
+    - field.field.node.transfer.field_veterinarian
+    - field.field.node.transfer.field_weight
+    - field.field.node.transfer.field_weight_date
+    - node.type.transfer
+  module:
+    - datetime
+    - text
+    - user
+_core:
+  default_config_hash: F4BXR0vrwam7XwrpOzsATZnN1FXBXtZCPbLkx8xCZqQ
+id: node.transfer.default
+targetEntityType: node
+bundle: transfer
+mode: default
+content:
+  field_animal:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_comments:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_estimated_length:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_estimated_weight:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_from_facility:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_length:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_length_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_reason:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_to_facility:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_transfer_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_veterinarian:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_weight:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_weight_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

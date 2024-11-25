@@ -1,0 +1,11 @@
+uuid: 2f3bf82a-a4fe-4f66-a653-81a22f120315
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dhTtbMv9My7PPK8PW1j56zxb04XKcq_ZWqZ0J_1NFLo
+name: 'Conditioning Types'
+vid: conditioning
+description: 'Lookup table for conditioning types'
+weight: 0
+new_revision: false

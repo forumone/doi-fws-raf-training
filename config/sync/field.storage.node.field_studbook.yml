@@ -1,0 +1,23 @@
+uuid: 0fe3cb29-d1b4-436e-bbef-a5f84e4bbdaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: Pvh4kjEoEp4YdFIAbkHnwzQc-qWojCgHYkyrzNKqdng
+id: node.field_studbook
+field_name: field_studbook
+entity_type: node
+type: string
+settings:
+  max_length: 4
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

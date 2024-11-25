@@ -1,0 +1,25 @@
+uuid: 942775b9-7a3e-4855-a083-dc2b4651b15b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rescue_per_day
+    - node.type.manatee_entangle
+_core:
+  default_config_hash: XtMyokHIn-sF8QT1DB6tKXq54imgQ3-fu1hIbgk0u68
+id: node.manatee_entangle.field_rescue_per_day
+field_name: field_rescue_per_day
+entity_type: node
+bundle: manatee_entangle
+label: 'Rescue Per Day'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,26 @@
+uuid: c6471620-d614-4411-b578-a1aacca6e6ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gear_type
+    - node.type.manatee_entangle
+    - taxonomy.vocabulary.gear_type
+_core:
+  default_config_hash: s7CtHbeYdNin8lF6-PRdbrE73PQjiY81JCbUBUwJjCY
+id: node.manatee_entangle.field_gear_type
+field_name: field_gear_type
+entity_type: node
+bundle: manatee_entangle
+label: 'Type of Gear'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      gear_type: gear_type
+field_type: entity_reference

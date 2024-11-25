@@ -1,0 +1,21 @@
+uuid: 6550da25-efa2-4c8d-8471-f311878396d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_release_site
+    - node.type.manatee_release
+_core:
+  default_config_hash: YFNEaUDQY2d3Rhr5jBD2oqz18fAVC1U6FIHeMR0X-hQ
+id: node.manatee_release.field_release_site
+field_name: field_release_site
+entity_type: node
+bundle: manatee_release
+label: 'Release Site'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

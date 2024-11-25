@@ -1,0 +1,23 @@
+uuid: 3b75f2de-c83e-43a4-a158-68cc8cf17b37
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility
+    - node.type.manatee_birth
+_core:
+  default_config_hash: wPn62u-y8KjnYSYNr_oIToij9vrHZulHB2wzOHnprnU
+id: node.manatee_birth.field_facility
+field_name: field_facility
+entity_type: node
+bundle: manatee_birth
+label: Facility
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

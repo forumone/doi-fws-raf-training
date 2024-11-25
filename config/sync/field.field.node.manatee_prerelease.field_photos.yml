@@ -1,0 +1,23 @@
+uuid: c72ffaae-5624-4b3b-8464-04834a95f13d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_photos
+    - node.type.manatee_prerelease
+_core:
+  default_config_hash: 0MufprwlkV_o0GH8W2nvoSY_zNqEtsGn2Rtw9hMDWbY
+id: node.manatee_prerelease.field_photos
+field_name: field_photos
+entity_type: node
+bundle: manatee_prerelease
+label: Photos
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

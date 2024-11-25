@@ -1,0 +1,21 @@
+uuid: 7dc7d67d-08dc-4672-9f6e-841b69c4eb5f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: gEuvIbVZBvzeSdsk3PXg2WRbFchpG0BxgIi8pl-6c5s
+id: node.field_pi_address
+field_name: field_pi_address
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

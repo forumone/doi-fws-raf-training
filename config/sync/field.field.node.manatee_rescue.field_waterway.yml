@@ -1,0 +1,21 @@
+uuid: a3651cd7-8737-4bd9-a213-184493fe5b54
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_waterway
+    - node.type.manatee_rescue
+_core:
+  default_config_hash: wGg20s-pOmdheqI0SannNpASrbTQeqcujZdSqqqlHTM
+id: node.manatee_rescue.field_waterway
+field_name: field_waterway
+entity_type: node
+bundle: manatee_rescue
+label: Waterway
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

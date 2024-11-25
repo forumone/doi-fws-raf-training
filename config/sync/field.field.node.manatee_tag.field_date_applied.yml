@@ -1,0 +1,23 @@
+uuid: 7025fe34-92bd-42d6-b100-ae88c0940619
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_applied
+    - node.type.manatee_tag
+  module:
+    - datetime
+_core:
+  default_config_hash: SNwkVZPyJzqlujl7oGcd3Xx7HUqeFW7iCekQQvFyiqw
+id: node.manatee_tag.field_date_applied
+field_name: field_date_applied
+entity_type: node
+bundle: manatee_tag
+label: 'Date Applied'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

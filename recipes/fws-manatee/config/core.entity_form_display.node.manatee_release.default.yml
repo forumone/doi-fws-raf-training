@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.manatee_release.field_comments
     - field.field.node.manatee_release.field_county
     - field.field.node.manatee_release.field_display_water_type
-    - field.field.node.manatee_release.field_facility
     - field.field.node.manatee_release.field_length
     - field.field.node.manatee_release.field_length_date
     - field.field.node.manatee_release.field_length_estimated
@@ -94,14 +93,6 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_facility:
-    type: string_textfield
-    weight: 9
-    region: content
-    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }

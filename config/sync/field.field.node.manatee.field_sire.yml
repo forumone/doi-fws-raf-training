@@ -1,0 +1,23 @@
+uuid: 522df7f6-73e2-479b-94b5-6851af41dd4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sire
+    - node.type.manatee
+_core:
+  default_config_hash: nH1Czd1ngqHtuaPjhVm2btGNFg0zVxCjEHyrVvWDevU
+id: node.manatee.field_sire
+field_name: field_sire
+entity_type: node
+bundle: manatee
+label: Sire
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings: {  }
+field_type: entity_reference

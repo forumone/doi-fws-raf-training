@@ -1,0 +1,13 @@
+uuid: e969eedf-f7a0-4d31-aab3-c4f396b72cb8
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: NRl_aRnwqV_YwjsKUqD6DO1QZbhEa3Ks2HJGHgyyoKI
+name: 'Status Report'
+type: status_report
+description: 'Stores status reports for manatees in captivity'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,23 @@
+uuid: 05bcf4fc-81a8-4c56-ac81-564db024134b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_est_weight
+    - node.type.manatee_prerelease
+  module:
+    - options
+_core:
+  default_config_hash: x84IN00-SV4Fi0w68VhFSn4nSyRybQDZa3Elmh_WBXs
+id: node.manatee_prerelease.field_est_weight
+field_name: field_est_weight
+entity_type: node
+bundle: manatee_prerelease
+label: 'Est Weight'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,11 @@
+uuid: 93c224d5-3779-4a4b-aeb6-452be4ff320d
+langcode: en
+status: true
+dependencies:
+  module:
+    - visualization_charts
+id: visualization_charts.token
+label: Token
+description: ''
+targetEntityType: visualization_charts
+cache: true

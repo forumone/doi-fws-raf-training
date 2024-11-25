@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.manatee_death.field_death_date
     - field.field.node.manatee_death.field_death_location
     - field.field.node.manatee_death.field_euthanasia
-    - field.field.node.manatee_death.field_facility
     - field.field.node.manatee_death.field_other_text
     - field.field.node.manatee_death.field_veterinarian
     - node.type.manatee_death
@@ -71,14 +70,6 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 5
-    region: content
-  field_facility:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 7
     region: content
   field_other_text:
     type: text_default

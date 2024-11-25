@@ -1,0 +1,10 @@
+uuid: e7a59642-83fa-476a-8336-95751385a437
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: z9ZY58gOL5pofc5al6_TXRaQJE9YxgDG8zw5S0PyMl0
+id: footer-menu-employment
+label: 'Footer Menu - Employment'
+description: ''
+locked: false

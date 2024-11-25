@@ -1,0 +1,24 @@
+uuid: a2a7b3fc-9db5-47fe-9f9d-95e3402046c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments
+    - node.type.manatee_birth
+  module:
+    - text
+_core:
+  default_config_hash: ejt2j6viZC4QRVC_Fp5bpktmVZzfNSswEadeytuJdg4
+id: node.manatee_birth.field_comments
+field_name: field_comments
+entity_type: node
+bundle: manatee_birth
+label: 'Additional Narrative'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

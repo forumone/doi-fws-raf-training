@@ -1,0 +1,23 @@
+uuid: 595a39a7-4075-442e-8ca2-bf7b1f69d2e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_active
+    - taxonomy.vocabulary.death_location
+_core:
+  default_config_hash: XZIEMScsKU2ZPELnrtX9e234d0rhMCmnLGFviGJ80ZM
+id: taxonomy_term.death_location.field_active
+field_name: field_active
+entity_type: taxonomy_term
+bundle: death_location
+label: Active
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
