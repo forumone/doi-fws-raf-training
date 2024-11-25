@@ -1,18 +1,18 @@
-uuid: 17e6cb63-b7c3-456c-bb8d-83f31fa8e1c5
+uuid: 2a9e86a3-b4c3-41af-bcd1-247e1de296d1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_animal_id
-    - node.type.manatee
-id: node.manatee.field_animal_id
+    - node.type.manatee_animal_id
+id: node.manatee_animal_id.field_animal_id
 field_name: field_animal_id
 entity_type: node
-bundle: manatee
+bundle: manatee_animal_id
 label: 'Animal ID'
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

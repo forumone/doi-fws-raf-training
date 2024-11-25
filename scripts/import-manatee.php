@@ -51,13 +51,13 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       ->getStorage('node')
       ->loadByProperties([
         'type' => 'manatee',
-        'field_animal_id' => $mlog,
+        'field_mlog' => $mlog,
       ]);
 
     $node_data = [
       'type' => 'manatee',
       'title' => "Manatee $mlog",
-      'field_animal_id' => $mlog,
+      'field_mlog' => $mlog,
       'field_sex' => [
         'target_id' => get_sex_term_id($sex),
       ],
