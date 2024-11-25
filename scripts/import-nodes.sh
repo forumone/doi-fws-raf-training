@@ -11,6 +11,7 @@ scripts=(
 "../scripts/import-manatee-conditioning.php"
 "../scripts/import-manatee-death.php"
 "../scripts/import-manatee-entangle.php"
+"../scripts/import-manatee-name.php"
 )
 
 # Color codes for output
