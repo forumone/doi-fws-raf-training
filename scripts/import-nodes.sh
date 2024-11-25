@@ -15,6 +15,7 @@ scripts=(
 "../scripts/import-other-names.php"
 "../scripts/import-pre-release.php"
 "../scripts/import-release.php"
+"../scripts/import-rescue.php"
 )
 
 # Color codes for output
