@@ -17,6 +17,7 @@ scripts=(
 "../scripts/import-release.php"
 "../scripts/import-rescue.php"
 "../scripts/import-rescue-release.php"
+"../scripts/import-status-report.php"
 )
 
 # Color codes for output
