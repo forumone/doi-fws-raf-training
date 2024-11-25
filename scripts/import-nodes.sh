@@ -10,6 +10,7 @@ scripts=(
 "../scripts/import-research-project.php"
 "../scripts/import-manatee-conditioning.php"
 "../scripts/import-manatee-death.php"
+"../scripts/import-manatee-entangle.php"
 )
 
 # Color codes for output
