@@ -19,6 +19,7 @@ scripts=(
 "../scripts/import-rescue-release.php"
 "../scripts/import-status-report.php"
 "../scripts/import-manatee-tag.php"
+"../scripts/import-manatee-transfer.php"
 )
 
 # Color codes for output
