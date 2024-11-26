@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.gear_type.gear_code
-    - field.field.taxonomy_term.gear_type.gear_type
+    - field.field.taxonomy_term.gear_type.field_gear_type
     - taxonomy.vocabulary.gear_type
   module:
     - path
@@ -22,15 +21,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  gear_code:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  gear_type:
+  field_gear_type:
     type: string_textfield
     weight: 0
     region: content

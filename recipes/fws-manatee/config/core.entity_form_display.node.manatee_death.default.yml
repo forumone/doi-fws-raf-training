@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.manatee_death.field_death_date
     - field.field.node.manatee_death.field_death_location
     - field.field.node.manatee_death.field_euthanasia
-    - field.field.node.manatee_death.field_facility
+    - field.field.node.manatee_death.field_org
     - field.field.node.manatee_death.field_other_text
     - field.field.node.manatee_death.field_veterinarian
     - node.type.manatee_death
@@ -17,6 +17,8 @@ dependencies:
     - datetime
     - path
     - text
+_core:
+  default_config_hash: SsDfaZI2_4caiplM2AlwYWTkE2iWJZCAQsxiNQCP7PM
 id: node.manatee_death.default
 targetEntityType: node
 bundle: manatee_death
@@ -79,9 +81,9 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  field_facility:
+  field_org:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 128
     region: content
     settings:
       match_operator: CONTAINS

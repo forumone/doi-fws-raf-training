@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.manatee_birth.field_birth_date
     - field.field.node.manatee_birth.field_comments
     - field.field.node.manatee_birth.field_conceived
-    - field.field.node.manatee_birth.field_facility
     - field.field.node.manatee_birth.field_health_status
     - field.field.node.manatee_birth.field_length
     - field.field.node.manatee_birth.field_veterinarian
@@ -57,16 +56,6 @@ content:
   field_conceived:
     type: entity_reference_autocomplete
     weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_facility:
-    type: entity_reference_autocomplete
-    weight: 4
     region: content
     settings:
       match_operator: CONTAINS

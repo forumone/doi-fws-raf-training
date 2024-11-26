@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.security_group.group_code
-    - field.field.taxonomy_term.security_group.group_text
+    - field.field.taxonomy_term.security_group.field_group_text
     - taxonomy.vocabulary.security_group
   module:
     - path
@@ -22,15 +21,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  group_code:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  group_text:
+  field_group_text:
     type: string_textfield
     weight: 0
     region: content

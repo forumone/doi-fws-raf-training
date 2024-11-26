@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.release_time.release_time
-    - field.field.taxonomy_term.release_time.time_code
+    - field.field.taxonomy_term.release_time.field_release_time
     - taxonomy.vocabulary.release_time
   module:
     - path
@@ -43,7 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  release_time:
+  field_release_time:
     type: string_textfield
     weight: 0
     region: content
@@ -57,13 +56,5 @@ content:
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
-  time_code:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
 hidden: {  }

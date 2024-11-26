@@ -3,10 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.release_status.active
-    - field.field.taxonomy_term.release_status.lookup_description
-    - field.field.taxonomy_term.release_status.release_status
-    - field.field.taxonomy_term.release_status.status_code
+    - field.field.taxonomy_term.release_status.field_active
+    - field.field.taxonomy_term.release_status.field_release_status
     - taxonomy.vocabulary.release_status
   module:
     - path
@@ -16,13 +14,12 @@ targetEntityType: taxonomy_term
 bundle: release_status
 mode: default
 content:
-  active:
-    type: string_textfield
+  field_active:
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   description:
     type: text_textfield
@@ -39,14 +36,6 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  lookup_description:
-    type: text_textarea
-    weight: 0
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   name:
     type: string_textfield
     weight: -5
@@ -61,7 +50,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  release_status:
+  field_release_status:
     type: string_textfield
     weight: 0
     region: content
@@ -75,13 +64,5 @@ content:
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
-  status_code:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
 hidden: {  }

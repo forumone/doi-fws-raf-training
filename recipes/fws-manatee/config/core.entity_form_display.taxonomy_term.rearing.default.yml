@@ -3,9 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.rearing.lookup_description
-    - field.field.taxonomy_term.rearing.rearing
-    - field.field.taxonomy_term.rearing.rearing_type
+    - field.field.taxonomy_term.rearing.field_rearing_type
     - taxonomy.vocabulary.rearing
   module:
     - path
@@ -30,14 +28,6 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  lookup_description:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   name:
     type: string_textfield
     weight: -5
@@ -52,15 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  rearing:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  rearing_type:
+  field_rearing_type:
     type: string_textfield
     weight: 0
     region: content

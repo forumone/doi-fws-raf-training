@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.state.state
-    - field.field.taxonomy_term.state.state_name
+    - field.field.taxonomy_term.state.field_state_name
     - taxonomy.vocabulary.state
   module:
     - path
@@ -43,15 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  state:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  state_name:
+  field_state_name:
     type: string_textfield
     weight: 0
     region: content

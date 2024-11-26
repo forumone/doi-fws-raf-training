@@ -4,8 +4,11 @@
 
 fin composer install
 fin drush site:install minimal --verbose -y --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
+fin drush cr
 fin drush recipe ../recipes/fws-core
 # fin drush webform-libraries-download
 fin drush cr
 
 fin drush scr ../scripts/install-cleanup.php
+fin drush cr
+fin drush uli

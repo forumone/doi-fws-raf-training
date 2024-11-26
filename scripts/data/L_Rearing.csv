@@ -1,0 +1,8 @@
+"Rearing","RearingType","Description"
+CBDR,Captive born dam reared,
+CBFR,Captive born foster reared,
+CBHR,Captive born hand reared,
+CR,Captive Reared,
+OFR,Orphan foster reared,
+OHR,Orphan hand reared,
+WR,Wild reared,

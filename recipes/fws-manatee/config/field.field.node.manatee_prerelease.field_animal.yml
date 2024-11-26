@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_animal
-    - node.type.manatee_animal_id
+    - node.type.manatee
     - node.type.manatee_prerelease
 id: node.manatee_prerelease.field_animal
 field_name: field_animal
@@ -20,5 +20,5 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      manatee_animal_id: manatee_animal_id
+      manatee: manatee
 field_type: entity_reference

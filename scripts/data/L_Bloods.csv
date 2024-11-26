@@ -1,0 +1,5 @@
+"Bloods","BloodsTaken","Description"
+A,Blood work Abnormal -- see comment,
+N,Blood work Normal,
+U,Unknown,
+X,No Blood work done,

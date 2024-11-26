@@ -1,0 +1,7 @@
+"Status","ReleaseStatus","Description","Active"
+CondNon,Conditionally non-releasable,,Y
+CondRel,Conditionally releasable,,Y
+NonFWS,Non-releasable - FWS designated,,N
+NonPreAct,Non-releasable - PreAct,,Y
+NonRel,Non-releasable,,N
+Release,Releasable,,Y

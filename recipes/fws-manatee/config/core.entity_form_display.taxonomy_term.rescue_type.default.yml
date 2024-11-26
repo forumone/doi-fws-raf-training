@@ -3,9 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.rescue_type.rescue_type
-    - field.field.taxonomy_term.rescue_type.rescue_type_notes
-    - field.field.taxonomy_term.rescue_type.rescue_type_text
+    - field.field.taxonomy_term.rescue_type.field_rescue_type_text
     - taxonomy.vocabulary.rescue_type
   module:
     - path
@@ -44,23 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  rescue_type:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  rescue_type_notes:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  rescue_type_text:
+  field_rescue_type_text:
     type: string_textfield
     weight: 0
     region: content

@@ -3,12 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.org.active
-    - field.field.taxonomy_term.org.house_animals
-    - field.field.taxonomy_term.org.org
-    - field.field.taxonomy_term.org.org_comments
-    - field.field.taxonomy_term.org.organization
-    - field.field.taxonomy_term.org.transporter
+    - field.field.taxonomy_term.org.field_active
+    - field.field.taxonomy_term.org.field_house_animals
+    - field.field.taxonomy_term.org.field_org_comments
+    - field.field.taxonomy_term.org.field_organization
+    - field.field.taxonomy_term.org.field_transporter
     - taxonomy.vocabulary.org
   module:
     - path
@@ -18,13 +17,12 @@ targetEntityType: taxonomy_term
 bundle: org
 mode: default
 content:
-  active:
-    type: string_textfield
+  field_active:
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   description:
     type: text_textfield
@@ -34,13 +32,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  house_animals:
-    type: string_textfield
+  field_house_animals:
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -57,7 +54,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  org:
+  field_org_comments:
     type: string_textfield
     weight: 0
     region: content
@@ -65,15 +62,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  org_comments:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  organization:
+  field_organization:
     type: string_textfield
     weight: 0
     region: content
@@ -94,12 +83,11 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  transporter:
-    type: string_textfield
+  field_transporter:
+    type: boolean_checkbox
     weight: 0
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      display_label: true
     third_party_settings: {  }
 hidden: {  }

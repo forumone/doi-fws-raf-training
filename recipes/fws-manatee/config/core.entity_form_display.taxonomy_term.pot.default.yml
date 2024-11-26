@@ -3,9 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.pot.pot
-    - field.field.taxonomy_term.pot.pot_details
-    - field.field.taxonomy_term.pot.pot_status
+    - field.field.taxonomy_term.pot.field_pot_status
     - taxonomy.vocabulary.pot
   module:
     - path
@@ -44,23 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  pot:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  pot_details:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  pot_status:
+  field_pot_status:
     type: string_textfield
     weight: 0
     region: content

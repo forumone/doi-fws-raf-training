@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.water.type
-    - field.field.taxonomy_term.water.water_type
+    - field.field.taxonomy_term.water.field_water_type
     - taxonomy.vocabulary.water
   module:
     - path
@@ -50,15 +49,7 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
-  type:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  water_type:
+  field_water_type:
     type: string_textfield
     weight: 0
     region: content

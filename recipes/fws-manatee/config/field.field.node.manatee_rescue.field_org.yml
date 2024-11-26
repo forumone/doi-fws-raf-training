@@ -16,6 +16,9 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
+settings:
   handler: 'default:taxonomy_term'
-  handler_settings: {  }
+  handler_settings:
+    target_bundles:
+      org: org
 field_type: entity_reference

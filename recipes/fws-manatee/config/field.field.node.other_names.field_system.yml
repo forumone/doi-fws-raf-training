@@ -1,0 +1,21 @@
+uuid: ded2bda7-9709-4215-9cda-80efcaa1d5fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_system
+    - node.type.other_names
+id: node.other_names.field_system
+field_name: field_system
+entity_type: node
+bundle: other_names
+label: System
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

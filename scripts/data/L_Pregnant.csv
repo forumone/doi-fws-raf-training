@@ -1,0 +1,5 @@
+"Pregnant","Description"
+M,Animal sex  is male or unknown
+N,Animal is known not to be pregnant
+U,No information on potential  pregnancy is known
+Y,Animal is probably pregnant

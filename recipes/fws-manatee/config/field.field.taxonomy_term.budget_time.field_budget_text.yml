@@ -1,0 +1,19 @@
+uuid: 91e32387-11dc-46d4-8c9d-df83f683a5e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_budget_text
+    - taxonomy.vocabulary.budget_time
+id: taxonomy_term.budget_time.field_budget_text
+field_name: field_budget_text
+entity_type: taxonomy_term
+bundle: budget_time
+label: 'Budget Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

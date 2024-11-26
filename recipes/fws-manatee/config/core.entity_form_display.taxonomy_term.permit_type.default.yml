@@ -3,9 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.permit_type.permit_details
-    - field.field.taxonomy_term.permit_type.permit_type
-    - field.field.taxonomy_term.permit_type.type
+    - field.field.taxonomy_term.permit_type.field_permit_type
     - taxonomy.vocabulary.permit_type
   module:
     - path
@@ -44,15 +42,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  permit_details:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  permit_type:
+  field_permit_type:
     type: string_textfield
     weight: 0
     region: content
@@ -66,13 +56,5 @@ content:
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
-  type:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
 hidden: {  }

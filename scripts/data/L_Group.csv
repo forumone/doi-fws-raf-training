@@ -1,0 +1,5 @@
+"Group","GroupText","Description","SortOrder"
+A,Adminstrator,"Can edit, delete, update, and add records to any table. (2 - FWS, 1 - State, and 2 tech admins)","4"
+E,Entry,Can add new records.  (Facility and Field station personnel),"1"
+O,Other Researchers,"Can view any table, and can update Other_System_Names","2"
+V,View,"Not required to have ID.  Can View any tables, run reports, but cannot edit, add, or delete any records.","3"

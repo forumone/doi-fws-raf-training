@@ -1,0 +1,31 @@
+"CauseID","DeathCause","DeathCauseDetail","Description"
+BoBo,Watercraft,Both,Animal that has died due to watercraft injuries
+BoIm,Watercraft,Impact,Animal that has died due to watercraft injuries
+BoPr,Watercraft,Propeller,Animal that has died due to watercraft injuries
+BoUn,Watercraft,Undetermined,Animal that has died due to watercraft injuries
+Deco,Too decomposed,,Animal was too decomposed to assign a cause of death
+EnCF,Entanglement,Crab Trap + Float Line,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnCr,Entanglement,Crab Trap Only,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnFi,Entanglement,Fishing Net,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnFL,Entanglement,Float Line only,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnHo,Entanglement,Fish Hook,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnMo,Entanglement,Monofilament,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnOt,Entanglement,Other,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+EnRo,Entanglement,Rope,"Animal that has died due to entanglement in the lines of crab traps, monofilament line, nets, or other debris.  (Entanglement is usually around the flippers and upper body)."
+Huma,Human,Other,"Animal that has died due to other human causes not otherwise listed (i.e. not watercraft, entanglement, entrapment)"
+HumI,Human,Ingestion,
+HumP,Human,Poaching,
+NaBC,Natural,Birth Complications,
+NaCs,Natural,Cold Stress,"Animal that has died due to natural accidents, phenomenon, and diseases."
+NaDe,Natural,Orphan Calf,"Animal that has died due to natural accidents, phenomenon, and diseases."
+NaOt,Natural,Other,"Animal that has died due to natural accidents, phenomenon, and diseases."
+NaRe,Natural,Red Tide,"Animal that has died due to natural accidents, phenomenon, and diseases."
+NaTi,Natural,Tidally Stranded,"Animal that has died due to natural accidents, phenomenon, and diseases."
+Othe,Other,other,Other Cause of death.. Explain in text
+TrCu,Entrapment,Culvert/Pipe,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+TrGa,Entrapment,Flood Gates/Locks,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+TrNa,Entrapment,Natural Event,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+TrOt,Entrapment,Other,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+TrPo,Entrapment,Power Plant Intake Canal,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+TrWC,Entrapment,Water Control Structure,Animal that has died due to entrapment by a man-made structure or by a natural barrier or natural event.
+Unde,Undetermined,,Cannot assign a cause of death

@@ -3,8 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.blood.blood_code
-    - field.field.taxonomy_term.blood.blood_text
+    - field.field.taxonomy_term.blood.field_blood_text
     - taxonomy.vocabulary.blood
   module:
     - path
@@ -14,17 +13,9 @@ targetEntityType: taxonomy_term
 bundle: blood
 mode: default
 content:
-  blood_code:
+  field_blood_text:
     type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  blood_text:
-    type: string_textfield
-    weight: 0
+    weight: -1
     region: content
     settings:
       size: 60

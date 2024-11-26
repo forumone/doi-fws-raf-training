@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.event.event_code
     - taxonomy.vocabulary.event
   module:
     - path
@@ -15,14 +14,6 @@ mode: default
 content:
   description:
     type: text_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  event_code:
-    type: string_textfield
     weight: 0
     region: content
     settings:

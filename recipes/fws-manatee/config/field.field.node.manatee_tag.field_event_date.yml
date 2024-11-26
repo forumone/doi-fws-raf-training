@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_event_date
     - node.type.manatee_tag
-    - taxonomy.vocabulary.months
+  module:
+    - datetime
 id: node.manatee_tag.field_event_date
 field_name: field_event_date
 entity_type: node
@@ -16,9 +17,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      months: months
-field_type: entity_reference
+settings: {  }
+field_type: datetime

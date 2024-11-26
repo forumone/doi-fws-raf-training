@@ -1,0 +1,19 @@
+uuid: 625c7cc3-28fb-49e5-9c6e-282f40c7dba1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_conditioning_type
+    - taxonomy.vocabulary.conditioning
+id: taxonomy_term.conditioning.field_conditioning_type
+field_name: field_conditioning_type
+entity_type: taxonomy_term
+bundle: conditioning
+label: 'Conditioning Type Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 132e280f-80e6-4736-a5b4-08150a15e96a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_water_type
+    - taxonomy.vocabulary.water
+id: taxonomy_term.water.field_water_type
+field_name: field_water_type
+entity_type: taxonomy_term
+bundle: water
+label: 'Water Type Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

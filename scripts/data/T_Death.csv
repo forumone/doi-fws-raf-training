@@ -1,0 +1,1151 @@
+"MLog","DeathDate","CauseID","OtherText","Euth","DeathLoc","Org","VetID","Comments","CreateBy","CreateDate","UpdateBy","UpdateDate"
+1,1999-01-14 00:00:00.000,Unde,,1,AftRel,MSQ,unk,MSW9905,unk,1999-01-14 00:00:00.000,D,2009-07-09 10:09:34.293
+2,2016-06-19 00:00:00.000,BoIm,acute,0,AftRel,MMPL,,,dszemer,2016-06-21 09:10:32.503,D,2016-06-21 09:10:32.503
+3,2005-04-23 00:00:00.000,BoIm,,0,AftRel,FWCSW,unk,,unk,2005-04-23 00:00:00.000,D,2009-07-09 10:09:34.293
+4,2006-06-09 00:00:00.000,BoIm,,0,AftRel,MMPL,unk,,dszemer,2006-10-02 00:00:00.000,D,2009-07-09 10:09:34.293
+5,1998-02-25 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,,swinslow,1998-02-25 00:00:00.000,D,2009-07-09 10:09:34.293
+6,2010-01-25 00:00:00.000,Unde,,0,AftRel,,,,dszemer,2010-02-03 11:44:01.280,D,2010-02-03 11:44:01.280
+8,1999-02-10 00:00:00.000,BoIm,,0,Rehab,UNK,dmurphy,,lsalisbury,1999-02-12 00:00:00.000,D,2009-07-09 10:09:34.293
+9,1999-07-29 00:00:00.000,BoIm,,0,Rehab,UNK,dmurphy,,lsalisbury,1999-07-30 00:00:00.000,D,2009-07-09 10:09:34.293
+10,1999-04-15 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,emaciation,jhackshaw,1999-04-15 00:00:00.000,D,2009-07-09 10:09:34.293
+12,1999-06-10 00:00:00.000,Othe,,0,Rehab,UNK,dmurphy,,jhackshaw,1999-06-10 00:00:00.000,D,2009-07-09 10:09:34.293
+13,2001-01-22 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,"Infection due to boat strike, had a  dependent calf Lowry",jhackshaw,2001-01-26 00:00:00.000,D,2009-07-09 10:09:34.293
+14,2003-04-05 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-08 11:31:36.740,D,2018-11-08 11:31:36.740
+15,1977-04-09 00:00:00.000,BoUn,,0,Rehab,UNK,unk,also emaciated,unk,1977-04-09 00:00:00.000,D,2009-07-09 10:09:34.293
+39,1988-05-24 00:00:00.000,BoIm,,0,PriorTr,UNK,unk,"hemorrage, pneumothorax",unk,1988-05-24 00:00:00.000,D,2009-07-09 10:09:34.293
+40,1990-01-01 00:00:00.000,Othe,,0,Rehab,UNK,unk,calf of Lorelei,unk,1990-01-01 00:00:00.000,D,2009-07-09 10:09:34.293
+41,1982-01-16 00:00:00.000,NaOt,,0,PriorTr,UNK,unk,septecemia,unk,1982-01-16 00:00:00.000,D,2009-07-09 10:09:34.293
+42,1976-11-01 00:00:00.000,Othe,,0,Rehab,UNK,unk,"enteritis, septicemia",unk,1976-11-01 00:00:00.000,D,2009-07-09 10:09:34.293
+43,1984-11-20 00:00:00.000,BoPr,,0,Rehab,UNK,unk,,unk,1984-11-20 00:00:00.000,D,2009-07-09 10:09:34.293
+44,1977-01-27 00:00:00.000,Unde,,0,Rehab,UNK,unk,septecemia,unk,1977-01-27 00:00:00.000,D,2009-07-09 10:09:34.293
+45,1978-02-03 00:00:00.000,NaOt,,0,Rehab,UNK,unk,infection  in small intestines,unk,1978-02-03 00:00:00.000,D,2009-07-09 10:09:34.293
+46,1978-02-14 00:00:00.000,NaOt,,0,PriorTr,UNK,unk,unidentified skin disease,unk,1978-02-14 00:00:00.000,D,2009-07-09 10:09:34.293
+47,1978-03-01 00:00:00.000,NaOt,,0,Rehab,UNK,unk,possible abortion & pneumonia?,unk,1978-03-01 00:00:00.000,D,2009-07-09 10:09:34.293
+48,1984-04-19 00:00:00.000,BoBo,,0,Rehab,UNK,unk,,unk,1984-04-19 00:00:00.000,D,2009-07-09 10:09:34.293
+49,1997-11-22 00:00:00.000,Othe,,0,PriorTr,UNK,unk,enteritus,unk,1997-11-22 00:00:00.000,D,2009-07-09 10:09:34.293
+50,1997-12-21 00:00:00.000,Othe,,0,Trans,UNK,unk,"during transport, constipation",unk,1997-12-21 00:00:00.000,D,2009-07-09 10:09:34.293
+51,1990-05-12 00:00:00.000,BoBo,,0,Rehab,UNK,unk,,unk,1990-05-12 00:00:00.000,D,2009-07-09 10:09:34.293
+54,1995-01-11 00:00:00.000,BoPr,,0,PriorTr,UNK,unk,,unk,1995-01-11 00:00:00.000,D,2009-07-09 10:09:34.293
+55,1991-06-06 00:00:00.000,Othe,,0,PriorTr,UNK,unk,thermally depressed and lethargic,unk,1991-06-06 00:00:00.000,D,2009-07-09 10:09:34.293
+56,1995-07-24 00:00:00.000,NaOt,,0,PriorTr,UNK,mlowe,"animal died at boat ramp, bilateral pneumonia",tlinley,1995-07-24 00:00:00.000,D,2009-07-09 10:09:34.293
+57,1991-04-12 00:00:00.000,BoPr,,0,PriorTr,UNK,unk,,nadimey,1991-04-12 00:00:00.000,D,2009-07-09 10:09:34.293
+62,2010-03-24 00:00:00.000,EnOt,"Entanglement was a plastic strap like from a newpaper bundle originally that she had for 15 months, but then continued to have abcessing from the scar it created on the ribs for many years.",0,Rehab,MSQ,mrodriguez,The bilateral abcessing from the scar had been sporadic for years but always external that responded to treatment.  Ultimately she abcessed internally and it created a pyothorax. ,mrodriguez,2010-04-12 10:04:13.987,D,2010-04-12 10:04:13.987
+63,1997-05-27 00:00:00.000,HumI,plastic material blocking cecum,0,PriorTr,MMPL,unk,,unk,1997-05-27 00:00:00.000,dszemer,2012-05-02 13:42:39.550
+65,2006-02-08 00:00:00.000,Deco,"",0,AftRel,FWCT,unk,too decomposed,dszemer,2006-02-08 00:00:00.000,D,2009-07-09 10:09:34.293
+67,2002-04-27 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,,cplante,2002-05-08 00:00:00.000,D,2009-07-09 10:09:34.293
+68,2000-10-09 00:00:00.000,Othe,,0,Rehab,UNK,mrodriguez,congenital,jhoyo,2000-10-20 00:00:00.000,D,2009-07-09 10:09:34.293
+70,1997-08-10 00:00:00.000,BoIm,,0,PriorTr,UNK,mrodriguez,,rrose,1997-08-11 00:00:00.000,D,2009-07-09 10:09:34.293
+71,1997-11-04 00:00:00.000,Othe,,0,Rehab,UNK,mrodriguez,infection from umbillical area,boucher,1997-11-05 00:00:00.000,D,2009-07-09 10:09:34.293
+72,2014-02-10 00:00:00.000,Unde,tear and impaction of colon from unknown origin,0,AftRel,MMPL,,,dszemer,2014-02-14 10:17:07.237,D,2014-02-14 10:17:07.237
+74,2016-01-06 00:00:00.000,BoIm,,0,Trans,MMPL,,,ahowell,2016-03-25 07:45:25.733,D,2016-03-25 07:45:25.733
+75,1999-08-16 00:00:00.000,BoPr,,0,Rehab,UNK,mrodriguez,,rrose,1999-08-16 00:00:00.000,D,2009-07-09 10:09:34.293
+77,1991-05-22 00:00:00.000,BoIm,,0,PriorTr,UNK,unk,,nadimey,1991-05-22 00:00:00.000,D,2009-07-09 10:09:34.293
+82,1995-03-23 00:00:00.000,Othe,,0,Rehab,UNK,dmoore,accident drowning,amignucci,1995-05-28 00:00:00.000,D,2009-07-09 10:09:34.293
+83,1995-07-29 00:00:00.000,Othe,,0,Rehab,UNK,lfigueroao,entercolitis,amignucci,1995-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+84,1998-12-16 00:00:00.000,Othe,,0,Rehab,UNK,abenitezbi,hurricane caused separation from mom-natuural,amignucci,1998-10-01 00:00:00.000,D,2009-07-09 10:09:34.293
+85,1997-01-23 00:00:00.000,Othe,,0,Rehab,UNK,lfigueroao,entercolitis,amignucci,1997-01-23 00:00:00.000,D,2009-07-09 10:09:34.293
+86,1997-10-11 00:00:00.000,BoUn,,0,PriorTr,UNK,lfigueroao,subdermal hemorrage,amignucci,1997-10-11 00:00:00.000,D,2009-07-09 10:09:34.293
+87,1999-06-23 00:00:00.000,Othe,,0,Rehab,UNK,lfigueroao,pneumatosis intestinales,amignucci,1999-06-23 00:00:00.000,D,2009-07-09 10:09:34.293
+88,1999-07-25 00:00:00.000,Othe,,0,Rehab,UNK,lfigueroao,"premature, emaciated",rodriguezl,1999-07-25 00:00:00.000,D,2009-07-09 10:09:34.293
+89,1999-10-05 00:00:00.000,Othe,,0,Rehab,UNK,lfigueroao,Intoxication diesel,amignucci,1999-10-06 00:00:00.000,D,2009-07-09 10:09:34.293
+90,2005-02-27 00:00:00.000,Unde,"",0,AftRel,CSN,lfigueroao,,nadimey,2005-02-27 00:00:00.000,D,2009-07-09 10:09:34.293
+92,2000-10-26 00:00:00.000,NaOt,,0,PriorTr,UNK,lfigueroao,Animal reported sick; mucous fluids in nares.,amignucci,2000-12-05 00:00:00.000,D,2009-07-09 10:09:34.293
+94,2000-03-14 00:00:00.000,BoUn,,0,PriorTr,UNK,unk,,unk,2000-03-14 00:00:00.000,D,2009-07-09 10:09:34.293
+102,1994-09-24 00:00:00.000,Othe,,0,PriorTr,UNK,unk,natural-bacteria in urine,unk,1994-09-24 00:00:00.000,D,2009-07-09 10:09:34.293
+114,2000-04-20 00:00:00.000,BoUn,,0,Trans,UNK,unk,during transport,unk,2000-04-20 00:00:00.000,D,2009-07-09 10:09:34.293
+115,1999-04-11 00:00:00.000,NaOt,,0,PriorTr,UNK,dbuesse,emaciated & unresponsive,cthomas,1999-04-14 00:00:00.000,D,2009-07-09 10:09:34.293
+116,1999-09-21 00:00:00.000,Othe,,0,PriorTr,UNK,unk,,unk,1999-09-21 00:00:00.000,D,2009-07-09 10:09:34.293
+126,2000-12-23 00:00:00.000,NaCs,,0,PriorTr,UNK,unk,Cold Stress,unk,2000-12-23 00:00:00.000,D,2009-07-09 10:09:34.293
+129,1999-03-12 00:00:00.000,BoUn,,0,PriorTr,UNK,unk,,pcook,1999-03-18 00:00:00.000,D,2009-07-09 10:09:34.293
+131,1999-12-31 00:00:00.000,NaOt,,0,Rehab,UNK,mrodriguez,"lung abscess, emactiated",rrose,1999-12-31 00:00:00.000,D,2009-07-09 10:09:34.293
+132,2004-11-20 00:00:00.000,BoIm,,0,AftRel,LPZ,unk,,unk,2004-11-20 00:00:00.000,D,2009-07-09 10:09:34.293
+133,2013-04-01 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:09:52.483,dszemer,2015-03-06 09:44:31.717
+135,2000-05-16 00:00:00.000,Othe,,0,PriorTr,UNK,unk,"emaciated, no known signs for death",unk,2000-05-16 00:00:00.000,D,2009-07-09 10:09:34.293
+137,2000-10-30 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,,jhackshaw,2000-10-30 00:00:00.000,D,2009-07-09 10:09:34.293
+138,2000-10-28 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,,jhackshaw,2000-10-30 00:00:00.000,D,2009-07-09 10:09:34.293
+144,1996-09-04 00:00:00.000,BoUn,,0,Trans,UNK,unk,died at boat ramp,unk,1996-09-04 00:00:00.000,D,2009-07-09 10:09:34.293
+146,1997-04-24 00:00:00.000,BoUn,,0,PriorTr,UNK,unk,,unk,1997-04-24 00:00:00.000,D,2009-07-09 10:09:34.293
+148,1997-08-25 00:00:00.000,BoUn,,0,PriorTr,UNK,unk,animal was pregnant,unk,1997-08-25 00:00:00.000,D,2009-07-09 10:09:34.293
+149,1997-11-12 00:00:00.000,NaRe,,0,PriorTr,UNK,unk,Red Tide related,unk,1997-11-12 00:00:00.000,D,2009-07-09 10:09:34.293
+151,1998-03-25 00:00:00.000,NaOt,,0,PriorTr,UNK,unk,"enteritus, emaciation",unk,1998-03-25 00:00:00.000,D,2009-07-09 10:09:34.293
+152,1998-05-06 00:00:00.000,Othe,,0,PriorTr,UNK,unk,"lethargic, emaciated, died during transport",unk,1998-05-06 00:00:00.000,D,2009-07-09 10:09:34.293
+153,1998-06-06 00:00:00.000,EnHo,,0,Rehab,LPZ,dmurphy,"ingestion of fish hook, emaciated",swinslow,1998-06-08 00:00:00.000,dszemer,2010-12-08 11:50:33.817
+156,1999-03-12 00:00:00.000,Othe,,0,PriorTr,UNK,unk,Cold Stress,lkeith,1999-03-13 00:00:00.000,D,2009-07-09 10:09:34.293
+157,1999-04-14 00:00:00.000,Othe,,0,PriorTr,UNK,unk,necrosis of umbillical vein by umbillicus,unk,1999-04-14 00:00:00.000,D,2009-07-09 10:09:34.293
+158,1999-04-21 00:00:00.000,BoUn,,0,PriorTr,UNK,unk,possible pneuomia,unk,1999-04-21 00:00:00.000,D,2009-07-09 10:09:34.293
+160,1986-06-22 00:00:00.000,BoIm,,0,PriorTr,UNK,mwalsh,"injuries from trauma, septicemia or toxemia",bwagoner,1986-06-22 00:00:00.000,D,2009-07-09 10:09:34.293
+161,1997-05-25 00:00:00.000,EnHo,,0,Rehab,SWF,mwalsh,"Speticemina, Fish hook in intestines",dbuesse,1997-05-26 00:00:00.000,dszemer,2015-12-09 07:53:39.690
+162,1986-09-15 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,,bwagoner,1986-09-15 00:00:00.000,D,2009-07-09 10:09:34.293
+163,1987-01-07 00:00:00.000,BoUn,,0,Rehab,UNK,unk,,unk,1987-01-07 00:00:00.000,D,2009-07-09 10:09:34.293
+169,1980-02-21 00:00:00.000,Unde,,0,Rehab,UNK,mwalsh,,bwagoner,1980-02-21 00:00:00.000,D,2009-07-09 10:09:34.293
+171,1987-09-25 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,intestinal ileus w/ secondary respiratory compromi,jpearson,1987-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+173,1987-12-15 00:00:00.000,BoPr,,0,Rehab,UNK,dbuesse,,bwagoner,1987-12-15 00:00:00.000,D,2009-07-09 10:09:34.293
+175,1988-01-17 00:00:00.000,NaCs,,0,Rehab,UNK,mwalsh,Cold stress,bwagoner,1988-01-17 00:00:00.000,D,2009-07-09 10:09:34.293
+177,1998-03-13 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2015-10-02 10:55:35.517,D,2015-10-02 10:55:35.517
+178,1988-05-18 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,,bwagoner,1988-05-18 00:00:00.000,D,2009-07-09 10:09:34.293
+179,1982-08-28 00:00:00.000,Othe,,0,Rehab,UNK,gbossart,stuck in pool drain & drowned,jhoyo,1982-08-28 00:00:00.000,D,2009-07-09 10:09:34.293
+181,1988-07-25 00:00:00.000,BoUn,,0,Rehab,UNK,unk,,unk,1988-07-25 00:00:00.000,D,2009-07-09 10:09:34.293
+182,1988-09-04 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,secondary infection & emactiona,bwagoner,1988-09-04 00:00:00.000,D,2009-07-09 10:09:34.293
+183,1989-03-17 00:00:00.000,BoUn,,0,Rehab,UNK,gbossart,,jhoyo,1989-03-17 00:00:00.000,D,2009-07-09 10:09:34.293
+185,1989-01-07 00:00:00.000,NaOt,,0,PriorTr,UNK,unk,"bacterial dermititus, died 10 upon arrival at SWF",unk,1989-01-07 00:00:00.000,D,2009-07-09 10:09:34.293
+186,1989-04-09 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,,jpearson,1989-04-09 00:00:00.000,D,2009-07-09 10:09:34.293
+189,2009-07-16 00:00:00.000,NaOt,"No obvious signs of death, speculation od COD to be exhaustion from ""ovemating"", overweight, otherwise appears healthy",0,AftRel,MMPL,,,nadimey,2009-09-08 09:33:23.850,D,2009-09-08 09:33:23.850
+194,1992-09-25 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"Hemorrhage, due to birth of calf.",bwagoner,1992-09-28 00:00:00.000,D,2009-07-09 10:09:34.293
+195,1983-12-28 00:00:00.000,EnCr,,0,Rehab,UNK,mwalsh,"crab trap around neck and right flipper, drowned?",bwagoner,1983-12-28 00:00:00.000,D,2009-07-09 10:09:34.293
+196,1984-05-23 00:00:00.000,BoPr,,1,Rehab,UNK,mwalsh,euthanized/ BS20,bwagoner,1984-05-23 00:00:00.000,D,2009-07-09 10:09:34.293
+197,1991-08-20 00:00:00.000,TrCu,,0,AftRel,UNK,mwalsh,died in storm water drain,bbonde,1991-08-18 00:00:00.000,D,2009-07-09 10:09:34.293
+198,1984-07-21 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"poor nutritional status, emaciation",bwagoner,1984-07-21 00:00:00.000,D,2009-07-09 10:09:34.293
+199,2006-08-03 00:00:00.000,Deco,"",0,AftRel,MMPL,unk,"Undetermined; too decompoosed.  brevetoxin detected in liver, kidney, lung; relatively empty, fluid-filled upper GI tract; sea grass in mouth; autolyzed internal organs",dszemer,2006-10-02 00:00:00.000,D,2009-07-09 10:09:34.293
+201,1989-08-29 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,Natural,jpearson,1989-08-29 00:00:00.000,D,2009-07-09 10:09:34.293
+202,1989-10-13 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,Chronic cholitus,jpearson,1989-10-13 00:00:00.000,D,2009-07-09 10:09:34.293
+203,1991-11-03 00:00:00.000,NaOt,,0,Rehab,UNK,mcampbell,"Chronic Colitis, lung abscessation and septicemia",bwagoner,1991-11-05 00:00:00.000,D,2009-07-09 10:09:34.293
+204,1989-11-30 00:00:00.000,BoIm,,0,Rehab,UNK,mcampbell,,bwagoner,1989-11-30 00:00:00.000,D,2009-07-09 10:09:34.293
+205,1989-12-11 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,,jpearson,1989-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+207,1993-12-05 00:00:00.000,NaOt,,0,AftRel,UNK,mwalsh,"emaciated, cacexic",llefebvre,1993-12-16 00:00:00.000,D,2009-07-09 10:09:34.293
+208,1990-01-30 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,,bwagoner,1990-01-31 00:00:00.000,D,2009-07-09 10:09:34.293
+210,1997-03-11 00:00:00.000,BoBo,,0,AftRel,MMPL,,,dszemer,2019-05-02 09:00:45.493,D,2019-05-02 09:00:45.493
+212,1990-04-06 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"toxic, dead calf, dystocia",bwagoner,1990-04-10 00:00:00.000,D,2009-07-09 10:09:34.293
+213,1990-04-27 00:00:00.000,BoPr,,0,Trans,UNK,mwalsh,died in transport,bwagoner,1990-04-27 00:00:00.000,D,2009-07-09 10:09:34.293
+214,2013-12-13 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:37:29.113,D,2014-01-24 11:37:29.113
+216,1981-06-15 00:00:00.000,Othe,,0,PriorTr,UNK,gbossart,aborted fetus of Amanada,gbossart,1981-06-15 00:00:00.000,D,2009-07-09 10:09:34.293
+218,1990-08-09 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,Natural-Pseudomembranous enterocolitis,bwagoner,1990-08-09 00:00:00.000,D,2009-07-09 10:09:34.293
+221,1994-10-26 00:00:00.000,NaOt,,0,AftRel,UNK,gbossart,infection in stomach & duodenum,jhoyo,1994-10-26 00:00:00.000,D,2009-07-09 10:09:34.293
+222,1990-08-08 00:00:00.000,Othe,,0,PriorTr,UNK,mwalsh,malnutrition,bwagoner,1990-08-09 00:00:00.000,D,2009-07-09 10:09:34.293
+224,1990-09-17 00:00:00.000,BoPr,,0,PriorTr,UNK,mwalsh,,bwagoner,1990-09-17 00:00:00.000,D,2009-07-09 10:09:34.293
+225,1990-10-06 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,gatrointestinal infection,jpearson,1990-10-10 00:00:00.000,D,2009-07-09 10:09:34.293
+226,1990-11-14 00:00:00.000,BoUn,,0,Rehab,UNK,mwalsh,"pyothorax, rib ftacture & right lung",jpearson,1990-11-15 00:00:00.000,D,2009-07-09 10:09:34.293
+227,1982-09-24 00:00:00.000,Othe,,0,Rehab,UNK,unk,stuck in pool drain & drowned,unk,1982-09-24 00:00:00.000,D,2009-07-09 10:09:34.293
+229,1990-12-10 00:00:00.000,BoUn,,0,PriorTr,UNK,mwalsh,bacterial septicemia,jpearson,1990-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+230,1990-12-14 00:00:00.000,NaOt,,0,Rehab,UNK,gbossart,intestial impaction,jhoyo,1990-12-20 00:00:00.000,D,2009-07-09 10:09:34.293
+231,2012-05-02 00:00:00.000,BoIm,acute,0,AftRel,MMPL,,,dszemer,2013-08-29 11:14:25.457,D,2013-08-29 11:14:25.457
+232,1991-03-20 00:00:00.000,BoUn,,0,Rehab,UNK,mwalsh,,tcampbell,1991-03-20 00:00:00.000,D,2009-07-09 10:09:34.293
+233,2016-08-12 00:00:00.000,Unde,too decomposed,0,AftRel,FWCIR,,,dszemer,2017-04-04 06:31:18.033,D,2017-04-04 06:31:18.033
+234,1991-05-08 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"pneumonia, septicemia",bwagoner,1991-08-14 00:00:00.000,D,2009-07-09 10:09:34.293
+235,1991-05-21 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,stomach impaction,mwalsh,1991-05-23 00:00:00.000,D,2009-07-09 10:09:34.293
+236,1991-05-24 00:00:00.000,Othe,,0,PriorTr,UNK,unk,sting ray spine embedded in chest,unk,1991-05-24 00:00:00.000,D,2009-07-09 10:09:34.293
+238,1991-09-27 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"entercolitius, intestinitus",rrunnells,1991-09-27 00:00:00.000,D,2009-07-09 10:09:34.293
+239,1996-01-18 00:00:00.000,BoPr,,0,AftRel,UNK,mwalsh,,bwagoner,1995-03-20 00:00:00.000,D,2009-07-09 10:09:34.293
+240,1991-07-18 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,Septicemia,bwagoner,1991-07-24 00:00:00.000,D,2009-07-09 10:09:34.293
+242,1995-02-09 00:00:00.000,BoIm,,1,Rehab,UNK,tcampbell,euthanized,rrunnells,1995-01-26 00:00:00.000,D,2009-07-09 10:09:34.293
+244,2010-08-07 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2012-02-29 13:06:28.930,D,2012-02-29 13:06:28.930
+245,2015-04-22 00:00:00.000,Othe,"Georgia had a retained fetus, surgery was performed to try and remove it, unable to remove it at this time.  Moved back to our rehab pool for recovery and given post care for several days. She died due to complications from the surgery, post-surgery.",0,Rehab,SWF,sgearhart,"Georgia was rescued back in Jan. 2014 due to severe weight loss, during her rehab period she had times when she was doing well and eating, then would stop eating for periods but our vets could not find the source of her chronic inflammation. She was final diagnosed with a retained fetus from a previous calf (2013?). Plans were made to try and removed the retained fetus (fetal bones).",bwagoner,2015-04-30 06:23:52.310,D,2015-04-30 06:23:52.310
+246,1997-07-21 00:00:00.000,NaOt,,0,AftRel,UNK,unk,bacterial pneumonia,unk,1997-07-21 00:00:00.000,D,2009-07-09 10:09:34.293
+249,1991-12-16 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"Renal failure, blood loss during caf delivery",bwagoner,1991-12-20 00:00:00.000,D,2009-07-09 10:09:34.293
+252,1992-01-04 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"infection, severe dermitutus, septicemia, emaciate",bwagoner,1992-01-06 00:00:00.000,D,2009-07-09 10:09:34.293
+253,1992-01-28 00:00:00.000,NaOt,,0,Rehab,UNK,gbossart,cachexia,gbossart,1992-01-29 00:00:00.000,D,2009-07-09 10:09:34.293
+255,2023-08-12 00:00:00.000,BoBo,,0,AftRel,,,,bgreer,2023-10-02 11:28:20.663,D,2023-10-02 11:28:20.663
+256,1992-04-18 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,"puntured lungs, spetic infection",lsalisbury,1992-04-20 00:00:00.000,D,2009-07-09 10:09:34.293
+258,2010-03-06 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2010-04-19 10:34:24.470,D,2010-04-19 10:34:24.470
+260,1992-04-22 00:00:00.000,NaOt,,0,Rehab,UNK,gbossart,"GI torsion, twisted colon, abscess & pus in abdomi",jhoyo,1992-04-23 00:00:00.000,D,2009-07-09 10:09:34.293
+261,1995-11-18 00:00:00.000,BoPr,,0,AftRel,UNK,mrenner,,jhoyo,1995-11-20 00:00:00.000,D,2009-07-09 10:09:34.293
+263,1992-05-18 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"Chronic debilitation, malnutrition",bwagoner,1992-05-17 00:00:00.000,D,2009-07-09 10:09:34.293
+267,2023-04-29 00:00:00.000,Othe,Pending necropsy result,0,Rehab,MOTE,astamper,,afoltz,2023-04-30 09:54:06.913,D,2023-04-30 09:54:06.913
+270,1992-07-02 00:00:00.000,Othe,,0,PriorTr,UNK,mwalsh,Stillborn calf.,bwagoner,1992-07-02 00:00:00.000,D,2009-07-09 10:09:34.293
+271,1993-10-28 00:00:00.000,EnCr,,0,AftRel,UNK,gbossart,Crab trap entanglement.  Right flipper was connect,jhoyo,1993-10-28 00:00:00.000,D,2009-07-09 10:09:34.293
+272,1993-07-12 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,severe pyothorax,bwagoner,1993-07-12 00:00:00.000,D,2009-07-09 10:09:34.293
+273,1992-08-06 00:00:00.000,NaOt,,0,Rehab,UNK,tcampbell,retention of dead calf,bwagoner,1992-08-06 00:00:00.000,D,2009-07-09 10:09:34.293
+275,2008-09-08 00:00:00.000,TrCu,,0,AftRel,MMPL,unk,Wedged dorsum up in culvert; seagrass in mouth; full stomach; abundant fats.,dszemer,2008-09-08 00:00:00.000,D,2009-07-09 10:09:34.293
+277,1992-09-17 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,"Bacteria & septicemia, acute enteritius",dthompson,1992-09-17 00:00:00.000,D,2009-07-09 10:09:34.293
+278,1992-05-24 00:00:00.000,BoUn,,0,PriorTr,UNK,dmurphy,,lsalisbury,1992-05-27 00:00:00.000,D,2009-07-09 10:09:34.293
+280,1995-09-25 00:00:00.000,Othe,,0,AftRel,UNK,unk,"Ortona Locke, floodgate crushing",unk,1995-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+281,1992-09-24 00:00:00.000,Othe,,0,PriorTr,UNK,tcampbell,"Respiratory failure, possibly related to toxemia",jpearson,1992-09-28 00:00:00.000,D,2009-07-09 10:09:34.293
+283,1992-12-01 00:00:00.000,BoIm,,0,Rehab,UNK,tcampbell,,bwagoner,1992-12-04 00:00:00.000,D,2009-07-09 10:09:34.293
+284,1992-12-21 00:00:00.000,NaOt,,0,Rehab,HSSWP,mlowe,premature birth,jgarner,1992-12-21 00:00:00.000,dszemer,2013-06-25 14:19:26.317
+285,2008-07-07 00:00:00.000,HumI,,0,AftRel,MMPL,unk,"intussusceptions, monofliament, fishing gear SI",dszemer,2008-09-02 00:00:00.000,D,2009-07-09 10:09:34.293
+286,2000-12-09 00:00:00.000,BoIm,,0,AftRel,FWCSW,,,dboyd,2024-03-27 08:28:52.333,D,2024-03-27 08:28:52.333
+287,1993-01-03 00:00:00.000,Othe,,0,PriorTr,UNK,dmurphy,Natural,lsalisbury,1993-01-03 00:00:00.000,D,2009-07-09 10:09:34.293
+288,1996-04-14 00:00:00.000,Othe,,0,AftRel,UNK,dmurphy,,lsalisbury,1996-04-14 00:00:00.000,D,2009-07-09 10:09:34.293
+289,1994-03-06 00:00:00.000,Unde,,0,AftRel,UNK,dmurphy,,lsalisbury,1994-03-06 00:00:00.000,D,2009-07-09 10:09:34.293
+291,1993-08-06 00:00:00.000,BoPr,,0,Rehab,UNK,tcampbell,"sever trauma to tail, resp. failure in surgery",bwagoner,1993-08-09 00:00:00.000,D,2009-07-09 10:09:34.293
+292,1999-09-27 00:00:00.000,TrGa,,0,AftRel,UNK,tcampbell,"S-21 flood control structure, crushed by gate",sbutler,1999-09-29 00:00:00.000,D,2009-07-09 10:09:34.293
+294,2017-11-18 00:00:00.000,Othe,Phoenix had a large granulosa cell tumor. She had maldigestion that allowed a piece of vegetation to pass whole into the small intestine and perforate and create a strangulating scar circumferentially around her intestine.,0,Rehab,MSQ,mrodriguez,"Reproductive tumors have been found in this and other species that have not had offspring. In Phoenix' case,  her boat strike injury kept her from ever having offspring because she was permanently buoyant.",mrodriguez,2017-12-13 15:05:31.253,dszemer,2017-12-14 06:28:39.907
+295,2012-10-03 00:00:00.000,Huma,"Impression wounds and internal trauma (vertebral separation, hemorrhagic streaks in the flipper muscle) suggest pinning and struggle.  Local structure information pending.",0,AftRel,MMPL,,,dszemer,2013-02-19 12:20:30.973,D,2013-02-19 12:20:30.973
+297,2013-08-04 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:21:01.277,D,2014-01-24 11:21:01.277
+298,1998-08-22 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,"septicemia, chronic absess in shoulder",unk,1998-08-22 00:00:00.000,D,2009-07-09 10:09:34.293
+299,1993-08-08 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"starvation, hooked by fisherman, emaciation",bwagoner,1993-08-09 00:00:00.000,D,2009-07-09 10:09:34.293
+300,1993-08-24 00:00:00.000,BoPr,,1,Rehab,UNK,tcampbell,"euthanized-multiple deep cuts, pyothorax, pneumoth",bwagoner,1993-08-25 00:00:00.000,D,2009-07-09 10:09:34.293
+301,1993-11-04 00:00:00.000,Othe,,0,Rehab,UNK,gbossart,severe cholitus,jhoyo,1993-11-04 00:00:00.000,D,2009-07-09 10:09:34.293
+303,1993-09-27 00:00:00.000,NaOt,,0,Rehab,UNK,tcampbell,"cholonic obstruction, renal failure after surgery",bwagoner,1993-10-06 00:00:00.000,D,2009-07-09 10:09:34.293
+304,1986-10-22 00:00:00.000,Othe,,0,Rehab,UNK,unk,,unk,1986-10-22 00:00:00.000,D,2009-07-09 10:09:34.293
+305,1995-01-25 00:00:00.000,NaOt,,0,Rehab,UNK,mrenner,"Chronic inappetant, renal disease",jhoyo,1995-01-26 00:00:00.000,D,2009-07-09 10:09:34.293
+306,1995-08-25 00:00:00.000,BoUn,,0,AftRel,UNK,mwalsh,,bwagoner,1995-08-25 00:00:00.000,D,2009-07-09 10:09:34.293
+307,1993-11-02 00:00:00.000,BoIm,,0,Rehab,UNK,tcampbell,septicemina & toxemia,bwagoner,1993-10-31 00:00:00.000,D,2009-07-09 10:09:34.293
+308,1993-11-06 00:00:00.000,NaOt,,0,PriorTr,UNK,mwalsh,intestional contortion,bwagoner,1993-11-09 00:00:00.000,D,2009-07-09 10:09:34.293
+311,1994-02-28 00:00:00.000,NaCs,,0,Rehab,UNK,mwalsh,"Cold stress,septicemia",bwagoner,1994-03-03 00:00:00.000,D,2009-07-09 10:09:34.293
+314,2000-11-21 00:00:00.000,NaOt,,0,Rehab,UNK,mrodriguez,emaciated,rrose,2000-11-28 00:00:00.000,D,2009-07-09 10:09:34.293
+316,1994-06-12 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,,lsalisbury,1994-06-13 00:00:00.000,D,2009-07-09 10:09:34.293
+317,1994-07-05 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,,lsalisbury,1994-07-06 00:00:00.000,D,2009-07-09 10:09:34.293
+318,1994-06-18 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"metabolic exhaustion, septicemia",bwagoner,1994-06-20 00:00:00.000,D,2009-07-09 10:09:34.293
+320,1994-07-20 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"chronic untero infection, respiratory collapse",bwagoner,1994-07-21 00:00:00.000,D,2009-07-09 10:09:34.293
+321,2017-06-23 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:06:13.013,D,2018-11-09 09:06:13.013
+322,1994-10-15 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,Intestinal pneumotosis,rrunnells,1994-10-17 00:00:00.000,D,2009-07-09 10:09:34.293
+323,2000-05-30 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,bacterial septicemia,jhackshaw,2000-05-31 00:00:00.000,D,2009-07-09 10:09:34.293
+324,2002-08-18 00:00:00.000,Deco,"",0,AftRel,MMPL,unk,"carcass too decomposed, Martin County",unk,2002-08-18 00:00:00.000,D,2009-07-09 10:09:34.293
+330,2005-12-27 00:00:00.000,Deco,"",0,AftRel,MMPL,unk,Undetermined; too decomposed.  Field necropsy performed at SW Field Station,dszemer,2005-12-27 00:00:00.000,D,2009-07-09 10:09:34.293
+331,1995-01-17 00:00:00.000,BoIm,,0,AftRel,UNK,mwalsh,,rrunnells,1995-03-11 00:00:00.000,D,2009-07-09 10:09:34.293
+332,1995-02-18 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,Bacterial Septicemia,bwagoner,1995-02-21 00:00:00.000,D,2009-07-09 10:09:34.293
+334,1987-06-24 00:00:00.000,Othe,,0,Rehab,UNK,mlowe,,tlinley,1987-06-24 00:00:00.000,D,2009-07-09 10:09:34.293
+335,2006-12-01 00:00:00.000,TrGa,,0,AftRel,MMPL,,,dszemer,2018-11-08 11:48:11.163,D,2018-11-08 11:48:11.163
+336,1995-03-11 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,known animal TfM036,rrunnells,1995-03-11 00:00:00.000,D,2009-07-09 10:09:34.293
+337,2019-06-06 00:00:00.000,TrGa,,0,AftRel,MMPL,,,glonati,2019-06-10 13:28:55.717,D,2019-06-10 13:28:55.717
+338,1995-03-22 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"Failure to thrive, exposure, one of twins.",rrunnells,1995-03-22 00:00:00.000,D,2009-07-09 10:09:34.293
+339,1995-03-23 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"Failure to thrive, one of twins",rrunnells,1995-03-23 00:00:00.000,D,2009-07-09 10:09:34.293
+343,2016-04-12 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:25:55.383,D,2018-11-08 13:25:55.383
+346,1995-04-22 00:00:00.000,BoPr,,1,Rehab,,dbuesse,MNE9508,rrunnells,1995-04-21 00:00:00.000,dszemer,2011-05-31 13:52:18.597
+351,1995-05-14 00:00:00.000,NaOt,,0,Rehab,UNK,dbuesse,septicemia giving birth to two aborted calves,rrunnells,1995-05-15 00:00:00.000,D,2009-07-09 10:09:34.293
+352,1995-08-10 00:00:00.000,BoUn,,0,Rehab,UNK,mwalsh,"Chronic ostromyelitis, had calf SWFTm9517",bwagoner,1995-08-15 00:00:00.000,D,2009-07-09 10:09:34.293
+353,1995-05-31 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"blood clots, left lung bottled",bwagoner,1995-05-31 00:00:00.000,D,2009-07-09 10:09:34.293
+354,1995-06-02 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,stillborn,dbuesse,1995-06-02 00:00:00.000,D,2009-07-09 10:09:34.293
+356,1989-06-08 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,umbillical infection,jpearson,1989-06-08 00:00:00.000,D,2009-07-09 10:09:34.293
+357,1995-06-07 00:00:00.000,EnCr,,0,Rehab,UNK,dmurphy,Crab Trap,swinslow,1995-06-08 00:00:00.000,D,2009-07-09 10:09:34.293
+359,2007-02-15 00:00:00.000,NaOt,Multiple health issu,0,Rehab,COL,gmyers,animal necropsy performed at Ohio State Univ vet hospital by FMRI Path Techs.  Carcass disposed through OSU. Multiple health issu,dwarmolts,2008-02-20 00:00:00.000,D,2009-07-09 10:09:34.293
+363,1995-08-11 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,chronic pneumothorax,bwagoner,1995-08-15 00:00:00.000,D,2009-07-09 10:09:34.293
+364,1995-08-25 00:00:00.000,Othe,,0,PriorTr,UNK,mrenner,,boucher,1995-08-25 00:00:00.000,D,2009-07-09 10:09:34.293
+365,1995-08-28 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,"undetermined, not necropsied",rrunnells,1995-04-21 00:00:00.000,D,2009-07-09 10:09:34.293
+366,1989-09-23 00:00:00.000,Othe,,0,Rehab,UNK,unk,,unk,1989-09-23 00:00:00.000,D,2009-07-09 10:09:34.293
+367,1995-09-12 00:00:00.000,BoUn,,0,Rehab,UNK,tcampbell,renal failure,rrunnells,1995-09-13 00:00:00.000,D,2009-07-09 10:09:34.293
+368,1996-02-12 00:00:00.000,BoUn,,0,Rehab,UNK,tcampbell,,rrunnells,1996-02-13 00:00:00.000,D,2009-07-09 10:09:34.293
+370,1995-11-16 00:00:00.000,NaOt,,0,Rehab,UNK,tcampbell,"gastrointestinal obstruction, died during procedur",rrunnells,1995-11-16 00:00:00.000,D,2009-07-09 10:09:34.293
+373,1996-01-05 00:00:00.000,NaCs,,0,Rehab,UNK,dmurphy,"MNW9601, Cold Stress, bacterial infection",lsalisbury,1996-01-05 00:00:00.000,D,2009-07-09 10:09:34.293
+374,1996-01-20 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,Other-pneumonia,lsalisbury,1996-01-20 00:00:00.000,D,2009-07-09 10:09:34.293
+375,1996-03-14 00:00:00.000,NaCs,,0,Rehab,UNK,dmurphy,Cold Stress,swinslow,1996-03-14 00:00:00.000,D,2009-07-09 10:09:34.293
+377,1990-02-05 00:00:00.000,Othe,,0,PriorTr,UNK,mlowe,"pre-mature, stillborn",tlinley,1990-02-05 00:00:00.000,D,2009-07-09 10:09:34.293
+378,2006-10-31 00:00:00.000,TrGa,,0,AftRel,MMPL,unk,,unk,2006-10-31 00:00:00.000,D,2009-07-09 10:09:34.293
+383,1996-03-28 00:00:00.000,BoBo,,0,Rehab,UNK,dmurphy,,swinslow,1996-03-28 00:00:00.000,D,2009-07-09 10:09:34.293
+384,1997-08-06 00:00:00.000,BoPr,,0,AftRel,UNK,dmurphy,,swinslow,1997-08-06 00:00:00.000,D,2009-07-09 10:09:34.293
+387,2000-02-22 00:00:00.000,Unde,,0,AftRel,UNK,dmurphy,possible watercraft,tpitchford,2000-02-23 00:00:00.000,D,2009-07-09 10:09:34.293
+388,1990-03-16 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,"natural, premarute",bwagoner,1990-03-23 00:00:00.000,D,2009-07-09 10:09:34.293
+389,2003-08-06 00:00:00.000,NaRe,"",0,AftRel,LPZ,unk,,unk,2003-08-06 00:00:00.000,D,2009-07-09 10:09:34.293
+390,2003-03-13 00:00:00.000,NaRe,"",0,AftRel,FWCSW,dmurphy,animal very decomposed Red Tide,vedmonds,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+391,1996-05-20 00:00:00.000,Othe,,0,PriorTr,UNK,dmurphy,,swinslow,1996-05-20 00:00:00.000,D,2009-07-09 10:09:34.293
+392,1996-07-12 00:00:00.000,Othe,,0,Rehab,UNK,dmurphy,"Undetermined, colitis",swinslow,1996-07-12 00:00:00.000,D,2009-07-09 10:09:34.293
+393,1996-06-17 00:00:00.000,BoPr,,0,Rehab,UNK,mwalsh,septcemia,bwagoner,1996-06-17 00:00:00.000,D,2009-07-09 10:09:34.293
+394,1996-06-30 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,Septicima,bwagoner,1996-06-30 00:00:00.000,D,2009-07-09 10:09:34.293
+395,1996-07-31 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,"Sepsis, pneumonia, possibly premature.",bwagoner,1996-07-31 00:00:00.000,D,2009-07-09 10:09:34.293
+396,1996-07-30 00:00:00.000,NaOt,,0,Rehab,UNK,mrenner,"pyrothorax, old watercraft injury",boucher,1996-07-31 00:00:00.000,D,2009-07-09 10:09:34.293
+397,2013-10-25 00:00:00.000,Othe,"Vail’s death is preliminarily attributed to complications, such as metabolic decompensation, following his protracted tail infection, surgical interventions and reduced body condition. ",0,Rehab,LVS,enolan,,lmcduffie,2013-10-30 15:28:57.513,D,2013-10-30 15:28:57.513
+399,1990-06-01 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,,bwagoner,1990-06-01 00:00:00.000,D,2009-07-09 10:09:34.293
+400,1996-08-16 00:00:00.000,Othe,,0,PriorTr,UNK,dbuesse,aborted stillborn,bwagoner,1996-08-16 00:00:00.000,D,2009-07-09 10:09:34.293
+401,1996-09-20 00:00:00.000,Othe,,1,Rehab,UNK,unk,"animal was euthanized, non-functioning digestive t",unk,1996-09-20 00:00:00.000,D,2009-07-09 10:09:34.293
+402,1996-09-28 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,dehydration & diarriah,bwagoner,1996-09-28 00:00:00.000,D,2009-07-09 10:09:34.293
+403,1996-10-16 00:00:00.000,BoIm,,0,Rehab,UNK,dmurphy,,swinslow,1996-10-16 00:00:00.000,D,2009-07-09 10:09:34.293
+404,1996-10-21 00:00:00.000,BoUn,,0,Rehab,UNK,dmurphy,,swinslow,1996-10-21 00:00:00.000,D,2009-07-09 10:09:34.293
+408,2021-05-01 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:05:40.763,D,2023-10-02 11:05:40.763
+409,1995-02-20 00:00:00.000,BoBo,,0,Rehab,UNK,gbossart,"Pneunom, superficial",boucher,1995-02-22 00:00:00.000,D,2009-07-09 10:09:34.293
+410,1990-06-19 00:00:00.000,Othe,,0,Rehab,LVS,rstevens,stillborn,thopkins,1990-06-19 00:00:00.000,dszemer,2013-06-03 08:27:35.420
+411,2020-08-04 00:00:00.000,Othe,multiple complications observed during necropsy,0,Rehab,SWF,sdirocco,,lbraso,2020-08-18 13:35:17.060,D,2020-08-18 13:35:17.060
+412,1996-02-16 00:00:00.000,NaOt,,0,PriorTr,UNK,mrenner,"emaciated, enteritus",boucher,1996-02-16 00:00:00.000,D,2009-07-09 10:09:34.293
+416,1999-03-18 00:00:00.000,Unde,,0,AftRel,UNK,unk,"MNW9912, too decom found in storm water ret pond",unk,1999-03-18 00:00:00.000,D,2009-07-09 10:09:34.293
+418,1990-11-14 00:00:00.000,Othe,,0,Rehab,UNK,mlowe,drowned,tlinley,1990-11-14 00:00:00.000,D,2009-07-09 10:09:34.293
+419,1997-04-30 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,Died several hours after rescue at SWF around 9pm.,rrunnells,1997-04-30 00:00:00.000,D,2009-07-09 10:09:34.293
+420,1997-05-10 00:00:00.000,NaOt,,0,Rehab,UNK,dbuesse,Withheld pending histopath,rrunnells,1997-05-13 00:00:00.000,D,2009-07-09 10:09:34.293
+421,1997-07-15 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,,bwagoner,1997-07-31 00:00:00.000,D,2009-07-09 10:09:34.293
+422,1997-06-14 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,neonate,bwagoner,1997-06-14 00:00:00.000,D,2009-07-09 10:09:34.293
+423,1997-07-31 00:00:00.000,Othe,,0,Trans,UNK,mwalsh,"colitius, reduced blubber layer, died in transport",bwagoner,1997-07-31 00:00:00.000,D,2009-07-09 10:09:34.293
+425,1997-12-08 00:00:00.000,BoIm,,0,Rehab,UNK,dbuesse,Severe lung abcess,bwagoner,1997-12-16 00:00:00.000,D,2009-07-09 10:09:34.293
+426,2005-01-19 00:00:00.000,BoBo,,1,Rehab,SWF,sgearhart,"Animal was originall rescued on 11/10/97 along with his mother ""Mercury"" who was injured. Comet spent some time at the Columbus Zoo,Ohio. He was then released at Blue Springs State Park on 2/16/2000 until he was rescued again on 12/30/2003 due to inj",bwagoner,2005-01-27 00:00:00.000,D,2009-07-09 10:09:34.293
+427,1990-11-16 00:00:00.000,Othe,,0,Rehab,UNK,mlowe,septicemia,tlinley,1990-11-16 00:00:00.000,D,2009-07-09 10:09:34.293
+428,1998-04-23 00:00:00.000,BoPr,,1,Rehab,UNK,mwalsh,enthanized,bwagoner,1998-04-27 00:00:00.000,D,2009-07-09 10:09:34.293
+429,2000-05-06 00:00:00.000,NaOt,,0,Rehab,UNK,sgearhart,chronic neuromuscular disease,bwagoner,2000-05-08 00:00:00.000,D,2009-07-09 10:09:34.293
+430,2016-10-01 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:33:44.847,D,2018-11-08 13:33:44.847
+431,1998-01-10 00:00:00.000,NaCs,,0,Rehab,UNK,dbuesse,Cold stress,bwagoner,1998-01-13 00:00:00.000,D,2009-07-09 10:09:34.293
+432,1998-02-03 00:00:00.000,BoPr,,0,Rehab,UNK,dbuesse,"pyothorax to right side, damaged v ertebrate",bwagoner,1998-02-11 00:00:00.000,D,2009-07-09 10:09:34.293
+434,2024-04-21 00:00:00.000,NaOt,Animal was found deceased upon arrival in am.   Necropsy results pending.   ,0,Rehab,,,,mlippincot,2024-04-29 07:54:08.793,D,2024-04-29 07:54:08.793
+435,1991-03-09 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,intestinal tract infection,jpearson,1991-03-09 00:00:00.000,D,2009-07-09 10:09:34.293
+437,1998-03-24 00:00:00.000,NaCs,,0,Rehab,UNK,mwalsh,"cold stress, metabolic exhaustion, parasites",bwagoner,1998-03-25 00:00:00.000,D,2009-07-09 10:09:34.293
+438,2001-01-17 00:00:00.000,NaCs,"",0,AftRel,MMPL,unk,"Jeb was found dead in the Indian River, near Vero beach. Thisanimal was originally trached in 19987 bu USGS Cold Stress",tpitchford,2001-01-22 00:00:00.000,D,2009-07-09 10:09:34.293
+439,1998-04-25 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,impact to head & spine,bwagoner,1998-04-27 00:00:00.000,D,2009-07-09 10:09:34.293
+440,2004-04-22 00:00:00.000,BoBo,,1,Rehab,SWF,bnolan,"Severe pleuritis of the left pleural cavity comprising left lung.  Left ribs #12-15 luxated at spine, left ribs #10 and 11 fractured.  Open chest wound overlying left ribs #11-14 with rib exposure.",rrunnells,2004-04-23 00:00:00.000,D,2009-07-09 10:09:34.293
+444,2006-03-14 00:00:00.000,EnMo,,0,AftRel,MMPL,unk,,nadimey,2006-03-14 00:00:00.000,D,2009-07-09 10:09:34.293
+447,2015-09-19 00:00:00.000,BoPr,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:01:43.740,D,2018-11-08 13:01:43.740
+449,2013-03-29 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2013-04-12 08:01:52.323,D,2013-04-12 08:01:52.323
+450,1999-08-14 00:00:00.000,BoPr,,0,Rehab,UNK,dbuesse,"prop cuts on dorsal, one throught skull",bwagoner,1999-08-17 00:00:00.000,D,2009-07-09 10:09:34.293
+452,1999-03-17 00:00:00.000,BoPr,,0,Trans,UNK,unk,died in transport,unk,1999-03-17 00:00:00.000,D,2009-07-09 10:09:34.293
+454,1999-11-14 00:00:00.000,BoPr,,1,Rehab,UNK,sgearhart,euthanized due to severe loss of paddle & infectio,sgearhart,1999-11-17 00:00:00.000,D,2009-07-09 10:09:34.293
+455,2000-01-02 00:00:00.000,NaCs,,0,Rehab,UNK,mwalsh,Cold stress,bwagoner,2000-02-12 00:00:00.000,D,2009-07-09 10:09:34.293
+456,1991-09-13 00:00:00.000,Othe,,0,Rehab,UNK,tcampbell,"Hemorrage, trauma during birth",bwagoner,1991-09-17 00:00:00.000,D,2009-07-09 10:09:34.293
+457,1999-09-30 00:00:00.000,Othe,,0,Rehab,UNK,mrodriguez,"DRCTm9901, . metabolic shutdown",rrose,1999-09-30 00:00:00.000,D,2009-07-09 10:09:34.293
+458,1997-03-09 00:00:00.000,Othe,,0,Rehab,UNK,rstevens,died during transfer,thopkins,1997-03-10 00:00:00.000,D,2009-07-09 10:09:34.293
+459,1991-10-11 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,fetal retention,bwagoner,1991-10-14 00:00:00.000,D,2009-07-09 10:09:34.293
+460,2011-12-27 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2012-01-05 13:10:47.410,D,2012-01-05 13:10:47.410
+461,2013-12-04 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:36:23.053,D,2014-01-24 11:36:23.053
+463,2018-04-23 00:00:00.000,Deco,,0,Rehab,HSSWP,,"Necropsy performed at MMPL 4/25/2018. ""The most significant finding on gross necropsy was a cecum impaction with fibrous material."" See necropsy report for full details.",ngordon,2020-04-24 14:14:02.530,D,2020-04-24 14:14:02.530
+464,2011-08-16 00:00:00.000,Othe,Did not recover from anesthesia.,0,Rehab,HSSWP,rball,"This manatee was sedated for a mammary biopsy to help determine her release status in regards to a suspicious mammary swelling.  The procedure did produce a biopsy, several ultrasound images, and an aspirate of the axillary lymph node, but she failed to recover from the sedation.",slowe,2011-08-17 11:47:32.003,D,2011-08-17 11:47:32.003
+466,1974-05-01 00:00:00.000,Unde,,0,Rehab,UNK,unk,severe bloating,unk,1974-05-01 00:00:00.000,D,2009-07-09 10:09:34.293
+467,1976-01-04 00:00:00.000,BoPr,,0,Rehab,UNK,dbuesse,,bwagoner,1976-01-04 00:00:00.000,D,2009-07-09 10:09:34.293
+469,2015-12-17 00:00:00.000,NaOt,"Necropsy report summary and post-mortem findings: large ovarian masses, thickened ventricular myocardium and small lumen left ventricle, enlarged liver.",0,Rehab,HSSWP,rball,"Histopathology findings include: metastatic granulosa cell tumor, ovarian luteoma, chronic kidney disease, cardiomyopathy, pulmonary edema. ",tfowler,2016-04-19 06:53:01.330,D,2016-04-19 06:53:01.330
+470,1976-12-09 00:00:00.000,Othe,,0,Rehab,UNK,dbuesse,Natural-acute enteritus,rrunnells,1976-12-09 00:00:00.000,D,2009-07-09 10:09:34.293
+471,1976-10-23 00:00:00.000,Othe,,0,PriorTr,UNK,dbuesse,"Natural-starvation, bacterial invasion",bwagoner,1976-10-23 00:00:00.000,D,2009-07-09 10:09:34.293
+472,1976-10-23 00:00:00.000,Othe,,0,PriorTr,UNK,dbuesse,Natural-possible starvation w/ bacerial infection,bwagoner,1976-10-23 00:00:00.000,D,2009-07-09 10:09:34.293
+473,2010-02-03 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2010-04-19 10:38:33.567,D,2010-04-19 10:38:33.567
+474,1984-02-22 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"olchronic metritis, fibrosis, other organs, polyps",bwagoner,1984-02-22 00:00:00.000,D,2009-07-09 10:09:34.293
+475,1978-10-22 00:00:00.000,Unde,,0,Rehab,UNK,mwalsh,possible pneumonia?,bwagoner,1978-10-22 00:00:00.000,D,2009-07-09 10:09:34.293
+476,1979-02-05 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"double pneumonia, possiblr bacterial infection",bwagoner,1979-02-05 00:00:00.000,D,2009-07-09 10:09:34.293
+477,1979-02-13 00:00:00.000,Unde,,0,PriorTr,JFO,mwalsh,,bwagoner,1979-02-13 00:00:00.000,D,2009-07-09 10:09:34.293
+478,1979-07-19 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,,bwagoner,1979-07-19 00:00:00.000,D,2009-07-09 10:09:34.293
+479,1979-05-29 00:00:00.000,NaOt,,0,PriorTr,UNK,mwalsh,subplueral abscess,bwagoner,1979-05-29 00:00:00.000,D,2009-07-09 10:09:34.293
+480,1979-09-05 00:00:00.000,BoPr,,0,PriorTr,UNK,mwalsh,"exposed lung, open cavity",bwagoner,1979-09-05 00:00:00.000,D,2009-07-09 10:09:34.293
+481,1980-09-17 00:00:00.000,EnCr,,0,Rehab,UNK,mwalsh,"infection from crab trap line, fixed humerous",bwagoner,1980-09-17 00:00:00.000,D,2009-07-09 10:09:34.293
+482,1980-01-27 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,severe dermatitus & related sepsus,bwagoner,1980-01-27 00:00:00.000,D,2009-07-09 10:09:34.293
+484,1976-06-23 00:00:00.000,Othe,,0,Rehab,UNK,mwalsh,bacterial infection,dbuesse,1976-06-23 00:00:00.000,D,2009-07-09 10:09:34.293
+485,1993-01-11 00:00:00.000,NaOt,,0,Rehab,UNK,dmurphy,"SOM-3, l;ymphacytic leukemia",unk,1993-01-11 00:00:00.000,D,2009-07-09 10:09:34.293
+486,1981-09-08 00:00:00.000,Unde,,0,Rehab,UNK,mwalsh,gastrointestinal disorder,bwagoner,1981-09-08 00:00:00.000,D,2009-07-09 10:09:34.293
+487,1981-05-16 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,encephalitis of bacterial origin,bwagoner,1981-05-16 00:00:00.000,D,2009-07-09 10:09:34.293
+488,2018-09-18 00:00:00.000,NaRe,,0,AftRel,MMPL,,"Significant levels of brevetoxin detected in liver, lung, stomach contents, urine.",glonati,2019-05-13 12:33:12.430,D,2019-05-13 12:33:12.430
+489,1984-07-21 00:00:00.000,BoPr,,0,PriorTr,UNK,mwalsh,,bwagoner,1984-07-21 00:00:00.000,D,2009-07-09 10:09:34.293
+490,1984-08-18 00:00:00.000,NaOt,,0,Rehab,UNK,mwalsh,"dermal, pleural & pulmonary mycosis",bwagoner,1984-08-18 00:00:00.000,D,2009-07-09 10:09:34.293
+491,1984-09-24 00:00:00.000,BoIm,,0,Rehab,UNK,mwalsh,,bwagoner,1984-09-24 00:00:00.000,D,2009-07-09 10:09:34.293
+493,2017-04-03 00:00:00.000,Unde,,0,Rehab,SWF,michelled,,lbraso,2019-08-18 08:11:27.567,D,2019-08-18 08:11:27.567
+494,1991-04-09 00:00:00.000,BoIm,,0,AftRel,FWCSW,,Necropsy done by SWFL (FIO) P. Nabor.,dszemer,2019-07-18 09:33:20.540,D,2019-07-18 09:33:20.540
+495,1976-03-19 00:00:00.000,Othe,,0,Rehab,UNK,unk,entertoxemia,unk,1976-03-19 00:00:00.000,D,2009-07-09 10:09:34.293
+496,2018-08-28 00:00:00.000,Deco,,0,AftRel,FWCT,,,ngordon,2018-09-08 12:24:37.530,D,2018-09-08 12:24:37.530
+497,2010-11-18 00:00:00.000,Othe,The decision was made to euthanize the animal based on his deterioration due to clinical condition.,1,Rehab,SWF,sgearhart,,bwagoner,2010-12-22 15:53:39.577,D,2010-12-22 15:53:39.577
+502,2000-04-11 00:00:00.000,BoPr,,0,PriorTr,UNK,dbuesse,REC0007,bwagoner,2000-04-11 00:00:00.000,D,2009-07-09 10:09:34.293
+507,1986-10-22 00:00:00.000,Othe,,0,Rehab,UNK,unk,,unk,1986-10-22 00:00:00.000,D,2009-07-09 10:09:34.293
+514,1996-02-14 00:00:00.000,Unde,,0,PriorTr,UNK,dbuesse,,bwagoner,1996-02-14 00:00:00.000,D,2009-07-09 10:09:34.293
+515,1996-10-22 00:00:00.000,BoPr,,0,PriorTr,UNK,dbuesse,open prop wounds along entire length of body,bwagoner,1996-10-22 00:00:00.000,D,2009-07-09 10:09:34.293
+519,1998-02-17 00:00:00.000,NaCs,,0,Rehab,UNK,mwalsh,"metabolic exhaustion, secondary to cold stress",bwagoner,1998-02-19 00:00:00.000,D,2009-07-09 10:09:34.293
+520,2001-10-23 00:00:00.000,Deco,"",0,AftRel,MMPL,unk,carcass too decomposed,unk,2001-10-23 00:00:00.000,D,2009-07-09 10:09:34.293
+523,1999-05-06 00:00:00.000,Othe,,0,PriorTr,UNK,mwalsh, acute trauma to head,rrunnells,1999-05-06 00:00:00.000,D,2009-07-09 10:09:34.293
+525,1995-05-02 00:00:00.000,Huma,"died during net capture to retag, capture myopathy",0,AftRel,,unk,,swright,1991-06-20 00:00:00.000,dszemer,2011-05-04 13:54:01.863
+534,2016-02-04 00:00:00.000,BoPr,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:15:57.597,D,2018-11-08 13:15:57.597
+535,2001-05-01 00:00:00.000,NaCs,"",0,Resc,LPZ,dmurphy,"dependent calf alone, cold andlethargic Cold stress",jhackshaw,2001-05-09 00:00:00.000,D,2009-07-09 10:09:34.293
+536,2001-12-07 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,Rescued at CRNWR in Nov. USGS attached a tether to track,dmurphy,2001-12-07 00:00:00.000,D,2009-07-09 10:09:34.293
+537,2001-12-29 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy, Cold stress,dmurphy,2002-05-15 00:00:00.000,D,2009-07-09 10:09:34.293
+538,2003-03-29 00:00:00.000,NaOt,Stillborn,0,Rehab,LPZ,dmurphy,"mom in captivity, APB is mom stillborn calf",vedmonds,2003-05-12 00:00:00.000,D,2009-07-09 10:09:34.293
+540,2001-04-11 00:00:00.000,NaDe,"",0,Trans,MMPL,mlowe,"Animal died in transport, newborn, depleted fat stores depleted fat stores",tpitchford,2001-04-11 00:00:00.000,D,2009-07-09 10:09:34.293
+541,2001-04-04 00:00:00.000,NaDe,"",0,Trans,MMPL,unk,"Calf found alone, died during transport depleted fat stores",tpitchford,2001-04-04 00:00:00.000,D,2009-07-09 10:09:34.293
+545,2005-08-19 00:00:00.000,NaOt,emaciated,1,Rehab,LPZ,dmurphy,See Veterinarian,vedmonds,2005-08-23 00:00:00.000,D,2009-07-09 10:09:34.293
+551,2006-06-23 00:00:00.000,BoIm,,0,Trans,FWCNE,unk,,dszemer,2006-06-23 00:00:00.000,D,2009-07-09 10:09:34.293
+552,2001-09-02 00:00:00.000,BoIm,,0,Resc,FWCIR,unk,Animal died before rescue was completed,unk,2001-09-02 00:00:00.000,D,2009-07-09 10:09:34.293
+553,2000-05-26 00:00:00.000,NaOt,Obstructed Colon,0,Resc,CHASS,unk, Obstructed Colon,unk,2000-05-25 00:00:00.000,dszemer,2009-08-26 16:40:21.947
+554,2001-08-25 00:00:00.000,BoPr,,0,Rehab,LPZ,dmurphy,Chest wound due to boat strike,jhackshaw,2001-08-26 00:00:00.000,D,2009-07-09 10:09:34.293
+556,2006-11-02 00:00:00.000,NaRe,"",0,Resc,MMPL,unk, Red-tide,dszemer,2006-11-02 00:00:00.000,D,2009-07-09 10:09:34.293
+558,2006-05-05 00:00:00.000,NaOt,fetal trauma,0,Rehab,MSQ,mrodriguez,"Necropsy showed Patch had evidence of fetal trauma. Patch a twin was born, could be watercraft impact from mom,  at Miami Seaquarium from Ocean. Ocean was rescued with pneumothorax due to watercraft impact.",sgaudio,2006-06-01 00:00:00.000,D,2009-07-09 10:09:34.293
+559,2004-07-10 00:00:00.000,Unde,"",0,Resc,FWCSW,unk,Dies on site possible water/natur,dgrant,2004-07-10 00:00:00.000,D,2009-07-09 10:09:34.293
+560,2001-05-22 00:00:00.000,NaOt,Possbile pneumonia,0,Resc,CSN,lfigueroao,"Possible pneumonia, old shark bite, Animal died after 3 hrs of attemting to recue it. It started convulsing, first aid was attempted. poss pneumonia",unk,2001-05-22 00:00:00.000,D,2009-07-09 10:09:34.293
+561,2001-10-12 00:00:00.000,NaDe,"",0,Trans,CSN,lfigueroao,Animal died after shortly being rescued.,fcarrasqui,2001-10-12 00:00:00.000,D,2009-07-09 10:09:34.293
+562,2002-11-24 00:00:00.000,NaDe,"",0,Rehab,CSN,lfigueroao,,nadimey,2002-11-24 00:00:00.000,D,2009-07-09 10:09:34.293
+563,2002-11-12 00:00:00.000,NaOt,terminal septicemia,0,Rehab,CSN,lfigueroao, terminal septicemia,nadimey,2002-11-12 00:00:00.000,D,2009-07-09 10:09:34.293
+564,2003-06-08 00:00:00.000,NaOt,Pulmonary congestion & emaciated emaciated/pulmona,0,Rehab,CSN,lfigueroao,Pulmonary congestion & emaciated emaciated/pulmonary ,nadimey,2003-06-08 00:00:00.000,D,2009-07-09 10:09:34.293
+565,2003-07-27 00:00:00.000,NaDe,"",0,Rehab,CSN,lfigueroao,Colics,nadimey,2003-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+566,2006-07-29 00:00:00.000,NaDe,"",0,Rehab,CSN,ariveraguz,,amignucci,2006-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+567,2004-12-11 00:00:00.000,NaDe,"",0,Rehab,CSN,lfigueroao,,nadimey,2004-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+568,2005-03-23 00:00:00.000,NaDe,"",0,Rehab,CSN,ariveraguz,GI Problems,nadimey,2005-03-23 00:00:00.000,D,2009-07-09 10:09:34.293
+570,2007-12-12 00:00:00.000,NaOt,,0,Rehab,CSN,ariveraguz,,nadimey,2009-09-08 10:57:03.980,D,2009-09-08 10:57:03.980
+575,2003-07-20 00:00:00.000,Deco,"",0,AftRel,SWF,bnolan,"Putnam County, too decomposed",nadimey,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+577,2001-02-01 00:00:00.000,BoPr,,1,Rehab,SWF,mwalsh,"Animal had died due to propellar strike from a boat.  Severe blood loss, skeletal trauma, necrotic prop wounds.",bwagoner,2001-02-01 00:00:00.000,D,2009-07-09 10:09:34.293
+579,2001-05-13 00:00:00.000,BoIm,,0,Rehab,SWF,mwalsh,"watercraft related, blunt trauma",bwagoner,2001-05-17 00:00:00.000,D,2009-07-09 10:09:34.293
+581,2001-10-23 00:00:00.000,BoIm,,0,Rehab,SWF,mwalsh,SWFTm 0121 was rescued with a dependant calf (SWFTm0122) which was seperated from the mother and is weaned and doing well.,rrunnells,2001-10-23 00:00:00.000,D,2009-07-09 10:09:34.293
+584,2010-10-18 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2011-01-07 11:56:46.777,D,2011-01-07 11:56:46.777
+585,2002-10-03 00:00:00.000,BoIm,,0,Rehab,SWF,mwalsh,blunt trauma,nadimey,2002-10-03 00:00:00.000,D,2009-07-09 10:09:34.293
+586,2005-07-09 00:00:00.000,NaDe,"",0,Rehab,SWF,bnolan,"Animal had appetite problems, not eating solids, still requires nasogastric tubings. Dr.Chittick will send full necropsy report once histology reports are back. Enteritis/pneumonia",bwagoner,2005-07-11 00:00:00.000,D,2009-07-09 10:09:34.293
+588,2006-09-17 00:00:00.000,Deco,"",0,AftRel,MMPL,unk,Undetermined; too decomposed.  Field necropsy performed at NE Field Station,dszemer,2006-10-02 00:00:00.000,D,2009-07-09 10:09:34.293
+589,2002-07-08 00:00:00.000,NaOt,numerous clots chronic omphalitis,0,Rehab,SWF,mwalsh,numerous clots chronic omphalitis,nadimey,2002-07-08 00:00:00.000,D,2009-07-09 10:09:34.293
+590,2002-09-26 00:00:00.000,BoPr,,0,Rehab,SWF,sgearhart,"Propellar, Pyrothorax of Left chest, secondary to boat injury",rrunnells,2002-10-03 00:00:00.000,D,2009-07-09 10:09:34.293
+591,2011-08-08 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2012-01-05 13:48:57.627,D,2012-01-05 13:48:57.627
+597,2003-07-28 00:00:00.000,BoIm,,0,Trans,SWF,bnolan,Animal died during transport to SWF. Was picked up later that day by FWC and taken to Marine Mammal Pathobiology Lab for necropsy.,bwagoner,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+599,2013-09-29 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:23:47.457,D,2014-01-24 11:23:47.457
+600,2013-03-12 00:00:00.000,Huma,"monofilament/braided line; plication of small intestine, necrotic lesions",0,AftRel,MMPL,,,dszemer,2014-10-21 12:29:00.110,D,2014-10-21 12:29:00.110
+603,2004-02-16 00:00:00.000,BoPr,,0,Rehab,SWF,sgearhart,"Animal died around 9:30am on 2/16/04 and picked 
+up by FWC (Spellman/Beard) taken to MMPL that day.",bwagoner,2004-02-22 00:00:00.000,D,2009-07-09 10:09:34.293
+604,2013-06-20 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:17:29.820,D,2014-01-24 11:17:29.820
+606,2004-05-07 00:00:00.000,NaDe,"",0,Rehab,SWF,bnolan,samonella,rrunnells,2004-05-12 00:00:00.000,D,2009-07-09 10:09:34.293
+607,2004-05-13 00:00:00.000,BoPr,,0,Rehab,SWF,sgearhart,,slehr,2004-05-13 00:00:00.000,D,2009-07-09 10:09:34.293
+610,2004-11-28 00:00:00.000,NaDe,"",0,Resc,FWCIR,unk,,aspellman,2004-11-28 00:00:00.000,D,2009-07-09 10:09:34.293
+611,2004-12-03 00:00:00.000,NaOt,Septicemia/necrotic,1,Rehab,SWF,mwalsh,"Young animal found at FPL Power Plant, Port St. John, entire fluke was necrotic. Likely septicemia, multiple abscesses in umbilicus, pectoral flippers, kidney, adjacent to spine, necrotic paddle and rectum. Septicemia/necrotic",bwagoner,2004-12-08 00:00:00.000,D,2009-07-09 10:09:34.293
+613,2006-03-23 00:00:00.000,NaOt,cacious material in lungs emaciated & infectio,0,AftRel,FWCIR,unk,cacious material in lungs emaciated & infectio,dszemer,2006-04-18 00:00:00.000,D,2009-07-09 10:09:34.293
+614,2017-01-05 00:00:00.000,Unde,,0,Rehab,SWF,lcroft,"On 1/05/2017 Tsunami was found dead at 6am by SeaWorld rehab team. FWC transported her to the path lab for necropsy to be completed.
+
+MMPL Necropsy results: The manatee died from a bacterial infection.  The origin of the infection could not be determined (watercraft wounds vs. natural); therefore, COD is undetermined.",jpeterson,2017-01-10 04:32:22.410,dszemer,2019-10-04 11:35:25.010
+616,2005-07-28 00:00:00.000,BoIm,,0,Resc,SWF,unk,,unk,2005-07-28 00:00:00.000,D,2009-07-09 10:09:34.293
+619,2005-12-08 00:00:00.000,NaDe,"",0,Rehab,SWF,sgearhart, Possible cold stress,bwagoner,2005-12-18 00:00:00.000,D,2009-07-09 10:09:34.293
+620,2005-12-29 00:00:00.000,NaDe,"",0,Trans,MMPL,unk, Natural,dszemer,2005-12-29 00:00:00.000,D,2009-07-09 10:09:34.293
+621,2006-02-14 00:00:00.000,BoPr,,0,Trans,FWCIR,unk,,dszemer,2006-02-14 00:00:00.000,D,2009-07-09 10:09:34.293
+622,2006-02-20 00:00:00.000,NaCs,"",0,Resc,FWCIR,unk, Cold Stress,dszemer,2006-02-20 00:00:00.000,D,2009-07-09 10:09:34.293
+623,2006-03-12 00:00:00.000,BoPr,,1,Trans,FWCIR,unk,,dszemer,2006-03-12 00:00:00.000,D,2009-07-09 10:09:34.293
+629,2002-01-27 00:00:00.000,BoPr,,0,AftRel,MMPL,,,dszemer,2014-01-06 08:17:00.450,D,2014-01-06 08:17:00.450
+630,2001-04-27 00:00:00.000,BoPr,,0,Trans,MMPL,mwalsh,"Animal was aknown individual, tagged in 1997 in Georgia by B. Bonde.  Died from watercraft, propellar wounds across peduncle & tissue on fluke necrotic and devitalized. ",tpitchford,2001-04-29 00:00:00.000,D,2009-07-09 10:09:34.293
+632,2001-08-30 00:00:00.000,BoBo,,1,Rehab,SWF,mwalsh,"Animal rescued from Ormond beach  on 8/30/01 in  shallow water.  Had an old scar 3ftx 2ft with major infection, then another 2ftx1ft long abscess, thin; very unusual combination of problems, no spinal use, pushes itself up w/ pec's, severpropellar wo",nadimey,2001-08-31 00:00:00.000,D,2009-07-09 10:09:34.293
+634,2017-07-12 00:00:00.000,Unde,Too decomposed; mating scrapes were present.,0,AftRel,FWCNE,,Recovered from Putnam County in the St. Johns River.,ngordon,2017-07-17 07:39:33.907,D,2017-07-17 07:39:33.907
+636,2003-04-16 00:00:00.000,NaDe,"",0,Rehab,SWF,bnolan, Orphaned animal rescued and brought to SWF by FWC. Orphaned for 48 hours. Died shorthly after arriving at SWF.,bwagoner,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+638,2003-08-01 00:00:00.000,NaOt,"emphysematous & ulcerative colitis, bronchopneumon",0,Rehab,SWF,bnolan,"natural, colitus,",nadimey,2003-05-21 00:00:00.000,D,2009-07-09 10:09:34.293
+640,2010-01-18 00:00:00.000,NaCs,Recovered during a cold related UME.,0,AftRel,MMPL,,,dszemer,2010-03-29 10:51:43.887,D,2010-03-29 10:51:43.887
+641,2011-02-14 00:00:00.000,BoUn,,0,Trans,MMPL,,,dszemer,2018-11-08 14:00:20.447,D,2018-11-08 14:00:20.447
+643,2005-01-09 00:00:00.000,Deco,"",0,AftRel,MMPL,sgearhart,"possible cold stress, too decomposed",bwagoner,2005-01-09 00:00:00.000,D,2009-07-09 10:09:34.293
+644,2018-09-26 00:00:00.000,HumI,,0,AftRel,FWCNE,,,aperna,2020-03-29 08:34:45.807,D,2020-03-29 08:34:45.807
+645,2003-12-22 00:00:00.000,NaCs,"",0,Rehab,SWF,mwalsh,"stomach rupture and assisciated
+peritonitis, gastric nematodiasis & intestinal trematodiasis. stomach rupture",jsmith,2003-12-22 00:00:00.000,D,2009-07-09 10:09:34.293
+646,2022-07-24 00:00:00.000,TrGa,,0,AftRel,,,,KBouchard,2024-03-19 14:00:27.923,D,2024-03-19 14:00:27.923
+648,2004-01-05 00:00:00.000,NaCs,"",0,Rehab,SWF,sgearhart,Possible Sequella of cold stress. Histopath pending Cold Stress,rrunnells,2004-01-07 00:00:00.000,D,2009-07-09 10:09:34.293
+649,2004-05-26 00:00:00.000,NaOt,Dystocia,0,Rehab,SWF,sgearhart,Manatee died while trying to extract dead fetus. Dystocia,pramos,2004-06-20 00:00:00.000,D,2009-07-09 10:09:34.293
+650,2016-01-25 00:00:00.000,BoPr,,0,AftRel,FWCNE,,Animal was recovered near shipping terminal.,ngordon,2016-03-09 15:05:45.670,D,2016-03-09 15:05:45.670
+651,2005-09-15 00:00:00.000,BoBo,,0,Trans,SWF,mwalsh,Manatee died during transport carcass brought to Sea World send to path lab on the 16th. ,rrunnells,2005-09-20 00:00:00.000,D,2009-07-09 10:09:34.293
+652,2006-12-22 00:00:00.000,NaCs,"",0,Resc,FWCNE,unk, Cold Stress,dszemer,2006-12-22 00:00:00.000,D,2009-07-09 10:09:34.293
+656,2001-01-18 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy, Cold Stress,jhackshaw,2001-01-26 00:00:00.000,D,2009-07-09 10:09:34.293
+657,2001-02-18 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,"Watercraft related, secondary infection from impact",jhackshaw,2001-02-19 00:00:00.000,D,2009-07-09 10:09:34.293
+660,2002-03-29 00:00:00.000,NaOt,Pneumonia (beached),0,Rehab,LPZ,dmurphy, Pneumonia (beached),dmurphy,2002-05-15 00:00:00.000,D,2009-07-09 10:09:34.293
+661,2002-04-14 00:00:00.000,NaDe,"",0,Rehab,LPZ,dmurphy,"Dead on arrival, umbillical abscess, heart disease",dmurphy,2002-05-15 00:00:00.000,D,2009-07-09 10:09:34.293
+665,2002-11-22 00:00:00.000,EnHo,INGESTED FISH HOOK & MONO,0,Rehab,MMPL,,,nadimey,2002-11-22 00:00:00.000,nadimey,2011-09-27 10:55:10.623
+668,2009-10-05 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2009-10-13 09:02:09.160,D,2009-10-13 09:02:09.160
+670,2003-07-01 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,aborted fetus,vedmonds,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+673,2012-02-23 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2013-05-31 08:12:48.047,dszemer,2013-09-10 08:11:32.287
+675,2018-05-31 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2018-06-11 12:40:26.630,D,2018-06-11 12:40:26.630
+677,2004-07-07 00:00:00.000,BoPr,,0,Rehab,LPZ,dmurphy,,vedmonds,2004-07-14 00:00:00.000,D,2009-07-09 10:09:34.293
+680,2005-09-16 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,"After initial treatment, manatee was able to submerge and began to eat.  Within a couple of days, manatee became bouyant again.",vedmonds,2005-09-21 00:00:00.000,D,2009-07-09 10:09:34.293
+683,2005-12-10 00:00:00.000,NaCs,"",0,Trans,MMPL,unk,serous atrophied fats; cold stress (cobblestone) skin; systemic lymph node activation; caseous mucus in airways; enteritis; brevetoxin in stomach,dszemer,2005-12-10 00:00:00.000,D,2009-07-09 10:09:34.293
+684,2005-12-22 00:00:00.000,BoPr,,0,Rehab,LPZ,dmurphy,Manatee died approximately 1 hour after arriving at facility and being placed in medical pool emaciation,vedmonds,2005-12-29 00:00:00.000,D,2009-07-09 10:09:34.293
+690,2001-01-06 00:00:00.000,BoPr,,0,Resc,FWCT,mrodriguez,"Propellar Impact, series of two deep prop wounds, animal floating high in water when found, animal died shortly after getting it onto the beach in a strecher",pcook,2001-01-06 00:00:00.000,D,2009-07-09 10:09:34.293
+691,2005-10-06 00:00:00.000,TrGa,,0,AftRel,MSQ,mrodriguez,,rrose,2005-10-06 00:00:00.000,D,2009-07-09 10:09:34.293
+694,2001-03-10 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"Watercraft related, propellar",rrose,2001-03-12 00:00:00.000,D,2009-07-09 10:09:34.293
+695,2001-03-13 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,"Watercraft related, blunt trauma",rrose,2001-03-12 00:00:00.000,D,2009-07-09 10:09:34.293
+696,2001-03-27 00:00:00.000,BoPr,,0,Resc,FWCT,mrodriguez,"Watercraft related, propellar",wvelez,2001-03-26 00:00:00.000,D,2009-07-09 10:09:34.293
+698,2001-07-24 00:00:00.000,NaDe, ,0,Rehab,SWF,sgearhart,"Orphan, pneumotosis intestinalis, entercolitis intercolitus",bwagoner,2001-07-25 00:00:00.000,D,2009-07-09 10:09:34.293
+701,2002-02-04 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,,cplante,2002-04-03 00:00:00.000,D,2009-07-09 10:09:34.293
+704,2002-01-26 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"FWC rescued and transported manatee to MSQ.  Animal was released into pool and passed away overnight.
+",cplante,2002-04-03 00:00:00.000,D,2009-07-09 10:09:34.293
+705,2002-05-22 00:00:00.000,BoBo,,0,Rehab,MSQ,mrodriguez,,cplante,2002-05-22 00:00:00.000,D,2009-07-09 10:09:34.293
+714,2005-02-19 00:00:00.000,NaOt,arota aneruism,0,Rehab,LPZ,dmurphy, arota aneruism,jhackshaw,2005-02-19 00:00:00.000,D,2009-07-09 10:09:34.293
+717,2004-03-03 00:00:00.000,NaOt,,0,Resc,FWCT,unk," Pyothorax, emaciated, no indications of trauma",chudak,2004-03-03 00:00:00.000,dszemer,2017-03-16 07:33:33.947
+719,2004-07-07 00:00:00.000,BoPr,,0,Resc,FWCT,unk,Died on site,chudak,2004-07-04 00:00:00.000,D,2009-07-09 10:09:34.293
+724,2005-01-08 00:00:00.000,BoBo,,0,Trans,FWCT,unk,"08 January 2005: 1237 hrs, FWC-CAH received a page from FWC LE Palm Beach Dispatch regarding an injured manatee that had beached itself at the Ocean Inlet Park in Ocean Ridge, Palm Beach County.  Two FWC officers were in route to the scene.  CAH and ",astoddard,2005-01-12 00:00:00.000,D,2009-07-09 10:09:34.293
+725,2005-03-03 00:00:00.000,BoIm,,0,Resc,MMPL,unk,,dszemer,2005-03-03 00:00:00.000,D,2009-07-09 10:09:34.293
+727,2005-03-14 00:00:00.000,NaCs,"",0,Rehab,SWF,mwalsh,,rrunnells,2005-03-14 00:00:00.000,D,2009-07-09 10:09:34.293
+728,2005-07-03 00:00:00.000,NaOt,Toxoplasmosis,0,Rehab,MSQ,mrodriguez, Toxoplasmosis,sgaudio,2005-07-18 00:00:00.000,D,2009-07-09 10:09:34.293
+741,2000-04-24 00:00:00.000,BoPr,,0,Resc,FWCSW,unk,,unk,2000-04-24 00:00:00.000,D,2009-07-09 10:09:34.293
+742,2000-05-07 00:00:00.000,BoIm,,0,Resc,FWCSW,unk,al died at ramp,unk,2000-05-07 00:00:00.000,D,2009-07-09 10:09:34.293
+743,2013-03-07 00:00:00.000,Unde,"Verified, not recovered",0,AftRel,MMPL,,,dszemer,2018-11-08 12:47:16.437,D,2018-11-08 12:47:16.437
+744,2001-02-12 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"Watercraft related, propellar.",rrose,2001-02-13 00:00:00.000,D,2009-07-09 10:09:34.293
+745,2013-06-10 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:14:12.147,D,2014-01-24 11:14:12.147
+746,2001-02-17 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy,"Animal was tagged on 2/8/01 by Sirenia projectat Port of the Islands; pior to her death she was spotted 1.5 miles offshore of Naples Beach, north of Marco, and then found along the shore of North Naples.   Cold Stress",jhackshaw,2001-02-19 00:00:00.000,D,2009-07-09 10:09:34.293
+747,2001-02-25 00:00:00.000,BoPr,,0,Rehab,LPZ,dmurphy,"Watercraft related, propellar",jhackshaw,2001-02-26 00:00:00.000,D,2009-07-09 10:09:34.293
+748,2001-03-12 00:00:00.000,NaCs,"",0,Resc,FWCSW,unk,Animal was thin and lethargic; died during rescue before it could be transported. Cold stress,mbarlas,2001-03-12 00:00:00.000,D,2009-07-09 10:09:34.293
+749,2001-06-04 00:00:00.000,BoBo,,0,Rehab,LPZ,dmurphy,"watercraft related, blunt trauma and propellar",jhackshaw,2001-06-18 00:00:00.000,D,2009-07-09 10:09:34.293
+750,2001-06-01 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,"watercraft related, blunt trauma",jhackshaw,2001-06-18 00:00:00.000,D,2009-07-09 10:09:34.293
+755,2012-03-13 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2013-02-19 12:17:02.693,D,2013-02-19 12:17:02.693
+756,2001-10-15 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,Dead  upon arrival,dmurphy,2001-10-14 00:00:00.000,D,2009-07-09 10:09:34.293
+758,2003-02-07 00:00:00.000,NaCs,"",0,AftRel,FWCSW,dmurphy, Cold Stress,vedmonds,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+760,2002-04-15 00:00:00.000,NaCs,"",0,Rehab,FWCSW,dmurphy, Cold stress,dmurphy,2002-01-30 00:00:00.000,D,2009-07-09 10:09:34.293
+763,2002-12-17 00:00:00.000,NaOt,emaciated,0,AftRel,LPZ,dmurphy,"naturally depleted fat stores, enteritis emaciated",nadimey,2003-01-31 00:00:00.000,D,2009-07-09 10:09:34.293
+764,2016-11-07 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:41:06.783,D,2018-11-08 13:41:06.783
+765,2002-11-10 00:00:00.000,NaOt,gas-intestinal,0,Trans,FWCSW,brommel, gas-intestinal,nadimey,2002-01-30 00:00:00.000,D,2009-07-09 10:09:34.293
+766,2002-11-24 00:00:00.000,EnCF,,0,Trans,FWCSW,,,nadimey,2002-01-30 00:00:00.000,nadimey,2011-09-27 10:58:14.807
+767,2005-03-06 00:00:00.000,NaRe,"",0,AftRel,MMPL,dmurphy,Sarasota Co. animal recovered red tide,vedmonds,2003-03-06 00:00:00.000,D,2009-07-09 10:09:34.293
+775,2003-04-18 00:00:00.000,NaRe,"",0,Trans,LPZ,dmurphy, Red Tide,nadimey,2003-04-18 00:00:00.000,D,2009-07-09 10:09:34.293
+777,2003-05-07 00:00:00.000,BoPr,,0,Trans,FWCSW,brommel,,nadimey,2003-05-07 00:00:00.000,D,2009-07-09 10:09:34.293
+778,2003-05-31 00:00:00.000,NaOt,obstructed bowel; lesion in colon; nasopharynx obs,0,Rehab,LPZ,dmurphy,obstructed bowel GI Obstruction,vedmonds,2003-09-18 00:00:00.000,D,2009-07-09 10:09:34.293
+779,2003-07-11 00:00:00.000,NaDe,"",0,Rehab,LPZ,dmurphy,natural other,vedmonds,2003-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+781,2006-06-29 00:00:00.000,NaRe,"",0,AftRel,FWCSW,unk, Red tide,dszemer,2006-06-29 00:00:00.000,D,2009-07-09 10:09:34.293
+782,2008-01-29 00:00:00.000,HumI,,0,AftRel,MMPL,unk,"rope nest, monofilament, fishing lure in small intestine; peritonitis.",dszemer,2008-02-21 00:00:00.000,D,2009-07-09 10:09:34.293
+784,2003-07-08 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,,nadimey,2003-07-07 00:00:00.000,D,2009-07-09 10:09:34.293
+787,2003-10-07 00:00:00.000,NaDe,"",0,Rehab,LPZ,dmurphy,,nadimey,2003-10-07 00:00:00.000,D,2009-07-09 10:09:34.293
+788,2005-10-26 00:00:00.000,NaRe,"",0,AftRel,MMPL,unk,,dszemer,2005-10-26 00:00:00.000,D,2009-07-09 10:09:34.293
+789,2003-12-24 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy,died upon arrival Cold stress,vedmonds,2004-02-17 00:00:00.000,D,2009-07-09 10:09:34.293
+790,2004-01-26 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy, Cold stress,vedmonds,2004-04-17 00:00:00.000,D,2009-07-09 10:09:34.293
+793,2004-03-14 00:00:00.000,BoIm,,0,Resc,FWCSW,brommel,,dgrant,2004-03-14 00:00:00.000,D,2009-07-09 10:09:34.293
+794,2009-07-27 00:00:00.000,NaOt,,0,AftRel,,,,dszemer,2009-09-01 11:56:39.173,D,2009-09-01 11:56:39.173
+795,2004-07-17 00:00:00.000,NaOt,"bowel obstruction, emaciated",0,Rehab,LPZ,dmurphy,"G.B. had a bowel obstruction from what appeared to be fishing line. bowel obstruction,",vedmonds,2004-08-08 00:00:00.000,D,2009-07-09 10:09:34.293
+805,2004-11-08 00:00:00.000,BoIm,,0,Resc,FWCSW,unk,Died during rescue effort,dgrant,2004-11-08 00:00:00.000,D,2009-07-09 10:09:34.293
+806,2004-11-28 00:00:00.000,BoBo,,0,Rehab,LPZ,dmurphy,,vedmonds,2004-11-19 00:00:00.000,D,2009-07-09 10:09:34.293
+808,2004-12-21 00:00:00.000,NaCs,"",0,Resc,FWCSW,unk, Cold Stress,dgrant,2004-12-21 00:00:00.000,D,2009-07-09 10:09:34.293
+809,2004-12-31 00:00:00.000,NaOt,fluid in abdominal cavity; pleuritis; nephritis; l,0,Rehab,SWF,mwalsh,"Animal originally came in with calf, floating high and listing. Animal died late on 12/31/04 and was then picked up by FWC Northeast Field Station and taken to MMPL for necropsy. Death to be determined from MMPL's necropsy report. Host of medical iss",bwagoner,2005-01-06 00:00:00.000,D,2009-07-09 10:09:34.293
+811,2005-06-28 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy,Union was observed to be buoyant on 26 June 2005.  Observed struggling in water on 28 June. Necropsy performed by Dr. Murphy at Lowry Park Zoo,vedmonds,2005-07-19 00:00:00.000,D,2009-07-09 10:09:34.293
+813,2005-03-30 00:00:00.000,NaCs,"",0,Rehab,LPZ,dmurphy, cold stress,lrottman,2005-03-30 00:00:00.000,D,2009-07-09 10:09:34.293
+815,2005-08-10 00:00:00.000,BoUn,,0,Rehab,LPZ,dmurphy,Calf in critical condition upon arrival at facility,vedmonds,2005-08-23 00:00:00.000,D,2009-07-09 10:09:34.293
+821,2006-01-05 00:00:00.000,BoPr,,0,Trans,FWCSW,unk,,dszemer,2006-01-05 00:00:00.000,D,2009-07-09 10:09:34.293
+822,2006-02-03 00:00:00.000,NaOt,acute erosive gastritis,0,Rehab,MSQ,mrodriguez,"Small calf had Gastritis possibly due to stress
+She had been without food for a few weeks in a land-locked area Gastritis",sgaudio,2006-02-09 00:00:00.000,D,2009-07-09 10:09:34.293
+823,2006-02-19 00:00:00.000,NaCs,"",0,Resc,FWCSW,unk, Cold Stress,dszemer,2006-02-19 00:00:00.000,D,2009-07-09 10:09:34.293
+824,2006-03-17 00:00:00.000,BoPr,,0,Resc,FWCSW,unk,,dszemer,2006-03-17 00:00:00.000,D,2009-07-09 10:09:34.293
+826,2006-06-28 00:00:00.000,BoPr,,0,Resc,FWCSW,unk,,dszemer,2006-06-28 00:00:00.000,D,2009-07-09 10:09:34.293
+827,2006-08-28 00:00:00.000,NaRe,"",0,Trans,MMPL,unk,"severe enteritis; peritonitis; congested mesenteries, dura matter; ascites; caustic red tide-like stomach odor red tide",dszemer,2006-09-18 00:00:00.000,D,2009-07-09 10:09:34.293
+829,2003-11-29 00:00:00.000,Deco,"",0,AftRel,LPZ,dmurphy,"Collier Co., Marco Island, Factory Bay:  too decomposed",nadimey,2003-11-29 00:00:00.000,D,2009-07-09 10:09:34.293
+830,2006-05-04 00:00:00.000,BoIm,,1,Rehab,SWF,sgearhart,"Animal euthanized by Dr. Gearhat at SWF, 
+transported to FMRI MMPL for necropsy.",bwagoner,2006-05-09 00:00:00.000,D,2009-07-09 10:09:34.293
+834,2018-03-03 00:00:00.000,Unde,too decomposed.,0,AftRel,MMPL,,,dszemer,2018-04-12 08:08:11.750,D,2018-04-12 08:08:11.750
+838,2007-03-24 00:00:00.000,NaRe,,0,AftRel,MMPL,unk, Red Tide,dszemer,2007-03-24 00:00:00.000,D,2009-07-09 10:09:34.293
+839,2009-12-27 00:00:00.000,BoIm,,0,AftRel,,,,dszemer,2010-01-05 13:47:49.213,D,2010-01-05 13:47:49.213
+841,2006-05-19 00:00:00.000,BoIm,,1,Rehab,LPZ,dmurphy,Citrus continued to lose weight and would eat sporadically.  She had been receiving supplemental tube feedings.,vedmonds,2006-08-07 00:00:00.000,D,2009-07-09 10:09:34.293
+842,2013-03-28 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:08:30.110,D,2014-01-24 11:08:30.110
+844,2006-05-11 00:00:00.000,NaOt,"twisted gut,impactio",0,Rehab,LPZ,dmurphy,"Manatee became impacted and cosequently twisted his gut twisted gut,impactio",vedmonds,2006-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+846,2010-01-22 00:00:00.000,NaCs,,0,AftRel,,,,dszemer,2010-02-03 11:47:34.517,D,2010-02-03 11:47:34.517
+851,2006-08-03 00:00:00.000,BoPr,,1,Rehab,SWF,cdold,"After several months and no response to treatment
+animal was euthanized, necropsy report to follow.",bwagoner,2006-08-06 00:00:00.000,D,2009-07-09 10:09:34.293
+853,2006-04-25 00:00:00.000,BoIm,,0,Trans,SWF,cdold,,bwagoner,2006-04-25 00:00:00.000,D,2009-07-09 10:09:34.293
+854,2006-05-22 00:00:00.000,BoPr,,0,Rehab,SWF,bnolan,"Animal was found dead around 6:30PM on 5/22/06
+he was swimming around two hours earlier.
+Dr. Chittick will follow up with necropsy report.",bwagoner,2006-05-23 00:00:00.000,D,2009-07-09 10:09:34.293
+855,2006-06-27 00:00:00.000,BoPr,,1,Rehab,SWF,cdold,Animal was euthanized by Dr. Dold due to injuries.,bwagoner,2006-06-27 00:00:00.000,D,2009-07-09 10:09:34.293
+856,2006-06-18 00:00:00.000,NaOt,Stillborn,0,Rehab,SWF,cdold,"Stillborn calf born to rescued animal SWFTm0614B
+brought in due to watercraft injuries. Stillborn",bwagoner,2006-06-20 00:00:00.000,D,2009-07-09 10:09:34.293
+857,2006-06-30 00:00:00.000,NaDe,"",0,Rehab,SWF,mwalsh,Orphan calf survived 5 days under supportive care.,rrunnells,2006-07-13 00:00:00.000,D,2009-07-09 10:09:34.293
+858,2006-06-02 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,,vedmonds,2006-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+859,2006-05-16 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,Maren was a known manatee that had been pit-tagged during winter captures in the late 1990's.  A pit tag could not be detected in her right shoulder.  ,vedmonds,2006-07-29 00:00:00.000,D,2009-07-09 10:09:34.293
+861,2006-03-21 00:00:00.000,NaCs,"",0,Rehab,SWF,bnolan,Dr. Beth Chittick will follow up with necropsry report. skin lesions no fat,bwagoner,2006-03-23 00:00:00.000,D,2009-07-09 10:09:34.293
+862,2006-04-04 00:00:00.000,BoIm,,1,Rehab,SWF,bnolan,"Animal was euthanized during surgical
+procedure, necropsry report to follow.",bwagoner,2006-04-10 00:00:00.000,D,2009-07-09 10:09:34.293
+864,2007-12-27 00:00:00.000,HumI,,0,AftRel,MMPL,unk,"Fishing hook embedded in small intestine with necrotic reaction; dry, hard feces; relatively empty GI tract; serous atrophy fats and muscle.",dszemer,2007-01-16 00:00:00.000,D,2009-07-09 10:09:34.293
+866,2006-04-14 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,Manatee suffered from Pyothorax and was extremely emaciated,sgaudio,2006-04-14 00:00:00.000,D,2009-07-09 10:09:34.293
+868,2018-01-06 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:26:21.373,D,2018-11-09 09:26:21.373
+869,2013-11-26 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:34:22.393,D,2014-01-24 11:34:22.393
+870,2006-08-05 00:00:00.000,BoIm,,0,Rehab,SWF,mwalsh,"Animal was just found dead on bottom of pool, necropsy report to follow.",bwagoner,2006-08-06 00:00:00.000,D,2009-07-09 10:09:34.293
+871,2006-09-25 00:00:00.000,BoIm,,0,Rehab,SWF,cdold,,bwagoner,2006-09-25 00:00:00.000,D,2009-07-09 10:09:34.293
+872,2006-10-19 00:00:00.000,BoPr,,0,Rehab,SWF,cdold,,bwagoner,2006-10-19 00:00:00.000,D,2009-07-09 10:09:34.293
+873,2006-10-25 00:00:00.000,NaOt,atresia ani-volvulus,0,Rehab,MMPL,unk, atresia ani-volvulus,dszemer,2006-11-02 00:00:00.000,D,2009-07-09 10:09:34.293
+874,2006-12-14 00:00:00.000,NaCs,"",0,Rehab,SWF,cdold, Cold stress,slehr,2006-12-23 00:00:00.000,D,2009-07-09 10:09:34.293
+876,2007-02-27 00:00:00.000,BoUn,,0,AftRel,MMPL,unk,,dszemer,2007-02-27 00:00:00.000,D,2009-07-09 10:09:34.293
+877,2016-12-24 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2017-01-04 09:56:36.667,D,2017-01-04 09:56:36.667
+878,2015-12-14 00:00:00.000,BoIm,acute,0,AftRel,MMPL,,,dszemer,2015-12-16 06:45:50.407,D,2015-12-16 06:45:50.407
+879,2010-05-29 00:00:00.000,Unde,,0,Rehab,LVS,,Animal was transported to The Seas from South Florida Museum on 24 May 2010.,lmcduffie,2010-05-29 11:05:31.827,D,2010-05-29 11:05:31.827
+880,2017-12-24 00:00:00.000,NaCs,,0,AftRel,FWCNE,,Carcass had a 52 cm male fetus,ngordon,2018-01-19 13:05:04.250,D,2018-01-19 13:05:04.250
+881,2006-10-11 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,,vedmonds,2006-10-11 00:00:00.000,D,2009-07-09 10:09:34.293
+882,2007-03-26 00:00:00.000,NaRe,,0,AftRel,MMPL,unk, Red Tide,dszemer,2007-03-26 00:00:00.000,D,2009-07-09 10:09:34.293
+883,2010-06-03 00:00:00.000,Othe,Florida Marine Pathobiology Lab stated death was listed as Watercraft/Chronic.,0,Rehab,HSSWP,mlowe,Drs. Michael Walsh and Ray Ball are veterinarians of record for Ellie Schiller Homosassa Springs Wildlife State Park. Dr. Walsh is primary veterinarian for the manatees at Homosassa.,slowe,2010-06-17 11:36:14.623,D,2010-06-17 11:36:14.623
+886,2020-02-17 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2020-03-09 08:57:49.847,D,2020-03-09 08:57:49.847
+887,2002-02-22 00:00:00.000,BoPr,,1,Rehab,SWF,mwalsh,"Boat trauma, chronic pleuritis, opening to chest",unk,2002-02-22 00:00:00.000,D,2009-07-09 10:09:34.293
+888,2003-04-23 00:00:00.000,NaOt,stillborn,0,Rehab,SWF,astamper,Calf was still born to SWF T.m 0308 a Manatee that is being treated for entanglement injuries,rrunnells,2003-04-23 00:00:00.000,D,2009-07-09 10:09:34.293
+889,2004-06-29 00:00:00.000,Othe,"severe, acute head trauma with fatal cerebral hemo",0,Rehab,MSQ,bnolan,"Animal orginally brought in for entanglement injuries and was undergoing treatment. She developed a chin abcess during rehabilation. One morning (6/29/04) she began showing intermittent, violent rolling behaviors in the pool. Despite attempts to dete",bwagoner,2004-07-05 00:00:00.000,D,2009-07-09 10:09:34.293
+890,2008-03-27 00:00:00.000,NaCs,,0,Trans,MMPL,unk,cold stress lesions; thickened epidermis; folds and flattened ventrum; empty GI tract; kidney cyst.,dszemer,2008-04-04 00:00:00.000,dszemer,2009-09-23 11:42:48.273
+892,2007-04-04 00:00:00.000,NaDe,,0,Trans,MMPL,dmurphy,"ventral, fetal folds; umbilical skirt; mostly empty GI tract; meconium; congested meninges; closed urachus, umbilical vein, arteries. Orphan",dszemer,2007-11-01 00:00:00.000,D,2009-07-09 10:09:34.293
+896,2007-04-28 00:00:00.000,BoUn,,0,Rehab,MMPL,dmurphy,"healing wound; subluxaed ribs; cyst, necrotic muscle; pneumothorax; congested mesenteries; dry, firm feces; swollen kidneys.",dszemer,2007-11-01 00:00:00.000,D,2009-07-09 10:09:34.293
+897,2010-01-19 00:00:00.000,NaCs,Recovered during a cold related UME.,0,AftRel,MMPL,,,dszemer,2010-03-29 10:50:27.040,dszemer,2010-04-12 13:26:30.843
+905,2007-01-18 00:00:00.000,NaOt,Multiple health issu,0,Rehab,LPZ,dmurphy, Multiple health issu,vedmonds,2008-01-14 00:00:00.000,D,2009-07-09 10:09:34.293
+906,2007-02-17 00:00:00.000,BoUn,,0,Rehab,SWF,cdold,"Animal died shortly after arriving at SWF, carcass was picked up on 2/19/07 and taken to MMPL for necropsy",bwagoner,2007-02-22 00:00:00.000,D,2009-07-09 10:09:34.293
+911,2007-01-14 00:00:00.000,NaCs,,0,Rehab,SWF,cdold,Animal found dead 1/14/07 in AM. Dr. Martine de Wit from MMPL did necropsy on 1/15/07 at SWF Cold Stress,bwagoner,2007-01-24 00:00:00.000,D,2009-07-09 10:09:34.293
+914,2024-10-01 00:00:00.000,BoIm,,0,Rehab,,,,mlippincot,2024-10-03 07:25:35.443,D,2024-10-03 07:25:35.443
+916,2007-06-30 00:00:00.000,BoUn,,0,Rehab,MSQ,mrodriguez,Sent to FMRI for Necrospy,mrodriguez,2007-07-05 00:00:00.000,D,2009-07-09 10:09:34.293
+917,2007-03-19 00:00:00.000,NaRe,,0,Rehab,MMPL,dmurphy,"brevetoxin detected in stomach, liver, urine, blood; mucosa lesions; congested meninges, bladder, nasopharyngeal mucosa. Red Tide",dszemer,2007-11-01 00:00:00.000,D,2009-07-09 10:09:34.293
+925,2013-03-27 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:05:53.737,D,2014-01-24 11:05:53.737
+926,2007-08-26 00:00:00.000,NaDe,,0,Trans,MMPL,dmurphy,"Umbilical hernia, adhesions, necrotic intestine; umbilical blood clots; fetal folds; umbilical skirt Orphan",dszemer,2007-09-24 00:00:00.000,D,2009-07-09 10:09:34.293
+927,2014-01-27 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2014-01-28 11:40:19.553,D,2014-01-28 11:40:19.553
+929,2015-03-07 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2016-04-08 08:22:36.613,D,2016-04-08 08:22:36.613
+930,2007-08-23 00:00:00.000,BoUn,,0,Rehab,MMPL,dmurphy,"Propeller cuts; fractured transverse processes; cut nerves, vessels; necrotic tissue; nodules on AV valves.",dszemer,2007-09-24 00:00:00.000,D,2009-07-09 10:09:34.293
+941,2015-05-23 00:00:00.000,Unde,,0,AftRel,FWCIR,,,dszemer,2016-03-11 12:10:37.603,D,2016-03-11 12:10:37.603
+942,2008-01-31 00:00:00.000,BoPr,,0,Rehab,MMPL,unk,"phothorax; consolidated lung; rib,vertebra remodeling; deformed vertebral column; abscess, caseous material; emaciation; urocele.",dszemer,2008-02-21 00:00:00.000,D,2009-07-09 10:09:34.293
+944,2007-11-09 00:00:00.000,BoUn,,1,Rehab,SWF,cdold,"Rescued from Blue Springs, diagnosed
+w/pyothorax, euthanized on 11/9/07, taken to MMLP",bwagoner,2007-11-21 00:00:00.000,D,2009-07-09 10:09:34.293
+946,2007-09-09 00:00:00.000,NaOt,Multiple health issu,0,Trans,MMPL,cdold,"Congested lungs, trachea,mesenteries; dry serosal surface of lungs; enlarged lymph nodes; red discoloration of epidermis of peduncle. Multiple health issu",dszemer,2007-10-18 00:00:00.000,D,2009-07-09 10:09:34.293
+948,2010-08-21 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2011-01-07 12:03:11.563,D,2011-01-07 12:03:11.563
+949,2013-02-09 00:00:00.000,Unde,There were no distinct findings indicating a specific cause of death.,0,AftRel,MMPL,,,dszemer,2013-03-21 06:53:40.743,D,2013-03-21 06:53:40.743
+953,2009-04-01 00:00:00.000,NaOt,,0,AftRel,,,"Missiong muzzle; bloody lungs, face, neck; cold stress lesions; muddy GI contents; hard feces.",dszemer,2009-08-28 12:38:33.603,dszemer,2009-09-28 10:19:12.993
+954,2008-01-07 00:00:00.000,NaCs,,0,Rehab,SWF,sgearhart,"Severe cold stress, animal could not float even with wetsuit jacket on could not hold head up. 
+Ulcerating cold stress lesions; relativelyl empty GI tract; lesions stomach, intestine; congested bladder mucosa; lung mass; froth airways; ventral folds; serous atrophy fats",bwagoner,2008-02-25 00:00:00.000,dszemer,2009-09-28 10:33:26.630
+957,2008-05-10 00:00:00.000,NaCs,,0,Rehab,MSQ,unk, Cold stress,dszemer,2008-05-10 00:00:00.000,D,2009-07-09 10:09:34.293
+963,2014-09-21 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2014-10-21 11:53:53.907,D,2014-10-21 11:53:53.907
+966,2007-06-04 00:00:00.000,BoUn,,0,Rehab,LPZ,dmurphy,Pyothorax post surgery/ chest tube,vedmonds,2007-01-13 00:00:00.000,D,2009-07-09 10:09:34.293
+968,2010-12-23 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2010-12-27 09:26:39.743,D,2010-12-27 09:26:39.743
+969,2009-12-14 00:00:00.000,NaOt,,0,AftRel,,,,dszemer,2010-02-02 15:32:52.300,D,2010-02-02 15:32:52.300
+970,2008-02-05 00:00:00.000,NaCs,,0,Trans,SWF,sgearhart,"Severe cold stress animal, very underweight,
+died about 15min. into transport.
+Cold stress lesions; poorly resolving wounds; longitudinal folds; concave ventrum; empty upper GI; hard feces; meninges severely congested; froth airways; dark red region lung.
+ ",bwagoner,2008-03-02 00:00:00.000,dszemer,2009-09-28 10:50:46.710
+971,2010-07-10 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2011-01-07 11:59:51.757,D,2011-01-07 11:59:51.757
+972,2008-02-21 00:00:00.000,BoIm,,0,Rehab,SWF,sgearhart,"Animal died during surgical procedure(laparoscopy). MMPL pick up animal for necropsy.
+Chronic. Fractured, luxated ribs; right lung consolidated, fibrin; hemothorax; lseuritis; shredded muscle; blood clots; empty GI; enlarged liver.",bwagoner,2008-03-02 00:00:00.000,dszemer,2009-09-28 10:57:28.900
+973,2008-02-20 00:00:00.000,BoIm,,0,Rehab,SWF,cdold,"Animal died during diagnostic workup. MMPL sent staff to SWF to help with necropsy.
+Chronic. Wounds; fractured, luxated rib; shredded, hemorrhagic muscle; hemothorax; GI contentents, blood in abdomen; blood stained ingesta; perforated pleura, hemidiaphragm, lung, colon; black line kidneys.",bwagoner,2008-03-02 00:00:00.000,dszemer,2009-09-28 11:01:27.717
+977,2008-09-29 00:00:00.000,NaDe,,0,Rehab,SWF,unk,"Hand reared orphaned calf, under 
+treatment for possible pneumatosis Orphan",bwagoner,2008-11-02 00:00:00.000,D,2009-07-09 10:09:34.293
+978,2008-05-05 00:00:00.000,NaOt,Calf w/ buyancy issues,0,Trans,MMPL,unk,,dszemer,2008-05-05 00:00:00.000,dszemer,2009-09-23 09:25:24.407
+986,2008-11-23 00:00:00.000,NaOt,Other,0,No,CHASS,unk,"Animal died after being tagged for a rescue attempt, died within three hours Other",nadimey,2008-11-23 00:00:00.000,D,2009-07-09 10:09:34.293
+989,2009-02-26 00:00:00.000,NaOt,,0,PriorTr,,,,dszemer,2009-08-27 13:19:03.560,D,2009-08-27 13:19:03.560
+990,2009-04-08 00:00:00.000,HumI,"plastic, monofilament, and line in stomach, duodenum; peanut-shaped head; outline vertebral column",0,Rehab,,,,dszemer,2009-08-27 12:29:40.477,dszemer,2010-01-29 10:24:00.910
+995,2008-12-11 00:00:00.000,NaOt,large ventral lump,0,Rehab,LPZ,dmurphy,Found dead upon arrival at 0700 large ventral lump,vedmonds,2008-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+997,2008-12-05 00:00:00.000,BoUn,,1,Rehab,LPZ,dmurphy,Manatee was euthanized after radiographs suggested no reasonable chance of recovery,vedmonds,2008-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+998,2008-10-31 00:00:00.000,NaOt,Emaciated,0,Rehab,LPZ,dmurphy, Emaciated,vedmonds,2008-12-11 00:00:00.000,D,2009-07-09 10:09:34.293
+1000,2009-01-04 00:00:00.000,BoIm,"Chronic. Healing wounds; remodeling, sub-luxated ribs; necrotic, shredded muscle; torn, collapsed lung; torn hemidiaphragm; resolving blood clots.",0,Rehab,MSQ,,,dszemer,2009-08-27 10:39:00.180,dszemer,2009-08-27 12:22:24.283
+1001,2008-12-10 00:00:00.000,NaDe,,0,Trans,MMPL,unk, Orphan,dszemer,2008-12-10 00:00:00.000,D,2009-07-09 10:09:34.293
+1003,2008-12-29 00:00:00.000,BoUn,,0,Trans,MMPL,unk,"Impact, acute. Fresh wounds; fractured ribs, kidney; hemothorax; perforated, collapsed lung; blood clots; displaced liver; kidney, pancreas, muscle pallor.",dszemer,2009-01-15 00:00:00.000,D,2009-07-09 10:09:34.293
+1004,2019-02-11 00:00:00.000,Unde,,0,AftRel,FWCT,,,dszemer,2019-02-15 07:40:42.777,D,2019-02-15 07:40:42.777
+1005,2018-08-27 00:00:00.000,Deco,,0,AftRel,FWCSW,,Autolyzed and/or missing internal organs; Shark scavenging.,glonati,2019-05-13 12:15:06.547,dszemer,2019-05-13 13:38:55.343
+1006,2013-02-28 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:01:12.883,D,2014-01-24 11:01:12.883
+1009,2011-01-06 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2011-02-09 12:45:04.893,D,2011-02-09 12:45:04.893
+1014,2008-08-03 00:00:00.000,NaDe,,0,Rehab,SWF,bblankensh,"Orphaned calf from Sebastian, FL Orphan",bwagoner,2008-08-12 00:00:00.000,D,2009-07-09 10:09:34.293
+1015,2022-02-22 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:22:44.420,D,2023-10-02 11:22:44.420
+1018,2008-06-30 00:00:00.000,NaDe,,0,Trans,FWCIR,unk, Orphan,aspellman,2008-06-20 00:00:00.000,D,2009-07-09 10:09:34.293
+1019,2008-05-28 00:00:00.000,BoUn,,0,No,MMPL,unk,"An attempt was made to capture this aniaml on 25 May, but had to be released when net got caught on bottom debris.  Could not be relocated until found dead on the 28th.",dszemer,2008-09-07 00:00:00.000,D,2009-07-09 10:09:34.293
+1020,2008-08-23 00:00:00.000,BoBo,"fresh wounds; GI, liver, kidney pallor; fractured ribs, vertebrae, kidneys; torn lung; blood clots; torn, shredded, hemorrhagic muscle; hemothorax",0,Trans,MMPL,unk,,dszemer,2008-08-23 00:00:00.000,dszemer,2009-09-23 12:58:34.173
+1023,2008-07-14 00:00:00.000,BoUn,,0,Rehab,LPZ,dmurphy,Died overnight,vedmonds,2008-10-29 00:00:00.000,D,2009-07-09 10:09:34.293
+1025,2008-07-30 00:00:00.000,NaDe,,0,Rehab,SWF,cdold, Orphan,bwagoner,2008-08-12 00:00:00.000,D,2009-07-09 10:09:34.293
+1027,2008-12-22 00:00:00.000,NaCs,,0,Resc,MMPL,unk,"large skin abscesses; ulcerating, necrotic cold stress lesions; abscesses muscle, lymph nodes; swollen flippers Cold stress",dszemer,2009-01-15 00:00:00.000,D,2009-07-09 10:09:34.293
+1028,2009-07-30 00:00:00.000,NaOt,,0,Rehab,MZ,lfigueroao,Necrotizing enterocolitis with pneumatosis intestinal,jzegarra,2009-08-26 14:35:38.540,D,2009-08-26 14:35:38.540
+1030,2009-01-27 00:00:00.000,NaCs,,0,Resc,MMPL,unk,"Cold stress lesions, peanut shaped head, longitudinal folds, bloody lungs, mucus airways, congested tracheal, urinary bladder mucosa, abscesses muscle, empty GI tract Cold stress",dszemer,2009-02-04 00:00:00.000,D,2009-07-09 10:09:34.293
+1031,2009-01-31 00:00:00.000,BoUn,,0,Resc,MMPL,unk,"Fresh watercraft wounds, torn, hemorrhagic muscle, fractured vertebrae, kidneys, kidney pallor, torn liver, blood clots",dszemer,2009-02-04 00:00:00.000,D,2009-07-09 10:09:34.293
+1035,2009-01-25 00:00:00.000,NaCs,,0,Trans,MMPL,unk, Cold Stress,dszemer,2009-02-04 00:00:00.000,D,2009-07-09 10:09:34.293
+1038,2021-03-22 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:01:21.473,D,2023-10-02 11:01:21.473
+1039,2009-02-20 00:00:00.000,Unde,specific COD could not be determined,0,PriorTr,,,,dszemer,2009-08-27 13:11:27.603,D,2009-08-27 13:11:27.603
+1040,2009-07-25 00:00:00.000,BoPr,,1,Rehab,SWF,sgearhart,"Original rescue number was SWFTm0901b, rescued on 2/2/09 with male calf, SWFTm0902B (Edward), due to cold stress. Both released on 5/28/09 in Jacksonville, Fl.",slehr,2009-08-27 15:19:16.233,D,2009-08-27 15:19:16.233
+1041,2009-07-19 00:00:00.000,BoPr,,0,AftRel,,,,dszemer,2009-08-27 12:07:33.210,dszemer,2009-08-27 12:23:14.270
+1042,2009-02-10 00:00:00.000,Unde,,0,Rehab,SWF,,,dszemer,2009-08-27 12:13:23.747,dszemer,2009-08-27 12:20:29.423
+1043,2008-12-27 00:00:00.000,BoUn,,0,Rehab,MMPL,unk,,dszemer,2008-12-27 00:00:00.000,D,2009-07-09 10:09:34.293
+1047,2011-01-17 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2011-01-24 09:25:43.917,D,2011-01-24 09:25:43.917
+1048,2008-09-11 00:00:00.000,BoIm,,1,Rehab,SWF,sgearhart,"Animal scoped to determine extend of injuries, decision was to euthanize, path lab was on site. 
+Chronic. Resolving watercraft wound; fractured ribs; hemothorax with fibrin; consolidated lung; emaciated; enlarged lymph nodes; torn, hemorrhagic, necrotic tissue, muscle; relatively empty GI.",bwagoner,2008-11-02 00:00:00.000,dszemer,2009-09-28 12:45:22.253
+1050,2008-10-06 00:00:00.000,BoIm,,0,Rehab,SWF,sgearhart,"Animal was floating bilateral,very high in water, tapped chest several different times.
+",bwagoner,2008-11-02 00:00:00.000,dszemer,2009-09-28 13:28:44.100
+1051,2008-10-12 00:00:00.000,NaCs,,0,Trans,SWF,unk,"Animal rescued from Dennis,MA Sesuit Harbor, Cape Cod, several days in low 60 degree waters Cold stress",bwagoner,2008-11-02 00:00:00.000,dszemer,2009-09-28 13:31:21.990
+1055,2008-10-04 00:00:00.000,NaOt,,0,Rehab,SWF,cdold,"Animal brought in for possible shock/erratic breathing on 10/3/08, found dead next day.
+Viscous, bloody mucus airways; congested urterus, bladder, airway mucosa, mesenteries, thymus; bloody kidney; empty upper GI tract.",bwagoner,2008-11-02 00:00:00.000,dszemer,2009-09-28 13:02:38.747
+1056,2008-11-04 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,Found at 0700 in medical pool.  Evidence of a seizure or violent thrashing was found.,vedmonds,2008-12-11 00:00:00.000,D,2009-07-09 10:09:34.310
+1057,2008-12-12 00:00:00.000,Unde,,0,AftRel,MMPL,unk,,dszemer,2008-12-12 00:00:00.000,D,2009-07-09 10:09:34.310
+1059,2008-09-11 00:00:00.000,NaOt,,0,AftRel,MMPL,unk,"Congected GI, bladder, airway mucosa, pancreas, muscle, salivary glands, major vessels; dark line, wet cut surfaces, swollen kidneys; bloody fluid uterus, vulva, nares; foamy blood clots; dark red lungs; peduncle scrapes.",dszemer,2008-09-10 00:00:00.000,dszemer,2014-08-19 09:44:02.633
+1065,2009-06-28 00:00:00.000,BoIm,,1,Rehab,,,,dszemer,2009-08-27 14:08:00.223,dszemer,2016-12-15 14:41:31.283
+1068,2009-04-02 00:00:00.000,NaCs,"Lesions,; anasarca; abscess lung; froth airways; ulcers stomach, SI; dry, hard feces",0,PriorTr,,,,dszemer,2009-08-27 13:54:49.560,dszemer,2009-09-22 11:29:35.383
+1071,2013-06-20 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:19:56.203,D,2014-01-24 11:19:56.203
+1076,2009-07-09 00:00:00.000,NaDe,,0,Rehab,,,,dszemer,2009-08-27 14:16:07.903,D,2009-08-27 14:16:07.903
+1078,2009-04-08 00:00:00.000,BoBo,,0,Rehab,LPZ,dmurphy,spent a week in shallow water due to her inability to lift her head on her own. Seizured on 04/07/2009 and died the next day.,vedmonds,2009-08-26 16:12:47.973,D,2009-08-26 16:12:47.973
+1080,2009-08-16 00:00:00.000,NaOt,,0,Rehab,SWF,cdold,"Primary COR was entanglement, but also mating herd related. Possible stress/exhaustion. Necropsied by FWRI Marine Mammal Path lab.",slehr,2009-08-27 15:12:29.260,dszemer,2009-10-13 10:45:27.070
+1081,2009-08-11 00:00:00.000,NaOt,,0,Rehab,SWF,cdold,"Animal had a torsion, had been observed barrel rolling swimming for several hours out in Tampa Bay.",bwagoner,2009-08-27 15:22:33.330,D,2009-08-27 15:22:33.330
+1082,2017-03-22 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:02:16.057,D,2018-11-09 09:02:16.057
+1084,2012-11-23 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-08 12:43:42.477,D,2018-11-08 12:43:42.477
+1087,2009-03-09 00:00:00.000,NaOt,,0,PriorTr,,,,dszemer,2009-08-28 11:55:46.100,D,2009-08-28 11:55:46.100
+1091,2009-05-13 00:00:00.000,NaDe,cold stress,0,PriorTr,,,,dszemer,2009-08-28 14:08:38.843,dszemer,2009-09-22 12:04:22.647
+1095,2009-08-26 00:00:00.000,BoIm,,0,Rehab,LPZ,dmurphy,found at 0630 on 08/26/2009.  Transported to MMPL,vedmonds,2009-08-28 23:07:38.260,D,2009-08-28 23:07:38.260
+1096,2009-07-20 00:00:00.000,Unde,death could be related to trauma from boat injury to dam,0,Rehab,LPZ,dmurphy,Necropsy report indicated that calf never took a breath and that there was some trauma to the placenta that could be the result of the collision with the boat.,vedmonds,2009-08-29 00:25:32.250,dszemer,2010-02-04 11:48:37.313
+1098,2017-07-23 00:00:00.000,Huma,Entrapment,0,Rehab,SFM,dmurphy,,mmargold,2017-08-18 12:30:30.607,D,2017-08-18 12:30:30.607
+1099,2009-09-10 00:00:00.000,NaOt,,0,Rehab,LPZ,dmurphy,"Calf died at 0245 on September 10, 2009.  Developed some buoyancy issues.",vedmonds,2009-09-20 15:04:29.763,D,2009-09-20 15:04:29.763
+1100,2016-08-08 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:30:17.523,D,2018-11-08 13:30:17.523
+1101,2009-09-17 00:00:00.000,Huma,"Animal was incidently caught with smaller entangled animal, SWFTm0919B. Animal was brought on board rescue boat to de-wrap from net deployed by rescue boat.Animal was on board boat approx. 8 to 10 minutes before expiring while on route to boat ramp.",0,Resc,SWF,sgearhart,,slehr,2009-09-20 15:28:54.010,dszemer,2010-02-04 10:28:12.453
+1106,2009-09-20 00:00:00.000,BoPr,,1,PriorTr,SWF,sgearhart,Animal was rescued by FWC SW and transported to SWF for single open wound on right mid-lateral aspect penetrating deep into chest cavity. Left lateral was distended and animal was very thin. Upon veterinarian evaluation animal was euthanized at SWF. FWC SW transported animal back to MMPL. ,slehr,2009-10-14 13:21:19.920,D,2009-10-14 13:21:19.920
+1107,2010-08-06 00:00:00.000,BoIm,,1,Rehab,LPZ,mwalsh,This manatee developed into pythorax ,vedmonds,2010-11-11 11:01:18.063,D,2010-11-11 11:01:18.063
+1109,2018-07-11 00:00:00.000,BoPr,,0,AftRel,FWCT,,,ngordon,2018-09-08 12:22:08.660,D,2018-09-08 12:22:08.660
+1110,2009-11-16 00:00:00.000,NaDe,The primary cause of death may be a bacteremia but it will be from lack of nursing from a very sick dam that died.,0,Rehab,MSQ,mrodriguez,This calf came in with a life threatening hypoglycemia and very resistant bacteria in its gut.  The feces showed it was not taking in any milk from its sick dam.,mrodriguez,2009-11-19 12:17:49.330,D,2009-11-19 12:17:49.330
+1112,2009-11-05 00:00:00.000,BoBo,,0,Resc,FWCT,,,jcassady,2009-11-09 17:04:04.030,D,2009-11-09 17:04:04.030
+1117,2019-10-07 00:00:00.000,Huma,"hook, line, & weight in small intestine",0,AftRel,MMPL,,,dszemer,2019-10-23 10:14:04.180,D,2019-10-23 10:14:04.180
+1123,2013-06-18 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2014-01-24 11:16:30.760,D,2014-01-24 11:16:30.760
+1124,2010-03-07 00:00:00.000,BoIm,Pyothorax,0,Rehab,MSQ,mrodriguez,This manatee came in completely not eating and with 4 gallons of pus in his right thoracic cavity and overriding fractured ribs.  Since he responded and actually began to eat very well we continued the treatment but he was an incredibly bottom sinker the entire time.,mrodriguez,2010-03-14 23:05:31.613,D,2010-03-14 23:05:31.613
+1126,2010-01-11 00:00:00.000,Unde,"Necro results-MMPL: cold stress symptoms/numerous scrapes on dorsum  Poss. COD from traumatic entrapment or cold stress, therefore COD is Undetermined; Other. ",0,Rehab,MSQ,mrodriguez,"Miami Seaquarium: The manatee sustained injuries when it was sucked through the intake pipe. Clinical diagnosis Brain trauma with Respiratory failure, Pending necropsy. ",mrodriguez,2010-01-13 10:33:52.060,dszemer,2010-01-15 14:27:39.210
+1129,2010-01-13 00:00:00.000,NaCs,"Fatal tension pneumothorax, blood work showed very acute and she was a lactating female but not a recent birth.",0,Rehab,MSQ,mrodriguez,The manatee had been observed with a mild listing bouyancy the day previous and had substantially worsened the next day.,mrodriguez,2010-01-22 12:15:44.460,nadimey,2011-01-28 12:50:57.470
+1130,2017-09-16 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:09:09.437,D,2018-11-09 09:09:09.437
+1137,2010-01-21 00:00:00.000,Unde,There were signs of cold stress and fresh trauma.  Could not determined which ultimately killed the manatee.  The carcass was reported during a cold-related unusual mortality event.,0,Trans,MMPL,,,dszemer,2010-10-18 09:39:23.050,D,2010-10-18 09:39:23.050
+1140,2009-11-25 00:00:00.000,NaDe,extremely emaciated and dehydrated when brought into captivity,0,Rehab,PRZ,lfigueroao,,jzegarra,2010-02-05 13:10:12.213,D,2010-02-05 13:10:12.213
+1143,2010-01-13 00:00:00.000,NaCs,,0,Resc,,,,ktherriaul,2010-02-11 13:38:53.453,D,2010-02-11 13:38:53.453
+1148,2010-02-20 00:00:00.000,BoBo,,0,Resc,FWCT,,Manatee died during rescue.  Carcass was towed to a boat ramp.  Tequesta Field Station staff transported carcass to MMPL.,chudak,2010-02-23 15:29:34.657,D,2010-02-23 15:29:34.657
+1149,2010-02-20 00:00:00.000,NaCs,,0,Trans,FWCT,,Manatee died during transport and taken to MMPL the next day.,chudak,2010-02-23 15:54:12.677,D,2010-02-23 15:54:12.677
+1154,2021-11-02 00:00:00.000,Unde,,0,AftRel,,,,APajor,2023-09-14 08:42:11.417,D,2023-09-14 08:42:11.417
+1155,2010-03-06 00:00:00.000,BoIm,Pneumothorax very emaciated and cold stressed.,0,Rehab,MSQ,mrodriguez,"Wether it was cold stressed and it caused her to be hit by a boat or hit by a boat and caused her to be cold stressed because she was bouyant, it is difficult to differentiate, however she turned over prior to a procedure and began thrashing just prior to death which has been seen with unstable ribs but not cold stress cases.",mrodriguez,2010-03-14 23:00:14.083,D,2010-03-14 23:00:14.083
+1158,2011-01-09 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2011-02-02 11:59:46.143,D,2011-02-02 11:59:46.143
+1159,2010-02-25 00:00:00.000,NaCs,,0,Trans,,,,chudak,2010-02-26 14:18:10.753,D,2010-02-26 14:18:10.753
+1160,2013-01-19 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 10:58:29.853,D,2014-01-24 10:58:29.853
+1161,2010-03-09 00:00:00.000,BoBo,,1,Rehab,LPZ,dmurphy,Manatee was diagnosed as a pyothorax,vedmonds,2010-03-10 11:05:09.843,D,2010-03-10 11:05:09.843
+1164,2011-01-17 00:00:00.000,NaOt,,1,Rehab,MMPL,,,dszemer,2011-02-01 10:26:23.570,D,2011-02-01 10:26:23.570
+1166,2010-03-12 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,"This manatee, like a few others recently, is showing signs beyond the typical cold stress syndrome where the vascular and possibly respiratory and neurological systems are affected from subthermal temperatures. The size is also larger than the usual ""cold stress"" cases and is representative of the others coming in recently with similar signs and size.",mrodriguez,2010-03-14 23:13:29.130,D,2010-03-14 23:13:29.130
+1167,2010-04-04 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,"This older cold stress came in with what we are seeing, the non-moving flippers with sever edema and cold stress on the flippers and ventrally and abnormally labored inhalations. The most improvement we got after antibiotics, fluids and nutrition is that he began to move his muzzle slightly.",mrodriguez,2010-04-08 06:55:33.700,D,2010-04-08 06:55:33.700
+1168,2010-04-01 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,"Cold stress lesions severely worse ventrally, flippers non functional, muzzle barely moved, abnormal inhalations.",mrodriguez,2010-04-12 10:08:57.190,D,2010-04-12 10:08:57.190
+1171,2010-02-19 00:00:00.000,NaCs,,0,Resc,,,,ktherriaul,2010-04-06 10:23:27.540,dszemer,2010-04-12 16:11:10.613
+1172,2020-02-24 00:00:00.000,Unde,"While the manatee had old boat strikes and was a bilateral pneumothorax, fractured ribs were not observed.",0,Rehab,MSQ,mrodriguez,This adult female manatee had come in 10 years previous during a strong cold year. She had multiple old boat strike scars. She had bilateral pneumothorax and a severely long laceration/flap injury to the left lung. N rib fractures nor remodeling was observed.,mrodriguez,2020-02-28 19:23:14.553,D,2020-02-28 19:23:14.553
+1173,2010-04-07 00:00:00.000,NaCs,,0,Rehab,SWF,sgearhart,"Animal was rescued 4/6/2010 and died the morning of
+4/7/2010. Animal was picked up by MMPL and necropsy
+was performed at MMPL.",bwagoner,2010-04-21 17:01:11.793,D,2010-04-21 17:01:11.793
+1176,2018-02-11 00:00:00.000,NaCs,,0,AftRel,DISL,,,dszemer,2018-11-09 09:40:17.813,D,2018-11-09 09:40:17.813
+1177,2010-05-02 00:00:00.000,BoPr,,1,Trans,MMPL,,,dszemer,2010-05-04 13:20:16.183,D,2010-05-04 13:20:16.183
+1178,2010-03-05 00:00:00.000,NaCs,,0,Resc,FWCIR,,Animal died after FDEP staff pulled out of surf and prior to FWC staff arrival.,aspellman,2010-05-04 14:02:54.213,D,2010-05-04 14:02:54.213
+1180,2010-05-10 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"The boat propeller injuries had caused a major deformity to the body where the lungs were completely pushed cranially with very limited lung space, there was also severe infection and acidoisis as a consequence of the injuries. ",mrodriguez,2010-05-12 12:36:08.350,D,2010-05-12 12:36:08.350
+1181,2021-05-26 00:00:00.000,Unde,,1,Rehab,SWF,creid,,lbraso,2021-05-30 07:13:41.303,D,2021-05-30 07:13:41.303
+1182,2010-05-31 00:00:00.000,NaDe,,0,Rehab,MSQ,mrodriguez,Calf was dehydrated and hypoglycemic,jlinvill,2010-06-05 10:16:06.740,D,2010-06-05 10:16:06.740
+1183,2010-05-29 00:00:00.000,NaOt,Severe enteritis (very bloody),0,Rehab,MSQ,mrodriguez,Weight at necropsy 196kg,jlinvill,2010-06-04 14:03:39.013,D,2010-06-04 14:03:39.013
+1185,2009-04-16 00:00:00.000,BoPr,,0,AftRel,,,,dszemer,2012-02-29 12:14:32.550,D,2012-02-29 12:14:32.550
+1187,2010-06-20 00:00:00.000,NaOt,This manatee was fatally emaciated with no obviouse cause of why it was in this state diagnostically (nor later on necropsy). ,0,Rehab,MSQ,mrodriguez,Taken to St. Pete for necropsy. The emaciation was undeterimined.,mrodriguez,2010-07-02 12:36:16.000,D,2010-07-02 12:36:16.000
+1191,2010-06-24 00:00:00.000,NaDe,,0,Trans,FWCNE,,"Departure for SeaWorld was 1730 hrs. During transport, at approximately 1850 hrs the calf expired. Mortality ID MNE1039 was assigned.",rberger,2010-06-29 09:59:37.637,D,2010-06-29 09:59:37.637
+1194,2010-05-19 00:00:00.000,BoPr,,1,Resc,SWF,lcroft,Dr. Croft evaulated onsite and determined animal could not be rehabbed and the animal was euthanized,nadimey,2010-08-24 13:12:18.370,D,2010-08-24 13:12:18.370
+1199,2021-01-26 00:00:00.000,NaCs,,0,AftRel,MMPL,,,bbarbeau,2021-01-29 11:46:52.317,D,2021-01-29 11:46:52.317
+1201,2012-04-13 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2012-04-18 11:27:31.507,D,2012-04-18 11:27:31.507
+1202,2021-01-27 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 10:53:58.020,D,2023-10-02 10:53:58.020
+1222,2010-11-20 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,She was taken to St. Pete and she had a diaphragmatic hernia with small intestines in the thoracic cavity with a large hematoma. She had a calf MSTm1023 Charlie est age 8 months and he remains in rehab.,mrodriguez,2010-12-06 12:36:22.380,D,2010-12-06 12:36:22.380
+1224,2022-05-15 00:00:00.000,Unde,,0,AftRel,,,,APajor,2023-09-14 08:49:45.540,D,2023-09-14 08:49:45.540
+1226,2011-02-09 00:00:00.000,NaCs,,0,AftRel,MMPL,,,crush,2011-02-23 12:19:38.053,dszemer,2012-01-30 10:29:16.027
+1227,2010-05-04 00:00:00.000,NaOt,,0,Rehab,MMPL,,,dszemer,2010-12-13 10:19:31.730,dszemer,2011-01-04 13:51:42.803
+1228,2010-10-19 00:00:00.000,NaDe,,0,Rehab,MMPL,,,dszemer,2010-12-13 10:44:21.303,D,2010-12-13 10:44:21.303
+1230,2010-12-17 00:00:00.000,NaCs,,0,Resc,FWCIR,mwalsh,The carcass was immediately iced and taken to the MMPL by MMPL staff.,crush,2011-01-04 09:18:47.450,D,2011-01-04 09:18:47.450
+1232,2011-01-07 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,She was unilateral bouyant manatee but on necropsy did not show any signs of trauma but rather a process that may be the result of acute cold stress o the lungs.,mrodriguez,2011-01-20 15:48:56.370,D,2011-01-20 15:48:56.370
+1233,2011-02-15 00:00:00.000,Unde,Entered a cold stress but because passed so many foreign bodies and pinpoint ulcers were found in the intestines with septicemia is unclear if she got those from  cold stress natural or from a foreign body like a hook that may have passed.,0,Rehab,MSQ,mrodriguez,She entered as a cold stress but because she passed so many foreign bodies (monfilament and lure) and pinpoint ulcers were found in the intestinal tract with a septicemia it is unclear if she got those initally from the cold stress natural or from a foreign body like a hook that may have passed.,mrodriguez,2011-03-14 14:12:15.383,D,2011-03-14 14:12:15.383
+1234,2011-01-07 00:00:00.000,Unde,,0,Rehab,MSQ,mrodriguez,This large female had the unilateral bouyancy issues and lungs changes of the process that may be indicative of acute cold stress but she also had a large piece of cloth from the esophagus to her stomach that may have also caused her demise so cause of death is undetermined.,mrodriguez,2011-01-20 15:54:20.970,D,2011-01-20 15:54:20.970
+1235,2014-12-17 00:00:00.000,NaOt,emaciated,0,AftRel,MMPL,,,dszemer,2015-01-06 08:03:49.230,D,2015-01-06 08:03:49.230
+1237,2011-01-06 00:00:00.000,NaCs,,0,Rehab,SWF,sgearhart,"Animal found dead in pool on Thursday afternoon (1/6/11), he was pickup by MMPL on Friday (1/7/11) for necropsy. Animal was being tubed TID while at SWF due to weight lost, he never showed any interest in eating on own.",bwagoner,2011-01-11 13:33:53.083,D,2011-01-11 13:33:53.083
+1241,2010-12-25 00:00:00.000,NaCs,  ,0,Trans,FWS,,"Animal rescued from Mobile Bay in middle of winter, found beached.",nadimey,2011-01-11 14:22:35.930,D,2011-01-11 14:22:35.930
+1244,2011-01-09 00:00:00.000,NaCs,Animal died shortly after arriving at the park (SWF) Veterinarian tried to revive the animal but unable to.,0,PriorTr,,kheym,Animal was rescued just outside the FPL Intake Canal in Port St. John. MMPL picked up the animal the next day (1/10/11) for necropsy.,bwagoner,2011-01-13 15:58:41.573,D,2011-01-13 15:58:41.573
+1249,2010-12-27 00:00:00.000,NaCs,,0,Rehab,MMPL,,,dszemer,2011-01-31 14:18:11.397,D,2011-01-31 14:18:11.397
+1257,2015-03-01 00:00:00.000,Unde,decomposed,0,AftRel,MMPL,,,dszemer,2016-04-08 08:20:52.973,D,2016-04-08 08:20:52.973
+1258,2015-07-06 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2016-08-04 09:20:49.490,D,2016-08-04 09:20:49.490
+1261,2011-01-30 00:00:00.000,BoIm,,0,Resc,MMPL,,,dszemer,2011-02-18 14:12:48.157,D,2011-02-18 14:12:48.157
+1263,2019-02-09 00:00:00.000,Unde,too decomposed.,0,AftRel,FWCT,,,dszemer,2019-02-15 07:41:52.400,D,2019-02-15 07:41:52.400
+1266,2011-02-04 00:00:00.000,NaCs,,0,Rehab,SWF,lcroft,"Animal died soon after arriving at SWF, he was picked up by FWC the next day 2/5/2011 and taken to MMPL for necropsy.",bwagoner,2011-03-06 07:29:19.557,D,2011-03-06 07:29:19.557
+1267,2022-02-10 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:17:16.603,D,2023-10-02 11:17:16.603
+1269,2011-01-03 00:00:00.000,NaCs,,0,Rehab,LPZ,rball,transported to MMPL.  ,vedmonds,2011-03-06 17:42:06.927,D,2011-03-06 17:42:06.927
+1271,2018-11-14 00:00:00.000,NaRe,,0,AftRel,MMPL,,"Significant levels of brevetoxin detected in liver, stomach contents, urine.",glonati,2019-05-13 12:37:45.827,D,2019-05-13 12:37:45.827
+1273,2011-02-11 00:00:00.000,NaCs,,0,Rehab,LPZ,rball,Manatee transported to MMPL,vedmonds,2011-03-07 09:07:32.060,D,2011-03-07 09:07:32.060
+1281,2011-02-14 00:00:00.000,NaCs,,0,PriorTr,LPZ,rball,Manatee died within a half hour of arriving at Lowry.  Did not make it into the water.,vedmonds,2011-03-07 17:00:56.557,D,2011-03-07 17:00:56.557
+1284,2011-03-24 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Following radiographs and a chest tap it was determined that the manatee had a pyothorax ,vedmonds,2011-03-28 16:12:25.320,D,2011-03-28 16:12:25.320
+1285,2011-12-21 00:00:00.000,BoPr,,0,AftRel,MMPL,,,dszemer,2012-01-30 10:21:27.377,D,2012-01-30 10:21:27.377
+1286,2011-03-26 00:00:00.000,BoIm,,0,Resc,,,,dszemer,2012-01-30 09:48:01.350,nadimey,2012-02-23 10:26:40.600
+1290,2011-04-14 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,manatee was diagnosed as a pyothorax. Euthanized and taken to the MMPL. ,vedmonds,2011-04-21 17:17:08.863,D,2011-04-21 17:17:08.863
+1291,2011-05-07 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,,slehr,2011-06-04 11:34:05.543,D,2011-06-04 11:34:05.543
+1298,2019-06-11 00:00:00.000,Deco,,0,AftRel,FWCT,,COD preliminary,aperna,2020-04-14 07:32:27.307,D,2020-04-14 07:32:27.307
+1300,2011-03-21 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2011-05-27 12:18:21.747,dszemer,2013-01-15 12:23:44.547
+1305,2011-06-18 00:00:00.000,NaDe,,0,Rehab,SWF,sgearhart,"Animal was found dead approx 10:30 AM the morning of 6/18/2011, animal was picked up by FWC and transported to the MMPL.",bwagoner,2011-06-21 17:36:49.327,nadimey,2012-01-30 14:15:59.543
+1312,2016-06-15 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2016-06-21 15:36:17.987,D,2016-06-21 15:36:17.987
+1318,2011-07-15 00:00:00.000,BoBo,,1,Rehab,LPZ,rball,Manatee was kept in shallow water with overnight watches for a week.  No improvement was seen in his behavior.,vedmonds,2011-08-07 07:54:31.260,D,2011-08-07 07:54:31.260
+1321,2011-08-19 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2011-08-22 15:23:54.940,D,2011-08-22 15:23:54.940
+1324,2011-07-06 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,,vedmonds,2011-08-25 15:33:10.410,D,2011-08-25 15:33:10.410
+1325,2011-06-11 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,,vedmonds,2011-08-25 15:49:38.350,D,2011-08-25 15:49:38.350
+1337,2018-11-29 00:00:00.000,BoIm,,1,Rehab,MSQ,mrodriguez,"He had fractured remodeled ribs and pyothorax on entry. Tapping and treatment cured the pyothorax and gave him 7 extra years quality life but remained a sinker with low water requirement. At the end, he became more and more heavy from thoracic and lung scarring down (his right lung was virtually non-functional)and remodeled ribs. He was euthanized. However, he was in excellent body condition and his last blood was normal.",mrodriguez,2018-12-01 14:38:10.393,D,2018-12-01 14:38:10.393
+1338,2011-11-16 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,"Animal died several hours after arriving at SWF (11/16/11), animal was pick up by FWC the next day (11/17/11) and brought to MMPL where necropsy was performed. Please refer to MMPL for cause of death.",bwagoner,2011-12-08 12:16:13.607,D,2011-12-08 12:16:13.607
+1339,2018-09-12 00:00:00.000,NaRe,,0,AftRel,MMPL,,"Significant levels of brevetoxin detected in liver, stomach contents, urine, mammary milk, tunicates from colon.",glonati,2019-05-13 12:17:43.680,dszemer,2019-05-13 13:39:57.367
+1341,2011-12-26 00:00:00.000,NaCs,Calf was very recently orphaned likely due to its unresponsiveness to adult reported in area earlier in the day but no longer with it at the time of rescue.,0,Trans,FWCIR,,reference REC1131,aspellman,2011-12-29 16:39:18.097,nadimey,2012-01-30 14:32:46.870
+1342,2011-12-15 00:00:00.000,NaCs,Calf rescued with mom,0,Resc,FWCIR,,"The manatee was rescued from the Gen On (Relient) Plant for severe cold stress and was unstable.  UF-Veterinarian Mike Walsh attempted to stablize the manatee before transport to SeaWorld, but the manatee ended up dying on site.",crush,2011-12-30 09:31:47.203,nadimey,2012-01-30 14:29:55.547
+1343,2011-09-08 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,,vedmonds,2012-01-04 17:07:46.420,D,2012-01-04 17:07:46.420
+1344,2012-01-17 00:00:00.000,Unde,abscess in pleural cavity of unknown etiology,1,Rehab,LPZ,rball,"chronic pyothorax.  Necropsy performed at FWC MMPL.
+",vedmonds,2012-01-25 15:41:16.000,dszemer,2012-05-02 12:02:23.937
+1345,2012-03-01 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Chronic pyothorax,vedmonds,2012-03-01 12:04:30.537,D,2012-03-01 12:04:30.537
+1350,2015-01-22 00:00:00.000,Huma,found dorsum up and head first in a desalinization intake pipe,0,AftRel,MMPL,,,dszemer,2016-04-15 11:46:20.567,D,2016-04-15 11:46:20.567
+1351,2017-02-16 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-09 08:57:11.273,D,2018-11-09 08:57:11.273
+1360,2012-01-18 00:00:00.000,NaCs,,0,Trans,,,,arhoads,2012-02-03 14:50:41.173,D,2012-02-03 14:50:41.173
+1361,2012-01-19 00:00:00.000,NaCs,,0,Trans,,,,arhoads,2012-02-03 14:53:57.423,D,2012-02-03 14:53:57.423
+1365,2012-02-23 00:00:00.000,Unde,Animal was euthanized by SWF veterinary and then transport to the MMPL by FWC,1,Rehab,SWF,lcroft,"Animal was never able to float or swim, he was unresponsive most of the time during rehab; had seizures during rescue",bwagoner,2012-02-29 12:43:47.840,nadimey,2013-02-11 12:42:28.493
+1368,2016-01-26 00:00:00.000,Deco,,0,AftRel,FWCNE,,,ngordon,2016-03-09 15:00:31.760,D,2016-03-09 15:00:31.760
+1370,2012-04-07 00:00:00.000,NaCs,,0,Rehab,LPZ,rball,Manatee found deceased at 2000 on 04/07/2012,vedmonds,2012-04-11 16:42:33.437,D,2012-04-11 16:42:33.437
+1371,2023-11-02 00:00:00.000,TrGa,,0,AftRel,MMPL,,,APajor,2024-03-19 07:56:47.790,D,2024-03-19 07:56:47.790
+1376,2012-03-07 00:00:00.000,NaOt,Animal had difficulty surfacing and repirations were rapid.  No new boat trauma was evident.  ,1,Rehab,LPZ,rball,,vedmonds,2012-03-08 19:35:16.800,D,2012-03-08 19:35:16.800
+1377,2023-07-28 00:00:00.000,Unde,,0,AftRel,MMPL,,Verified; Not Necropsied.,APajor,2023-09-14 09:06:09.327,D,2023-09-14 09:06:09.327
+1379,2018-09-02 00:00:00.000,BoIm,,0,AftRel,FWCNE,,See necropsy report for details. ,ngordon,2018-09-05 12:16:16.320,D,2018-09-05 12:16:16.320
+1382,2012-02-28 00:00:00.000,NaDe,cold stress,0,Trans,MMPL,,,dszemer,2012-04-19 14:33:40.913,nadimey,2013-02-11 12:37:49.067
+1386,2012-03-21 00:00:00.000,BoPr,,0,Trans,MMPL,,see necropsy report,dboyd,2012-03-27 10:10:41.370,D,2012-03-27 10:10:41.370
+1391,2012-04-18 00:00:00.000,BoUn,chronic,0,Rehab,SWF,sgearhart,"Animal originally rescued (4/10/2012) due to watercraft injury, went into labor on 4/16/2012 had stillborn calf, had to pull calf, then animal found dead Wednesday morning 4/18/2012. Animal was picked up by FWC and transported to MMPL.",bwagoner,2012-04-19 15:19:36.267,dszemer,2012-04-20 10:29:11.540
+1393,2012-04-16 00:00:00.000,Othe,Calf was a stillborn calf born to SWFTm1207B on 4/16/2012,0,Rehab,SWF,sgearhart,"SWFTm1208CB was a stillborn calf born to DamSWFTm1207B on 4/16/2012, 6 days after mother was rescued (4/10/2012)due to watercraft. Calf had to be expelled from mother after several hours of mother starting labor, calf was already decomposed.",bwagoner,2012-04-20 12:50:23.633,D,2012-04-20 12:50:23.633
+1394,2012-08-18 00:00:00.000,BoIm,,0,Rehab,SWF,sgearhart,Animal appeared bloated again and partially floating at surface in morning. Animal died shortly after morning tube feed. Path Lab picked up for necropsy. ,slehr,2012-09-08 08:39:27.863,dszemer,2013-02-13 11:44:01.530
+1396,2012-07-14 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2012-07-14 15:39:19.833,D,2012-07-14 15:39:19.833
+1404,2022-02-11 00:00:00.000,Unde,,0,AftRel,FWC,,,ahowell,2024-05-15 09:19:44.407,D,2024-05-15 09:19:44.407
+1408,2012-07-12 00:00:00.000,BoPr,,0,Rehab,LPZ,rball,,vedmonds,2012-07-12 20:23:15.703,D,2012-07-12 20:23:15.703
+1412,2017-06-09 00:00:00.000,Unde,,0,AftRel,FWCT,,,dszemer,2018-11-09 09:04:57.477,D,2018-11-09 09:04:57.477
+1435,2012-12-18 00:00:00.000,Huma,"This manatee had a large wound that caused its demise. There is no natural occurance that could have caused this, however the exact anthropogenic cause would be undetermined.",0,Rehab,MSQ,mrodriguez,"This adult, experienced female had a large unilateral wound on it entire right side from eye to tip of paddle that was several weeks old and severely infected.",mrodriguez,2012-12-19 08:11:09.107,D,2012-12-19 08:11:09.107
+1436,2012-10-11 00:00:00.000,BoBo,,1,Rehab,LPZ,rball,Air bubbling from chest,vedmonds,2013-01-03 19:01:39.260,D,2013-01-03 19:01:39.260
+1437,2018-07-10 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:43:48.950,D,2018-11-09 09:43:48.950
+1441,2012-12-18 00:00:00.000,NaCs,,0,Rehab,SWF,lcroft,"Animal was found dead in MH1 pool, died sometime during the night.",bwagoner,2013-01-09 11:02:32.890,D,2013-01-09 11:02:32.890
+1442,2014-01-27 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-08 12:54:02.573,D,2018-11-08 12:54:02.573
+1443,2020-11-10 00:00:00.000,BoIm,,1,Rehab,SWF,creid,,lbraso,2020-11-11 12:54:46.670,D,2020-11-11 12:54:46.670
+1450,2013-01-06 00:00:00.000,NaCs,,0,PriorTr,SWF,lcroft,"Animal was rescued and transported to SWF by FWC-Indian River Field Lab. Shortly after the animal arrived at SWF during the initial exam, the animal expired.",bwagoner,2013-02-03 14:20:41.210,D,2013-02-03 14:20:41.210
+1452,2013-02-06 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2013-02-06 15:17:22.893,D,2013-02-06 15:17:22.893
+1456,2020-02-24 00:00:00.000,Unde,,0,AftRel,FWCIR,,,dszemer,2020-03-09 11:52:38.243,D,2020-03-09 11:52:38.243
+1460,2012-07-20 00:00:00.000,BoIm,,0,Resc,MMPL,,,dszemer,2013-02-19 11:47:40.040,D,2013-02-19 11:47:40.040
+1466,2012-05-13 00:00:00.000,NaOt,Stillborn,0,PriorTr,MMPL,,,dszemer,2013-02-19 12:14:15.760,D,2013-02-19 12:14:15.760
+1467,2013-03-05 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,,mrodriguez,2013-03-06 08:58:12.073,D,2013-03-06 08:58:12.073
+1468,2013-02-24 00:00:00.000,NaCs,,0,PriorTr,SWF,sgearhart,Animal originally rescued and transported to SWF by FWC for severe cold stress from the Turnbull Creek off the Halifax River in New Smyrna. Animal died shortly after arriving. ,bwagoner,2013-03-14 08:11:26.027,D,2013-03-14 08:11:26.027
+1471,2013-03-12 00:00:00.000,NaOt,Manatee was rescued in emaciated condition and was having difficulty responding to treatment,0,Rehab,LPZ,rball,,vedmonds,2013-03-18 16:23:09.197,dszemer,2013-03-19 07:42:07.823
+1475,2018-11-29 00:00:00.000,NaRe,Suspect.,0,AftRel,MMPL,,,glonati,2019-05-13 12:46:22.947,D,2019-05-13 12:46:22.947
+1482,2017-02-25 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:00:28.377,D,2018-11-09 09:00:28.377
+1486,2013-04-29 00:00:00.000,NaDe,,0,Rehab,SWF,sgearhart,"Originally rescued 4/24/13 as a orphaned calf.TL was 93 cm Wt was 33.6 lbs very weak the first night, doing a little better the next day started tube feeding every 3 hours. Monday evening the calf started having some respiratory issues, very bloated; calf expired about 9 PM on 4/29/13. Necropsy was done next day by Dr. Nancy Stedman, our pathologist from BGT.",bwagoner,2013-05-02 13:42:36.393,D,2013-05-02 13:42:36.393
+1489,2013-03-11 00:00:00.000,NaCs,,0,Trans,,,,ngordon,2013-05-23 13:44:28.967,D,2013-05-23 13:44:28.967
+1490,2016-02-15 00:00:00.000,NaCs,,0,AftRel,MMPL,,,dszemer,2016-02-17 11:33:56.527,D,2016-02-17 11:33:56.527
+1491,2016-01-08 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:11:41.497,D,2018-11-08 13:11:41.497
+1493,2013-04-22 00:00:00.000,NaDe,,0,Rehab,LPZ,rball,,vedmonds,2013-05-26 15:20:09.993,D,2013-05-26 15:20:09.993
+1494,2015-09-05 00:00:00.000,Unde,too decomposed,0,AftRel,MMPL,,,dszemer,2015-09-28 13:50:37.263,D,2015-09-28 13:50:37.263
+1498,2013-06-17 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,,slehr,2013-07-12 08:02:17.367,D,2013-07-12 08:02:17.367
+1499,2013-12-05 00:00:00.000,BoIm,,0,AftRel,FWCSW,,,dszemer,2014-01-22 11:37:15.050,dszemer,2014-02-26 10:11:42.860
+1500,2014-11-20 00:00:00.000,NaOt,Manatee found unconscious with another male.  He appeared to have drowned during sexual behavior with another male.,0,Rehab,LPZ,rball,,vedmonds,2014-12-08 10:29:08.770,D,2014-12-08 10:29:08.770
+1502,2013-07-09 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2013-08-14 15:24:41.943,D,2013-08-14 15:24:41.943
+1503,2013-07-29 00:00:00.000,BoIm,,0,Rehab,,rball,,vedmonds,2013-08-15 14:30:49.307,D,2013-08-15 14:30:49.307
+1516,2013-10-09 00:00:00.000,NaOt,,0,Rehab,MSQ,mrodriguez,"Enteritis, trematodes, worms. The is calf came in emaciated with trematode ova on cytology from gastric, nasal, and fecal samples an strongylid ova on fecal float. It also had platic bag pieces secondarily.",mrodriguez,2013-10-28 12:41:21.500,jvalade,2014-02-28 07:38:54.573
+1518,2013-10-29 00:00:00.000,BoBo,,1,Rehab,LPZ,rball,,dszemer,2014-01-24 11:29:16.610,D,2014-01-24 11:29:16.610
+1524,2022-08-27 00:00:00.000,BoIm,,0,AftRel,,,,bgreer,2023-10-02 11:26:44.810,D,2023-10-02 11:26:44.810
+1525,2013-07-15 00:00:00.000,BoBo,Chronic,0,AftRel,MMPL,,,lconnor,2014-01-22 11:09:03.713,D,2014-01-22 11:09:03.713
+1534,2013-03-02 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2014-01-24 13:41:58.247,D,2014-01-24 13:41:58.247
+1540,2015-09-23 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2017-03-24 08:55:03.470,D,2017-03-24 08:55:03.470
+1544,2013-03-25 00:00:00.000,TrPo,Found dead in intake #4,0,AftRel,MMPL,,,dszemer,2014-01-27 12:20:59.380,D,2014-01-27 12:20:59.380
+1548,2013-04-05 00:00:00.000,BoUn,,1,Rehab,LPZ,rball,,dszemer,2014-02-26 09:22:14.243,D,2014-02-26 09:22:14.243
+1549,2013-04-08 00:00:00.000,NaRe,,0,Rehab,LPZ,rball,Manatee had a seizure while it was in shallow water for observation,vedmonds,2014-01-30 12:29:17.363,D,2014-01-30 12:29:17.363
+1550,2013-11-20 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2014-01-30 14:22:52.943,D,2014-01-30 14:22:52.943
+1551,2014-01-22 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2014-02-14 17:32:24.540,D,2014-02-14 17:32:24.540
+1552,2018-02-15 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:41:52.430,D,2018-11-09 09:41:52.430
+1556,2016-02-16 00:00:00.000,NaCs,,0,Resc,MMPL,,,dszemer,2016-02-17 11:02:23.167,dszemer,2016-07-19 11:58:17.850
+1558,2024-05-05 00:00:00.000,Deco,,0,AftRel,FWC,,,ahowell,2024-05-15 09:06:23.967,D,2024-05-15 09:06:23.967
+1561,2014-02-01 00:00:00.000,NaOt,manatee was found struggling.  Was not moving.  No sign of boat injury,0,PriorTr,,rball,Necropsy conducted at the MMPL,vedmonds,2014-02-14 08:27:27.340,dszemer,2017-03-24 09:58:15.490
+1564,2022-12-02 00:00:00.000,BoIm,,0,AftRel,,,,APajor,2023-09-14 08:53:13.950,D,2023-09-14 08:53:13.950
+1565,2021-01-10 00:00:00.000,BoPr,,0,AftRel,MMPL,,Manatee had a 102cm fetus. The single watercraft wound communicated with the right pleural cavity. The left lung had numerous abscesses. ,bbarbeau,2021-01-12 13:25:38.427,D,2021-01-12 13:25:38.427
+1566,2018-01-02 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-11-09 09:24:16.527,D,2018-11-09 09:24:16.527
+1582,2017-04-03 00:00:00.000,Deco,"Undetermined, too decomposed ",0,AftRel,FWCNE,,"recovered in Volusia Co, Daytona Beach, Halifax River
+See necropsy report for more information 
+",ngordon,2017-04-07 14:15:10.670,D,2017-04-07 14:15:10.670
+1583,2014-03-15 00:00:00.000,BoBo,,0,Rehab,LPZ,rball,,vedmonds,2014-03-16 11:27:10.183,D,2014-03-16 11:27:10.183
+1585,2020-09-30 00:00:00.000,BoIm,,1,Rehab,MSQ,mrodriguez,,bbarbeau,2020-10-09 15:11:55.737,D,2020-10-09 15:11:55.737
+1586,2015-03-01 00:00:00.000,Unde,"stage of decomposition precluded assessment of previous healed trauma, new trauma, and cold stress",0,AftRel,MMPL,,,dszemer,2015-10-08 11:32:00.203,dszemer,2016-03-01 11:44:00.613
+1588,2022-11-13 00:00:00.000,Deco,,0,AftRel,FWC,,,ahowell,2024-05-15 09:20:32.083,D,2024-05-15 09:20:32.083
+1589,2014-04-06 00:00:00.000,BoPr,,1,PriorTr,LPZ,rball,"Preliminary post mortem report confirmed fractured vertebrae and revealed that the spine was completely severed at that point. Bilateral kidney fractures, enteritis, vertebrae damage, old rib fractures and attachment of the left lung to the pleura was also noted.  
+",vedmonds,2014-04-15 12:11:49.497,D,2014-04-15 12:11:49.497
+1590,2014-04-30 00:00:00.000,BoBo,,1,Rehab,LPZ,rball,manatee was not responding to treatment,vedmonds,2014-05-02 12:37:36.873,D,2014-05-02 12:37:36.873
+1591,2024-05-16 00:00:00.000,NaOt,,0,AftRel,MMPL,,,APajor,2024-10-23 11:51:53.000,D,2024-10-23 11:51:53.000
+1593,2014-08-04 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Unresolved pneumothorax,vedmonds,2014-08-13 12:45:45.060,D,2014-08-13 12:45:45.060
+1596,2014-06-11 00:00:00.000,BoBo,,0,Rehab,MSQ,mrodriguez,"Pneumothorax, labored breathing on transport, died within seconds of being placed in pool.
+ ",mrodriguez,2014-07-17 09:53:24.783,D,2014-07-17 09:53:24.783
+1598,2014-10-27 00:00:00.000,BoIm,Manatee developed a pneumothorax,1,Rehab,LPZ,rball,,vedmonds,2014-12-08 10:41:49.010,dszemer,2014-12-08 12:29:24.053
+1599,2014-09-16 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Manatee had a chronic pyothorax,vedmonds,2014-09-24 07:18:30.220,D,2014-09-24 07:18:30.220
+1604,2014-11-05 00:00:00.000,NaDe,,0,Rehab,LPZ,rball,,vedmonds,2014-11-10 09:35:13.950,D,2014-11-10 09:35:13.950
+1606,2016-12-31 00:00:00.000,NaOt,parasitic enteritis,0,AftRel,MMPL,,,dszemer,2017-01-04 10:06:45.400,D,2017-01-04 10:06:45.400
+1607,2016-10-12 00:00:00.000,NaRe,,0,AftRel,MMPL,,,dszemer,2018-11-08 13:36:16.647,D,2018-11-08 13:36:16.647
+1610,2021-04-09 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:04:19.693,D,2023-10-02 11:04:19.693
+1613,2014-12-23 00:00:00.000,Othe,stillborn calf delivered by manatee that came in with pneumo thorax injury ,0,Rehab,LPZ,rball,,vedmonds,2014-12-31 06:06:48.583,D,2014-12-31 06:06:48.583
+1616,2015-01-01 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,Manatee died during chest tap,vedmonds,2015-01-18 13:31:21.283,dszemer,2015-01-20 06:35:12.870
+1620,2015-01-13 00:00:00.000,BoUn,,1,PriorTr,LPZ,rball,chronic pyothorax,vedmonds,2015-02-01 11:55:28.477,dszemer,2016-04-15 11:43:40.433
+1628,2021-02-08 00:00:00.000,NaOt,As part of the 2021 East Coast UME.,0,AftRel,MMPL,,,bbarbeau,2021-02-16 13:04:12.580,D,2021-02-16 13:04:12.580
+1630,2015-02-15 00:00:00.000,BoIm,chronic,0,Rehab,MMPL,,,mrodriguez,2015-03-10 12:21:52.490,dszemer,2016-04-15 11:49:17.063
+1634,2015-03-16 00:00:00.000,NaOt,no obvious COD,0,PriorTr,MMPL,,,vedmonds,2015-03-23 15:58:44.400,dszemer,2016-04-15 11:58:03.277
+1635,2015-05-20 00:00:00.000,BoBo,"broken ribs, esophageal ulcer, intestinal ulcers",0,Rehab,MSQ,mrodriguez,,mrodriguez,2015-08-07 10:47:25.480,D,2015-08-07 10:47:25.480
+1637,2015-03-31 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2015-04-02 10:18:04.623,D,2015-04-02 10:18:04.623
+1638,2015-04-01 00:00:00.000,BoPr,,0,Rehab,SWF,sgearhart,"Animal was rescued by FWC (Christie Rush) and SWF rescue staff earlier that evening, from the Banana River in Merritt Island.  The animal was transported back for rehab by SWF but the animal expired about 30 minutes after getting back to SWF while undergoing some treatment at approx. 8:30PM.",bwagoner,2015-04-05 13:42:45.190,D,2015-04-05 13:42:45.190
+1667,2018-11-19 00:00:00.000,Deco,,0,AftRel,FWCT,,Autolyzed and/or missing internal organs.,glonati,2019-05-13 12:39:10.997,D,2019-05-13 12:39:10.997
+1668,2015-05-09 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,Manatee was carrying a full term calf that died due to the boat impact.  Determined at necropsy.,vedmonds,2015-05-24 18:56:45.320,D,2015-05-24 18:56:45.320
+1671,2015-06-04 00:00:00.000,NaOt,"Enteritis, abcesses, septic",0,Rehab,MSQ,mrodriguez,,mrodriguez,2015-08-07 10:43:36.720,D,2015-08-07 10:43:36.720
+1672,2015-06-27 00:00:00.000,NaDe,,0,Trans,,,,crush,2015-07-29 13:43:30.100,D,2015-07-29 13:43:30.100
+1673,2020-12-13 00:00:00.000,NaOt,,0,AftRel,,,,bgreer,2023-10-02 10:52:05.293,D,2023-10-02 10:52:05.293
+1675,2015-07-19 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,"Animal was found dead about 11;45 AM while in rehab at SWF, necropsy was conducted at SWF with FWC knowledge.",bwagoner,2015-07-27 11:46:09.830,D,2015-07-27 11:46:09.830
+1676,2020-10-22 00:00:00.000,BoIm,,0,AftRel,MMPL,,,bbarbeau,2020-10-29 13:00:18.437,D,2020-10-29 13:00:18.437
+1677,2016-04-27 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,Pneumothorax,mrodriguez,2016-05-21 17:15:14.717,D,2016-05-21 17:15:14.717
+1678,2015-08-05 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,"Animal had some buoyance issues from the time he came in; he had been in a small wetsuit the whole time. Our vet staff had just done some medical procedure on him earlier (radiographs, blood, IV fluids), he expired shortly after that, about 8:45AM. ",bwagoner,2015-08-09 13:30:23.333,D,2015-08-09 13:30:23.333
+1679,2020-04-08 00:00:00.000,Unde,"Due to a stay-at-home order during the Covid-19 pandemic, the carcass was not recovered or necropsied.",0,AftRel,,,Cora from Save the Manatee Club visually identified the manatee as Cassie. She reported skeg marks were noticed. ,ngordon,2020-04-20 09:45:12.883,D,2020-04-20 09:45:12.883
+1682,2016-06-19 00:00:00.000,Unde,too decomposed.,0,AftRel,MMPL,,,dszemer,2017-03-24 08:30:45.723,D,2017-03-24 08:30:45.723
+1683,2017-12-12 00:00:00.000,Unde,,0,AftRel,FWCSW,,,dszemer,2018-11-09 09:18:44.250,dszemer,2018-11-09 09:21:30.207
+1684,2014-01-01 00:00:00.000,NaDe,Cold stress,0,Resc,MMPL,,,dszemer,2015-10-07 08:24:07.230,D,2015-10-07 08:24:07.230
+1685,2014-01-13 00:00:00.000,NaOt,"colon compaction of unknown ediology, possible cold stress complication",0,Trans,MMPL,,,dszemer,2015-10-07 08:34:28.803,D,2015-10-07 08:34:28.803
+1687,2014-03-31 00:00:00.000,Unde,colon impaction of unknown origin,0,Trans,MMPL,,,dszemer,2015-10-08 12:12:57.493,dszemer,2015-10-08 12:22:32.390
+1693,2014-05-25 00:00:00.000,BoIm,,0,Resc,MMPL,,,dszemer,2015-10-09 12:06:15.700,D,2015-10-09 12:06:15.700
+1696,2014-06-26 00:00:00.000,Unde,Necropsy findings fit case description of ongoing east coast UME. Cause of this event was still under investigation at the time of this report.,0,Resc,MMPL,,,dszemer,2015-12-10 09:01:48.350,dszemer,2015-12-10 09:02:35.657
+1698,2018-02-05 00:00:00.000,NaCs,,0,AftRel,FWCT,,,dszemer,2018-11-09 09:37:56.130,D,2018-11-09 09:37:56.130
+1700,2014-06-20 00:00:00.000,BoIm,,0,Trans,MMPL,,,dszemer,2015-12-10 12:28:23.747,D,2015-12-10 12:28:23.747
+1711,2016-01-21 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Chronic watercraft injury,vedmonds,2016-01-27 08:09:09.150,dszemer,2016-05-09 08:50:33.090
+1712,2021-05-02 00:00:00.000,BoIm,,0,AftRel,,,,APajor,2023-09-14 08:37:13.297,D,2023-09-14 08:37:13.297
+1713,2019-08-08 00:00:00.000,Deco,,0,AftRel,MMPL,,COD preliminary,aperna,2020-04-14 07:38:38.550,D,2020-04-14 07:38:38.550
+1718,2020-01-10 00:00:00.000,BoIm,Manatee was onboard rescue boat and died prior to arrival at boat ramp. ,0,Resc,FWCNE,,Necropsy conducted at FWC-MMPL and revealed watercraft wounds were chronic.,ngordon,2020-08-17 16:39:31.683,D,2020-08-17 16:39:31.683
+1719,2016-01-30 00:00:00.000,NaCs,,0,Rehab,SWF,lcroft,"Animal died shortly after arriving into rehab at SWF on 1/30/16, the animal was picked up FWC on 1/31/16 and transported to MMPL for necropsy.",bwagoner,2016-02-23 13:10:26.510,D,2016-02-23 13:10:26.510
+1720,2016-03-01 00:00:00.000,NaCs,,0,Rehab,LPZ,rball,,vedmonds,2016-03-07 10:00:06.653,D,2016-03-07 10:00:06.653
+1721,1994-10-12 00:00:00.000,Unde,"Perinatal; Mother rescued for respiratory problems on 11 October 1994 (fish hook in throat).  Heart beats were not heard from the fetus; therefore, the fetus was pulled.",0,PriorTr,MMPL,,,dszemer,2016-02-26 09:32:11.793,D,2016-02-26 09:32:11.793
+1722,2019-01-18 00:00:00.000,NaOt,Preliminary COD: cold stress,0,AftRel,FWCT,,,dszemer,2019-01-23 14:05:52.213,dszemer,2019-01-23 14:21:45.310
+1724,2016-04-11 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2016-08-16 09:04:51.173,D,2016-08-16 09:04:51.173
+1725,2005-07-22 00:00:00.000,BoIm,,0,AftRel,MMPL,,,dszemer,2016-03-08 08:13:23.887,D,2016-03-08 08:13:23.887
+1737,2015-05-24 00:00:00.000,BoIm,,0,Resc,MMPL,,,dszemer,2016-03-17 14:29:56.460,dszemer,2016-03-17 14:45:04.910
+1743,2021-02-03 00:00:00.000,NaOt,,0,AftRel,,,,bgreer,2023-10-02 10:55:52.593,D,2023-10-02 10:55:52.593
+1747,2015-03-16 00:00:00.000,BoIm,acute,0,Trans,MMPL,,,dszemer,2016-04-15 11:55:16.653,dszemer,2016-10-14 12:24:16.913
+1750,2016-03-26 00:00:00.000,Unde,Possible natural toxin,0,Rehab,,sgearhart,,rrunnells,2016-04-17 06:00:01.720,dszemer,2016-05-20 08:36:26.827
+1755,2016-07-06 00:00:00.000,NaOt,,0,Rehab,SWF,lcroft,,rrunnells,2016-07-06 11:43:40.710,dszemer,2017-04-28 07:53:43.997
+1757,2022-03-16 00:00:00.000,Unde,,0,AftRel,FWCSW,,,dboyd,2024-03-27 09:02:41.490,D,2024-03-27 09:02:41.490
+1762,2022-11-12 00:00:00.000,Deco,,0,AftRel,,,,KBouchard,2023-06-05 11:41:02.900,D,2023-06-05 11:41:02.900
+1766,2015-01-01 00:00:00.000,NaCs,,0,Trans,DISL,,,dszemer,2016-04-15 12:27:09.590,D,2016-04-15 12:27:09.590
+1769,2016-06-11 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,"Boat Hull strike, two pockets of pus and fluid (one thoracic)fractured ribs, negative buoyancy.",mrodriguez,2016-06-24 10:27:27.503,D,2016-06-24 10:27:27.503
+1770,2022-12-27 00:00:00.000,NaCs,,0,AftRel,,,,APajor,2023-09-14 08:55:13.980,D,2023-09-14 08:55:13.980
+1772,2016-04-27 00:00:00.000,BoIm,,1,Rehab,LPZ,rball,Manatee was not recovering from pneumothorax injury,vedmonds,2016-05-05 13:28:07.380,D,2016-05-05 13:28:07.380
+1775,2018-12-10 00:00:00.000,Unde,,0,AftRel,MMPL,,,dszemer,2018-12-20 10:17:20.713,D,2018-12-20 10:17:20.713
+1777,2021-02-16 00:00:00.000,Unde,"Verified, not necropsied ",0,AftRel,,,,ngordon,2021-04-06 13:52:13.637,D,2021-04-06 13:52:13.637
+1781,2016-01-08 00:00:00.000,BoPr,,1,Trans,MMPL,,,dszemer,2016-05-18 09:33:42.397,D,2016-05-18 09:33:42.397
+1785,2016-03-21 00:00:00.000,BoIm,chronic,0,Rehab,MMPL,,,dszemer,2016-05-20 08:59:34.243,D,2016-05-20 08:59:34.243
+1787,2016-05-20 00:00:00.000,NaOt,Emaciated and necropsy found food bolus impacted in colon,0,Rehab,LPZ,rball,,vedmonds,2016-05-22 15:49:32.920,D,2016-05-22 15:49:32.920
+1791,2016-08-17 00:00:00.000,BoIm,,1,Rehab,SWF,lcroft,,rrunnells,2016-08-20 06:53:19.310,ngordon,2024-08-29 13:05:18.107
+1794,2016-05-09 00:00:00.000,BoIm,,0,Resc,MMPL,,,dszemer,2016-05-24 11:08:45.563,D,2016-05-24 11:08:45.563
+1795,2016-11-04 00:00:00.000,BoBo,,0,Rehab,MSQ,mrodriguez,"The propeller marks were obvious externally, however she also had two layers of many liters of bloody fluid present extra-thoracic and intra-thoracic thus impact trauma was also a cause.",mrodriguez,2016-11-14 12:28:33.350,D,2016-11-14 12:28:33.350
+1796,2021-08-15 00:00:00.000,Huma,Flood gate S-27,0,AftRel,FWC,,,ahowell,2024-05-15 09:15:44.837,D,2024-05-15 09:15:44.837
+1798,2016-06-04 00:00:00.000,Unde,"Other. Finding fit east coast UME.
+very buoyant manatee no signs of trauma from watercraft.",0,Rehab,SWF,sgearhart,Manatee transported to Path lab in ST. Petersburg for necropsy,rrunnells,2016-06-04 11:01:55.737,dszemer,2017-06-27 12:34:40.933
+1799,2016-06-15 00:00:00.000,Unde,,0,Rehab,SWF,lcroft,Manatee died during surgery sent to Path lab for Necropsy.,rrunnells,2016-06-16 06:31:35.767,dszemer,2017-04-27 09:50:15.630
+1800,2016-08-07 00:00:00.000,BoIm,Manatee was not responding to treatment.  ,1,Rehab,LPZ,rball,,vedmonds,2016-08-10 09:32:07.980,dszemer,2016-08-10 09:48:42.320
+1801,2016-06-20 00:00:00.000,NaOt,"pending necropsy, but cause of death does not seem to be human related",1,Rehab,LPZ,rball,,vedmonds,2016-06-21 15:42:33.423,D,2016-06-21 15:42:33.423
+1802,2016-08-05 00:00:00.000,BoPr,Manatee was not responding to treatment.  ,1,Rehab,LPZ,rball,,vedmonds,2016-08-10 09:33:20.163,dszemer,2016-09-21 08:04:08.800
+1803,2020-01-29 00:00:00.000,NaOt,Parasitic Enteritis,0,AftRel,,,,dboyd,2024-04-03 09:29:53.030,D,2024-04-03 09:29:53.030
+1804,2016-07-27 00:00:00.000,BoIm,,0,Rehab,LPZ,rball,,vedmonds,2016-07-28 19:49:33.353,D,2016-07-28 19:49:33.353
+1805,2018-10-14 00:00:00.000,HumI,"On gross his cause of death was a volvulus of his gut and mesenteric vessels. He had foreign body material (plastic,sponge, line)in gut along, many areas of decreased lumen and areas of overly distended lumen. The mucousa was abnormal.
+",0,Rehab,MSQ,mrodriguez,An area of healed diaphragm indicates he may have had a diaphragmatic hernia. In that location dorsally he had an abnormal healed transverse process and a healed linear mark deep in the inner SQ layers. ,mrodriguez,2018-10-29 08:34:52.273,dszemer,2019-06-11 07:38:22.020
+1811,2016-07-26 00:00:00.000,BoPr,chronic,0,Resc,MMPL,,,dszemer,2016-11-02 09:23:38.347,D,2016-11-02 09:23:38.347
+1813,2017-08-20 00:00:00.000,BoBo,,0,AftRel,FWCT,,,dszemer,2018-11-09 09:08:01.730,D,2018-11-09 09:08:01.730
+1822,2016-08-25 00:00:00.000,BoIm,"Manatee was expiring, euthanasia assisted",1,Rehab,LPZ,rball,,vedmonds,2016-08-30 13:16:02.520,D,2016-08-30 13:16:02.520
+1824,2016-01-19 00:00:00.000,BoIm,,0,Trans,MMPL,,,dszemer,2016-09-01 07:33:44.700,D,2016-09-01 07:33:44.700
+1832,2020-01-24 00:00:00.000,NaOt,,0,AftRel,MMPL,,,dszemer,2020-02-13 10:24:30.963,D,2020-02-13 10:24:30.963
+1837,2016-10-11 00:00:00.000,NaRe,,0,Rehab,LPZ,rball,,vedmonds,2016-10-12 06:58:02.267,D,2016-10-12 06:58:02.267
+1839,2016-10-04 00:00:00.000,BoIm,,0,Trans,SWF,lcroft,"Animal died shortly after rescue and brought aboard SWF rescue boat. Transported animal back to SW at request of FWC. Animal picked up from SW following day, 10/5/16, by FWC Path Lab for necropsy.",slehr,2016-10-14 05:55:45.610,D,2016-10-14 05:55:45.610
+1840,2020-07-17 00:00:00.000,BoIm,,0,AftRel,FWCEC,,,bgreer,2024-03-20 12:07:11.837,D,2024-03-20 12:07:11.837
+1842,2017-01-30 00:00:00.000,NaDe,,0,Rehab,LPZ,rball,,vedmonds,2017-02-26 10:07:40.463,D,2017-02-26 10:07:40.463
+1843,2016-06-23 00:00:00.000,NaOt,"prior to death, observed in mating herd",0,Resc,MMPL,,,dszemer,2016-10-27 06:53:58.153,D,2016-10-27 06:53:58.153
+1845,2018-06-05 00:00:00.000,Unde,,0,Rehab,SWF,lcroft,"He had a massive peritonitis, torsion in colon, tear in colon, adhesions, free feces in abdomen, and necrotic liver. Very dramatic. Found a few small foreign bodies that he should have been able to pass, not sure what was in there before",jpeterson,2018-06-06 12:38:35.173,D,2018-06-06 12:38:35.173
+1846,1986-04-06 00:00:00.000,BoPr,,0,PriorTr,SWF,dbuesse,,dszemer,2016-11-30 11:22:52.267,dszemer,2016-11-30 11:27:10.240
+1850,2016-12-11 00:00:00.000,NaOt,Enteritis from Parasite,0,Rehab,MSQ,mrodriguez,He came in for Redtide toxicity and responded but died a few days later and on necropsy cause of death was the intestinal trematode.,mrodriguez,2016-12-29 10:10:48.177,D,2016-12-29 10:10:48.177
+1854,2022-03-19 00:00:00.000,NaOt,,0,AftRel,,,,APajor,2023-09-14 08:47:59.487,D,2023-09-14 08:47:59.487
+1858,2016-12-13 00:00:00.000,NaDe,,0,Trans,FWCIR,,,bgreer,2016-12-20 09:40:09.367,D,2016-12-20 09:40:09.367
+1860,2016-12-21 00:00:00.000,NaRe,,0,Rehab,LPZ,rball,Demonstrating symptoms of red tide.  Died an hour after arrival.,vedmonds,2017-01-08 16:32:28.730,D,2017-01-08 16:32:28.730
+1861,2016-12-24 00:00:00.000,NaCs,,0,Trans,,,,bgreer,2017-01-03 07:20:32.013,D,2017-01-03 07:20:32.013
+1862,2022-02-07 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:15:20.663,D,2023-10-02 11:15:20.663
+1868,2021-01-05 00:00:00.000,Deco,,0,AftRel,FWC,,,ahowell,2024-05-15 09:13:39.750,D,2024-05-15 09:13:39.750
+1875,2017-05-01 00:00:00.000,Othe,,1,Rehab,SWF,lcroft,necropsied the manatee this morning and did not find much on the gross necropsy. No plastic or fishing line in the GI tract – which was mostly empty and contracted.,jpeterson,2017-05-08 11:03:17.110,D,2017-05-08 11:03:17.110
+1876,2017-02-10 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"Prop to spinal cord, died very soon after arrival.",mrodriguez,2017-05-27 11:54:13.853,D,2017-05-27 11:54:13.853
+1879,2017-02-25 00:00:00.000,NaOt,Emaciated,0,AftRel,MMPL,,,dszemer,2017-07-05 11:34:58.217,D,2017-07-05 11:34:58.217
+1881,2021-12-17 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:07:20.263,D,2023-10-02 11:07:20.263
+1883,2017-01-10 00:00:00.000,NaOt,,0,Rehab,LPZ,rball,,vedmonds,2017-02-26 10:48:41.607,dszemer,2017-07-21 13:48:33.597
+1885,2017-01-16 00:00:00.000,NaDe,"Cold stress
+",0,Rehab,LPZ,rball,,vedmonds,2017-02-26 12:27:50.513,dszemer,2017-07-24 13:23:52.793
+1886,2023-03-03 00:00:00.000,Unde,,0,AftRel,,,Verified; Not Necropsied.,APajor,2023-09-14 09:02:28.873,D,2023-09-14 09:02:28.873
+1888,2017-03-31 00:00:00.000,Unde,Pyothorax but could not confirm fractured ribs on radiographs or ultrasound. Some hull marks externally led us to believe boat strike hull impact but could not confirm. Pending gross and histo at St. Pete.,0,Rehab,MSQ,mrodriguez,,mrodriguez,2017-05-11 09:37:50.073,D,2017-05-11 09:37:50.073
+1893,2017-02-28 00:00:00.000,NaDe,,0,Trans,FWCSW,,,dboyd,2017-03-09 09:42:41.133,D,2017-03-09 09:42:41.133
+1894,2018-08-31 00:00:00.000,Unde,Verified; Not recovered,0,AftRel,,,,dszemer,2019-06-25 10:14:59.330,D,2019-06-25 10:14:59.330
+1895,2017-09-30 00:00:00.000,BoIm,,0,AftRel,FWCT,,,dszemer,2018-11-09 09:17:30.110,D,2018-11-09 09:17:30.110
+1901,2022-02-01 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:10:47.933,D,2023-10-02 11:10:47.933
+1903,2017-05-04 00:00:00.000,NaOt,Complications from birth,0,Rehab,SWF,lcroft,"she died from complications due to blood loss from a hematoma that was associated with the reproductive vessels, and a pyometra. Uterus was quite friable and not in good shape. Attached are pics of the hemoabdomen, opened uterus, and the hematoma from which she was bleeding internally. ",jpeterson,2017-05-08 10:59:37.793,dszemer,2017-10-13 12:37:05.470
+1907,2017-03-21 00:00:00.000,BoBo,,0,Rehab,LPZ,rball,manatee was pregnant ,vedmonds,2017-04-30 11:06:48.923,D,2017-04-30 11:06:48.923
+1908,2022-02-08 00:00:00.000,Unde,,0,AftRel,FWC,,,ahowell,2024-05-15 09:18:54.717,D,2024-05-15 09:18:54.717
+1910,2017-04-04 00:00:00.000,BoIm,chronic,1,PriorTr,,,,dszemer,2020-04-23 10:06:57.260,D,2020-04-23 10:06:57.260
+1917,2017-05-07 00:00:00.000,NaDe,,0,PriorTr,FWCIR,,FWC Officers brought calf onto their boat and within 10 minutes it stopped breathing.,bgreer,2017-05-08 11:55:08.637,D,2017-05-08 11:55:08.637
+1919,2017-05-15 00:00:00.000,NaDe,,0,PriorTr,LPZ,rball,,vedmonds,2017-05-24 16:28:11.953,D,2017-05-24 16:28:11.953
+1925,2018-01-22 00:00:00.000,Huma,"Discospondilytis between T9 and T10, with a significant 125 mL abscess (on top left of label in image below). The right brachial venous plexus looked abnormal and necrotic, started at radius/ulna and worked its way up towards the major vessels.",1,Rehab,SWF,lcroft,": This is the subadult female who arrived with a severe entanglement of her pectoral flipper, which was necrotic on arrival. We were able to amputate the pectoral flipper successfully, but since then she has had multiple severe infections in the carpus of her remaining pectoral flipper and along her dorsal spine and flanks. There were no injuries or obvious ports of entry for these infections,  ",jpeterson,2018-01-24 06:35:09.300,dszemer,2019-02-28 07:49:38.113
+1926,2017-06-16 00:00:00.000,NaDe,,0,Rehab,SWF,lcroft,Animal came in late afternoon was given IV fluids and antibiotic. animal was tubed every three hours and passed away about 4.5 hours after coming in for rehab.,jpeterson,2017-06-19 11:22:14.513,D,2017-06-19 11:22:14.513
+1930,2018-11-01 00:00:00.000,BoIm,Acute.,0,AftRel,MMPL,,Watercraft wounds; Skeletal trauma; Blood clots.,glonati,2019-05-13 12:36:18.513,D,2019-05-13 12:36:18.513
+1933,2017-01-12 00:00:00.000,NaCs,,0,Resc,MMPL,,,dszemer,2017-07-24 11:57:53.700,D,2017-07-24 11:57:53.700
+1938,2017-07-27 00:00:00.000,NaDe,,1,Rehab,LPZ,rball,,vedmonds,2017-08-06 15:20:36.353,D,2017-08-06 15:20:36.353
+1940,2023-08-09 00:00:00.000,BoIm,,0,AftRel,MMPL,,,APajor,2023-09-14 09:08:22.823,D,2023-09-14 09:08:22.823
+1941,2017-08-13 00:00:00.000,BoIm,,0,Rehab,,rball,,vedmonds,2017-08-27 12:44:37.153,D,2017-08-27 12:44:37.153
+1943,2017-08-22 00:00:00.000,BoIm,,0,Rehab,SWF,lcroft,SWF rehab team came in on 8/22/2017 and found SWFTM1720B unresponsive on the bottom of the medical pool floor. the floor was raised and it was determined that Tm1720 was dead. SWFTm1720B was pickup by FWC and transported to the St. ete path lab for necropsy.,jpeterson,2017-08-22 12:48:12.963,D,2017-08-22 12:48:12.963
+1945,2021-02-22 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 10:58:50.080,D,2023-10-02 10:58:50.080
+1948,2021-01-28 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,,lbraso,2021-01-31 09:28:23.797,D,2021-01-31 09:28:23.797
+1952,2017-12-06 00:00:00.000,Othe,"Radiographs and ultrasound are highly suspicious of severe pneumonia and/or fluid in the ventral right thorax (e.g., pyothorax) possibly distending the diaphragm down ventrally and pushing GI structures ventral and to the left side.  ",1,Rehab,SWF,lcroft,FWC pickup this animal to conduct a necropsy ,jpeterson,2017-12-06 08:03:10.487,D,2017-12-06 08:03:10.487
+1961,2018-01-22 00:00:00.000,BoUn,,1,Rehab,SWF,lcroft,"large female who arrived with severe boat strike wound severe, diffuse subcutaneous emphysema. improvement and partial resolution of her cellulitis.blood parameters improved past two weeks  significant decline. negatively buoyant on the L side,where the worst of the prop wounds appeared to have a flail chest initial presentation.appears to communicate with the thoracic cavity. significant changes in blood parameters and the negative buoyancy on the L side.suspect a pyothorax",jpeterson,2018-01-24 06:44:34.937,D,2018-01-24 06:44:34.937
+1965,2017-11-09 00:00:00.000,BoBo,,0,PriorTr,SWF,lcroft,This animal died almost immediately upon arrival to SWF,jpeterson,2017-11-16 12:44:36.187,D,2017-11-16 12:44:36.187
+1967,2017-09-08 00:00:00.000,Othe,Calf was at SWF for 10hrs and then expired,0,PriorTr,SWF,lcroft,,jpeterson,2017-11-26 15:38:14.667,D,2017-11-26 15:38:14.667
+1970,2017-04-12 00:00:00.000,BoUn,chronic,0,Trans,MMPL,,,dszemer,2020-04-23 10:02:42.580,D,2020-04-23 10:02:42.580
+1972,2019-12-11 00:00:00.000,Deco,,0,AftRel,FWCIR,,COD preliminary,aperna,2020-04-14 07:42:49.623,D,2020-04-14 07:42:49.623
+1974,2020-02-20 00:00:00.000,Deco,,0,AftRel,FWC,,,ahowell,2024-05-15 09:09:02.810,D,2024-05-15 09:09:02.810
+1976,2022-01-08 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:08:58.670,D,2023-10-02 11:08:58.670
+1980,2018-03-16 00:00:00.000,BoIm,,1,Rehab,SWF,lcroft,After month of chest taps and two surgeries Tm1748 was euthanized due to quality of life.,jpeterson,2018-03-22 17:13:43.477,D,2018-03-22 17:13:43.477
+1984,2018-03-08 00:00:00.000,Unde,tear and abscess in esophagus; undetermined which was primary or secondary,1,Rehab,MMPL,,,dszemer,2018-04-13 12:41:54.940,D,2018-04-13 12:41:54.940
+1986,2018-01-07 00:00:00.000,TrPo,,0,Trans,MMPL,,,bgreer,2018-01-12 06:58:08.863,dszemer,2018-04-17 13:51:15.443
+1988,2020-12-16 00:00:00.000,BoPr,,0,AftRel,FWC,,,ahowell,2024-05-15 09:10:43.980,D,2024-05-15 09:10:43.980
+1991,2018-01-30 00:00:00.000,BoIm,,1,Rehab,SWF,lcroft,This animal came in unresponsive and only took a breath every 8 minutes. He was unable to support himself in the water. after 12 hrs of supportive care and a full work up it was decided that for quality of life this animal was humanely euthanized. 1805B was sent to path lab for necropsy,jpeterson,2018-01-31 03:57:24.323,D,2018-01-31 03:57:24.323
+1992,2018-01-29 00:00:00.000,Unde,Emaciated and weak.,0,Trans,MSQ,mrodriguez,This small manatee was very weak and very emaciated thus undetermined cause of death pending gross and histo pathology. ,mrodriguez,2018-03-15 09:54:55.307,D,2018-03-15 09:54:55.307
+1994,2018-03-05 00:00:00.000,Unde,"MMPL: Final COD pending final review of necropsy. (Prop and skeg marks, pneumothorax and a fluid filled collapsed left thorax.)",0,Rehab,MSQ,mrodriguez,This is adult female had a severe pneumothorax that did not resolve after several aspiration attempts on the right side and a skeg with collapsed ribs and 3 liter fluid filled pocket on the left side.,mrodriguez,2018-03-15 09:44:42.317,dszemer,2018-04-12 14:08:10.460
+1998,2018-02-10 00:00:00.000,BoUn,chronic,0,Rehab,SWF,lcroft,This animal was being treated for apparent cold stress syndrome. On 2/10/2018 she expired and was sent to the path lab for a full necropsy ,jpeterson,2018-02-11 03:59:39.367,dszemer,2018-02-12 13:22:40.307
+1999,2018-03-11 00:00:00.000,BoPr,,0,Rehab,MSQ,mrodriguez,"This manatee had several very deep propeller wounds with fractured ribs and vertebrae. Response was intermittent before deteriorated and passed away. On gross, there was a small walled of draining tract that originated from one of the vertebral cracks at a propeller wound site into the vertebral canal adjacent to the cauda equina.",mrodriguez,2018-03-15 10:00:16.223,D,2018-03-15 10:00:16.223
+2004,2018-03-01 00:00:00.000,Unde,,0,PriorTr,SWF,sdirocco,,jpeterson,2018-10-02 03:40:53.460,D,2018-10-02 03:40:53.460
+2006,2018-03-30 00:00:00.000,NaOt,This manatee had cold stress but also breve toxin levels in several organ systems with decreasing amounts in feces (decreasing levels coinciding with time in-hospital would not be background.),0,Rehab,MSQ,mrodriguez,,mrodriguez,2018-10-02 14:02:53.410,D,2018-10-02 14:02:53.410
+2012,2021-11-09 00:00:00.000,BoIm,,0,AftRel,,,,APajor,2023-09-14 08:45:22.293,D,2023-09-14 08:45:22.293
+2013,2023-02-18 00:00:00.000,Deco,,0,AftRel,,,,KBouchard,2023-06-05 11:53:57.050,D,2023-06-05 11:53:57.050
+2014,2023-12-17 00:00:00.000,BoIm,,0,AftRel,,,,ngordon,2024-03-19 15:20:58.823,D,2024-03-19 15:20:58.823
+2016,2018-03-18 00:00:00.000,NaCs,Necropsy performed at MMPL.,0,PriorTr,SWF,lcroft,Animal died right after being removed from transport vehical,jpeterson,2018-03-27 08:55:56.423,dszemer,2018-03-30 11:16:28.893
+2017,2022-08-03 00:00:00.000,HumI,,0,AftRel,FWCNE,,,KBouchard,2023-06-05 11:37:59.050,D,2023-06-05 11:37:59.050
+2020,2018-05-10 00:00:00.000,NaDe,pending histopathology,0,Rehab,MSQ,mrodriguez,This calf was incredibly small at straight length of 90 cm. It had very abnormal fecals with sloughing intestinal cells on entry. It had a stricture in the small intestine but also had congested cerebellum and increased CSF fluid. It also still had a patent ductus arteriosus.,mrodriguez,2018-06-01 09:06:17.070,D,2018-06-01 09:06:17.070
+2021,2018-04-10 00:00:00.000,NaRe,"red tide, parasitic enteritis, emaciation",0,Rehab,SWF,lcroft,Necropsy performed at MMPL. ELISA results indicates significant concentrations of brevetoxins.,jpeterson,2018-04-11 04:29:50.197,dszemer,2019-01-11 09:22:37.860
+2022,2018-04-10 00:00:00.000,NaRe,suspect (necropsy conducted at FWC-MMPL),0,Rehab,MMPL,,SWF Tm1827 was found to be non responsive at around 0730 on 4/10/2018. this animal died sometime between 2100 on 4/9/2018 to 0730 on 4/10/2018,jpeterson,2018-04-10 05:50:14.797,dszemer,2019-05-31 11:18:25.807
+2024,2018-04-14 00:00:00.000,BoIm,chronic. Necropsy performed at MMPL.,0,Rehab,SWF,lcroft,SWFTM1829B died some time between 0630h and 0730h. She was seen eating and swimming at 0630h and was found dead around 0730h. ,jpeterson,2018-04-16 05:15:26.477,dszemer,2019-01-10 12:06:55.163
+2025,2020-11-10 00:00:00.000,TrWC,MRP tagged manatee found in drainage culvert,1,AftRel,FWCSW,,,ngordon,2021-09-23 14:45:42.143,D,2021-09-23 14:45:42.143
+2027,2018-04-21 00:00:00.000,Unde,,1,Rehab,SWF,lcroft,"This animal had a 10"" hole into the thoracic cavity and due to quality of life it was decided that euthanasia was warranted. ",jpeterson,2018-04-23 08:59:04.530,D,2018-04-23 08:59:04.530
+2028,2021-12-10 00:00:00.000,Deco,,0,AftRel,FWC,,,ahowell,2024-05-15 09:17:45.470,D,2024-05-15 09:17:45.470
+2042,2018-05-23 00:00:00.000,NaOt,emaciated,1,Rehab,SWF,lcroft,Euthanized due to quality of life issue. Necropsied at FWC Marine Mammal Pathobiology Lab.,jpeterson,2018-05-23 15:12:42.167,dszemer,2018-06-01 08:17:01.900
+2044,2018-05-26 00:00:00.000,Unde,Necropsy performed at the FWC MMPL. Bilateral pneumothorax of unknown ediology.,0,Rehab,SWF,lcroft,This animal had a bilateral thoracocentesis,jpeterson,2018-05-29 05:28:01.440,dszemer,2018-06-11 13:18:09.017
+2048,2022-02-16 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:20:50.683,D,2023-10-02 11:20:50.683
+2049,2018-06-28 00:00:00.000,BoUn,,0,Rehab,SWF,lcroft,"
+
+",jpeterson,2018-07-06 05:16:52.810,D,2018-07-06 05:16:52.810
+2059,2018-08-01 00:00:00.000,NaRe,,0,Rehab,SWF,sdirocco,This manatee came into SWF rehab area on 8/1/2018 around 4pm and died around 9pm,jpeterson,2018-08-07 13:25:10.770,D,2018-08-07 13:25:10.770
+2065,2018-09-01 00:00:00.000,BoBo,,0,Rehab,SWF,sdirocco,This calf died around 1130am it was sent to the path lab for necropsy,jpeterson,2018-09-06 04:33:05.313,D,2018-09-06 04:33:05.313
+2067,2018-09-20 00:00:00.000,HumI,This manatee was rescued for red tide seizure activity and recovered but died two weeks later from an old cecal perforation from a metal wire.,0,Rehab,MSQ,mrodriguez,,mrodriguez,2018-10-02 14:06:58.437,D,2018-10-02 14:06:58.437
+2068,2018-11-24 00:00:00.000,BoIm,Acute.,0,AftRel,MMPL,,Watercraft wounds; Skeletal trauma; Blood clots; Hemothorax.,glonati,2019-05-13 12:41:22.667,D,2019-05-13 12:41:22.667
+2072,2020-03-18 00:00:00.000,BoPr,He originally came in for acute propeller strike that was managed but eventually the drainage overtook him medically and he was euthanized.,1,Rehab,MSQ,mrodriguez,,mrodriguez,2020-03-23 08:19:58.170,D,2020-03-23 08:19:58.170
+2074,2019-05-15 00:00:00.000,BoIm,chronic,0,AftRel,FWCSW,,,dszemer,2019-05-22 09:36:36.283,dszemer,2019-06-11 06:50:42.633
+2079,2021-01-01 00:00:00.000,NaOt,Large reproductive tumor and numerous findings in the lungs. Histology findings pending. ,0,AftRel,MMPL,,,bbarbeau,2021-01-06 07:18:42.053,D,2021-01-06 07:18:42.053
+2081,2018-01-05 00:00:00.000,NaCs,ICW water temperatures were reported at 47 degrees F.,0,Resc,FWCNE,,"Manatee was called in by fisherman as beached in ICW during cold weather. FWC and Jax Zoo responded, but manatee was dead on arrival.",ngordon,2018-10-13 12:29:16.640,D,2018-10-13 12:29:16.640
+2085,2018-01-06 00:00:00.000,NaCs,,0,Resc,MMPL,,,dszemer,2019-03-26 15:04:07.567,D,2019-03-26 15:04:07.567
+2094,2002-06-23 00:00:00.000,BoPr,,0,AftRel,MMPL,,,dszemer,2018-11-21 14:20:37.107,D,2018-11-21 14:20:37.107
+2102,2019-01-14 00:00:00.000,NaOt,severe parasitic enteritis,0,Rehab,SWF,sdirocco,SWFTM1870 was found deceased at 0645am by staff when they went out to do their feed. This animal was alive at 0030 when our late staff did their final rounds for their shift.,jpeterson,2019-01-14 05:23:45.563,dszemer,2019-05-28 06:47:52.343
+2107,2019-02-15 00:00:00.000,NaDe,,0,Rehab,MMPL,,This animal had a quick change in health status 72 hour prior to death his health became critical again. intensive care started on 2\12\2019,jpeterson,2019-02-19 05:03:51.990,dszemer,2019-08-02 14:23:49.293
+2109,2021-11-24 00:00:00.000,NaOt,,0,AftRel,FWC,,,ahowell,2024-05-15 09:16:45.257,D,2024-05-15 09:16:45.257
+2110,2019-02-12 00:00:00.000,NaOt,,0,Trans,FWCSW,,Necropsy was performed and preliminary cause of death is intestinal torsion. ,dboyd,2019-02-13 11:19:07.990,D,2019-02-13 11:19:07.990
+2111,2019-01-04 00:00:00.000,NaCs,,0,Trans,FWCT,,,ahowell,2019-02-26 07:59:28.920,D,2019-02-26 07:59:28.920
+2113,2020-07-28 00:00:00.000,Unde,"Dorsal epidermis missing and dermis bruised. Internal findings were consistent with physical trauma, but did not see any significant corresponding musculoskeletal trauma.",0,AftRel,GADNR,,"On 7/27/2020 Georgia DNR received a report of the manatee alive in Kings Bay, GA with areas of the epidermis on dorsal aspect missing and bruised areas of dermis. Following day the carcass was recovered in Nassau County, FL. ",ngordon,2020-08-10 09:55:32.327,D,2020-08-10 09:55:32.327
+2115,2019-03-15 00:00:00.000,NaOt,,0,Rehab,MMPL,,Animal acutely presented with lack of interest in food and started to list to its left side up ,jpeterson,2019-04-02 10:54:51.920,dszemer,2019-08-02 14:26:06.830
+2116,2019-03-04 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,This animal came in on 3/2/2019 very thin and emaciated,jpeterson,2019-03-18 04:45:29.307,D,2019-03-18 04:45:29.307
+2118,2019-03-21 00:00:00.000,NaOt,"Emaciated, parasitic enteritis, possible aspiration pneumonia
+",0,Rehab,MSQ,mrodriguez,High tides took manatee over a concrete rock barrier. ,mrodriguez,2019-04-02 09:31:38.023,dszemer,2019-11-13 12:16:55.020
+2120,2019-04-20 00:00:00.000,BoIm,,1,Rehab,MMPL,,,lwinkler,2019-04-21 07:59:10.860,dszemer,2019-08-02 14:38:06.460
+2123,2019-03-17 00:00:00.000,Unde,,1,Rehab,SWF,sdirocco,This animal acutely became lethargic and was put on a ventilator at 9pm on 3/16/2019. after not being able to consciously breath on its own he was humanely euthanized at 730am on 3/17/2019.,jpeterson,2019-04-03 14:28:14.550,D,2019-04-03 14:28:14.550
+2131,2019-05-03 00:00:00.000,BoUn,,0,Rehab,LPZ,lsmith,Animal died several hours after arriving at facility.  ,mlippincot,2019-05-04 06:47:43.833,D,2019-05-04 06:47:43.833
+2139,2018-11-19 00:00:00.000,BoPr,,1,Trans,MMPL,,Deeply penetrating propeller wounds; Skeletal trauma; Severed spinal cord.,glonati,2019-05-13 14:10:00.560,D,2019-05-13 14:10:00.560
+2151,2019-06-05 00:00:00.000,NaOt,"Following treatment in the PM observed him rolling onto side. Began higher respiration's at 1710 following treatment. Continued to have frequent respirations and while under observation from animal care staff member, passed away at 1830.",0,Rehab,LPZ,lsmith,,mlippincot,2019-06-06 12:25:23.187,D,2019-06-06 12:25:23.187
+2153,2019-05-25 00:00:00.000,BoBo,,0,Rehab,LPZ,lsmith,Found deceased in pool am from overnight,mlippincot,2019-05-26 07:28:44.830,D,2019-05-26 07:28:44.830
+2155,2019-07-05 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,The manatee had an old healed skeg mark on his lumbar area with three healed ribs on the right side. He had two walled off areas of pus in the right thoracic compartment that were separated by the lung having adhesions to the thoracic wall.,mrodriguez,2019-07-08 08:17:28.383,D,2019-07-08 08:17:28.383
+2156,2019-05-24 00:00:00.000,NaOt,"Manatee had a congenital birth defect, where its GI organs were herniated into the manatee's umbilical cord",1,Trans,FWCSW,lsmith,Martine DeWitt communicated with USFWS to get the euthanasia authorized. Dr. Lauren Smith from Zoo Tampa performed the euthanasia. Euthanasia was performed at MMPL,dboyd,2019-05-28 13:12:00.900,D,2019-05-28 13:12:00.900
+2157,2019-04-22 00:00:00.000,BoIm,,0,Resc,MMPL,,,glonati,2019-06-10 13:39:16.813,D,2019-06-10 13:39:16.813
+2160,2019-06-28 00:00:00.000,BoPr,,1,Rehab,JAX,mpersky,,cmiller,2019-06-28 10:11:49.993,D,2019-06-28 10:11:49.993
+2162,2019-07-09 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,,lbraso,2019-07-13 06:19:00.563,D,2019-07-13 06:19:00.563
+2163,2019-08-17 00:00:00.000,BoIm,PYOTHORAX,1,Rehab,SWF,sdirocco,Dr. Dana Lindemann administered euthanasia,lbraso,2019-08-18 08:03:16.077,D,2019-08-18 08:03:16.077
+2164,2019-07-15 00:00:00.000,BoIm,,0,Trans,MMPL,,,dszemer,2019-07-18 08:30:42.087,D,2019-07-18 08:30:42.087
+2165,2019-07-03 00:00:00.000,BoIm,"Watercraft; Impact (Acute)
+The wound shapes and internal trauma of many luxated ribs suggested that the manatee was crushed by a slower moving heavy vessel.",0,Trans,FWCNE,,The following day the carcass was transported to FWC-MMPL for necropsy. ,ngordon,2019-07-23 13:31:26.347,D,2019-07-23 13:31:26.347
+3179,2021-03-24 00:00:00.000,NaOt,,0,AftRel,,,,bgreer,2023-10-02 11:02:46.593,D,2023-10-02 11:02:46.593
+3183,2021-06-26 00:00:00.000,Deco,,0,AftRel,MMPL,,COD pending sample analysis; Red Tide Suspect due to location.  ,bbarbeau,2021-06-30 06:30:55.150,D,2021-06-30 06:30:55.150
+3196,2021-09-22 00:00:00.000,Deco,,0,AftRel,MMPL,,,bbarbeau,2021-09-22 13:09:34.767,D,2021-09-22 13:09:34.767
+3197,2019-10-21 00:00:00.000,BoIm,,0,PriorTr,JAX,yjafarey,Animal died during initial workup.,cmiller,2019-10-23 18:25:28.883,D,2019-10-23 18:25:28.883
+3198,2019-10-27 00:00:00.000,BoUn,Animal was euthanized during treatment.   While in care was exhibiting signs of seizures and unresponsiveness potentially related to poor health.  After 24 hours was in poor condition.  ,1,Rehab,LPZ,lsmith,"Necropsy conducted at MMPL.  COD: Watercraft, chronic.",mlippincot,2019-10-28 10:50:43.277,dszemer,2019-11-08 14:26:46.040
+3201,2019-11-02 00:00:00.000,NaRe,,0,Rehab,,,Dr. Lindsey Waxman was back up vet for this case ,mlippincot,2019-11-04 15:57:38.380,D,2019-11-04 15:57:38.380
+3202,2021-03-19 00:00:00.000,NaCs,,0,Rehab,LPZ,,,mlippincot,2021-03-21 11:15:18.637,D,2021-03-21 11:15:18.637
+3208,2019-12-12 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,Tension Pneumothorax with folded/twisted left lung high cranially.,mrodriguez,2019-12-16 07:19:28.890,D,2019-12-16 07:19:28.890
+3210,2019-11-26 00:00:00.000,TrOt,"entrapped in golf course pond, signs of cold stress.  Frozen for future necropsy--pending",0,Trans,SWF,creid,calf rescued with mom. expired 30 min into transport,lbraso,2019-11-28 07:06:38.993,dszemer,2020-04-15 08:35:53.140
+3215,2019-11-26 00:00:00.000,NaRe,"The manatee was immobile, unresponsive, and in an area of high red tide cell counts.  ",0,Resc,FWCSW,,"Died prior to FWC-SWFL arrival, manatee was being supported by Lee County Sheriff's Office. ",ngordon,2020-04-14 19:55:44.717,D,2020-04-14 19:55:44.717
+3217,2019-12-06 00:00:00.000,NaCs,,0,Trans,,,,bgreer,2019-12-17 06:15:28.883,D,2019-12-17 06:15:28.883
+3222,2019-12-30 00:00:00.000,BoBo,,0,Rehab,LPZ,lsmith,,mlippincot,2020-01-05 13:19:06.250,D,2020-01-05 13:19:06.250
+3225,2019-12-24 00:00:00.000,BoUn,,1,Rehab,LPZ,,Dr. Lindsey Waxman was on call ,mlippincot,2019-12-24 18:19:49.590,D,2019-12-24 18:19:49.590
+3227,2020-01-14 00:00:00.000,Unde,,0,Rehab,MSQ,mrodriguez,"This animal had a severe pneumothorax on the left side with a 180 tilt and came in very weak with respiratory infection. Old vessel marks and a remodeled rib were present but it was not evident if it was prop or hull impact that created the lesions. He refilled within 30 minutes of removing air and providing negative pressure.
+SIGNIFICANT FINDINGS Depleted, serous fat, Pneumothorax, Wet lungs, Mucus in airways, Congested peritoneum, urinary bladder, tracheal mucosa, lungs, Remodeled rib
+",mrodriguez,2020-01-21 07:26:08.063,ngordon,2020-11-19 16:07:01.260
+3228,2020-01-19 00:00:00.000,BoBo,,0,Rehab,MSQ,mrodriguez,This  manatee had two series of prop marks one on her right neck one on her left shoulder and a hull mark on the left side of her head. She could not raise her head appropriately to breathe normally. On necropsy under the hull mark there was scarring and constricture of the neck muscles and the neck muscles on the right side of her neck were atrophied. ,mrodriguez,2020-01-21 07:32:09.397,D,2020-01-21 07:32:09.397
+3229,2020-01-22 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,"Rescued beached/stranded, appeared cold stress but at that time weather not too cold, weeks old hull and prop marks on her left side, pneuomothorax on the left side, intestinal ileus, generalized edema. Cause of death pending necropsy at FMRI pathobiology lab.",mrodriguez,2020-01-23 16:57:45.953,dszemer,2020-02-07 06:30:47.530
+3235,2020-02-13 00:00:00.000,NaCs,,0,Rehab,SWF,sdirocco,,lbraso,2020-02-13 06:25:15.023,D,2020-02-13 06:25:15.023
+3240,2019-11-26 00:00:00.000,NaCs,"The manatee was beached, thin, and non-responsive. The surrounding water temperatures were below 65° F. ",0,Resc,FWCNE,,Jacksonville Zoo and Gardens was the first responder. ,ngordon,2020-04-14 16:53:21.170,D,2020-04-14 16:53:21.170
+3241,2019-12-07 00:00:00.000,NaDe,"The small, thin, lone calf was grounded in the surf. Shortly after being removed from the surf, the calf expired.",0,Resc,FWCNE,,"Volusia County Marine Mammal Stranding Team, Debbie Wright, was first responder. ",ngordon,2020-04-14 17:16:55.220,D,2020-04-14 17:16:55.220
+3244,2019-09-13 00:00:00.000,NaDe,,0,PriorTr,MSQ,mrodriguez,This 127.8 cm st. length had not nursed in over a week and had a bloody stomach and intestinal tract with severe kidney infection (pyonephritis).,mrodriguez,2020-02-24 06:17:01.350,D,2020-02-24 06:17:01.350
+3246,2022-02-02 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:11:41.630,D,2023-10-02 11:11:41.630
+3247,2020-02-19 00:00:00.000,NaCs,,0,Rehab,,lsmith,,mlippincot,2020-02-20 08:58:33.950,D,2020-02-20 08:58:33.950
+3249,2021-02-17 00:00:00.000,Deco,,0,AftRel,MMPL,,,bbarbeau,2021-02-17 15:10:26.143,D,2021-02-17 15:10:26.143
+3250,2020-04-26 00:00:00.000,BoBo,,1,Rehab,LPZ,lsmith,Pyothorax,mlippincot,2020-04-27 10:25:08.677,D,2020-04-27 10:25:08.677
+3253,2020-02-16 00:00:00.000,NaCs,,0,Rehab,MSQ,mrodriguez,Severe cold stress lesions on flippers and muzzle with severe purulent pneumonia in lungs.,mrodriguez,2020-02-28 19:27:27.970,D,2020-02-28 19:27:27.970
+3263,2020-04-13 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,"This adult female manatee had an older skeg mark on her and directly underneath for several layers of muscle, rib bone, thoracic cavity and lung there was scarring, pus/abcessation, and adhesions extending linear parallel underneath to the skeg mark.",mrodriguez,2020-06-02 07:51:25.317,D,2020-06-02 07:51:25.317
+3273,2019-02-06 00:00:00.000,NaCs,,0,Trans,MMPL,,,bbarbeau,2020-03-19 13:25:27.580,D,2020-03-19 13:25:27.580
+3279,2024-07-20 00:00:00.000,Deco,,0,AftRel,MMPL,,,APajor,2024-10-23 11:53:56.890,D,2024-10-23 11:53:56.890
+3281,2020-04-17 00:00:00.000,BoIm,,0,Rehab,SWF,sdirocco,,lbraso,2020-04-28 06:25:41.420,D,2020-04-28 06:25:41.420
+3299,2023-06-30 00:00:00.000,Deco,,0,AftRel,,,,APajor,2023-09-14 09:04:26.597,D,2023-09-14 09:04:26.597
+3302,2020-07-17 00:00:00.000,BoIm,,1,Rehab,SWF,sdirocco,,lbraso,2020-07-19 06:30:10.343,D,2020-07-19 06:30:10.343
+3303,2020-08-13 00:00:00.000,NaDe,Health declining over several days ,1,Rehab,LPZ,lsmith,,mlippincot,2020-08-15 05:19:05.890,D,2020-08-15 05:19:05.890
+3305,2024-03-07 00:00:00.000,NaOt,,0,AftRel,MMPL,,,APajor,2024-03-19 07:27:24.830,D,2024-03-19 07:27:24.830
+3307,2020-08-08 00:00:00.000,BoIm,,0,Rehab,LPZ,lsmith,,mlippincot,2020-08-10 07:56:28.703,D,2020-08-10 07:56:28.703
+3309,2020-08-06 00:00:00.000,Unde,Necropsy results were inconclusive.,0,Resc,SWF,,Manatee died shortly after being brought onboard rescue boat.,bgreer,2020-08-14 07:50:21.090,D,2020-08-14 07:50:21.090
+3319,2020-06-10 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,"chronic pyothorax, fractured kidneys, broken ribs",mrodriguez,2020-08-26 15:42:45.063,ngordon,2020-11-17 08:59:13.107
+3321,2020-11-05 00:00:00.000,EnMo,,0,Rehab,SWF,creid,,lbraso,2020-11-07 08:12:00.450,D,2020-11-07 08:12:00.450
+3324,2020-09-13 00:00:00.000,BoIm,,0,Rehab,,lsmith,,mlippincot,2020-09-13 08:51:18.690,D,2020-09-13 08:51:18.690
+3330,2020-10-17 00:00:00.000,BoIm,,1,Rehab,SWF,sdirocco,,lbraso,2020-10-25 11:07:27.863,D,2020-10-25 11:07:27.863
+3334,2020-11-13 00:00:00.000,NaOt,Euthanized due to poor health.   Fluid in chest. ,1,Rehab,LPZ,lsmith,,mlippincot,2020-11-16 07:27:18.313,D,2020-11-16 07:27:18.313
+3346,2020-11-16 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,Dr. Dana Lindemann's case,lbraso,2020-11-16 06:31:46.560,D,2020-11-16 06:31:46.560
+3349,2020-11-28 00:00:00.000,Othe,Animal was euthanized due to poor health/blood work.  Exhibiting seizures lasting for long periods.   Neurological symptoms such as lip twitching and arching.  Eye on right side of body was not responsive but left side was.  ,1,Rehab,,lsmith,,mlippincot,2020-11-30 11:47:03.797,D,2020-11-30 11:47:03.797
+3352,2020-12-28 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,,lbraso,2020-12-28 09:37:16.670,D,2020-12-28 09:37:16.670
+3353,2021-11-04 00:00:00.000,NaOt,Pneumonia with suspected heart issues,0,Rehab,LPZ,mnau,,mlippincot,2021-11-04 13:57:26.593,ngordon,2022-09-07 11:18:31.020
+3357,2022-02-04 00:00:00.000,NaOt,Starvation UME,0,AftRel,FWCEC,,,ngordon,2022-05-09 16:18:47.590,D,2022-05-09 16:18:47.590
+3358,2020-12-30 00:00:00.000,BoBo,,1,Rehab,LPZ,lsmith,,mlippincot,2020-12-30 16:50:43.297,D,2020-12-30 16:50:43.297
+3364,2022-02-17 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:21:54.580,D,2023-10-02 11:21:54.580
+3367,2021-01-06 00:00:00.000,NaOt,,0,Rehab,JAX,yjafarey,Starvation UME,cmiller,2021-01-07 11:56:13.583,ngordon,2021-11-08 14:34:53.613
+3368,2021-05-05 00:00:00.000,BoIm,,0,Rehab,MSQ,mrodriguez,"External skeg wound with fractured ribs, fractured kidney, rent in diaphragm, and double folded lung. ",mrodriguez,2021-05-14 10:42:22.997,D,2021-05-14 10:42:22.997
+3369,2022-03-31 00:00:00.000,Unde,,1,Rehab,SWF,sdirocco,Dr. Lydia Staggs euthanized,lbraso,2022-04-04 04:28:21.933,D,2022-04-04 04:28:21.933
+3372,2021-02-11 00:00:00.000,BoBo,,1,Rehab,LPZ,lsmith,,mlippincot,2021-02-14 10:15:14.903,D,2021-02-14 10:15:14.903
+5380,2021-03-29 00:00:00.000,BoIm,,1,Rehab,SWF,creid,,lbraso,2021-03-30 08:21:16.827,D,2021-03-30 08:21:16.827
+5382,2024-04-12 00:00:00.000,BoIm,,0,AftRel,FWCEC,,,bgreer,2024-04-23 08:49:12.650,D,2024-04-23 08:49:12.650
+5386,2021-01-19 00:00:00.000,NaOt,,0,Resc,FWCIR,,Starvation UME,bgreer,2021-02-05 13:41:36.923,ngordon,2021-11-08 14:21:38.597
+5387,2021-01-28 00:00:00.000,NaOt,Starvation UME findings,0,AftRel,FWCEC,,,bgreer,2024-03-20 12:17:39.120,D,2024-03-20 12:17:39.120
+5388,2021-02-06 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,,lbraso,2021-02-07 06:57:17.310,D,2021-02-07 06:57:17.310
+5389,2021-04-28 00:00:00.000,BoBo,,1,Rehab,SWF,creid,,lbraso,2021-04-28 11:26:01.993,D,2021-04-28 11:26:01.993
+6395,2021-02-19 00:00:00.000,NaOt,,0,Rehab,SWF,sdirocco,Starvation UME; Dr. Dana Lindeman was attending vet,lbraso,2021-02-22 06:27:31.973,ngordon,2021-11-08 14:50:42.190
+6396,2021-02-22 00:00:00.000,NaDe,Died in transport at 1312 hrs.,0,Trans,,,,ngordon,2021-04-30 11:13:17.840,D,2021-04-30 11:13:17.840
+6398,2022-07-06 00:00:00.000,Unde,,0,AftRel,,,,bgreer,2023-10-02 11:25:45.530,D,2023-10-02 11:25:45.530
+6406,2024-01-05 00:00:00.000,NaCs,,0,AftRel,FWCNE,,,KBouchard,2024-01-24 09:35:00.583,D,2024-01-24 09:35:00.583
+6411,2021-03-14 00:00:00.000,NaOt,,0,Rehab,JAX,yjafarey,"2020-2021 UME animal; Necropsy at MMPL: manatee had similar findings to the IRL cases, serous atrophy of fat, serous muscle, suspected liver atrophy. There was a fatal tear in the ventral diverticulum of the duodenum with secondary peritonitis.",cmiller,2021-03-15 13:04:05.807,ngordon,2021-04-03 22:44:54.297
+6412,2022-01-26 00:00:00.000,BoIm,,0,AftRel,MMPL,,,APajor,2024-03-19 07:49:14.587,D,2024-03-19 07:49:14.587
+6413,2021-03-17 00:00:00.000,NaOt,"Left side of chest appeared heavy.  Tapped and removed blood and thought to have hemothorax.  Body condition poor, emaciated. ",1,Rehab,LPZ,,,mlippincot,2021-03-21 11:18:29.680,D,2021-03-21 11:18:29.680
+6416,2021-03-05 00:00:00.000,NaDe,,0,Rehab,MSQ,mrodriguez,This orphan came in during an east coast UME with other orphans. It showed emaciation and had been ingesting fibrous wood type material. It showed sever atrophy of fat with very liquidy tissues.,mrodriguez,2021-05-14 10:31:23.797,D,2021-05-14 10:31:23.797
+6417,2023-03-24 00:00:00.000,NaOt,,0,AftRel,FWC,,,ahowell,2024-05-15 09:21:30.170,ngordon,2024-06-26 19:45:12.400
+6419,2023-01-01 00:00:00.000,NaCs,,0,AftRel,,,Red Tide Suspect.,APajor,2023-09-14 08:56:36.690,D,2023-09-14 08:56:36.690
+6421,2021-04-14 00:00:00.000,BoUn,,0,Rehab,SWF,creid,,lbraso,2021-04-19 07:24:33.073,D,2021-04-19 07:24:33.073
+6423,2022-02-12 00:00:00.000,NaOt,,0,AftRel,,,,bgreer,2023-10-02 11:19:47.683,D,2023-10-02 11:19:47.683
+7425,2021-04-16 00:00:00.000,BoBo,,0,Rehab,LPZ,lsmith,,mlippincot,2021-04-19 12:11:15.163,D,2021-04-19 12:11:15.163
+7430,2021-05-29 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,Dr. Lydia Staggs was attending vet,lbraso,2021-05-30 07:15:13.737,D,2021-05-30 07:15:13.737
+7437,2022-04-04 00:00:00.000,Huma,Storm drain entrapment,0,AftRel,,,,bgreer,2023-10-02 11:24:38.053,D,2023-10-02 11:24:38.053
+7442,2021-06-20 00:00:00.000,NaRe,,0,Rehab,SWF,creid,,lbraso,2021-06-22 05:49:54.417,D,2021-06-22 05:49:54.417
+7444,2021-06-17 00:00:00.000,NaOt,genetic defects,0,Rehab,SWF,sdirocco,Dr. Dana Lindemann was attending vet,lbraso,2021-06-22 05:44:50.870,D,2021-06-22 05:44:50.870
+7457,2021-07-31 00:00:00.000,BoIm,,0,Trans,,,Manatee passed away while being transferred from rescue boat to transport truck. The manatee was transported to SeaWorld and stored in their cold room overnight until FWC-MMPL staff arrived to transport carcass to MMPL for necropsy. ,bgreer,2021-08-05 13:35:38.750,D,2021-08-05 13:35:38.750
+7459,2021-08-25 00:00:00.000,BoUn,,0,Rehab,SWF,creid,Watercraft; chronic,lbraso,2021-08-25 07:09:57.067,ngordon,2021-09-01 09:40:50.987
+7461,2021-08-08 00:00:00.000,BoPr,,0,Trans,FWCNE,,,bgreer,2021-08-09 11:35:38.647,D,2021-08-09 11:35:38.647
+7462,2021-08-21 00:00:00.000,BoUn,,0,Rehab,JAX,yjafarey,Watercraft; chronic,cmiller,2021-08-22 00:43:21.233,ngordon,2021-09-01 09:40:26.893
+7464,2021-08-14 00:00:00.000,NaOt,Animal was suffering with seizure activity and no response to stimuli.  Animal was watched constantly for 48 hours.  There was no improvement and only deteriorated with seizure activity.    ,1,Rehab,,,,mlippincot,2021-08-15 10:48:09.150,D,2021-08-15 10:48:09.150
+7465,2021-08-20 00:00:00.000,BoBo,,1,PriorTr,SWF,creid,,lbraso,2021-08-24 07:49:23.480,D,2021-08-24 07:49:23.480
+7468,2021-09-30 00:00:00.000,BoBo,,0,Rehab,SWF,sdirocco,Dr. Dana Lindemann was attending vet,lbraso,2021-10-03 05:53:51.530,D,2021-10-03 05:53:51.530
+7473,2022-01-12 00:00:00.000,NaOt,,0,AftRel,,,,bgreer,2023-10-02 11:09:52.143,D,2023-10-02 11:09:52.143
+7482,2023-02-02 00:00:00.000,BoIm,,0,AftRel,,,,APajor,2023-09-14 08:59:09.637,D,2023-09-14 08:59:09.637
+7492,2021-11-16 00:00:00.000,BoIm,,0,Rehab,MSQ,sloos,"Necropsy by FWC MMPL, COD: Watercraft; Impact (chronic)",sloos,2022-01-18 08:33:29.180,ngordon,2022-01-25 12:44:46.860
+7501,2021-03-30 00:00:00.000,BoIm,,0,Resc,FWCT,,,BGoodrum,2021-10-22 12:45:26.290,D,2021-10-22 12:45:26.290
+7502,2021-09-24 00:00:00.000,BoBo,,0,Resc,FWCT,,,BGoodrum,2021-10-22 12:56:22.630,D,2021-10-22 12:56:22.630
+7503,2021-03-02 00:00:00.000,BoIm,,0,Resc,FWCT,,,BGoodrum,2021-10-22 13:02:54.637,D,2021-10-22 13:02:54.637
+8510,2021-11-28 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,Dr Dana Lindemann was attending vet,lbraso,2021-11-29 05:15:56.663,D,2021-11-29 05:15:56.663
+8511,2021-11-23 00:00:00.000,BoIm,,0,Resc,FWCSW,,"SWFL received a report of a positively buoyant manatee with a large superficial wound series in Pine Island Sound, Bokeelia, Lee County. The rescue crew arrived at the ramp and launched the SWFL capture boat at 1100 hrs. The manatee was captured in the first net set at 1129 hrs. No respirations were observed once the manatee was onboard. Time of death was approximately 1135 hrs.",dboyd,2021-12-02 12:18:41.940,D,2021-12-02 12:18:41.940
+8513,2022-02-20 00:00:00.000,NaOt,,0,Rehab,SWF,DLinderman,,lbraso,2022-02-20 07:24:43.203,ngordon,2022-03-22 10:20:48.460
+8519,2023-05-23 00:00:00.000,Unde,,0,Rehab,JAX,yjafarey,,cmiller,2023-05-24 11:59:12.653,D,2023-05-24 11:59:12.653
+8529,2022-01-16 00:00:00.000,NaCs,,0,Rehab,SWF,LStaggs,"Necropsy performed at MMPL; emaciated with raw, spongy, bleached, thickened epidermis. ",lbraso,2022-01-16 09:16:03.550,ngordon,2022-01-19 13:03:29.703
+8530,2022-01-19 00:00:00.000,BoBo,,1,PriorTr,SWF,creid,,lbraso,2022-01-23 07:45:44.433,D,2022-01-23 07:45:44.433
+9533,2022-01-29 00:00:00.000,Othe,UNDETERMINED AT THIS TIME,0,Rehab,SWF,sdirocco,,lbraso,2022-01-30 08:22:45.823,D,2022-01-30 08:22:45.823
+9535,2022-02-04 00:00:00.000,NaOt,,0,Rehab,JAX,mpersky,,cmiller,2022-02-07 15:21:26.873,ngordon,2022-03-22 10:18:42.220
+9539,2022-02-06 00:00:00.000,BoBo,,1,PriorTr,SWF,LStaggs,,lbraso,2022-02-13 07:08:15.173,D,2022-02-13 07:08:15.173
+9540,2022-02-08 00:00:00.000,NaOt,ume emaciated,0,PriorTr,SWF,DLinderman,,lbraso,2022-02-13 07:15:06.633,D,2022-02-13 07:15:06.633
+9545,2022-02-21 00:00:00.000,BoBo,,1,Rehab,LPZ,mnau,,mlippincot,2022-03-15 12:16:57.620,ngordon,2022-05-18 09:57:25.633
+9553,2022-02-11 00:00:00.000,NaOt,UME findings with depleted fats and mostly empty GI tract.,0,Resc,,,,bgreer,2022-03-11 14:15:05.783,D,2022-03-11 14:15:05.783
+9554,2022-03-09 00:00:00.000,NaOt,,0,Rehab,SWF,DLinderman,,lbraso,2022-03-13 06:41:29.840,ngordon,2022-03-22 10:22:49.770
+9557,2022-05-12 00:00:00.000,BoIm,,0,Rehab,JAX,yjafarey,,cmiller,2022-05-12 16:07:28.090,D,2022-05-12 16:07:28.090
+9559,2022-03-17 00:00:00.000,HumI,,0,PriorTr,SWF,creid,,lbraso,2022-03-21 12:12:23.180,D,2022-03-21 12:12:23.180
+9561,2022-03-23 00:00:00.000,BoIm,,0,Trans,FWCIR,creid,EXPIRED DURING TRANSPORT TO SW. CAME TO PARK FOR CONFIRMATION,lbraso,2022-03-25 09:57:19.640,D,2022-03-25 09:57:19.640
+9562,2022-03-28 00:00:00.000,BoUn,,1,Rehab,SWF,LStaggs,,lbraso,2022-03-29 10:22:08.650,D,2022-03-29 10:22:08.650
+9565,2022-03-29 00:00:00.000,NaOt,,0,Trans,LPZ,mnau,"SWFL received a report of an excessively buoyant manatee continuously barrel rolling. With assistance of Lee County Sheriff’s Office-Marine Unit, the manatee was captured via boat-based hoop net set and loaded in the SWFL truck by 1905 hrs. The manatee was transferred into the ZooTampa truck at 2025 hrs, and stopped breathing at 2122 hrs (MSW22034), before arriving to ZooTampa.",dboyd,2022-04-03 09:26:55.970,D,2022-04-03 09:26:55.970
+9566,2022-03-25 00:00:00.000,NaOt," Neurologic death and respiratory arrest occured during transport, but due to the persistent steady heartbeat, elected to attempt CPR efforts.  ",1,PriorTr,LPZ,mnau,"Prognosis for CPR success very poor, and did not note any change in neurologic/respiratory status over the period of 1 hr.  Declared neurologic death and obtained permissions/concensus to administer euthasol in order to stop the heart rather than allow gradual cardiac arrest.  
+",mlippincot,2022-04-04 14:08:38.743,D,2022-04-04 14:08:38.743
+9567,2022-04-08 00:00:00.000,Othe,EUTHANIZED DUE TO EXTENSIVE BOATSTRIKE INJURIES,1,PriorTr,SWF,LStaggs,,lbraso,2022-04-10 06:19:03.440,D,2022-04-10 06:19:03.440
+9568,2022-04-12 00:00:00.000,Unde,,0,Rehab,SWF,DLinderman,,lbraso,2022-04-12 11:03:42.483,D,2022-04-12 11:03:42.483
+9569,2022-04-20 00:00:00.000,BoIm,,1,Rehab,LPZ,mnau,,mlippincot,2022-04-24 14:42:23.727,D,2022-04-24 14:42:23.727
+9573,2022-06-06 00:00:00.000,NaOt,Animal found deceased upon arrival in am.   Cause of death unknown until necropsy confirms ,0,Rehab,,,,mlippincot,2022-06-07 11:10:10.587,D,2022-06-07 11:10:10.587
+9577,2022-05-15 00:00:00.000,NaOt,Emaciated ,0,Rehab,LPZ,mnau,,mlippincot,2022-05-16 15:15:22.473,D,2022-05-16 15:15:22.473
+9590,2022-07-25 00:00:00.000,BoIm,,0,Rehab,SWF,sdirocco,,lbraso,2022-07-26 08:41:32.780,ngordon,2022-10-14 17:03:07.727
+9592,2022-07-10 00:00:00.000,BoPr,,1,PriorTr,,mnau,,mlippincot,2022-07-19 08:53:52.797,D,2022-07-19 08:53:52.797
+9594,2022-08-16 00:00:00.000,BoUn,,0,Rehab,SWF,sdirocco,,lbraso,2022-08-16 07:26:52.530,D,2022-08-16 07:26:52.530
+9595,2022-10-25 00:00:00.000,BoBo,,1,Rehab,,,,mlippincot,2022-10-25 14:25:28.403,D,2022-10-25 14:25:28.403
+9597,2022-11-14 00:00:00.000,BoBo,,0,Rehab,,,,mlippincot,2022-11-25 08:12:24.223,D,2022-11-25 08:12:24.223
+9599,2022-11-22 00:00:00.000,BoIm,Animal had declining health due to watercraft injury.   Animal was euthanized,1,Rehab,,,,mlippincot,2022-11-25 08:14:12.800,D,2022-11-25 08:14:12.800
+9603,2022-09-10 00:00:00.000,BoBo,The manatee died shortly following sedation.,0,Resc,FWCSW,mnau,,dboyd,2022-09-14 13:29:59.727,D,2022-09-14 13:29:59.727
+9609,2022-11-03 00:00:00.000,BoIm,,1,Rehab,SWF,sdirocco,,lbraso,2022-11-06 05:37:30.513,D,2022-11-06 05:37:30.513
+9612,2021-12-02 00:00:00.000,NaCs,,0,Resc,,,,ngordon,2022-10-11 15:40:41.697,D,2022-10-11 15:40:41.697
+9613,2022-01-26 00:00:00.000,NaCs,,0,Resc,DISL,,The manatee carcass was transported to Dauphin Island Sea Lab (DISL) by their Manatee Sighting Network (MSN).  ,ngordon,2022-10-11 16:49:13.693,D,2022-10-11 16:49:13.693
+9630,2022-11-03 00:00:00.000,NaOt,EMACIATED,1,Rehab,SWF,sdirocco,,lbraso,2022-11-06 05:39:27.287,D,2022-11-06 05:39:27.287
+9643,2023-01-07 00:00:00.000,BoBo,,1,Rehab,,mnau,,mlippincot,2023-01-09 13:19:13.590,D,2023-01-09 13:19:13.590
+9645,2023-01-25 00:00:00.000,Unde,,0,Rehab,JAX,mpersky,,cmiller,2023-01-26 17:27:16.770,D,2023-01-26 17:27:16.770
+9657,2023-04-18 00:00:00.000,BoPr,During surgery for watercraft injury animal passed away but euthanasia was given. ,1,Rehab,SWF,sdirocco,,ngordon,2023-05-22 08:17:25.673,D,2023-05-22 08:17:25.673
+9662,2023-04-27 00:00:00.000,BoIm,,0,Rehab,,,,mlippincot,2023-04-28 11:35:21.807,D,2023-04-28 11:35:21.807
+9675,2023-02-11 00:00:00.000,Unde,,0,Rehab,JAX,yjafarey,,cmiller,2023-02-14 13:50:07.227,D,2023-02-14 13:50:07.227
+9680,2023-05-10 00:00:00.000,NaOt,,0,Rehab,,,,mlippincot,2023-05-12 07:54:24.807,D,2023-05-12 07:54:24.807
+9681,2023-07-15 00:00:00.000,Unde,Found deceased in pool around 9:45am.   Animal brough to MMPL for necropsy.  Death caused TBD ,0,Rehab,,,,mlippincot,2023-07-17 07:03:50.837,D,2023-07-17 07:03:50.837
+9690,2023-02-13 00:00:00.000,BoIm,,0,Trans,,,,APajor,2023-09-14 09:14:33.793,D,2023-09-14 09:14:33.793
+9695,2023-09-19 00:00:00.000,BoPr,Well-healed watercraft scars on ventral neck/sternal region. Chronic wound lower jaw with necrotic and granulation tissue.,1,Rehab,SWF,LStaggs,Necropsy at MMPL,lbraso,2023-09-19 08:08:21.860,ngordon,2023-10-02 13:48:33.077
+10697,2023-04-01 00:00:00.000,NaOt,,0,Rehab,SWF,DLinderman,,lbraso,2023-04-03 04:04:10.017,D,2023-04-03 04:04:10.017
+10700,2023-05-14 00:00:00.000,BoIm,,0,Rehab,SWF,DLinderman,,lbraso,2023-05-15 06:08:31.420,D,2023-05-15 06:08:31.420
+10701,2023-04-07 00:00:00.000,BoIm,,1,Rehab,SWF,LStaggs,ALSO HAD ENTANGLEMENT OF LEFT FLIPPER TO THE BONE,lbraso,2023-04-10 05:43:24.327,D,2023-04-10 05:43:24.327
+10702,2023-04-06 00:00:00.000,BoPr,,0,PriorTr,SWF,LStaggs,,lbraso,2023-04-10 05:48:05.037,D,2023-04-10 05:48:05.037
+10703,2023-04-10 00:00:00.000,BoIm,,1,Rehab,,,,mlippincot,2023-04-10 15:47:11.800,D,2023-04-10 15:47:11.800
+10704,2023-07-05 00:00:00.000,NaOt,abscesses in abdomen,1,Rehab,SWF,DLinderman,,lbraso,2023-07-09 05:55:08.870,D,2023-07-09 05:55:08.870
+11699,2023-05-01 00:00:00.000,BoIm,,0,Rehab,,,,mlippincot,2023-05-01 08:56:32.313,D,2023-05-01 08:56:32.313
+11707,2023-06-12 00:00:00.000,BoIm,Possible foreign body also.,1,Rehab,JAX,mpersky,,cmiller,2023-06-12 08:09:01.687,D,2023-06-12 08:09:01.687
+11711,2023-07-25 00:00:00.000,BoBo,Animal was euthanized due to poor health prognosis due to watercraft injuries.  Necropsy report pending ,1,Rehab,,,,mlippincot,2023-07-28 06:32:15.490,D,2023-07-28 06:32:15.490
+11713,2023-06-20 00:00:00.000,BoIm,,0,Rehab,JAX,yjafarey,,cmiller,2023-06-20 12:10:17.157,D,2023-06-20 12:10:17.157
+11714,2023-06-01 00:00:00.000,NaDe,,0,Rehab,SWF,DLinderman,,lbraso,2023-06-18 10:01:43.217,D,2023-06-18 10:01:43.217
+11716,2023-06-02 00:00:00.000,NaDe,,0,Rehab,SWF,creid,,lbraso,2023-06-18 10:12:02.467,D,2023-06-18 10:12:02.467
+11717,2023-07-23 00:00:00.000,BoBo,,0,Rehab,SWF,creid,,lbraso,2023-07-23 12:09:43.343,D,2023-07-23 12:09:43.343
+11718,2023-09-11 00:00:00.000,Unde,,1,Rehab,SWF,LStaggs,,lbraso,2023-09-11 11:14:36.120,D,2023-09-11 11:14:36.120
+11721,2023-07-18 00:00:00.000,BoBo,,0,Rehab,,,,mlippincot,2023-07-19 07:39:37.877,D,2023-07-19 07:39:37.877
+11723,2023-08-02 00:00:00.000,Unde,,0,Rehab,SWF,sdirocco,,lbraso,2023-08-02 13:53:30.587,D,2023-08-02 13:53:30.587
+11724,2024-08-30 00:00:00.000,BoIm,,1,Rehab,SWF,sdirocco,,lbraso,2024-09-01 06:25:16.283,D,2024-09-01 06:25:16.283
+11742,2022-12-05 00:00:00.000,BoIm,,0,Trans,MMPL,,,KBouchard,2023-08-18 12:22:13.910,D,2023-08-18 12:22:13.910
+11743,2023-08-20 00:00:00.000,BoBo,,1,Rehab,,mnau,,mlippincot,2023-08-22 09:58:20.677,D,2023-08-22 09:58:20.677
+11748,2024-08-19 00:00:00.000,BoBo,,0,AftRel,FWCEC,,,bgreer,2024-08-22 11:25:16.693,D,2024-08-22 11:25:16.693
+11756,2023-12-03 00:00:00.000,BoBo,,1,Rehab,,,,mlippincot,2023-12-18 07:11:04.853,D,2023-12-18 07:11:04.853
+11762,2024-01-10 00:00:00.000,BoUn,,1,Rehab,,,,mlippincot,2024-01-26 06:36:38.973,D,2024-01-26 06:36:38.973
+11765,2024-06-17 00:00:00.000,BoIm,Died during procedure to address his pneumothorax and collapsed lung.,0,Rehab,JAX,mpersky,,cmiller,2024-06-28 08:46:33.557,D,2024-06-28 08:46:33.557
+11769,2024-01-26 00:00:00.000,Unde,,1,Rehab,SWF,DLinderman,,lbraso,2024-01-29 10:36:57.097,D,2024-01-29 10:36:57.097
+11772,2023-12-10 00:00:00.000,BoUn,,0,Trans,SWF,sdirocco,,lbraso,2024-01-08 06:43:32.117,D,2024-01-08 06:43:32.117
+11773,2023-12-12 00:00:00.000,NaCs,USWFS staff responded to manatee which died prior to FWC arrival.,0,Resc,FWS,,,ngordon,2024-08-01 13:38:51.077,D,2024-08-01 13:38:51.077
+11774,2023-12-17 00:00:00.000,Othe,Frozen at MMPL for pending necropsy,0,Trans,MMPL,,,ngordon,2024-08-01 13:45:42.790,D,2024-08-01 13:45:42.790
+11777,2023-12-26 00:00:00.000,Othe,externals completed at SWFL; not necropsied,0,Trans,FWCSW,,,ngordon,2024-08-01 14:01:52.530,D,2024-08-01 14:01:52.530
+11778,2024-01-06 00:00:00.000,Unde,,1,Rehab,SWF,creid,,lbraso,2024-01-08 06:39:45.370,D,2024-01-08 06:39:45.370
+11784,2024-01-08 00:00:00.000,NaOt,,0,Rehab,SWF,sdirocco,"She died from a colon impaction, there was a large bolus of dry fibrous feces obstructing the proximal colon, and a torsion. This led to a small perforation in the colon wall, and I suspect the manatee died immediately following that. Dr. Martine deWit - MMPL",lbraso,2024-01-09 04:09:44.790,ngordon,2024-01-10 11:12:23.930
+11788,2023-07-04 00:00:00.000,NaOt,,0,AftRel,FWCNE,,,KBouchard,2024-01-14 08:16:53.593,D,2024-01-14 08:16:53.593
+11796,2023-06-05 00:00:00.000,Othe,Stillborn,0,PriorTr,SWF,sdirocco,,ngordon,2024-01-26 13:48:26.387,D,2024-01-26 13:48:26.387
+11808,2024-02-28 00:00:00.000,BoIm,,1,Rehab,SWF,creid,,lbraso,2024-02-28 09:50:00.550,D,2024-02-28 09:50:00.550
+11811,2024-02-24 00:00:00.000,NaCs,,0,Trans,MMPL,,,APajor,2024-02-28 07:18:33.900,D,2024-02-28 07:18:33.900
+11820,2024-03-15 00:00:00.000,BoBo,,1,Rehab,SWF,creid,,lbraso,2024-03-17 09:06:46.780,D,2024-03-17 09:06:46.780
+11831,2024-05-08 00:00:00.000,BoIm,,1,Rehab,SWF,creid,,lbraso,2024-05-12 06:42:43.377,D,2024-05-12 06:42:43.377
+11847,2024-06-01 00:00:00.000,BoUn,,0,Rehab,SWF,sdirocco,,lbraso,2024-06-02 04:16:46.613,D,2024-06-02 04:16:46.613
+11855,2023-08-30 00:00:00.000,NaOt,,0,Resc,FWCT,,,ahowell,2024-06-18 08:05:05.497,D,2024-06-18 08:05:05.497
+11858,2023-11-07 00:00:00.000,NaDe,Perinatal; Natural,0,AftRel,,,"Rescued via structure gate opening on 16 October 2023 with an adult (RSE2314) that it was seen nursing on. On 17 October, RSE2314 was seen without this calf, which was later found deceased on 07 November.",ahowell,2024-06-18 12:33:04.453,D,2024-06-18 12:33:04.453
+11872,2023-08-03 00:00:00.000,NaOt,,0,Trans,MMPL,,,ahowell,2024-06-24 07:41:20.470,D,2024-06-24 07:41:20.470
+11874,2024-02-15 00:00:00.000,BoPr,"Watercraft, Sharp (Chronic)",0,Trans,FWCT,,,ahowell,2024-07-02 07:15:36.570,D,2024-07-02 07:15:36.570
+11876,2024-07-20 00:00:00.000,BoIm,,0,AftRel,FWCEC,,"Manatee was recovered in Vero Beach, Indian River County. ",bgreer,2024-07-22 12:22:39.433,D,2024-07-22 12:22:39.433
+11883,2024-08-06 00:00:00.000,Unde,,0,Rehab,SWF,DLinderman,,lbraso,2024-08-06 06:04:21.873,D,2024-08-06 06:04:21.873
+11888,2024-09-20 00:00:00.000,BoPr,,1,Rehab,,,,mlippincot,2024-09-23 08:02:44.490,D,2024-09-23 08:02:44.490
+11895,2024-09-04 00:00:00.000,BoIm,,1,Rehab,SWF,creid,ANIMAL BECAME UNRESPONSIVE. DRUGS WERE GIVEN TO TRY AND SAVE BUT ULTIMATELY EUTHANZIA WAS GIVEN ,lbraso,2024-09-08 06:09:11.130,D,2024-09-08 06:09:11.130
