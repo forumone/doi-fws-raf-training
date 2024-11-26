@@ -1,0 +1,29 @@
+uuid: 554bd1f7-c990-47b3-bd20-510bb8cdb5e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.manatee_birth
+    - taxonomy.vocabulary.org
+id: node.manatee_birth.field_org
+field_name: field_org
+entity_type: node
+bundle: manatee_birth
+label: Org
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
