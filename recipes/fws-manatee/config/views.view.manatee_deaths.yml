@@ -242,8 +242,8 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
+            make_link: true
+            path: '/node/{{ field_mlog__value }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -835,7 +835,7 @@ display:
           admin_label: 'Manatee Name'
           entity_type: node
           plugin_id: entity_reverse
-          required: true
+          required: false
         reverse__node__field_animal_1:
           id: reverse__node__field_animal_1
           table: node_field_data
@@ -845,7 +845,7 @@ display:
           admin_label: 'Manatee Animal ID'
           entity_type: node
           plugin_id: entity_reverse
-          required: true
+          required: false
         field_dam:
           id: field_dam
           table: node__field_dam
@@ -882,6 +882,7 @@ display:
           admin_label: 'Death Location'
           plugin_id: standard
           required: false
+      use_ajax: true
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -907,7 +908,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/manatee-deaths
+      path: manatee-deaths
       menu:
         type: normal
         title: 'Manatee Deaths'

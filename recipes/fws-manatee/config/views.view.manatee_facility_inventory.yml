@@ -1,23 +1,19 @@
-uuid: 1cb0fd4b-cb12-4c85-a4d7-6ddb209d923f
+uuid: 205b19ee-2578-4435-90ec-dddaa813dccb
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_animal_id
-    - field.storage.node.field_county
-    - field.storage.node.field_length
     - field.storage.node.field_mlog
     - field.storage.node.field_name
-    - field.storage.node.field_rescue_date
+    - field.storage.node.field_org
     - field.storage.node.field_sex
-    - field.storage.node.field_weight
-    - field.storage.taxonomy_term.field_organization
-    - field.storage.taxonomy_term.field_rescue_cause_detail
-    - field.storage.taxonomy_term.field_rescue_type_text
     - node.type.manatee_animal_id
     - node.type.manatee_name
     - node.type.manatee_rescue
+    - node.type.transfer
     - system.menu.admin
+    - taxonomy.vocabulary.org
   module:
     - better_exposed_filters
     - datetime
@@ -26,10 +22,10 @@ dependencies:
     - user
 _core:
   default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
-id: manatee_rescue
-label: 'Manatee Rescue'
+id: manatee_facility_inventory
+label: 'Manatee Facility Inventory'
 module: views
-description: 'Manatee rescue information.'
+description: 'Manatee transfer information.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -40,8 +36,71 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Manatee Rescue Report'
+      title: 'Manatee Facility Inventory'
       fields:
+        field_org:
+          id: field_org
+          table: node__field_org
+          field: field_org
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Org
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_name:
           id: field_name
           table: node__field_name
@@ -295,450 +354,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_rescue_date:
-          id: field_rescue_date
-          table: node__field_rescue_date
-          field: field_rescue_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Rescue Date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: html_date
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_rescue_type_text:
-          id: field_rescue_type_text
-          table: taxonomy_term__field_rescue_type_text
-          field: field_rescue_type_text
-          relationship: field_rescue_type
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Rescue Type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_rescue_cause_detail:
-          id: field_rescue_cause_detail
-          table: taxonomy_term__field_rescue_cause_detail
-          field: field_rescue_cause_detail
-          relationship: field_primary_cause
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Cause of Rescue'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_length:
-          id: field_length
-          table: node__field_length
-          field: field_length
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Rescue Length'
-          exclude: true
-          alter:
-            alter_text: true
-            text: '{{ field_length }} cm'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_weight:
-          id: field_weight
-          table: node__field_weight
-          field: field_weight
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Weight, Length'
-          exclude: false
-          alter:
-            alter_text: true
-            text: '{{ field_weight }} kg, {{ field_length }}'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_county:
-          id: field_county
-          table: node__field_county
-          field: field_county
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Rescue County'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_organization:
-          id: field_organization
-          table: taxonomy_term__field_organization
-          field: field_organization
-          relationship: field_org
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Transported To'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
       pager:
         type: full
         options:
@@ -786,14 +401,19 @@ display:
         type: tag
         options: {  }
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        field_org_target_id:
+          id: field_org_target_id
+          table: node__field_org
+          field: field_org_target_id
           relationship: none
-          plugin_id: date
-          order: DESC
-          granularity: second
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       filters:
         status:
           id: status
@@ -814,6 +434,7 @@ display:
           operator: in
           value:
             manatee_rescue: manatee_rescue
+            transfer: transfer
           group: 1
           exposed: false
           expose:
@@ -927,16 +548,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_primary_id_value:
-          id: field_primary_id_value
-          table: node__field_primary_id
-          field: field_primary_id_value
-          relationship: reverse__node__field_animal_1
+        field_org_target_id:
+          id: field_org_target_id
+          table: node__field_org
+          field: field_org_target_id
+          relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: '1'
+          plugin_id: taxonomy_index_tid
+          operator: 'not empty'
+          value: {  }
           group: 1
           exposed: false
           expose:
@@ -953,6 +574,58 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: org
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_rescue_date_value:
+          id: field_rescue_date_value
+          table: node__field_rescue_date
+          field: field_rescue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: '-1 year'
+            type: date
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1011,42 +684,6 @@ display:
           entity_type: node
           plugin_id: entity_reverse
           required: true
-        field_org:
-          id: field_org
-          table: node__field_org
-          field: field_org
-          relationship: none
-          group_type: group
-          admin_label: Organization
-          plugin_id: standard
-          required: false
-        field_transporter:
-          id: field_transporter
-          table: node__field_transporter
-          field: field_transporter
-          relationship: none
-          group_type: group
-          admin_label: Transporter
-          plugin_id: standard
-          required: false
-        field_primary_cause:
-          id: field_primary_cause
-          table: node__field_primary_cause
-          field: field_primary_cause
-          relationship: none
-          group_type: group
-          admin_label: 'Primary Cause'
-          plugin_id: standard
-          required: false
-        field_rescue_type:
-          id: field_rescue_type
-          table: node__field_rescue_type
-          field: field_rescue_type
-          relationship: none
-          group_type: group
-          admin_label: 'field_rescue_type: Taxonomy term'
-          plugin_id: standard
-          required: false
       use_ajax: true
       display_extenders: {  }
     cache_metadata:
@@ -1059,16 +696,10 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_animal_id'
-        - 'config:field.storage.node.field_county'
-        - 'config:field.storage.node.field_length'
         - 'config:field.storage.node.field_mlog'
         - 'config:field.storage.node.field_name'
-        - 'config:field.storage.node.field_rescue_date'
+        - 'config:field.storage.node.field_org'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.node.field_weight'
-        - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
-        - 'config:field.storage.taxonomy_term.field_rescue_type_text'
   page_1:
     id: page_1
     display_title: Page
@@ -1076,11 +707,11 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: manatee-rescue
+      path: manatee-facility-inventory
       menu:
         type: normal
-        title: 'Manatee Rescue Report'
-        description: 'View manatee rescue report'
+        title: 'Manatee Facility Inventory Report'
+        description: 'View manatee facility inventory report'
         weight: 0
         expanded: false
         menu_name: admin
@@ -1096,13 +727,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_animal_id'
-        - 'config:field.storage.node.field_county'
-        - 'config:field.storage.node.field_length'
         - 'config:field.storage.node.field_mlog'
         - 'config:field.storage.node.field_name'
-        - 'config:field.storage.node.field_rescue_date'
+        - 'config:field.storage.node.field_org'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.node.field_weight'
-        - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
-        - 'config:field.storage.taxonomy_term.field_rescue_type_text'
