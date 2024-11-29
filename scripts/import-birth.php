@@ -9,7 +9,6 @@
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 $csv_file = '../scripts/data/T_Birth.csv';
 if (!file_exists($csv_file)) {
@@ -166,13 +165,6 @@ function get_health_status_term_id($health_status) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  $term = Term::create([
-    'vid' => 'health',
-    'name' => $health_status,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**
@@ -193,13 +185,6 @@ function get_conceive_location_term_id($location) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  $term = Term::create([
-    'vid' => 'conceived',
-    'name' => $location,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**
@@ -254,19 +239,11 @@ function get_org_term_id($org_name) {
     ->getStorage('taxonomy_term')
     ->loadByProperties([
   // Ensure the machine name matches.
-      'vid' => 'organizations',
+      'vid' => 'org',
       'name' => $org_name,
     ]);
 
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  // Create term if it doesn't exist.
-  $term = Term::create([
-    'vid' => 'organizations',
-    'name' => $org_name,
-  ]);
-  $term->save();
-  return $term->id();
 }

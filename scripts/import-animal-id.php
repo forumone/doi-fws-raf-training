@@ -9,7 +9,6 @@
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 $csv_file = '../scripts/data/T_Animal_Id.csv';
 if (!file_exists($csv_file)) {
@@ -122,15 +121,6 @@ function get_id_type_term_id($id_type) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  // If term doesn't exist, you may choose to create it or return null
-  // For this script, we'll create the term if it doesn't exist.
-  $term = Term::create([
-    'vid' => 'id_type',
-    'name' => $id_type,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**

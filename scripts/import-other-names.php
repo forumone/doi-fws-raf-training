@@ -9,7 +9,6 @@
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 $csv_file = '../scripts/data/T_Other_Names.csv';
 if (!file_exists($csv_file)) {
@@ -119,13 +118,6 @@ function get_system_term_id($system) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  $term = Term::create([
-    'vid' => 'system',
-    'name' => $system,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**

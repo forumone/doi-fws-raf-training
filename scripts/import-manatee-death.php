@@ -103,7 +103,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
 
     // Parse death date.
-    $parsed_death_date = parse_date($death_date);
+    $parsed_death_date = parse_datetime($death_date);
     if (is_null($parsed_death_date)) {
       print("\nError: Invalid DeathDate '$death_date' in row $row_count.\n");
       $error_count++;
@@ -382,4 +382,29 @@ function get_user_id($username) {
 
   // Default user ID if user not found.
   return 1;
+}
+
+/**
+ * Helper function to parse and format datetime values (YYYY-MM-DDTHH:MM:SS).
+ */
+function parse_datetime($datetime_value) {
+  try {
+    if (empty($datetime_value)) {
+      return NULL;
+    }
+
+    // Use regex to extract the datetime part.
+    if (preg_match('/(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})/', $datetime_value, $matches)) {
+      // Combine date and time with 'T' separator.
+      return $matches[1] . 'T' . $matches[2];
+    }
+    else {
+      print("\nError parsing datetime: $datetime_value");
+      return NULL;
+    }
+  }
+  catch (Exception $e) {
+    print("\nException while parsing datetime: " . $e->getMessage());
+    return NULL;
+  }
 }

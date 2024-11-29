@@ -9,7 +9,6 @@
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 $csv_file = '../scripts/data/T_Conditioning.csv';
 if (!file_exists($csv_file)) {
@@ -155,13 +154,6 @@ function get_conditioning_type_term_id($conditioning_type) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  $term = Term::create([
-    'vid' => 'conditioning',
-    'name' => $conditioning_type,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**
