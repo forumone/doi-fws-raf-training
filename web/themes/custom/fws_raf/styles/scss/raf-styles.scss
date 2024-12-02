@@ -1,0 +1,76 @@
+// We are only using this block for mobile.
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+// Shorten navbar header width for RAF apps.
+@media (min-width: 992px) {
+
+  header#navbar .navbar-header {
+    min-width: 250px;
+  }
+}
+
+// Override navbar container to be 100%.
+@media (max-width: 991px) {
+  header#navbar>.container {
+    width: 100%;
+  }
+}
+
+header#navbar #navbar-collapse {
+  border-top: 0;
+  box-shadow: none;
+}
+
+// Update mobile pop-up menu which does not have search box
+@media (max-width: 991px) {
+
+  .mb-menuwrapper {
+    height: calc(100% - 115px);
+    top: 115px;
+  }
+}
+
+// Fix header logo width.
+.fws-branding__logo {
+
+  img {
+    width: 100%;
+  }
+}
+
+// Style main navbar with rollovers
+.navbar-main {
+  width: auto;
+  margin-bottom: 0;
+
+  .navbar-nav {
+    float: right;
+    margin-top: 10px;
+  }
+
+  .navbar-nav>li>a {
+    font-size: 1.062em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .dropdown-menu {
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+  }
+
+  .dropdown-menu>li>a {
+    background-color: #fff;
+    color: #333;
+    padding: 10px 15px;
+  }
+
+  .dropdown-menu>li>a:hover,
+  .dropdown-menu>li>a:focus {
+    background-color: #337ab7;
+    color: #fff;
+  }
+}
