@@ -9,7 +9,6 @@
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 $csv_file = '../scripts/data/T_Rescue.csv';
 if (!file_exists($csv_file)) {
@@ -276,14 +275,6 @@ function get_taxonomy_term_id($vocabulary, $term_name) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  // Create the term if it does not exist.
-  $term = Term::create([
-    'vid' => $vocabulary,
-    'name' => $term_name,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**

@@ -212,13 +212,6 @@ function get_budget_cycle_term_id($budget_cycle) {
   if (!empty($terms)) {
     return reset($terms)->id();
   }
-
-  $term = Term::create([
-    'vid' => 'budget_time',
-    'name' => $budget_cycle,
-  ]);
-  $term->save();
-  return $term->id();
 }
 
 /**
