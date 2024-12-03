@@ -1,24 +1,22 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 6e085ab8-8550-4ac7-849d-6e0ffadab2bd
+  uuid: c3031ab4-5dfb-4f04-bb13-8cd4b2d5be30
   bundle: menu_link_content
   default_langcode: en
-  depends:
-    57dd7f94-7270-449f-bf3a-8918bf9d003a: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: Release
+      value: Administrative
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/release'
+      uri: 'internal:/'
       title: ''
       options: {  }
   external:
@@ -29,13 +27,10 @@ default:
       value: true
   weight:
     -
-      value: 4
+      value: 0
   expanded:
     -
       value: false
-  parent:
-    -
-      value: 'menu_link_content:57dd7f94-7270-449f-bf3a-8918bf9d003a'
   revision_translation_affected:
     -
       value: true

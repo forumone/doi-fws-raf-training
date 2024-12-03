@@ -47,7 +47,7 @@ header#navbar #navbar-collapse {
 
   .navbar-nav {
     float: right;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .navbar-nav>li>a {
@@ -73,4 +73,10 @@ header#navbar #navbar-collapse {
     background-color: #337ab7;
     color: #fff;
   }
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+  color: #fff;
 }

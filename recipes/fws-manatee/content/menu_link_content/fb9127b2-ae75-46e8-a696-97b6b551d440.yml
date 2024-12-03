@@ -27,7 +27,7 @@ default:
       value: true
   weight:
     -
-      value: 2
+      value: -49
   expanded:
     -
       value: true
@@ -39,7 +39,7 @@ default:
       tag: meta
       attributes:
         name: title
-        content: '| U.S. Fish & Wildlife Service'
+        content: '| FWS: Captive Manatee Database'
     -
       tag: link
       attributes:

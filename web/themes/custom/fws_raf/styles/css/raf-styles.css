@@ -33,7 +33,7 @@ header#navbar #navbar-collapse {
 }
 .navbar-main .navbar-nav {
   float: right;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .navbar-main .navbar-nav > li > a {
   font-size: 1.062em;
@@ -53,6 +53,12 @@ header#navbar #navbar-collapse {
 .navbar-main .dropdown-menu > li > a:hover,
 .navbar-main .dropdown-menu > li > a:focus {
   background-color: #337ab7;
+  color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
   color: #fff;
 }
 /*# sourceMappingURL=maps/raf-styles.css.map */

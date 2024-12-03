@@ -3,7 +3,7 @@
 ## Description: Installs FWS.
 
 ddev composer install
-ddev drush site:install minimal --verbose -y --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
+ddev drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --account-name=admin --account-pass=admin
 ddev drush cr
 ddev drush recipe ../recipes/fws-core
 # ddev drush webform-libraries-download
