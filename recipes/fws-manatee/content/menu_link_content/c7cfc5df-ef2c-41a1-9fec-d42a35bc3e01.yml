@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: c7cfc5df-ef2c-41a1-9fec-d42a35bc3e01
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    fb9127b2-ae75-46e8-a696-97b6b551d440: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Current Captives by Facility'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/current-captives'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:fb9127b2-ae75-46e8-a696-97b6b551d440'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| U.S. Fish & Wildlife Service'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

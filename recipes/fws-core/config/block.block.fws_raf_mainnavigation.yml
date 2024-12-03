@@ -1,4 +1,4 @@
-uuid: 11c3bc7e-5e5b-4539-9e3a-50fa38f5c243
+uuid: bfe586bb-f578-46c3-a482-230ea88481b6
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
 id: fws_raf_mainnavigation
 theme: fws_raf
 region: navigation_collapsible
-weight: -3
+weight: 0
 provider: null
 plugin: 'we_megamenu_block:main'
 settings:

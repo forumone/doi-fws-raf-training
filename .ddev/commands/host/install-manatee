@@ -5,10 +5,11 @@
 ddev composer install
 ddev drush site:install minimal --verbose -y --site-name="U.S. Fish & Wildlife Service" --account-name=admin --account-pass=admin
 ddev drush cr
-ddev drush recipe ../recipes/fws-manatee
+ddev drush recipe ../recipes/fws-core
 # ddev drush webform-libraries-download
 ddev drush cr
 
 ddev drush scr ../scripts/install-cleanup.php
-ddev drush cr
+
+ddev drush recipe ../recipes/fws-manatee
 ddev drush uli

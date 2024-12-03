@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: fd7eabf6-b519-485f-89c9-f1e4e8829f79
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    57dd7f94-7270-449f-bf3a-8918bf9d003a: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Captive Birth'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/captive-birth'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: 7
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:57dd7f94-7270-449f-bf3a-8918bf9d003a'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| U.S. Fish & Wildlife Service'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'
