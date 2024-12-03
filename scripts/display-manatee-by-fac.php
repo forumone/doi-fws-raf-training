@@ -49,6 +49,29 @@ if (!empty($name_query)) {
   }
 }
 
+// Get animal IDs for all manatees.
+$animal_id_query = \Drupal::entityQuery('node')
+  ->condition('type', 'manatee_animal_id')
+  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->accessCheck(FALSE)
+  ->execute();
+
+$animal_ids = [];
+if (!empty($animal_id_query)) {
+  $animal_id_nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple($animal_id_query);
+
+  foreach ($animal_id_nodes as $animal_id_node) {
+    if ($animal_id_node->hasField('field_animal') && !$animal_id_node->field_animal->isEmpty()) {
+      $animal_id = $animal_id_node->field_animal->target_id;
+      if ($animal_id_node->hasField('field_animal_id') && !$animal_id_node->field_animal_id->isEmpty()) {
+        $animal_ids[$animal_id] = $animal_id_node->field_animal_id->value;
+      }
+    }
+  }
+}
+
 // Get all rescue events to determine rescue types.
 $rescue_query = \Drupal::entityQuery('node')
   ->condition('type', 'manatee_rescue')
@@ -247,6 +270,9 @@ foreach ($manatees as $manatee) {
   // Get primary name if it exists.
   $name = $primary_names[$manatee->id()] ?? '';
 
+  // Get animal ID if it exists.
+  $animal_id = $animal_ids[$manatee->id()] ?? '';
+
   // Get rescue type if it exists, or mark as none.
   $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
 
@@ -276,6 +302,7 @@ foreach ($manatees as $manatee) {
       'mlog' => $mlog,
       'mlog_num' => $mlog_num,
       'name' => $name,
+      'animal_id' => $animal_id,
       'rescue_type' => $rescue_type,
       'event_type' => $event_type,
       'date' => $formatted_date,
@@ -294,16 +321,18 @@ usort($rows, function ($a, $b) {
 echo str_pad("Manatee Nid", 12) . " | "
    . str_pad("Mlog", 20) . " | "
    . str_pad("Name", 20) . " | "
+   . str_pad("Animal ID", 15) . " | "
    . str_pad("Event Type", 15) . " | "
    . str_pad("Event Date", 12) . " | "
    . str_pad("Days in Captivity", 17) . " | "
    . "Organization\n";
-echo str_repeat("-", 135) . "\n";
+echo str_repeat("-", 150) . "\n";
 
 foreach ($rows as $row) {
   echo str_pad($row['nid'], 12) . " | "
      . str_pad(substr($row['mlog'], 0, 19), 20) . " | "
      . str_pad(substr($row['name'], 0, 19), 20) . " | "
+     . str_pad(substr($row['animal_id'], 0, 14), 15) . " | "
      . str_pad($row['event_type'], 15) . " | "
      . str_pad($row['date'], 12) . " | "
      . str_pad($row['days_in_captivity'] ?? 'N/A', 17) . " | "
