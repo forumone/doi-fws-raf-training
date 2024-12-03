@@ -1,0 +1,47 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: f21e2162-8644-49c5-b56f-d6c8bde9e264
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: USA.GOV
+  menu_name:
+    -
+      value: footer-menu-external-links
+  link:
+    -
+      uri: 'https://www.usa.gov'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: 1
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

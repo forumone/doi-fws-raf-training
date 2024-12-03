@@ -22,14 +22,13 @@ dependencies:
     - node.type.manatee_name
     - node.type.manatee_rescue
     - node.type.status_report
-    - system.menu.admin
   module:
     - datetime
     - node
     - taxonomy
     - user
 _core:
-  default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
+  default_config_hash: V5yhgFQ5n5pGfLFfA2xcSUaVK-MJQbykWGVMXPhHn8U
 id: manatee_status
 label: 'Manatee Status Report'
 module: views
@@ -1623,7 +1622,7 @@ display:
       display_extenders: {  }
       path: manatee-status
       menu:
-        type: normal
+        type: none
         title: 'Manatee Status Report'
         description: 'View manatee status report'
         weight: 0

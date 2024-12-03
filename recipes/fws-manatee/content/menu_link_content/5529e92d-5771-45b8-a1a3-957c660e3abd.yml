@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 5529e92d-5771-45b8-a1a3-957c660e3abd
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    03824597-d478-4a4a-92f9-b37ac18bcb84: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Transfer Year Report'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/manatee-transfer'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -45
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:03824597-d478-4a4a-92f9-b37ac18bcb84'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

@@ -160,6 +160,7 @@ config:
     taxonomy_access_fix: '*'
     viewfield: '*'
     webp: '*'
+    we_megamenu: '*'
 
   actions:
     # Set home page

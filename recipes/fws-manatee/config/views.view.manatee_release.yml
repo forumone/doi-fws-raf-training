@@ -17,14 +17,13 @@ dependencies:
     - node.type.manatee_name
     - node.type.manatee_release
     - node.type.manatee_rescue
-    - system.menu.admin
   module:
     - datetime
     - node
     - taxonomy
     - user
 _core:
-  default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
+  default_config_hash: 3g70UI_1lMgHxXtU4KJ5IVQVwDFN2xbK4_rsA8hXhLg
 id: manatee_release
 label: 'Manatee Release'
 module: views
@@ -1271,7 +1270,7 @@ display:
       display_extenders: {  }
       path: manatee-release
       menu:
-        type: normal
+        type: none
         title: 'Manatee Release Report'
         description: 'View manatee release report'
         weight: 0

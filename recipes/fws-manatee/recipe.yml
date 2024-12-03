@@ -1,6 +1,3 @@
 name: 'FWS Manatee'
 description: 'FWS manatee content types, taxonomy and user configuration.'
 type: 'Site'
-recipes:
-  # Add FWS paragraphs recipe
-  - ../recipes/fws-core

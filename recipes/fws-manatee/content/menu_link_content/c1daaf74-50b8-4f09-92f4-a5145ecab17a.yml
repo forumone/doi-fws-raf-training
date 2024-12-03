@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: c1daaf74-50b8-4f09-92f4-a5145ecab17a
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    03824597-d478-4a4a-92f9-b37ac18bcb84: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Death Year Report'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/manatee-deaths'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -49
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:03824597-d478-4a4a-92f9-b37ac18bcb84'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

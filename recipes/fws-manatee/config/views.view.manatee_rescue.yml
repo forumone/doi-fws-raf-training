@@ -17,14 +17,13 @@ dependencies:
     - node.type.manatee_animal_id
     - node.type.manatee_name
     - node.type.manatee_rescue
-    - system.menu.admin
   module:
     - datetime
     - node
     - taxonomy
     - user
 _core:
-  default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
+  default_config_hash: l5boYWDzksIBNsm0Fa_J119Js9u-P8zXjd9vi4rW4G8
 id: manatee_rescue
 label: 'Manatee Rescue'
 module: views
@@ -1109,7 +1108,7 @@ display:
       display_extenders: {  }
       path: manatee-rescue
       menu:
-        type: normal
+        type: none
         title: 'Manatee Rescue Report'
         description: 'View manatee rescue report'
         weight: 0

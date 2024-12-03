@@ -14,7 +14,6 @@ dependencies:
     - node.type.manatee_animal_id
     - node.type.manatee_death
     - node.type.manatee_name
-    - system.menu.admin
   module:
     - datetime
     - node
@@ -22,7 +21,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
+  default_config_hash: 5GGIrEU_nSs7jEsOdDSm3EpBlX5MipTB7duaB8g8xUg
 id: manatee_deaths
 label: 'Manatee Deaths'
 module: views
@@ -979,7 +978,7 @@ display:
       display_extenders: {  }
       path: manatee-deaths
       menu:
-        type: normal
+        type: none
         title: 'Manatee Deaths'
         description: 'View manatee death records'
         weight: 0
