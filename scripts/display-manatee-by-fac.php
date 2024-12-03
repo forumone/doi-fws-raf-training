@@ -58,6 +58,8 @@ $rescue_query = \Drupal::entityQuery('node')
   ->execute();
 
 $rescue_types = [];
+// New array to store Type B rescue dates.
+$type_b_rescue_dates = [];
 if (!empty($rescue_query)) {
   $rescue_nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
@@ -78,6 +80,13 @@ if (!empty($rescue_query)) {
         'date' => $date,
         'type' => $rescue_type,
       ];
+
+      // Store Type B rescue dates.
+      if ($rescue_type === 'B') {
+        if (!isset($type_b_rescue_dates[$animal_id]) || $date > $type_b_rescue_dates[$animal_id]) {
+          $type_b_rescue_dates[$animal_id] = $date;
+        }
+      }
     }
   }
 
@@ -87,6 +96,28 @@ if (!empty($rescue_query)) {
       return strcmp($b['date'], $a['date']);
     });
     $rescue_types[$animal_id] = $rescues[0]['type'];
+  }
+}
+
+// Get birth dates for all manatees.
+$birth_dates = [];
+$birth_query = \Drupal::entityQuery('node')
+  ->condition('type', 'manatee_birth')
+  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->condition('field_birth_date', NULL, 'IS NOT NULL')
+  ->accessCheck(FALSE)
+  ->execute();
+
+if (!empty($birth_query)) {
+  $birth_nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple($birth_query);
+
+  foreach ($birth_nodes as $birth_node) {
+    if ($birth_node->hasField('field_animal') && !$birth_node->field_animal->isEmpty()) {
+      $animal_id = $birth_node->field_animal->target_id;
+      $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
+    }
   }
 }
 
@@ -180,6 +211,9 @@ $manatees = \Drupal::entityTypeManager()
   ->getStorage('node')
   ->loadMultiple($manatee_ids);
 
+// Get current date for days in captivity calculation.
+$current_date = new DateTime();
+
 // Prepare data for sorting.
 $rows = [];
 foreach ($manatees as $manatee) {
@@ -216,6 +250,23 @@ foreach ($manatees as $manatee) {
   // Get rescue type if it exists, or mark as none.
   $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
 
+  // Calculate days in captivity.
+  $captivity_date = NULL;
+  if (isset($type_b_rescue_dates[$manatee->id()])) {
+    // Use Type B rescue date if available.
+    $captivity_date = new DateTime($type_b_rescue_dates[$manatee->id()]);
+  }
+  elseif (isset($birth_dates[$manatee->id()])) {
+    // Use birth date if no Type B rescue.
+    $captivity_date = new DateTime($birth_dates[$manatee->id()]);
+  }
+
+  $days_in_captivity = NULL;
+  if ($captivity_date) {
+    $interval = $current_date->diff($captivity_date);
+    $days_in_captivity = $interval->days;
+  }
+
   // Only include if either:
   // 1. The most recent rescue is type B
   // 2. There are no rescues associated with this manatee.
@@ -229,6 +280,7 @@ foreach ($manatees as $manatee) {
       'event_type' => $event_type,
       'date' => $formatted_date,
       'organization' => $event['organization'],
+      'days_in_captivity' => $days_in_captivity,
     ];
   }
 }
@@ -244,8 +296,9 @@ echo str_pad("Manatee Nid", 12) . " | "
    . str_pad("Name", 20) . " | "
    . str_pad("Event Type", 15) . " | "
    . str_pad("Event Date", 12) . " | "
+   . str_pad("Days in Captivity", 17) . " | "
    . "Organization\n";
-echo str_repeat("-", 115) . "\n";
+echo str_repeat("-", 135) . "\n";
 
 foreach ($rows as $row) {
   echo str_pad($row['nid'], 12) . " | "
@@ -253,6 +306,7 @@ foreach ($rows as $row) {
      . str_pad(substr($row['name'], 0, 19), 20) . " | "
      . str_pad($row['event_type'], 15) . " | "
      . str_pad($row['date'], 12) . " | "
+     . str_pad($row['days_in_captivity'] ?? 'N/A', 17) . " | "
      . substr($row['organization'], 0, 40) . "\n";
 }
 
