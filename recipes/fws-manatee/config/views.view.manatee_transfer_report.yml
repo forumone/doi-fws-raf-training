@@ -13,14 +13,13 @@ dependencies:
     - node.type.manatee_animal_id
     - node.type.manatee_name
     - node.type.transfer
-    - system.menu.admin
   module:
     - datetime
     - node
     - taxonomy
     - user
 _core:
-  default_config_hash: 1qleXdew4u48W04RmY32eC3MSfY_6urkRs6hamLIUlw
+  default_config_hash: cutiaC1MMwVIq74eqdgyhNxp17bFcO5g-tnUKaR2z6o
 id: manatee_transfer_report
 label: 'Manatee Transfer Report'
 module: views
@@ -863,7 +862,7 @@ display:
       display_extenders: {  }
       path: manatee-transfer
       menu:
-        type: normal
+        type: none
         title: 'Manatee Transfer Report'
         description: 'View manatee transfer report'
         weight: 0
