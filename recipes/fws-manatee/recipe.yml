@@ -1,3 +1,6 @@
 name: 'FWS Manatee'
 description: 'FWS manatee content types, taxonomy and user configuration.'
 type: 'Site'
+
+install:
+  - manatee_reports

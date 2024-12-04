@@ -1,0 +1,7 @@
+manatee_reports.current_captives:
+  path: '/current-captives-by-facility'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\CurrentCaptivesController::content'
+    _title: 'Current Captives by Facility'
+  requirements:
+    _permission: 'access content'

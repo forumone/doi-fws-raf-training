@@ -1,11 +1,11 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: c7cfc5df-ef2c-41a1-9fec-d42a35bc3e01
+  uuid: 28c30529-8fd3-48a7-95bf-d718ceb56471
   bundle: menu_link_content
   default_langcode: en
   depends:
-    fb9127b2-ae75-46e8-a696-97b6b551d440: menu_link_content
+    03824597-d478-4a4a-92f9-b37ac18bcb84: menu_link_content
 default:
   enabled:
     -
@@ -29,13 +29,13 @@ default:
       value: true
   weight:
     -
-      value: 1
+      value: -44
   expanded:
     -
       value: false
   parent:
     -
-      value: 'menu_link_content:fb9127b2-ae75-46e8-a696-97b6b551d440'
+      value: 'menu_link_content:03824597-d478-4a4a-92f9-b37ac18bcb84'
   revision_translation_affected:
     -
       value: true

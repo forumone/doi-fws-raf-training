@@ -1,0 +1,11 @@
+manatee_reports:
+  version: 1.x
+  css:
+    theme:
+      css/manatee_reports.css: {}
+  js:
+    js/manatee_filter.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
