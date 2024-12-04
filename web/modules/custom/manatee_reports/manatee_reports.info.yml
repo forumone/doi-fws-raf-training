@@ -1,0 +1,7 @@
+name: Manatee Reports
+type: module
+description: 'Provides reporting functionality for manatee data.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
