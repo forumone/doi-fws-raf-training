@@ -328,9 +328,9 @@ class FacilityInventoryController extends ControllerBase {
           'data' => [
             ['data' => $facility_name],
             ['data' => $name],
-            ['data' => $event_type],
             ['data' => $animal_id],
             ['data' => $mlog_link],
+            ['data' => $event_type],
             ['data' => $formatted_date],
             ['data' => $time_in_captivity],
           ],
@@ -348,9 +348,9 @@ class FacilityInventoryController extends ControllerBase {
     $header = [
       $this->t('Facility'),
       $this->t('Name'),
-      $this->t('Event'),
       $this->t('Manatee ID'),
       $this->t('Manatee Number'),
+      $this->t('Event'),
       $this->t('Event Date'),
       $this->t('Time in Captivity'),
     ];
