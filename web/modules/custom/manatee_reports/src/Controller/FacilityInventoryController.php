@@ -217,6 +217,7 @@ class FacilityInventoryController extends ControllerBase {
     $rescue_types = [];
     $type_b_rescue_dates = [];
     $latest_rescue_dates = [];
+    $rescue_counties = [];
     if (!empty($rescue_query)) {
       $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
       $animal_rescues = [];
@@ -230,14 +231,22 @@ class FacilityInventoryController extends ControllerBase {
             $rescue_type = $rescue_node->field_rescue_type->entity->getName();
           }
 
+          // Get county information.
+          $county = 'N/A';
+          if ($rescue_node->hasField('field_county') && !$rescue_node->field_county->isEmpty()) {
+            $county = $rescue_node->field_county->entity->getName();
+          }
+
           $animal_rescues[$animal_id][] = [
             'date' => $date,
             'type' => $rescue_type,
+            'county' => $county,
           ];
 
-          // Update latest rescue date if this is more recent.
+          // Update latest rescue date if this is more recent and store county.
           if (!isset($latest_rescue_dates[$animal_id]) || $date > $latest_rescue_dates[$animal_id]) {
             $latest_rescue_dates[$animal_id] = $date;
+            $rescue_counties[$animal_id] = $county;
           }
 
           if ($rescue_type === 'B') {
@@ -405,6 +414,7 @@ class FacilityInventoryController extends ControllerBase {
       $name = $primary_names[$manatee->id()] ?? '';
       $animal_id = $animal_ids[$manatee->id()] ?? '';
       $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
+      $county = $rescue_counties[$manatee->id()] ?? 'N/A';
 
       $captivity_date = NULL;
       if (isset($type_b_rescue_dates[$manatee->id()])) {
@@ -447,6 +457,7 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $animal_id],
             ['data' => $mlog_link],
             ['data' => $weight_length],
+            ['data' => $county],
             ['data' => $rescue_date],
             ['data' => $time_in_captivity],
           ],
@@ -476,6 +487,7 @@ class FacilityInventoryController extends ControllerBase {
       $this->t('Manatee ID'),
       $this->t('Manatee Number'),
       $this->t('Weight, Length'),
+      $this->t('County'),
       $this->t('Rescue Date'),
       $this->t('Time in Captivity'),
     ];
