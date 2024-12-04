@@ -5,3 +5,11 @@ manatee_reports.current_captives:
     _title: 'Current Captives by Facility'
   requirements:
     _permission: 'access content'
+
+manatee_reports.facility_inventory:
+  path: '/facility-inventory'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\FacilityInventoryController::content'
+    _title: 'Facility Inventory'
+  requirements:
+    _permission: 'access content'
