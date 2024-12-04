@@ -7,9 +7,9 @@ manatee_reports.current_captives:
     _permission: 'access content'
 
 manatee_reports.facility_inventory:
-  path: '/facility-inventory'
+  path: 'facility-inventory'
   defaults:
     _controller: '\Drupal\manatee_reports\Controller\FacilityInventoryController::content'
-    _title: 'Facility Inventory'
+    _title: 'Facility Inventory Report'
   requirements:
     _permission: 'access content'

@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Controller for displaying current captive manatees by facility.
@@ -23,13 +23,23 @@ class FacilityInventoryController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a FacilityInventoryController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, RequestStack $request_stack) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->requestStack = $request_stack;
   }
 
   /**
@@ -37,7 +47,8 @@ class FacilityInventoryController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('request_stack')
     );
   }
 
@@ -89,7 +100,12 @@ class FacilityInventoryController extends ControllerBase {
    * @return array
    *   Render array for the page.
    */
-  public function content(Request $request) {
+
+  /**
+   * Content callback for the report page.
+   */
+  public function content() {
+    $request = $this->requestStack->getCurrentRequest();
     // Get selected year from query parameter or default to previous year.
     $year_options = $this->getYearOptions();
     $default_year = date('Y') - 1;
@@ -192,18 +208,17 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Get rescue events within the specified year.
+    // Get rescue events.
     $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_rescue')
       ->condition('field_animal', NULL, 'IS NOT NULL')
       ->condition('field_rescue_date', NULL, 'IS NOT NULL')
-      ->condition('field_rescue_date', $year_start, '>=')
-      ->condition('field_rescue_date', $year_end, '<=')
       ->accessCheck(FALSE)
       ->execute();
 
     $rescue_types = [];
     $type_b_rescue_dates = [];
+    $latest_rescue_dates = [];
     if (!empty($rescue_query)) {
       $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
       $animal_rescues = [];
@@ -221,6 +236,11 @@ class FacilityInventoryController extends ControllerBase {
             'date' => $date,
             'type' => $rescue_type,
           ];
+
+          // Update latest rescue date if this is more recent.
+          if (!isset($latest_rescue_dates[$animal_id]) || $date > $latest_rescue_dates[$animal_id]) {
+            $latest_rescue_dates[$animal_id] = $date;
+          }
 
           if ($rescue_type === 'B') {
             if (!isset($type_b_rescue_dates[$animal_id]) || $date > $type_b_rescue_dates[$animal_id]) {
@@ -272,7 +292,7 @@ class FacilityInventoryController extends ControllerBase {
       ->condition('type', 'manatee')
       ->condition('field_mlog', NULL, 'IS NOT NULL');
 
-    // Exclude manatees that died, were released, or were transferred out before the specified year.
+    // Exclude manatees that died or were released before the specified year.
     if (!empty($deceased_manatee_ids)) {
       $manatee_query->condition('nid', $deceased_manatee_ids, 'NOT IN');
     }
@@ -356,7 +376,6 @@ class FacilityInventoryController extends ControllerBase {
         $mlog = $mlog_value[0]['value'] ?? "N/A";
       }
 
-      // Create a link for the MLOG value.
       $mlog_link = Link::createFromRoute(
         $mlog,
         'entity.node.canonical',
@@ -367,8 +386,10 @@ class FacilityInventoryController extends ControllerBase {
       $event_type = str_replace('_', ' ', $event_type);
       $event_type = ucfirst($event_type);
 
-      $date = new DrupalDateTime($event['date']);
-      $formatted_date = $date->format('Y-m-d');
+      // Use the rescue date instead of event date.
+      $rescue_date = isset($latest_rescue_dates[$manatee->id()])
+        ? (new DrupalDateTime($latest_rescue_dates[$manatee->id()]))->format('Y-m-d')
+        : 'N/A';
 
       $name = $primary_names[$manatee->id()] ?? '';
       $animal_id = $animal_ids[$manatee->id()] ?? '';
@@ -383,7 +404,6 @@ class FacilityInventoryController extends ControllerBase {
       }
 
       $time_in_captivity = 'N/A';
-
       if ($captivity_date) {
         $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $current_date);
       }
@@ -400,8 +420,7 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $name],
             ['data' => $animal_id],
             ['data' => $mlog_link],
-            ['data' => $event_type],
-            ['data' => $formatted_date],
+            ['data' => $rescue_date],
             ['data' => $time_in_captivity],
           ],
           'facility_name' => $facility_name,
@@ -429,8 +448,7 @@ class FacilityInventoryController extends ControllerBase {
       $this->t('Name'),
       $this->t('Manatee ID'),
       $this->t('Manatee Number'),
-      $this->t('Event'),
-      $this->t('Event Date'),
+      $this->t('Rescue Date'),
       $this->t('Time in Captivity'),
     ];
 
