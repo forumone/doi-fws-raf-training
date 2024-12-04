@@ -114,6 +114,11 @@ class FacilityInventoryController extends ControllerBase {
     $default_year = date('Y') - 1;
     $year = $request->query->get('year', $default_year);
 
+    // Ensure year is within available options.
+    if (!isset($year_options[$year])) {
+      $year = $default_year;
+    }
+
     $year_start = $year . '-01-01';
     $year_end = $year . '-12-31';
 
@@ -125,7 +130,7 @@ class FacilityInventoryController extends ControllerBase {
         '#type' => 'select',
         '#title' => $this->t('Select Year:'),
         '#options' => $year_options,
-        '#default_value' => $year,
+        '#value' => $year,
         '#attributes' => [
           'onChange' => 'window.location.href = "' . Url::fromRoute('<current>')->toString() . '?year=" + this.value',
         ],
