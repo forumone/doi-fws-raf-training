@@ -53,18 +53,21 @@ class FacilityInventoryController extends ControllerBase {
   }
 
   /**
-   * Calculate time in captivity in years and months.
+   * Calculate time in captivity in years and months through end of filtered year.
    *
    * @param \Drupal\Core\Datetime\DrupalDateTime $start_date
    *   The start date.
-   * @param \Drupal\Core\Datetime\DrupalDateTime $current_date
-   *   The current date.
+   * @param string $year
+   *   The filtered year.
    *
    * @return string
    *   Formatted string showing years and/or months.
    */
-  protected function calculateTimeInCaptivity(DrupalDateTime $start_date, DrupalDateTime $current_date) {
-    $interval = $current_date->diff($start_date);
+  protected function calculateTimeInCaptivity(DrupalDateTime $start_date, $year) {
+    // Create end date as December 31st of the filtered year.
+    $end_date = new DrupalDateTime($year . '-12-31');
+
+    $interval = $end_date->diff($start_date);
     $years = $interval->y;
     $months = $interval->m;
 
@@ -403,9 +406,10 @@ class FacilityInventoryController extends ControllerBase {
         $captivity_date = new DrupalDateTime($birth_dates[$manatee->id()]);
       }
 
+      // Update the time in captivity calculation in the rows preparation section:
       $time_in_captivity = 'N/A';
       if ($captivity_date) {
-        $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $current_date);
+        $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
       }
 
       if ($rescue_type === 'B' || $rescue_type === 'none') {
