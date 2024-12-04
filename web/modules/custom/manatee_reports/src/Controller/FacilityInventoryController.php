@@ -215,6 +215,7 @@ class FacilityInventoryController extends ControllerBase {
       ->execute();
 
     $rescue_types = [];
+    $rescue_cause_details = [];
     $type_b_rescue_dates = [];
     $latest_rescue_dates = [];
     $rescue_counties = [];
@@ -227,8 +228,27 @@ class FacilityInventoryController extends ControllerBase {
           $animal_id = $rescue_node->field_animal->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
+          $rescue_cause_detail = 'N/A';
+
           if ($rescue_node->hasField('field_rescue_type') && !$rescue_node->field_rescue_type->isEmpty()) {
             $rescue_type = $rescue_node->field_rescue_type->entity->getName();
+          }
+
+          if ($rescue_node->hasField('field_primary_cause') && !$rescue_node->field_primary_cause->isEmpty()) {
+            $primary_cause_term = $rescue_node->field_primary_cause->entity;
+            if ($primary_cause_term->hasField('field_rescue_cause') &&
+            !$primary_cause_term->field_rescue_cause->isEmpty()) {
+              $rescue_cause_detail = $primary_cause_term->field_rescue_cause->value;
+            }
+          }
+
+          if ($rescue_node->hasField('field_primary_cause') && !$rescue_node->field_primary_cause->isEmpty()) {
+            $primary_cause_term = $rescue_node->field_primary_cause->entity;
+            if ($primary_cause_term->hasField('field_rescue_cause_detail') &&
+            !$primary_cause_term->field_rescue_cause->isEmpty() &&
+            $primary_cause_term->field_rescue_cause_detail->value) {
+              $rescue_cause_detail .= ', ' . $primary_cause_term->field_rescue_cause_detail->value;
+            }
           }
 
           // Get county information.
@@ -240,6 +260,7 @@ class FacilityInventoryController extends ControllerBase {
           $animal_rescues[$animal_id][] = [
             'date' => $date,
             'type' => $rescue_type,
+            'cause_detail' => $rescue_cause_detail,
             'county' => $county,
           ];
 
@@ -247,6 +268,7 @@ class FacilityInventoryController extends ControllerBase {
           if (!isset($latest_rescue_dates[$animal_id]) || $date > $latest_rescue_dates[$animal_id]) {
             $latest_rescue_dates[$animal_id] = $date;
             $rescue_counties[$animal_id] = $county;
+            $rescue_cause_details[$animal_id] = $rescue_cause_detail;
           }
 
           if ($rescue_type === 'B') {
@@ -414,6 +436,7 @@ class FacilityInventoryController extends ControllerBase {
       $name = $primary_names[$manatee->id()] ?? '';
       $animal_id = $animal_ids[$manatee->id()] ?? '';
       $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
+      $rescue_cause_detail = $rescue_cause_details[$manatee->id()] ?? 'N/A';
       $county = $rescue_counties[$manatee->id()] ?? 'N/A';
 
       $captivity_date = NULL;
@@ -459,6 +482,7 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $weight_length],
             ['data' => $county],
             ['data' => $rescue_date],
+            ['data' => $rescue_cause_detail],
             ['data' => $time_in_captivity],
           ],
           'facility_name' => $facility_name,
@@ -489,6 +513,7 @@ class FacilityInventoryController extends ControllerBase {
       $this->t('Weight, Length'),
       $this->t('County'),
       $this->t('Rescue Date'),
+      $this->t('Cause of Rescue'),
       $this->t('Time in Captivity'),
     ];
 

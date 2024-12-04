@@ -16,3 +16,7 @@
 .manatee-report-container .form-type-select .select-wrapper:after {
   top: 29px;
 }
+
+.manatee-report-filters .select-wrapper {
+  width: 100px;
+}
