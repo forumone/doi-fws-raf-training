@@ -127,6 +127,29 @@ class FacilityInventoryController extends ControllerBase {
       ],
     ];
 
+    // Get status reports for the manatees.
+    $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'status_report')
+      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    $manatee_statuses = [];
+    if (!empty($status_query)) {
+      $status_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($status_query);
+      foreach ($status_nodes as $status_node) {
+        if ($status_node->hasField('field_animal') && !$status_node->field_animal->isEmpty()) {
+          $animal_id = $status_node->field_animal->target_id;
+          if ($status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
+            $health_term = $status_node->field_health->entity;
+            if ($health_term && $health_term->hasField('field_health_status')) {
+              $manatee_statuses[$animal_id] = $health_term->field_health_status->value;
+            }
+          }
+        }
+      }
+    }
+
     // Get deceased manatee IDs within the specified year.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_death')
@@ -473,6 +496,9 @@ class FacilityInventoryController extends ControllerBase {
           $facility_name = $event['facility_term']->getName();
         }
 
+        // Get medical status.
+        $medical_status = $manatee_statuses[$manatee->id()] ?? 'N/A';
+
         $rows[] = [
           'data' => [
             ['data' => $facility_name],
@@ -484,6 +510,7 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $rescue_date],
             ['data' => $rescue_cause_detail],
             ['data' => $time_in_captivity],
+            ['data' => $medical_status],
           ],
           'facility_name' => $facility_name,
           'name' => $name,
@@ -515,6 +542,7 @@ class FacilityInventoryController extends ControllerBase {
       $this->t('Rescue Date'),
       $this->t('Cause of Rescue'),
       $this->t('Time in Captivity'),
+      $this->t('Medical Status'),
     ];
 
     // Build table.
