@@ -278,13 +278,9 @@ class FacilityInventoryController extends ControllerBase {
       $event = $most_recent_events[$manatee->id()];
 
       $mlog = "N/A";
-      $mlog_num = PHP_INT_MAX;
       if ($manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()) {
         $mlog_value = $manatee->get('field_mlog')->getValue();
         $mlog = $mlog_value[0]['value'] ?? "N/A";
-        if (preg_match('/(\d+)/', $mlog, $matches)) {
-          $mlog_num = intval($matches[0]);
-        }
       }
 
       // Create a link for the MLOG value.
@@ -334,14 +330,14 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $formatted_date],
             ['data' => $time_in_captivity],
           ],
-          'mlog_num' => $mlog_num,
+          'facility_name' => $facility_name,
         ];
       }
     }
 
-    // Sort rows.
+    // Sort rows by facility name ascending.
     usort($rows, function ($a, $b) {
-      return $a['mlog_num'] - $b['mlog_num'];
+      return strcmp($a['facility_name'], $b['facility_name']);
     });
 
     // Prepare table headers.
