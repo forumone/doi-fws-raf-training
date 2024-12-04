@@ -96,16 +96,6 @@ class FacilityInventoryController extends ControllerBase {
 
   /**
    * Content callback for the report page.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return array
-   *   Render array for the page.
-   */
-
-  /**
-   * Content callback for the report page.
    */
   public function content() {
     $request = $this->requestStack->getCurrentRequest();
@@ -339,12 +329,25 @@ class FacilityInventoryController extends ControllerBase {
               $facility_term = $node->field_org->entity;
             }
 
+            // Add weight and length to event data.
+            $weight = 'N/A';
+            $length = 'N/A';
+
+            if ($node->hasField('field_weight') && !$node->field_weight->isEmpty()) {
+              $weight = $node->field_weight->value;
+            }
+            if ($node->hasField('field_length') && !$node->field_length->isEmpty()) {
+              $length = $node->field_length->value;
+            }
+
             $event_nodes[$animal_id][] = [
               'nid' => $node->id(),
               'type' => $type,
               'date' => $date_value,
               'date_field' => $date_field,
               'facility_term' => $facility_term,
+              'weight' => $weight,
+              'length' => $length,
             ];
           }
         }
@@ -411,10 +414,24 @@ class FacilityInventoryController extends ControllerBase {
         $captivity_date = new DrupalDateTime($birth_dates[$manatee->id()]);
       }
 
-      // Update the time in captivity calculation in the rows preparation section:
       $time_in_captivity = 'N/A';
       if ($captivity_date) {
         $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
+      }
+
+      // Format weight and length for display.
+      $weight_length = 'N/A';
+      if ($event['weight'] !== 'N/A' || $event['length'] !== 'N/A') {
+        $weight_length = '';
+        if ($event['weight'] !== 'N/A') {
+          $weight_length .= $event['weight'] . ' kg';
+        }
+        if ($event['length'] !== 'N/A') {
+          if ($weight_length !== '') {
+            $weight_length .= ', ';
+          }
+          $weight_length .= $event['length'] . ' cm';
+        }
       }
 
       if ($rescue_type === 'B' || $rescue_type === 'none') {
@@ -429,6 +446,7 @@ class FacilityInventoryController extends ControllerBase {
             ['data' => $name],
             ['data' => $animal_id],
             ['data' => $mlog_link],
+            ['data' => $weight_length],
             ['data' => $rescue_date],
             ['data' => $time_in_captivity],
           ],
@@ -457,6 +475,7 @@ class FacilityInventoryController extends ControllerBase {
       $this->t('Name'),
       $this->t('Manatee ID'),
       $this->t('Manatee Number'),
+      $this->t('Weight, Length'),
       $this->t('Rescue Date'),
       $this->t('Time in Captivity'),
     ];
