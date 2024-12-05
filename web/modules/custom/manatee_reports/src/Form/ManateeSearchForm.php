@@ -136,10 +136,7 @@ class ManateeSearchForm extends FormBase {
     $form['list_search']['location']['county'] = [
       '#type' => 'select',
       '#title' => $this->t('County'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getCounties()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getCounties(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
@@ -155,10 +152,7 @@ class ManateeSearchForm extends FormBase {
     $form['list_search']['location']['state'] = [
       '#type' => 'select',
       '#title' => $this->t('State'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getStates()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getStates(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
@@ -173,10 +167,7 @@ class ManateeSearchForm extends FormBase {
     $form['list_search']['event']['event_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Event'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getEventTypes()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getEventTypes(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
@@ -217,10 +208,7 @@ class ManateeSearchForm extends FormBase {
     $form['list_search']['event_detail']['rescue_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Rescue Type'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getRescueTypes()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueTypes(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
@@ -236,10 +224,7 @@ class ManateeSearchForm extends FormBase {
     $form['list_search']['event_detail']['organization'] = [
       '#type' => 'select',
       '#title' => $this->t('Organization'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getOrganizations()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getOrganizations(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
