@@ -108,10 +108,7 @@ class ManateeSearchForm extends FormBase {
     $form['individual_search']['manatee_info']['tag_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Tag Type'),
-      '#options' => array_merge(
-        ['All' => $this->t('All')],
-        $this->searchManager->getTagTypes()
-      ),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getTagTypes(),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
