@@ -130,7 +130,7 @@ class ManateeSearchResultsController extends ControllerBase {
     if (!empty($params['from'])) {
       $conditions[] = [
         'field' => 'field_event_date',
-        'value' => $params['from'],
+        'value' => date('Y-m-d', strtotime($params['from'])),
         'operator' => '>=',
       ];
     }
@@ -138,7 +138,7 @@ class ManateeSearchResultsController extends ControllerBase {
     if (!empty($params['to'])) {
       $conditions[] = [
         'field' => 'field_event_date',
-        'value' => $params['to'],
+        'value' => date('Y-m-d', strtotime($params['to'])),
         'operator' => '<=',
       ];
     }
@@ -260,9 +260,11 @@ class ManateeSearchResultsController extends ControllerBase {
       if (!empty($results)) {
         $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
         if ($node && !$node->get($date_field)->isEmpty()) {
+          $date_value = $node->get($date_field)->value;
+          $formatted_date = date('m/d/Y', strtotime($date_value));
           $events[] = [
             'type' => str_replace('manatee_', '', $type),
-            'date' => $node->get($date_field)->value,
+            'date' => $formatted_date,
           ];
         }
       }
