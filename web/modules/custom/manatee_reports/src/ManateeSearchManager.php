@@ -165,15 +165,15 @@ class ManateeSearchManager {
         case 'field_animal_id':
           $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', 'manatee_animal_id')
-            ->condition('field_animal_id', '%' . $condition['value'] . '%', 'LIKE')
+            ->condition('field_animal_id', $condition['value'], '=')
             ->accessCheck(FALSE);
           $animal_ids = $animal_id_query->execute();
+
           if (!empty($animal_ids)) {
-            $query->condition('nid', array_keys($animal_ids), 'IN');
-          }
-          else {
-            // Force no results if no matches.
-            $query->condition('nid', 0);
+            $animal_id_node = $this->entityTypeManager->getStorage('node')->load(reset($animal_ids));
+            if (!$animal_id_node->field_animal->isEmpty()) {
+              $query->condition('nid', $animal_id_node->field_animal->target_id);
+            }
           }
           break;
 
@@ -292,7 +292,6 @@ class ManateeSearchManager {
           $query->condition($or_group);
           break;
 
-        // Location fields.
         case 'field_county':
         case 'field_state':
         case 'field_waterway':
@@ -300,7 +299,6 @@ class ManateeSearchManager {
           $query->condition($condition['field'], $condition['value'], $operator);
           break;
 
-        // Event detail fields.
         case 'field_rescue_type':
         case 'field_rescue_cause':
         case 'field_organization':
