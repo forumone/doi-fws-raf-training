@@ -113,7 +113,7 @@ class ManateeSearchResultsController extends ControllerBase {
     $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'status_report')
       ->condition('field_animal', $manatee_id)
-      ->sort('field_report_date', 'DESC')
+      ->sort('created', 'DESC')
       ->range(0, 1)
       ->accessCheck(FALSE)
       ->execute();
@@ -171,27 +171,43 @@ class ManateeSearchResultsController extends ControllerBase {
    * Get measurements for a manatee.
    */
   protected function getLatestMeasurements($manatee_id) {
-    $measurement_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'measurements')
-      ->condition('field_animal', $manatee_id)
-      ->sort('field_measurement_date', 'DESC')
-      ->range(0, 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
     $measurements = [
       'weight' => 'N/A',
       'length' => 'N/A',
     ];
 
-    if (!empty($measurement_query)) {
-      $measurement_node = $this->entityTypeManager->getStorage('node')->load(reset($measurement_query));
-      if ($measurement_node) {
-        if ($measurement_node->hasField('field_weight') && !$measurement_node->field_weight->isEmpty()) {
-          $measurements['weight'] = $measurement_node->field_weight->value . ' kg';
-        }
-        if ($measurement_node->hasField('field_length') && !$measurement_node->field_length->isEmpty()) {
-          $measurements['length'] = $measurement_node->field_length->value . ' cm';
+    // Define event types to check for measurements.
+    $event_types = ['manatee_rescue', 'manatee_birth', 'transfer'];
+
+    foreach ($event_types as $type) {
+      $date_field = $type === 'transfer' ? 'field_transfer_date' : 'field_rescue_date';
+      if ($type === 'manatee_birth') {
+        $date_field = 'field_birth_date';
+      }
+
+      $query = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', $type)
+        ->condition('field_animal', $manatee_id)
+        ->condition($date_field, NULL, 'IS NOT NULL')
+        ->sort($date_field, 'DESC')
+        ->range(0, 1)
+        ->accessCheck(FALSE);
+
+      $results = $query->execute();
+
+      if (!empty($results)) {
+        $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
+        if ($node) {
+          if ($node->hasField('field_weight') && !$node->field_weight->isEmpty()) {
+            $measurements['weight'] = $node->field_weight->value . ' kg';
+          }
+          if ($node->hasField('field_length') && !$node->field_length->isEmpty()) {
+            $measurements['length'] = $node->field_length->value . ' cm';
+          }
+          // If we found measurements, break out of the loop.
+          if ($measurements['weight'] !== 'N/A' || $measurements['length'] !== 'N/A') {
+            break;
+          }
         }
       }
     }
@@ -272,16 +288,27 @@ class ManateeSearchResultsController extends ControllerBase {
   public function content() {
     $query = $this->requestStack->getCurrentRequest()->query->all();
 
-    // Use search manager to get initial results.
-    $manatee_ids = $this->searchManager->searchManatees($query);
+    // Set pagination parameters.
+    $items_per_page = 20;
 
-    if (empty($manatee_ids)) {
+    // Get total results.
+    $manatee_ids = $this->searchManager->searchManatees($query);
+    $total_items = count($manatee_ids);
+
+    // Initialize the pager.
+    $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
+    $current_page = $pager->getCurrentPage();
+
+    // Slice results for current page.
+    $page_manatee_ids = array_slice($manatee_ids, $current_page * $items_per_page, $items_per_page);
+
+    if (empty($page_manatee_ids)) {
       return [
         '#markup' => $this->t('No manatees found matching your search criteria.'),
       ];
     }
 
-    $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($manatee_ids);
+    $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($page_manatee_ids);
 
     // Build rows.
     $rows = [];
@@ -290,13 +317,13 @@ class ManateeSearchResultsController extends ControllerBase {
 
       // Get MLOG with link.
       $mlog = $manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()
-        ? $manatee->field_mlog->value
-        : 'N/A';
+      ? $manatee->field_mlog->value
+      : 'N/A';
 
       $mlog_link = Link::createFromRoute(
-        $mlog,
-        'entity.node.canonical',
-        ['node' => $manatee_id]
+      $mlog,
+      'entity.node.canonical',
+      ['node' => $manatee_id]
       );
 
       // Get rescue information.
@@ -315,16 +342,16 @@ class ManateeSearchResultsController extends ControllerBase {
 
       $rows[] = [
         'data' => [
-          ['data' => $this->getCurrentFacility($manatee_id)],
-          ['data' => $this->getPrimaryName($manatee_id)],
-          ['data' => $this->getAnimalId($manatee_id)],
-          ['data' => $mlog_link],
-          ['data' => $measurements_str],
-          ['data' => $rescue_info['county']],
-          ['data' => $rescue_info['date']],
-          ['data' => $rescue_info['cause']],
-          ['data' => $this->calculateTimeInCaptivity($manatee_id)],
-          ['data' => $this->getManateeStatus($manatee_id)],
+        ['data' => $this->getCurrentFacility($manatee_id)],
+        ['data' => $this->getPrimaryName($manatee_id)],
+        ['data' => $this->getAnimalId($manatee_id)],
+        ['data' => $mlog_link],
+        ['data' => $measurements_str],
+        ['data' => $rescue_info['county']],
+        ['data' => $rescue_info['date']],
+        ['data' => $rescue_info['cause']],
+        ['data' => $this->calculateTimeInCaptivity($manatee_id)],
+        ['data' => $this->getManateeStatus($manatee_id)],
         ],
       ];
     }
@@ -354,12 +381,20 @@ class ManateeSearchResultsController extends ControllerBase {
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['manatee-search-results']],
+      'count' => [
+        '#markup' => $this->t('@count manatees found', ['@count' => $total_items]),
+        '#prefix' => '<div class="results-count">',
+        '#suffix' => '</div>',
+      ],
       'table' => [
         '#type' => 'table',
         '#header' => $header,
         '#rows' => $rows,
         '#empty' => $this->t('No results found'),
         '#attributes' => ['class' => ['manatee-report-table']],
+      ],
+      'pager' => [
+        '#type' => 'pager',
       ],
       '#attached' => [
         'library' => [
