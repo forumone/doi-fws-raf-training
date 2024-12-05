@@ -25,7 +25,10 @@ manatee_reports.search:
 manatee_reports.search_results:
   path: '/manatee/search/results'
   defaults:
-    _title: 'Manatee Search Results'
     _controller: '\Drupal\manatee_reports\Controller\ManateeSearchResultsController::content'
+    _title: 'Manatee Search Results'
   requirements:
     _permission: 'access content'
+  methods: [GET]
+  options:
+    no_cache: TRUE

@@ -12,25 +12,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ManateeSearchForm extends FormBase {
 
-  /**
-   * The manatee search manager.
-   *
-   * @var \Drupal\manatee_reports\ManateeSearchManager
-   */
   protected $searchManager;
 
-  /**
-   * Constructs a new ManateeSearchForm.
-   *
-   * @param \Drupal\manatee_reports\ManateeSearchManager $search_manager
-   *   The manatee search manager.
-   */
   public function __construct(ManateeSearchManager $search_manager) {
     $this->searchManager = $search_manager;
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -39,16 +28,18 @@ class ManateeSearchForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function getFormId() {
     return 'manatee_search_form';
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#method'] = 'get';
+    $form['#action'] = '/manatee/search/results';
     $form['#attached']['library'][] = 'manatee_reports/manatee_reports';
     $form['#prefix'] = '<div class="manatee-search-form">';
     $form['#suffix'] = '</div>';
@@ -60,7 +51,7 @@ class ManateeSearchForm extends FormBase {
       '#attributes' => ['class' => ['search-description']],
     ];
 
-    // Individual Manatee Search section with heading.
+    // Individual Manatee Search section.
     $form['individual_search_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
@@ -79,7 +70,6 @@ class ManateeSearchForm extends FormBase {
       '#open' => TRUE,
     ];
 
-    // Define individual search fields.
     $individual_fields = [
       'mlog' => [
         'title' => 'MLog',
@@ -103,7 +93,6 @@ class ManateeSearchForm extends FormBase {
       ],
     ];
 
-    // Create individual search fields.
     foreach ($individual_fields as $key => $field) {
       $form['individual_search']['manatee_info'][$key] = [
         '#type' => 'textfield',
@@ -120,14 +109,14 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Tag Type'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getTagTypes()
+        ['All' => $this->t('All')],
+        $this->searchManager->getTagTypes()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    // List Search section with heading.
+    // List Search section.
     $form['list_search_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
@@ -151,8 +140,8 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('County'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getCounties()
+        ['All' => $this->t('All')],
+        $this->searchManager->getCounties()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
@@ -170,8 +159,8 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('State'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getStates()
+        ['All' => $this->t('All')],
+        $this->searchManager->getStates()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
@@ -188,8 +177,8 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Event'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getEventTypes()
+        ['All' => $this->t('All')],
+        $this->searchManager->getEventTypes()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
@@ -232,8 +221,8 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Rescue Type'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getRescueTypes()
+        ['All' => $this->t('All')],
+        $this->searchManager->getRescueTypes()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
@@ -251,8 +240,8 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Organization'),
       '#options' => array_merge(
-      ['All' => $this->t('All')],
-      $this->searchManager->getOrganizations()
+        ['All' => $this->t('All')],
+        $this->searchManager->getOrganizations()
       ),
       '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
@@ -281,10 +270,9 @@ class ManateeSearchForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Validate individual search fields (only one should be filled).
     $individual_fields = [
       'mlog',
       'animal_id',
@@ -306,7 +294,6 @@ class ManateeSearchForm extends FormBase {
       );
     }
 
-    // Validate date range if both dates are provided.
     $from_date = $form_state->getValue(['list_search', 'event', 'date_range', 'from']);
     $to_date = $form_state->getValue(['list_search', 'event', 'date_range', 'to']);
 
@@ -324,42 +311,65 @@ class ManateeSearchForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $query = [];
 
-    // Process individual search fields.
-    $individual_fields = ['mlog', 'animal_id', 'manatee_name', 'tag_id', 'tag_type'];
+    // Individual search parameters.
+    $individual_fields = [
+      'mlog',
+      'animal_id',
+      'manatee_name',
+      'tag_id',
+      'tag_type',
+    ];
+
     foreach ($individual_fields as $field) {
       $value = $form_state->getValue(['individual_search', 'manatee_info', $field]);
-      if (!empty($value)) {
+      if (!empty($value) && $value !== 'All') {
         $query[$field] = $value;
       }
     }
 
-    // Process list search fields.
-    $list_fields = [
-      'county' => ['location', 'county'],
-      'waterway' => ['location', 'waterway'],
-      'state' => ['location', 'state'],
-      'event_type' => ['event', 'event_type'],
-      'date_from' => ['event', 'date_range', 'from'],
-      'date_to' => ['event', 'date_range', 'to'],
-      'rescue_type' => ['event_detail', 'rescue_type'],
-      'rescue_cause' => ['event_detail', 'rescue_cause'],
-      'organization' => ['event_detail', 'organization'],
-      'cause_of_death' => ['event_detail', 'cause_of_death'],
+    // List search parameters.
+    $list_search_mapping = [
+      'location' => [
+        'county',
+        'waterway',
+        'state',
+      ],
+      'event' => [
+        'event_type',
+        'date_range' => ['from', 'to'],
+      ],
+      'event_detail' => [
+        'rescue_type',
+        'rescue_cause',
+        'organization',
+        'cause_of_death',
+      ],
     ];
 
-    foreach ($list_fields as $key => $path) {
-      $value = $form_state->getValue(array_merge(['list_search'], $path));
-      if (!empty($value) && $value !== 'All') {
-        $query[$key] = $value;
+    foreach ($list_search_mapping as $section => $fields) {
+      foreach ($fields as $key => $field) {
+        if (is_array($field)) {
+          foreach ($field as $subfield) {
+            $value = $form_state->getValue(['list_search', $section, 'date_range', $subfield]);
+            if (!empty($value)) {
+              $query["date_$subfield"] = $value;
+            }
+          }
+        }
+        else {
+          $value = $form_state->getValue(['list_search', $section, $field]);
+          if (!empty($value) && $value !== 'All') {
+            $query[$field] = $value;
+          }
+        }
       }
     }
 
-    // Redirect to the results page with search parameters.
     $form_state->setRedirect('manatee_reports.search_results', [], ['query' => $query]);
   }
 

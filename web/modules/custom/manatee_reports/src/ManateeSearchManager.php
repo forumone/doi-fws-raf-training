@@ -152,28 +152,161 @@ class ManateeSearchManager {
       ->condition('type', 'manatee')
       ->accessCheck(FALSE);
 
-    // Apply search criteria.
-    foreach ($criteria as $field => $value) {
-      if (!empty($value)) {
-        switch ($field) {
-          case 'mlog':
-            $query->condition('field_mlog', $value, '=');
-            break;
+    foreach ($criteria as $condition) {
+      if (empty($condition['field']) || empty($condition['value'])) {
+        continue;
+      }
 
-          case 'animal_id':
-            // First find matches in animal_id nodes.
-            $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-              ->condition('type', 'manatee_animal_id')
-              ->condition('field_animal_id', '%' . $value . '%', 'LIKE')
-              ->accessCheck(FALSE);
-            $animal_ids = $animal_id_query->execute();
-            if (!empty($animal_ids)) {
-              $query->condition('nid', $animal_ids, 'IN');
+      switch ($condition['field']) {
+        case 'field_mlog':
+          $query->condition('field_mlog', $condition['value'], '=');
+          break;
+
+        case 'field_animal_id':
+          $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_animal_id')
+            ->condition('field_animal_id', '%' . $condition['value'] . '%', 'LIKE')
+            ->accessCheck(FALSE);
+          $animal_ids = $animal_id_query->execute();
+          if (!empty($animal_ids)) {
+            $query->condition('nid', array_keys($animal_ids), 'IN');
+          }
+          else {
+            // Force no results if no matches.
+            $query->condition('nid', 0);
+          }
+          break;
+
+        case 'field_name':
+          $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_name')
+            ->condition('field_name', '%' . $condition['value'] . '%', 'LIKE')
+            ->accessCheck(FALSE);
+          $name_matches = $name_query->execute();
+          if (!empty($name_matches)) {
+            $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_matches);
+            $manatee_ids = [];
+            foreach ($name_nodes as $name_node) {
+              if (!$name_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $name_node->field_animal->target_id;
+              }
             }
-            break;
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
 
-          // Add more field conditions as needed.
-        }
+        case 'field_tag_id':
+          $tag_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_tag')
+            ->condition('field_tag_id', '%' . $condition['value'] . '%', 'LIKE');
+          if (isset($condition['type'])) {
+            $tag_query->condition('field_tag_type', $condition['type']);
+          }
+          $tag_query->accessCheck(FALSE);
+          $tag_matches = $tag_query->execute();
+          if (!empty($tag_matches)) {
+            $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
+            $manatee_ids = [];
+            foreach ($tag_nodes as $tag_node) {
+              if (!$tag_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $tag_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
+
+        case 'type':
+          $event_type = str_replace('manatee_', '', $condition['value']);
+          $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_' . $event_type)
+            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          if (isset($condition['from'])) {
+            $event_query->condition('field_' . $event_type . '_date', $condition['from'], '>=');
+          }
+          if (isset($condition['to'])) {
+            $event_query->condition('field_' . $event_type . '_date', $condition['to'], '<=');
+          }
+
+          $event_matches = $event_query->execute();
+          if (!empty($event_matches)) {
+            $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
+            $manatee_ids = [];
+            foreach ($event_nodes as $event_node) {
+              if (!$event_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $event_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
+
+        case 'field_event_date':
+          $operator = $condition['operator'] ?? '=';
+          $event_types = ['birth', 'rescue', 'release', 'transfer', 'death'];
+          $or_group = $query->orConditionGroup();
+
+          foreach ($event_types as $type) {
+            $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+              ->condition('type', 'manatee_' . $type)
+              ->condition('field_' . $type . '_date', $condition['value'], $operator)
+              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->accessCheck(FALSE);
+
+            $event_matches = $event_query->execute();
+            if (!empty($event_matches)) {
+              $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
+              foreach ($event_nodes as $event_node) {
+                if (!$event_node->field_animal->isEmpty()) {
+                  $or_group->condition('nid', $event_node->field_animal->target_id);
+                }
+              }
+            }
+          }
+          $query->condition($or_group);
+          break;
+
+        // Location fields.
+        case 'field_county':
+        case 'field_state':
+        case 'field_waterway':
+          $operator = $condition['operator'] ?? '=';
+          $query->condition($condition['field'], $condition['value'], $operator);
+          break;
+
+        // Event detail fields.
+        case 'field_rescue_type':
+        case 'field_rescue_cause':
+        case 'field_organization':
+        case 'field_cause_of_death':
+          $query->condition($condition['field'], $condition['value']);
+          break;
       }
     }
 

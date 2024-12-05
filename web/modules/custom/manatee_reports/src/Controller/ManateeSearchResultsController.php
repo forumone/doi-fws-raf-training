@@ -14,10 +14,37 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ManateeSearchResultsController extends ControllerBase {
 
+  /**
+   * The manatee search manager.
+   *
+   * @var \Drupal\manatee_reports\ManateeSearchManager
+   */
   protected $searchManager;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
+
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
   protected $requestStack;
 
+  /**
+   * Constructs a new ManateeSearchResultsController.
+   *
+   * @param \Drupal\manatee_reports\ManateeSearchManager $search_manager
+   *   The manatee search manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   */
   public function __construct(
     ManateeSearchManager $search_manager,
     EntityTypeManagerInterface $entity_type_manager,
@@ -29,7 +56,7 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -40,14 +67,123 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
+   * Process search parameters from URL or form submission.
    *
+   * @param array $params
+   *   The search parameters.
+   *
+   * @return array
+   *   Array of query conditions.
+   */
+  protected function processSearchParameters(array $params) {
+    $conditions = [];
+
+    // Process URL parameters for individual search.
+    $individual_params = [
+      'mlog' => ['field' => 'field_mlog'],
+      'animal_id' => ['type' => 'manatee_animal_id', 'field' => 'field_animal_id', 'operator' => 'CONTAINS'],
+      'manatee_name' => ['type' => 'manatee_name', 'field' => 'field_name', 'operator' => 'CONTAINS'],
+      'tag_id' => ['type' => 'manatee_tag', 'field' => 'field_tag_id', 'operator' => 'CONTAINS'],
+      'tag_type' => ['type' => 'manatee_tag', 'field' => 'field_tag_type'],
+    ];
+
+    foreach ($individual_params as $param => $config) {
+      if (!empty($params[$param]) && $params[$param] !== 'All') {
+        $condition = [
+          'field' => $config['field'],
+          'value' => $params[$param],
+        ];
+        if (isset($config['type'])) {
+          $condition['type'] = $config['type'];
+        }
+        if (isset($config['operator'])) {
+          $condition['operator'] = $config['operator'];
+        }
+        $conditions[] = $condition;
+      }
+    }
+
+    // Process location parameters.
+    $location_params = [
+      'county' => 'field_county',
+      'waterway' => ['field' => 'field_waterway', 'operator' => 'CONTAINS'],
+      'state' => 'field_state',
+    ];
+
+    foreach ($location_params as $param => $config) {
+      if (!empty($params[$param]) && $params[$param] !== 'All') {
+        $condition = is_array($config) ?
+          ['field' => $config['field'], 'value' => $params[$param], 'operator' => $config['operator']] :
+          ['field' => $config, 'value' => $params[$param]];
+        $conditions[] = $condition;
+      }
+    }
+
+    // Process event parameters.
+    if (!empty($params['event_type']) && $params['event_type'] !== 'All') {
+      $conditions[] = [
+        'field' => 'type',
+        'value' => $params['event_type'],
+      ];
+    }
+
+    if (!empty($params['from'])) {
+      $conditions[] = [
+        'field' => 'field_event_date',
+        'value' => $params['from'],
+        'operator' => '>=',
+      ];
+    }
+
+    if (!empty($params['to'])) {
+      $conditions[] = [
+        'field' => 'field_event_date',
+        'value' => $params['to'],
+        'operator' => '<=',
+      ];
+    }
+
+    // Process event detail parameters.
+    $detail_params = [
+      'rescue_type' => 'field_rescue_type',
+      'rescue_cause' => 'field_rescue_cause',
+      'organization' => 'field_organization',
+      'cause_of_death' => 'field_cause_of_death',
+    ];
+
+    foreach ($detail_params as $param => $field) {
+      if (!empty($params[$param]) && $params[$param] !== 'All') {
+        $conditions[] = [
+          'field' => $field,
+          'value' => $params[$param],
+        ];
+      }
+    }
+
+    return $conditions;
+  }
+
+  /**
+   * Get MLog value for a manatee.
+   *
+   * @param object $manatee
+   *   The manatee node.
+   *
+   * @return string
+   *   The MLog value or 'N/A'.
    */
   protected function getMlog($manatee) {
     return !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : 'N/A';
   }
 
   /**
+   * Get primary name for a manatee.
    *
+   * @param int $manatee_id
+   *   The manatee node ID.
+   *
+   * @return string
+   *   The primary name or 'N/A'.
    */
   protected function getPrimaryName($manatee_id) {
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -67,7 +203,13 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
+   * Get animal ID for a manatee.
    *
+   * @param int $manatee_id
+   *   The manatee node ID.
+   *
+   * @return string
+   *   The animal ID or 'N/A'.
    */
   protected function getAnimalId($manatee_id) {
     $id_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -86,7 +228,13 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
+   * Get latest event for a manatee.
    *
+   * @param int $manatee_id
+   *   The manatee node ID.
+   *
+   * @return array
+   *   Array containing event type and date.
    */
   protected function getLatestEvent($manatee_id) {
     $event_types = [
@@ -94,6 +242,7 @@ class ManateeSearchResultsController extends ControllerBase {
       'manatee_rescue' => 'field_rescue_date',
       'transfer' => 'field_transfer_date',
       'manatee_release' => 'field_release_date',
+      'manatee_death' => 'field_death_date',
     ];
 
     $events = [];
@@ -113,7 +262,6 @@ class ManateeSearchResultsController extends ControllerBase {
         if ($node && !$node->get($date_field)->isEmpty()) {
           $events[] = [
             'type' => str_replace('manatee_', '', $type),
-            'type_raw' => $type,
             'date' => $node->get($date_field)->value,
           ];
         }
@@ -136,13 +284,25 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
+   * Main page callback for search results.
    *
+   * @return array
+   *   Render array for search results page.
    */
   public function content() {
-    $query = $this->requestStack->getCurrentRequest()->query->all();
-    $items_per_page = 20;
+    $request = $this->requestStack->getCurrentRequest();
+    $query = array_merge(
+      $request->query->all(),
+      $request->request->all()
+    );
 
-    $manatee_ids = $this->searchManager->searchManatees($query);
+    // Remove Drupal form specific parameters.
+    unset($query['form_build_id'], $query['form_id'], $query['op']);
+
+    $conditions = $this->processSearchParameters($query);
+
+    $items_per_page = 20;
+    $manatee_ids = $this->searchManager->searchManatees($conditions);
     $total_items = count($manatee_ids);
 
     $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
