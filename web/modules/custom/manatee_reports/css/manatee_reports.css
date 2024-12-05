@@ -20,3 +20,34 @@
 .manatee-report-filters .select-wrapper {
   width: 100px;
 }
+
+.manatee-search-form .form-type-select .select-wrapper {
+  width: 300px;
+}
+
+.manatee-search-form .form-type-select .select-wrapper:after {
+  top: 29px;
+  z-index: 10;
+}
+
+.manatee-search-form .form-item .form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.manatee-search-form .form-item label {
+  flex: 0 0 150px;
+  text-align: right;
+  margin: 0;
+  padding-right: 10px;
+}
+
+.manatee-search-form .form-item input[type="text"],
+.manatee-search-form .form-item input[type="date"],
+.manatee-search-form .form-item select {
+  flex: 0 0 300px;
+  width: 300px;
+  min-height: 45px;
+}
