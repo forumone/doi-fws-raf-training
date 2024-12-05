@@ -261,6 +261,34 @@ class ManateeSearchManager {
           }
           break;
 
+        case 'field_waterway':
+          $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_rescue')
+            ->condition('field_waterway', '%' . $condition['value'] . '%', 'LIKE')
+            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          $rescue_matches = $rescue_query->execute();
+          if (!empty($rescue_matches)) {
+            $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
+            $manatee_ids = [];
+            foreach ($rescue_nodes as $rescue_node) {
+              if (!$rescue_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $rescue_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
+
         case 'type':
           $event_type = str_replace('manatee_', '', $condition['value']);
           $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -323,7 +351,6 @@ class ManateeSearchManager {
 
         case 'field_county':
         case 'field_state':
-        case 'field_waterway':
           $operator = $condition['operator'] ?? '=';
           $query->condition($condition['field'], $condition['value'], $operator);
           break;
