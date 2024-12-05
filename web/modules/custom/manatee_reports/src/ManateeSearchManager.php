@@ -113,13 +113,19 @@ class ManateeSearchManager {
    * Gets states list.
    *
    * @return array
-   *   Array of states.
+   *   Array of states with term ID as key and state name as value.
    */
   public function getStates() {
-    return [
-      'FL' => 'Florida',
-      // Add other states as needed.
-    ];
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'state']);
+
+    $states = [];
+    foreach ($terms as $term) {
+      $states[$term->id()] = $term->get('field_state_name')->value;
+    }
+
+    return $states;
   }
 
   /**
@@ -130,11 +136,11 @@ class ManateeSearchManager {
    */
   public function getEventTypes() {
     return [
-      'birth' => $this->t('Birth'),
-      'rescue' => $this->t('Rescue'),
-      'release' => $this->t('Release'),
+      'manatee_birth' => $this->t('Birth'),
+      'manatee_rescue' => $this->t('Rescue'),
       'transfer' => $this->t('Transfer'),
-      'death' => $this->t('Death'),
+      'manatee_release' => $this->t('Release'),
+      'manatee_death' => $this->t('Death'),
     ];
   }
 
@@ -290,17 +296,19 @@ class ManateeSearchManager {
           break;
 
         case 'type':
-          $event_type = str_replace('manatee_', '', $condition['value']);
+          $event_type = $condition['value'];
           $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_' . $event_type)
+            ->condition('type', $event_type)
             ->condition('field_animal', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
           if (isset($condition['from'])) {
-            $event_query->condition('field_' . $event_type . '_date', $condition['from'], '>=');
+            $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
+            $event_query->condition($date_field, $condition['from'], '>=');
           }
           if (isset($condition['to'])) {
-            $event_query->condition('field_' . $event_type . '_date', $condition['to'], '<=');
+            $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
+            $event_query->condition($date_field, $condition['to'], '<=');
           }
 
           $event_matches = $event_query->execute();
@@ -351,8 +359,31 @@ class ManateeSearchManager {
 
         case 'field_county':
         case 'field_state':
-          $operator = $condition['operator'] ?? '=';
-          $query->condition($condition['field'], $condition['value'], $operator);
+          $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_rescue')
+            ->condition('field_state', $condition['value'])
+            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          $rescue_matches = $rescue_query->execute();
+          if (!empty($rescue_matches)) {
+            $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
+            $manatee_ids = [];
+            foreach ($rescue_nodes as $rescue_node) {
+              if (!$rescue_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $rescue_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
           break;
 
         case 'field_rescue_type':
