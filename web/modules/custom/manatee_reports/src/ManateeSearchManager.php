@@ -302,14 +302,16 @@ class ManateeSearchManager {
             ->condition('field_animal', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
-          if (isset($condition['from'])) {
-            $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
-            $event_query->condition($date_field, $condition['from'], '>=');
+          $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
+
+          if (isset($criteria['from'])) {
+            $event_query->condition($date_field, $criteria['from'], '>=');
           }
-          if (isset($condition['to'])) {
-            $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
-            $event_query->condition($date_field, $condition['to'], '<=');
+          if (isset($criteria['to'])) {
+            $event_query->condition($date_field, $criteria['to'], '<=');
           }
+
+          $event_query->sort($date_field, 'DESC');
 
           $event_matches = $event_query->execute();
           if (!empty($event_matches)) {

@@ -265,11 +265,13 @@ class ManateeSearchResultsController extends ControllerBase {
    *
    * @param int $manatee_id
    *   The manatee node ID.
+   * @param string|null $specific_type
+   *   Optional specific event type to filter by.
    *
    * @return array
    *   Array containing event type and date.
    */
-  protected function getLatestEvent($manatee_id) {
+  protected function getLatestEvent($manatee_id, $specific_type = NULL) {
     $event_types = [
       'manatee_birth' => 'field_birth_date',
       'manatee_rescue' => 'field_rescue_date',
@@ -278,6 +280,35 @@ class ManateeSearchResultsController extends ControllerBase {
       'manatee_death' => 'field_death_date',
     ];
 
+    // If specific type is provided, only search that type.
+    if ($specific_type) {
+      if (isset($event_types[$specific_type])) {
+        $date_field = $event_types[$specific_type];
+        $query = $this->entityTypeManager->getStorage('node')->getQuery()
+          ->condition('type', $specific_type)
+          ->condition('field_animal', $manatee_id)
+          ->condition($date_field, NULL, 'IS NOT NULL')
+          ->sort($date_field, 'DESC')
+          ->range(0, 1)
+          ->accessCheck(FALSE);
+
+        $results = $query->execute();
+        if (!empty($results)) {
+          $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
+          if ($node && !$node->get($date_field)->isEmpty()) {
+            $date_value = $node->get($date_field)->value;
+            $formatted_date = date('m/d/Y', strtotime($date_value));
+            return [
+              'type' => ucfirst(str_replace(['manatee_', '_'], ['', ' '], $specific_type)),
+              'date' => $formatted_date,
+            ];
+          }
+        }
+        return ['type' => 'N/A', 'date' => 'N/A'];
+      }
+    }
+
+    // Original logic for when no specific type is provided.
     $events = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -356,7 +387,7 @@ class ManateeSearchResultsController extends ControllerBase {
     $rows = [];
     foreach ($manatees as $manatee) {
       $manatee_id = $manatee->id();
-      $latest_event = $this->getLatestEvent($manatee_id);
+      $latest_event = $this->getLatestEvent($manatee_id, $query['event_type']);
 
       $mlog = $this->getMlog($manatee);
       $mlog_link = Link::createFromRoute(
