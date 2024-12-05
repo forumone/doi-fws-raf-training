@@ -3,7 +3,6 @@
 namespace Drupal\manatee_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\manatee_reports\ManateeSearchManager;
@@ -15,37 +14,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ManateeSearchResultsController extends ControllerBase {
 
-  /**
-   * The manatee search manager.
-   *
-   * @var \Drupal\manatee_reports\ManateeSearchManager
-   */
   protected $searchManager;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
   protected $entityTypeManager;
-
-  /**
-   * The request stack.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
   protected $requestStack;
 
-  /**
-   * Constructs a ManateeSearchResultsController object.
-   *
-   * @param \Drupal\manatee_reports\ManateeSearchManager $search_manager
-   *   The manatee search manager.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
-   *   The request stack.
-   */
   public function __construct(
     ManateeSearchManager $search_manager,
     EntityTypeManagerInterface $entity_type_manager,
@@ -57,7 +29,7 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -68,7 +40,14 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
-   * Get primary name for a manatee.
+   *
+   */
+  protected function getMlog($manatee) {
+    return !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : 'N/A';
+  }
+
+  /**
+   *
    */
   protected function getPrimaryName($manatee_id) {
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -80,7 +59,7 @@ class ManateeSearchResultsController extends ControllerBase {
 
     if (!empty($name_query)) {
       $name_node = $this->entityTypeManager->getStorage('node')->load(reset($name_query));
-      if ($name_node && $name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
+      if ($name_node && !$name_node->field_name->isEmpty()) {
         return $name_node->field_name->value;
       }
     }
@@ -88,7 +67,7 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
-   * Get animal ID for a manatee.
+   *
    */
   protected function getAnimalId($manatee_id) {
     $id_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -99,7 +78,7 @@ class ManateeSearchResultsController extends ControllerBase {
 
     if (!empty($id_query)) {
       $id_node = $this->entityTypeManager->getStorage('node')->load(reset($id_query));
-      if ($id_node && $id_node->hasField('field_animal_id') && !$id_node->field_animal_id->isEmpty()) {
+      if ($id_node && !$id_node->field_animal_id->isEmpty()) {
         return $id_node->field_animal_id->value;
       }
     }
@@ -107,84 +86,18 @@ class ManateeSearchResultsController extends ControllerBase {
   }
 
   /**
-   * Get most recent status for a manatee.
+   *
    */
-  protected function getManateeStatus($manatee_id) {
-    $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'status_report')
-      ->condition('field_animal', $manatee_id)
-      ->sort('created', 'DESC')
-      ->range(0, 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    if (!empty($status_query)) {
-      $status_node = $this->entityTypeManager->getStorage('node')->load(reset($status_query));
-      if ($status_node && $status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
-        return $status_node->field_health->entity->getName();
-      }
-    }
-    return 'N/A';
-  }
-
-  /**
-   * Get rescue information for a manatee.
-   */
-  protected function getRescueInfo($manatee_id) {
-    $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_rescue')
-      ->condition('field_animal', $manatee_id)
-      ->sort('field_rescue_date', 'DESC')
-      ->range(0, 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    $info = [
-      'date' => 'N/A',
-      'cause' => 'N/A',
-      'county' => 'N/A',
-      'type' => 'N/A',
+  protected function getLatestEvent($manatee_id) {
+    $event_types = [
+      'manatee_birth' => 'field_birth_date',
+      'manatee_rescue' => 'field_rescue_date',
+      'transfer' => 'field_transfer_date',
+      'manatee_release' => 'field_release_date',
     ];
 
-    if (!empty($rescue_query)) {
-      $rescue_node = $this->entityTypeManager->getStorage('node')->load(reset($rescue_query));
-      if ($rescue_node) {
-        if ($rescue_node->hasField('field_rescue_date') && !$rescue_node->field_rescue_date->isEmpty()) {
-          $info['date'] = $rescue_node->field_rescue_date->value;
-        }
-        if ($rescue_node->hasField('field_primary_cause') && !$rescue_node->field_primary_cause->isEmpty()) {
-          $info['cause'] = $rescue_node->field_primary_cause->entity->getName();
-        }
-        if ($rescue_node->hasField('field_county') && !$rescue_node->field_county->isEmpty()) {
-          $info['county'] = $rescue_node->field_county->entity->getName();
-        }
-        if ($rescue_node->hasField('field_rescue_type') && !$rescue_node->field_rescue_type->isEmpty()) {
-          $info['type'] = $rescue_node->field_rescue_type->entity->getName();
-        }
-      }
-    }
-
-    return $info;
-  }
-
-  /**
-   * Get measurements for a manatee.
-   */
-  protected function getLatestMeasurements($manatee_id) {
-    $measurements = [
-      'weight' => 'N/A',
-      'length' => 'N/A',
-    ];
-
-    // Define event types to check for measurements.
-    $event_types = ['manatee_rescue', 'manatee_birth', 'transfer'];
-
-    foreach ($event_types as $type) {
-      $date_field = $type === 'transfer' ? 'field_transfer_date' : 'field_rescue_date';
-      if ($type === 'manatee_birth') {
-        $date_field = 'field_birth_date';
-      }
-
+    $events = [];
+    foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
         ->condition('field_animal', $manatee_id)
@@ -197,109 +110,44 @@ class ManateeSearchResultsController extends ControllerBase {
 
       if (!empty($results)) {
         $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
-        if ($node) {
-          if ($node->hasField('field_weight') && !$node->field_weight->isEmpty()) {
-            $measurements['weight'] = $node->field_weight->value . ' kg';
-          }
-          if ($node->hasField('field_length') && !$node->field_length->isEmpty()) {
-            $measurements['length'] = $node->field_length->value . ' cm';
-          }
-          // If we found measurements, break out of the loop.
-          if ($measurements['weight'] !== 'N/A' || $measurements['length'] !== 'N/A') {
-            break;
-          }
+        if ($node && !$node->get($date_field)->isEmpty()) {
+          $events[] = [
+            'type' => str_replace('manatee_', '', $type),
+            'type_raw' => $type,
+            'date' => $node->get($date_field)->value,
+          ];
         }
       }
     }
 
-    return $measurements;
-  }
-
-  /**
-   * Get current facility for a manatee.
-   */
-  protected function getCurrentFacility($manatee_id) {
-    $event_types = ['transfer', 'manatee_rescue', 'manatee_birth'];
-    $facility = 'N/A';
-
-    foreach ($event_types as $type) {
-      $query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', $type)
-        ->condition('field_animal', $manatee_id)
-        ->sort('field_' . ($type === 'transfer' ? 'transfer' : 'rescue') . '_date', 'DESC')
-        ->range(0, 1)
-        ->accessCheck(FALSE)
-        ->execute();
-
-      if (!empty($query)) {
-        $node = $this->entityTypeManager->getStorage('node')->load(reset($query));
-        if ($node) {
-          $facility_field = $type === 'transfer' ? 'field_to_facility' : 'field_org';
-          if ($node->hasField($facility_field) && !$node->get($facility_field)->isEmpty()) {
-            $facility_term = $node->get($facility_field)->entity;
-            if ($facility_term && $facility_term->hasField('field_organization')) {
-              $facility = $facility_term->field_organization->value;
-              break;
-            }
-          }
-        }
-      }
+    if (empty($events)) {
+      return ['type' => 'N/A', 'date' => 'N/A'];
     }
 
-    return $facility;
+    usort($events, function ($a, $b) {
+      return strcmp($b['date'], $a['date']);
+    });
+
+    $latest = $events[0];
+    return [
+      'type' => ucfirst(str_replace('_', ' ', $latest['type'])),
+      'date' => $latest['date'],
+    ];
   }
 
   /**
-   * Calculate time in captivity.
-   */
-  protected function calculateTimeInCaptivity($manatee_id) {
-    $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_rescue')
-      ->condition('field_animal', $manatee_id)
-      ->condition('field_rescue_type', 'B')
-      ->sort('field_rescue_date', 'ASC')
-      ->range(0, 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    if (!empty($rescue_query)) {
-      $rescue_node = $this->entityTypeManager->getStorage('node')->load(reset($rescue_query));
-      if ($rescue_node && !$rescue_node->field_rescue_date->isEmpty()) {
-        $rescue_date = new DrupalDateTime($rescue_node->field_rescue_date->value);
-        $current_date = new DrupalDateTime();
-        $interval = $current_date->diff($rescue_date);
-
-        if ($interval->y > 0) {
-          return $interval->format('%y yr, %m mo');
-        }
-        return $interval->format('%m mo');
-      }
-    }
-
-    return 'N/A';
-  }
-
-  /**
-   * Returns the search results page content.
    *
-   * @return array
-   *   Render array for the page.
    */
   public function content() {
     $query = $this->requestStack->getCurrentRequest()->query->all();
-
-    // Set pagination parameters.
     $items_per_page = 20;
 
-    // Get total results.
     $manatee_ids = $this->searchManager->searchManatees($query);
     $total_items = count($manatee_ids);
 
-    // Initialize the pager.
     $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
     $current_page = $pager->getCurrentPage();
 
-    // Slice results for current page.
     $page_manatee_ids = array_slice($manatee_ids, $current_page * $items_per_page, $items_per_page);
 
     if (empty($page_manatee_ids)) {
@@ -310,72 +158,35 @@ class ManateeSearchResultsController extends ControllerBase {
 
     $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($page_manatee_ids);
 
-    // Build rows.
     $rows = [];
     foreach ($manatees as $manatee) {
       $manatee_id = $manatee->id();
+      $latest_event = $this->getLatestEvent($manatee_id);
 
-      // Get MLOG with link.
-      $mlog = $manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()
-      ? $manatee->field_mlog->value
-      : 'N/A';
-
+      $mlog = $this->getMlog($manatee);
       $mlog_link = Link::createFromRoute(
-      $mlog,
-      'entity.node.canonical',
-      ['node' => $manatee_id]
+        $mlog,
+        'entity.node.canonical',
+        ['node' => $manatee_id]
       );
-
-      // Get rescue information.
-      $rescue_info = $this->getRescueInfo($manatee_id);
-
-      // Get measurements.
-      $measurements = $this->getLatestMeasurements($manatee_id);
-
-      // Format measurements string.
-      $measurements_str = 'N/A';
-      if ($measurements['weight'] !== 'N/A' || $measurements['length'] !== 'N/A') {
-        $measurements_str = implode(', ', array_filter($measurements, function ($v) {
-          return $v !== 'N/A';
-        }));
-      }
 
       $rows[] = [
         'data' => [
-        ['data' => $this->getCurrentFacility($manatee_id)],
-        ['data' => $this->getPrimaryName($manatee_id)],
-        ['data' => $this->getAnimalId($manatee_id)],
-        ['data' => $mlog_link],
-        ['data' => $measurements_str],
-        ['data' => $rescue_info['county']],
-        ['data' => $rescue_info['date']],
-        ['data' => $rescue_info['cause']],
-        ['data' => $this->calculateTimeInCaptivity($manatee_id)],
-        ['data' => $this->getManateeStatus($manatee_id)],
+          ['data' => $mlog_link],
+          ['data' => $this->getPrimaryName($manatee_id)],
+          ['data' => $this->getAnimalId($manatee_id)],
+          ['data' => $latest_event['type']],
+          ['data' => $latest_event['date']],
         ],
       ];
     }
 
-    // Sort rows by facility and then by name.
-    usort($rows, function ($a, $b) {
-      $facility_compare = strcmp($a['data'][0]['data'], $b['data'][0]['data']);
-      if ($facility_compare === 0) {
-        return strcmp($a['data'][1]['data'], $b['data'][1]['data']);
-      }
-      return $facility_compare;
-    });
-
     $header = [
-      $this->t('Facility'),
+      $this->t('MLog'),
       $this->t('Name'),
-      $this->t('Manatee ID'),
-      $this->t('Manatee Number'),
-      $this->t('Weight, Length'),
-      $this->t('County'),
-      $this->t('Rescue Date'),
-      $this->t('Cause of Rescue'),
-      $this->t('Time in Captivity'),
-      $this->t('Medical Status'),
+      $this->t('Animal ID'),
+      $this->t('Event'),
+      $this->t('Last Event'),
     ];
 
     return [
