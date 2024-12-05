@@ -105,17 +105,50 @@ class ManateeSearchResultsController extends ControllerBase {
 
     // Process location parameters.
     $location_params = [
-      'county' => 'field_county',
       'waterway' => ['field' => 'field_waterway', 'operator' => 'CONTAINS'],
-      'state' => 'field_state',
+      'state' => ['field' => 'field_state', 'operator' => '='],
     ];
 
     foreach ($location_params as $param => $config) {
       if (!empty($params[$param]) && $params[$param] !== 'All') {
         $condition = is_array($config) ?
-          ['field' => $config['field'], 'value' => $params[$param], 'operator' => $config['operator']] :
-          ['field' => $config, 'value' => $params[$param]];
+        ['field' => $config['field'], 'value' => $params[$param], 'operator' => $config['operator']] :
+        ['field' => $config, 'value' => $params[$param]];
         $conditions[] = $condition;
+      }
+    }
+
+    // Handle county parameter specifically for manatee_rescue nodes.
+    if (!empty($params['county']) && $params['county'] !== 'All') {
+      $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', 'manatee_rescue')
+        ->condition('field_county', $params['county'])
+        ->accessCheck(FALSE)
+        ->execute();
+
+      if (!empty($rescue_query)) {
+        $manatee_ids = [];
+        $rescues = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
+        foreach ($rescues as $rescue) {
+          if (!$rescue->field_animal->isEmpty()) {
+            $manatee_ids[] = $rescue->field_animal->target_id;
+          }
+        }
+
+        if (!empty($manatee_ids)) {
+          $conditions[] = [
+            'field' => 'nid',
+            'value' => $manatee_ids,
+            'operator' => 'IN',
+          ];
+        }
+        else {
+          // Force no results if no manatees found with rescues in the specified county.
+          $conditions[] = [
+            'field' => 'nid',
+            'value' => 0,
+          ];
+        }
       }
     }
 

@@ -334,6 +334,11 @@ class ManateeSearchManager {
         case 'field_cause_of_death':
           $query->condition($condition['field'], $condition['value']);
           break;
+
+        case 'nid':
+          $operator = $condition['operator'] ?? '=';
+          $query->condition('nid', $condition['value'], $operator);
+          break;
       }
     }
 
