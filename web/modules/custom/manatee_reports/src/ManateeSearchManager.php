@@ -206,12 +206,13 @@ class ManateeSearchManager {
         case 'field_tag_id':
           $tag_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', 'manatee_tag')
-            ->condition('field_tag_id', '%' . $condition['value'] . '%', 'LIKE');
-          if (isset($condition['type'])) {
-            $tag_query->condition('field_tag_type', $condition['type']);
+            ->condition('field_tag_id', $condition['value']);
+          if (isset($condition['tag_type']) && $condition['tag_type'] !== 'All') {
+            $tag_query->condition('field_tag_type', $condition['tag_type']);
           }
           $tag_query->accessCheck(FALSE);
           $tag_matches = $tag_query->execute();
+
           if (!empty($tag_matches)) {
             $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
             $manatee_ids = [];
