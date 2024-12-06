@@ -302,21 +302,25 @@ class ManateeSearchManager {
 
         case 'type':
           $event_type = $condition['value'];
+          $date_fields = [
+            'manatee_birth' => 'field_birth_date',
+            'manatee_rescue' => 'field_rescue_date',
+            'transfer' => 'field_transfer_date',
+            'manatee_release' => 'field_release_date',
+            'manatee_death' => 'field_death_date',
+          ];
+
           $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', $event_type)
             ->condition('field_animal', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
-          $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
-
-          if (isset($condition['from'])) {
-            $event_query->condition($date_field, $condition['from'], '>=');
+          if (isset($condition['from']) && isset($date_fields[$event_type])) {
+            $event_query->condition($date_fields[$event_type], $condition['from'], '>=');
           }
-          if (isset($condition['to'])) {
-            $event_query->condition($date_field, $condition['to'], '<=');
+          if (isset($condition['to']) && isset($date_fields[$event_type])) {
+            $event_query->condition($date_fields[$event_type], $condition['to'], '<=');
           }
-
-          $event_query->sort($date_field, 'DESC');
 
           $event_matches = $event_query->execute();
           if (!empty($event_matches)) {
@@ -337,31 +341,6 @@ class ManateeSearchManager {
           else {
             $query->condition('nid', 0);
           }
-          break;
-
-        case 'field_event_date':
-          $operator = $condition['operator'] ?? '=';
-          $event_types = ['birth', 'rescue', 'release', 'transfer', 'death'];
-          $or_group = $query->orConditionGroup();
-
-          foreach ($event_types as $type) {
-            $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
-              ->condition('type', 'manatee_' . $type)
-              ->condition('field_' . $type . '_date', $condition['value'], $operator)
-              ->condition('field_animal', NULL, 'IS NOT NULL')
-              ->accessCheck(FALSE);
-
-            $event_matches = $event_query->execute();
-            if (!empty($event_matches)) {
-              $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
-              foreach ($event_nodes as $event_node) {
-                if (!$event_node->field_animal->isEmpty()) {
-                  $or_group->condition('nid', $event_node->field_animal->target_id);
-                }
-              }
-            }
-          }
-          $query->condition($or_group);
           break;
 
         case 'field_county':
@@ -497,30 +476,32 @@ class ManateeSearchManager {
           break;
 
         case 'field_cause_id':
-          $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_death')
-            ->condition('field_cause_id', $condition['value'])
-            ->condition('field_animal', NULL, 'IS NOT NULL')
-            ->accessCheck(FALSE);
+          if (!empty($condition['value']) && $condition['value'] !== 'All') {
+            $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
+              ->condition('type', 'manatee_death')
+              ->condition('field_cause_id', $condition['value'])
+              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->accessCheck(FALSE);
 
-          $death_matches = $death_query->execute();
-          if (!empty($death_matches)) {
-            $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_matches);
-            $manatee_ids = [];
-            foreach ($death_nodes as $death_node) {
-              if (!$death_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $death_node->field_animal->target_id;
+            $death_matches = $death_query->execute();
+            if (!empty($death_matches)) {
+              $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_matches);
+              $manatee_ids = [];
+              foreach ($death_nodes as $death_node) {
+                if (!$death_node->field_animal->isEmpty()) {
+                  $manatee_ids[] = $death_node->field_animal->target_id;
+                }
               }
-            }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+              if (!empty($manatee_ids)) {
+                $query->condition('nid', $manatee_ids, 'IN');
+              }
+              else {
+                $query->condition('nid', 0);
+              }
             }
             else {
               $query->condition('nid', 0);
             }
-          }
-          else {
-            $query->condition('nid', 0);
           }
           break;
 
