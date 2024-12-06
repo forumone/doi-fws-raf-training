@@ -57,6 +57,7 @@ class ManateeSearchManager {
     foreach ($terms as $term) {
       $types[$term->id()] = $term->label();
     }
+    asort($types);
     return $types;
   }
 
@@ -73,6 +74,7 @@ class ManateeSearchManager {
     foreach ($terms as $term) {
       $types[$term->id()] = $term->field_rescue_type_text->value;
     }
+    asort($types);
     return $types;
   }
 
@@ -91,6 +93,7 @@ class ManateeSearchManager {
         $orgs[$term->id()] = $term->field_organization->value;
       }
     }
+    asort($orgs);
     return $orgs;
   }
 
@@ -107,6 +110,7 @@ class ManateeSearchManager {
     foreach ($terms as $term) {
       $counties[$term->id()] = $term->label();
     }
+    asort($counties);
     return $counties;
   }
 
@@ -125,7 +129,7 @@ class ManateeSearchManager {
     foreach ($terms as $term) {
       $states[$term->id()] = $term->get('field_state_name')->value;
     }
-
+    asort($states);
     return $states;
   }
 
@@ -756,6 +760,7 @@ class ManateeSearchManager {
         $causes[$term->id()] = $label;
       }
     }
+    asort($causes);
     return $causes;
   }
 
@@ -778,6 +783,7 @@ class ManateeSearchManager {
         $causes[$term->id()] = $label;
       }
     }
+    asort($causes);
     return $causes;
   }
 
