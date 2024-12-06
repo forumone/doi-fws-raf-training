@@ -69,9 +69,9 @@ class ManateeSearchManager {
   public function getRescueTypes() {
     $types = [];
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')
-      ->loadByProperties(['vid' => 'rescue_types']);
+      ->loadByProperties(['vid' => 'rescue_type']);
     foreach ($terms as $term) {
-      $types[$term->id()] = $term->label();
+      $types[$term->id()] = $term->field_rescue_type_text->value;
     }
     return $types;
   }
@@ -390,7 +390,70 @@ class ManateeSearchManager {
           break;
 
         case 'field_rescue_type':
+          if (!empty($condition['value']) && $condition['value'] !== 'All') {
+            $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
+              ->condition('type', 'manatee_rescue')
+              ->condition('field_rescue_type', $condition['value'])
+              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->accessCheck(FALSE);
+
+            $rescue_matches = $rescue_query->execute();
+
+            if (!empty($rescue_matches)) {
+              $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
+              $manatee_ids = [];
+              foreach ($rescue_nodes as $rescue_node) {
+                if (!$rescue_node->field_animal->isEmpty()) {
+                  $manatee_ids[] = $rescue_node->field_animal->target_id;
+                }
+              }
+              if (!empty($manatee_ids)) {
+                $query->condition('nid', $manatee_ids, 'IN');
+              }
+              else {
+                $query->condition('nid', 0);
+              }
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          break;
+
         case 'field_rescue_cause':
+          $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_rescue')
+            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          $or_group = $rescue_query->orConditionGroup()
+            ->condition('field_primary_cause', $condition['value'])
+            ->condition('field_secondary_cause', $condition['value']);
+
+          $rescue_query->condition($or_group);
+
+          $rescue_matches = $rescue_query->execute();
+
+          if (!empty($rescue_matches)) {
+            $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
+            $manatee_ids = [];
+            foreach ($rescue_nodes as $rescue_node) {
+              if (!$rescue_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $rescue_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
+
         case 'field_organization':
         case 'field_cause_of_death':
           $query->condition($condition['field'], $condition['value']);
@@ -611,6 +674,28 @@ class ManateeSearchManager {
       }
     }
     return 'N/A';
+  }
+
+  /**
+   * Gets rescue causes.
+   *
+   * @return array
+   *   Array of rescue causes.
+   */
+  public function getRescueCauses() {
+    $causes = [];
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'rescue_cause']);
+    foreach ($terms as $term) {
+      if ($term->hasField('field_rescue_cause') && !$term->field_rescue_cause->isEmpty()) {
+        $label = $term->field_rescue_cause->value;
+        if ($term->hasField('field_rescue_cause_detail') && !$term->field_rescue_cause_detail->isEmpty()) {
+          $label .= ': ' . $term->field_rescue_cause_detail->value;
+        }
+        $causes[$term->id()] = $label;
+      }
+    }
+    return $causes;
   }
 
 }

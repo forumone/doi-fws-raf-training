@@ -255,10 +255,10 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['list_search']['event_detail']['rescue_cause'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Rescue Cause *'),
-      '#maxlength' => 128,
-      '#size' => 64,
+      '#type' => 'select',
+      '#title' => $this->t('Rescue Cause'),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueCauses(),
+      '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -408,7 +408,7 @@ class ManateeSearchForm extends FormBase {
       ];
     }
 
-    if (!empty($values['rescue_cause'])) {
+    if (!empty($values['rescue_cause']) && $values['rescue_cause'] !== 'All') {
       $conditions[] = [
         'field' => 'field_rescue_cause',
         'value' => $values['rescue_cause'],
