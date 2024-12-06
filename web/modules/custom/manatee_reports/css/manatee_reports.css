@@ -51,3 +51,7 @@
   width: 300px;
   min-height: 45px;
 }
+
+.manatee-search-form #edit-back {
+  margin-bottom: 15px;
+}

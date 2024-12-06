@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\manatee_reports\ManateeSearchManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -63,6 +64,34 @@ class ManateeSearchForm extends FormBase {
     $form['#attached']['library'][] = 'manatee_reports/manatee_reports';
     $form['#prefix'] = '<div class="manatee-search-form">';
     $form['#suffix'] = '</div>';
+
+    // Get current page from URL query.
+    $current_page = \Drupal::request()->query->get('page');
+
+    // Show results if form has been submitted or there's pagination.
+    if ($form_state->get('show_results') || $current_page !== NULL) {
+      // Restore form values from tempstore if paginating.
+      if ($current_page !== NULL && !$form_state->get('show_results')) {
+        $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+        $stored_values = $tempstore->get('search_values');
+        if ($stored_values) {
+          $form_state->setValues($stored_values);
+          $form_state->set('show_results', TRUE);
+        }
+      }
+
+      $conditions = $this->processSearchParameters($form_state->getValues());
+
+      $form['back'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Back to Search'),
+        '#submit' => ['::backToSearch'],
+        '#limit_validation_errors' => [],
+      ];
+
+      $form['search_results'] = $this->buildSearchResults($conditions);
+      return $form;
+    }
 
     $form['search_description'] = [
       '#type' => 'html_tag',
@@ -260,18 +289,6 @@ class ManateeSearchForm extends FormBase {
       '#value' => $this->t('Search'),
       '#button_type' => 'primary',
     ];
-
-    // Add results container.
-    $form['search_results'] = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['search-results-container']],
-    ];
-
-    // Show results if form has been submitted.
-    if ($form_state->get('show_results')) {
-      $conditions = $this->processSearchParameters($form_state->getValues());
-      $form['search_results'] = $this->buildSearchResults($conditions);
-    }
 
     return $form;
   }
@@ -648,8 +665,27 @@ class ManateeSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Store form values in tempstore for pagination.
+    $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+    $tempstore->set('search_values', $form_state->getValues());
+
     $form_state->set('show_results', TRUE);
     $form_state->setRebuild(TRUE);
+  }
+
+  /**
+   *
+   */
+  public function backToSearch(array &$form, FormStateInterface $form_state) {
+    // Clear stored search values.
+    $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+    $tempstore->delete('search_values');
+
+    $form_state->set('show_results', FALSE);
+
+    // Redirect to form without query parameters.
+    $url = Url::fromRoute('manatee_reports.search');
+    $form_state->setRedirect($url->getRouteName());
   }
 
 }
