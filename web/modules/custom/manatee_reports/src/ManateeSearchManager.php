@@ -121,7 +121,7 @@ class ManateeSearchManager {
    *   Array of states with term ID as key and state name as value.
    */
   public function getStates() {
-    $terms = \Drupal::entityTypeManager()
+    $terms = $this->entityTypeManager
       ->getStorage('taxonomy_term')
       ->loadByProperties(['vid' => 'state']);
 
