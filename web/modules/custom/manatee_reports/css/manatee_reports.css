@@ -5,14 +5,18 @@
   background-color: #f5f5f5;
 }
 
-.manatee-filter-form .select-wrapper {
+.manatee-report-container .select-wrapper {
   width: 300px;
 }
 
-.manatee-filter-form .control-label {
+.manatee-report-container .control-label {
   margin-right: 10px;
 }
 
-.manatee-filter-form .form-type-select .select-wrapper:after {
+.manatee-report-container .form-type-select .select-wrapper:after {
   top: 29px;
+}
+
+.manatee-report-filters .select-wrapper {
+  width: 100px;
 }
