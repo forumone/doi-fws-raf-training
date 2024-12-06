@@ -455,6 +455,43 @@ class ManateeSearchManager {
           break;
 
         case 'field_organization':
+          $event_types = [
+            ['type' => 'manatee_birth', 'field' => 'field_org'],
+            ['type' => 'manatee_death', 'field' => 'field_org'],
+            ['type' => 'manatee_release', 'field' => 'field_org'],
+            ['type' => 'manatee_rescue', 'field' => 'field_org'],
+            ['type' => 'transfer', 'field' => 'field_from_facility'],
+            ['type' => 'transfer', 'field' => 'field_to_facility'],
+          ];
+
+          $event_queries = [];
+          foreach ($event_types as $event) {
+            $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+              ->condition('type', $event['type'])
+              ->condition($event['field'], $condition['value'])
+              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->accessCheck(FALSE);
+
+            $event_matches = $event_query->execute();
+            if (!empty($event_matches)) {
+              $event_nodes = $this->entityTypeManager->getStorage('node')
+                ->loadMultiple($event_matches);
+              foreach ($event_nodes as $event_node) {
+                if (!$event_node->field_animal->isEmpty()) {
+                  $event_queries[] = $event_node->field_animal->target_id;
+                }
+              }
+            }
+          }
+
+          if (!empty($event_queries)) {
+            $query->condition('nid', $event_queries, 'IN');
+          }
+          else {
+            $query->condition('nid', 0);
+          }
+          break;
+
         case 'field_cause_of_death':
           $query->condition($condition['field'], $condition['value']);
           break;
