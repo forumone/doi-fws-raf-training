@@ -13,3 +13,11 @@ manatee_reports.facility_inventory:
     _title: 'Facility Inventory Report'
   requirements:
     _permission: 'access content'
+
+manatee_reports.search:
+  path: '/manatee/search'
+  defaults:
+    _title: 'Search Manatee Information'
+    _form: '\Drupal\manatee_reports\Form\ManateeSearchForm'
+  requirements:
+    _permission: 'access content'

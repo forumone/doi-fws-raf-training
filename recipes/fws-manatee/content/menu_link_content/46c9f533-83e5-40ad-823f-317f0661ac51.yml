@@ -5,20 +5,20 @@ _meta:
   bundle: menu_link_content
   default_langcode: en
   depends:
-    fb9127b2-ae75-46e8-a696-97b6b551d440: menu_link_content
+    2e499044-687c-49e0-ba16-33f512e82404: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: 'Table Data Search'
+      value: 'Manatee Search Results'
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/table-data-search'
+      uri: 'internal:/manatee/search/results'
       title: ''
       options: {  }
   external:
@@ -29,13 +29,13 @@ default:
       value: true
   weight:
     -
-      value: 3
+      value: -50
   expanded:
     -
       value: false
   parent:
     -
-      value: 'menu_link_content:fb9127b2-ae75-46e8-a696-97b6b551d440'
+      value: 'menu_link_content:2e499044-687c-49e0-ba16-33f512e82404'
   revision_translation_affected:
     -
       value: true

@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-search'
+      uri: 'internal:/manatee/search'
       title: ''
       options: {  }
   external:
