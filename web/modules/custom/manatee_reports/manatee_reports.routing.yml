@@ -37,3 +37,11 @@ manatee_reports.manatees_without_events:
     _title: 'Report of Manatees without event (Birth, or Rescue)'
   requirements:
     _permission: 'access manatee reports'
+
+manatee_reports.manatees_without_primary_id:
+  path: '/manatees/without-primary-id'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\ManateesWithoutPrimaryIdController::content'
+    _title: 'Report of Manatees without a Primary Animal ID'
+  requirements:
+    _permission: 'access manatee reports'
