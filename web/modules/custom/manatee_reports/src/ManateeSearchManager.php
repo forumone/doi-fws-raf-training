@@ -492,8 +492,32 @@ class ManateeSearchManager {
           }
           break;
 
-        case 'field_cause_of_death':
-          $query->condition($condition['field'], $condition['value']);
+        case 'field_cause_id':
+          $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'manatee_death')
+            ->condition('field_cause_id', $condition['value'])
+            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          $death_matches = $death_query->execute();
+          if (!empty($death_matches)) {
+            $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_matches);
+            $manatee_ids = [];
+            foreach ($death_nodes as $death_node) {
+              if (!$death_node->field_animal->isEmpty()) {
+                $manatee_ids[] = $death_node->field_animal->target_id;
+              }
+            }
+            if (!empty($manatee_ids)) {
+              $query->condition('nid', $manatee_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
+          }
           break;
 
         case 'nid':
@@ -728,6 +752,28 @@ class ManateeSearchManager {
         $label = $term->field_rescue_cause->value;
         if ($term->hasField('field_rescue_cause_detail') && !$term->field_rescue_cause_detail->isEmpty()) {
           $label .= ': ' . $term->field_rescue_cause_detail->value;
+        }
+        $causes[$term->id()] = $label;
+      }
+    }
+    return $causes;
+  }
+
+  /**
+   * Gets death causes.
+   *
+   * @return array
+   *   Array of death causes.
+   */
+  public function getDeathCauses() {
+    $causes = [];
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'death_cause']);
+    foreach ($terms as $term) {
+      if ($term->hasField('field_death_cause') && !$term->field_death_cause->isEmpty()) {
+        $label = $term->field_death_cause->value;
+        if ($term->hasField('field_death_cause_detail') && !$term->field_death_cause_detail->isEmpty()) {
+          $label .= ': ' . $term->field_death_cause_detail->value;
         }
         $causes[$term->id()] = $label;
       }

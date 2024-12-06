@@ -271,10 +271,10 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['list_search']['event_detail']['cause_of_death'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Cause of Death *'),
-      '#maxlength' => 128,
-      '#size' => 64,
+      '#type' => 'select',
+      '#title' => $this->t('Cause of Death'),
+      '#options' => ['All' => $this->t('All')] + $this->searchManager->getDeathCauses(),
+      '#default_value' => 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -424,7 +424,7 @@ class ManateeSearchForm extends FormBase {
 
     if (!empty($values['cause_of_death'])) {
       $conditions[] = [
-        'field' => 'field_cause_of_death',
+        'field' => 'field_cause_id',
         'value' => $values['cause_of_death'],
       ];
     }
