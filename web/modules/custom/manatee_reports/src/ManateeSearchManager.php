@@ -305,11 +305,11 @@ class ManateeSearchManager {
 
           $date_field = 'field_' . str_replace('manatee_', '', $event_type) . '_date';
 
-          if (isset($criteria['from'])) {
-            $event_query->condition($date_field, $criteria['from'], '>=');
+          if (isset($condition['from'])) {
+            $event_query->condition($date_field, $condition['from'], '>=');
           }
-          if (isset($criteria['to'])) {
-            $event_query->condition($date_field, $criteria['to'], '<=');
+          if (isset($condition['to'])) {
+            $event_query->condition($date_field, $condition['to'], '<=');
           }
 
           $event_query->sort($date_field, 'DESC');
@@ -500,7 +500,7 @@ class ManateeSearchManager {
 
     if (empty($page_manatee_ids)) {
       return [
-        '#markup' => $this->t('No manatees found matching your search criteria.'),
+        '#markup' => '<div class="no-results">' . $this->t('No manatees found matching your search criteria.') . '</div>',
       ];
     }
 
