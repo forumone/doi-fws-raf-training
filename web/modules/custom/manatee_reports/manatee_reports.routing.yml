@@ -4,7 +4,7 @@ manatee_reports.current_captives:
     _controller: '\Drupal\manatee_reports\Controller\CurrentCaptivesController::content'
     _title: 'Current Captives by Facility'
   requirements:
-    _permission: 'access content'
+    _permission: 'access manatee reports'
 
 manatee_reports.facility_inventory:
   path: 'facility-inventory'
@@ -12,7 +12,7 @@ manatee_reports.facility_inventory:
     _controller: '\Drupal\manatee_reports\Controller\FacilityInventoryController::content'
     _title: 'Facility Inventory Report'
   requirements:
-    _permission: 'access content'
+    _permission: 'access manatee reports'
 
 manatee_reports.search:
   path: '/manatee/search'
@@ -20,4 +20,36 @@ manatee_reports.search:
     _title: 'Search Manatee Information'
     _form: '\Drupal\manatee_reports\Form\ManateeSearchForm'
   requirements:
-    _permission: 'access content'
+    _permission: 'access manatee reports'
+
+manatee_reports.prerelease_report:
+  path: '/manatee/prerelease'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\PreReleaseReportController::content'
+    _title: 'Pre-release Records Without Release'
+  requirements:
+    _permission: 'access manatee reports'
+
+manatee_reports.manatees_without_events:
+  path: '/manatee/without-events'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\ManateesWithoutEventsController::content'
+    _title: 'Report of Manatees without event (Birth, or Rescue)'
+  requirements:
+    _permission: 'access manatee reports'
+
+manatee_reports.manatees_without_primary_id:
+  path: '/manatees/without-primary-id'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\ManateesWithoutPrimaryIdController::content'
+    _title: 'Report of Manatees without a Primary Animal ID'
+  requirements:
+    _permission: 'access manatee reports'
+
+manatee_reports.without_primary_name:
+  path: '/manatees/without-primary-name'
+  defaults:
+    _controller: '\Drupal\manatee_reports\Controller\ManateesWithoutPrimaryNameController::content'
+    _title: 'Report of Manatees without a Primary Manatee Name'
+  requirements:
+    _permission: 'access manatee reports'

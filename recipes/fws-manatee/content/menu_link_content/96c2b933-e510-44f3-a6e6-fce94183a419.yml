@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 96c2b933-e510-44f3-a6e6-fce94183a419
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    c3031ab4-5dfb-4f04-bb13-8cd4b2d5be30: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Manatees without a Primary Animal ID'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/manatees/without-primary-id'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -48
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:c3031ab4-5dfb-4f04-bb13-8cd4b2d5be30'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

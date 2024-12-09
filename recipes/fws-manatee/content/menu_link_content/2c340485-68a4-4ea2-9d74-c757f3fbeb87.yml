@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 2c340485-68a4-4ea2-9d74-c757f3fbeb87
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    c3031ab4-5dfb-4f04-bb13-8cd4b2d5be30: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Pre-release Records Without Release'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/manatee/prerelease'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -50
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:c3031ab4-5dfb-4f04-bb13-8cd4b2d5be30'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'
