@@ -1,0 +1,6 @@
+name: 'FWS Manatee Reports'
+description: 'FWS manatee reports and views.'
+type: 'Site'
+
+install:
+  - manatee_reports
