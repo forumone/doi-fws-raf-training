@@ -207,6 +207,9 @@
         "patches": {
             "drupal/core": {
                 "Suppress unexpected type error when Recipes are applied": "patches/recipes-unexpected-type.patch"
+            },
+            "drupal/we_megamenu": {
+                "Issue #3282040: Attempt to modify property \"col_content\" on null": "https://www.drupal.org/files/issues/2024-04-10/3282040_7_0.patch"
             }
         }
     },

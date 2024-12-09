@@ -1,15 +1,19 @@
 #!/bin/bash
 
-## Description: Installs FWS.
+## Description: Installs FWS Manatee.
 
 ddev composer install
 ddev drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --account-name=admin --account-pass=admin
-ddev drush cr
 ddev drush recipe ../recipes/fws-core
-# ddev drush webform-libraries-download
+ddev drush scr ../scripts/install-cleanup.php
 ddev drush cr
 
-ddev drush scr ../scripts/install-cleanup.php
+ddev drush recipe ../recipes/fws-manatee-taxonomy
+ddev drush recipe ../recipes/fws-manatee-node
+ddev drush recipe ../recipes/fws-manatee-reports
+ddev drush recipe ../recipes/fws-manatee-user
+ddev drush recipe ../recipes/fws-manatee-content
 
-ddev drush recipe ../recipes/fws-manatee
+# ddev drush webform-libraries-download
+
 ddev drush uli

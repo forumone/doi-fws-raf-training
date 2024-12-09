@@ -1,15 +1,19 @@
 #!/bin/bash
 
-## Description: Installs FWS.
+## Description: Installs FWS Manatee.
 
 fin composer install
 fin drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --account-name=admin --account-pass=admin
-fin drush cr
 fin drush recipe ../recipes/fws-core
-# fin drush webform-libraries-download
+fin drush scr ../scripts/install-cleanup.php
 fin drush cr
 
-fin drush scr ../scripts/install-cleanup.php
+fin drush recipe ../recipes/fws-manatee-taxonomy
+fin drush recipe ../recipes/fws-manatee-node
+fin drush recipe ../recipes/fws-manatee-reports
+fin drush recipe ../recipes/fws-manatee-user
+fin drush recipe ../recipes/fws-manatee-content
 
-fin drush recipe ../recipes/fws-manatee
+# fin drush webform-libraries-download
+
 fin drush uli

@@ -13,8 +13,6 @@ recipes:
   - core/recipes/administrator_role
   # Adding core recommended maintenance modules
   - core/recipes/core_recommended_maintenance
-  # Add FWS paragraphs recipe
-  - ../recipes/fws-paragraphs
 
 install:
   # Core
@@ -44,6 +42,7 @@ install:
   - path
   - shortcut
   - taxonomy
+  - text
   - views
   - views_ui
   - entity
@@ -100,6 +99,11 @@ install:
   - charts
   - charts_highcharts
   - charts_highcharts_maps
+  - paragraphs
+  - paragraphs_features
+  - paragraphs_ee
+  - viewfield
+
   # Custom
   - fws
   - fws_gov
