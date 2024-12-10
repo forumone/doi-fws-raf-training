@@ -16,7 +16,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/database-search'
+      uri: 'internal:/current-captives-by-facility'
       title: ''
       options: {  }
   external:
