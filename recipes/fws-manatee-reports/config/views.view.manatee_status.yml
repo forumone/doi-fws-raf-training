@@ -28,7 +28,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: V5yhgFQ5n5pGfLFfA2xcSUaVK-MJQbykWGVMXPhHn8U
+  default_config_hash: h1y-1wVFIp2GPDifZRBJ37eZYzTPWh14oiBiMMELS5Y
 id: manatee_status
 label: 'Manatee Status Report'
 module: views

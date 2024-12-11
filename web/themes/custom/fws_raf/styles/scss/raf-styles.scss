@@ -80,3 +80,63 @@ header#navbar #navbar-collapse {
 .navbar-default .navbar-nav>.active>a:focus {
   color: #fff;
 }
+
+.views-element-container {
+
+  .view-content .views-field {
+
+    a {
+      white-space: nowrap;
+    }
+  }
+
+  .panel-title {
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:not(.collapsed) .fa-caret-down {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .panel-body {
+    padding: 20px;
+  }
+}
+
+.views-exposed-form {
+
+  .form-type-select .select-wrapper select,
+  .form-type-select .select-wrapper select option {
+    min-width: 85px;
+    min-height: 36px;
+  }
+
+  .form-type-select .select-wrapper:after {
+    top: 27px;
+    right: 0;
+    z-index: 10;
+  }
+
+  .form-item {
+
+    margin-right: 20px;
+    margin-bottom: 10px;
+
+    label {
+      margin-right: 10px;
+    }
+
+    .form-text {
+      max-width: 150px;
+    }
+  }
+
+  .form-actions {
+    margin-bottom: 10px;
+  }
+}

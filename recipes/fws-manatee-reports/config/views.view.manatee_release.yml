@@ -17,13 +17,16 @@ dependencies:
     - node.type.manatee_name
     - node.type.manatee_release
     - node.type.manatee_rescue
+    - taxonomy.vocabulary.county
+    - taxonomy.vocabulary.sex
   module:
+    - better_exposed_filters
     - datetime
     - node
     - taxonomy
     - user
 _core:
-  default_config_hash: 3g70UI_1lMgHxXtU4KJ5IVQVwDFN2xbK4_rsA8hXhLg
+  default_config_hash: pcWl5k1b5ArLDCbId2soyfZFQEQCz-aSF1Oca_98Ap4
 id: manatee_release
 label: 'Manatee Release'
 module: views
@@ -873,7 +876,7 @@ display:
           pagination_heading_level: h4
           items_per_page: 50
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
           reset_button: false
@@ -882,6 +885,88 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: basic_html
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_textfield_minimum_length: 3
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            filter:
+              field_release_date_value:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_release_date_value_1:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_name_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_sex_target_id:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_animal_id_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_mlog_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_rescue_date_value:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_rescue_date_value_1:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
       access:
         type: perm
         options:
@@ -1125,17 +1210,17 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: datetime
-          operator: '='
+          operator: '>='
           value:
             min: ''
             max: ''
             value: ''
-            type: date_year
+            type: date
           group: 1
           exposed: true
           expose:
             operator_id: field_release_date_value_op
-            label: 'Release Year: '
+            label: 'Release Date (From)'
             description: ''
             use_operator: false
             operator: field_release_date_value_op
@@ -1165,12 +1250,590 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_release_date_value_1:
+          id: field_release_date_value_1
+          table: node__field_release_date
+          field: field_release_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_release_date_value_1_op
+            label: 'Release Date (To)'
+            description: ''
+            use_operator: false
+            operator: field_release_date_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_release_date_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_rescue_date_value:
+          id: field_rescue_date_value
+          table: node__field_rescue_date
+          field: field_rescue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rescue_date_value_op
+            label: 'Rescue Date (From)'
+            description: ''
+            use_operator: false
+            operator: field_rescue_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rescue_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_rescue_date_value_1:
+          id: field_rescue_date_value_1
+          table: node__field_rescue_date
+          field: field_rescue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rescue_date_value_1_op
+            label: 'Rescue Date (To)'
+            description: ''
+            use_operator: false
+            operator: field_rescue_date_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rescue_date_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_name_value:
+          id: field_name_value
+          table: node__field_name
+          field: field_name_value
+          relationship: reverse__node__field_animal
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_name_value_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: field_name_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_name_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_sex_target_id:
+          id: field_sex_target_id
+          table: node__field_sex
+          field: field_sex_target_id
+          relationship: field_animal
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_sex_target_id_op
+            label: Sex
+            description: ''
+            use_operator: false
+            operator: field_sex_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_sex_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: sex
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_animal_id_value:
+          id: field_animal_id_value
+          table: node__field_animal_id
+          field: field_animal_id_value
+          relationship: reverse__node__field_animal_1
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_animal_id_value_op
+            label: 'Manatee ID'
+            description: ''
+            use_operator: false
+            operator: field_animal_id_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_animal_id_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_mlog_value:
+          id: field_mlog_value
+          table: node__field_mlog
+          field: field_mlog_value
+          relationship: field_animal
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_mlog_value_op
+            label: 'Manatee Number'
+            description: ''
+            use_operator: false
+            operator: field_mlog_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_mlog_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_rescue_cause_detail_value:
+          id: field_rescue_cause_detail_value
+          table: taxonomy_term__field_rescue_cause_detail
+          field: field_rescue_cause_detail_value
+          relationship: field_primary_cause
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rescue_cause_detail_value_op
+            label: 'Cause of Rescue'
+            description: ''
+            use_operator: false
+            operator: field_rescue_cause_detail_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rescue_cause_detail_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_county_target_id:
+          id: field_county_target_id
+          table: node__field_county
+          field: field_county_target_id
+          relationship: reverse__node__field_animal_2
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_county_target_id_op
+            label: 'Rescue County'
+            description: ''
+            use_operator: false
+            operator: field_county_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_county_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: county
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_county_target_id_1:
+          id: field_county_target_id_1
+          table: node__field_county
+          field: field_county_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_county_target_id_1_op
+            label: 'Release County'
+            description: ''
+            use_operator: false
+            operator: field_county_target_id_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_county_target_id_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: county
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
           1: AND
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            field_name: field_name
+            field_sex: field_sex
+            field_animal_id: field_animal_id
+            field_mlog: field_mlog
+            field_rescue_date: field_rescue_date
+            field_release_date: field_release_date
+            field_rescue_cause_detail: field_rescue_cause_detail
+            field_length_1: field_length_1
+            field_weight_1: field_weight_1
+            field_length: field_length
+            field_weight: field_weight
+            field_county_1: field_county_1
+            field_county: field_county
+          default: field_release_date
+          info:
+            field_name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_sex:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_animal_id:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_mlog:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_rescue_date:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_release_date:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_rescue_cause_detail:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_length_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_weight_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_length:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_weight:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_county_1:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_county:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
         type: fields
       query:

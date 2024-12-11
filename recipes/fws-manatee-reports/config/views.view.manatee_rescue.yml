@@ -23,7 +23,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: l5boYWDzksIBNsm0Fa_J119Js9u-P8zXjd9vi4rW4G8
+  default_config_hash: 9w_yUo9oCWCd7wmt5_S5k5U4uiINbNGQ8AIp22w5-TA
 id: manatee_rescue
 label: 'Manatee Rescue'
 module: views
