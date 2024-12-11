@@ -68,6 +68,14 @@ class ManateeSearchForm extends FormBase {
     // Get current page from URL query.
     $current_page = \Drupal::request()->query->get('page');
 
+    // Check if there has been a POST or if there are any query params.
+    $request = \Drupal::request();
+    $collapsed = FALSE;
+
+    if ($request->isMethod('POST') || $request->query->all()) {
+      $collapsed = TRUE;
+    }
+
     // Main Filter Options Panel.
     $form['filter_options'] = [
       '#type' => 'container',
@@ -88,7 +96,7 @@ class ManateeSearchForm extends FormBase {
             'data-toggle' => 'collapse',
             'data-parent' => '#manatee-search-accordion',
             'href' => '#filter-options-collapse',
-            'class' => ['accordion-toggle', 'collapsed'],
+            'class' => ['accordion-toggle', $collapsed ? 'collapse' : ''],
           ],
           '#value' => $this->t('Filter Options') . ' <i class="fa fa-caret-down" style="float: right;"></i>',
         ],
@@ -99,7 +107,7 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'container',
       '#attributes' => [
         'id' => 'filter-options-collapse',
-        'class' => ['panel-collapse', 'collapse'],
+        'class' => ['panel-collapse', 'collapse', $collapsed ? '' : 'in'],
       ],
       'body' => [
         '#type' => 'container',
@@ -111,7 +119,7 @@ class ManateeSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['search_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('* indicates a wildcard search. For example, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
+      '#value' => $this->t('* indicates a wildcard search. For  ample, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
       '#attributes' => ['class' => ['search-description']],
     ];
 
