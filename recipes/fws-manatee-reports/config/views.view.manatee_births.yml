@@ -758,17 +758,25 @@ display:
           text_input_required_format: basic_html
           bef:
             general:
-              autosubmit: false
+              autosubmit: true
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_textfield_minimum_length: 3
-              autosubmit_hide: false
+              autosubmit_hide: true
               input_required: false
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
               reset_button_always_show: false
             filter:
+              combine:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
               field_birth_date_value:
                 plugin_id: bef_datepicker
                 advanced:
@@ -781,6 +789,17 @@ display:
                 plugin_id: bef_datepicker
                 advanced:
                   placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_sex_target_id:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   is_secondary: false
@@ -808,6 +827,60 @@ display:
           exposed: false
           granularity: second
       filters:
+        combine:
+          id: combine
+          table: views
+          field: combine
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: combine
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: combine_op
+            label: Search
+            description: ''
+            use_operator: false
+            operator: combine_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: combine
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          fields:
+            field_name: field_name
+            field_sex: field_sex
+            field_animal_id: field_animal_id
+            field_mlog: field_mlog
+            field_birth_date: field_birth_date
+            field_conceive_text: field_conceive_text
+            field_mlog_1: field_mlog_1
+            field_organization: field_organization
+            field_health_status_1: field_health_status_1
+            field_weight: field_weight
+            field_length: field_length
         status:
           id: status
           table: node_field_data
@@ -1043,48 +1116,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_name_value:
-          id: field_name_value
-          table: node__field_name
-          field: field_name_value
-          relationship: reverse__node__field_animal
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_name_value_op
-            label: Name
-            description: ''
-            use_operator: false
-            operator: field_name_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_name_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         field_sex_target_id:
           id: field_sex_target_id
           table: node__field_sex
@@ -1133,268 +1164,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_animal_id_value:
-          id: field_animal_id_value
-          table: node__field_animal_id
-          field: field_animal_id_value
-          relationship: reverse__node__field_animal_1
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_animal_id_value_op
-            label: 'Manatee ID'
-            description: ''
-            use_operator: false
-            operator: field_animal_id_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_animal_id_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_mlog_value:
-          id: field_mlog_value
-          table: node__field_mlog
-          field: field_mlog_value
-          relationship: field_animal
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_mlog_value_op
-            label: 'Manatee Number'
-            description: ''
-            use_operator: false
-            operator: field_mlog_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_mlog_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_conceive_text_value:
-          id: field_conceive_text_value
-          table: taxonomy_term__field_conceive_text
-          field: field_conceive_text_value
-          relationship: field_conceived
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_conceive_text_value_op
-            label: 'Where Conceived'
-            description: ''
-            use_operator: false
-            operator: field_conceive_text_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_conceive_text_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_mlog_value_1:
-          id: field_mlog_value_1
-          table: node__field_mlog
-          field: field_mlog_value
-          relationship: field_dam
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_mlog_value_1_op
-            label: 'Dam ID'
-            description: ''
-            use_operator: false
-            operator: field_mlog_value_1_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_mlog_value_1
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_organization_value:
-          id: field_organization_value
-          table: taxonomy_term__field_organization
-          field: field_organization_value
-          relationship: field_org
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_organization_value_op
-            label: Facility
-            description: ''
-            use_operator: false
-            operator: field_organization_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_organization_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_health_status_value:
-          id: field_health_status_value
-          table: taxonomy_term__field_health_status
-          field: field_health_status_value
-          relationship: field_health_status
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_health_status_value_op
-            label: 'Health Status'
-            description: ''
-            use_operator: false
-            operator: field_health_status_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_health_status_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
