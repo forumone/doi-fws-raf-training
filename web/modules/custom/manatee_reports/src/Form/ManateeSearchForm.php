@@ -88,9 +88,9 @@ class ManateeSearchForm extends FormBase {
             'data-toggle' => 'collapse',
             'data-parent' => '#manatee-search-accordion',
             'href' => '#filter-options-collapse',
-            'class' => ['accordion-toggle'],
+            'class' => ['accordion-toggle', 'collapsed'],
           ],
-          '#value' => $this->t('Filter Options') . ' <span class="caret"></span>',
+          '#value' => $this->t('Filter Options') . ' <i class="fa fa-caret-down" style="float: right;"></i>',
         ],
       ],
     ];
@@ -99,7 +99,7 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'container',
       '#attributes' => [
         'id' => 'filter-options-collapse',
-        'class' => ['panel-collapse', 'collapse', 'in'],
+        'class' => ['panel-collapse', 'collapse'],
       ],
       'body' => [
         '#type' => 'container',
@@ -311,23 +311,6 @@ class ManateeSearchForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       '#button_type' => 'primary',
-    ];
-
-    // Add custom CSS.
-    $form['#attached']['html_head'][] = [
-      [
-        '#type' => 'html_tag',
-        '#tag' => 'style',
-        '#value' => '
-          .accordion-toggle { display: block; text-decoration: none; }
-          .accordion-toggle .caret { float: right; margin-top: 8px; }
-          .accordion-toggle.collapsed .caret { transform: rotate(-90deg); }
-          .panel-title { margin: 0; }
-          .panel-heading { cursor: pointer; }
-          .well { margin-top: 15px; }
-        ',
-      ],
-      'manatee-search-accordion-styles',
     ];
 
     // Check if we need to show results.

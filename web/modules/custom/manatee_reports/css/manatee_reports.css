@@ -77,3 +77,19 @@
 .manatee-search-form.panel-group .panel-default {
   margin-bottom: 20px;
 }
+
+.manatee-search-form.panel-group .panel-title {
+  padding: 0;
+}
+
+.manatee-search-form.panel-group .panel-title a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.manatee-search-form.panel-group .panel-title a:not(.collapsed) .fa-caret-down {
+  transform: rotate(180deg);
+}
