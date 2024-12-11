@@ -473,7 +473,6 @@ class CurrentCaptivesController extends ControllerBase {
       }, $rows),
       '#empty' => $this->t('No manatees found'),
       '#attributes' => ['class' => ['manatee-report-table']],
-      '#sticky' => TRUE,
     ];
 
     return [
