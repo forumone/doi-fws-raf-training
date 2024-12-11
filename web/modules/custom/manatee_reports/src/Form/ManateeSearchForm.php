@@ -5,7 +5,6 @@ namespace Drupal\manatee_reports\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\manatee_reports\ManateeSearchManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -57,42 +56,59 @@ class ManateeSearchForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'manatee_reports/manatee_reports';
-    $form['#prefix'] = '<div class="manatee-search-form">';
+    $form['#attached']['library'][] = 'bootstrap/accordion';
+
+    $form['#prefix'] = '<div class="manatee-search-form panel-group" id="manatee-search-accordion">';
     $form['#suffix'] = '</div>';
 
     // Get current page from URL query.
     $current_page = \Drupal::request()->query->get('page');
 
-    // Show results if form has been submitted or there's pagination.
-    if ($form_state->get('show_results') || $current_page !== NULL) {
-      // Restore form values from tempstore if paginating.
-      if ($current_page !== NULL && !$form_state->get('show_results')) {
-        $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
-        $stored_values = $tempstore->get('search_values');
-        if ($stored_values) {
-          $form_state->setValues($stored_values);
-          $form_state->set('show_results', TRUE);
-        }
-      }
+    // Main Filter Options Panel.
+    $form['filter_options'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['panel', 'panel-default']],
+    ];
 
-      $conditions = $this->processSearchParameters($form_state->getValues());
+    $form['filter_options']['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['panel-heading']],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h4',
+        '#attributes' => ['class' => ['panel-title']],
+        'link' => [
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#attributes' => [
+            'data-toggle' => 'collapse',
+            'data-parent' => '#manatee-search-accordion',
+            'href' => '#filter-options-collapse',
+            'class' => ['accordion-toggle'],
+          ],
+          '#value' => $this->t('Filter Options') . ' <span class="caret"></span>',
+        ],
+      ],
+    ];
 
-      $form['back'] = [
-        '#type' => 'submit',
-        '#value' => $this->t('Back to Search'),
-        '#submit' => ['::backToSearch'],
-        '#limit_validation_errors' => [],
-      ];
+    $form['filter_options']['collapse'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'id' => 'filter-options-collapse',
+        'class' => ['panel-collapse', 'collapse', 'in'],
+      ],
+      'body' => [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['panel-body']],
+      ],
+    ];
 
-      $form['search_results'] = $this->searchManager->buildSearchResults($conditions);
-      return $form;
-    }
-
-    $form['search_description'] = [
+    // Search description within the panel body.
+    $form['filter_options']['collapse']['body']['search_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
       '#value' => $this->t('* indicates a wildcard search. For example, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
@@ -100,24 +116,19 @@ class ManateeSearchForm extends FormBase {
     ];
 
     // Individual Manatee Search section.
-    $form['individual_search_title'] = [
+    $form['filter_options']['collapse']['body']['individual_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
       '#value' => $this->t('Search for Individual Manatee'),
     ];
 
-    $form['individual_search_description'] = [
+    $form['filter_options']['collapse']['body']['individual_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
       '#value' => $this->t('Enter only one field below to identify the animal and click Next to see information about 1 manatee.'),
     ];
 
-    $form['individual_search']['manatee_info'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Manatee Information'),
-      '#open' => TRUE,
-    ];
-
+    // Individual search fields.
     $individual_fields = [
       'mlog' => [
         'title' => 'MLog',
@@ -142,7 +153,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     foreach ($individual_fields as $key => $field) {
-      $form['individual_search']['manatee_info'][$key] = [
+      $form['filter_options']['collapse']['body'][$key] = [
         '#type' => 'textfield',
         '#title' => $this->t($field['title']),
         '#required' => $field['required'],
@@ -153,7 +164,7 @@ class ManateeSearchForm extends FormBase {
       ];
     }
 
-    $form['individual_search']['manatee_info']['tag_type'] = [
+    $form['filter_options']['collapse']['body']['tag_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Tag Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getTagTypes(),
@@ -162,26 +173,30 @@ class ManateeSearchForm extends FormBase {
     ];
 
     // List Search section.
-    $form['list_search_title'] = [
+    $form['filter_options']['collapse']['body']['list_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
       '#value' => $this->t('Search for a List of Manatee(s)'),
     ];
 
-    $form['list_search_description'] = [
+    $form['filter_options']['collapse']['body']['list_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
       '#value' => $this->t('Enter as many fields below as needed to describe the manatee(s) that you are interested in and click Next'),
     ];
 
     // Location Information.
-    $form['list_search']['location'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Location Information'),
-      '#open' => TRUE,
+    $form['filter_options']['collapse']['body']['location'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['well']],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h3',
+        '#value' => $this->t('Location Information'),
+      ],
     ];
 
-    $form['list_search']['location']['county'] = [
+    $form['filter_options']['collapse']['body']['location']['county'] = [
       '#type' => 'select',
       '#title' => $this->t('County'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getCounties(),
@@ -189,7 +204,7 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['location']['waterway'] = [
+    $form['filter_options']['collapse']['body']['location']['waterway'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Waterway *'),
       '#maxlength' => 128,
@@ -197,7 +212,7 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['location']['state'] = [
+    $form['filter_options']['collapse']['body']['location']['state'] = [
       '#type' => 'select',
       '#title' => $this->t('State'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getStates(),
@@ -206,13 +221,17 @@ class ManateeSearchForm extends FormBase {
     ];
 
     // Event Information.
-    $form['list_search']['event'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Event Information'),
-      '#open' => TRUE,
+    $form['filter_options']['collapse']['body']['event'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['well']],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h3',
+        '#value' => $this->t('Event Information'),
+      ],
     ];
 
-    $form['list_search']['event']['event_type'] = [
+    $form['filter_options']['collapse']['body']['event']['event_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Event'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getEventTypes(),
@@ -220,19 +239,19 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['event']['date_range'] = [
+    $form['filter_options']['collapse']['body']['event']['date_range'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['date-range-container']],
     ];
 
-    $form['list_search']['event']['date_range']['from'] = [
+    $form['filter_options']['collapse']['body']['event']['date_range']['from'] = [
       '#type' => 'date',
       '#title' => $this->t('Occurring from'),
       '#date_date_format' => 'Y-m-d',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['event']['date_range']['to'] = [
+    $form['filter_options']['collapse']['body']['event']['date_range']['to'] = [
       '#type' => 'date',
       '#title' => $this->t('to'),
       '#date_date_format' => 'Y-m-d',
@@ -240,13 +259,17 @@ class ManateeSearchForm extends FormBase {
     ];
 
     // Event Detail Information.
-    $form['list_search']['event_detail'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Event Detail Information'),
-      '#open' => TRUE,
+    $form['filter_options']['collapse']['body']['event_detail'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['well']],
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h3',
+        '#value' => $this->t('Event Detail Information'),
+      ],
     ];
 
-    $form['list_search']['event_detail']['rescue_type'] = [
+    $form['filter_options']['collapse']['body']['event_detail']['rescue_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Rescue Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueTypes(),
@@ -254,7 +277,7 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['event_detail']['rescue_cause'] = [
+    $form['filter_options']['collapse']['body']['event_detail']['rescue_cause'] = [
       '#type' => 'select',
       '#title' => $this->t('Rescue Cause'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueCauses(),
@@ -262,7 +285,7 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['event_detail']['organization'] = [
+    $form['filter_options']['collapse']['body']['event_detail']['organization'] = [
       '#type' => 'select',
       '#title' => $this->t('Organization'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getOrganizations(),
@@ -270,7 +293,7 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['list_search']['event_detail']['cause_of_death'] = [
+    $form['filter_options']['collapse']['body']['event_detail']['cause_of_death'] = [
       '#type' => 'select',
       '#title' => $this->t('Cause of Death'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getDeathCauses(),
@@ -278,16 +301,57 @@ class ManateeSearchForm extends FormBase {
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
-    $form['actions'] = [
+    // Actions.
+    $form['filter_options']['collapse']['body']['actions'] = [
       '#type' => 'actions',
       '#attributes' => ['class' => ['form-actions']],
     ];
 
-    $form['actions']['submit'] = [
+    $form['filter_options']['collapse']['body']['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       '#button_type' => 'primary',
     ];
+
+    // Add custom CSS.
+    $form['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'style',
+        '#value' => '
+          .accordion-toggle { display: block; text-decoration: none; }
+          .accordion-toggle .caret { float: right; margin-top: 8px; }
+          .accordion-toggle.collapsed .caret { transform: rotate(-90deg); }
+          .panel-title { margin: 0; }
+          .panel-heading { cursor: pointer; }
+          .well { margin-top: 15px; }
+        ',
+      ],
+      'manatee-search-accordion-styles',
+    ];
+
+    // Check if we need to show results.
+    if ($form_state->get('show_results') || $current_page !== NULL) {
+      // Restore form values from tempstore if paginating.
+      if ($current_page !== NULL && !$form_state->get('show_results')) {
+        $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+        $stored_values = $tempstore->get('search_values');
+        if ($stored_values) {
+          $form_state->setValues($stored_values);
+          $form_state->set('show_results', TRUE);
+        }
+      }
+
+      // Process search parameters and show results.
+      if ($form_state->getValues()) {
+        $conditions = $this->processSearchParameters($form_state->getValues());
+        $form['search_results'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['search-results-container']],
+          'results' => $this->searchManager->buildSearchResults($conditions),
+        ];
+      }
+    }
 
     return $form;
   }
@@ -471,21 +535,6 @@ class ManateeSearchForm extends FormBase {
 
     $form_state->set('show_results', TRUE);
     $form_state->setRebuild(TRUE);
-  }
-
-  /**
-   *
-   */
-  public function backToSearch(array &$form, FormStateInterface $form_state) {
-    // Clear stored search values.
-    $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
-    $tempstore->delete('search_values');
-
-    $form_state->set('show_results', FALSE);
-
-    // Redirect to form without query parameters.
-    $url = Url::fromRoute('manatee_reports.search');
-    $form_state->setRedirect($url->getRouteName());
   }
 
 }

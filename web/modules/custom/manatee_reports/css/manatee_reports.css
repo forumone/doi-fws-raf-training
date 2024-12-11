@@ -35,7 +35,7 @@
   z-index: 10;
 }
 
-.manatee-search-form .form-item .form-item {
+.manatee-search-form .form-item {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -57,6 +57,23 @@
   min-height: 45px;
 }
 
+.manatee-search-form .form-type-select .select-wrapper select,
+.manatee-search-form .form-type-select .select-wrapper select option {
+  background-color: #FFF;
+}
+
 .manatee-search-form #edit-back {
   margin-bottom: 15px;
+}
+
+.manatee-search-form .panel-heading {
+  margin-bottom: 0;
+}
+
+.manatee-search-form h3 {
+  margin-top: 0;
+}
+
+.manatee-search-form.panel-group .panel-default {
+  margin-bottom: 20px;
 }
