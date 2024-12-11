@@ -812,6 +812,20 @@ display:
       cache:
         type: tag
         options: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: '<p>No results found.</p>'
+            format: basic_html
+          tokenize: false
       sorts:
         field_rescue_date_value:
           id: field_rescue_date_value
