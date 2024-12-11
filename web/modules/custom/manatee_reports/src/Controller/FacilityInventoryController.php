@@ -120,7 +120,7 @@ class FacilityInventoryController extends ControllerBase {
         '#type' => 'select',
         '#title' => $this->t('Select Year:'),
         '#options' => $year_options,
-        '#value' => $year,
+        '#default_value' => $year,
         '#attributes' => [
           'onChange' => 'window.location.href = "' . Url::fromRoute('<current>')->toString() . '?year=" + this.value',
         ],
@@ -265,15 +265,6 @@ class FacilityInventoryController extends ControllerBase {
             }
           }
 
-          if ($rescue_node->hasField('field_primary_cause') && !$rescue_node->field_primary_cause->isEmpty()) {
-            $primary_cause_term = $rescue_node->field_primary_cause->entity;
-            if ($primary_cause_term->hasField('field_rescue_cause_detail') &&
-            !$primary_cause_term->field_rescue_cause->isEmpty() &&
-            $primary_cause_term->field_rescue_cause_detail->value) {
-              $rescue_cause_detail .= ', ' . $primary_cause_term->field_rescue_cause_detail->value;
-            }
-          }
-
           // Get county information.
           $county = 'N/A';
           if ($rescue_node->hasField('field_county') && !$rescue_node->field_county->isEmpty()) {
@@ -383,7 +374,6 @@ class FacilityInventoryController extends ControllerBase {
               $facility_term = $node->field_org->entity;
             }
 
-            // Add weight and length to event data.
             $weight = 'N/A';
             $length = 'N/A';
 
@@ -422,12 +412,10 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Load manatees.
+    // Load manatees and prepare sortable data.
     $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($manatee_ids);
-    $current_date = new DrupalDateTime();
+    $sortable_data = [];
 
-    // Prepare rows.
-    $rows = [];
     foreach ($manatees as $manatee) {
       if (!isset($most_recent_events[$manatee->id()])) {
         continue;
@@ -441,17 +429,6 @@ class FacilityInventoryController extends ControllerBase {
         $mlog = $mlog_value[0]['value'] ?? "N/A";
       }
 
-      $mlog_link = Link::createFromRoute(
-        $mlog,
-        'entity.node.canonical',
-        ['node' => $manatee->id()]
-      );
-
-      $event_type = str_replace('manatee_', '', $event['type']);
-      $event_type = str_replace('_', ' ', $event_type);
-      $event_type = ucfirst($event_type);
-
-      // Use the rescue date instead of event date.
       $rescue_date = isset($latest_rescue_dates[$manatee->id()])
         ? (new DrupalDateTime($latest_rescue_dates[$manatee->id()]))->format('Y-m-d')
         : 'N/A';
@@ -475,7 +452,6 @@ class FacilityInventoryController extends ControllerBase {
         $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
       }
 
-      // Format weight and length for display.
       $weight_length = 'N/A';
       if ($event['weight'] !== 'N/A' || $event['length'] !== 'N/A') {
         $weight_length = '';
@@ -490,70 +466,177 @@ class FacilityInventoryController extends ControllerBase {
         }
       }
 
+      $facility_name = 'N/A';
+      if ($event['facility_term'] && $event['facility_term']->hasField('name')) {
+        $facility_name = $event['facility_term']->getName();
+      }
+
+      $medical_status = $manatee_statuses[$manatee->id()] ?? 'N/A';
+
       if ($rescue_type === 'B' || $rescue_type === 'none') {
-        $facility_name = 'N/A';
-        if ($event['facility_term'] && $event['facility_term']->hasField('name')) {
-          $facility_name = $event['facility_term']->getName();
-        }
-
-        // Get medical status.
-        $medical_status = $manatee_statuses[$manatee->id()] ?? 'N/A';
-
-        $rows[] = [
-          'data' => [
-            ['data' => $facility_name],
-            ['data' => $name],
-            ['data' => $animal_id],
-            ['data' => $mlog_link],
-            ['data' => $weight_length],
-            ['data' => $county],
-            ['data' => $rescue_date],
-            ['data' => $rescue_cause_detail],
-            ['data' => $time_in_captivity],
-            ['data' => $medical_status],
-          ],
+        $sortable_data[] = [
           'facility_name' => $facility_name,
           'name' => $name,
+          'animal_id' => $animal_id,
+          'mlog' => $mlog,
+          'weight_length' => $weight_length,
+          'county' => $county,
+          'rescue_date' => $rescue_date,
+          'rescue_cause' => $rescue_cause_detail,
+          'time_in_captivity' => $time_in_captivity,
+          'medical_status' => $medical_status,
+          'manatee_nid' => $manatee->id(),
         ];
       }
     }
 
-    // Sort rows by facility name and then by manatee name.
-    usort($rows, function ($a, $b) {
-      // First compare facility names.
-      $facility_compare = strcmp($a['facility_name'], $b['facility_name']);
+    // Get current sort field and direction.
+    $order_by = \Drupal::request()->query->get('order', 'facility_name');
+    $sort = \Drupal::request()->query->get('sort', 'asc');
 
-      // If facility names are the same, compare manatee names.
-      if ($facility_compare === 0) {
-        return strcmp($a['name'], $b['name']);
+    // Define valid sort fields.
+    $valid_sort_fields = [
+      'facility_name',
+      'name',
+      'animal_id',
+      'mlog',
+      'county',
+      'rescue_date',
+      'rescue_cause',
+      'time_in_captivity',
+      'medical_status',
+    ];
+
+    // If order_by is not in valid fields, default to facility_name.
+    if (!in_array($order_by, $valid_sort_fields)) {
+      $order_by = 'facility_name';
+    }
+
+    // Sort the data.
+    usort($sortable_data, function ($a, $b) use ($order_by, $sort) {
+      // Ensure both arrays have the required key.
+      if (!isset($a[$order_by]) || !isset($b[$order_by])) {
+        return 0;
       }
 
-      return $facility_compare;
+      // Special handling for rescue_date.
+      if ($order_by === 'rescue_date') {
+        $date_a = $a[$order_by] === 'N/A' ? '0000-00-00' : $a[$order_by];
+        $date_b = $b[$order_by] === 'N/A' ? '0000-00-00' : $b[$order_by];
+        $result = strcmp($date_a, $date_b);
+      }
+      // Special handling for time_in_captivity.
+      elseif ($order_by === 'time_in_captivity') {
+        // Convert time strings to comparable values.
+        $getValue = function ($str) {
+          if ($str === 'N/A') {
+            return 0;
+          }
+          $months = 0;
+          if (preg_match('/(\d+)\s*yr/', $str, $matches)) {
+            $months += $matches[1] * 12;
+          }
+          if (preg_match('/(\d+)\s*mo/', $str, $matches)) {
+            $months += $matches[1];
+          }
+          return $months;
+        };
+
+        $val_a = $getValue($a[$order_by]);
+        $val_b = $getValue($b[$order_by]);
+        $result = $val_a - $val_b;
+      }
+      else {
+        $result = strnatcasecmp($a[$order_by], $b[$order_by]);
+      }
+
+      return $sort === 'asc' ? $result : -$result;
     });
 
-    // Prepare table headers.
+    // Prepare table headers with sorting.
     $header = [
-      $this->t('Facility'),
-      $this->t('Name'),
-      $this->t('Manatee ID'),
-      $this->t('Manatee Number'),
-      $this->t('Weight, Length'),
-      $this->t('County'),
-      $this->t('Rescue Date'),
-      $this->t('Cause of Rescue'),
-      $this->t('Time in Captivity'),
-      $this->t('Medical Status'),
+      [
+        'data' => $this->t('Facility'),
+        'field' => 'facility_name',
+        'sort' => 'asc',
+      ],
+      [
+        'data' => $this->t('Name'),
+        'field' => 'name',
+        'sort' => 'asc',
+      ],
+      [
+        'data' => $this->t('Manatee ID'),
+        'field' => 'animal_id',
+        'sort' => 'asc',
+      ],
+      [
+        'data' => $this->t('Manatee Number'),
+        'field' => 'mlog',
+        'sort' => 'asc',
+      ],
+      // Weight, Length column without sorting.
+      ['data' => $this->t('Weight, Length')],
+      [
+        'data' => $this->t('County'),
+        'field' => 'county',
+        'sort' => 'asc',
+      ],
+      [
+        'data' => $this->t('Rescue Date'),
+        'field' => 'rescue_date',
+        'sort' => 'desc',
+      ],
+      [
+        'data' => $this->t('Cause of Rescue'),
+        'field' => 'rescue_cause',
+        'sort' => 'asc',
+      ],
+      [
+        'data' => $this->t('Time in Captivity'),
+        'field' => 'time_in_captivity',
+        'sort' => 'desc',
+      ],
+      [
+        'data' => $this->t('Medical Status'),
+        'field' => 'medical_status',
+        'sort' => 'asc',
+      ],
     ];
+
+    // Build rows from sorted data.
+    $rows = [];
+    foreach ($sortable_data as $data) {
+      $rows[] = [
+        'data' => [
+          ['data' => $data['facility_name']],
+          ['data' => $data['name']],
+          ['data' => $data['animal_id']],
+          [
+            'data' => Link::createFromRoute(
+            $data['mlog'],
+            'entity.node.canonical',
+            ['node' => $data['manatee_nid']]
+            ),
+          ],
+          ['data' => $data['weight_length']],
+          ['data' => $data['county']],
+          ['data' => $data['rescue_date']],
+          ['data' => $data['rescue_cause']],
+          ['data' => $data['time_in_captivity']],
+          ['data' => $data['medical_status']],
+        ],
+      ];
+    }
 
     // Build table.
     $table = [
       '#type' => 'table',
       '#header' => $header,
-      '#rows' => array_map(function ($row) {
-        return ['data' => $row['data']];
-      }, $rows),
+      '#rows' => $rows,
       '#empty' => $this->t('No manatees found'),
       '#attributes' => ['class' => ['manatee-report-table']],
+      '#sticky' => TRUE,
     ];
 
     return [
