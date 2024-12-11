@@ -6,7 +6,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Utility\TableSort;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Controller for displaying current captive manatees by facility.
@@ -21,13 +23,23 @@ class CurrentCaptivesController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a CurrentCaptivesController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, RequestStack $request_stack) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->requestStack = $request_stack;
   }
 
   /**
@@ -35,7 +47,8 @@ class CurrentCaptivesController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('request_stack')
     );
   }
 
@@ -328,7 +341,6 @@ class CurrentCaptivesController extends ControllerBase {
         $days_in_captivity = $interval->days;
       }
 
-      // In the rows building section, modify how we create each row:
       if ($rescue_type === 'B' || $rescue_type === 'none') {
         $rows[] = [
           'data' => [
@@ -340,42 +352,128 @@ class CurrentCaptivesController extends ControllerBase {
             ['data' => $days_in_captivity ?? 'N/A'],
             ['data' => $event['organization']],
           ],
-          // Store it here temporarily.
           'data-facility' => $event['organization'],
           'mlog_num' => $mlog_num,
         ];
       }
     }
 
-    // Sort rows.
-    usort($rows, function ($a, $b) {
-      return $a['mlog_num'] - $b['mlog_num'];
-    });
-
-    // Prepare table headers.
+    // Prepare table headers with sorting.
     $header = [
-      $this->t('MLog'),
-      $this->t('Name'),
-      $this->t('Animal ID'),
-      $this->t('Event'),
-      $this->t('Event Date'),
-      $this->t('# Days in Captivity'),
-      $this->t('Facility'),
+      'mlog' => [
+        'data' => $this->t('MLog'),
+        'field' => 'mlog',
+        'sort' => 'asc',
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+      ],
+      'name' => [
+        'data' => $this->t('Name'),
+        'field' => 'name',
+        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
+      ],
+      'animal_id' => [
+        'data' => $this->t('Animal ID'),
+        'field' => 'animal_id',
+        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
+      ],
+      'event' => [
+        'data' => $this->t('Event'),
+        'field' => 'event',
+        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
+      ],
+      'event_date' => [
+        'data' => $this->t('Event Date'),
+        'field' => 'event_date',
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+      ],
+      'days_captive' => [
+        'data' => $this->t('# Days in Captivity'),
+        'field' => 'days_captive',
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+      ],
+      'facility' => [
+        'data' => $this->t('Facility'),
+        'field' => 'facility',
+        'class' => [RESPONSIVE_PRIORITY_LOW],
+      ],
     ];
 
-    // Build table.
+    // Get current request for table sort.
+    $request = $this->requestStack->getCurrentRequest();
+
+    // Get the sort parameters using TableSort.
+    $order = TableSort::getOrder($header, $request);
+    $sort = TableSort::getSort($header, $request);
+    $dir = ($sort == 'desc') ? SORT_DESC : SORT_ASC;
+
+    // Sort rows based on the selected column.
+    if (isset($order['sql'])) {
+      $field = $order['sql'];
+
+      // Create a comparison function based on the selected field.
+      $compare = function ($a, $b) use ($field, $dir) {
+        $a_val = '';
+        $b_val = '';
+
+        switch ($field) {
+          case 'mlog':
+            $a_val = $a['mlog_num'];
+            $b_val = $b['mlog_num'];
+            break;
+
+          case 'name':
+            $a_val = strtolower($a['data'][1]['data']);
+            $b_val = strtolower($b['data'][1]['data']);
+            break;
+
+          case 'animal_id':
+            $a_val = strtolower($a['data'][2]['data']);
+            $b_val = strtolower($b['data'][2]['data']);
+            break;
+
+          case 'event':
+            $a_val = strtolower($a['data'][3]['data']);
+            $b_val = strtolower($b['data'][3]['data']);
+            break;
+
+          case 'event_date':
+            $a_val = strtotime($a['data'][4]['data']);
+            $b_val = strtotime($b['data'][4]['data']);
+            break;
+
+          case 'days_captive':
+            $a_val = is_numeric($a['data'][5]['data']) ? (int) $a['data'][5]['data'] : PHP_INT_MAX;
+            $b_val = is_numeric($b['data'][5]['data']) ? (int) $b['data'][5]['data'] : PHP_INT_MAX;
+            break;
+
+          case 'facility':
+            $a_val = strtolower($a['data'][6]['data']);
+            $b_val = strtolower($b['data'][6]['data']);
+            break;
+        }
+
+        if ($a_val == $b_val) {
+          return 0;
+        }
+        return ($dir == SORT_ASC ? 1 : -1) * ($a_val < $b_val ? -1 : 1);
+      };
+
+      usort($rows, $compare);
+    }
+
+    // Build table with sorting enabled.
     $table = [
       '#type' => 'table',
       '#header' => $header,
       '#rows' => array_map(function ($row) {
         return [
           'data' => $row['data'],
-        // Set attribute directly at row level.
           'data-facility' => $row['data-facility'],
         ];
       }, $rows),
       '#empty' => $this->t('No manatees found'),
       '#attributes' => ['class' => ['manatee-report-table']],
+      '#sticky' => TRUE,
     ];
 
     return [
