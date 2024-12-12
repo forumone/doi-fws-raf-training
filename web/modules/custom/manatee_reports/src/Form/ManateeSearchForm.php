@@ -173,7 +173,7 @@ class ManateeSearchForm extends FormBase {
     }
 
     $form['filter_options']['collapse']['body']['tag_type'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Tag Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getTagTypes(),
       '#default_value' => 'All',
@@ -205,7 +205,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['location']['county'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('County'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getCounties(),
       '#default_value' => 'All',
@@ -221,7 +221,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['location']['state'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('State'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getStates(),
       '#default_value' => 'All',
@@ -240,7 +240,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['event']['event_type'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Event'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getEventTypes(),
       '#default_value' => 'All',
@@ -278,7 +278,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['event_detail']['rescue_type'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Rescue Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueTypes(),
       '#default_value' => 'All',
@@ -286,7 +286,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['event_detail']['rescue_cause'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Rescue Cause'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueCauses(),
       '#default_value' => 'All',
@@ -294,7 +294,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['event_detail']['organization'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Organization'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getOrganizations(),
       '#default_value' => 'All',
@@ -302,7 +302,7 @@ class ManateeSearchForm extends FormBase {
     ];
 
     $form['filter_options']['collapse']['body']['event_detail']['cause_of_death'] = [
-      '#type' => 'select',
+      '#type' => 'select2',
       '#title' => $this->t('Cause of Death'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getDeathCauses(),
       '#default_value' => 'All',
