@@ -1,0 +1,20 @@
+#block-findafacilitybottomofnewspages {
+    .image-and-text-large {
+        .layout__region--first {
+            background-color: #2A7C80;
+        }
+    }
+    .block-field-blockblock-contentblock-with-image-and-textinfo {
+        display: none;
+    }
+    .field--name-field-call-to-action {
+        @include simple-btn-white;
+        a {
+            background-color: transparent;
+            box-shadow: none;
+            &:hover {
+                background: transparent;
+            }
+        }
+    } 
+}

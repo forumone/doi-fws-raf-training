@@ -1,0 +1,11 @@
+.content-freeze {
+    padding: 25px;
+    background-color: #fdf8ed;
+    border: 0.0625rem solid gray;
+    margin-bottom: 20px;
+    @include container-block;
+
+    h2, p{
+        color: #734c00 !important;
+    }
+}

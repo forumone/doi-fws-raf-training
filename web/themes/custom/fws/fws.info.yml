@@ -1,0 +1,46 @@
+name: FWS
+type: theme
+description: FWS base theme
+package: FWS
+core_version_requirement: ^9 || ^10
+libraries:
+  - fws/global-styling
+  - fws/fontawesome
+  - fws/owlcarousel
+
+libraries-extend:
+  bootstrap/framework:
+    - fws/framework
+
+libraries-override:
+  we_megamenu/form.we-mega-menu-frontend:
+    css:
+      theme:
+        #this removes this library as we are already compiling bootstrap css and don't need it twice
+        assets/includes/bootstrap/css/bootstrap.min.css: false
+    js:
+      assets/js/we_megamenu_frontend.js: js/we_megamenu_frontend.js
+      assets/js/we_mobile_menu.js: js/we_mobile_menu.js
+
+  
+
+base theme: bootstrap
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  banner: 'Banner'
+  content: 'Content'
+  full_width_content: 'Full width content (After main content)'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer_left: 'Footer Left Half'
+  footer_right_left: 'Footer Right Half  (left side)'
+  footer_right_middle: 'Footer Right Half (middle)'
+  footer_right_right: 'Footer Right Half (right side)'
+  footer_bottom: 'Footer bottom'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'

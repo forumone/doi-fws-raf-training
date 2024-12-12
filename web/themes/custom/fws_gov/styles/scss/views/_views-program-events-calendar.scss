@@ -1,0 +1,41 @@
+.view-program-events-calendar-view-list-view {
+  .view-filters {
+    .form--inline {
+      display: flex;
+      align-items: center;
+	  }
+
+    .form-item-field-event-date-value-max,
+    .form-item-field-event-date-value-min {
+      display: none;
+    }
+
+    .form-item-field-event-category-target-id {
+      .form-select {
+        min-width: 160px;
+  	  }
+    }
+
+    #slider-range {
+      max-width: 260px;
+	    width: 100%;
+	  }
+    .view-heading {
+	    position: relative;
+	    display: flex;
+	    align-items: center;
+	    min-height: 42px;
+	    border-radius: 2px;
+	    padding: 2px 10px;
+	    border: 1px solid $input-border;
+	    @include font($font-size-deck-md, 400, $font-family-base, 1, $select-list-text-color);
+	    @include icon('\f107', 16px, 900, 1, $icon-default-bg-color, after);
+
+	    &:after {
+		    @include absolute(50%, auto, auto, 15px);
+  	    transform: translateY(-50%);
+  	    z-index: -1;
+      }
+    }
+  }
+}

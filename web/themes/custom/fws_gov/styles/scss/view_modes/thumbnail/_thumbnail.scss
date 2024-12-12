@@ -1,0 +1,42 @@
+//this is the basis for the view mode "thumbnail" 
+.species.thumbnail-view-mode {
+    max-width: 100%;
+    position: relative;
+    @include tablet {
+      max-width: 210px;
+    }
+
+    .field--name-field-banner-slideshow, .field--name-field-representative-image {
+      a {
+
+        &:after {
+          content: '';
+          @include absolute(0, 0, 0, 0);
+          background: $color-black-gradient;
+        }
+
+        img {
+          @include mobile-down {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+    
+
+
+    .block-field-blocknodespeciestitle {
+      @include absolute(auto, 0, 0, 0);
+      z-index: 1;
+      padding: 20px;
+      a {
+        @include font(22px, 400, $font-family-base, 1.3, $color-white);
+        span {
+          font-style: italic;
+        }
+      }
+      
+    }
+}

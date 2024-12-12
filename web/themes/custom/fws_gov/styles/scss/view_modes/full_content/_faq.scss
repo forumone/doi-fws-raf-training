@@ -1,0 +1,5 @@
+article.faq.full {
+    .field--name-field-plaintext-description {
+        @include h2;
+    }
+}

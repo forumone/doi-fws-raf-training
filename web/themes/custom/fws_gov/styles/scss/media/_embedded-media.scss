@@ -1,0 +1,121 @@
+//captioned images will use <figure>
+figure {
+    &.align-left {
+        margin-right: 20px;
+    }
+    &.align-right {
+        margin-left: 20px;
+    } 
+
+    &.align-right, &.align-left, &.align-center {
+        margin-bottom: 20px;
+        @include mobile-xs {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+.embedded-media-image, .embedded-video {
+    &.align-left {
+        margin-right: 20px;
+    }
+    &.align-right {
+        margin-left: 20px;
+    }
+
+    &.align-right, &.align-left, &.align-center {
+        margin-bottom: 20px;
+        @include mobile-xs {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    //this is necessary so ckeditor's WYSIWYG preview shows nicely
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+}
+
+.embedded-video.token {
+    width: 100%;
+}
+
+.one_third_width_image {
+    max-width: 50%;
+    width: 50%;
+
+    @include mobile-xs {
+        max-width: 100%;
+        width: 100%;
+    }
+    @include desktop {
+        max-width: 33.33%;
+        width: 33.33%;
+    }
+}
+
+//this rule is only for when editing things in ckeditor
+.cke_editable {
+    .one_third_width_image {
+        max-width: 33.33%;
+    }
+}
+
+.half_width_image {
+    max-width: 50%;
+    height: auto;
+    width: 50%;
+
+    @include mobile-xs {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.two_third_width_image {
+    max-width: 66.66%;
+    width: 66.66%;
+
+    @include mobile-xs {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+//its possible to select an alignment option but still pick full width
+// if this is the case we want to negate the margin left and right
+.full_width_image {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+figcaption {
+    margin-top: 7px;
+    margin-bottom: 20px;
+}
+
+//handling of Video embeds
+.field--name-field-media-oembed-video {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 74.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+
+     /* Then style the iframe to fit in the container div with full height and width */
+    .media-oembed-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+  }

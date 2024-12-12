@@ -1,0 +1,13 @@
+article.species-population.full {
+    .field {
+        margin-bottom: 15px;
+
+        .field--label {
+            margin: 0;
+        }
+    }
+
+    .field--name-field-related-species {
+        @include h2;
+    }
+}

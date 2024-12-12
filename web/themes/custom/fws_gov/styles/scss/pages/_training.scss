@@ -1,0 +1,8 @@
+.view-id-course_category_cards {
+    .view-content {
+        @include card-wrapper-settings();
+        .views-row {
+            @include card-settings();
+        }
+    }
+}

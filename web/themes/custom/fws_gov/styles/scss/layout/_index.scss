@@ -1,0 +1,11 @@
+//import all files from the scss/layout directory
+@import 'general';
+@import 'mimetypes';
+@import 'layout-one-column';
+@import 'layout-two-column';
+@import 'layout-three-column';
+@import 'layout_builder_helper_styles';
+@import 'tabular-results';
+@import 'change_view_mode_by_num_references';
+@import 'print';
+@import 'fws-document-link';

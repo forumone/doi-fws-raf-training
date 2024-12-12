@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a two-column layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if content %}
+  <div{{ attributes.addClass('tabular-result--row') }}>
+    <div class="tabular-result--row--inner">
+    {% if content.first %}
+      <div {{ region_attributes.first.addClass('tabular-result--row--content') }}>
+        {{ content.first }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

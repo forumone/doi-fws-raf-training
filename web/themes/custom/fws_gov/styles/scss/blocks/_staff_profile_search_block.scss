@@ -1,0 +1,64 @@
+.block-fws-staff-profile-search-block,
+.block-fws-volunteer,
+.block-fws-species-search-block,
+.block-fws-library-document-search-block, 
+.block-fws-education-program-search-block,
+.block-fws-policy-search-block,
+.block-fws-services-search-block {
+    
+    #fws-volunteer-find-form,
+    #fws-service-search-form {
+        margin-top:20px;
+    }
+
+    #fws-staff-profile-search-form,
+    #fws-library-document-search-form,
+    #fws-education-program-search-form, 
+    #fws-volunteer-find-form,
+    #fws-species-search-form,
+    #fws-policy-search-form,
+    #fws-service-search-form {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .form-item-profile-search, 
+    .form-item-program-search, 
+    .form-item-document-search,
+    .form-item-search-text,
+    .form-item-term-search,
+    .form-item-search-text {
+        flex: 1;
+        margin-bottom: 0px;
+        label {
+            display: none;
+        }
+
+        input.form-control {
+            border-radius: 4px 0px 0px 4px;
+        }
+    }
+
+    .form-submit {
+        width: 150px;
+        border-radius: 0px 4px 4px 0px;
+        border: none;
+        height: 36px;
+        box-shadow: none;
+
+        @include mobile-xs {
+            width: 115px;
+        }
+    }
+
+    .intro-text {
+        flex-basis: 100%;
+        margin-bottom: 25px;
+    }
+    .search-direct-link {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        flex-basis: 100%;
+    }
+}

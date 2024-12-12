@@ -1,0 +1,58 @@
+article.project.full {
+
+    .field--name-field-short-title {
+        @include h2;
+        margin-top: 0px;
+    }
+
+    .field--name-field-sub-title {
+        @include h3;
+        margin-top: 11px;
+    }
+
+    .field--label.strong {
+        font-weight: bold;
+    }
+
+    .block-field-blocknodeprojectfield-project-status {
+        margin-bottom: 15px;
+    }
+
+    .block-field-blocknodeprojectfield-subject-tags {
+        margin-top: 20px;
+    }
+
+    .block-field-blocknodeprojectfield-project-category {
+        margin-bottom: 15px;
+        div {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+
+    .block-field-blocknodeprojectfield-subject-tags {
+        border-top: 2px solid #d8d8d8;
+        margin-bottom: 30px;
+
+        .block-title {
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .field--name-field-subject-tags {
+            display: flex;
+            flex-wrap: wrap;
+            .field--item {
+                @include tags-button;
+                margin-right: 15px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .block-field-blocknodeprojectfield-state,
+    .block-field-blocknodeprojectfield-ecosystem {
+        margin-bottom: 10px;
+    }
+}

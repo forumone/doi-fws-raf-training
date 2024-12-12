@@ -1,0 +1,94 @@
+@include desktop {
+    .field--name-field-mime-type  {
+        span {
+            &:before {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+                background: $views-row-bg-accent;
+                border-radius: 50%;
+                text-align: center;
+            }
+
+            &.pdf {
+                @include icon('\f1c1', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.txt, &.rtf {
+                @include icon('\f15c', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.doc {
+                @include icon('\f1c2', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.ppt {
+                @include icon('\f1c4', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.xls {
+                @include icon('\f1c3', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.gif, &.jpg, &.png, &.svg {
+                @include icon('\f1c5', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.zip {
+                @include icon('\f1c6', 18px, 700, 39px, $icon-default-bg-color);
+            }
+
+            &.generic {
+                @include icon('\f15c', 18px, 700, 39px, $icon-default-bg-color);
+            }
+        }
+    
+    }
+
+    div.mini-teaser,
+    article.mini-teaser {
+        .field--name-field-mime-type  {
+            span {
+                &:before {
+                    width: 34px;
+                    height: 34px;
+                    margin-right: 8px;
+                }
+    
+                &.pdf {
+                    @include icon('\f1c1', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.txt, &.rtf {
+                    @include icon('\f15c', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.doc {
+                    @include icon('\f1c2', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.ppt {
+                    @include icon('\f1c4', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.xls {
+                    @include icon('\f1c3', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.gif, &.jpg, &.png, &.svg {
+                    @include icon('\f1c5', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.zip {
+                    @include icon('\f1c6', 16px, 700, 35px, $icon-default-bg-color);
+                }
+    
+                &.generic {
+                    @include icon('\f15c', 16px, 700, 35px, $icon-default-bg-color);
+                }
+            }
+        }
+    }
+}
+
+

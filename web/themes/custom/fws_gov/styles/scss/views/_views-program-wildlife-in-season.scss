@@ -1,0 +1,36 @@
+.view-program-wildlife-in-season {
+  margin-top: 30px;
+
+  .views-field-title {
+    margin: 16px 0;
+    @include tablet {
+      margin: 31px 0 16px;
+    }
+
+    a {
+      @include h3;
+      text-decoration: none;
+    }
+  }
+
+  .pager-nav {
+    .pager {
+      justify-content: center;
+      @include tablet {
+        margin: 44px 0;
+      }
+    }
+
+    .pager__item--previous {
+      @include tablet {
+        margin-right: 90px;
+      }
+    }
+
+    .pager__item--next {
+      @include tablet {
+        margin-left: 90px;
+      }
+    }
+  }
+}

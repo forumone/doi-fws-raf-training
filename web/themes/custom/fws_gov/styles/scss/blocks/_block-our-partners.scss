@@ -1,0 +1,27 @@
+.block-our-partners {
+  margin: 25px auto;
+  @include tablet {
+    margin: 0 auto;
+  }
+
+  .field--name-field-our-partners-reference {
+    display: flex;
+    flex-wrap: wrap;
+    //margin: 17px -17px;
+
+    > .field--item {
+      display: flex;
+      justify-content: center;
+      max-width: 157px;
+      padding: 17px;
+      @include mobile-up {
+        max-width: 164px;
+      }
+    }
+  }
+
+  .field--name-field-title {
+    @include font($font-size-h5, 700, $font-family-base, 1.29);
+    margin-bottom: 11px; 
+  }
+}

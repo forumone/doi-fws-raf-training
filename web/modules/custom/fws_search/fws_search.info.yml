@@ -1,0 +1,7 @@
+name: FWS Search
+type: module
+description: Shared functionality for advanced search components
+core_version_requirement: ^9 || ^10
+package: FWS
+dependencies:
+  - acquia_search:acquia_search

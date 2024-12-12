@@ -1,0 +1,189 @@
+@mixin embellished-page-description {
+    color: #2a7c80;
+    font-size: 17px;
+    font-style: italic;
+    font-family: $font-family-merri;
+    max-width: 650px;
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
+    padding: 20px;
+    padding-top:0;
+}
+
+@mixin plain-page-description {
+  font-size: 1.36em;
+  max-width: 650px;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+  padding-top:0;
+}
+
+@mixin standard-page-description {
+  font-size: 1.3em;
+  padding: 0;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+@mixin hours-table {
+    .field--name-field-title {
+      @include h4;
+    }
+  
+    .field--name-field-hours {
+      .field--item {
+        padding: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+  
+        &:nth-child(odd) {
+          background-color: $table-bg-accent;
+        }
+        .double-field-first {
+          flex-grow: 1;
+          width: 40%;
+          overflow: hidden;
+        }
+        .double-field-second {
+          flex-grow: 1;
+          width: 60%;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  @mixin table-of-files {
+    span.file {
+      > span {
+        background: transparent;
+      }
+      .file-link, .file-size:last-child, .file-icon:first-child {
+        border: none;
+      }
+
+      .file-size {
+        display: none;
+      }
+      .file-icon {
+        margin-right: 5px;
+      }
+      &.file--mime-application-pdf {
+        .file-icon {
+          .icon {
+            @include icon('\f1c1', 18px, 400, 39px, red);
+          }
+        }
+      }
+      &.file--mime-application-zip {
+        .file-icon {
+          .icon {
+            @include icon('\f1c6', 18px, 400, 39px,black);
+          }  
+        }
+      }
+      &.file--mime-application-msword, &.file--mime-application-vnd-openxmlformats-officedocument-wordprocessingml-document {
+        .file-icon {
+          .icon {
+            @include icon('\f1c2', 18px, 400, 39px, blue);
+          }
+        }
+      }
+      &.file--mime-application-vnd-openxmlformats-officedocument-spreadsheetml-sheet {
+        .file-icon {
+          .icon {
+            @include icon('\f1c3', 18px, 400, 39px, green);
+          }
+        }
+      }
+    }
+  }
+
+@mixin card-base {
+    // Uncomment this to limit to the usual card image size, 480px, otherwise mobile-xs will stretch to 100%
+    // max-width:480px;
+    height: 100%;
+    background: $color-white;
+    box-shadow: $popup-shadow;
+    border-radius: 3px;
+
+    @include tablet {
+        margin: 0;
+    }
+
+    @include mobile-xs {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 20px 0;
+    }
+
+    .field--name-field-representative-image,
+    .field--name-field-banner-image,
+    .field--name-field-image {
+        img {
+            border-radius: 3px 3px 0px 0px;
+
+            @include mobile-down {
+              width: 100%;
+            }
+        }
+    }
+
+    .inner-card {
+        .card-title {
+          a {
+            @include font($font-size-deck-lg, 400, $font-family-base, 1.4, $link-color);
+            height: 4.1em;
+            line-height: 1.4em;
+            display: flex;
+            -webkit-line-clamp: 3;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden; 
+            margin-bottom: 15px;
+          }
+        }
+
+        padding: 10px 20px;
+    }
+}
+
+@mixin thumbnail($width, $padding) {
+  width: $width + $padding;
+  padding-right: $padding;
+  margin-bottom: 0px;
+}
+
+@mixin mobile-thumbnail {
+  @include mobile-xs {
+      // width from mockup is 50px, need room for padding
+      @include thumbnail(50px, 10px);
+  }
+}
+
+//this is the copy to clipboard button
+@mixin btn-clipboard() {
+  border-color: #D8D8D8;
+  background-color: #F7F9FB;
+  color: $link-color;
+  box-shadow: none;
+  font-weight: 400;
+  text-transform: none;
+  font-size: 14px;
+  border-width: .5px;
+  border-radius: 0px;
+
+  &:active {
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+
+  }
+}

@@ -1,0 +1,116 @@
+$alert-border-radius-value: 4px;
+$alert-information-bg-color: #EEEEEE;
+$alert-information-icon-bg-color: #444444;
+$alert-warning-bg-color: #FBE8CC;
+$alert-warning-icon-bg-color: #D47500;
+$alert-critical-bg-color: #FCDCDD;
+$alert-critical-icon-bg-color: #CD2026;
+
+
+.view-alert, .view-fws-styles-alerts {
+    .alert {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        border-radius: $alert-border-radius-value;
+        position: relative;
+
+        .views-field-fieldset-2 {
+            flex-basis: 100%;
+        }
+
+        //edit icon for admins
+        .views-field-edit-node {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .alert-icon {
+            height: 100%;
+            flex-basis: 50px;
+            min-width: 50px;
+            border-radius: $alert-border-radius-value 0px 0px $alert-border-radius-value;
+            position: relative;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+
+            .views-field-nid {
+                display: none;
+            }
+            
+        }
+
+        .alert-data {
+            padding: 10px 20px;
+
+            .views-field-field-image {
+                float: none;
+                width: 100%;
+                margin-bottom: 10px;
+
+                @include desktop {
+                    float: left;
+                    margin-right:20px;
+                    margin-bottom: 0px;
+                    width: auto;
+                }
+            }
+
+            .alert-title-body {
+                display: flex;
+                flex-direction: column;
+
+                .views-field-title {
+                    font-size: 22px;
+                    font-weight: 600;
+                }
+
+                .views-field-body {
+                    font-size: 17px;
+                    font-weight: normal;
+
+                    ul {
+                        list-style: disc;
+                        padding-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .alert.information {
+        background-color: $alert-information-bg-color;
+
+        .alert-icon {
+            background-color: $alert-information-icon-bg-color;
+            padding: 5px;
+            @include icon('\f30f', 25px, 700, 39px, $color-white);
+        }
+    }
+
+    .alert.warning {
+        background-color: $alert-warning-bg-color;
+
+        .alert-icon {
+            background-color: $alert-warning-icon-bg-color;
+
+            @include icon('\f321', 25px, 700, 39px, $color-white);
+            align-items: center;
+            
+        }
+    }
+
+    .alert.critical {
+        background-color: $alert-critical-bg-color;
+
+        .alert-icon {
+            background-color: $alert-critical-icon-bg-color;
+
+            @include icon('\f071', 25px, 700, 39px, $color-white);
+            align-items: center;
+            
+        }
+    }
+}

@@ -1,0 +1,21 @@
+// TODO
+// - the @include font in .search-index-title was cut/pasted from
+//   themes/custom/fws/styles/scss/base/elements/_typography.scss
+//   for h4, there is no mixin for h4 yet so no margins, etc. aren't
+//   included below and color, etc. is potentially duplicated.
+article.search-result {
+    >.content>.layout {
+        section.search-index-title a {
+            @include h4;
+        }
+    }
+}
+
+
+@import 'layout';
+@import 'nav';
+@import 'global';
+@import 'facility';
+@import 'images';
+@import 'news';
+@import 'initiatives';

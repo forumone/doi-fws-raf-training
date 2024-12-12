@@ -1,0 +1,41 @@
+article.facility.teaser {
+    .layout--twocol-section {
+        .layout__region--second {
+            .teaser-metadata {
+                .field--name-field-facility-type {
+                    @include desktop {
+                        @include icon('\f041', 18px, 700, 39px, $icon-default-bg-color);
+                        &:before {
+                            width: 40px;
+                            height: 40px;
+                            margin-right: 10px;
+                            background: $views-row-bg-accent;
+                            border-radius: 50%;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .layout__region {
+        .block-field-blocknodefacilityfield-plaintext-description {
+            .field--name-field-plaintext-description p{
+                font-size: 17px;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+        }
+    }
+}
+
+// In the context of the small sidebar in the facility-map app
+// we want to extend the space teaser-metadata--first takes up
+#facility-map-container,
+#species-map-container {
+    article.teaser {
+        .teaser-metadata--first {
+            flex-basis: 100%;
+        }
+    }
+}

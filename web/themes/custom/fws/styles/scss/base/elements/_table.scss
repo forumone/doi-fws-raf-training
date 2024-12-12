@@ -1,0 +1,81 @@
+/** Based on Bootstrap 4.3.1 table styles
+ ** converted to automatically apply to all tables by MJK **/
+ table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #4a4a4a;
+  th, td {
+    padding: 1.3rem .75rem 1.3rem .75rem;
+    vertical-align: top;
+    border-top: 1px solid #d8d8d8;
+  }
+  thead th {
+    vertical-align: top;
+    border-bottom: 2px solid #d8d8d8;
+    font-size:1.32rem;
+    font-weight:700;
+  }
+  tbody + tbody {
+    border-top: 2px solid #d8d8d8;
+  }
+  thead th, thead td {
+    border-bottom-width: 2px;
+  }
+  tbody tr:nth-of-type(odd) {
+    background-color:#f7f9fb;
+  }
+  tbody tr:hover {
+    color: #212529;
+    background-color: #eaf1f2;
+  }
+}
+
+/*
+
+These styles can probably be deleted they are initial styles provided by Limina
+
+.table {
+  thead tr {
+    border-top: 1px solid $border-color;
+
+    th {
+      @include small-caps;
+      padding: 9.5px 10px;
+      border-bottom: 3px solid $border-color;
+      @include tablet {
+        padding: 9.5px 25px;
+      }
+    }
+  }
+
+
+  tbody {
+    tr:nth-of-type(odd):not(:hover) {
+      background: transparent;
+    }
+
+    tr {
+      td {
+        padding: 1px 10px;
+        border-color: $border-color;
+        @include font($font-size-deck-md, 400, $font-family-base, normal, $text-color);
+
+        @include tablet {
+          padding: 1px 25px;
+        }
+
+        a {
+          font-style: italic;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+.table-responsive {
+  @include mobile-down {
+    border: 0 none;
+  }
+}
+*/

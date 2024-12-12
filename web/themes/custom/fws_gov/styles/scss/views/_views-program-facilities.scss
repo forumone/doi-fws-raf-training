@@ -1,0 +1,70 @@
+.view-program-facilities.search-index-views {
+  .views-row {
+
+    .layout__region--second {
+      @include mobile-down {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .search-index-left {
+      display: block;
+      order: 2;
+      .field--name-type {
+        &:before {
+          content: '\f3c5';
+          @include mobile-down {
+            display: none;
+          }
+        }
+      }
+    }
+    .search-index-center {
+      order: 1;
+    }
+
+    .search-index-right {
+      @include mobile-down {
+        display: none;
+      }
+    }
+
+    .views-field-field-phone {
+      a {
+        @include phone-icon;
+        color: $text-color;
+
+        &:before {
+          color: $text-color;
+        }
+      }
+    }
+
+    .email-link {
+      display: none;
+      @include tablet {
+        @include absolute(0, auto, auto, 0);
+        display: block;
+      }
+
+      a {
+        font-size: 0;
+        @include email-icon;
+      }
+    }
+
+    .views-field-field-phone {
+      display: none;
+      @include tablet {
+        @include absolute(auto, auto, 15px, 190px);
+        display: block;
+      }
+    }
+
+    .image-and-deck {
+      .views-field-field-phone {
+        right: 90px;
+      }
+    }
+  }
+}

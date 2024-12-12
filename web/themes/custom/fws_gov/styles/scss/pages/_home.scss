@@ -1,0 +1,30 @@
+.path-frontpage {
+    section.block-views-blockstories-topics-latest-stories {
+        margin-top:20px;
+    }
+    .fws-search-container {
+        .block-fws-search {
+            margin-top:15px;
+        }
+    }
+    section.block-fws-search-appvisit-us-facilities {
+        .search-filters-top {
+            margin: 0px;
+        }
+        .geo_title {
+            margin: 0px; 
+        }
+    }
+    .map-of-all-locations {
+        margin-top: 20px;
+        .attribution {
+            display: none;
+            &.show {
+                display: none !important;
+            } 
+        }
+        .full_width_image {
+            margin-bottom: 0;
+        }
+    }
+}

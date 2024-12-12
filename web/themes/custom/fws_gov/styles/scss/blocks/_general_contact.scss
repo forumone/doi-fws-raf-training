@@ -1,0 +1,35 @@
+//an individual annotated phone paragraph, part of a genreal contact
+.paragraph--type--annotated-phone-number {
+    display: flex;
+
+    .field--name-field-phone {
+        margin-right: 6px;
+
+        @include phone-icon;
+    }
+}
+
+//the broader general contact as a whole
+.paragraph--type--general-contact {
+    margin-bottom: 35px;
+    font-size: 17px;
+
+
+
+    .field--name-field-contact-label {
+        
+        font-weight: bold;
+    }
+
+    .field--name-field-phone-numbers {
+
+        //create some space between label/desc and first phone number
+        > .field--item:first-child {
+            margin-top: 12px;
+        }
+    }
+
+    .field--name-field-email {
+        @include email-icon;
+    }
+}

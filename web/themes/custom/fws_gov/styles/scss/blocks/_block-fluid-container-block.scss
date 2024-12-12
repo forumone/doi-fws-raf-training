@@ -1,0 +1,71 @@
+
+.region-full-width-content {
+    .form-group {
+        margin-bottom: 0;
+    }
+}
+
+//this should work for any bottom block if you create it with views and add 3 fieldsets with these classes
+//you can put whatever fields inside them that you like.
+.container-fluid-block {
+    display: flex;
+    align-items: center;
+    background-color: #003366;
+    flex-direction: column;
+
+    @include mobile-xs {
+        flex-direction: column;
+    }
+    @include tablet {
+        flex-direction: row;
+    }
+
+    .left-side {
+        background-color: #003366;
+        padding: 20px 50px;
+        flex: 0 0 50%;
+        color: white;
+        font-weight: bold;
+        order: 1;
+
+        @include mobile-xs {
+            padding: 20px;
+        }
+
+        @include tablet {
+            order: 0;
+        }
+
+        h2 {
+            color: white;
+        }
+
+        .views-field {
+            margin-bottom: 20px;
+        }
+
+        .simple-btn-white {
+            a {
+                background: transparent;
+
+                &:hover {
+                    background: white;
+                }
+            }
+        }
+        
+    }
+    .right-side {
+        flex: 0 0 50%;
+
+        img {
+            width: 100%;
+
+            @include tablet {
+                width: auto;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

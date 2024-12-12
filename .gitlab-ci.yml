@@ -2,7 +2,7 @@ include: []
 
 variables:
   COMPOSER_MEMORY_LIMIT: -1
-  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"},"http-basic":{"packages.acquia.com":{"username":"${ACQUIA_KEY}","password":"${ACQUIA_SECRET}"}}}'
+  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
   DEBIAN_FRONTEND: noninteractive
 
 stages:
@@ -46,10 +46,9 @@ test:
 
     # Configure Composer authentication for both GitLab and Acquia
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
-    - composer config --global http-basic.packages.acquia.com ${ACQUIA_KEY} ${ACQUIA_SECRET}
 
     # Install Drupal dependencies via Composer
-    - composer install
+    - COMPOSER_IGNORE_PLATFORM_REQS=1 composer install --ignore-platform-req=acquia/fws-gov
 
     # Install Drupal using Drush
     - vendor/bin/drush site:install minimal

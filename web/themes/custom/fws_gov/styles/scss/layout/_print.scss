@@ -1,0 +1,8 @@
+@media print {
+    .block-policy-subject-bread-crumbs, .block-policy-third-level-bread-crumbs {
+        display: none;
+    }
+    .footer, #fba-button.usa-button {
+        display: none !important;
+    }
+}

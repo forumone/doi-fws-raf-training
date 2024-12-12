@@ -220,18 +220,18 @@
         ],
         "post-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws_gov ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "[ -d vendor/acquia/fws-gov/docroot/modules/custom/fws_search ] && cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ],
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws_gov ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "[ -d vendor/acquia/fws-gov/docroot/modules/custom/fws_search ] && cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ]
     }
 }

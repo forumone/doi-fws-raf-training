@@ -1,0 +1,123 @@
+.characteristics-block {
+  padding: 55px 0 65px;
+  background: $block-bg-accent;
+
+  .container {
+    display: flex;
+  }
+
+  h2 {
+    margin-bottom: 31px;
+  }
+
+  .tabs-nav {
+    display: none;
+    max-width: 245px;
+    width: 100%;
+
+    @include tablet {
+      display: block;
+    }
+
+    li {
+      position: relative;
+      width: 100%;
+      margin: 9px 0;
+      padding: 17px 30px 17px 20px;
+      @include font($font-size-base, 700, $font-family-base, 1, $link-color);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .3s;
+      z-index: 1;
+
+      &:after {
+        content: '';
+        @include absolute(0, 0, 0, 0);
+        width: 0;
+        background: #003366;
+        z-index: -1;
+        transition: .3s;
+      }
+
+      &:before {
+        @include absolute(50%, auto, auto, 16px);
+        color: $color-white;
+        transform: translateY(-50%);
+        font: normal normal normal 18px/1 FontAwesome;
+        opacity: 0;
+      }
+
+      &:hover,
+      &.current {
+        color: $color-white;
+
+        &:before {
+          transition-delay: .2s;
+          opacity: 1;
+        }
+
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
+  .tabs-section {
+    @include tablet {
+      width: calc(100% - 245px);
+    }
+
+
+    .block-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 -20px;
+      min-height: 50px;
+      background: $block-title-bg-color;
+      box-shadow: $link-heading;
+      padding: 10px 20px;
+      @include font($font-size-base, 700, $font-family-base, 1, $color-white);
+      @include icon('\f107', 27px, 700, 1, $color-white, after);
+
+      @include tablet {
+        display: none;
+      }
+
+      @include tablet-down {
+        &+div {
+          display: none;
+          padding-bottom: 20px;
+        }
+      }
+    }
+
+    section {
+      margin: 5px 0;
+      padding: 0 20px 0;
+      min-height: 350px;
+      background: $color-white;
+      box-shadow: $popup-shadow;
+
+      @include tablet {
+        margin: 0;
+        padding: 0 30px 20px;
+        display: none;
+      }
+
+      &.current {
+        display: block;
+      }
+
+
+      .field--label,
+      .views-label {
+        display: block;
+        @include h3;
+        margin: 20px 0 16px;
+      }
+    }
+  }
+}

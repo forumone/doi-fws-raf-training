@@ -1,0 +1,156 @@
+@mixin no-height {
+    height: 0px;
+    opacity: 0;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition:all 1s;
+}
+
+@mixin return-height {
+    height: auto;
+    opacity: 1;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition:all 1s;
+}
+
+// this is just a quick/rough stab at styling strictly based on view mode layouts
+.block-field-blocknodespeciesfield-characteristic-categories {
+    >.block-container {
+        >.field--name-field-characteristic-categories {
+            >.field--label {
+                @include h3;
+            }
+        }
+    }
+}
+//closed styling
+.paragraph--type--species-characteristic-category.paragraph--view-mode--default {
+    
+    margin-bottom: 10px;
+    box-shadow: $popup-shadow;
+    >.field--name-field-characteristic-reference {
+        padding: 15px 20px;
+    }
+    >.field--name-field-characteristic-reference {
+        background-color: white;
+        color: #0066cc;
+        font-weight: bold;
+        cursor: pointer;
+        .field--item {
+            text-transform: uppercase;
+            position: relative;
+            font-size: 17px;
+            color: #0066cc;
+            margin-top: 0px;
+            margin-bottom: 0px;
+
+            @include icon('\f078', 18px, 400, 39px, $icon-default-bg-color, 'after');
+
+            &:after {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                font-weight: bold;
+                color: $link-color;
+                color: inherit;
+                line-height: 26px;
+                font-size: 22px;
+            }
+        }
+    }
+    .field--name-field-characteristic-value {
+        margin-bottom: 20px;
+    }
+    >.field--name-field-characteristic-child-ref {
+        @include no-height();
+        font-size: 17px;
+        div , div *{
+            @include no-height();
+        }
+        >.field--items {
+            >.field--item {
+                margin-top: 20px;
+                &:first-of-type {
+                    margin-top: 0px;
+                }
+            }
+        }
+
+    }
+
+    .paragraph--type--species-sub-characteristic.paragraph--view-mode--default {
+        margin: 10px;
+        padding-left: 10px;
+        .field--name-field-characteristic-reference {
+            font-weight: bold;
+        }
+    }
+
+}
+
+//this is outside the characteristics category cause this styling applies to overview
+//that is pulled out of the categories as well
+.paragraph--type--species-characteristic.paragraph--view-mode--default {
+    >.field--name-field-characteristic-reference {
+        color: $major-heading-color;
+        margin-top: 0px;
+    }
+
+    .field--name-field-characteristic-value {
+        margin-bottom: 20px;
+    }
+    // >.field--name-field-characteristic-child-ref {
+    //     border: 1px dashed #aaa;
+    // }
+    >.field--name-field-characteristic-citation {
+        font-style: italic;
+        font-size: 16px;
+        p {
+            font-size: 16px;
+            font-weight: 200;
+        }
+        
+    }
+}
+
+.paragraph--type--species-characteristic-category.paragraph--view-mode--default.open {
+    >.field--name-field-characteristic-reference,
+    >.field--name-field-characteristic-child-ref {
+        padding: 15px 20px;
+    }
+    >.field--name-field-characteristic-child-ref {
+        @include return-height();
+        div, div * {
+            @include return-height();
+        }
+    }
+    >.field--name-field-characteristic-reference {
+        background-color: $major-heading-color;
+        color: #fff;
+        font-weight: bold;
+        .field--item {
+            text-transform: uppercase;
+            position: relative;
+            font-size: 17px;
+            color: white;
+            margin-top: 0px;
+            margin-bottom: 0px;
+
+            @include icon('\f077', 18px, 400, 39px, $icon-default-bg-color, 'after');
+
+            &:after {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                font-weight: bold;
+                color: $link-color;
+                color: white;
+                line-height: 26px;
+                font-size: 22px;
+            }
+        }
+    }
+}

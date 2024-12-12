@@ -1,0 +1,161 @@
+.one-column-page-description {
+    margin-bottom:40px;
+    @include tablet-down {
+        margin-top: 40px;
+    }
+    p {
+        @include plain-page-description;
+    }
+}
+
+.standard-page-description {
+    @include tablet-down {
+        margin-top: 40px;
+    }
+    .field--name-field-plaintext-description {
+        @include standard-page-description;
+    }
+}
+// Layout Builder Class to not have any margins on the first section on page
+.first-section-on-page {
+    section{
+        margin-top:0;
+        .block-title {
+            margin-top:0;
+        }
+    }
+}
+
+//some layouts require a block to be contained with .block-container acting as a 
+//container inside a block, but others on a page are already contained, and in this
+//case we want to the .block-container to use width auto
+section.block-paragraphs-block.width-auto {
+    > .block-container {
+        width: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+//when using a margin-block class (used on most layout sections) and using 
+// a section with heading type, remove the top margin
+.layout--onecol--with-heading.margin-block,
+.layout--twocol--with-heading.margin-block {
+    margin-top: 0px;
+}
+// Layout Builder Class that should work on any page with an icon block 
+// and a text block, to display an icon next to a embellished text
+.embellished-description-with-icon {
+    margin-bottom:55px;
+    >div {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1170px;
+        justify-content: center;
+
+        section:first-child {
+            width: 100px;
+            padding: 0;
+            margin-left: 0;
+            height: 100px;
+            margin-right: 0;
+            margin-top: 8px;
+            .block-container {
+                width:100px;
+                .field{
+                    width:100px;
+                    svg{
+                        filter: invert(31%) sepia(9%) saturate(4910%) hue-rotate(175deg) brightness(94%) contrast(96%);
+                    }
+                }
+            }
+        }
+        section:not(:first-child) {
+            @include plain-page-description;
+            font-style: normal;
+            text-align: left;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 60px;
+            padding-top:10px;
+            padding-right:20px;
+        }
+    }
+}
+.title-field-heading-2 {
+    .block-title {
+        @include h2;
+    }
+}
+
+.title-field-as-field-label {
+    .block-title {
+        @include field--label;
+        margin-top: 0px;
+    }
+}
+
+.page-title {
+    @include h1;
+}
+
+.heading-3 {
+    @include h3;
+
+    .field--label {
+        display: inline-block;
+        color: $major-heading-color;
+        font-weight: 600;
+    }
+
+    .field--item {
+        display: inline-block;
+    }
+}
+
+//this should be used when you have a section that needs to be full width
+//for example for a background to go bleeding edge, but you want it's immediate child
+//div to be contained by normal bootstrap size rules
+.container-children {
+    > div,
+    > .layout__region--content {
+        @include container-block;
+    }
+}
+
+.box-shadow {
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.padding-top {
+    padding-top: 33px;
+}
+
+.two-column-padded {
+    .layout__region--first {
+        padding-right: 25px;
+    }
+
+    .layout__region--second {
+        padding-left: 25px;
+    } 
+    //if teaesers are used inside 2 column padded, don't add more padding, not needed.
+    article.teaser {
+        .layout__region--first {
+            padding-right: 0px;
+        }
+        .layout__region--second {
+            padding-left: 0px;
+        } 
+    }
+}
+
+.fluid-width-contained {
+    > .block-container {
+        @include container-block;
+    }
+}
+.padding-bottom-25 {
+    padding-bottom: 25px;
+}
