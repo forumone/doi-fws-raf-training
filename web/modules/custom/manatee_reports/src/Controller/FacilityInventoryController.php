@@ -636,7 +636,6 @@ class FacilityInventoryController extends ControllerBase {
       '#rows' => $rows,
       '#empty' => $this->t('No manatees found'),
       '#attributes' => ['class' => ['manatee-report-table']],
-      '#sticky' => TRUE,
     ];
 
     return [
