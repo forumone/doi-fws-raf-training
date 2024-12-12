@@ -48,7 +48,7 @@ test:
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
 
     # Install Drupal dependencies via Composer
-    - COMPOSER_IGNORE_PLATFORM_REQS=1 composer install --ignore-platform-req=acquia/fws-gov
+    - composer install
 
     # Install Drupal using Drush
     - vendor/bin/drush site:install minimal

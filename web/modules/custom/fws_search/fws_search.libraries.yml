@@ -1,5 +1,0 @@
-retain_search_keywords:
-  js:
-    js/retain_search_keywords.js: {}
-  dependencies:
-    - core/jquery

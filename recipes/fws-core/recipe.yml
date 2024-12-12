@@ -109,7 +109,6 @@ install:
   - fws
   - fws_gov
   - fws_raf
-  - fws_search
 
 config:
   import:

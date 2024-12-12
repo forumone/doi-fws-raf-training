@@ -4,7 +4,6 @@
     "license": "GPL-2.0-or-later",
     "type": "project",
     "require": {
-        "acquia/fws-gov": "*",
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.7",
         "drupal/acquia_search": "^3.1",
@@ -75,18 +74,6 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "acquia/fws-gov",
-                "version": "2024-12-10",
-                "source": {
-                    "type": "git",
-                    "url": "doifws@svn-37631.prod.hosting.acquia.com:doifws.git",
-                    "reference": "tags/2024-12-10"
-                }
-            }
         },
         {
             "type": "package",
@@ -219,19 +206,13 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws_gov ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "[ -d vendor/acquia/fws-gov/docroot/modules/custom/fws_search ] && cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "[ -d vendor/acquia/fws-gov/docroot/themes/custom/fws_gov ] && cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "[ -d vendor/acquia/fws-gov/docroot/modules/custom/fws_search ] && cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ]
     }
 }
