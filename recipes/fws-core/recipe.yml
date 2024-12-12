@@ -102,6 +102,7 @@ install:
   - paragraphs
   - paragraphs_features
   - paragraphs_ee
+  - select2
   - viewfield
 
   # Custom
@@ -159,6 +160,7 @@ config:
     paragraphs_features: '*'
     redirect: '*'
     responsive_image: '*'
+    select2: '*'
     svg_image: '*'
     svg_image_responsive: '*'
     taxonomy_access_fix: '*'

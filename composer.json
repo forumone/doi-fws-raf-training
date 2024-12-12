@@ -4,6 +4,7 @@
     "license": "GPL-2.0-or-later",
     "type": "project",
     "require": {
+        "acquia/fws-gov": "*",
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.7",
         "drupal/acquia_search": "^3.1",
@@ -37,6 +38,7 @@
         "drupal/quiz": "^6.0@alpha",
         "drupal/redirect": "^1.9",
         "drupal/rules": "^4.0",
+        "drupal/select2": "^1.15",
         "drupal/social_media_links": "^2.10",
         "drupal/svg_image_responsive": "^3.0",
         "drupal/taxonomy_access_fix": "^4.0",
@@ -54,7 +56,6 @@
         "kenwheeler/slick": "^1.8.1",
         "oomphinc/composer-installers-extender": "^2.0",
         "owlcarousel2/owlcarousel2": "^2.3.4",
-        "promet/fws-gov": "dev-promet",
         "select2/select2": "4.0.10",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
@@ -78,12 +79,12 @@
         {
             "type": "package",
             "package": {
-                "name": "promet/fws-gov",
-                "version": "dev-promet",
+                "name": "acquia/fws-gov",
+                "version": "2024-12-10",
                 "source": {
                     "type": "git",
-                    "url": "https://gitlab.djcase.com/promet/fws-gov.git",
-                    "reference": "promet"
+                    "url": "doifws@svn-37631.prod.hosting.acquia.com:doifws.git",
+                    "reference": "tags/2024-12-10"
                 }
             }
         },
@@ -219,18 +220,18 @@
         ],
         "post-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ],
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
-            "cp -r vendor/promet/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
+            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws web/themes/custom/",
+            "cp -r vendor/acquia/fws-gov/docroot/themes/custom/fws_gov web/themes/custom/",
+            "cp -r vendor/acquia/fws-gov/docroot/modules/custom/fws_search web/modules/custom/"
         ]
     }
 }

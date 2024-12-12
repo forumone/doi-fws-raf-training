@@ -808,7 +808,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'access content'
+          perm: 'access manatee reports'
       cache:
         type: tag
         options: {  }
