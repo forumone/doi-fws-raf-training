@@ -2,7 +2,7 @@ include: []
 
 variables:
   COMPOSER_MEMORY_LIMIT: -1
-  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"}}'
+  COMPOSER_AUTH: '{"gitlab-token":{"gitlab.djcase.com":"${CI_JOB_TOKEN}"},"http-basic":{"packages.acquia.com":{"username":"${ACQUIA_KEY}","password":"${ACQUIA_SECRET}"}}}'
   DEBIAN_FRONTEND: noninteractive
 
 stages:
@@ -44,8 +44,9 @@ test:
     - mv composer.phar /usr/local/bin/composer
     - chmod +x /usr/local/bin/composer
 
-    # Configure Composer authentication
+    # Configure Composer authentication for both GitLab and Acquia
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
+    - composer config --global http-basic.packages.acquia.com ${ACQUIA_KEY} ${ACQUIA_SECRET}
 
     # Install Drupal dependencies via Composer
     - composer install
