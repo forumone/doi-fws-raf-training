@@ -173,7 +173,7 @@ class TrackingSearchManager {
           $query->condition('field_number', $condition['value'], '=');
           break;
 
-        case 'field_species_ref':
+        case 'field_species_id':
           $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', 'species_id')
             ->condition('field_species_ref', $condition['value'], '=')
@@ -715,8 +715,8 @@ class TrackingSearchManager {
 
     if (!empty($id_query)) {
       $id_node = $this->entityTypeManager->getStorage('node')->load(reset($id_query));
-      if ($id_node && !$id_node->field_species_ref->isEmpty()) {
-        return $id_node->field_species_ref->value;
+      if ($id_node && !$id_node->field_species_id->isEmpty()) {
+        return $id_node->field_species_id->value;
       }
     }
     return 'N/A';

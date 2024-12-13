@@ -364,7 +364,7 @@ class TrackingSearchForm extends FormBase {
     if (!empty($values['species_id'])) {
       $conditions[] = [
         'type' => 'species_id',
-        'field' => 'field_species_ref',
+        'field' => 'field_species_id',
         'value' => $values['species_id'],
         'operator' => 'CONTAINS',
       ];
