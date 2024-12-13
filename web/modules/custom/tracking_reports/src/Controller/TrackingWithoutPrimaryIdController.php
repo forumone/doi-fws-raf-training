@@ -52,8 +52,8 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
    */
   private function getPrimaryName($species_id) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', $species_id)
       ->condition('field_primary', 1)
       ->accessCheck(FALSE);
 
@@ -77,18 +77,18 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
   private function getNonPrimaryAnimalIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', $species_id)
       ->accessCheck(FALSE);
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
       // Only include IDs that are not marked as primary.
-      if (!$node->field_animal_id->isEmpty() &&
+      if (!$node->field_species_ref_id->isEmpty() &&
           (!$node->hasField('field_primary_id') ||
            $node->field_primary_id->isEmpty() ||
            !$node->field_primary_id->value)) {
-        $ids[] = $node->field_animal_id->value;
+        $ids[] = $node->field_species_ref_id->value;
       }
     }
     return implode(', ', $ids);
@@ -103,7 +103,7 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
   public function content() {
     // First get all species nodes.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
+      ->condition('type', 'species')
       ->accessCheck(FALSE);
 
     $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_query->execute());
@@ -112,8 +112,8 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
     foreach ($species_nodes as $species_entity) {
       // Check if this species has any primary IDs.
       $primary_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_animal_id')
-        ->condition('field_animal', $species_entity->id())
+        ->condition('type', 'species_id')
+        ->condition('field_species_ref', $species_entity->id())
         ->condition('field_primary_id', 1)
         ->accessCheck(FALSE);
 
@@ -121,16 +121,16 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
 
       // If no primary IDs found, add to our results.
       if (!$has_primary) {
-        $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : '';
-        $mlog_link = Link::createFromRoute(
-        $mlog,
+        $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : '';
+        $number_link = Link::createFromRoute(
+        $number,
         'entity.node.canonical',
         ['node' => $species_entity->id()]
         );
 
         $row = [
           'data' => [
-          ['data' => $mlog_link],
+          ['data' => $number_link],
           ['data' => $this->getPrimaryName($species_entity->id())],
           ['data' => $this->getNonPrimaryAnimalIds($species_entity->id())],
           ],

@@ -1,0 +1,23 @@
+uuid: 15ab0dce-6d80-43c5-8a0b-fd9cf4a3447d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_ref
+    - node.type.species_rescue
+id: node.species_rescue.field_species_ref
+field_name: field_species_ref
+entity_type: node
+bundle: species_rescue
+label: Species
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species: species
+field_type: entity_reference

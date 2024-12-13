@@ -1,0 +1,19 @@
+uuid: 0d623059-fe1d-4db7-ba81-6c85db66b41c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_release_site
+    - node.type.species_prerelease
+id: node.species_prerelease.field_release_site
+field_name: field_release_site
+entity_type: node
+bundle: species_prerelease
+label: 'Release Site'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

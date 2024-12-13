@@ -1,0 +1,24 @@
+uuid: ebcda30b-e0db-4838-b99a-314471d58292
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_participating_orgs
+    - node.type.species_release
+    - taxonomy.vocabulary.org
+id: node.species_release.field_participating_orgs
+field_name: field_participating_orgs
+entity_type: node
+bundle: species_release
+label: 'Participating Organizations'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+field_type: entity_reference

@@ -130,7 +130,7 @@ class FacilityInventoryController extends ControllerBase {
     // Get status reports for the species.
     $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'status_report')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
@@ -138,8 +138,8 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($status_query)) {
       $status_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($status_query);
       foreach ($status_nodes as $status_node) {
-        if ($status_node->hasField('field_animal') && !$status_node->field_animal->isEmpty()) {
-          $animal_id = $status_node->field_animal->target_id;
+        if ($status_node->hasField('field_species_ref') && !$status_node->field_species_ref->isEmpty()) {
+          $animal_id = $status_node->field_species_ref->target_id;
           if ($status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
             $health_term = $status_node->field_health->entity;
             if ($health_term && $health_term->hasField('field_health_status')) {
@@ -152,8 +152,8 @@ class FacilityInventoryController extends ControllerBase {
 
     // Get deceased species IDs within the specified year.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_death')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_death')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_death_date', $year_start, '>=')
       ->condition('field_death_date', $year_end, '<=')
       ->accessCheck(FALSE)
@@ -163,16 +163,16 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($death_query)) {
       $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_query);
       foreach ($death_nodes as $death_node) {
-        if ($death_node->hasField('field_animal') && !$death_node->field_animal->isEmpty()) {
-          $deceased_ids[] = $death_node->field_animal->target_id;
+        if ($death_node->hasField('field_species_ref') && !$death_node->field_species_ref->isEmpty()) {
+          $deceased_ids[] = $death_node->field_species_ref->target_id;
         }
       }
     }
 
     // Get release events within the specified year.
     $release_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_release')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_release')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_release_date', $year_start, '>=')
       ->condition('field_release_date', $year_end, '<=')
       ->accessCheck(FALSE)
@@ -182,16 +182,16 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($release_query)) {
       $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_query);
       foreach ($release_nodes as $release_node) {
-        if ($release_node->hasField('field_animal') && !$release_node->field_animal->isEmpty()) {
-          $released_ids[] = $release_node->field_animal->target_id;
+        if ($release_node->hasField('field_species_ref') && !$release_node->field_species_ref->isEmpty()) {
+          $released_ids[] = $release_node->field_species_ref->target_id;
         }
       }
     }
 
     // Get primary names.
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_primary', 1)
       ->accessCheck(FALSE)
       ->execute();
@@ -200,8 +200,8 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($name_query)) {
       $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
       foreach ($name_nodes as $name_node) {
-        if ($name_node->hasField('field_animal') && !$name_node->field_animal->isEmpty()) {
-          $animal_id = $name_node->field_animal->target_id;
+        if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
+          $animal_id = $name_node->field_species_ref->target_id;
           if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
             $primary_names[$animal_id] = $name_node->field_name->value;
           }
@@ -211,8 +211,8 @@ class FacilityInventoryController extends ControllerBase {
 
     // Get animal IDs.
     $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
@@ -220,10 +220,10 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($animal_id_query)) {
       $animal_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($animal_id_query);
       foreach ($animal_id_nodes as $animal_id_node) {
-        if ($animal_id_node->hasField('field_animal') && !$animal_id_node->field_animal->isEmpty()) {
-          $animal_id = $animal_id_node->field_animal->target_id;
-          if ($animal_id_node->hasField('field_animal_id') && !$animal_id_node->field_animal_id->isEmpty()) {
-            $animal_ids[$animal_id] = $animal_id_node->field_animal_id->value;
+        if ($animal_id_node->hasField('field_species_ref') && !$animal_id_node->field_species_ref->isEmpty()) {
+          $animal_id = $animal_id_node->field_species_ref->target_id;
+          if ($animal_id_node->hasField('field_species_ref_id') && !$animal_id_node->field_species_ref_id->isEmpty()) {
+            $animal_ids[$animal_id] = $animal_id_node->field_species_ref_id->value;
           }
         }
       }
@@ -231,8 +231,8 @@ class FacilityInventoryController extends ControllerBase {
 
     // Get rescue events.
     $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_rescue')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_rescue')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_rescue_date', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
@@ -247,8 +247,8 @@ class FacilityInventoryController extends ControllerBase {
       $animal_rescues = [];
 
       foreach ($rescue_nodes as $rescue_node) {
-        if ($rescue_node->hasField('field_animal') && !$rescue_node->field_animal->isEmpty()) {
-          $animal_id = $rescue_node->field_animal->target_id;
+        if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
+          $animal_id = $rescue_node->field_species_ref->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
           $rescue_cause_detail = 'N/A';
@@ -304,8 +304,8 @@ class FacilityInventoryController extends ControllerBase {
     // Get birth dates within the specified year.
     $birth_dates = [];
     $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_birth')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_birth')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_birth_date', NULL, 'IS NOT NULL')
       ->condition('field_birth_date', $year_start, '>=')
       ->condition('field_birth_date', $year_end, '<=')
@@ -315,8 +315,8 @@ class FacilityInventoryController extends ControllerBase {
     if (!empty($birth_query)) {
       $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
       foreach ($birth_nodes as $birth_node) {
-        if ($birth_node->hasField('field_animal') && !$birth_node->field_animal->isEmpty()) {
-          $animal_id = $birth_node->field_animal->target_id;
+        if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
+          $animal_id = $birth_node->field_species_ref->target_id;
           $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
         }
       }
@@ -324,16 +324,16 @@ class FacilityInventoryController extends ControllerBase {
 
     // Define event types.
     $event_types = [
-      'manatee_birth' => 'field_birth_date',
-      'manatee_rescue' => 'field_rescue_date',
+      'species_birth' => 'field_birth_date',
+      'species_rescue' => 'field_rescue_date',
       'transfer' => 'field_transfer_date',
-      'manatee_release' => 'field_release_date',
+      'species_release' => 'field_release_date',
     ];
 
     // Get all species with MLOGs that were active in the specified year.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
-      ->condition('field_mlog', NULL, 'IS NOT NULL');
+      ->condition('type', 'species')
+      ->condition('field_number', NULL, 'IS NOT NULL');
 
     // Exclude species that died or were released before the specified year.
     if (!empty($deceased_ids)) {
@@ -350,8 +350,8 @@ class FacilityInventoryController extends ControllerBase {
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $species_ids, 'IN')
-        ->condition('field_animal', NULL, 'IS NOT NULL')
+        ->condition('field_species_ref', $species_ids, 'IN')
+        ->condition('field_species_ref', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->condition($date_field, $year_start, '>=')
         ->condition($date_field, $year_end, '<=')
@@ -362,8 +362,8 @@ class FacilityInventoryController extends ControllerBase {
       if (!empty($results)) {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
-          if ($node->hasField('field_animal') && !$node->field_animal->isEmpty()) {
-            $animal_id = $node->field_animal->target_id;
+          if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
+            $animal_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
             $facility_term = NULL;
@@ -406,7 +406,7 @@ class FacilityInventoryController extends ControllerBase {
           return strcmp($b['date'], $a['date']);
         });
 
-        if ($event_nodes[$animal_id][0]['type'] !== 'manatee_release') {
+        if ($event_nodes[$animal_id][0]['type'] !== 'species_release') {
           $most_recent_events[$animal_id] = $event_nodes[$animal_id][0];
         }
       }
@@ -423,10 +423,10 @@ class FacilityInventoryController extends ControllerBase {
 
       $event = $most_recent_events[$species_entity->id()];
 
-      $mlog = "N/A";
-      if ($species_entity->hasField('field_mlog') && !$species_entity->field_mlog->isEmpty()) {
-        $mlog_value = $species_entity->get('field_mlog')->getValue();
-        $mlog = $mlog_value[0]['value'] ?? "N/A";
+      $number = "N/A";
+      if ($species_entity->hasField('field_number') && !$species_entity->field_number->isEmpty()) {
+        $number_value = $species_entity->get('field_number')->getValue();
+        $number = $number_value[0]['value'] ?? "N/A";
       }
 
       $rescue_date = isset($latest_rescue_dates[$species_entity->id()])
@@ -478,14 +478,14 @@ class FacilityInventoryController extends ControllerBase {
           'facility_name' => $facility_name,
           'name' => $name,
           'animal_id' => $animal_id,
-          'mlog' => $mlog,
+          'number' => $number,
           'weight_length' => $weight_length,
           'county' => $county,
           'rescue_date' => $rescue_date,
           'rescue_cause' => $rescue_cause_detail,
           'time_in_captivity' => $time_in_captivity,
           'medical_status' => $medical_status,
-          'manatee_nid' => $species_entity->id(),
+          'species_nid' => $species_entity->id(),
         ];
       }
     }
@@ -499,7 +499,7 @@ class FacilityInventoryController extends ControllerBase {
       'facility_name',
       'name',
       'animal_id',
-      'mlog',
+      'number',
       'county',
       'rescue_date',
       'rescue_cause',
@@ -572,7 +572,7 @@ class FacilityInventoryController extends ControllerBase {
       ],
       [
         'data' => $this->t('Species Number'),
-        'field' => 'mlog',
+        'field' => 'number',
         'sort' => 'asc',
       ],
       // Weight, Length column without sorting.
@@ -614,9 +614,9 @@ class FacilityInventoryController extends ControllerBase {
           ['data' => $data['animal_id']],
           [
             'data' => Link::createFromRoute(
-            $data['mlog'],
+            $data['number'],
             'entity.node.canonical',
-            ['node' => $data['manatee_nid']]
+            ['node' => $data['species_nid']]
             ),
           ],
           ['data' => $data['weight_length']],

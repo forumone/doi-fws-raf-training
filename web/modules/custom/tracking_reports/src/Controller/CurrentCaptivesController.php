@@ -89,8 +89,8 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Get deceased species IDs.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_death')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_death')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
@@ -98,16 +98,16 @@ class CurrentCaptivesController extends ControllerBase {
     if (!empty($death_query)) {
       $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_query);
       foreach ($death_nodes as $death_node) {
-        if ($death_node->hasField('field_animal') && !$death_node->field_animal->isEmpty()) {
-          $deceased_ids[] = $death_node->field_animal->target_id;
+        if ($death_node->hasField('field_species_ref') && !$death_node->field_species_ref->isEmpty()) {
+          $deceased_ids[] = $death_node->field_species_ref->target_id;
         }
       }
     }
 
     // Get primary names.
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_primary', 1)
       ->accessCheck(FALSE)
       ->execute();
@@ -116,8 +116,8 @@ class CurrentCaptivesController extends ControllerBase {
     if (!empty($name_query)) {
       $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
       foreach ($name_nodes as $name_node) {
-        if ($name_node->hasField('field_animal') && !$name_node->field_animal->isEmpty()) {
-          $animal_id = $name_node->field_animal->target_id;
+        if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
+          $animal_id = $name_node->field_species_ref->target_id;
           if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
             $primary_names[$animal_id] = $name_node->field_name->value;
           }
@@ -127,8 +127,8 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Get animal IDs.
     $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
@@ -136,10 +136,10 @@ class CurrentCaptivesController extends ControllerBase {
     if (!empty($animal_id_query)) {
       $animal_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($animal_id_query);
       foreach ($animal_id_nodes as $animal_id_node) {
-        if ($animal_id_node->hasField('field_animal') && !$animal_id_node->field_animal->isEmpty()) {
-          $animal_id = $animal_id_node->field_animal->target_id;
-          if ($animal_id_node->hasField('field_animal_id') && !$animal_id_node->field_animal_id->isEmpty()) {
-            $animal_ids[$animal_id] = $animal_id_node->field_animal_id->value;
+        if ($animal_id_node->hasField('field_species_ref') && !$animal_id_node->field_species_ref->isEmpty()) {
+          $animal_id = $animal_id_node->field_species_ref->target_id;
+          if ($animal_id_node->hasField('field_species_ref_id') && !$animal_id_node->field_species_ref_id->isEmpty()) {
+            $animal_ids[$animal_id] = $animal_id_node->field_species_ref_id->value;
           }
         }
       }
@@ -147,8 +147,8 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Get rescue events.
     $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_rescue')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_rescue')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_rescue_date', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
@@ -160,8 +160,8 @@ class CurrentCaptivesController extends ControllerBase {
       $animal_rescues = [];
 
       foreach ($rescue_nodes as $rescue_node) {
-        if ($rescue_node->hasField('field_animal') && !$rescue_node->field_animal->isEmpty()) {
-          $animal_id = $rescue_node->field_animal->target_id;
+        if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
+          $animal_id = $rescue_node->field_species_ref->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
           if ($rescue_node->hasField('field_rescue_type') && !$rescue_node->field_rescue_type->isEmpty()) {
@@ -192,8 +192,8 @@ class CurrentCaptivesController extends ControllerBase {
     // Get birth dates.
     $birth_dates = [];
     $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_birth')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_birth')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->condition('field_birth_date', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
@@ -201,8 +201,8 @@ class CurrentCaptivesController extends ControllerBase {
     if (!empty($birth_query)) {
       $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
       foreach ($birth_nodes as $birth_node) {
-        if ($birth_node->hasField('field_animal') && !$birth_node->field_animal->isEmpty()) {
-          $animal_id = $birth_node->field_animal->target_id;
+        if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
+          $animal_id = $birth_node->field_species_ref->target_id;
           $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
         }
       }
@@ -210,16 +210,16 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Define event types.
     $event_types = [
-      'manatee_birth' => 'field_birth_date',
-      'manatee_rescue' => 'field_rescue_date',
+      'species_birth' => 'field_birth_date',
+      'species_rescue' => 'field_rescue_date',
       'transfer' => 'field_transfer_date',
-      'manatee_release' => 'field_release_date',
+      'species_release' => 'field_release_date',
     ];
 
     // Get all species with MLOGs that aren't deceased.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
-      ->condition('field_mlog', NULL, 'IS NOT NULL');
+      ->condition('type', 'species')
+      ->condition('field_number', NULL, 'IS NOT NULL');
 
     if (!empty($deceased_ids)) {
       $species_query->condition('nid', $deceased_ids, 'NOT IN');
@@ -232,8 +232,8 @@ class CurrentCaptivesController extends ControllerBase {
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $species_ids, 'IN')
-        ->condition('field_animal', NULL, 'IS NOT NULL')
+        ->condition('field_species_ref', $species_ids, 'IN')
+        ->condition('field_species_ref', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->accessCheck(FALSE);
 
@@ -242,8 +242,8 @@ class CurrentCaptivesController extends ControllerBase {
       if (!empty($results)) {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
-          if ($node->hasField('field_animal') && !$node->field_animal->isEmpty()) {
-            $animal_id = $node->field_animal->target_id;
+          if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
+            $animal_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
             $organization = '';
@@ -280,7 +280,7 @@ class CurrentCaptivesController extends ControllerBase {
           return strcmp($b['date'], $a['date']);
         });
 
-        if ($event_nodes[$animal_id][0]['type'] !== 'manatee_release') {
+        if ($event_nodes[$animal_id][0]['type'] !== 'species_release') {
           $most_recent_events[$animal_id] = $event_nodes[$animal_id][0];
         }
       }
@@ -299,24 +299,24 @@ class CurrentCaptivesController extends ControllerBase {
 
       $event = $most_recent_events[$species_entity->id()];
 
-      $mlog = "N/A";
-      $mlog_num = PHP_INT_MAX;
-      if ($species_entity->hasField('field_mlog') && !$species_entity->field_mlog->isEmpty()) {
-        $mlog_value = $species_entity->get('field_mlog')->getValue();
-        $mlog = $mlog_value[0]['value'] ?? "N/A";
-        if (preg_match('/(\d+)/', $mlog, $matches)) {
-          $mlog_num = intval($matches[0]);
+      $number = "N/A";
+      $number_num = PHP_INT_MAX;
+      if ($species_entity->hasField('field_number') && !$species_entity->field_number->isEmpty()) {
+        $number_value = $species_entity->get('field_number')->getValue();
+        $number = $number_value[0]['value'] ?? "N/A";
+        if (preg_match('/(\d+)/', $number, $matches)) {
+          $number_num = intval($matches[0]);
         }
       }
 
       // Create a link for the MLOG value.
-      $mlog_link = Link::createFromRoute(
-        $mlog,
+      $number_link = Link::createFromRoute(
+        $number,
         'entity.node.canonical',
         ['node' => $species_entity->id()]
       );
 
-      $event_type = str_replace('manatee_', '', $event['type']);
+      $event_type = str_replace('species_', '', $event['type']);
       $event_type = str_replace('_', ' ', $event_type);
       $event_type = ucfirst($event_type);
 
@@ -344,7 +344,7 @@ class CurrentCaptivesController extends ControllerBase {
       if ($rescue_type === 'B' || $rescue_type === 'none') {
         $rows[] = [
           'data' => [
-            ['data' => $mlog_link],
+            ['data' => $number_link],
             ['data' => $name],
             ['data' => $animal_id],
             ['data' => $event_type],
@@ -353,16 +353,16 @@ class CurrentCaptivesController extends ControllerBase {
             ['data' => $event['organization']],
           ],
           'data-facility' => $event['organization'],
-          'mlog_num' => $mlog_num,
+          'number_num' => $number_num,
         ];
       }
     }
 
     // Prepare table headers with sorting.
     $header = [
-      'mlog' => [
+      'number' => [
         'data' => $this->t('MLog'),
-        'field' => 'mlog',
+        'field' => 'number',
         'sort' => 'asc',
         'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
@@ -416,9 +416,9 @@ class CurrentCaptivesController extends ControllerBase {
         $b_val = '';
 
         switch ($field) {
-          case 'mlog':
-            $a_val = $a['mlog_num'];
-            $b_val = $b['mlog_num'];
+          case 'number':
+            $a_val = $a['number_num'];
+            $b_val = $b['number_num'];
             break;
 
           case 'name':

@@ -1,0 +1,21 @@
+uuid: a781b1bb-c92c-464d-9801-ce361452d4fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bottom_feed
+    - node.type.species_prerelease
+id: node.species_prerelease.field_bottom_feed
+field_name: field_bottom_feed
+entity_type: node
+bundle: species_prerelease
+label: 'Bottom Feed'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

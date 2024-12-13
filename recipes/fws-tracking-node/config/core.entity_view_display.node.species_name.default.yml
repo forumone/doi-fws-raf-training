@@ -1,0 +1,50 @@
+uuid: 5950ae34-8e22-4129-b383-5124cfd4c57b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_name.field_species_ref
+    - field.field.node.species_name.field_name
+    - field.field.node.species_name.field_primary
+    - node.type.species_name
+  module:
+    - user
+id: node.species_name.default
+targetEntityType: node
+bundle: species_name
+mode: default
+content:
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_primary:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

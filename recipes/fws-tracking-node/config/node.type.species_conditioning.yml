@@ -1,0 +1,11 @@
+uuid: 819272a4-f74b-4549-9ac7-3ae3a50da552
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Conditioning'
+type: species_conditioning
+description: 'Stores information associated with the conditioning or training of a species for animal husbandry or scientific purposes.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

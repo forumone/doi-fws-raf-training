@@ -1,0 +1,21 @@
+uuid: f0c59e74-a4f4-4a3e-8e2c-ffe4eb9a968c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.species_release
+id: node.species_release.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: species_release
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings: {  }
+field_type: entity_reference

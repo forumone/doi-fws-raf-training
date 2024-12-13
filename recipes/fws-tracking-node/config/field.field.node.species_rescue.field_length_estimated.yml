@@ -1,0 +1,21 @@
+uuid: b66acbe7-4ecb-4e20-87a4-5d11eab25532
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_estimated
+    - node.type.species_rescue
+id: node.species_rescue.field_length_estimated
+field_name: field_length_estimated
+entity_type: node
+bundle: species_rescue
+label: 'Length Estimated'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,22 @@
+uuid: 6e0290de-751c-48e4-98f3-89bc49aa2a97
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments
+    - node.type.species_prerelease
+  module:
+    - text
+id: node.species_prerelease.field_comments
+field_name: field_comments
+entity_type: node
+bundle: species_prerelease
+label: Comments
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

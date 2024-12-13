@@ -1,0 +1,23 @@
+uuid: d4505d16-0809-4a93-8124-51e860dc6778
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_number
+    - node.type.species
+id: node.species.field_number
+field_name: field_number
+entity_type: node
+bundle: species
+label: Species Number
+description: "Unique ID number for species in Captive\r\nSpecies Database"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

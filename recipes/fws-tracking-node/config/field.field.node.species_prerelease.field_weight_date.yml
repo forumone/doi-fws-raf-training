@@ -1,0 +1,21 @@
+uuid: 07c11b26-402f-468f-8f9b-c94bf76859a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.species_prerelease
+  module:
+    - datetime
+id: node.species_prerelease.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: species_prerelease
+label: 'Weight Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -62,8 +62,8 @@ class PreReleaseReportController extends ControllerBase {
   public function content() {
     // Get all pre-release records.
     $pre_release_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_prerelease')
-      ->condition('field_animal', NULL, 'IS NOT NULL')
+      ->condition('type', 'species_prerelease')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
     $pre_release_ids = $pre_release_query->execute();
@@ -80,8 +80,8 @@ class PreReleaseReportController extends ControllerBase {
     foreach ($pre_release_nodes as $pre_release) {
       // Check if there's a matching release record.
       $release_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_release')
-        ->condition('field_animal', $pre_release->field_animal->target_id)
+        ->condition('type', 'species_release')
+        ->condition('field_species_ref', $pre_release->field_species_ref->target_id)
         ->accessCheck(FALSE);
 
       $release_exists = !empty($release_query->execute());
@@ -92,7 +92,7 @@ class PreReleaseReportController extends ControllerBase {
       }
 
       // Load the associated species entity.
-      $species_entity = $this->entityTypeManager->getStorage('node')->load($pre_release->field_animal->target_id);
+      $species_entity = $this->entityTypeManager->getStorage('node')->load($pre_release->field_species_ref->target_id);
       if (!$species_entity) {
         continue;
       }
@@ -100,17 +100,17 @@ class PreReleaseReportController extends ControllerBase {
       // Load the node author.
       $author = $this->entityTypeManager->getStorage('user')->load($pre_release->getOwnerId());
 
-      $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : 'N/A';
-      $mlog_link = Link::createFromRoute(
-        $mlog,
+      $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A';
+      $number_link = Link::createFromRoute(
+        $number,
         'entity.node.canonical',
         ['node' => $species_entity->id()]
       );
 
       // Get the primary name.
       $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_name')
-        ->condition('field_animal', $species_entity->id())
+        ->condition('type', 'species_name')
+        ->condition('field_species_ref', $species_entity->id())
         ->condition('field_primary', 1)
         ->accessCheck(FALSE)
         ->execute();
@@ -126,7 +126,7 @@ class PreReleaseReportController extends ControllerBase {
       // Build the row.
       $row = [
         'data' => [
-          ['data' => $mlog_link],
+          ['data' => $number_link],
           ['data' => $name],
           ['data' => !$pre_release->field_org->isEmpty() ? $pre_release->field_org->entity->label() : 'N/A'],
           ['data' => !$pre_release->field_release_date->isEmpty() ? $this->dateFormatter->format(strtotime($pre_release->field_release_date->value), 'custom', 'm/d/Y') : 'N/A'],

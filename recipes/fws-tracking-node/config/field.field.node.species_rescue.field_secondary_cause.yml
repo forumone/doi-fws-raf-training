@@ -1,0 +1,23 @@
+uuid: 64e94f75-c3e2-4429-b8fd-506d3b7ac80a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_cause
+    - node.type.species_rescue
+id: node.species_rescue.field_secondary_cause
+field_name: field_secondary_cause
+entity_type: node
+bundle: species_rescue
+label: 'Secondary Cause'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      rescue_cause: rescue_cause
+field_type: entity_reference

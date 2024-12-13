@@ -53,8 +53,8 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   private function getNonPrimaryNames($species_id) {
     $names = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', $species_id)
       ->condition('field_primary', 1, '<>')
       ->accessCheck(FALSE);
 
@@ -79,14 +79,14 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   private function getAllAnimalIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', $species_id)
       ->accessCheck(FALSE);
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
-      if (!$node->field_animal_id->isEmpty()) {
-        $ids[] = $node->field_animal_id->value;
+      if (!$node->field_species_ref_id->isEmpty()) {
+        $ids[] = $node->field_species_ref_id->value;
       }
     }
     return implode(', ', $ids);
@@ -101,7 +101,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   public function content() {
     // First get all species nodes that have associated nodes.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
+      ->condition('type', 'species')
       ->accessCheck(FALSE);
 
     $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_query->execute());
@@ -110,8 +110,8 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
     foreach ($species_nodes as $species_entity) {
       // First check if this species has any name nodes at all.
       $has_names_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_name')
-        ->condition('field_animal', $species_entity->id())
+        ->condition('type', 'species_name')
+        ->condition('field_species_ref', $species_entity->id())
         ->accessCheck(FALSE);
 
       $has_any_names = !empty($has_names_query->execute());
@@ -119,8 +119,8 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
       if ($has_any_names) {
         // Then check if any of those names are primary.
         $primary_name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-          ->condition('type', 'manatee_name')
-          ->condition('field_animal', $species_entity->id())
+          ->condition('type', 'species_name')
+          ->condition('field_species_ref', $species_entity->id())
           ->condition('field_primary', 1)
           ->accessCheck(FALSE);
 
@@ -128,16 +128,16 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
 
         // If no primary names found but has other names, add to our results.
         if (!$has_primary) {
-          $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : '';
-          $mlog_link = Link::createFromRoute(
-            $mlog,
+          $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : '';
+          $number_link = Link::createFromRoute(
+            $number,
             'entity.node.canonical',
             ['node' => $species_entity->id()]
           );
 
           $row = [
             'data' => [
-              ['data' => $mlog_link],
+              ['data' => $number_link],
               ['data' => $this->getNonPrimaryNames($species_entity->id())],
               ['data' => $this->getAllAnimalIds($species_entity->id())],
             ],

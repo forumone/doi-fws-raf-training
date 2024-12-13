@@ -138,7 +138,7 @@ class TrackingSearchForm extends FormBase {
 
     // Individual search fields.
     $individual_fields = [
-      'mlog' => [
+      'number' => [
         'title' => 'MLog',
         'required' => FALSE,
         'maxlength' => 64,
@@ -148,7 +148,7 @@ class TrackingSearchForm extends FormBase {
         'required' => FALSE,
         'maxlength' => 64,
       ],
-      'manatee_name' => [
+      'species_name' => [
         'title' => 'Species Given Name *',
         'required' => FALSE,
         'maxlength' => 128,
@@ -354,34 +354,34 @@ class TrackingSearchForm extends FormBase {
     $conditions = [];
 
     // Individual search parameters.
-    if (!empty($values['mlog'])) {
+    if (!empty($values['number'])) {
       $conditions[] = [
-        'field' => 'field_mlog',
-        'value' => $values['mlog'],
+        'field' => 'field_number',
+        'value' => $values['number'],
       ];
     }
 
     if (!empty($values['animal_id'])) {
       $conditions[] = [
-        'type' => 'manatee_animal_id',
-        'field' => 'field_animal_id',
+        'type' => 'species_id',
+        'field' => 'field_species_ref_id',
         'value' => $values['animal_id'],
         'operator' => 'CONTAINS',
       ];
     }
 
-    if (!empty($values['manatee_name'])) {
+    if (!empty($values['species_name'])) {
       $conditions[] = [
-        'type' => 'manatee_name',
+        'type' => 'species_name',
         'field' => 'field_name',
-        'value' => $values['manatee_name'],
+        'value' => $values['species_name'],
         'operator' => 'CONTAINS',
       ];
     }
 
     if (!empty($values['tag_id'])) {
       $conditions[] = [
-        'type' => 'manatee_tag',
+        'type' => 'species_tag',
         'field' => 'field_tag_id',
         'value' => $values['tag_id'],
         'operator' => 'CONTAINS',
@@ -407,7 +407,7 @@ class TrackingSearchForm extends FormBase {
     // County handling.
     if (!empty($values['county']) && $values['county'] !== 'All') {
       $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_rescue')
+        ->condition('type', 'species_rescue')
         ->condition('field_county', $values['county'])
         ->accessCheck(FALSE)
         ->execute();
@@ -416,8 +416,8 @@ class TrackingSearchForm extends FormBase {
         $species_ids = [];
         $rescues = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
         foreach ($rescues as $rescue) {
-          if (!$rescue->field_animal->isEmpty()) {
-            $species_ids[] = $rescue->field_animal->target_id;
+          if (!$rescue->field_species_ref->isEmpty()) {
+            $species_ids[] = $rescue->field_species_ref->target_id;
           }
         }
 

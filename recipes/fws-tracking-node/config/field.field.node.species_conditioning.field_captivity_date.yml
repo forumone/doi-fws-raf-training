@@ -1,0 +1,21 @@
+uuid: af951840-99ac-4953-b1d3-c571a79ff6e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_captivity_date
+    - node.type.species_conditioning
+  module:
+    - datetime
+id: node.species_conditioning.field_captivity_date
+field_name: field_captivity_date
+entity_type: node
+bundle: species_conditioning
+label: 'Captivity Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -69,14 +69,14 @@ class TrackingWithoutEventsController extends ControllerBase {
   private function getAnimalIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', $species_id)
       ->accessCheck(FALSE);
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
-      if (!$node->field_animal_id->isEmpty()) {
-        $ids[] = $node->field_animal_id->value;
+      if (!$node->field_species_ref_id->isEmpty()) {
+        $ids[] = $node->field_species_ref_id->value;
       }
     }
     return implode(', ', $ids);
@@ -93,8 +93,8 @@ class TrackingWithoutEventsController extends ControllerBase {
    */
   private function getPrimaryName($species_id) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', $species_id)
       ->condition('field_primary', 1)
       ->accessCheck(FALSE);
 
@@ -144,7 +144,7 @@ class TrackingWithoutEventsController extends ControllerBase {
    */
   public function content() {
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
+      ->condition('type', 'species')
       ->accessCheck(FALSE);
 
     $species_ids = $species_query->execute();
@@ -153,12 +153,12 @@ class TrackingWithoutEventsController extends ControllerBase {
     foreach ($species_ids as $species_id) {
       $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'species_birth')
-        ->condition('field_animal', $species_id)
+        ->condition('field_species_ref', $species_id)
         ->accessCheck(FALSE);
 
       $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'species_rescue')
-        ->condition('field_animal', $species_id)
+        ->condition('field_species_ref', $species_id)
         ->accessCheck(FALSE);
 
       if (!empty($birth_query->execute()) || !empty($rescue_query->execute())) {
@@ -170,16 +170,16 @@ class TrackingWithoutEventsController extends ControllerBase {
       $created_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getOwner()->id());
       $updated_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getRevisionUser()->id());
 
-      $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : '';
-      $mlog_link = Link::createFromRoute(
-        $mlog,
+      $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : '';
+      $number_link = Link::createFromRoute(
+        $number,
         'entity.node.canonical',
         ['node' => $species_id]
       );
 
       $row = [
         'data' => [
-          ['data' => $mlog_link],
+          ['data' => $number_link],
           ['data' => $this->getPrimaryName($species_id)],
           ['data' => $this->getAnimalIds($species_id)],
           ['data' => $this->getSpeciesSex($species_entity)],

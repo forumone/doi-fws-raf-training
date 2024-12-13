@@ -1,0 +1,24 @@
+uuid: 017d868a-dfe8-404a-be93-22e620d990aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_ref
+    - node.type.species
+    - node.type.species_release
+id: node.species_release.field_species_ref
+field_name: field_species_ref
+entity_type: node
+bundle: species_release
+label: Species
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      species: species
+field_type: entity_reference

@@ -1,0 +1,23 @@
+uuid: be777d83-0604-4227-a3e7-88d86b2dfb2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length
+    - node.type.species_release
+id: node.species_release.field_length
+field_name: field_length
+entity_type: node
+bundle: species_release
+label: Length
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

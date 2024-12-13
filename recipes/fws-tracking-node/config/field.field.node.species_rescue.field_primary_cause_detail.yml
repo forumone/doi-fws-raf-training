@@ -1,0 +1,22 @@
+uuid: da793064-a198-41dd-bd56-3dbe0e6254a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_cause_detail
+    - node.type.species_rescue
+  module:
+    - text
+id: node.species_rescue.field_primary_cause_detail
+field_name: field_primary_cause_detail
+entity_type: node
+bundle: species_rescue
+label: 'Primary Cause Detail'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

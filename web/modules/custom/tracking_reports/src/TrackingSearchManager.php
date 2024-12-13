@@ -141,11 +141,11 @@ class TrackingSearchManager {
    */
   public function getEventTypes() {
     return [
-      'manatee_birth' => $this->t('Birth'),
-      'manatee_rescue' => $this->t('Rescue'),
+      'species_birth' => $this->t('Birth'),
+      'species_rescue' => $this->t('Rescue'),
       'transfer' => $this->t('Transfer'),
-      'manatee_release' => $this->t('Release'),
-      'manatee_death' => $this->t('Death'),
+      'species_release' => $this->t('Release'),
+      'species_death' => $this->t('Death'),
     ];
   }
 
@@ -160,7 +160,7 @@ class TrackingSearchManager {
    */
   public function searchSpecies(array $criteria) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee')
+      ->condition('type', 'species')
       ->accessCheck(FALSE);
 
     foreach ($criteria as $condition) {
@@ -169,28 +169,28 @@ class TrackingSearchManager {
       }
 
       switch ($condition['field']) {
-        case 'field_mlog':
-          $query->condition('field_mlog', $condition['value'], '=');
+        case 'field_number':
+          $query->condition('field_number', $condition['value'], '=');
           break;
 
-        case 'field_animal_id':
+        case 'field_species_ref_id':
           $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_animal_id')
-            ->condition('field_animal_id', $condition['value'], '=')
+            ->condition('type', 'species_id')
+            ->condition('field_species_ref_id', $condition['value'], '=')
             ->accessCheck(FALSE);
           $animal_ids = $animal_id_query->execute();
 
           if (!empty($animal_ids)) {
             $animal_id_node = $this->entityTypeManager->getStorage('node')->load(reset($animal_ids));
-            if (!$animal_id_node->field_animal->isEmpty()) {
-              $query->condition('nid', $animal_id_node->field_animal->target_id);
+            if (!$animal_id_node->field_species_ref->isEmpty()) {
+              $query->condition('nid', $animal_id_node->field_species_ref->target_id);
             }
           }
           break;
 
         case 'field_name':
           $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_name')
+            ->condition('type', 'species_name')
             ->condition('field_name', '%' . $condition['value'] . '%', 'LIKE')
             ->accessCheck(FALSE);
           $name_matches = $name_query->execute();
@@ -198,8 +198,8 @@ class TrackingSearchManager {
             $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_matches);
             $species_ids = [];
             foreach ($name_nodes as $name_node) {
-              if (!$name_node->field_animal->isEmpty()) {
-                $species_ids[] = $name_node->field_animal->target_id;
+              if (!$name_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $name_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -216,7 +216,7 @@ class TrackingSearchManager {
 
         case 'field_tag_id':
           $tag_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_tag')
+            ->condition('type', 'species_tag')
             ->condition('field_tag_id', $condition['value']);
           $tag_query->accessCheck(FALSE);
           $tag_matches = $tag_query->execute();
@@ -225,8 +225,8 @@ class TrackingSearchManager {
             $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
             $species_ids = [];
             foreach ($tag_nodes as $tag_node) {
-              if (!$tag_node->field_animal->isEmpty()) {
-                $species_ids[] = $tag_node->field_animal->target_id;
+              if (!$tag_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $tag_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -244,9 +244,9 @@ class TrackingSearchManager {
         case 'field_tag_type':
           if (!empty($condition['value']) && $condition['value'] !== 'All') {
             $tag_query = $this->entityTypeManager->getStorage('node')->getQuery()
-              ->condition('type', 'manatee_tag')
+              ->condition('type', 'species_tag')
               ->condition('field_tag_type', $condition['value'])
-              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->condition('field_species_ref', NULL, 'IS NOT NULL')
               ->accessCheck(FALSE);
 
             $tag_matches = $tag_query->execute();
@@ -255,8 +255,8 @@ class TrackingSearchManager {
               $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
               $species_ids = [];
               foreach ($tag_nodes as $tag_node) {
-                if (!$tag_node->field_animal->isEmpty()) {
-                  $species_ids[] = $tag_node->field_animal->target_id;
+                if (!$tag_node->field_species_ref->isEmpty()) {
+                  $species_ids[] = $tag_node->field_species_ref->target_id;
                 }
               }
               if (!empty($species_ids)) {
@@ -274,9 +274,9 @@ class TrackingSearchManager {
 
         case 'field_waterway':
           $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_rescue')
+            ->condition('type', 'species_rescue')
             ->condition('field_waterway', '%' . $condition['value'] . '%', 'LIKE')
-            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->condition('field_species_ref', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
           $rescue_matches = $rescue_query->execute();
@@ -284,8 +284,8 @@ class TrackingSearchManager {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
             $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
-              if (!$rescue_node->field_animal->isEmpty()) {
-                $species_ids[] = $rescue_node->field_animal->target_id;
+              if (!$rescue_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $rescue_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -303,16 +303,16 @@ class TrackingSearchManager {
         case 'type':
           $event_type = $condition['value'];
           $date_fields = [
-            'manatee_birth' => 'field_birth_date',
-            'manatee_rescue' => 'field_rescue_date',
+            'species_birth' => 'field_birth_date',
+            'species_rescue' => 'field_rescue_date',
             'transfer' => 'field_transfer_date',
-            'manatee_release' => 'field_release_date',
-            'manatee_death' => 'field_death_date',
+            'species_release' => 'field_release_date',
+            'species_death' => 'field_death_date',
           ];
 
           $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', $event_type)
-            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->condition('field_species_ref', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
           if (isset($condition['from']) && isset($date_fields[$event_type])) {
@@ -327,8 +327,8 @@ class TrackingSearchManager {
             $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
             $species_ids = [];
             foreach ($event_nodes as $event_node) {
-              if (!$event_node->field_animal->isEmpty()) {
-                $species_ids[] = $event_node->field_animal->target_id;
+              if (!$event_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $event_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -346,9 +346,9 @@ class TrackingSearchManager {
         case 'field_county':
         case 'field_state':
           $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_rescue')
+            ->condition('type', 'species_rescue')
             ->condition('field_state', $condition['value'])
-            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->condition('field_species_ref', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
           $rescue_matches = $rescue_query->execute();
@@ -356,8 +356,8 @@ class TrackingSearchManager {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
             $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
-              if (!$rescue_node->field_animal->isEmpty()) {
-                $species_ids[] = $rescue_node->field_animal->target_id;
+              if (!$rescue_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $rescue_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -375,9 +375,9 @@ class TrackingSearchManager {
         case 'field_rescue_type':
           if (!empty($condition['value']) && $condition['value'] !== 'All') {
             $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-              ->condition('type', 'manatee_rescue')
+              ->condition('type', 'species_rescue')
               ->condition('field_rescue_type', $condition['value'])
-              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->condition('field_species_ref', NULL, 'IS NOT NULL')
               ->accessCheck(FALSE);
 
             $rescue_matches = $rescue_query->execute();
@@ -386,8 +386,8 @@ class TrackingSearchManager {
               $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
               $species_ids = [];
               foreach ($rescue_nodes as $rescue_node) {
-                if (!$rescue_node->field_animal->isEmpty()) {
-                  $species_ids[] = $rescue_node->field_animal->target_id;
+                if (!$rescue_node->field_species_ref->isEmpty()) {
+                  $species_ids[] = $rescue_node->field_species_ref->target_id;
                 }
               }
               if (!empty($species_ids)) {
@@ -405,8 +405,8 @@ class TrackingSearchManager {
 
         case 'field_rescue_cause':
           $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'manatee_rescue')
-            ->condition('field_animal', NULL, 'IS NOT NULL')
+            ->condition('type', 'species_rescue')
+            ->condition('field_species_ref', NULL, 'IS NOT NULL')
             ->accessCheck(FALSE);
 
           $or_group = $rescue_query->orConditionGroup()
@@ -421,8 +421,8 @@ class TrackingSearchManager {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
             $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
-              if (!$rescue_node->field_animal->isEmpty()) {
-                $species_ids[] = $rescue_node->field_animal->target_id;
+              if (!$rescue_node->field_species_ref->isEmpty()) {
+                $species_ids[] = $rescue_node->field_species_ref->target_id;
               }
             }
             if (!empty($species_ids)) {
@@ -439,10 +439,10 @@ class TrackingSearchManager {
 
         case 'field_organization':
           $event_types = [
-            ['type' => 'manatee_birth', 'field' => 'field_org'],
-            ['type' => 'manatee_death', 'field' => 'field_org'],
-            ['type' => 'manatee_release', 'field' => 'field_org'],
-            ['type' => 'manatee_rescue', 'field' => 'field_org'],
+            ['type' => 'species_birth', 'field' => 'field_org'],
+            ['type' => 'species_death', 'field' => 'field_org'],
+            ['type' => 'species_release', 'field' => 'field_org'],
+            ['type' => 'species_rescue', 'field' => 'field_org'],
             ['type' => 'transfer', 'field' => 'field_from_facility'],
             ['type' => 'transfer', 'field' => 'field_to_facility'],
           ];
@@ -452,7 +452,7 @@ class TrackingSearchManager {
             $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
               ->condition('type', $event['type'])
               ->condition($event['field'], $condition['value'])
-              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->condition('field_species_ref', NULL, 'IS NOT NULL')
               ->accessCheck(FALSE);
 
             $event_matches = $event_query->execute();
@@ -460,8 +460,8 @@ class TrackingSearchManager {
               $event_nodes = $this->entityTypeManager->getStorage('node')
                 ->loadMultiple($event_matches);
               foreach ($event_nodes as $event_node) {
-                if (!$event_node->field_animal->isEmpty()) {
-                  $event_queries[] = $event_node->field_animal->target_id;
+                if (!$event_node->field_species_ref->isEmpty()) {
+                  $event_queries[] = $event_node->field_species_ref->target_id;
                 }
               }
             }
@@ -478,9 +478,9 @@ class TrackingSearchManager {
         case 'field_cause_id':
           if (!empty($condition['value']) && $condition['value'] !== 'All') {
             $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
-              ->condition('type', 'manatee_death')
+              ->condition('type', 'species_death')
               ->condition('field_cause_id', $condition['value'])
-              ->condition('field_animal', NULL, 'IS NOT NULL')
+              ->condition('field_species_ref', NULL, 'IS NOT NULL')
               ->accessCheck(FALSE);
 
             $death_matches = $death_query->execute();
@@ -488,8 +488,8 @@ class TrackingSearchManager {
               $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_matches);
               $species_ids = [];
               foreach ($death_nodes as $death_node) {
-                if (!$death_node->field_animal->isEmpty()) {
-                  $species_ids[] = $death_node->field_animal->target_id;
+                if (!$death_node->field_species_ref->isEmpty()) {
+                  $species_ids[] = $death_node->field_species_ref->target_id;
                 }
               }
               if (!empty($species_ids)) {
@@ -520,11 +520,11 @@ class TrackingSearchManager {
    */
   public function getLatestEvent($species_id, $specific_type = NULL) {
     $event_types = [
-      'manatee_birth' => 'field_birth_date',
-      'manatee_rescue' => 'field_rescue_date',
+      'species_birth' => 'field_birth_date',
+      'species_rescue' => 'field_rescue_date',
       'transfer' => 'field_transfer_date',
-      'manatee_release' => 'field_release_date',
-      'manatee_death' => 'field_death_date',
+      'species_release' => 'field_release_date',
+      'species_death' => 'field_death_date',
     ];
 
     if ($specific_type) {
@@ -532,7 +532,7 @@ class TrackingSearchManager {
         $date_field = $event_types[$specific_type];
         $query = $this->entityTypeManager->getStorage('node')->getQuery()
           ->condition('type', $specific_type)
-          ->condition('field_animal', $species_id)
+          ->condition('field_species_ref', $species_id)
           ->condition($date_field, NULL, 'IS NOT NULL')
           ->sort($date_field, 'DESC')
           ->range(0, 1)
@@ -545,7 +545,7 @@ class TrackingSearchManager {
             $date_value = $node->get($date_field)->value;
             $formatted_date = date('m/d/Y', strtotime($date_value));
             return [
-              'type' => ucfirst(str_replace(['manatee_', '_'], ['', ' '], $specific_type)),
+              'type' => ucfirst(str_replace(['species_', '_'], ['', ' '], $specific_type)),
               'date' => $formatted_date,
             ];
           }
@@ -558,7 +558,7 @@ class TrackingSearchManager {
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $species_id)
+        ->condition('field_species_ref', $species_id)
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->sort($date_field, 'DESC')
         ->range(0, 1)
@@ -572,7 +572,7 @@ class TrackingSearchManager {
           $date_value = $node->get($date_field)->value;
           $formatted_date = date('m/d/Y', strtotime($date_value));
           $events[] = [
-            'type' => str_replace('manatee_', '', $type),
+            'type' => str_replace('species_', '', $type),
             'date' => $formatted_date,
           ];
         }
@@ -629,16 +629,16 @@ class TrackingSearchManager {
       $species_id = $species_entity->id();
       $latest_event = $this->getLatestEvent($species_id, $event_type);
 
-      $mlog = $this->getMlog($species_entity);
-      $mlog_link = Link::createFromRoute(
-        $mlog,
+      $number = $this->getMlog($species_entity);
+      $number_link = Link::createFromRoute(
+        $number,
         'entity.node.canonical',
         ['node' => $species_id]
       );
 
       $rows[] = [
         'data' => [
-          ['data' => $mlog_link],
+          ['data' => $number_link],
           ['data' => $this->getPrimaryName($species_id)],
           ['data' => $this->getAnimalId($species_id)],
           ['data' => $latest_event['type']],
@@ -680,7 +680,7 @@ class TrackingSearchManager {
    * Get MLog value for a species.
    */
   public function getMlog($species_entity) {
-    return !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : 'N/A';
+    return !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A';
   }
 
   /**
@@ -688,8 +688,8 @@ class TrackingSearchManager {
    */
   public function getPrimaryName($species_id) {
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_name')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_name')
+      ->condition('field_species_ref', $species_id)
       ->condition('field_primary', 1)
       ->accessCheck(FALSE)
       ->execute();
@@ -708,15 +708,15 @@ class TrackingSearchManager {
    */
   public function getAnimalId($species_id) {
     $id_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $species_id)
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', $species_id)
       ->accessCheck(FALSE)
       ->execute();
 
     if (!empty($id_query)) {
       $id_node = $this->entityTypeManager->getStorage('node')->load(reset($id_query));
-      if ($id_node && !$id_node->field_animal_id->isEmpty()) {
-        return $id_node->field_animal_id->value;
+      if ($id_node && !$id_node->field_species_ref_id->isEmpty()) {
+        return $id_node->field_species_ref_id->value;
       }
     }
     return 'N/A';

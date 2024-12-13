@@ -1,0 +1,19 @@
+uuid: 2a9e86a3-b4c3-41af-bcd1-247e1de296d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_id
+    - node.type.species_id
+id: node.species_id.field_species_id
+field_name: field_species_id
+entity_type: node
+bundle: species_id
+label: 'Species ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
