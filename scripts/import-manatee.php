@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Drush script to import T_Manatee.csv data into manatee content type nodes.
+ * Drush script to import T_Manatee.csv data into species content type nodes.
  * Updates existing nodes if they already exist.
  *
- * Usage: drush scr scripts/import_manatee.php.
+ * Usage: drush scr scripts/import_species.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -24,7 +24,7 @@ $error_count = 0;
 
 // Arrays to hold data for second pass.
 $data_rows = [];
-$mlog_to_nid = [];
+$number_to_nid = [];
 
 // Open CSV file.
 $handle = fopen($csv_file, 'r');
@@ -44,20 +44,20 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
   try {
     // CSV columns from T_Manatee: MLog,Sex,Dam,Sire,Rearing,StudBook,CreateBy,CreateDate,UpdateBy,UpdateDate.
-    [$mlog, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
+    [$number, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
 
     // Check if node already exists.
     $existing_nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadByProperties([
-        'type' => 'manatee',
-        'field_mlog' => $mlog,
+        'type' => 'species',
+        'field_number' => $number,
       ]);
 
     $node_data = [
-      'type' => 'manatee',
-      'title' => "Manatee $mlog",
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'title' => "Manatee $number",
+      'field_number' => $number,
       'field_sex' => [
         'target_id' => get_sex_term_id($sex),
       ],
@@ -76,7 +76,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
-      print("\nUpdating existing manatee node: Manatee $mlog");
+      print("\nUpdating existing species node: Manatee $number");
       $updated_count++;
     }
     else {
@@ -84,14 +84,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       $node_data['uid'] = get_user_id($create_by);
       $node_data['created'] = strtotime($create_date);
       $node = Node::create($node_data);
-      print("\nCreating new manatee node: Manatee $mlog");
+      print("\nCreating new species node: Manatee $number");
       $created_count++;
     }
 
     $node->save();
 
-    // Map 'mlog' to node ID for the second pass.
-    $mlog_to_nid[$mlog] = $node->id();
+    // Map 'number' to node ID for the second pass.
+    $number_to_nid[$number] = $node->id();
 
   }
   catch (EntityStorageException $e) {
@@ -111,15 +111,15 @@ print("\n\nStarting second pass to update 'field_dam' and 'field_sire' fields.\n
 
 foreach ($data_rows as $data) {
   try {
-    [$mlog, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
+    [$number, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
 
-    // Load the node by 'mlog'.
-    $node_id = $mlog_to_nid[$mlog];
+    // Load the node by 'number'.
+    $node_id = $number_to_nid[$number];
     $node = Node::load($node_id);
 
     // Update 'field_dam' and 'field_sire' if they exist in the mapping.
-    $dam_id = $mlog_to_nid[$dam] ?? NULL;
-    $sire_id = $mlog_to_nid[$sire] ?? NULL;
+    $dam_id = $number_to_nid[$dam] ?? NULL;
+    $sire_id = $number_to_nid[$sire] ?? NULL;
 
     if ($dam_id) {
       $node->set('field_dam', ['target_id' => $dam_id]);
@@ -129,15 +129,15 @@ foreach ($data_rows as $data) {
     }
 
     $node->save();
-    print("\nUpdated 'field_dam' and 'field_sire' for Manatee $mlog");
+    print("\nUpdated 'field_dam' and 'field_sire' for Manatee $number");
 
   }
   catch (EntityStorageException $e) {
-    print("\nError updating 'field_dam' and 'field_sire' for Manatee $mlog: " . $e->getMessage());
+    print("\nError updating 'field_dam' and 'field_sire' for Manatee $number: " . $e->getMessage());
     $error_count++;
   }
   catch (Exception $e) {
-    print("\nGeneral error updating 'field_dam' and 'field_sire' for Manatee $mlog: " . $e->getMessage());
+    print("\nGeneral error updating 'field_dam' and 'field_sire' for Manatee $number: " . $e->getMessage());
     $error_count++;
   }
 }

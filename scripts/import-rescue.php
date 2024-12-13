@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Drush script to import data into manatee_rescue content type.
+ * Drush script to import data into species_rescue content type.
  *
- * Usage: drush scr scripts/import_manatee_rescue.php.
+ * Usage: drush scr scripts/import_species_rescue.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -38,7 +38,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     // CSV columns:
     // "MLog","RescueDate","RescuePerDay","State","County","City","Waterway","Latitude","Longitude","Pregnant","Health","RescueType","PrimCauseID","PrimText","SecCauseID","SecText","WhereRel","Dead","Tracker","Transporter","FacTransTo","VetID","PartOrg","FloodGate","Pot","Weight","EstW","WDate","Length","EstL","LDate","Comments","Org","CreateBy","CreateDate","UpdateBy","UpdateDate".
     [
-      $mlog,
+      $number,
       $rescue_date,
       $rescue_per_day,
       $state,
@@ -78,15 +78,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     ] = $data;
 
     // Ensure required fields are present.
-    if (empty($mlog)) {
+    if (empty($number)) {
       throw new Exception("MLog is empty.");
     }
 
     // Prepare node data.
     $node_data = [
-      'type' => 'manatee_rescue',
-      'title' => "Manatee Rescue Entry MLog $mlog",
-      'field_animal' => get_manatee_node_id($mlog),
+      'type' => 'species_rescue',
+      'title' => "Manatee Rescue Entry MLog $number",
+      'field_species_ref' => get_species_node_id($number),
       'field_rescue_date' => parse_date($rescue_date),
       'field_rescue_per_day' => is_numeric($rescue_per_day) ? (int) $rescue_per_day : NULL,
       'field_state' => [
@@ -155,7 +155,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Create new node.
     $node = Node::create($node_data);
-    print("\nCreating new manatee_rescue node: MLog $mlog");
+    print("\nCreating new species_rescue node: MLog $number");
     $created_count++;
 
     $node->save();
@@ -306,18 +306,18 @@ function get_user_id($username) {
 /**
  * Helper function to get Manatee node ID.
  */
-function get_manatee_node_id($mlog) {
+function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {
     return reset($nodes)->id();
   }
 
-  print("\nError: Manatee node with MLog $mlog not found.");
+  print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }

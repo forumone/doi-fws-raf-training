@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_house_animals
-field_name: field_house_animals
+id: taxonomy_term.field_house_species
+field_name: field_house_species
 entity_type: taxonomy_term
 type: boolean
 settings: {  }

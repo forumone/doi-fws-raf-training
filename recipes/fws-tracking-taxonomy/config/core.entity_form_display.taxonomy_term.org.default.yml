@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.org.field_active
-    - field.field.taxonomy_term.org.field_house_animals
+    - field.field.taxonomy_term.org.field_house_species
     - field.field.taxonomy_term.org.field_org_comments
     - field.field.taxonomy_term.org.field_organization
     - field.field.taxonomy_term.org.field_transporter
@@ -32,7 +32,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_house_animals:
+  field_house_species:
     type: boolean_checkbox
     weight: 0
     region: content

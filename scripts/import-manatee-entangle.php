@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Drush script to import data into the manatee_entangle content type.
+ * Drush script to import data into the species_entangle content type.
  *
- * Usage: drush scr scripts/import_manatee_entangle.php.
+ * Usage: drush scr scripts/import_species_entangle.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -70,7 +70,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   }
 
   // Extract variables.
-  $mlog = trim($row['MLog']);
+  $number = trim($row['MLog']);
   $rescue_date = trim($row['RescueDate']);
   $rescue_per_day = trim($row['RescuePerDay']);
   $gear = trim($row['Gear']);
@@ -82,7 +82,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   $update_date = trim($row['UpdateDate']);
 
   // Validate required fields.
-  if (empty($mlog) || empty($rescue_date) || empty($gear)) {
+  if (empty($number) || empty($rescue_date) || empty($gear)) {
     print("\nError: Missing required fields in row $row_count.\n");
     $error_count++;
     continue;
@@ -90,9 +90,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
   try {
     // Get the referenced Manatee node ID.
-    $animal_nid = get_manatee_node_id($mlog);
-    if (is_null($animal_nid)) {
-      print("\nError: Manatee with MLog '$mlog' not found in row $row_count.\n");
+    $species_nid = get_species_node_id($number);
+    if (is_null($species_nid)) {
+      print("\nError: Manatee with MLog '$number' not found in row $row_count.\n");
       $error_count++;
       continue;
     }
@@ -106,23 +106,23 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
 
     // Prepare unique identifier for existing node (e.g., MLog + RescueDate).
-    $unique_key = "$mlog|$parsed_rescue_date";
+    $unique_key = "$number|$parsed_rescue_date";
 
-    // Check if manatee_entangle node already exists.
+    // Check if species_entangle node already exists.
     $existing_nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadByProperties([
-        'type' => 'manatee_entangle',
-        'field_animal' => $animal_nid,
+        'type' => 'species_entangle',
+        'field_species_ref' => $species_nid,
         'field_rescue_date' => $parsed_rescue_date,
       ]);
 
     // Prepare node data.
     $node_data = [
-      'type' => 'manatee_entangle',
-      'title' => "Entanglement Record for MLog $mlog on $parsed_rescue_date",
-      'field_animal' => [
-        'target_id' => $animal_nid,
+      'type' => 'species_entangle',
+      'title' => "Entanglement Record for MLog $number on $parsed_rescue_date",
+      'field_species_ref' => [
+        'target_id' => $species_nid,
       ],
       'field_rescue_date' => [
         'value' => $parsed_rescue_date,
@@ -162,13 +162,13 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
-      print("\nUpdating existing manatee_entangle node (MLog: $mlog, RescueDate: $parsed_rescue_date).\n");
+      print("\nUpdating existing species_entangle node (MLog: $number, RescueDate: $parsed_rescue_date).\n");
       $updated_count++;
     }
     else {
       // Create new node.
       $node = Node::create($node_data);
-      print("\nCreating new manatee_entangle node (MLog: $mlog, RescueDate: $parsed_rescue_date).\n");
+      print("\nCreating new species_entangle node (MLog: $number, RescueDate: $parsed_rescue_date).\n");
       $created_count++;
     }
 
@@ -256,23 +256,23 @@ function get_gear_type_term_id($gear_name) {
 /**
  * Helper function to get Manatee node ID based on MLog.
  *
- * @param string $mlog
+ * @param string $number
  *   The MLog identifier.
  *
  * @return int|null
  *   The node ID or NULL if not found.
  */
-function get_manatee_node_id($mlog) {
-  if (empty($mlog)) {
+function get_species_node_id($number) {
+  if (empty($number)) {
     return NULL;
   }
 
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-  // Ensure 'field_mlog' is the correct field name.
-      'field_mlog' => $mlog,
+      'type' => 'species',
+  // Ensure 'field_number' is the correct field name.
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {

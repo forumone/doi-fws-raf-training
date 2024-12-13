@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: 'Species Conditioning'
 type: species_conditioning
-description: 'Stores information associated with the conditioning or training of a species for animal husbandry or scientific purposes.'
+description: 'Stores information associated with the conditioning or training of a species for species husbandry or scientific purposes.'
 help: null
 new_revision: true
 preview_mode: 1

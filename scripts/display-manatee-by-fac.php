@@ -2,33 +2,33 @@
 
 /**
  * @file
- * Get manatees including those without rescue events.
+ * Get species including those without rescue events.
  */
 
-// First get all deceased manatee IDs to exclude them.
+// First get all deceased species IDs to exclude them.
 $death_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee_death')
-  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->condition('type', 'species_death')
+  ->condition('field_species_ref', NULL, 'IS NOT NULL')
   ->accessCheck(FALSE)
   ->execute();
 
-$deceased_manatee_ids = [];
+$deceased_species_ids = [];
 if (!empty($death_query)) {
   $death_nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadMultiple($death_query);
 
   foreach ($death_nodes as $death_node) {
-    if ($death_node->hasField('field_animal') && !$death_node->field_animal->isEmpty()) {
-      $deceased_manatee_ids[] = $death_node->field_animal->target_id;
+    if ($death_node->hasField('field_species_ref') && !$death_node->field_species_ref->isEmpty()) {
+      $deceased_species_ids[] = $death_node->field_species_ref->target_id;
     }
   }
 }
 
-// Get primary names for all manatees.
+// Get primary names for all species.
 $name_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee_name')
-  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->condition('type', 'species_name')
+  ->condition('field_species_ref', NULL, 'IS NOT NULL')
   ->condition('field_primary', 1)
   ->accessCheck(FALSE)
   ->execute();
@@ -40,33 +40,33 @@ if (!empty($name_query)) {
     ->loadMultiple($name_query);
 
   foreach ($name_nodes as $name_node) {
-    if ($name_node->hasField('field_animal') && !$name_node->field_animal->isEmpty()) {
-      $animal_id = $name_node->field_animal->target_id;
+    if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
+      $species_id = $name_node->field_species_ref->target_id;
       if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-        $primary_names[$animal_id] = $name_node->field_name->value;
+        $primary_names[$species_id] = $name_node->field_name->value;
       }
     }
   }
 }
 
-// Get animal IDs for all manatees.
-$animal_id_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee_animal_id')
-  ->condition('field_animal', NULL, 'IS NOT NULL')
+// Get species IDs for all species.
+$species_id_query = \Drupal::entityQuery('node')
+  ->condition('type', 'species_id')
+  ->condition('field_species_ref', NULL, 'IS NOT NULL')
   ->accessCheck(FALSE)
   ->execute();
 
-$animal_ids = [];
-if (!empty($animal_id_query)) {
-  $animal_id_nodes = \Drupal::entityTypeManager()
+$species_ids = [];
+if (!empty($species_id_query)) {
+  $species_id_nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
-    ->loadMultiple($animal_id_query);
+    ->loadMultiple($species_id_query);
 
-  foreach ($animal_id_nodes as $animal_id_node) {
-    if ($animal_id_node->hasField('field_animal') && !$animal_id_node->field_animal->isEmpty()) {
-      $animal_id = $animal_id_node->field_animal->target_id;
-      if ($animal_id_node->hasField('field_animal_id') && !$animal_id_node->field_animal_id->isEmpty()) {
-        $animal_ids[$animal_id] = $animal_id_node->field_animal_id->value;
+  foreach ($species_id_nodes as $species_id_node) {
+    if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+      $species_id = $species_id_node->field_species_ref->target_id;
+      if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+        $species_ids[$species_id] = $species_id_node->field_species_ref->value;
       }
     }
   }
@@ -74,8 +74,8 @@ if (!empty($animal_id_query)) {
 
 // Get all rescue events to determine rescue types.
 $rescue_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee_rescue')
-  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->condition('type', 'species_rescue')
+  ->condition('field_species_ref', NULL, 'IS NOT NULL')
   ->condition('field_rescue_date', NULL, 'IS NOT NULL')
   ->accessCheck(FALSE)
   ->execute();
@@ -88,45 +88,45 @@ if (!empty($rescue_query)) {
     ->getStorage('node')
     ->loadMultiple($rescue_query);
 
-  // Group rescues by animal ID.
-  $animal_rescues = [];
+  // Group rescues by species ID.
+  $species_rescues = [];
   foreach ($rescue_nodes as $rescue_node) {
-    if ($rescue_node->hasField('field_animal') && !$rescue_node->field_animal->isEmpty()) {
-      $animal_id = $rescue_node->field_animal->target_id;
+    if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
+      $species_id = $rescue_node->field_species_ref->target_id;
       $date = $rescue_node->field_rescue_date->value;
       $rescue_type = '';
       if ($rescue_node->hasField('field_rescue_type') && !$rescue_node->field_rescue_type->isEmpty()) {
         $rescue_type = $rescue_node->field_rescue_type->entity->getName();
       }
 
-      $animal_rescues[$animal_id][] = [
+      $species_rescues[$species_id][] = [
         'date' => $date,
         'type' => $rescue_type,
       ];
 
       // Store Type B rescue dates.
       if ($rescue_type === 'B') {
-        if (!isset($type_b_rescue_dates[$animal_id]) || $date > $type_b_rescue_dates[$animal_id]) {
-          $type_b_rescue_dates[$animal_id] = $date;
+        if (!isset($type_b_rescue_dates[$species_id]) || $date > $type_b_rescue_dates[$species_id]) {
+          $type_b_rescue_dates[$species_id] = $date;
         }
       }
     }
   }
 
-  // Determine most recent rescue type for each animal.
-  foreach ($animal_rescues as $animal_id => $rescues) {
+  // Determine most recent rescue type for each species.
+  foreach ($species_rescues as $species_id => $rescues) {
     usort($rescues, function ($a, $b) {
       return strcmp($b['date'], $a['date']);
     });
-    $rescue_types[$animal_id] = $rescues[0]['type'];
+    $rescue_types[$species_id] = $rescues[0]['type'];
   }
 }
 
-// Get birth dates for all manatees.
+// Get birth dates for all species.
 $birth_dates = [];
 $birth_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee_birth')
-  ->condition('field_animal', NULL, 'IS NOT NULL')
+  ->condition('type', 'species_birth')
+  ->condition('field_species_ref', NULL, 'IS NOT NULL')
   ->condition('field_birth_date', NULL, 'IS NOT NULL')
   ->accessCheck(FALSE)
   ->execute();
@@ -137,40 +137,40 @@ if (!empty($birth_query)) {
     ->loadMultiple($birth_query);
 
   foreach ($birth_nodes as $birth_node) {
-    if ($birth_node->hasField('field_animal') && !$birth_node->field_animal->isEmpty()) {
-      $animal_id = $birth_node->field_animal->target_id;
-      $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
+    if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
+      $species_id = $birth_node->field_species_ref->target_id;
+      $birth_dates[$species_id] = $birth_node->field_birth_date->value;
     }
   }
 }
 
 // Define our event types and their date fields.
 $event_types = [
-  'manatee_birth' => 'field_birth_date',
-  'manatee_rescue' => 'field_rescue_date',
+  'species_birth' => 'field_birth_date',
+  'species_rescue' => 'field_rescue_date',
   'transfer' => 'field_transfer_date',
-  'manatee_release' => 'field_release_date',
+  'species_release' => 'field_release_date',
 ];
 
-// Get all manatees with MLOGs that aren't deceased.
-$manatee_query = \Drupal::entityQuery('node')
-  ->condition('type', 'manatee')
-  ->condition('field_mlog', NULL, 'IS NOT NULL');
+// Get all species with MLOGs that aren't deceased.
+$species_query = \Drupal::entityQuery('node')
+  ->condition('type', 'species')
+  ->condition('field_number', NULL, 'IS NOT NULL');
 
-// Exclude deceased manatees.
-if (!empty($deceased_manatee_ids)) {
-  $manatee_query->condition('nid', $deceased_manatee_ids, 'NOT IN');
+// Exclude deceased species.
+if (!empty($deceased_species_ids)) {
+  $species_query->condition('nid', $deceased_species_ids, 'NOT IN');
 }
 
-$manatee_ids = $manatee_query->accessCheck(FALSE)->execute();
+$species_ids = $species_query->accessCheck(FALSE)->execute();
 
-// Get all events for these manatees.
+// Get all events for these species.
 $event_nodes = [];
 foreach ($event_types as $type => $date_field) {
   $query = \Drupal::entityQuery('node')
     ->condition('type', $type)
-    ->condition('field_animal', $manatee_ids, 'IN')
-    ->condition('field_animal', NULL, 'IS NOT NULL')
+    ->condition('field_species_ref', $species_ids, 'IN')
+    ->condition('field_species_ref', NULL, 'IS NOT NULL')
     ->condition($date_field, NULL, 'IS NOT NULL')
     ->accessCheck(FALSE);
 
@@ -182,8 +182,8 @@ foreach ($event_types as $type => $date_field) {
       ->loadMultiple($results);
 
     foreach ($nodes as $node) {
-      if ($node->hasField('field_animal') && !$node->field_animal->isEmpty()) {
-        $animal_id = $node->field_animal->target_id;
+      if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
+        $species_id = $node->field_species_ref->target_id;
         $date_value = $node->get($date_field)->value;
 
         // Get facility organization information based on event type.
@@ -201,7 +201,7 @@ foreach ($event_types as $type => $date_field) {
           }
         }
 
-        $event_nodes[$animal_id][] = [
+        $event_nodes[$species_id][] = [
           'nid' => $node->id(),
           'type' => $type,
           'date' => $date_value,
@@ -213,53 +213,53 @@ foreach ($event_types as $type => $date_field) {
   }
 }
 
-// Process events to find most recent per animal.
+// Process events to find most recent per species.
 $most_recent_events = [];
-foreach ($manatee_ids as $animal_id) {
-  if (isset($event_nodes[$animal_id])) {
+foreach ($species_ids as $species_id) {
+  if (isset($event_nodes[$species_id])) {
     // Sort events by date descending.
-    usort($event_nodes[$animal_id], function ($a, $b) {
+    usort($event_nodes[$species_id], function ($a, $b) {
       return strcmp($b['date'], $a['date']);
     });
 
     // Skip if most recent event is a release.
-    if ($event_nodes[$animal_id][0]['type'] !== 'manatee_release') {
-      $most_recent_events[$animal_id] = $event_nodes[$animal_id][0];
+    if ($event_nodes[$species_id][0]['type'] !== 'species_release') {
+      $most_recent_events[$species_id] = $event_nodes[$species_id][0];
     }
   }
 }
 
-// Load all qualifying manatees.
-$manatees = \Drupal::entityTypeManager()
+// Load all qualifying species.
+$species = \Drupal::entityTypeManager()
   ->getStorage('node')
-  ->loadMultiple($manatee_ids);
+  ->loadMultiple($species_ids);
 
 // Get current date for days in captivity calculation.
 $current_date = new DateTime();
 
 // Prepare data for sorting.
 $rows = [];
-foreach ($manatees as $manatee) {
+foreach ($species as $specie_entity) {
   // Skip if the most recent event is a release.
-  if (!isset($most_recent_events[$manatee->id()])) {
+  if (!isset($most_recent_events[$specie_entity->id()])) {
     continue;
   }
 
-  $event = $most_recent_events[$manatee->id()];
+  $event = $most_recent_events[$specie_entity->id()];
 
-  // Get mlog value.
-  $mlog = "N/A";
-  $mlog_num = PHP_INT_MAX;
-  if ($manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()) {
-    $mlog_value = $manatee->get('field_mlog')->getValue();
-    $mlog = $mlog_value[0]['value'] ?? "N/A";
-    if (preg_match('/(\d+)/', $mlog, $matches)) {
-      $mlog_num = intval($matches[0]);
+  // Get number value.
+  $number = "N/A";
+  $number_num = PHP_INT_MAX;
+  if ($specie_entity->hasField('field_number') && !$specie_entity->field_number->isEmpty()) {
+    $number_value = $specie_entity->get('field_number')->getValue();
+    $number = $number_value[0]['value'] ?? "N/A";
+    if (preg_match('/(\d+)/', $number, $matches)) {
+      $number_num = intval($matches[0]);
     }
   }
 
   // Format event type for display.
-  $event_type = str_replace('manatee_', '', $event['type']);
+  $event_type = str_replace('species_', '', $event['type']);
   $event_type = str_replace('_', ' ', $event_type);
   $event_type = ucfirst($event_type);
 
@@ -268,23 +268,23 @@ foreach ($manatees as $manatee) {
   $formatted_date = $date->format('Y-m-d');
 
   // Get primary name if it exists.
-  $name = $primary_names[$manatee->id()] ?? '';
+  $name = $primary_names[$specie_entity->id()] ?? '';
 
-  // Get animal ID if it exists.
-  $animal_id = $animal_ids[$manatee->id()] ?? '';
+  // Get species ID if it exists.
+  $species_id = $species_ids[$specie_entity->id()] ?? '';
 
   // Get rescue type if it exists, or mark as none.
-  $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
+  $rescue_type = $rescue_types[$specie_entity->id()] ?? 'none';
 
   // Calculate days in captivity.
   $captivity_date = NULL;
-  if (isset($type_b_rescue_dates[$manatee->id()])) {
+  if (isset($type_b_rescue_dates[$specie_entity->id()])) {
     // Use Type B rescue date if available.
-    $captivity_date = new DateTime($type_b_rescue_dates[$manatee->id()]);
+    $captivity_date = new DateTime($type_b_rescue_dates[$specie_entity->id()]);
   }
-  elseif (isset($birth_dates[$manatee->id()])) {
+  elseif (isset($birth_dates[$specie_entity->id()])) {
     // Use birth date if no Type B rescue.
-    $captivity_date = new DateTime($birth_dates[$manatee->id()]);
+    $captivity_date = new DateTime($birth_dates[$specie_entity->id()]);
   }
 
   $days_in_captivity = NULL;
@@ -295,14 +295,14 @@ foreach ($manatees as $manatee) {
 
   // Only include if either:
   // 1. The most recent rescue is type B
-  // 2. There are no rescues associated with this manatee.
+  // 2. There are no rescues associated with this species.
   if ($rescue_type === 'B' || $rescue_type === 'none') {
     $rows[] = [
-      'nid' => $manatee->id(),
-      'mlog' => $mlog,
-      'mlog_num' => $mlog_num,
+      'nid' => $specie_entity->id(),
+      'number' => $number,
+      'number_num' => $number_num,
       'name' => $name,
-      'animal_id' => $animal_id,
+      'species_id' => $species_id,
       'rescue_type' => $rescue_type,
       'event_type' => $event_type,
       'date' => $formatted_date,
@@ -314,14 +314,14 @@ foreach ($manatees as $manatee) {
 
 // Sort rows by MLOG number.
 usort($rows, function ($a, $b) {
-  return $a['mlog_num'] - $b['mlog_num'];
+  return $a['number_num'] - $b['number_num'];
 });
 
 // Display table with reordered columns.
 echo str_pad("Manatee Nid", 12) . " | "
-   . str_pad("Mlog", 20) . " | "
+   . str_pad("Number", 20) . " | "
    . str_pad("Name", 20) . " | "
-   . str_pad("Animal ID", 15) . " | "
+   . str_pad("Species ID", 15) . " | "
    . str_pad("Event Type", 15) . " | "
    . str_pad("Event Date", 12) . " | "
    . str_pad("Days in Captivity", 17) . " | "
@@ -330,9 +330,9 @@ echo str_repeat("-", 150) . "\n";
 
 foreach ($rows as $row) {
   echo str_pad($row['nid'], 12) . " | "
-     . str_pad(substr($row['mlog'], 0, 19), 20) . " | "
+     . str_pad(substr($row['number'], 0, 19), 20) . " | "
      . str_pad(substr($row['name'], 0, 19), 20) . " | "
-     . str_pad(substr($row['animal_id'], 0, 14), 15) . " | "
+     . str_pad(substr($row['species_id'], 0, 14), 15) . " | "
      . str_pad($row['event_type'], 15) . " | "
      . str_pad($row['date'], 12) . " | "
      . str_pad($row['days_in_captivity'] ?? 'N/A', 17) . " | "
@@ -341,9 +341,9 @@ foreach ($rows as $row) {
 
 // Output summary.
 echo "\nSummary:\n";
-echo "Total manatees found: " . count($rows) . "\n";
-echo "Excluded deceased manatees: " . count($deceased_manatee_ids) . "\n";
-echo "Type B rescue manatees: " . count(array_filter($rows, function ($row) {
+echo "Total species found: " . count($rows) . "\n";
+echo "Excluded deceased species: " . count($deceased_species_ids) . "\n";
+echo "Type B rescue species: " . count(array_filter($rows, function ($row) {
   return $row['rescue_type'] === 'B';
 })) . "\n";
 echo "Manatees with no rescues: " . count(array_filter($rows, function ($row) {

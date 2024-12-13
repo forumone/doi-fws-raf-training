@@ -39,7 +39,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     // "Time","Weight","EstW","WDate","Length","EstL","LDate","VetID","Org",
     // "CreateBy","CreateDate","UpdateBy","UpdateDate".
     [
-      $mlog,
+      $number,
       $req_half_yr,
       $req_year,
       $health,
@@ -62,15 +62,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     ] = $data;
 
     // Ensure required fields are present.
-    if (empty($mlog)) {
+    if (empty($number)) {
       throw new Exception("MLog is empty.");
     }
 
     // Prepare node data.
     $node_data = [
       'type' => 'status_report',
-      'title' => "Status Report Entry MLog $mlog",
-      'field_animal' => get_manatee_node_id($mlog),
+      'title' => "Status Report Entry MLog $number",
+      'field_species_ref' => get_species_node_id($number),
       'field_req_half_yr' => $req_half_yr,
       'field_req_year' => is_numeric($req_year) ? (int) $req_year : NULL,
       'field_health' => [
@@ -107,7 +107,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Create new node.
     $node = Node::create($node_data);
-    print("\nCreating new status_report node: MLog $mlog");
+    print("\nCreating new status_report node: MLog $number");
     $created_count++;
 
     $node->save();
@@ -214,19 +214,19 @@ function get_user_id($username) {
 /**
  * Helper function to get Manatee node ID.
  */
-function get_manatee_node_id($mlog) {
+function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {
     return reset($nodes)->id();
   }
 
-  print("\nError: Manatee node with MLog $mlog not found.");
+  print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }
 

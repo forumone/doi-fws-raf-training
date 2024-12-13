@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_house_animals
+    - field.storage.taxonomy_term.field_house_species
     - taxonomy.vocabulary.org
-id: taxonomy_term.org.field_house_animals
-field_name: field_house_animals
+id: taxonomy_term.org.field_house_species
+field_name: field_house_species
 entity_type: taxonomy_term
 bundle: org
 label: 'Can House Animals'

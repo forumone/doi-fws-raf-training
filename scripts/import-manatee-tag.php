@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Drush script to import data into manatee_tag content type.
+ * Drush script to import data into species_tag content type.
  *
- * Usage: drush scr scripts/import_manatee_tag.php.
+ * Usage: drush scr scripts/import_species_tag.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -38,7 +38,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     // CSV columns:
     // "MLog","TagType","DateApplied","TagId","Info","Event","EventDate","CreateBy","CreateDate","UpdateBy","UpdateDate".
     [
-      $mlog,
+      $number,
       $tag_type,
       $date_applied,
       $tag_id,
@@ -52,15 +52,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     ] = $data;
 
     // Ensure required fields are present.
-    if (empty($mlog)) {
+    if (empty($number)) {
       throw new Exception("MLog is empty.");
     }
 
     // Prepare node data.
     $node_data = [
-      'type' => 'manatee_tag',
-      'title' => "Manatee Tag Entry MLog $mlog",
-      'field_animal' => get_manatee_node_id($mlog),
+      'type' => 'species_tag',
+      'title' => "Manatee Tag Entry MLog $number",
+      'field_species_ref' => get_species_node_id($number),
       'field_tag_type' => [
         'target_id' => get_taxonomy_term_id('tag_type', $tag_type),
       ],
@@ -82,7 +82,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Create new node.
     $node = Node::create($node_data);
-    print("\nCreating new manatee_tag node: MLog $mlog");
+    print("\nCreating new species_tag node: MLog $number");
     $created_count++;
 
     $node->save();
@@ -197,19 +197,19 @@ function get_user_id($username) {
 /**
  * Helper function to get Manatee node ID.
  */
-function get_manatee_node_id($mlog) {
+function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {
     return reset($nodes)->id();
   }
 
-  print("\nError: Manatee node with MLog $mlog not found.");
+  print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }
 

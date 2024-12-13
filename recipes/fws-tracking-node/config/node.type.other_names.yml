@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 name: 'Other Names'
 type: other_names
-description: 'Stores all names associated with a species that are identified in other species databases. For example, an animal may be given a name in the MIPS database'
+description: 'Stores all names associated with a species that are identified in other species databases. For example, an species may be given a name in the MIPS database'
 help: null
 new_revision: true
 preview_mode: 1
