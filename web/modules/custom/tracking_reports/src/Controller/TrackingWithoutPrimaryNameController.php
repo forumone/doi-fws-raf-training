@@ -153,7 +153,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
       '#header' => [
         $this->t('Tracking Number'),
         $this->t('Species Name List (Not Primary)'),
-        $this->t('Animal ID List (All)'),
+        $this->t('Species ID List (All)'),
       ],
       '#rows' => $rows,
       '#empty' => $this->t('No results found without a primary name.'),

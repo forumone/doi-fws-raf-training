@@ -43,14 +43,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       ->getStorage('node')
       ->loadByProperties([
         'type' => 'species_id',
-        'field_species_ref' => $species_id,
+        'field_species_id' => $species_id,
       ]);
 
     // Prepare node data.
     $node_data = [
       'type' => 'species_id',
       'title' => "Species ID $species_id",
-      'field_species_ref' => $species_id,
+      'field_species_id' => $species_id,
       'field_id_type' => [
         'target_id' => get_id_type_term_id($id_type),
       ],

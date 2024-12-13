@@ -1125,7 +1125,7 @@ display:
           field: reverse__node__field_species_ref
           relationship: field_species_ref
           group_type: group
-          admin_label: 'Species ID'
+          admin_label: 'Species Reference'
           entity_type: node
           plugin_id: entity_reverse
           required: true

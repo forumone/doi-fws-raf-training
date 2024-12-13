@@ -10,7 +10,7 @@ id: node.species_id.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: species_id
-label: 'Species ID'
+label: 'Species Reference'
 description: ''
 required: false
 translatable: false

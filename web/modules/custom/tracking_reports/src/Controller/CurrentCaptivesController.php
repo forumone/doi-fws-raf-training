@@ -372,7 +372,7 @@ class CurrentCaptivesController extends ControllerBase {
         'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'species_id' => [
-        'data' => $this->t('Animal ID'),
+        'data' => $this->t('Species ID'),
         'field' => 'species_id',
         'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],

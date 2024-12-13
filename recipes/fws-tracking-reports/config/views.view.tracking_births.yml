@@ -166,10 +166,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_species_ref:
-          id: field_species_ref
-          table: node__field_species_ref
-          field: field_species_ref
+        field_species_id:
+          id: field_species_id
+          table: node__field_species_id
+          field: field_species_id
           relationship: reverse__node__field_species_ref_1
           group_type: group
           admin_label: ''
@@ -886,7 +886,7 @@ display:
           fields:
             field_name: field_name
             field_sex: field_sex
-            field_species_ref: field_species_ref
+            field_species_id: field_species_id
             field_number: field_number
             field_birth_date: field_birth_date
             field_conceive_text: field_conceive_text
@@ -1191,7 +1191,7 @@ display:
           columns:
             field_name: field_name
             field_sex: field_sex
-            field_species_ref: field_species_ref
+            field_species_id: field_species_id
             field_number: field_number
             field_birth_date: field_birth_date
             field_conceive_text: field_conceive_text
@@ -1216,7 +1216,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_species_ref:
+            field_species_id:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1321,7 +1321,7 @@ display:
           field: reverse__node__field_species_ref
           relationship: field_species_ref
           group_type: group
-          admin_label: 'Species ID'
+          admin_label: 'Species Reference'
           entity_type: node
           plugin_id: entity_reverse
           required: true

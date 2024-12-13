@@ -145,7 +145,7 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
       '#header' => [
         $this->t('Tracking Number'),
         $this->t('Primary Name'),
-        $this->t('Animal IDs (Not Primary List)'),
+        $this->t('Species IDs (Not Primary List)'),
       ],
       '#rows' => $rows,
       '#empty' => $this->t('No results found without a primary ID.'),
