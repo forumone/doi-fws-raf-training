@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-rescue'
+      uri: 'internal:/tracking/rescue'
       title: ''
       options: {  }
   external:

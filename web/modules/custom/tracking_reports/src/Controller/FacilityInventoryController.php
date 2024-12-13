@@ -139,11 +139,11 @@ class FacilityInventoryController extends ControllerBase {
       $status_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($status_query);
       foreach ($status_nodes as $status_node) {
         if ($status_node->hasField('field_species_ref') && !$status_node->field_species_ref->isEmpty()) {
-          $animal_id = $status_node->field_species_ref->target_id;
+          $species_id = $status_node->field_species_ref->target_id;
           if ($status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
             $health_term = $status_node->field_health->entity;
             if ($health_term && $health_term->hasField('field_health_status')) {
-              $species_statuses[$animal_id] = $health_term->field_health_status->value;
+              $species_statuses[$species_id] = $health_term->field_health_status->value;
             }
           }
         }
@@ -201,29 +201,29 @@ class FacilityInventoryController extends ControllerBase {
       $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
       foreach ($name_nodes as $name_node) {
         if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
-          $animal_id = $name_node->field_species_ref->target_id;
+          $species_id = $name_node->field_species_ref->target_id;
           if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-            $primary_names[$animal_id] = $name_node->field_name->value;
+            $primary_names[$species_id] = $name_node->field_name->value;
           }
         }
       }
     }
 
-    // Get animal IDs.
-    $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    // Get species IDs.
+    $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
-    $animal_ids = [];
-    if (!empty($animal_id_query)) {
-      $animal_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($animal_id_query);
-      foreach ($animal_id_nodes as $animal_id_node) {
-        if ($animal_id_node->hasField('field_species_ref') && !$animal_id_node->field_species_ref->isEmpty()) {
-          $animal_id = $animal_id_node->field_species_ref->target_id;
-          if ($animal_id_node->hasField('field_species_ref_id') && !$animal_id_node->field_species_ref_id->isEmpty()) {
-            $animal_ids[$animal_id] = $animal_id_node->field_species_ref_id->value;
+    $species_ids = [];
+    if (!empty($species_id_query)) {
+      $species_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_id_query);
+      foreach ($species_id_nodes as $species_id_node) {
+        if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+          $species_id = $species_id_node->field_species_ref->target_id;
+          if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+            $species_ids[$species_id] = $species_id_node->field_species_ref->value;
           }
         }
       }
@@ -244,11 +244,11 @@ class FacilityInventoryController extends ControllerBase {
     $rescue_counties = [];
     if (!empty($rescue_query)) {
       $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
-      $animal_rescues = [];
+      $species_rescues = [];
 
       foreach ($rescue_nodes as $rescue_node) {
         if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
-          $animal_id = $rescue_node->field_species_ref->target_id;
+          $species_id = $rescue_node->field_species_ref->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
           $rescue_cause_detail = 'N/A';
@@ -271,7 +271,7 @@ class FacilityInventoryController extends ControllerBase {
             $county = $rescue_node->field_county->entity->getName();
           }
 
-          $animal_rescues[$animal_id][] = [
+          $species_rescues[$species_id][] = [
             'date' => $date,
             'type' => $rescue_type,
             'cause_detail' => $rescue_cause_detail,
@@ -279,25 +279,25 @@ class FacilityInventoryController extends ControllerBase {
           ];
 
           // Update latest rescue date if this is more recent and store county.
-          if (!isset($latest_rescue_dates[$animal_id]) || $date > $latest_rescue_dates[$animal_id]) {
-            $latest_rescue_dates[$animal_id] = $date;
-            $rescue_counties[$animal_id] = $county;
-            $rescue_cause_details[$animal_id] = $rescue_cause_detail;
+          if (!isset($latest_rescue_dates[$species_id]) || $date > $latest_rescue_dates[$species_id]) {
+            $latest_rescue_dates[$species_id] = $date;
+            $rescue_counties[$species_id] = $county;
+            $rescue_cause_details[$species_id] = $rescue_cause_detail;
           }
 
           if ($rescue_type === 'B') {
-            if (!isset($type_b_rescue_dates[$animal_id]) || $date > $type_b_rescue_dates[$animal_id]) {
-              $type_b_rescue_dates[$animal_id] = $date;
+            if (!isset($type_b_rescue_dates[$species_id]) || $date > $type_b_rescue_dates[$species_id]) {
+              $type_b_rescue_dates[$species_id] = $date;
             }
           }
         }
       }
 
-      foreach ($animal_rescues as $animal_id => $rescues) {
+      foreach ($species_rescues as $species_id => $rescues) {
         usort($rescues, function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
-        $rescue_types[$animal_id] = $rescues[0]['type'];
+        $rescue_types[$species_id] = $rescues[0]['type'];
       }
     }
 
@@ -316,8 +316,8 @@ class FacilityInventoryController extends ControllerBase {
       $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
       foreach ($birth_nodes as $birth_node) {
         if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
-          $animal_id = $birth_node->field_species_ref->target_id;
-          $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
+          $species_id = $birth_node->field_species_ref->target_id;
+          $birth_dates[$species_id] = $birth_node->field_birth_date->value;
         }
       }
     }
@@ -363,7 +363,7 @@ class FacilityInventoryController extends ControllerBase {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
           if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
-            $animal_id = $node->field_species_ref->target_id;
+            $species_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
             $facility_term = NULL;
@@ -384,7 +384,7 @@ class FacilityInventoryController extends ControllerBase {
               $length = $node->field_length->value;
             }
 
-            $event_nodes[$animal_id][] = [
+            $event_nodes[$species_id][] = [
               'nid' => $node->id(),
               'type' => $type,
               'date' => $date_value,
@@ -400,14 +400,14 @@ class FacilityInventoryController extends ControllerBase {
 
     // Process events.
     $most_recent_events = [];
-    foreach ($species_ids as $animal_id) {
-      if (isset($event_nodes[$animal_id])) {
-        usort($event_nodes[$animal_id], function ($a, $b) {
+    foreach ($species_ids as $species_id) {
+      if (isset($event_nodes[$species_id])) {
+        usort($event_nodes[$species_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
 
-        if ($event_nodes[$animal_id][0]['type'] !== 'species_release') {
-          $most_recent_events[$animal_id] = $event_nodes[$animal_id][0];
+        if ($event_nodes[$species_id][0]['type'] !== 'species_release') {
+          $most_recent_events[$species_id] = $event_nodes[$species_id][0];
         }
       }
     }
@@ -434,7 +434,7 @@ class FacilityInventoryController extends ControllerBase {
         : 'N/A';
 
       $name = $primary_names[$species_entity->id()] ?? '';
-      $animal_id = $animal_ids[$species_entity->id()] ?? '';
+      $species_id = $species_ids[$species_entity->id()] ?? '';
       $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
       $rescue_cause_detail = $rescue_cause_details[$species_entity->id()] ?? 'N/A';
       $county = $rescue_counties[$species_entity->id()] ?? 'N/A';
@@ -477,7 +477,7 @@ class FacilityInventoryController extends ControllerBase {
         $sortable_data[] = [
           'facility_name' => $facility_name,
           'name' => $name,
-          'animal_id' => $animal_id,
+          'species_id' => $species_id,
           'number' => $number,
           'weight_length' => $weight_length,
           'county' => $county,
@@ -498,7 +498,7 @@ class FacilityInventoryController extends ControllerBase {
     $valid_sort_fields = [
       'facility_name',
       'name',
-      'animal_id',
+      'species_id',
       'number',
       'county',
       'rescue_date',
@@ -567,7 +567,7 @@ class FacilityInventoryController extends ControllerBase {
       ],
       [
         'data' => $this->t('Species ID'),
-        'field' => 'animal_id',
+        'field' => 'species_id',
         'sort' => 'asc',
       ],
       [
@@ -611,7 +611,7 @@ class FacilityInventoryController extends ControllerBase {
         'data' => [
           ['data' => $data['facility_name']],
           ['data' => $data['name']],
-          ['data' => $data['animal_id']],
+          ['data' => $data['species_id']],
           [
             'data' => Link::createFromRoute(
             $data['number'],

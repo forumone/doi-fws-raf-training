@@ -8,7 +8,7 @@ use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Controller for generating reports of species without a primary animal ID.
+ * Controller for generating reports of species without a primary species ID.
  *
  * This controller identifies species by looking at species nodes
  * and finding cases where there are no primary IDs set for a given species.
@@ -66,13 +66,13 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
   }
 
   /**
-   * Gets all non-primary animal IDs for a species.
+   * Gets all non-primary species IDs for a species.
    *
    * @param int $species_id
    *   The node ID of the species entity.
    *
    * @return string
-   *   Comma-separated list of non-primary animal IDs.
+   *   Comma-separated list of non-primary species IDs.
    */
   private function getNonPrimaryAnimalIds($species_id) {
     $ids = [];
@@ -84,11 +84,11 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
       // Only include IDs that are not marked as primary.
-      if (!$node->field_species_ref_id->isEmpty() &&
+      if (!$node->field_species_ref->isEmpty() &&
           (!$node->hasField('field_primary_id') ||
            $node->field_primary_id->isEmpty() ||
            !$node->field_primary_id->value)) {
-        $ids[] = $node->field_species_ref_id->value;
+        $ids[] = $node->field_species_ref->value;
       }
     }
     return implode(', ', $ids);
@@ -143,7 +143,7 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
     return [
       '#type' => 'table',
       '#header' => [
-        $this->t('MLog'),
+        $this->t('Tracking Number'),
         $this->t('Primary Name'),
         $this->t('Animal IDs (Not Primary List)'),
       ],

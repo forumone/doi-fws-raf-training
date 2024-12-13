@@ -173,17 +173,17 @@ class TrackingSearchManager {
           $query->condition('field_number', $condition['value'], '=');
           break;
 
-        case 'field_species_ref_id':
-          $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+        case 'field_species_ref':
+          $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', 'species_id')
-            ->condition('field_species_ref_id', $condition['value'], '=')
+            ->condition('field_species_ref', $condition['value'], '=')
             ->accessCheck(FALSE);
-          $animal_ids = $animal_id_query->execute();
+          $species_ids = $species_id_query->execute();
 
-          if (!empty($animal_ids)) {
-            $animal_id_node = $this->entityTypeManager->getStorage('node')->load(reset($animal_ids));
-            if (!$animal_id_node->field_species_ref->isEmpty()) {
-              $query->condition('nid', $animal_id_node->field_species_ref->target_id);
+          if (!empty($species_ids)) {
+            $species_id_node = $this->entityTypeManager->getStorage('node')->load(reset($species_ids));
+            if (!$species_id_node->field_species_ref->isEmpty()) {
+              $query->condition('nid', $species_id_node->field_species_ref->target_id);
             }
           }
           break;
@@ -629,7 +629,7 @@ class TrackingSearchManager {
       $species_id = $species_entity->id();
       $latest_event = $this->getLatestEvent($species_id, $event_type);
 
-      $number = $this->getMlog($species_entity);
+      $number = $this->getNumber($species_entity);
       $number_link = Link::createFromRoute(
         $number,
         'entity.node.canonical',
@@ -640,7 +640,7 @@ class TrackingSearchManager {
         'data' => [
           ['data' => $number_link],
           ['data' => $this->getPrimaryName($species_id)],
-          ['data' => $this->getAnimalId($species_id)],
+          ['data' => $this->getSpeciesId($species_id)],
           ['data' => $latest_event['type']],
           ['data' => $latest_event['date']],
         ],
@@ -648,9 +648,9 @@ class TrackingSearchManager {
     }
 
     $header = [
-      $this->t('MLog'),
+      $this->t('Tracking Number'),
       $this->t('Name'),
-      $this->t('Animal ID'),
+      $this->t('Species ID'),
       $this->t('Event'),
       $this->t('Last Event'),
     ];
@@ -677,9 +677,9 @@ class TrackingSearchManager {
   }
 
   /**
-   * Get MLog value for a species.
+   * Get Number value for a species.
    */
-  public function getMlog($species_entity) {
+  public function getNumber($species_entity) {
     return !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A';
   }
 
@@ -704,9 +704,9 @@ class TrackingSearchManager {
   }
 
   /**
-   * Get animal ID for a species.
+   * Get species ID for a species.
    */
-  public function getAnimalId($species_id) {
+  public function getSpeciesId($species_id) {
     $id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', $species_id)
@@ -715,8 +715,8 @@ class TrackingSearchManager {
 
     if (!empty($id_query)) {
       $id_node = $this->entityTypeManager->getStorage('node')->load(reset($id_query));
-      if ($id_node && !$id_node->field_species_ref_id->isEmpty()) {
-        return $id_node->field_species_ref_id->value;
+      if ($id_node && !$id_node->field_species_ref->isEmpty()) {
+        return $id_node->field_species_ref->value;
       }
     }
     return 'N/A';

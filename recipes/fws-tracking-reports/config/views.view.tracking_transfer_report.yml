@@ -1,33 +1,31 @@
-uuid: b5223a1d-de64-4768-9567-bb0038cdee88
+uuid: 1409f8ca-e3ce-4c30-a682-3a33cdbb5248
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_species_id
-    - field.storage.node.field_death_date
-    - field.storage.node.field_euthanasia
     - field.storage.node.field_number
     - field.storage.node.field_name
     - field.storage.node.field_sex
-    - field.storage.taxonomy_term.field_death_location
+    - field.storage.node.field_transfer_date
     - field.storage.taxonomy_term.field_organization
+    - field.storage.taxonomy_term.field_transfer_reason
     - node.type.species_id
-    - node.type.species_death
     - node.type.species_name
+    - node.type.transfer
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
     - datetime
     - node
     - taxonomy
-    - text
     - user
 _core:
-  default_config_hash: L3DF2_7Gbi6kFaD3S0GfjOiJ167JVk-H3NDBnTRAf-M
-id: tracking_deaths
-label: 'Species Deaths'
+  default_config_hash: Y6J0J4ZpmXjCDO6SfbpuYCTCeFTNgYcbKVwMS_h8a2U
+id: tracking_transfer_report
+label: 'Species Transfer Report'
 module: views
-description: 'Species death information.'
+description: 'Species transfer information.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -38,13 +36,13 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Species Deaths'
+      title: 'Species Transfer Report'
       fields:
         field_name:
           id: field_name
           table: node__field_name
           field: field_name
-          relationship: reverse__node__field_species
+          relationship: reverse__node__field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -107,7 +105,7 @@ display:
           id: field_sex
           table: node__field_sex
           field: field_sex
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -170,7 +168,7 @@ display:
           id: field_species_id
           table: node__field_species_id
           field: field_species_id
-          relationship: reverse__node__field_species_1
+          relationship: reverse__node__field_species_ref_1
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -233,7 +231,7 @@ display:
           id: field_number
           table: node__field_number
           field: field_number
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -293,15 +291,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_death_date:
-          id: field_death_date
-          table: node__field_death_date
-          field: field_death_date
+        field_transfer_date:
+          id: field_transfer_date
+          table: node__field_transfer_date
+          field: field_transfer_date
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Date Died'
+          label: 'Transfer Date'
           exclude: false
           alter:
             alter_text: false
@@ -357,15 +355,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_death_location_1:
-          id: field_death_location_1
-          table: taxonomy_term__field_death_location
-          field: field_death_location
-          relationship: field_death_location
+        field_organization:
+          id: field_organization
+          table: taxonomy_term__field_organization
+          field: field_organization
+          relationship: field_from_facility
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Death Occurred'
+          label: 'Present Location'
           exclude: false
           alter:
             alter_text: false
@@ -420,144 +418,78 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        description__value:
-          id: description__value
-          table: taxonomy_term_field_data
-          field: description__value
-          relationship: field_cause_id
-          group_type: group
-          admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: description
-          plugin_id: field
-          label: 'Cause of Death'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: text_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_euthanasia:
-          id: field_euthanasia
-          table: node__field_euthanasia
-          field: field_euthanasia
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Euthanized?'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: default
-            format_custom_false: ''
-            format_custom_true: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_organization:
-          id: field_organization
+        field_organization_1:
+          id: field_organization_1
           table: taxonomy_term__field_organization
           field: field_organization
-          relationship: field_org
+          relationship: field_to_facility
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Rehabilitation Facility'
+          label: 'Proposed Location'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_transfer_reason:
+          id: field_transfer_reason
+          table: taxonomy_term__field_transfer_reason
+          field: field_transfer_reason
+          relationship: field_reason
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Reason for Transfer'
           exclude: false
           alter:
             alter_text: false
@@ -643,7 +575,7 @@ display:
               secondary_open: false
               reset_button_always_show: false
             filter:
-              field_death_date_value:
+              field_transfer_date_value:
                 plugin_id: bef_datepicker
                 advanced:
                   placeholder_text: ''
@@ -651,7 +583,7 @@ display:
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                   hide_label: false
-              field_death_date_value_1:
+              field_transfer_date_value_1:
                 plugin_id: bef_datepicker
                 advanced:
                   placeholder_text: ''
@@ -686,42 +618,23 @@ display:
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                   hide_label: false
-              field_number_value:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_death_location_value:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              description__value:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_euthanasia_value:
-                plugin_id: default
-                advanced:
-                  sort_options: false
-                  rewrite:
-                    filter_rewrite_values: ''
-                    filter_rewrite_values_key: false
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
               field_organization_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_organization_value_1:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_transfer_reason_value:
                 plugin_id: default
                 advanced:
                   placeholder_text: ''
@@ -751,10 +664,10 @@ display:
             format: basic_html
           tokenize: false
       sorts:
-        field_death_date_value:
-          id: field_death_date_value
-          table: node__field_death_date
-          field: field_death_date_value
+        field_transfer_date_value:
+          id: field_transfer_date_value
+          table: node__field_transfer_date
+          field: field_transfer_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -813,10 +726,10 @@ display:
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
-            field_death_date: field_death_date
-            field_death_location_1: field_death_location_1
-            field_euthanasia: field_euthanasia
+            field_transfer_date: field_transfer_date
             field_organization: field_organization
+            field_organization_1: field_organization_1
+            field_transfer_reason: field_transfer_reason
         status:
           id: status
           table: node_field_data
@@ -835,7 +748,7 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            species_death: species_death
+            transfer: transfer
           group: 1
           exposed: false
           expose:
@@ -869,7 +782,7 @@ display:
           id: type_1
           table: node_field_data
           field: type
-          relationship: reverse__node__field_species
+          relationship: reverse__node__field_species_ref
           group_type: group
           admin_label: ''
           entity_type: node
@@ -911,7 +824,7 @@ display:
           id: type_2
           table: node_field_data
           field: type
-          relationship: reverse__node__field_species_1
+          relationship: reverse__node__field_species_ref_1
           group_type: group
           admin_label: ''
           entity_type: node
@@ -949,48 +862,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_primary_id_value:
-          id: field_primary_id_value
-          table: node__field_primary_id
-          field: field_primary_id_value
-          relationship: reverse__node__field_species_1
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_death_date_value:
-          id: field_death_date_value
-          table: node__field_death_date
-          field: field_death_date_value
+        field_transfer_date_value:
+          id: field_transfer_date_value
+          table: node__field_transfer_date
+          field: field_transfer_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -1004,14 +879,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_death_date_value_op
-            label: 'Death Date (From)'
+            operator_id: field_transfer_date_value_op
+            label: 'Transfer Date (From)'
             description: ''
             use_operator: false
-            operator: field_death_date_value_op
+            operator: field_transfer_date_value_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_death_date_value
+            identifier: field_transfer_date_value
             required: false
             remember: false
             multiple: false
@@ -1035,10 +910,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_death_date_value_1:
-          id: field_death_date_value_1
-          table: node__field_death_date
-          field: field_death_date_value
+        field_transfer_date_value_1:
+          id: field_transfer_date_value_1
+          table: node__field_transfer_date
+          field: field_transfer_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -1052,14 +927,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_death_date_value_1_op
-            label: 'Death Date (To)'
+            operator_id: field_transfer_date_value_1_op
+            label: 'Transfer Date (To)'
             description: ''
             use_operator: false
-            operator: field_death_date_value_1_op
+            operator: field_transfer_date_value_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_death_date_value_1
+            identifier: field_transfer_date_value_1
             required: false
             remember: false
             multiple: false
@@ -1087,7 +962,7 @@ display:
           id: field_sex_target_id
           table: node__field_sex
           field: field_sex_target_id
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: taxonomy_index_tid
@@ -1131,47 +1006,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_euthanasia_value:
-          id: field_euthanasia_value
-          table: node__field_euthanasia
-          field: field_euthanasia_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: All
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Euthanized?'
-            description: ''
-            use_operator: false
-            operator: field_euthanasia_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_euthanasia_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1187,12 +1021,11 @@ display:
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
-            field_death_date: field_death_date
-            field_death_location_1: field_death_location_1
-            description__value: description__value
-            field_euthanasia: field_euthanasia
+            field_transfer_date: field_transfer_date
             field_organization: field_organization
-          default: field_death_date
+            field_organization_1: field_organization_1
+            field_transfer_reason: field_transfer_reason
+          default: field_transfer_date
           info:
             field_name:
               sortable: true
@@ -1222,33 +1055,28 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_death_date:
+            field_transfer_date:
               sortable: true
               default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_death_location_1:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            description__value:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_euthanasia:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             field_organization:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_organization_1:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_transfer_reason:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1272,69 +1100,60 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        field_species:
-          id: field_species
-          table: node__field_species
-          field: field_species
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
           relationship: none
           group_type: group
           admin_label: Species
           plugin_id: standard
           required: true
-        reverse__node__field_species:
-          id: reverse__node__field_species
+        reverse__node__field_species_ref:
+          id: reverse__node__field_species_ref
           table: node_field_data
-          field: reverse__node__field_species
-          relationship: field_species
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
           group_type: group
           admin_label: 'Species Name'
           entity_type: node
           plugin_id: entity_reverse
-          required: false
-        reverse__node__field_species_1:
-          id: reverse__node__field_species_1
+          required: true
+        reverse__node__field_species_ref_1:
+          id: reverse__node__field_species_ref_1
           table: node_field_data
-          field: reverse__node__field_species
-          relationship: field_species
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
           group_type: group
           admin_label: 'Species ID'
           entity_type: node
           plugin_id: entity_reverse
-          required: false
-        field_dam:
-          id: field_dam
-          table: node__field_dam
-          field: field_dam
-          relationship: field_species
-          group_type: group
-          admin_label: Dam
-          plugin_id: standard
-          required: false
-        field_org:
-          id: field_org
-          table: node__field_org
-          field: field_org
+          required: true
+        field_from_facility:
+          id: field_from_facility
+          table: node__field_from_facility
+          field: field_from_facility
           relationship: none
           group_type: group
-          admin_label: Organization
+          admin_label: 'From Fac'
           plugin_id: standard
           required: false
-        field_cause_id:
-          id: field_cause_id
-          table: node__field_cause_id
-          field: field_cause_id
+        field_to_facility:
+          id: field_to_facility
+          table: node__field_to_facility
+          field: field_to_facility
           relationship: none
           group_type: group
-          admin_label: 'Death Cause'
+          admin_label: 'To Fac'
           plugin_id: standard
           required: false
-        field_death_location:
-          id: field_death_location
-          table: node__field_death_location
-          field: field_death_location
+        field_reason:
+          id: field_reason
+          table: node__field_reason
+          field: field_reason
           relationship: none
           group_type: group
-          admin_label: 'Death Location'
+          admin_label: Reason
           plugin_id: standard
           required: false
       use_ajax: true
@@ -1350,13 +1169,12 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_species_id'
-        - 'config:field.storage.node.field_death_date'
-        - 'config:field.storage.node.field_euthanasia'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.taxonomy_term.field_death_location'
+        - 'config:field.storage.node.field_transfer_date'
         - 'config:field.storage.taxonomy_term.field_organization'
+        - 'config:field.storage.taxonomy_term.field_transfer_reason'
   page_1:
     id: page_1
     display_title: Page
@@ -1364,11 +1182,11 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: tracking/deaths
+      path: tracking/transfer
       menu:
         type: none
-        title: 'Species Deaths'
-        description: 'View species death records'
+        title: 'Species Transfer Report'
+        description: 'View species transfer report'
         weight: 0
         expanded: false
         menu_name: admin
@@ -1385,10 +1203,9 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_species_id'
-        - 'config:field.storage.node.field_death_date'
-        - 'config:field.storage.node.field_euthanasia'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.taxonomy_term.field_death_location'
+        - 'config:field.storage.node.field_transfer_date'
         - 'config:field.storage.taxonomy_term.field_organization'
+        - 'config:field.storage.taxonomy_term.field_transfer_reason'

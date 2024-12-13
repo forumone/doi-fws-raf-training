@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-status'
+      uri: 'internal:/tracking/status'
       title: ''
       options: {  }
   external:

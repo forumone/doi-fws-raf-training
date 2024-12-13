@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-deaths'
+      uri: 'internal:/tracking/deaths'
       title: ''
       options: {  }
   external:

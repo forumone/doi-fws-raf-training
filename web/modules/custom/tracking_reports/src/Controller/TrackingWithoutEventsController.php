@@ -58,15 +58,15 @@ class TrackingWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves all animal IDs associated with a species.
+   * Retrieves all species IDs associated with a species.
    *
    * @param int $species_id
    *   The node ID of the species entity.
    *
    * @return string
-   *   Comma-separated list of animal IDs.
+   *   Comma-separated list of species IDs.
    */
-  private function getAnimalIds($species_id) {
+  private function getSpeciesIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
@@ -75,8 +75,8 @@ class TrackingWithoutEventsController extends ControllerBase {
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
-      if (!$node->field_species_ref_id->isEmpty()) {
-        $ids[] = $node->field_species_ref_id->value;
+      if (!$node->field_species_ref->isEmpty()) {
+        $ids[] = $node->field_species_ref->value;
       }
     }
     return implode(', ', $ids);
@@ -130,9 +130,9 @@ class TrackingWithoutEventsController extends ControllerBase {
    *
    * Generates a table displaying all species that don't have associated birth
    * or rescue events. The table includes the following columns:
-   * - MLog: Link to the species' detail page
+   * - Tracking Number: Link to the species' detail page
    * - Primary Name: The species' primary name
-   * - Animal ID List: All associated animal IDs
+   * - Species ID List: All associated species IDs
    * - Sex: The species' sex (M/F/U)
    * - Created By: Username of the creator
    * - Created Date: Creation date in m/d/Y format
@@ -181,7 +181,7 @@ class TrackingWithoutEventsController extends ControllerBase {
         'data' => [
           ['data' => $number_link],
           ['data' => $this->getPrimaryName($species_id)],
-          ['data' => $this->getAnimalIds($species_id)],
+          ['data' => $this->getSpeciesIds($species_id)],
           ['data' => $this->getSpeciesSex($species_entity)],
           ['data' => $created_user ? $created_user->getAccountName() : ''],
           ['data' => $this->dateFormatter->format($species_entity->getCreatedTime(), 'custom', 'm/d/Y')],
@@ -200,9 +200,9 @@ class TrackingWithoutEventsController extends ControllerBase {
     return [
       '#type' => 'table',
       '#header' => [
-        $this->t('MLog'),
+        $this->t('Tracking Number'),
         $this->t('Primary Name'),
-        $this->t('Animal ID List'),
+        $this->t('Species ID List'),
         $this->t('Sex'),
         $this->t('Created By'),
         $this->t('Created Date'),

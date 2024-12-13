@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-transfer'
+      uri: 'internal:/tracking/transfer'
       title: ''
       options: {  }
   external:

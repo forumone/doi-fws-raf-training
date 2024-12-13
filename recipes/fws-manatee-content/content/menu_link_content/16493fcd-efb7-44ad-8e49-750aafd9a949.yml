@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee-births'
+      uri: 'internal:/tracking/births'
       title: ''
       options: {  }
   external:

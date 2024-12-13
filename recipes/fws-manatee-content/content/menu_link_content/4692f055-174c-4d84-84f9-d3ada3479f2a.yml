@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee/without-events'
+      uri: 'internal:/tracking/without-events'
       title: ''
       options: {  }
   external:

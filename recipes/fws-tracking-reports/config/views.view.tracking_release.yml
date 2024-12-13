@@ -1,18 +1,22 @@
-uuid: 1409f8ca-e3ce-4c30-a682-3a33cdbb5248
+uuid: 2558b847-8f35-4a4a-9eed-81151cb990c6
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_species_id
+    - field.storage.node.field_county
+    - field.storage.node.field_length
     - field.storage.node.field_number
     - field.storage.node.field_name
+    - field.storage.node.field_release_date
+    - field.storage.node.field_rescue_date
     - field.storage.node.field_sex
-    - field.storage.node.field_transfer_date
-    - field.storage.taxonomy_term.field_organization
-    - field.storage.taxonomy_term.field_transfer_reason
+    - field.storage.node.field_weight
+    - field.storage.taxonomy_term.field_rescue_cause_detail
     - node.type.species_id
     - node.type.species_name
-    - node.type.transfer
+    - node.type.species_release
+    - node.type.species_rescue
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
@@ -21,11 +25,11 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: Y6J0J4ZpmXjCDO6SfbpuYCTCeFTNgYcbKVwMS_h8a2U
-id: tracking_transfer_report
-label: 'Species Transfer Report'
+  default_config_hash: pcWl5k1b5ArLDCbId2soyfZFQEQCz-aSF1Oca_98Ap4
+id: tracking_release
+label: 'Species Release'
 module: views
-description: 'Species transfer information.'
+description: 'Species rescue information.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -36,13 +40,13 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Species Transfer Report'
+      title: 'Species Release Report'
       fields:
         field_name:
           id: field_name
           table: node__field_name
           field: field_name
-          relationship: reverse__node__field_species
+          relationship: reverse__node__field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -105,7 +109,7 @@ display:
           id: field_sex
           table: node__field_sex
           field: field_sex
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -168,7 +172,7 @@ display:
           id: field_species_id
           table: node__field_species_id
           field: field_species_id
-          relationship: reverse__node__field_species_1
+          relationship: reverse__node__field_species_ref_1
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -231,7 +235,7 @@ display:
           id: field_number
           table: node__field_number
           field: field_number
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -291,15 +295,79 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_transfer_date:
-          id: field_transfer_date
-          table: node__field_transfer_date
-          field: field_transfer_date
+        field_rescue_date:
+          id: field_rescue_date
+          table: node__field_rescue_date
+          field: field_rescue_date
+          relationship: reverse__node__field_species_ref_2
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Rescue Date'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: html_date
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_release_date:
+          id: field_release_date
+          table: node__field_release_date
+          field: field_release_date
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Transfer Date'
+          label: 'Release Date'
           exclude: false
           alter:
             alter_text: false
@@ -341,10 +409,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_custom
+          type: datetime_default
           settings:
             timezone_override: ''
-            date_format: m/d/Y
+            format_type: html_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -355,15 +423,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_organization:
-          id: field_organization
-          table: taxonomy_term__field_organization
-          field: field_organization
-          relationship: field_from_facility
+        field_rescue_cause_detail:
+          id: field_rescue_cause_detail
+          table: taxonomy_term__field_rescue_cause_detail
+          field: field_rescue_cause_detail
+          relationship: field_primary_cause
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Present Location'
+          label: 'Cause of Rescue'
           exclude: false
           alter:
             alter_text: false
@@ -418,16 +486,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_organization_1:
-          id: field_organization_1
-          table: taxonomy_term__field_organization
-          field: field_organization
-          relationship: field_to_facility
+        field_length_1:
+          id: field_length_1
+          table: node__field_length
+          field: field_length
+          relationship: reverse__node__field_species_ref_2
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Proposed Location'
-          exclude: false
+          label: 'Rescue Length'
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -468,9 +536,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: number_integer
           settings:
-            link_to_entity: false
+            thousand_separator: ''
+            prefix_suffix: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -481,15 +550,207 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_transfer_reason:
-          id: field_transfer_reason
-          table: taxonomy_term__field_transfer_reason
-          field: field_transfer_reason
-          relationship: field_reason
+        field_weight_1:
+          id: field_weight_1
+          table: node__field_weight
+          field: field_weight
+          relationship: reverse__node__field_species_ref_2
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Reason for Transfer'
+          label: 'Rescue Weight, Length'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_weight_1__value }} kg, {{ field_length_1 }} cm'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_length:
+          id: field_length
+          table: node__field_length
+          field: field_length
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Release Length'
+          exclude: true
+          alter:
+            alter_text: true
+            text: '{{ field_length }} cm'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_weight:
+          id: field_weight
+          table: node__field_weight
+          field: field_weight
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Release Weight, Length'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_weight }} kg, {{ field_length }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_county_1:
+          id: field_county_1
+          table: node__field_county
+          field: field_county
+          relationship: reverse__node__field_species_ref_2
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Rescue County'
           exclude: false
           alter:
             alter_text: false
@@ -530,11 +791,74 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
+          click_sort_column: target_id
+          type: entity_reference_label
           settings:
-            link_to_entity: false
-          group_column: value
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_county:
+          id: field_county
+          table: node__field_county
+          field: field_county
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Release County'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -575,24 +899,40 @@ display:
               secondary_open: false
               reset_button_always_show: false
             filter:
-              field_transfer_date_value:
-                plugin_id: bef_datepicker
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_transfer_date_value_1:
-                plugin_id: bef_datepicker
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_name_value:
+              combine:
                 plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_release_date_value:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_release_date_value_1:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_rescue_date_value:
+                plugin_id: bef_datepicker
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_rescue_date_value_1:
+                plugin_id: bef_datepicker
                 advanced:
                   placeholder_text: ''
                   collapsible: false
@@ -610,34 +950,24 @@ display:
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                   hide_label: false
-              field_species_id_value:
+              field_county_target_id:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                   hide_label: false
-              field_organization_value:
+              field_county_target_id_1:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_organization_value_1:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                  hide_label: false
-              field_transfer_reason_value:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   is_secondary: false
@@ -664,10 +994,10 @@ display:
             format: basic_html
           tokenize: false
       sorts:
-        field_transfer_date_value:
-          id: field_transfer_date_value
-          table: node__field_transfer_date
-          field: field_transfer_date_value
+        field_release_date_value:
+          id: field_release_date_value
+          table: node__field_release_date
+          field: field_release_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -726,10 +1056,15 @@ display:
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
-            field_transfer_date: field_transfer_date
-            field_organization: field_organization
-            field_organization_1: field_organization_1
-            field_transfer_reason: field_transfer_reason
+            field_rescue_date: field_rescue_date
+            field_release_date: field_release_date
+            field_rescue_cause_detail: field_rescue_cause_detail
+            field_length_1: field_length_1
+            field_weight_1: field_weight_1
+            field_length: field_length
+            field_weight: field_weight
+            field_county_1: field_county_1
+            field_county: field_county
         status:
           id: status
           table: node_field_data
@@ -748,7 +1083,7 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            transfer: transfer
+            species_release: species_release
           group: 1
           exposed: false
           expose:
@@ -782,7 +1117,7 @@ display:
           id: type_1
           table: node_field_data
           field: type
-          relationship: reverse__node__field_species
+          relationship: reverse__node__field_species_ref
           group_type: group
           admin_label: ''
           entity_type: node
@@ -824,7 +1159,7 @@ display:
           id: type_2
           table: node_field_data
           field: type
-          relationship: reverse__node__field_species_1
+          relationship: reverse__node__field_species_ref_1
           group_type: group
           admin_label: ''
           entity_type: node
@@ -862,10 +1197,90 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_transfer_date_value:
-          id: field_transfer_date_value
-          table: node__field_transfer_date
-          field: field_transfer_date_value
+        field_primary_id_value:
+          id: field_primary_id_value
+          table: node__field_primary_id
+          field: field_primary_id_value
+          relationship: reverse__node__field_species_ref_1
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type_3:
+          id: type_3
+          table: node_field_data
+          field: type
+          relationship: reverse__node__field_species_ref_2
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            species_rescue: species_rescue
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_release_date_value:
+          id: field_release_date_value
+          table: node__field_release_date
+          field: field_release_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -879,14 +1294,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_transfer_date_value_op
-            label: 'Transfer Date (From)'
+            operator_id: field_release_date_value_op
+            label: 'Release Date (From)'
             description: ''
             use_operator: false
-            operator: field_transfer_date_value_op
+            operator: field_release_date_value_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_transfer_date_value
+            identifier: field_release_date_value
             required: false
             remember: false
             multiple: false
@@ -910,10 +1325,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_transfer_date_value_1:
-          id: field_transfer_date_value_1
-          table: node__field_transfer_date
-          field: field_transfer_date_value
+        field_release_date_value_1:
+          id: field_release_date_value_1
+          table: node__field_release_date
+          field: field_release_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -927,14 +1342,110 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_transfer_date_value_1_op
-            label: 'Transfer Date (To)'
+            operator_id: field_release_date_value_1_op
+            label: 'Release Date (To)'
             description: ''
             use_operator: false
-            operator: field_transfer_date_value_1_op
+            operator: field_release_date_value_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_transfer_date_value_1
+            identifier: field_release_date_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_rescue_date_value:
+          id: field_rescue_date_value
+          table: node__field_rescue_date
+          field: field_rescue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rescue_date_value_op
+            label: 'Rescue Date (From)'
+            description: ''
+            use_operator: false
+            operator: field_rescue_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rescue_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_rescue_date_value_1:
+          id: field_rescue_date_value_1
+          table: node__field_rescue_date
+          field: field_rescue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_rescue_date_value_1_op
+            label: 'Rescue Date (To)'
+            description: ''
+            use_operator: false
+            operator: field_rescue_date_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_rescue_date_value_1
             required: false
             remember: false
             multiple: false
@@ -962,7 +1473,7 @@ display:
           id: field_sex_target_id
           table: node__field_sex
           field: field_sex_target_id
-          relationship: field_species
+          relationship: field_species_ref
           group_type: group
           admin_label: ''
           plugin_id: taxonomy_index_tid
@@ -1021,11 +1532,16 @@ display:
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
-            field_transfer_date: field_transfer_date
-            field_organization: field_organization
-            field_organization_1: field_organization_1
-            field_transfer_reason: field_transfer_reason
-          default: field_transfer_date
+            field_rescue_date: field_rescue_date
+            field_release_date: field_release_date
+            field_rescue_cause_detail: field_rescue_cause_detail
+            field_length_1: field_length_1
+            field_weight_1: field_weight_1
+            field_length: field_length
+            field_weight: field_weight
+            field_county_1: field_county_1
+            field_county: field_county
+          default: field_release_date
           info:
             field_name:
               sortable: true
@@ -1055,28 +1571,63 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_transfer_date:
+            field_rescue_date:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_release_date:
               sortable: true
               default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_organization:
+            field_rescue_cause_detail:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_organization_1:
+            field_length_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_weight_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_length:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_weight:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_county_1:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_transfer_reason:
+            field_county:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1100,63 +1651,65 @@ display:
           replica: false
           query_tags: {  }
       relationships:
-        field_species:
-          id: field_species
-          table: node__field_species
-          field: field_species
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
           relationship: none
           group_type: group
           admin_label: Species
           plugin_id: standard
           required: true
-        reverse__node__field_species:
-          id: reverse__node__field_species
+        reverse__node__field_species_ref:
+          id: reverse__node__field_species_ref
           table: node_field_data
-          field: reverse__node__field_species
-          relationship: field_species
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
           group_type: group
           admin_label: 'Species Name'
           entity_type: node
           plugin_id: entity_reverse
           required: true
-        reverse__node__field_species_1:
-          id: reverse__node__field_species_1
+        reverse__node__field_species_ref_1:
+          id: reverse__node__field_species_ref_1
           table: node_field_data
-          field: reverse__node__field_species
-          relationship: field_species
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
           group_type: group
           admin_label: 'Species ID'
           entity_type: node
           plugin_id: entity_reverse
           required: true
-        field_from_facility:
-          id: field_from_facility
-          table: node__field_from_facility
-          field: field_from_facility
+        field_org:
+          id: field_org
+          table: node__field_org
+          field: field_org
           relationship: none
           group_type: group
-          admin_label: 'From Fac'
+          admin_label: Organization
           plugin_id: standard
           required: false
-        field_to_facility:
-          id: field_to_facility
-          table: node__field_to_facility
-          field: field_to_facility
-          relationship: none
+        reverse__node__field_species_ref_2:
+          id: reverse__node__field_species_ref_2
+          table: node_field_data
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
           group_type: group
-          admin_label: 'To Fac'
-          plugin_id: standard
+          admin_label: Rescue
+          entity_type: node
+          plugin_id: entity_reverse
           required: false
-        field_reason:
-          id: field_reason
-          table: node__field_reason
-          field: field_reason
-          relationship: none
+        field_primary_cause:
+          id: field_primary_cause
+          table: node__field_primary_cause
+          field: field_primary_cause
+          relationship: reverse__node__field_species_ref_2
           group_type: group
-          admin_label: Reason
+          admin_label: 'Primary Cause'
           plugin_id: standard
           required: false
       use_ajax: true
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -1169,12 +1722,15 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_county'
+        - 'config:field.storage.node.field_length'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_release_date'
+        - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.node.field_transfer_date'
-        - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_transfer_reason'
+        - 'config:field.storage.node.field_weight'
+        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
   page_1:
     id: page_1
     display_title: Page
@@ -1182,11 +1738,11 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: tracking/transfer
+      path: tracking/release
       menu:
         type: none
-        title: 'Species Transfer Report'
-        description: 'View species transfer report'
+        title: 'Species Release Report'
+        description: 'View species release report'
         weight: 0
         expanded: false
         menu_name: admin
@@ -1203,9 +1759,12 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_county'
+        - 'config:field.storage.node.field_length'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_release_date'
+        - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
-        - 'config:field.storage.node.field_transfer_date'
-        - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_transfer_reason'
+        - 'config:field.storage.node.field_weight'
+        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'

@@ -117,29 +117,29 @@ class CurrentCaptivesController extends ControllerBase {
       $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
       foreach ($name_nodes as $name_node) {
         if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
-          $animal_id = $name_node->field_species_ref->target_id;
+          $species_id = $name_node->field_species_ref->target_id;
           if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-            $primary_names[$animal_id] = $name_node->field_name->value;
+            $primary_names[$species_id] = $name_node->field_name->value;
           }
         }
       }
     }
 
-    // Get animal IDs.
-    $animal_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    // Get species IDs.
+    $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
-    $animal_ids = [];
-    if (!empty($animal_id_query)) {
-      $animal_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($animal_id_query);
-      foreach ($animal_id_nodes as $animal_id_node) {
-        if ($animal_id_node->hasField('field_species_ref') && !$animal_id_node->field_species_ref->isEmpty()) {
-          $animal_id = $animal_id_node->field_species_ref->target_id;
-          if ($animal_id_node->hasField('field_species_ref_id') && !$animal_id_node->field_species_ref_id->isEmpty()) {
-            $animal_ids[$animal_id] = $animal_id_node->field_species_ref_id->value;
+    $species_ids = [];
+    if (!empty($species_id_query)) {
+      $species_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_id_query);
+      foreach ($species_id_nodes as $species_id_node) {
+        if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+          $species_id = $species_id_node->field_species_ref->target_id;
+          if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
+            $species_ids[$species_id] = $species_id_node->field_species_ref->value;
           }
         }
       }
@@ -157,35 +157,35 @@ class CurrentCaptivesController extends ControllerBase {
     $type_b_rescue_dates = [];
     if (!empty($rescue_query)) {
       $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
-      $animal_rescues = [];
+      $species_rescues = [];
 
       foreach ($rescue_nodes as $rescue_node) {
         if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
-          $animal_id = $rescue_node->field_species_ref->target_id;
+          $species_id = $rescue_node->field_species_ref->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
           if ($rescue_node->hasField('field_rescue_type') && !$rescue_node->field_rescue_type->isEmpty()) {
             $rescue_type = $rescue_node->field_rescue_type->entity->getName();
           }
 
-          $animal_rescues[$animal_id][] = [
+          $species_rescues[$species_id][] = [
             'date' => $date,
             'type' => $rescue_type,
           ];
 
           if ($rescue_type === 'B') {
-            if (!isset($type_b_rescue_dates[$animal_id]) || $date > $type_b_rescue_dates[$animal_id]) {
-              $type_b_rescue_dates[$animal_id] = $date;
+            if (!isset($type_b_rescue_dates[$species_id]) || $date > $type_b_rescue_dates[$species_id]) {
+              $type_b_rescue_dates[$species_id] = $date;
             }
           }
         }
       }
 
-      foreach ($animal_rescues as $animal_id => $rescues) {
+      foreach ($species_rescues as $species_id => $rescues) {
         usort($rescues, function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
-        $rescue_types[$animal_id] = $rescues[0]['type'];
+        $rescue_types[$species_id] = $rescues[0]['type'];
       }
     }
 
@@ -202,8 +202,8 @@ class CurrentCaptivesController extends ControllerBase {
       $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
       foreach ($birth_nodes as $birth_node) {
         if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
-          $animal_id = $birth_node->field_species_ref->target_id;
-          $birth_dates[$animal_id] = $birth_node->field_birth_date->value;
+          $species_id = $birth_node->field_species_ref->target_id;
+          $birth_dates[$species_id] = $birth_node->field_birth_date->value;
         }
       }
     }
@@ -243,7 +243,7 @@ class CurrentCaptivesController extends ControllerBase {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
           if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
-            $animal_id = $node->field_species_ref->target_id;
+            $species_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
             $organization = '';
@@ -260,7 +260,7 @@ class CurrentCaptivesController extends ControllerBase {
               }
             }
 
-            $event_nodes[$animal_id][] = [
+            $event_nodes[$species_id][] = [
               'nid' => $node->id(),
               'type' => $type,
               'date' => $date_value,
@@ -274,14 +274,14 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Process events.
     $most_recent_events = [];
-    foreach ($species_ids as $animal_id) {
-      if (isset($event_nodes[$animal_id])) {
-        usort($event_nodes[$animal_id], function ($a, $b) {
+    foreach ($species_ids as $species_id) {
+      if (isset($event_nodes[$species_id])) {
+        usort($event_nodes[$species_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
 
-        if ($event_nodes[$animal_id][0]['type'] !== 'species_release') {
-          $most_recent_events[$animal_id] = $event_nodes[$animal_id][0];
+        if ($event_nodes[$species_id][0]['type'] !== 'species_release') {
+          $most_recent_events[$species_id] = $event_nodes[$species_id][0];
         }
       }
     }
@@ -324,7 +324,7 @@ class CurrentCaptivesController extends ControllerBase {
       $formatted_date = $date->format('Y-m-d');
 
       $name = $primary_names[$species_entity->id()] ?? '';
-      $animal_id = $animal_ids[$species_entity->id()] ?? '';
+      $species_id = $species_ids[$species_entity->id()] ?? '';
       $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
 
       $captivity_date = NULL;
@@ -346,7 +346,7 @@ class CurrentCaptivesController extends ControllerBase {
           'data' => [
             ['data' => $number_link],
             ['data' => $name],
-            ['data' => $animal_id],
+            ['data' => $species_id],
             ['data' => $event_type],
             ['data' => $formatted_date],
             ['data' => $days_in_captivity ?? 'N/A'],
@@ -361,7 +361,7 @@ class CurrentCaptivesController extends ControllerBase {
     // Prepare table headers with sorting.
     $header = [
       'number' => [
-        'data' => $this->t('MLog'),
+        'data' => $this->t('Tracking Number'),
         'field' => 'number',
         'sort' => 'asc',
         'class' => [RESPONSIVE_PRIORITY_LOW],
@@ -371,9 +371,9 @@ class CurrentCaptivesController extends ControllerBase {
         'field' => 'name',
         'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
-      'animal_id' => [
+      'species_id' => [
         'data' => $this->t('Animal ID'),
-        'field' => 'animal_id',
+        'field' => 'species_id',
         'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'event' => [
@@ -426,7 +426,7 @@ class CurrentCaptivesController extends ControllerBase {
             $b_val = strtolower($b['data'][1]['data']);
             break;
 
-          case 'animal_id':
+          case 'species_id':
             $a_val = strtolower($a['data'][2]['data']);
             $b_val = strtolower($b['data'][2]['data']);
             break;

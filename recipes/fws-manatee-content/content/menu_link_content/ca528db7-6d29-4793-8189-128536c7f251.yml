@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/node/add/manatee_rescue'
+      uri: 'internal:/node/add/species_rescue'
       title: ''
       options: {  }
   external:

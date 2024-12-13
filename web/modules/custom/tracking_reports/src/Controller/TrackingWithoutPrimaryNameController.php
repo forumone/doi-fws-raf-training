@@ -68,13 +68,13 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   }
 
   /**
-   * Gets all animal IDs for a species.
+   * Gets all species IDs for a species.
    *
    * @param int $species_id
    *   The node ID of the species entity.
    *
    * @return string
-   *   Comma-separated list of all animal IDs.
+   *   Comma-separated list of all species IDs.
    */
   private function getAllAnimalIds($species_id) {
     $ids = [];
@@ -85,8 +85,8 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
     foreach ($id_nodes as $node) {
-      if (!$node->field_species_ref_id->isEmpty()) {
-        $ids[] = $node->field_species_ref_id->value;
+      if (!$node->field_species_ref->isEmpty()) {
+        $ids[] = $node->field_species_ref->value;
       }
     }
     return implode(', ', $ids);
@@ -151,7 +151,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
     return [
       '#type' => 'table',
       '#header' => [
-        $this->t('MLog'),
+        $this->t('Tracking Number'),
         $this->t('Species Name List (Not Primary)'),
         $this->t('Animal ID List (All)'),
       ],

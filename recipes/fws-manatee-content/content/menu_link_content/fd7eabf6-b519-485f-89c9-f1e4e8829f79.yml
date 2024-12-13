@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/node/add/manatee_birth'
+      uri: 'internal:/node/add/species_birth'
       title: ''
       options: {  }
   external:

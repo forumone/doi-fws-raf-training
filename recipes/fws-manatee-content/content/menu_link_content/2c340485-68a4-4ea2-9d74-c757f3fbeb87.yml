@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee/prerelease'
+      uri: 'internal:/tracking/prerelease'
       title: ''
       options: {  }
   external:

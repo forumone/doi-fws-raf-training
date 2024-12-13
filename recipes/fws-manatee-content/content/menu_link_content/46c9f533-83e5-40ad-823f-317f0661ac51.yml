@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatee/search/results'
+      uri: 'internal:/tracking/search/results'
       title: ''
       options: {  }
   external:

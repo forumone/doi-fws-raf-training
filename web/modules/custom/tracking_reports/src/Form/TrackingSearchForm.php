@@ -139,11 +139,11 @@ class TrackingSearchForm extends FormBase {
     // Individual search fields.
     $individual_fields = [
       'number' => [
-        'title' => 'MLog',
+        'title' => 'Tracking Number',
         'required' => FALSE,
         'maxlength' => 64,
       ],
-      'animal_id' => [
+      'species_id' => [
         'title' => 'Species ID *',
         'required' => FALSE,
         'maxlength' => 64,
@@ -361,11 +361,11 @@ class TrackingSearchForm extends FormBase {
       ];
     }
 
-    if (!empty($values['animal_id'])) {
+    if (!empty($values['species_id'])) {
       $conditions[] = [
         'type' => 'species_id',
-        'field' => 'field_species_ref_id',
-        'value' => $values['animal_id'],
+        'field' => 'field_species_ref',
+        'value' => $values['species_id'],
         'operator' => 'CONTAINS',
       ];
     }

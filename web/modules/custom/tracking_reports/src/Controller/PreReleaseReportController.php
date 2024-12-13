@@ -143,7 +143,7 @@ class PreReleaseReportController extends ControllerBase {
     $build['table'] = [
       '#type' => 'table',
       '#header' => [
-        $this->t('MLog'),
+        $this->t('Tracking Number'),
         $this->t('Name'),
         $this->t('Facility'),
         $this->t('Expected Release'),
