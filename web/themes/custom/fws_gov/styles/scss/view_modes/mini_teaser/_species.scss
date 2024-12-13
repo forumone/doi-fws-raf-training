@@ -1,0 +1,17 @@
+article.mini-teaser.species {
+    font-family: $font-family-base;
+    .layout--twocol-section {
+        align-items: center;
+
+        .layout__region--second {
+
+            .teaser-metadata {
+                .field--name-type {
+                    @include desktop {
+                        @include mini-teaser-icon('\f1b0');
+                    }
+                }
+            }
+        }
+    }
+}

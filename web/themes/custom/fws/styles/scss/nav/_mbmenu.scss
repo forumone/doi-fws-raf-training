@@ -1,0 +1,571 @@
+@include desktop {
+
+	.current-level,
+	.parent-level,
+	.nav-drilldown,
+	.mb-back,
+	.mobile-only {
+		display: none !important;
+	}
+}
+
+@include tablet-down {
+	//A button from the main nav was causing problems for the mobile back button
+	button.close-menu {
+		display:none;
+	}
+	.menu--utility,
+	.block-we-megamenu {
+		display: none !important;
+	}
+	li.has-children{
+		ul.nav.subnav{
+			li {
+				display:block !important;
+				padding-left:20px;
+			}
+		}
+	}
+	li.mb-item:not(.mb-subviewopen){
+		.mb-submenu {
+			ul.subul{
+				border:0;
+			}
+			
+		}
+	}
+	.mb-submenu {
+		width: 100vw !important;
+		max-width: 100%; //fixes issue with 100vw and scrollbars changing viewable size
+		//Hide images in the menu
+		section.block-mega-menu-promo-image{
+			display:none;
+		}
+
+		li.we-mega-menu-li.active.mb-item > a {
+			font-weight: bold !important;
+			color: $mobile-main-menu-current-heading-color !important;
+			border:none;
+			margin-left:4px;
+		}
+		ul.reparented-with-siblings>li:not(.mb-subviewopen) {
+			border-top: 2px solid $mobile-main-menu-item-underline;
+		}
+	}
+
+	.mb-transparent {
+		opacity: 0;
+	}
+
+	.mb-menuwrapper {
+		width: 100%;
+		height: calc(100% - 178px);
+		top: 178px;
+		position: absolute;
+		-webkit-perspective: 1000px;
+		perspective: 1000px;
+		-webkit-perspective-origin: 50% 200%;
+		perspective-origin: 50% 200%;
+		overflow: auto;
+
+		&:first-child {
+			margin-right: 100px;
+		}
+
+		button {
+			background: transparent;
+			border: none;
+			width: 30px;
+			height: 50px;
+			padding: 0;
+			overflow: hidden;
+			position: relative;
+			cursor: pointer;
+			outline: none;
+			position: absolute;
+			top: 0;
+			left: 10px;
+			margin: 0;
+
+			i {
+				display: inline-block;
+				float: left;
+				margin: 0 6px 0 0;
+				font-size: 34px;
+				line-height: 34px;
+			}
+
+			&:hover,
+			&.mb-active {
+				background: #fff;
+			}
+		}
+
+		ul {
+			background: #fff;
+			padding: 0;
+			list-style: none !important;
+			padding: 0 !important;
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+
+		li {
+			border: none;
+			position: relative;
+			float: none;
+
+			&.mb-subviewopen>.mb-submenu>.mb-subview>li,
+			&.mb-subviewopen>.mb-submenu>.subul>li,
+			&.mb-subviewopen>.mb-submenu>.we-mega-menu-submenu-inner>.we-mega-menu-row>.we-mega-menu-col>.subul>li,
+			&.mobile-sidebar-item>.mb-submenu>.subul>li {
+				&[data-level="1"]:first-of-type {
+					display:none;
+				}
+				border-bottom: 2px solid $mobile-main-menu-item-underline;
+
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+			>a.menu-toggle, >div.book-menu-parent>a.menu-toggle{
+				display:none;
+			}
+			>a, >div.book-menu-parent>a {
+				border: none;
+				border-radius: 0;
+				color: $mobile-main-menu-sub-level-color;
+				display: block;
+				position: relative;
+				padding: 15px 65px 15px 55px;
+				font-size: 16px;
+				line-height: 20px;
+				font-weight: 300;
+				outline: none;
+				border-left: 5px solid transparent;
+
+				&.is-active {
+					font-weight: bold;
+					color: $mobile-main-menu-current-heading-color;
+				}
+
+				&.has-submenu {
+					font-weight: bold;
+				}
+			}
+
+			//highlight a sub child that's active
+			//Set these as !important because they are getting overridded lower
+			//in this scss and swapping locations seemed risky
+			a.is-active +ul, div.book-menu-parent.is-active +ul {
+				li {
+					>a.is-active{
+						font-weight: bold !important;
+						color: $mobile-main-menu-current-heading-color !important;
+					}
+				}
+			}
+
+			&.open>a {
+				border-color: transparent;
+			}
+
+			&.is-active>a {
+				border-color: $mobile-main-menu-current-heading-color;
+				color: $mobile-main-menu-current-heading-color;
+			}
+
+			&.home {
+				display: none;
+			}
+
+			.nav-drilldown {
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 45px;
+				line-height: 56px;
+				background: $mobile-main-menu-forward-button-bg-color;
+				text-align: center;
+				color: $mobile-main-menu-back-heading-color;
+
+				i {
+					font-size: 24px;
+					font-weight: 500;
+				}
+			}
+
+			.mb-submenu {
+				display: none;
+				background: #fff;
+			}
+		}
+
+		.mb-menu>li {
+			border-bottom: 2px solid $mobile-main-menu-top-level-item-underline;
+
+			>.nav-drilldown {
+				background: $mobile-main-menu-back-button-color;
+				color: #fff;
+			}
+		}
+
+		.parent-level {
+			padding: 15px 15px 15px 10px;
+			height: 50px;
+
+			a {
+				display: inline-block;
+			}
+		}
+
+		.current-level {
+			text-transform: uppercase;
+			background: $mobile-main-menu-current-heading-color;
+
+			a {
+				display: block;
+				padding: 15px 15px 15px 55px;
+			}
+		}
+
+		.mb-subviewopen {
+			opacity: 1;
+		}
+
+		.mb-back {
+			height: 50px;
+			display: none;
+			background: $mobile-main-menu-back-heading-color;
+
+			>a {
+				background: $mobile-main-menu-back-button-color;
+				width: 45px;
+				height: 50px;
+				line-height: 56px;
+				padding: 0;
+				display: inline-block;
+				border: none;
+				text-align: center;
+				font-size: 18px;
+				color: #fff;
+				vertical-align: top;
+
+				i {
+					font-size: 24px;
+					font-weight: 500;
+					line-height: 45px;
+				}
+			}
+		}
+
+		.mb-animate-in>.mb-subview>li,
+		.mb-animate-out>.mb-subview>li,
+		.mb-animate-in>.subul>li,
+		.mb-animate-out>.subul>li,
+		.mb-animate-in>.we-mega-menu-submenu-inner>.we-mega-menu-row>.we-mega-menu-col>.subul>li,
+		.mb-animate-out>.we-mega-menu-submenu-inner>.we-mega-menu-row>.we-mega-menu-col>.subul>li {
+			border-bottom: 2px solid $mobile-main-menu-item-underline;
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		.mb-subviewopen>.nav-drilldown,
+		.mb-subviewopen>.subnav,
+		.mb-subviewopen>.dropdown-toggle {
+			display: none;
+		}
+
+		.mb-subviewopen>.mb-submenu>.mb-back,
+		.mb-animate-in>.mb-back,
+		.mb-animate-out>.mb-back {
+			display: block;
+		}
+
+		.nav-container {
+			margin: 0;
+			position: absolute;
+			width: 100vw !important;
+			max-width: 100%; //fixes issue with 100vw and scrollbars changing viewable size
+			width:100%;
+			opacity: 1;
+			overflow: hidden;
+			opacity: 1;
+			pointer-events: auto;
+			-webkit-transform: translateX(0px);
+			transform: translateX(0px);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+			&.mb-menu-toggle {
+				transition: all 0.4s ease;
+			}
+
+			.nav-head {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 45px;
+
+				a.home-link {
+					color: #fff;
+					line-height: 45px;
+					padding: 0 10px 0 0;
+					float: left;
+					border: none;
+					vertical-align: top;
+					font-size: 14px;
+					font-weight: bold;
+
+					.icon {
+						height: 45px;
+						width: 40px;
+						line-height: 45px;
+						display: inline-block;
+						margin: 0 10px 0 0;
+						background: #1167b4 url(../img/nav-home-icon.png) center center no-repeat;
+						vertical-align: top;
+					}
+
+					.text {
+						height: 45px;
+						line-height: 45px;
+						display: inline-block;
+						vertical-align: top;
+					}
+				}
+
+				.current-language {
+					float: right;
+					padding: 0 20px 0 0;
+					font-size: 13px;
+					color: #fff;
+					line-height: 45px;
+				}
+			}
+		}
+
+		.mb-menu {
+			margin: 0;
+			width: 100vw !important;
+			max-width: 100%; //fixes issue with 100vw and scrollbars changing viewable size
+			max-height: 100%;
+			overflow-y: auto;
+			background: $mobile-main-menu-top-level-bg-color;
+
+			>li {
+
+				>a {
+					background: $mobile-main-menu-top-level-bg-color;
+					font-family: $font-family-base;
+					font-size: $font-size-base;
+					font-weight: bold;
+					color: #fff !important;
+					text-transform: uppercase;
+				}
+			}
+		}
+
+		.caret {
+			display: none;
+		}
+	}
+
+	.current-level,
+	.parent-level {
+		display: none;
+		font-family: $font-family-base;
+		font-size: $font-size-base;
+		font-weight: bold;
+		line-height: 1.2;
+		color: #fff;
+		height: 50px;
+
+		a {
+			font-family: $font-family-base;
+			font-size: $font-size-base;
+			font-weight: bold;
+			color: #fff !important;
+			height: 50px;
+		}
+	}
+
+	.no-touch .mb-menuwrapper li a:hover {
+		background: rgba(255, 248, 213, 0.1);
+	}
+
+	.mb-menu.mb-subview li,
+	.mb-menu.mb-subview.home-page li.home,
+	.mb-menu.mb-subview .mb-subviewopen>a,
+	.mb-menu.mb-subview .mb-subview>a,
+	.mb-menu.mb-subview .mb-subview>.mb-item>.dropdown-toggle,
+	.mb-menu.mb-subview .mb-subview>.mb-item>ul.subnav,
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu>.mb-subview>.mb-item>.mb-submenu,
+	.mb-animate-in .mb-subview>.mb-item>.dropdown-toggle,
+	.mb-animate-out .mb-subview>.mb-item>.dropdown-toggle,
+	.mb-animate-in .mb-subview>.mb-item>ul.subnav,
+	.mb-animate-out .mb-subview>.mb-item>ul.subnav {
+		display: none;
+	}
+
+	.mb-menu.mb-subview.home-page li,
+	.mb-menu.mb-subview .mb-subview,
+	.mb-menu.mb-subview .mb-subview .mb-submenu,
+	.mb-menu.mb-subview .mb-subviewopen,
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu,
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu>li,
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu>.subul>li,
+	.mb-menu.mb-subview .mb-subviewopen>.subul>li,
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu>div>div>div>.subul>li,
+	.mb-menu.mb-subview .mb-subview>.mb-item.mb-subviewopen>.mb-submenu {
+		display: block;
+	}
+
+	.mb-menu.mb-subview .mb-subviewopen>.mb-submenu>.mb-subview>.mb-item>.mb-submenu {
+		display: none;
+	}
+
+	.mb-subviewopen>.mb-submenu>.current-level,
+	.mb-animate-in>.current-level,
+	.mb-animate-out>.current-level {
+		display: block;
+	}
+
+	.mb-subviewopen>.mb-submenu>.mb-back>.parent-level,
+	.mb-animate-in>.mb-back>.parent-level,
+	.mb-animate-out>.mb-back>.parent-level {
+		display: inline-block;
+	}
+
+	.nav-container>.mb-submenu {
+		position: absolute;
+		width: 100%;
+		left: 0;
+		margin: 0;
+		top: 0;
+	}
+
+
+	.mb-menu.mb-animate-out {
+		animation: MenuAnimOut 0.4s ease-in-out;
+	}
+
+	@keyframes MenuAnimOut {
+		0% {
+			transform: translateX(0px);
+		}
+
+		100% {
+			transform: translateX(-100%);
+			opacity: 1;
+		}
+	}
+
+	.mb-menu.mb-animate-in {
+		animation: MenuAnimIn 0.4s ease-in-out;
+	}
+
+	@keyframes MenuAnimIn {
+		0% {
+			transform: translateX(-100%);
+			opacity: 1;
+		}
+
+		100% {
+			transform: translateX(0px);
+			opacity: 1;
+		}
+	}
+
+	.nav-container>.mb-submenu.mb-animate-in {
+		animation: SubMenuAnimIn 0.4s ease-in-out;
+	}
+
+	@keyframes SubMenuAnimIn {
+		0% {
+			transform: translateX(100%);
+			opacity: 1;
+		}
+
+		100% {
+			transform: translateX(0px);
+			opacity: 1;
+		}
+	}
+
+	.nav-container>.mb-submenu.mb-animate-out {
+		animation: SubMenuAnimOut 0.4s ease-in-out;
+	}
+
+	@keyframes SubMenuAnimOut {
+		0% {
+			transform: translateX(0%);
+			opacity: 1;
+		}
+
+		100% {
+			transform: translateX(100%);
+			opacity: 1;
+		}
+	}
+
+	.mobilenav-overlay {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow: hidden;
+		z-index: 199;
+	}
+
+	body.toggled header#navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+}
+
+.mb-menu.mb-subview .mobile-sidebar-item,
+.mb-submenu.mb-animate-in,
+.mb-submenu.mb-animate-out {
+	ul {
+		li {
+			display: block;
+
+			ul {
+				li {
+
+					a {
+						border: none;
+						color: $mobile-main-menu-sub-level-color;
+						display: block;
+						position: relative;
+						padding: 10px 65px 10px 65px;
+						font-size: 14px;
+						line-height: 20px;
+						font-weight: 300;
+						outline: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include mobile-down {
+
+	.mb-menuwrapper {
+		height: calc(100% - 148px);
+		top: 148px;
+	}
+
+}

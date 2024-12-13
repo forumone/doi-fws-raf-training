@@ -44,7 +44,7 @@ test:
     - mv composer.phar /usr/local/bin/composer
     - chmod +x /usr/local/bin/composer
 
-    # Configure Composer authentication
+    # Configure Composer authentication for both GitLab and Acquia
     - composer config --global gitlab-token.gitlab.djcase.com ${CI_JOB_TOKEN}
 
     # Install Drupal dependencies via Composer

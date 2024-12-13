@@ -1,0 +1,20 @@
+.block-fws-search-appinitiative-categories {
+
+    .search-content {
+        padding: 0 !important;
+
+        > div {
+            @include card-wrapper-settings();
+            .search-results-meta {
+                flex-basis: 100%;
+            }
+        }
+    }
+
+    h3.block-title {
+        @include h2;
+    }
+    .mat-card {
+        @include card-settings();
+    }
+}

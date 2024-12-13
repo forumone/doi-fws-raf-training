@@ -1,0 +1,109 @@
+//When menu item are clicked don't highlight them with a border
+.menu--utility{
+  .mb-item{
+    > a:focus, a:active {
+      border-radius: 0;
+      box-shadow: none;
+      outline:0;
+    }
+  }
+}
+.menu--utility, .menu--account {
+  li  {
+    display: block;
+    @include desktop {
+      display: inline-block;
+
+      &:first-child {
+        margin-left: 0;
+      }
+  
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    a, a.utility-link {
+      position: relative;
+      padding: 10px;
+      @include font($font-size-deck-sm, 700, $font-family-base, normal, $color-white);
+      @include desktop {
+        padding: 10px 20px;
+      }
+      
+
+      &:after {
+        @include desktop {
+          content: '';
+          @include absolute(auto, 0, 0, 0);
+          height: 4px;
+          background: rgba(255, 255, 255, .5);
+          transform: scale(0);
+          transition: .4s ease-in-out;
+        }
+      }
+
+      &:hover {
+        text-decoration: none;
+
+        &:after {
+          @include desktop {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+    &.dropdown {
+      > a {
+        padding: 10px 10px;
+        margin: 0px;
+        @include desktop {
+          margin: 0px 10px;
+        }
+        .caret {
+          display: none;
+        }
+      }
+    }
+    //top level elements with a dropdown that are open
+    &.open {
+      background-color: $dropdown-bg !important;
+      > a {
+        background-color: $dropdown-bg !important;
+        &:hover, &:active, &:visited, &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  &.navbar-right {
+    margin-right: 0px;
+  }
+
+  //the dropdown menus that are regular dropdowns (not mega menus)
+  ul.dropdown-menu {
+    padding-left: 0px !important;
+    padding: 10px !important;
+    border-radius: 0px;
+    position: static;
+    float: none;
+    margin-top: 0px;
+    @include desktop {
+      position: absolute;
+      float: left;
+    }
+    li {
+      margin-left: 0px;
+      display: block;
+      padding: 0px;
+      margin: 0px;
+      a {
+        padding: 10px;
+        font-weight: 600;
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
+}

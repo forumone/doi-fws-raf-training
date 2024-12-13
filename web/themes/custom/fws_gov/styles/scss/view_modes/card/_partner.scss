@@ -1,0 +1,29 @@
+article.partner.our-partners-icon { 
+    margin: 0 auto;
+    background: $color-white;
+    box-shadow: $popup-shadow;
+    border-radius: 3px;
+    padding: 8px;
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .partner-image {
+        display: flex;
+        width: 130px;
+        height: 130px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+
+    }
+
+    .partner-title {
+        margin-top: 20px;
+    }
+
+}

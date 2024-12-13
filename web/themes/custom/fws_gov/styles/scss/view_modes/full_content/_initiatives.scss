@@ -1,0 +1,10 @@
+article.initiative.full {
+    .block-field-blocknodeinitiativefield-custom-heading {
+        .field--name-field-custom-heading {
+            @include h2;
+        }
+    }
+    .block-field-blocknodeinitiativefield-search-description {
+        margin-bottom: 20px;
+    }
+}

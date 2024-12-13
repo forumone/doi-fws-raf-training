@@ -1,0 +1,52 @@
+.block-paragraphs-block {
+
+    
+    div.field--items {
+        .field--item {
+            clear: both;
+        }
+    }
+
+    .paragraph {
+        margin-bottom: 15px;
+    }
+
+    .paragraph--type--simple-text {
+        margin-bottom: 30px;
+    }
+
+    &.two-images-50-50-columns {
+        @include tablet {
+            .field--items {
+                display: flex;
+                flex-wrap: wrap;
+            }
+    
+            .field--item:first-child {
+                width: 100%;
+                .paragraph--type--simple-text {
+                    margin-bottom: 20px;
+                }
+            }
+    
+            .field--item:not(:first-child) {
+                width: 50%;
+                flex: 1;
+                .paragraph__column {
+                    display: block;
+                }
+            }
+        }
+        .img-responsive {
+            width:100%;
+        }
+        
+        .paragraph{
+            .field--name-field-media-image {
+                width: 100%;
+                max-height: 300px;
+                overflow: hidden;
+            }
+        }
+    }  
+}

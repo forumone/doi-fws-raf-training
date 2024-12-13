@@ -1,0 +1,171 @@
+@import '../../../../fws/styles/scss/base/elements/button';
+
+.regulatory-section {
+  padding: 32px 20px 60px;
+
+  // Description and table section.
+  .block-views-blockregulatory-status-changes-regulatory-status-changes-block {
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: $title-md;
+      margin-bottom: 22px;
+    }
+
+    .view-header {
+      max-width: 690px;
+      // @extend p;
+      margin-bottom: 24px;
+    }
+
+    .view-filters  {
+      display: block;
+      @include tablet {
+        display: none;
+      }
+
+      .select-wrapper,
+      .form-type-select {
+        width: 100%;
+      }
+    }
+
+    .table-row:not(:first-child) {
+      .views-label {
+        @include desktop {
+          display: none;
+        }
+      }
+    }
+
+    .views-label {
+      @include small-caps;
+      display: block;
+      padding-bottom: 4px;
+      @include tablet {
+        height: 62px;
+        padding: 12px 0 11px;
+        border-bottom: 3px solid $border-color;
+      }
+    }
+
+    .view-content {
+      display: flex;
+      flex-wrap: wrap;
+
+
+      .table-responsive {
+        width: 100%;
+        @include mobile-down {
+          display: none;
+        }
+
+        thead tr th,
+        tbody tr td {
+          &:first-child {
+            padding: 10px 18px 10px 6px;
+          }
+        }
+
+        thead tr th {
+          padding: 12px 18px 11px 0;
+          vertical-align: middle;
+        }
+
+        tbody tr td {
+          padding: 10px 18px 10px 0;
+        }
+
+        th.views-field-field-effective-date {
+          font-size: $font-size-base;
+
+          a {
+            @include small-caps;
+            &:after {
+              content: '';
+              display: inline-block;
+              width: 0;
+              height: 0;
+              margin-left: 5px;
+              vertical-align: middle;
+              border-top: 6px dashed;
+              border-top: 6px solid;
+              border-right: 5px solid transparent;
+              border-left: 5px solid transparent;
+            }
+
+            .icon {
+              display: none;
+            }
+          }
+        }
+
+        thead tr th.views-field-field-related-laws {
+          padding-right: 19px;
+        }
+
+        .views-field-field-related-laws {
+          width: 184px;
+        }
+
+        .views-field-title {
+          width: 263px;
+        }
+
+        .views-field-field-action-option {
+          width: 225px;
+          i {
+            font-size: 16px;
+          }
+        }
+
+        .views-field-field-effective-date {
+          width: 98px;
+          padding-right: 6px;
+          color: $link-color;
+        }
+      }
+    }
+
+    .attachment {
+      @include tablet {
+        display: none;
+      }
+
+      .table-row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 20px 10px 10px;
+        border-top: 1px solid $border-color;
+
+        .views-field {
+          width: 100%;
+          margin-bottom: 15px;
+
+          .field-content {
+            display: block;
+            @include font($font-size-deck-md, 400, $font-family-base, 1.35);
+          }
+        }
+
+        .views-field-field-post-date {
+          .field-content {
+            color: $link-color;
+          }
+        }
+      }
+    }
+
+    .table-row {
+      &:last-child {
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .more-link {
+      margin-top: 40px;
+      @include simple-btn-primary;
+    }
+  }
+}

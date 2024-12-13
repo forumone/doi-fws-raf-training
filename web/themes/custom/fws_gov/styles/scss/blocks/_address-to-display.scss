@@ -1,0 +1,16 @@
+.field--name-field-address-to-display, .field--name-field-address {
+
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .address-display-element {
+            flex-basis: auto;
+            padding-right: 5px;
+        }
+        .address-line1-element,
+        .address-line2-element {
+            flex-basis: 100%;
+        }
+    }
+}

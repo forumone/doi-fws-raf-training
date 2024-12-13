@@ -1,0 +1,53 @@
+.paragraph--type--activity.paragraph--view-mode--list,
+.paragraph--type--activity.paragraph--view-mode--teaser {
+    display: flex;
+    flex-direction: row;
+
+    .activity-icon {
+        flex: 0 0 40px;
+
+        img, svg {
+            //width: 40px;
+            padding-right: 10px;
+            filter: invert(31%) sepia(9%) saturate(4910%) hue-rotate(175deg) brightness(94%) contrast(96%);
+        }
+    }
+
+    .activity-content {
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    .field--name-field-activity-term-reference {
+        font-size: 19px;
+    }
+}
+
+//activity details pages
+.paragraph--type--activity.paragraph--view-mode--default {
+    > .field {
+        margin-bottom: 25px;
+    }
+
+    .field--name-field-representative-image {
+        float: right;
+        max-width: 50%;
+        margin-left: 20px;
+
+        @include tablet {
+            max-width: 33%;
+        }
+    }
+
+    .field--name-field-activity-term-reference {
+        @include h1;
+        margin-top: 0px;
+    }
+    .field--name-field-document-reference,
+    .field--name-field-laws-regs-reference  {
+        .field--label {
+            @include h3;
+        }
+    }
+}

@@ -1,0 +1,124 @@
+//captioned images will use <figure>
+figure {
+    &.drupal-media-style-align-left {
+        margin-right: 20px;
+    }
+    &.drupal-media-style-align-right {
+        margin-left: 20px;
+    } 
+
+    &.drupal-media-style-align-left, &.drupal-media-style-align-right {
+        margin-bottom: 20px;
+    }
+}
+
+.embedded-media-image, .embedded-video {
+    // &.align-left {
+    //     margin-right: 20px;
+    // }
+    // &.align-right {
+    //     margin-left: 20px;
+    // }
+
+    // &.align-right, &.align-left, &.align-center {
+    //     margin-bottom: 20px;
+    //     @include mobile-xs {
+    //         margin-left: 0;
+    //         margin-right: 0;
+    //     }
+    // }
+
+    //this is necessary so ckeditor's WYSIWYG preview shows nicely
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+}
+
+.ck-content {
+    //the default view mode of full width won't add a data-view-mode attribute, use general selector
+    //and let it get overridden if necessary
+    figure[role="group"] {
+        margin-bottom: 30px;
+    }
+    figure.drupal-media {
+        width: 100%;
+        max-width: 100%;
+    }
+    figure[data-view-mode="half_width_image"] {
+        width: 50%;
+
+        .one_third_width_image,
+        .half_width_image,
+        .two_thirds_width_image {
+            width: 100% !important;
+            max-width: 100%;
+        }
+    }
+    figure[data-view-mode="one_third_width_image"] {
+        width: 33.33%;
+
+        .one_third_width_image,
+        .half_width_image,
+        .two_thirds_width_image {
+            width: 100% !important;
+            max-width: 100%;
+        }
+    }
+    figure[data-view-mode="two_third_width_image"] {
+        width: 66.66%;
+
+        .one_third_width_image,
+        .half_width_image,
+        .two_third_width_image {
+            width: 100% !important;
+            max-width: 100%; 
+        }
+    }
+}
+
+//its possible to select an alignment option but still pick full width
+// if this is the case we want to negate the margin left and right
+.full_width_image {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+figcaption {
+    margin-top: 7px;
+}
+
+.ck-content {
+    //handling of Video embeds
+    .field--name-field-media-oembed-video {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 74.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+
+        /* Then style the iframe to fit in the container div with full height and width */
+        .media-oembed-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+  //adds an icon to only figcaptions in the editor to help users
+  figure { 
+    figcaption {
+      &:before {
+        font-family: 'Font Awesome 5 Pro';
+        content: '\f036';
+        margin-right: 5px;
+      }
+    }
+  }

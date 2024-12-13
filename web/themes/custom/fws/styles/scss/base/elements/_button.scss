@@ -1,0 +1,177 @@
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-secondary {
+  @include btn-secondary;
+}
+
+.simple-btn {
+  @include simple-btn;
+}
+
+.simple-btn-blue {
+  @include simple-btn-primary;
+}
+
+.simple-btn-outline {
+  @include simple-btn-outline;
+}
+
+.simple-btn-secondary {
+  @include simple-btn-secondary;
+}
+
+.simple-btn-download {
+  @include simple-btn-primary-icon-after('\f33d');
+}
+
+.simple-btn-link {
+  @include simple-btn-primary-icon-after('\f08e');
+}
+
+.simple-btn-white {
+  @include simple-btn-white;
+}
+
+.more-link {
+  @include simple-btn-primary;
+}
+
+.btn-outline-white {
+  @include btn-outline-white;
+}
+
+.simplesamlphp-auth-login-link {
+  @include btn-primary;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  color: white !important;
+
+  &.disabled {
+    color: #999 !important;
+    background: $btn-disabled-bg;
+    border-color: #999;
+    text-decoration: none;
+    cursor: no-drop;
+  }
+
+}
+
+.field--name-field-call-to-action {
+  margin-top: 25px;
+  @include simple-btn-primary;
+}
+
+.simplesamlphp-auth-login-link {
+  @include btn-primary;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  color: white !important;
+
+}
+
+// Large icons button.
+.large-icon-btn {
+  a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    padding: 18px 15px;
+    @include font($font-size-h4, 700, $font-family-base, 1.29, $color-white);
+    border-radius: 4px;
+    box-shadow: $link-heading;
+    text-decoration: none;
+    transition: .4s ease-in-out;
+
+    @include mobile-xs {
+      width: 100%;
+    }
+
+    &:before {
+      @include absolute(50%, 15px);
+      transform: translateY(-50%);
+    }
+  }
+
+  &.kids {
+    a {
+      @include icon('\f135', 30px, 700, 1, $color-white);
+      background: #D47500;
+
+      &:hover,
+      &:active {
+        background: #945200;
+      }
+    }
+  }
+
+  &.educators {
+    a {
+      @include icon('\f0c3', 30px, 700, 1, $color-white);
+      background: $btn-icon-bg-strong-cayn;
+
+
+      &:hover {
+        background: $btn-icon-bg-strong-cayn-hover;
+      }
+    }
+  }
+}
+
+
+
+// More btn for tables.
+.load-more-tables__btn,
+.load-less-tables__btn {
+  display: inline-block;
+  margin-top: 15px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+// Load more btn for card items.
+.load-more__btn,
+.load-less__btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+}
+
+.load-text {
+  padding: 6px 0 0;
+}
+
+// Caret icons.
+.caret,
+.caret-up {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 6px dashed;
+  border-top: 6px solid;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  transition: .4s;
+}
+
+.caret-up {
+  transform: rotate(180deg);
+}
+
+.caret-link a {
+  display: flex;
+  align-items: center;
+  @include icon('\f0d7', 18px, 700, 1.2, $link-color, after);
+
+  &:after {
+    margin-left: 3px;
+  }
+}

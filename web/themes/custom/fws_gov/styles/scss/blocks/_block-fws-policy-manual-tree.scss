@@ -1,0 +1,44 @@
+.block-fws-policy-manual-tree, .block-policy-manual-term-tree-block {
+    .policy-subseries {
+        font-size: 1.6em;
+        font-weight: bold;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+    }
+    .policy-subseries:not(:first-child) {
+        margin-top:20px;
+    }
+    .policy-part {
+        font-size: 1.2em;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .policy-subjects {
+        margin-top:10px;
+        width: 100%;
+        .policy-subject {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .subject-wrapper {
+            display: flex;
+            margin-bottom: 5px;
+            .left {
+                width: 80px;
+            }
+            .middle {
+                
+            }
+            .right {
+                width: 15%;
+            }
+            .attachment-name {
+               
+            }
+            .attachment-type {
+                width: 120px;
+            }
+        }
+    }
+}

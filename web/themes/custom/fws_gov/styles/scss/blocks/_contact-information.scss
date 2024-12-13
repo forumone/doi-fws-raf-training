@@ -1,0 +1,63 @@
+//this class comes from a layout builder style applied to a "section"
+//fields may need to be added to some rules
+.contact-information-section {
+    @include tablet {
+      flex-wrap: nowrap;
+    }
+
+    .layout__region.layout__region--first,
+    .layout__region.layout__region--second {
+      @include desktop {
+        flex: 0 1 auto;
+      }
+    }
+
+    .layout__region.layout__region--first {
+
+      .block-field-blocknodeprogramfield-geo,
+      .block-field-blocknodeeventfield-geo {
+        // Note the corresponding height of the map is set in the layout builder at 400px
+        // If this width is to change, the height should change there too
+        width: 600px;
+        margin: 22px 22px 22px 0;
+
+        @include tablet {
+          margin: 0 30px 0 0;
+        }
+      }
+    }
+
+    .block-field-blocknodedivision-and-branchefield-address-to-display,
+    .block-field-blocknodeprogramfield-address-to-display,
+    .block-field-blocknodefacilityfield-address-to-display {
+      margin-bottom: 12px;
+
+      .field--label {
+        @include field--label;
+        margin-top: 0;
+      }
+    }
+
+    .block-field-blocknodeprogramfield-phone,
+    .block-field-blocknodedivision-and-branchefield-phone,
+    .block-field-blocknodefacilityfield-phone,
+    .block-field-blockparagraphlocationfield-phone-number {
+      a {
+        @include phone-icon;
+      }
+    }
+
+    .block-field-blocknodeprogramfield-link {
+      a {
+        @include email-icon;
+      }
+    }
+
+    .block-field-blocknodeprogramfield-fax-number,
+    .block-field-blocknodedivision-and-branchefield-fax-number,
+    .block-field-blocknodefacilityfield-fax-number {
+      a {
+        @include fax-icon;
+      }
+    }
+  }

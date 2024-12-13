@@ -1,0 +1,18 @@
+.view-species-population-connection {
+  .field--item {
+    @include field--label;
+    font-weight: 400;
+  }
+
+  .field--label {
+    display: block;
+  }
+
+  .views-field-field-fws-focus-string {
+    @include tablet {
+      span:not(:first-child) {
+        margin-left: 5px;
+      }
+    }
+  }
+}

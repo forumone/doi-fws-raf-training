@@ -1,46 +1,152 @@
-// We are only using this block for mobile.
+// Variables
+$mobile-breakpoint: 991px;
+$desktop-breakpoint: 992px;
+
+// Manatee Report Styles
+.manatee-report-container {
+  .table-responsive {
+    position: relative;
+    z-index: 0;
+  }
+
+  .select-wrapper {
+    width: 300px;
+  }
+
+  .control-label {
+    margin-right: 10px;
+  }
+
+  .form-type-select .select-wrapper {
+    &:after {
+      top: 29px;
+    }
+  }
+}
+
+.manatee-report-table {
+  .no-manatees-message td {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    background-color: #f5f5f5;
+  }
+}
+
+.manatee-report-filters {
+  .select-wrapper {
+    width: 100px;
+  }
+}
+
+// Manatee Search Form
+.manatee-search-form {
+  .form-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+
+    label {
+      flex: 0 0 150px;
+      text-align: right;
+      margin: 0;
+      padding-right: 10px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      flex: 0 0 300px;
+      width: 300px;
+      min-height: 45px;
+    }
+  }
+
+  .form-type-select .select-wrapper {
+    width: 300px;
+
+    select,
+    select option {
+      background-color: #FFF;
+    }
+  }
+
+  #edit-back {
+    margin-bottom: 15px;
+  }
+
+  .panel-heading {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  &.panel-group {
+    .panel-default {
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      padding: 0;
+
+      a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        padding: 10px 15px;
+
+        &:not(.collapsed) .fa-caret-down {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+// Header and Navigation
 #block-fws-raf-mainnavigation {
-  display: none;
+  display: none; // Mobile only
 }
 
-// Shorten navbar header width for RAF apps.
-@media (min-width: 992px) {
+header#navbar {
+  #navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+  }
 
-  header#navbar .navbar-header {
-    min-width: 250px;
+  @media (min-width: $desktop-breakpoint) {
+    .navbar-header {
+      min-width: 250px;
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    >.container {
+      width: 100%;
+    }
   }
 }
 
-// Override navbar container to be 100%.
-@media (max-width: 991px) {
-  header#navbar>.container {
-    width: 100%;
-  }
-}
-
-header#navbar #navbar-collapse {
-  border-top: 0;
-  box-shadow: none;
-}
-
-// Update mobile pop-up menu which does not have search box
-@media (max-width: 991px) {
-
-  .mb-menuwrapper {
+// Mobile Menu
+.mb-menuwrapper {
+  @media (max-width: $mobile-breakpoint) {
     height: calc(100% - 115px);
     top: 115px;
   }
 }
 
-// Fix header logo width.
+// Branding
 .fws-branding__logo {
-
   img {
     width: 100%;
   }
 }
 
-// Style main navbar with rollovers
+// Main Navigation
 .navbar-main {
   width: auto;
   margin-bottom: 0;
@@ -48,58 +154,56 @@ header#navbar #navbar-collapse {
   .navbar-nav {
     float: right;
     margin-top: 20px;
-  }
 
-  .navbar-nav>li>a {
-    font-size: 1.062em;
-    font-weight: 700;
-    text-transform: uppercase;
+    >li>a {
+      font-size: 1.062em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
   }
 
   .dropdown-menu {
     background-color: #fff;
     list-style: none;
     padding: 0;
-  }
 
-  .dropdown-menu>li>a {
-    background-color: #fff;
-    color: #333;
-    padding: 10px 15px;
-  }
+    >li>a {
+      background-color: #fff;
+      color: #333;
+      padding: 10px 15px;
 
-  .dropdown-menu>li>a:hover,
-  .dropdown-menu>li>a:focus {
-    background-color: #337ab7;
+      &:hover,
+      &:focus {
+        background-color: #337ab7;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// Active Navigation States
+.navbar-default .navbar-nav>.active>a {
+  color: #fff;
+
+  &:hover,
+  &:focus {
     color: #fff;
   }
 }
 
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:hover,
-.navbar-default .navbar-nav>.active>a:focus {
-  color: #fff;
-}
-
+// Views
 .views-element-container {
-
-  .view-content .views-field {
-
-    a {
-      white-space: nowrap;
-    }
+  .view-content .views-field a {
+    white-space: nowrap;
   }
 
-  .panel-title {
+  .panel-title a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      &:not(.collapsed) .fa-caret-down {
-        transform: rotate(180deg);
-      }
+    &:not(.collapsed) .fa-caret-down {
+      transform: rotate(180deg);
     }
   }
 
@@ -108,22 +212,24 @@ header#navbar #navbar-collapse {
   }
 }
 
+// Views Exposed Form
 .views-exposed-form {
+  .form-type-select .select-wrapper {
 
-  .form-type-select .select-wrapper select,
-  .form-type-select .select-wrapper select option {
-    min-width: 85px;
-    min-height: 36px;
-  }
+    select,
+    select option {
+      min-width: 85px;
+      min-height: 36px;
+    }
 
-  .form-type-select .select-wrapper:after {
-    top: 27px;
-    right: 0;
-    z-index: 10;
+    &:after {
+      top: 27px;
+      right: 0;
+      z-index: 10;
+    }
   }
 
   .form-item {
-
     margin-right: 20px;
     margin-bottom: 10px;
 
@@ -139,4 +245,42 @@ header#navbar #navbar-collapse {
   .form-actions {
     margin-bottom: 10px;
   }
+}
+
+// Select2 Styles
+.select2.select2-container {
+  height: 45px !important;
+  line-height: 45px !important;
+}
+
+.select2-selection.select2-selection--single {
+  height: 45px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.select2-selection__clear {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 8px !important;
+  border-right: 1px solid #ccc !important;
+  margin: 0 !important;
+}
+
+.select2-selection__rendered {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 8px !important;
+}
+
+.select2-selection__arrow {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  top: 0 !important;
+  right: 5px !important;
 }

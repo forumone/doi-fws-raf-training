@@ -1,0 +1,13 @@
+.deck-and-search-block {
+  padding: 52px 0 30px;
+
+  .block-title {
+    @include h2;
+    margin-bottom: 20px;
+  }
+
+  .field--name-body,
+  form .form--inline {
+    @include small-width;
+  }
+}

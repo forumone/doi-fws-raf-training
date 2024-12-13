@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a one-column layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'layout',
+    'layout--onecol',
+  ]
+%}
+{% if content %}
+{# has_content is set in the build() of the class file #}
+  <div{{ attributes.addClass(classes) }}>
+    
+    <div {{ region_attributes.content.addClass('layout__region', 'layout__region--content') }}>
+      {% if (settings.heading is not empty) and (content['#has_content']) %}
+      {% if settings.heading_size == 'h4' %}
+        <h4>{{settings.heading}} 
+            {% if settings.tooltip_text is not empty %}
+              <a href data-trigger="focus" data-toggle="tooltip" data-placement="{{settings.tooltip_location}}" data-original-title="{{settings.tooltip_text}}"><i class="fas fa-question-circle icon--help"></i></a>
+            {% endif %}
+        </h4> 
+      {% elseif settings.heading_size == 'h3' %}
+        <h3>{{settings.heading}} 
+            {% if settings.tooltip_text is not empty %}
+              <a href data-trigger="focus" data-toggle="tooltip" data-placement="{{settings.tooltip_location}}" data-original-title="{{settings.tooltip_text}}"><i class="fas fa-question-circle icon--help"></i></a>
+            {% endif %}
+        </h3>
+      {% else %}
+        <h2>{{settings.heading}} 
+            {% if settings.tooltip_text is not empty %}
+              <a href data-trigger="focus" data-toggle="tooltip" data-placement="{{settings.tooltip_location}}" data-original-title="{{settings.tooltip_text}}"><i class="fas fa-question-circle icon--help"></i></a>
+            {% endif %}
+        </h2>
+      {% endif %}
+    {% endif %}
+      {{ content.content }}
+    </div>
+  </div>
+{% endif %}

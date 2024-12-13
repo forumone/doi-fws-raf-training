@@ -1,0 +1,83 @@
+.block-type-block-full-width-slider {
+    .featured-facility-wrapper {
+        .featured-facility {
+            display: flex !important;
+            flex-wrap: nowrap;
+
+            .left {
+                width: 50%;
+                background-color: #2B7B80;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                @include mobile-down {
+                    width: 100%;
+                }
+
+                .content {
+                    margin: 40px 40px;
+
+                    @include mobile-down {
+
+                    }
+
+                    @include tablet {
+                        margin: 40px 50px;
+                    }
+                    @include desktop {
+                        margin: 40px 100px;
+                    }
+                }
+
+                .text-label {
+                    color: white;
+                    font-size: .9em;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                .title {
+                    color: white;
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    height: 3em;
+                    -webkit-line-clamp: 2;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden; 
+                    }
+                .location {
+                    color: white;
+                    font-size: 1.2em;
+                    font-weight: bold;
+                }
+                .btn-secondary {
+                    border-color: white;
+                    color: white;
+                    background-color: transparent;
+                }
+            }
+            .right {
+                width: 50%;
+                background-size: cover;
+                background-position-x: center;
+                background-position-y: center;
+                display: block;
+
+                @include mobile-down {
+                    display: none;
+                }
+            }
+        }
+        .slick-arrow {
+            top: 47%;
+
+            &.left {
+                left: 25px;
+            }
+            &.right {
+                right: 25px;
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.taxonomy-term.full.partner_category {
+  .field--name-field-icon {
+    svg {
+        fill: $views-header-tabs-item-text-color;
+        color: $views-header-tabs-item-text-color;
+        width: 40px;
+        max-height: 40px;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.species-profile-page-geography-exists,
+.block-views-blockspecies-population-connection-species-range {
+  padding: 34px 0 65px;
+  h3 {
+    @include h2;
+    margin-bottom: 23px;
+  }
+
+  .field--name-body {
+    p:first-child {
+      margin-bottom: 34px;
+    }
+  }
+
+  .align-left {
+    margin-bottom: 24px;
+    @include mobile-xs {
+      width: 100%;
+    }
+    @include mobile-up {
+      margin: 0 30px 0 0;
+    }
+  }
+
+  .simple-btn {
+    margin-top: 20px;
+  }
+}

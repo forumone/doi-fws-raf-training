@@ -1,0 +1,80 @@
+.block-taxonomic-tree-block {
+  width: 100%;
+  margin: 34px 0 31px;
+
+  .table-responsive {
+    margin-top: 26px;
+
+    .table {
+      margin-bottom: 0;
+    }
+
+    table tbody {
+      tr {
+        @include mobile-down {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid $border-color;
+        }
+
+        @for $i from 1 to 30 {
+          &:nth-child(#{$i}) {
+            @include mobile-down {
+              padding-left: $i * 5px + 5px;
+            }
+            @include tablet {
+              td:nth-child(2) {
+                padding-left: $i * 10px + 10px;
+              }
+            }
+          }
+        }
+
+        td {
+          padding: 1px 15px;
+          border-color: transparent;
+          font-size: $font-size-deck-md;
+          font-weight: 400;
+          @include tablet {
+            border-color: $border-color;
+            padding: 1px 0 1px 25px;
+          }
+
+          &:first-child {
+            width: 145px;
+          }
+        }
+
+        td:last-child {
+          text-align: right;
+          padding: 0 25px 0;
+          font-weight: 700;
+          @include mobile-down {
+            display: none;
+          }
+
+          span {
+            font-family: $font-family-base;
+            font-size: 17px;
+          }
+        }
+
+        &.active {
+          td {
+            background-color: transparent;
+          }
+
+          a {
+            font-weight: 700;
+            font-style: italic;
+            color: $link-color-dark;
+          }
+        }
+
+        &:last-child {
+          background: $table-bg-accent;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+article.event.full {
+
+  .margin-block {
+      margin-top: 0px;
+  }
+
+  // Not technically a service content type, but this styling is borrowed from the
+  // full_content services stylsheet (though applied generically in the layout builder)
+  .services-card {
+      display: flex;
+      margin-top: 20px;
+
+      section {
+          margin: 20px 20px 30px 20px;
+      }
+  }
+
+  .contact-information-section {
+    margin-bottom: 30px;
+  }
+}

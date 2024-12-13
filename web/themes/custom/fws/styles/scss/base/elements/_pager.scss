@@ -1,0 +1,94 @@
+.pager-nav {
+  position: relative;
+//  display: none; //commented out because the pager wasn't showing up on mobile
+  @include tablet {
+    display: block;
+  }
+
+  .pager  {
+    display: flex;
+    width: 100%;
+    margin: 35px 0;
+
+    > li > a {
+      border: 0 none;
+
+      &:hover {
+        background: none;
+      }
+    }
+
+    &__item {
+      font-size: $font-size-base;
+
+      a {
+        @include font($font-size-deck-md, 700, $font-family-base, 30px, $link-color);
+      }
+    }
+
+    &__item {
+      a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        &:focus {
+          border-radius: 50%;
+          background: transparent;
+        }
+      }
+
+      &.active {
+        a {
+          background: $link-color;
+          color: $color-white;
+
+          &:hover {
+            background: $link-color;
+            color: $color-white;
+          }
+        }
+      }
+    }
+
+    &__item:not(.pager__item--previous):not(.pager__item--next) {
+      margin: 0 11px;
+    }
+
+    &__item--previous {
+      margin-right: auto;
+
+      a {
+        padding-left: 0;
+        text-align: left;
+      }
+    }
+
+    &__item--next {
+      margin-left: auto;
+
+      a {
+        padding-right: 0;
+        text-align: right;
+      }
+    }
+
+    &__item--previous,
+    &__item--next {
+
+      a {
+        border-radius: 50%;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      span:before {
+        font-size: 45px;
+        line-height: 27px;
+      }
+    }
+  }
+}

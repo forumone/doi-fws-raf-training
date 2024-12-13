@@ -1,0 +1,17 @@
+
+
+{# General macro for different purposes #}
+
+{# Split string and add classes for each particular piece. Used for a fws_string #}
+{% macro split_string(item) %}
+  {% set splitted_output = item|split(',') %}
+
+  {% for key, string in splitted_output %}
+    {% set string_class = string|trim|lower|replace({' ': '-'}) %}
+    {% if loop.last %}
+      <span class="{{ string_class }}">{{ string }}</span>
+    {% else %}
+      <span class="{{ string_class }}">{{ string }}</span>,
+    {% endif %}
+  {% endfor %}
+{% endmacro %}

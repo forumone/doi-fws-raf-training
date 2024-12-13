@@ -1,0 +1,64 @@
+.volunteer-position-overview {
+    .field--label-inline {
+        margin-bottom: 10px;
+    }
+    .field--label {
+        font-weight: bold;
+    }
+}
+.volunteer-opportunities-for-me-group {
+    .opportunity-group-row {
+        display: flex;
+        margin-bottom: 20px;
+        .text {
+            h3 {
+                margin-top: 0;
+            }
+        }
+        .icon {
+            padding-right:20px;
+        }
+        .icon-family::before {
+            font-family: "Font Awesome 5 Pro"; 
+            content: "\f1ae";
+            background-color: $views-header-tabs-item-text-color;
+            width:39px;
+            height:39px;
+            color:#FFF;
+            border-radius:39px;
+            display:inline-block;
+            line-height:39px;
+            margin:auto 6px;
+            font-size:24px;
+            text-align:center;
+        }
+        .icon-clock::before {
+            font-family: "Font Awesome 5 Pro"; 
+            content: "\f017";
+            background-color: $views-header-tabs-item-text-color;
+            width:39px;
+            height:39px;
+            color:#FFF;
+            border-radius:39px;
+            display:inline-block;
+            line-height:39px;
+            margin:auto 6px;
+            font-size:24px;
+            text-align:center;
+        }
+        .icon-dashboard::before {
+            font-family: "Font Awesome 5 Pro"; 
+            content: "\f3fd";
+            background-color: $views-header-tabs-item-text-color;
+            width:39px;
+            height:39px;
+            color:#FFF;
+            border-radius:39px;
+            display:inline-block;
+            line-height:39px;
+            margin:auto 6px;
+            font-size:24px;
+            text-align:center;
+        }
+    }  
+}

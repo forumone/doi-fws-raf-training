@@ -1,0 +1,21 @@
+.view-display-id-taxon_all_kingdoms {
+    margin: 23px 0 0;
+    padding: 0;
+
+    .view-content {
+        margin: 0 0 30px !important;
+
+        .explore {
+            width: 100%;
+            padding: 5px;
+
+            @include tablet {
+                width: 50%;
+            }
+
+            a {
+                font-size: $font-size-deck-lg;
+            }
+        }
+    }
+}

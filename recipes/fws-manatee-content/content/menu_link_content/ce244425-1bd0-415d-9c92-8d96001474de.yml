@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/status-update'
+      uri: 'internal:/node/add/status_report'
       title: ''
       options: {  }
   external:

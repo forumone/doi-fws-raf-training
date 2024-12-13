@@ -1,0 +1,181 @@
+//facilities have many view modes and therefore have customizations in other files
+//this styling applies to most any facility type
+article.facility:not(.teaser) {
+
+    >.content {
+        h2:first-of-type {
+            margin-top: 0px;
+        }
+    }
+
+    .field--name-field-contact-us-title {
+        @include h2;
+        margin-top: 0px;
+    }
+
+    .block-field-blocknodefacilityfield-about-us {
+        .block-title {
+            margin-top: 0px;
+        }
+    }
+
+    .field--name-field-other-facilities-descripti,
+    .block-field-blocknodefacilityfield-plaintext-description,
+    .field--name-field-our-projects-research-text,
+    .block-field-blocknodefacilityfield-tours-image,
+    .block-field-blocknodefacilityfield-our-species-main-page-body,
+    .block-field-blocknodefacilityfield-main-page-library-intro,
+    .block-field-blocknodefacilityfield-our-services-desc,
+    .block-field-blocknodefacilityfield-volunteering-image,
+    .block-field-blocknodefacilityfield-our-partners-body,
+    .block-field-blocknodefacilityfield-news-description,
+    .block-field-blocknodefacilityfield-our-species-body,
+    .block-field-blocknodefacilityfield-whatwedo-body,
+    .block-field-blocknodefacilityfield-training-pathways-homepage,
+    .block-field-blocknodefacilityfield-visit-us-homepage,
+    .block-field-blocknodefacilityfield-library-page-intro,
+    .block-field-blocknodefacilityfield-tours-hp-body,
+    .block-field-blocknodefacilityfield-get-involved-body,
+    .block-field-blocknodefacilityfield-contact-us-body,
+    .block-field-blocknodefacilityfield-career-body,
+    .block-field-blocknodefacilityfield-rules-policies-body,
+    .block-field-blocknodefacilityfield-manag-conservation-body,
+    .block-field-blocknodefacilityfield-laws-regulations-desk,
+    .block-field-blocknodefacilityfield-activities-description,
+    .block-field-blocknodefacilityfield-trails-description,
+    .block-field-blocknodefacilityfield-about-us-main,
+    .block-field-blocknodefacilityfield-main-research-projects,
+    .block-field-blocknodefacilityfield-maps-resources,
+    .block-field-blocknodefacilityfield-regulations-intro  {
+        margin-bottom: 25px;
+    }
+
+    .block-field-blocknodefacilityfield-ways-to-get-involved-body {
+        .block-title {
+            margin-top: 0px;
+        }
+    }
+
+    .block-field-blocknodefacilityfield-state {
+        font-size: 24px;
+        font-weight: 600;
+        color: #205493;
+        margin-bottom: 35px;
+    }
+
+    .block-views-blockalert-block-1,
+    .block-field-blocknodefacilitybody,
+    .block-views-blockcontacts-by-facility-block-1,
+    .block-field-blocknodefacilityfield-what-we-do-body,
+    .block-field-blocknodefacilityfield-our-organization {
+        margin-bottom: 35px;
+    }
+
+    .field--name-field-promotable-services {
+        > .field--label {
+            @include h3;
+        }
+    }
+    //social media icons section
+    .facility-social-media-icons {
+        margin-bottom: 15px;
+
+        .layout__region--content {
+            display: flex;
+
+            section {
+                flex-basis: 50px;
+            }
+
+            .field--name-field-facebook-feed,
+            .field--name-field-twitter-feed {
+                background: #0066CC;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+
+                a {
+                    font-size: 0;
+                    margin-top: 0;
+                    letter-spacing: 0;
+
+                    //@include brand_icon('\f099', 26px, 700, 39px, $color-white);
+                    &:before {
+                        display: flex !important;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .field--name-field-facebook-feed a {
+                //@include brand_icon('\f39e', 26px, 700, 39px, $color-white);
+                margin-right: 20px;
+            }
+
+        }
+    }
+
+    .block-quicktabs-blockfacility-news {
+        margin-top: 20px;
+
+        .quicktabs-tabs {
+            margin-bottom: 15px;
+        }
+    }
+
+    //rules and policies paragraphs
+    .block-field-blocknodefacilityfield-rules-policies {
+        .field--name-field-title {
+            @include h3;
+        }
+
+        .field--name-field-description {
+            margin-bottom: 20px;
+        }
+    }
+
+    .margin-block {
+        margin-top: 0px;
+    }
+
+}
+
+//activities list on the visit-us sub page
+article.facility.visit-us {
+    .block-field-blocknodefacilityfield-para-activity {
+        .field--name-field-para-activity {
+            display: flex;
+            flex-wrap: wrap;
+
+            > .field--item {
+                flex-basis: 100%;
+                margin-bottom: 25px;
+
+                @include tablet {
+                    flex-basis: 50%;
+                }
+
+                @include desktop {
+                    flex-basis: 33%;
+                }
+            }
+        }
+
+        
+    }
+}
+
+//when on the activities sub sub page
+article.facility.visit-us-activities {
+    .block-field-blocknodefacilityfield-para-activity {
+        .field--name-field-para-activity {
+            display: flex;
+            flex-wrap: wrap;
+
+            > .field--item {
+                flex-basis: 100%;
+                margin-bottom: 25px;
+            }
+        }
+    }
+}

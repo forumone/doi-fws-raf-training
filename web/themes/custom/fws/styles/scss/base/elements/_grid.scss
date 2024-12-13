@@ -1,0 +1,76 @@
+// Grid
+.container-ch-small .layout__region--content,
+.container-small {
+  @include container-small;
+}
+
+.container-ch-large .layout__region--content,
+.container-large {
+  @include container-large;
+}
+
+.main-container>.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-sidebar {
+  width: 100%;
+
+  @include tablet {
+    max-width: 178px;
+  }
+
+  .region-sidebar-first {
+    @include tablet {
+      height: 100%;
+    }
+  }
+}
+
+.col-content {
+  @include tablet {
+    width: calc(100% - 178px);
+    display: inline-block;
+    padding-left: 30px;
+  }
+}
+
+@include tablet-down {
+  .col-content {
+    width: 100%;
+    display: inline-block;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .col-sidebar {
+    max-width: 100%;
+  }
+}
+
+@include mobile-down {
+  .col-content {
+    padding-left: 10px;
+    padding-right:10px;
+  }
+}
+
+
+.col-full-content {
+  display: inline-block;
+  width: 100%;
+}
+
+
+.layout__region--content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.small-width {
+  @include small-width;
+}
+
+.row.m-0 {
+  margin: 0;
+}

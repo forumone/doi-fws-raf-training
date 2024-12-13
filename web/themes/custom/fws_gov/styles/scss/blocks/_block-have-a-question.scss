@@ -1,0 +1,33 @@
+#block-haveaquestionbottomoflibrarypage,
+#block-findlearningopportunitiesbottomofservicespage {
+    .image-and-text-large {
+        .layout__region--first {
+            background-color: $footer-bottom-bg-color;
+        }
+    }
+    .block-field-blockblock-contentblock-with-image-and-textinfo {
+        display: none;
+    }
+    .field--name-field-call-to-action {
+        @include simple-btn-white;
+        a {
+            background-color: transparent;
+            box-shadow: none;
+            &:hover {
+                background: transparent;
+            }
+        }
+        transition: .4s ease-in-out;
+    }
+    .field--name-field-call-to-action:hover {
+        background: #0066cc;
+    }
+    .field--name-body.field--type-text-with-summary {
+        margin-top:0;
+    }
+    h2, p {
+        color: $color-white;
+        margin-top:0;
+    }
+      
+}

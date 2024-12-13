@@ -1,0 +1,58 @@
+.visit-us-activities {
+    .field--name-body {
+        margin-bottom: 25px;
+    }
+
+    .field--name-field-sections {
+        display: flex;
+        flex-wrap: wrap;
+
+        @include mobile-xs {
+            
+        }
+
+        @include desktop {
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        .field--item {
+            margin-bottom: 20px;
+            justify-content: center;
+            flex: 0 0 24%;
+
+            @include mobile-xs {
+                flex: 0 0 48%;
+            }
+
+
+            @include desktop {
+                flex: 0 0 100px;
+            }
+            
+            
+
+            .field--name-name {
+                text-align: center;
+            }
+
+            .field--name-field-icon {
+                display: flex;
+                justify-content: center;
+
+                img {
+                    filter: invert(31%) sepia(9%) saturate(4910%) hue-rotate(175deg) brightness(94%) contrast(96%);
+                }
+            }
+            .name {
+                text-align: center;
+            }
+        }
+    }
+    .field--name-field-link {
+        text-align: center;
+        a {
+            @include btn-primary();
+        }
+    }
+}

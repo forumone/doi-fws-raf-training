@@ -1,0 +1,63 @@
+//summary is a bigger version of a teaser, used by projects and research (maybe others too)
+article.summary.project, article.summary.research {
+    .layout--twocol-section {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        @include mobile-xs {
+            flex-direction: column;
+        }
+        .layout__region--first {
+            flex-shrink: 1;
+            flex-basis: auto;
+            width: auto;
+            margin-right: 20px;
+            @include mobile-xs {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            @include tablet {
+                width: 42%;
+                margin-right: 25px;
+            }
+        }
+      
+        .layout__region--second {
+            flex-grow: 1;
+            @include tablet {
+                width: 58%;
+            }
+        }
+
+        .block-field-blocknodeprojecttitle, .block-field-blocknoderesearchtitle {
+            a {
+                @include h3;
+                display: block;
+                margin-top: 0px;
+                margin-bottom: 16px;
+                line-height: 1;
+                @include mobile-xs {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        //layout builder doesn't give an easy way to create just a link to a node, so this is a workaround
+        // to use the title field, linked to the node, and change the text and style like a button
+        .view-entity-link {
+            margin-top: 20px;
+            @include simple-btn-secondary;
+            a {
+                font-size: 0;
+                margin-top: 0;
+                letter-spacing: 0;
+    
+                &:after {
+                    content: "View Entity" !important;
+                    font-size: $font-size-base;
+                    color: $link-color;
+                }
+            }    
+        }
+    }
+}

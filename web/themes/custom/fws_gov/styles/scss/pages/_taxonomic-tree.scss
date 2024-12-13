@@ -1,0 +1,126 @@
+@mixin thumbnail($width, $padding) {
+  width: $width + $padding;
+  padding-right: $padding;
+  margin-bottom: 0px;
+}
+
+@mixin mobile-thumbnail {
+  @include mobile-xs {
+      // width from mockup is 50px, need room for padding
+      @include thumbnail(50px, 10px);
+  }
+}
+
+.path-taxonomic-tree {
+
+  .main-container {
+    >.row {
+      margin: 0;
+    }
+  }
+
+  .block-field-blocknodespeciestitle {
+    width: 100%;
+
+    h2 {
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+  }
+
+  .taxonomic-tree-info-section {
+    .layout__region--first {
+      width: auto;
+      flex-basis: auto;
+
+      .teaser-thumbnail {
+        @include mobile-thumbnail;
+        @include thumbnail(130px, 30px); // 130px matches image preset width
+
+        img {
+            border-radius: 5px; // soften the corners
+            margin: 0;
+            height: auto;
+        }
+      }
+    }
+
+    .layout__region--second {
+      width: auto;
+      flex-basis: auto;
+
+      @include tablet {
+        width: calc(100% - 160px);
+      }
+    }
+
+    .block-field-blocknodespeciesfield-fws-focus {
+      margin: 17px 0 5px;
+
+      .field--name-field-fws-focus {
+        @include font($font-size-deck-md, 700, $font-family-base, 1.25);
+      }
+    }
+
+    .block-field-blocknodespeciesfield-regulated,
+    .block-field-blocknodespeciesfield-occurs-on-fws-managed-land,
+    .block-field-blocknodespeciesfield-aquatic {
+      display: inline-block;
+      width: auto;
+      @include font($font-size-deck-md, 400, $font-family-base, 1.4);
+
+      &:not(.block-field-blocknodespeciesfield-regulated) {
+        display: inline-flex;
+        align-items: flex-end;
+
+        &:before {
+          content: ',';
+          margin-left: -3px;
+          padding-right: 3px;
+        }
+      }
+    }
+  }
+
+  .block-field-blocknodespeciesfield {
+
+    // Image.
+    &-media {
+      margin: 0 30px 20px 0;
+    }
+
+    // Term.
+    &-taxonomic-rank,
+    &-species-kingdom,
+    &-fws-id,
+    &-tsn {
+      width: 100%;
+      margin-top: 17px;
+      margin-bottom: 20px;
+
+      @include tablet {
+        width: 25%;
+        margin-top: 23px;
+        margin-bottom: 30px;
+      }
+    }
+
+    &-species-kingdom a {
+      font-style: italic;
+    }
+  }
+}
+
+.block-extra-field-blocknodespeciesview-profile {
+  flex-basis: 100%;
+  margin-bottom: 20px;
+}
+
+.link--explore-branch {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-indent: -9999px;
+  background: url(../../images/icon/explore-arrow.svg) center center no-repeat;
+  background-size: 30px 30px;
+}

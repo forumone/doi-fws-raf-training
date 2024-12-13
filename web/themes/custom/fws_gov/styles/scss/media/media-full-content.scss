@@ -1,0 +1,267 @@
+$icon_color: #e2e2e2;
+//class applies to image and banner image media at the top of the template full-image.html.twig
+.media-full-content {
+    @include tablet {
+        display: flex;
+    }
+
+    //the image details pages are split in half on larger displays, i grouped them by left and right
+    .left {
+        position: relative;
+        @include tablet {
+            margin-right: 10px;
+            flex: 0 0 50%;
+        }
+        @include desktop {
+            margin-right: 15px;
+        }
+    }
+    .right {
+        @include tablet {
+            margin-left: 10px;
+            flex: 0 0 50%;
+        }
+        @include desktop {
+            margin-left: 15px;
+        }
+
+        .field--name-field-creative-commons-license {
+            border-bottom: 1px solid #D8D8D8;
+            padding-bottom: 10px;
+        }
+
+        //download button for image variants
+        div.dropdown {
+            margin-bottom: 15px;
+            button {
+                @include icon('\f33d', 15px, 400, 22px, white, 'after');
+            }
+            ul.dropdown-menu {
+                background: #FFF;
+                box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+                list-style: none;
+                padding: 0;
+
+                li {
+                    a {
+                        color: #4A4A4A;
+                        padding: 6px 20px;
+                        &:hover {
+                            background: #F4F5F5;
+                            color: $link-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        //copy to clipboard button
+        .btn-clipboard {
+            margin-bottom: 15px;
+            @include icon('\f328', 16px, 600, 22px, $link-color);
+            &:before {
+                margin-right: 5px;
+            }
+            &.copied {
+                @include icon('\f46c', 16px, 400, 22px, #6C6B6B);
+            }
+        }
+    }
+    //these teaser layouts have big margin bottoms that we don't want on this page
+    article.staff-profile.teaser .staff-profile, article.teaser .layout--twocol-section {
+        margin-bottom: 0px;
+    }
+
+    //general spacing of all elements
+    .field {
+        margin-bottom: 15px;
+
+        .field--label {
+            margin-bottom: 0px;
+        }
+    }
+
+
+    .media-type {
+        font-weight: bold;
+        &:before {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background: $views-row-bg-accent;
+            border-radius: 50%;
+            text-align: center;
+        }
+    }
+
+
+    .media-full-image {
+        margin-bottom: 15px;
+        .field {
+            margin-bottom: 0px;
+        }
+        a.original {
+            font-size: 14px;
+        }
+
+        a.photoswipe {
+            @include icon('\f424', 24px, 400, 39px, white,);
+            &:before {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                background: rgba(0,0,0, .6);
+                width: 35px;
+                height: 35px;
+                text-align: center;
+            }
+        }
+    }
+}
+//overrides specific to image (which includes banner images too)
+.media-full-content.image { 
+    .media-type {
+        @include icon('\f03e', 18px, 400, 39px, $icon-default-bg-color);
+    }
+}
+.media-full-content.remote-video { 
+    .media-type {
+        @include icon('\f03d', 18px, 400, 39px, $icon-default-bg-color);
+    }
+}
+
+//overrides specific to document
+.media-full-content.document {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include desktop {
+        flex-wrap: nowrap;
+    }
+    .media-type {
+        @include icon('\f659', 18px, 400, 39px, $icon-default-bg-color);
+    }
+    .media-type.application-pdf {
+        //@include icon('\f1c1', 18px, 400, 39px, $icon-default-bg-color);
+    }
+    .document-summary {
+        flex: 0 0 100%;
+        margin-right: 35px;
+        margin-bottom: 30px;
+
+        @include desktop {
+            flex: 0 0 400px;
+            margin-bottom: 0px;
+        }
+
+        .document-card {
+            padding: 20px;
+            border: .5px solid #D8D8D8;
+            border-radius: 7px;
+            background-color: #F7F9FB;
+            margin-bottom: 10px;
+
+            .no-thumbnail {
+                background-color: #333;
+                width: 100%;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 30px;
+                margin-bottom: 15px;
+                //default for anything is plain text file 
+                a {
+                    span {
+                        @include icon('\f15b', 150px, 300, 150px, $icon_color); 
+                    }
+                }
+                //word documents
+                &.application-msword,
+                &.application-vnd-openxmlformats-officedocument-wordprocessingml-document {
+                    a {
+                        span {
+                            @include icon('\f1c2', 150px, 300, 150px, $icon_color); 
+                        }
+                    }
+                }
+                //zip file
+                &.application-zip {
+                    a {
+                        span {
+                            @include icon('\f1c6', 150px, 300, 150px, $icon_color); 
+                        }
+                    }
+                }
+                //excel files
+                &.application-vnd-ms-excel,
+                &.application-vnd-openxmlformats-officedocument-spreadsheetml-sheet {
+                    a {
+                        span {
+                            @include icon('\f1c3', 150px, 300, 150px, $icon_color); 
+                        }
+                    }
+                }
+                //powerpoint
+                &.application-vnd-ms-powerpoint,
+                &.application-vnd-openxmlformats-officedocument-presentationml-presentation {
+                    a {
+                        span {
+                            @include icon('\f1c4', 150px, 300, 150px, $icon_color); 
+                        }
+                    }
+                }
+                a:after {
+
+                }
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                box-shadow: $popup-shadow; 
+            }
+        }
+
+        .additional-files {
+            .fws-document-link {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            }
+        }
+        div.download-all {
+            margin-top: 15px;
+            text-align: center;
+            a {
+                @include icon('\f33d', 16px, 400, normal, white, 'after');
+                &:after {
+                    margin-left: 7px;
+                }
+            }
+        }
+    }
+
+    // .field--name-field-media-file {
+    //     @include table-of-files;
+    // }
+    .field--name-field-contributors.field--items {
+            .field--item {
+                .paragraph--type--attribution{
+                    display: flex;
+                    /* when there is a org along with name add a hyphen */
+                    div:last-child:not(:first-child):before {
+                        content: "-";
+                        width: 10px;
+                        text-align: center;
+                        display: inline-block;
+                      }
+                }
+                .field--item {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    }

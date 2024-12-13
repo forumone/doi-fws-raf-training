@@ -1,0 +1,615 @@
+$views-timeline-border-color: #205493;
+$views-timeline-bg-color: #205493;
+$views-timeline-text: #205493;
+$views-timeline-background: #ffffff;
+
+$views-timeline-inactive-border-color: #9B9B9B;
+$views-timeline-inactive-bg-color: #9B9B9B;
+$views-timeline-inactive-text: #4A4A4A;
+$views-timeline-inactive-background: #D8D8D8;
+
+$views-timeline-hover-border-color: #003366;
+$views-timeline-hover-bg-color: #003366;
+$views-timeline-hover-text: #ffffff;
+$views-timeline-hover-background: #003366;
+
+$views-timeline-icon-color:#205493;
+$views-timeline-icon-bg:#ffffff;
+$views-timeline-icon-hover-bg:#f4f4f4;
+$views-timeline-icon-hover-color:#4A4A4A;
+
+.views-timeline {
+  padding: 55px 0 45px;
+
+  .block-title {
+    @include h2;
+    margin: 0 0 24px;
+  }
+
+  // Top description.
+  .view-header {
+    font-weight: 700;
+    font-size: $font-size-deck-sm;
+    text-transform: uppercase;
+
+    @include tablet {
+      margin-bottom: 35px;
+    }
+
+    p {
+      font-size: 17px;
+      text-transform: none;
+
+      &:last-child {
+        margin-bottom: 31px;
+      }
+    }
+  }
+
+  .tl-menubar-button {
+    color: $views-timeline-icon-color;
+    background-color: $views-timeline-icon-bg;
+  }
+  .tl-menubar-button:hover {
+    color: $views-timeline-icon-hover-color;
+    background-color: $views-timeline-icon-hover-bg;
+  }
+
+  // Timeline tag (footer section).
+  .timeline-tag {
+    margin-top: 29px;
+
+    span {
+      @include font($font-size-base, 400, $font-family-base, 1.4);
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .slider-icon-event,
+    .slider-icon-listing-status {
+      font-size: $font-size-base;
+      display: inline-flex;
+      align-items: center;
+      @include tag($views-timeline-icon-bg-color, 20px);
+      @include icon('\f022', 13px, 700, 1, $color-white);
+
+      &:before {
+        padding: 4px 2px;
+        text-align: center;
+      }
+    }
+
+    .slider-icon-event {
+      margin-right: 40px;
+      @include icon('\f274', 12px, 700, 1, $color-white);
+
+      &:before {
+        background: $icon-bg-green;
+      }
+    }
+  }
+
+
+  .tl-timenav-container-mask,
+  .tl-timenav-container,
+  .tl-timenav-item-container,
+  .tl-timemarker {
+    width: 100%;
+    max-width: 280px;
+  }
+
+
+  .view-species-timeline {
+
+    .view-content {
+      @include mobile-down {
+        margin: 0 -10px;
+      }
+    }
+
+    .tl-timeline {
+        a {
+            color: $link-color !important;
+        }
+      background: transparent;
+
+      .tl-timenav {
+        display: none;
+        background: transparent;
+        border-top: 0 none;
+
+        @include tablet {
+          display: block;
+        }
+      }
+
+       .tl-timemarker {
+
+         .tl-timemarker-timespan {
+           background: transparent;
+         }
+
+      //   // &[id*='-species_event'],
+      //   // &[id*='-listing_status'] {
+      //     .tl-timemarker-content-container {
+      //       @include tag($views-timeline-icon-bg-color, 30px);
+      //       @include icon('\f022', 19px, 700, 1, $color-white);
+
+      //       &:before {
+      //         padding: 4px 2px;
+      //         text-align: center;
+      //         @include absolute(0, 0, 0);
+      //       }
+      //   //   }
+      //   }
+
+      //   &[id*='-species_event'] .tl-timemarker-content-container {
+      //     @include icon('\f274', 18px, 700, 1, $color-white);
+
+      //     &:before {
+      //       background: $icon-bg-green;
+      //     }
+
+      //     .tl-timemarker-content span.status_listing {
+      //       display: none;
+      //     }
+      //   }
+
+      //   &[id*='-listing_status'] .tl-timemarker-content-container {
+      //     .tl-timemarker-content span.species_event {
+      //       display: none;
+      //     }
+      //   }
+
+      //   .tl-timemarker-content-container {
+      //     width: auto;
+      //     min-height: 30px !important;
+      //     height: auto !important;
+      //     background: $color-white;
+      //     border-radius: 3px 3px 3px;
+      //     border: 1px solid $input-border;
+      //     box-shadow: none;
+
+      //     .tl-timemarker-content {
+      //       padding: 6px 10px 7px 38px;
+
+      //       .tl-timemarker-text .tl-headline {
+      //         @include font($font-size-base, 600, $font-family-base, 1);
+      //       }
+      //     }
+      //   }
+
+      //   &:hover {
+      //     .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text .tl-headline {
+      //       color: $text-color;
+      //     }
+      //   }
+
+      //   .tl-timemarker-line-left {
+      //     height: calc(100% - 7px);
+      //     margin-top: 5px;
+      //     border-left: 1px solid $input-border;
+      //     transition: .4s;
+
+      //     &:after {
+      //       left: -3px;
+      //       bottom: -5px;
+      //       width: 5px;
+      //       height: 5px;
+      //       background: $input-border;
+      //     }
+      //   }
+        .tl-timemarker-line-left {
+          border-color: $views-timeline-inactive-border-color;
+        }
+        .tl-timemarker-content-container {
+          background-color: $views-timeline-inactive-background;
+          border-color: $views-timeline-inactive-border-color;
+          .tl-timemarker-content {
+            padding-top:3px;
+            .tl-timemarker-text{
+              h2.tl-headline {
+                color:$views-timeline-inactive-text;
+                font-size: 14px;
+                line-height: 18px;
+                font-weight: bold;
+              }
+            }
+          }
+          min-height: 25px;
+        }
+        &.tl-timemarker-active {
+          // .tl-timemarker-line-left {
+          //   box-shadow: $timeline-shadow;
+          //   border-color: $views-timeline-border-color;
+
+          //   &:after {
+          //     background: $views-timeline-bg-color;
+          //   }
+          // }
+
+          .tl-timemarker-content-container {
+            background-color:$views-timeline-background;
+            .tl-timemarker-content {
+              .tl-timemarker-text{
+                h2.tl-headline {
+                  color: $views-timeline-text;
+                }
+              }
+            }
+            // box-shadow: $green-content;
+            // border-color: $views-timeline-border-color;
+          }
+        }
+      // .tl-timeaxis-background {
+      //   height: 46px;
+      //   border-bottom: 1px solid $border-color;
+      //   border-color: $border-color;
+      // }
+
+      // .tl-timeaxis-content-container,
+      // .tl-timeaxis {
+      //   height: 46px;
+
+      //   .tl-timeaxis-animate-opacity .tl-timeaxis-tick {
+      //     &:before {
+      //       border-color: $border-color;
+      //       line-height: 12px;
+      //     }
+
+      //     &:after {
+      //       content: "|";
+      //       display: block;
+      //       color: $color-white;
+      //       width: 1px;
+      //       overflow: hidden;
+      //       border-left: 1px solid $border-color;
+      //       text-align: center;
+      //       font-size: 18px;
+      //       line-height: 18px;
+      //       margin-bottom: 2px;
+      //       margin-left: 50px;
+      //     }
+
+      //     .tl-timeaxis-tick-text {
+      //       @include font($font-size-base, 600, $font-family-base, 1);
+      //     }
+      //   }
+
+      //   .tl-timeaxis-minor .tl-timeaxis-tick {
+      //     &:after {
+      //       margin-left: 25px;
+      //     }
+
+      //     &:before {
+      //       line-height: 14px;
+      //     }
+      //   }
+      }
+      .tl-timemarker-active {
+        .tl-timemarker-line-left {
+          //box-shadow: $timeline-shadow;
+          border-color: $views-timeline-border-color;
+
+          &:after {
+            background: $views-timeline-bg-color;
+          }
+        }
+
+        .tl-timemarker-content-container {
+          //box-shadow: $green-content;
+          border-color: $views-timeline-border-color;
+        }
+      }
+      .tl-timemarker:hover {
+
+        .tl-timemarker-timespan {
+          background: transparent;
+        }
+       .tl-timemarker-line-left {
+         border-color: $views-timeline-hover-border-color;
+       }
+       .tl-timemarker-content-container {
+         background-color: $views-timeline-hover-background;
+         border-color: $views-timeline-hover-border-color;
+         .tl-timemarker-content {
+           .tl-timemarker-text{
+             h2.tl-headline {
+               color:$views-timeline-hover-text;
+             }
+           }
+         }
+       }
+     }
+      // Hidden timeline libraries name
+      .tl-attribution {
+        display: none;
+      }
+
+
+      .tl-slider-background {
+        background: transparent !important;
+      }
+
+
+      // Text block slider.
+      .tl-slide {
+        padding: 30px 0 5px;
+
+        .tl-slide-scrollable-container {
+          display: block;
+          max-width: 80%;
+          margin: 0 auto;
+          padding: 50px 30px;
+          background: $color-white;
+          box-shadow: $popup-shadow;
+
+          @include tablet {
+            max-width: 640px;
+          }
+
+          @include desktop {
+            max-width: 980px;
+            ;
+          }
+
+
+          .tl-slide-content {
+            width: 100% !important;
+            padding: 0 !important;
+
+            .tl-text {
+              max-width: none;
+              width: 100%;
+              padding: 0;
+
+              .tl-text-content-container {
+                padding: 0;
+              }
+            }
+
+            .tl-text-content {
+              @include font($font-size-deck-md, 400, $font-family-base, 1.4);
+
+              .species-card-count {
+                font-weight: 700;
+                font-size: $font-size-deck-sm;
+                text-transform: uppercase;
+                margin-top:40px;
+                
+              }
+
+              p {
+                @include font($font-size-deck-md, 400, $font-family-base, 1.4);
+                color: $text-color;
+                margin-top: 6px;
+              }
+
+              i {
+                font-style: normal;
+              }
+              a.btn-secondary {
+                color: $link-color;
+                text-decoration: none;
+              }
+
+              .status {
+                margin-bottom: 10px;
+              }
+
+              >  [class*='-species_event'] {
+                .status,
+                .status-change-button {
+                  display: none;
+                }
+              }
+
+              .status-change-button {
+                margin-top: 25px;
+              }
+
+              .body {
+                // this is perhaps temporary until this CSS gets cleaned up
+                >ul {
+                    padding-left: 0px;
+                }
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+
+                @include mobile-xs {
+                  flex-direction: column;
+                }
+
+                .image-with-credit {
+                  flex-shrink: 0;
+                  margin-right: 20px;
+
+                  @include mobile-xs {
+                    margin-right: 0px;
+                    margin-bottom: 20px;
+                    /*margin-left: 20px;*/
+                  }
+
+                  img {
+                    max-width: 210px;
+
+                    @include mobile-xs {
+                      max-width: 100%;
+                    }
+                  }
+                }
+
+                .body-text {
+                  p:first-child {
+                    margin-top: 0px;
+                  }
+                }
+              }
+            }
+
+
+            .tl-headline {
+              margin: 20px 0 16px;
+              @include font($title-md, 600, $font-family-base, 1.45, $views-timeline-headline-color);
+              text-transform: initial !important;
+
+              @include tablet {
+                margin: 12px 0 16px;
+              }
+            }
+
+            .tl-headline-date, .tl-headline {
+              display: none;
+            }
+
+            .tl-custom-headline {
+              @include h3;
+            }
+
+            .tl-custom-headline-date {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              color: $color-extra-dark-grey;
+              font-family: "Source Sans Pro", sans-serif !important;
+              font-size: $font-size-deck-md;
+              font-weight: 400 !important;
+              margin-bottom: 20px;
+              text-transform: initial !important;
+
+              .date {
+                width: 100%;
+                @include font(17px, 400 !important, $font-family-base, 1.4, $color-extra-dark-grey);
+
+                @include tablet {
+                  width: auto;
+                  padding-right: 20px;
+                  border-right: 1px solid $border-color;
+                }
+              }
+
+            //   [class*='-listing_status'],
+            //   [class*='-species_event'] {
+                >span.publication-action {
+                  display: flex;
+                  align-items: center;
+                  margin: 18px 0 0 0;
+                  @include font($font-size-base, 400, $font-family-base, 1.5);
+                  @include tag($views-timeline-icon-bg-color, 20px);
+                  @include icon('\f022', 13px, 700, 1, $color-white);
+  
+                  &:before {
+                    padding: 4px 2px;
+                    text-align: center;
+                  }
+  
+                  @include tablet {
+                    margin: 0 0 0 20px;
+                  }
+                // }
+              }
+
+              [class*='-listing_status'] {
+                .slide-type-event {
+                  display: none;
+                }
+              }
+
+              [class*='-species_event'] {
+                .slide-type-listing-status {
+                  display: none;
+                }
+
+                .slide-type-event {
+                  @include icon('\f274', 12px, 700, 1, $color-white);
+
+                  &:before {
+                    background: $icon-bg-green;
+                  }
+                }
+              }
+            }
+
+            .simple-btn {
+              margin-top: 24px;
+            }
+          }
+        }
+      }
+
+      // Slider nav.
+      .tl-slidenav-content-container {
+        width: 50px;
+        height: 50px;
+
+        .tl-slidenav-icon {
+          opacity: 1;
+
+          &:before {
+            font: normal normal normal 50px/1 FontAwesome;
+            color: $link-color;
+          }
+        }
+
+        // Hidden title and deck with nav icons.
+        .tl-slidenav-title,
+        .tl-slidenav-description {
+          display: none;
+        }
+      }
+
+      .tl-slidenav-previous {
+        left: -11px;
+        display: block !important;
+
+        .tl-slidenav-icon {
+          margin-left: 0;
+
+          &:before {
+            content: '\f104';
+          }
+        }
+      }
+
+      .tl-slidenav-next {
+        right: 33px;
+        margin-right: 0;
+        display: block !important;
+
+        .tl-slidenav-icon {
+          margin-left: 0;
+
+          &:before {
+            content: '\f105';
+          }
+        }
+      }
+
+      .tl-storyslider {
+        @include mobile-down {
+          height: 100% !important;
+        }
+      }
+
+      &.tl-skinny {
+        .tl-slide-scrollable-container {
+          padding: 15px;
+        }
+
+        .tl-slide-content-container {
+          height: auto;
+
+          .tl-text {
+            margin-top: 0;
+          }
+        }
+
+        .tl-slidenav-previous,
+        .tl-slidenav-next {
+          top: 92px !important;
+        }
+      }
+    }
+  }
+}  

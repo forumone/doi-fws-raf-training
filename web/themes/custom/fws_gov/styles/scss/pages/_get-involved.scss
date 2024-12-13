@@ -1,0 +1,50 @@
+.partnering-with-fws {
+    .block-paragraphs-block {
+        margin-top: 0px;
+        .block-container {
+            width: auto;
+        }
+    }
+    .paragraph--type--partner {
+        .field--name-field-partner-reference {
+            .field--item {
+                max-width: 85px;
+            }
+        }
+    }
+
+}
+
+.view-education-programs-teasers, .view-display-id-event_teasers {
+    .view-header {
+        margin-bottom: 20px;
+    }
+}
+.block-views-blockcommon-volunteer-opportunities-common-volunteer-opportunities {
+    @include desktop {
+        article.teaser {
+            .layout--twocol-section {
+                .layout__region--second {
+                    .teaser-metadata--first {
+                        flex-basis: 50%;
+                    }
+                    .teaser-metadata--middle {
+                        flex-basis: 25%;
+
+                        .block-container {
+                            width: 100%;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
+                    }
+                    .teaser-metadata--last {
+                        flex-basis: 25%;
+                    }
+                }
+            }
+        } 
+    }
+}

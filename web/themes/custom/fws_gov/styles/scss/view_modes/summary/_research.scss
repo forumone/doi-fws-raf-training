@@ -1,0 +1,11 @@
+article.summary.research {
+    .layout--twocol-section {
+        .view-entity-link {
+            a {
+                &:after {
+                    content: "View Research";
+                }
+            }    
+        }
+    }
+}

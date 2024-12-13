@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/death'
+      uri: 'internal:/node/add/manatee_death'
       title: ''
       options: {  }
   external:

@@ -1,0 +1,29 @@
+//full view mode library collection node
+article.library-collection.full {
+    .content {
+        > .margin-block {
+            margin-top: 0px;
+        }
+        > h2 {
+            margin-top: 0px;
+        }
+        .field--name-field-abstract {
+            margin-bottom: 20px;
+        }
+    }
+    .btn-danger {
+        border-width: 2px;
+    }
+}
+
+.block-views-exposed-filter-blocklibrary-collection-content-related-content,
+.block-views-exposed-filter-blocklibrary-collection-media-related-media,
+.block-views-exposed-filter-blocklibrary-collection-assets-related-assets {
+    margin-bottom: 25px;
+    .block-title {
+        @include h2;
+    }
+    label {
+        display: none;
+    }
+}

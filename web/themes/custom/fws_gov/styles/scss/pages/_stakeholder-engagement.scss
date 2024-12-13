@@ -1,0 +1,223 @@
+$spectrum-icon-closed-font-color: #205493;
+$spectrum-icon-closed-bg-color: #eee;
+$spectrum-icon-open-bg-color: #205493;
+
+.stakeholder-engagement-svg {
+    .step {
+        transform: translateX(0px);
+        transition: 0.3s ease-in transform;
+    }
+
+    .step:hover {
+        transform: translateX(4px);
+        text-decoration: none;
+    }
+
+    .gold-step {
+        transform: translateX(0px);
+        transition: 0.3s ease-in transform;
+    }
+
+    .gold-step:hover {
+        transform: translateX(4px);
+        text-decoration: none;
+    }
+
+    .dark-blue {
+        fill: #19416a;
+        transition: all 0.5s ease;
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.25));
+    }
+
+    .step .number {
+        fill: #ffffff;
+    }
+
+    .gold-step .number {
+        fill: #19416a !important;
+    }
+
+    .step text {
+        fill: #ffffff;
+    }
+
+    .gold-step text {
+        fill: #19416a !important;
+    }
+
+    .light-blue {
+        fill: #4091db;
+        transition: all 0.5s ease;
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .gold {
+        fill: #f2a83d;
+        transition: all 0.5s ease;
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+    }
+}
+
+.stakeholder_engagement_technique {
+    .layout--twocol-section--67-33 {
+        .layout__region--first {
+            padding-right: 40px;
+        }
+        .layout__region.layout__region--second {
+            margin-top: 46px;
+        }
+    }
+    .block-field-blocktaxonomy-termstakeholder-engagement-techniquename {
+        h1 {
+            margin-top: 0;
+        }
+    }
+    .block-field-blocktaxonomy-termstakeholder-engagement-techniquedescription {
+        .block-title {
+            margin-top: 0;
+        }
+    }
+}
+
+.view-stakeholder-engagement-techniques {
+    .views-field-name {
+        min-width: 150px;
+    }
+    h1 {
+        margin-top: 0;
+    }
+    .form-item-field-stakeholder-spectrum-value {
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    }
+    form.views-exposed-form {
+        .form-group {
+            button {
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+//spectrum
+.spectrum-wrapper {
+    @include blue-list;
+
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    .spectrum-heading-wrapper {
+        cursor: pointer;
+        display: flex;
+        align-content: flex-start;
+        align-items: flex-start;
+        @include icon("\f0d7", 24px, 900, 1.4, $spectrum-icon-closed-font-color, "after");
+        .svg-icon {
+            flex: 0 0 150px;
+            padding-right: 20px;
+        }
+        .heading {
+            flex: 1;
+            h2 {
+                margin-top: 0px;
+            }
+            > p {
+                color: black;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 1em;
+            }
+        }
+        &:after {
+            @include absolute(20px, auto, auto, 20px);
+            width: 35px;
+            height: 35px;
+            border-radius: 17.5px;
+            color: $spectrum-icon-closed-font-color;
+            background: $spectrum-icon-closed-bg-color;
+            text-align: center;
+        }
+    }
+    .spectrum-heading-wrapper.open {
+        @include icon("\f0d8", 24px, 900, 1.4, $color-white, "after");
+        &:after {
+            background-color: $spectrum-icon-open-bg-color;
+        }
+    }
+    .spectrum-content {
+        display: none;
+        .view-example-techniques-by-spectrum-level {
+            .item-list {
+                @include blue-list;
+            }
+        }
+    }
+}
+.page-node-type-stakeholder-engagement-resource {
+    .block-field-blocknodestakeholder-engagement-resourcefield-representative-image {
+        padding-right: 34px;
+    }
+}
+.page-node-type-stakeholder-engagement-case-stud {
+    .layout__region.layout__region--first {
+        padding-right: 34px;
+    }
+}
+.view-stakeholder-engagement-case-studies {
+    h1 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .form-type-select {
+        label {
+            font-weight: 600;
+        }
+    }
+    .form-actions {
+        button.form-submit {
+            margin-top: 23px;
+            margin-left: 10px;
+        }
+    }
+    div.view-filters.form-group {
+        margin-bottom: 30px;
+    }
+}
+
+.view-id-stakeholder_engagement_resources {
+    h1 {
+        margin-top: 0;
+    }
+    .view-content {
+        .views-row {
+            display: flex;
+            margin-bottom: 30px;
+            .views-field-field-representative-image {
+                flex: 0 0 25%;
+                margin-right: 15px;
+                @media (min-width: $screen-sm-min) {
+                    flex: 0 0 160px;
+                    margin-right: 30px;
+                }
+            }
+            .views-field-nothing {
+                flex: 1;
+                .title-body-wrapper {
+                    h4 {
+                        margin-top: 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//block for sub-headings on resource pages
+.block-views-blockresources-sub-heading-main {
+    h2 {
+        font-weight: 400;
+    }
+}

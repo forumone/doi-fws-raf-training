@@ -102,13 +102,13 @@ install:
   - paragraphs
   - paragraphs_features
   - paragraphs_ee
+  - select2
   - viewfield
 
   # Custom
   - fws
   - fws_gov
   - fws_raf
-  - fws_search
 
 config:
   import:
@@ -159,6 +159,7 @@ config:
     paragraphs_features: '*'
     redirect: '*'
     responsive_image: '*'
+    select2: '*'
     svg_image: '*'
     svg_image_responsive: '*'
     taxonomy_access_fix: '*'

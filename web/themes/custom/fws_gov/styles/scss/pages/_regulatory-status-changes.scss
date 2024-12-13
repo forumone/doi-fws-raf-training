@@ -1,0 +1,29 @@
+.section-top {
+  position: relative;
+  margin-bottom: 50px;
+  @include tablet {
+    margin-bottom: 80px;
+  }
+
+  .title-node,
+  .block-title {
+    @include absolute(50%, 50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+    z-index: 1;
+    @include desktop {
+      top: 58%;
+    }
+
+    span {
+      @include title-merri;
+    }
+  }
+
+  .block-title {
+    @include title-merri;
+    z-index: 1;
+  }
+}
