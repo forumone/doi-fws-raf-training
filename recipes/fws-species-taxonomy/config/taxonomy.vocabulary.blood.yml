@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'Blood Results'
 vid: blood
-description: 'Lookup table to show results of blood taken from manatees'
+description: 'Lookup table to show results of blood taken from species'
 weight: 0
 new_revision: false

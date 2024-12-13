@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: Events
 vid: event
-description: 'Lookup table for events in manatee life'
+description: 'Lookup table for events in species life'
 weight: 0
 new_revision: false

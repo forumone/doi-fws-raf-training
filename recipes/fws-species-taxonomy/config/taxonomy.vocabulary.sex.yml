@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: Sex
 vid: sex
-description: 'Lookup table for sex of manatee'
+description: 'Lookup table for sex of species'
 weight: 0
 new_revision: false

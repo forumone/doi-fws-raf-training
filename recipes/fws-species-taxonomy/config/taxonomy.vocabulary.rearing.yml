@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'Rearing Types'
 vid: rearing
-description: 'Lookup table for categories of how manatee was raised'
+description: 'Lookup table for categories of how species were raised'
 weight: 0
 new_revision: false

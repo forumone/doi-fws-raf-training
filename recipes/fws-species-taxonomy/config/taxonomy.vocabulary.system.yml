@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'Research Systems'
 vid: system
-description: 'Lookup table for names of other manatee research systems'
+description: 'Lookup table for names of other species research systems'
 weight: 0
 new_revision: false
