@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports\Controller;
+namespace Drupal\tracking_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Controller for displaying current captive manatees by facility.
+ * Controller for displaying current captive species by facility.
  */
 class FacilityInventoryController extends ControllerBase {
 
@@ -115,7 +115,7 @@ class FacilityInventoryController extends ControllerBase {
     // Build the year filter form.
     $form = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['manatee-report-filters']],
+      '#attributes' => ['class' => ['tracking-report-filters']],
       'year_filter' => [
         '#type' => 'select',
         '#title' => $this->t('Select Year:'),
@@ -127,14 +127,14 @@ class FacilityInventoryController extends ControllerBase {
       ],
     ];
 
-    // Get status reports for the manatees.
+    // Get status reports for the species.
     $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'status_report')
       ->condition('field_animal', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
-    $manatee_statuses = [];
+    $species_statuses = [];
     if (!empty($status_query)) {
       $status_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($status_query);
       foreach ($status_nodes as $status_node) {
@@ -143,14 +143,14 @@ class FacilityInventoryController extends ControllerBase {
           if ($status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
             $health_term = $status_node->field_health->entity;
             if ($health_term && $health_term->hasField('field_health_status')) {
-              $manatee_statuses[$animal_id] = $health_term->field_health_status->value;
+              $species_statuses[$animal_id] = $health_term->field_health_status->value;
             }
           }
         }
       }
     }
 
-    // Get deceased manatee IDs within the specified year.
+    // Get deceased species IDs within the specified year.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_death')
       ->condition('field_animal', NULL, 'IS NOT NULL')
@@ -159,12 +159,12 @@ class FacilityInventoryController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
 
-    $deceased_manatee_ids = [];
+    $deceased_ids = [];
     if (!empty($death_query)) {
       $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_query);
       foreach ($death_nodes as $death_node) {
         if ($death_node->hasField('field_animal') && !$death_node->field_animal->isEmpty()) {
-          $deceased_manatee_ids[] = $death_node->field_animal->target_id;
+          $deceased_ids[] = $death_node->field_animal->target_id;
         }
       }
     }
@@ -178,12 +178,12 @@ class FacilityInventoryController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
 
-    $released_manatee_ids = [];
+    $released_ids = [];
     if (!empty($release_query)) {
       $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_query);
       foreach ($release_nodes as $release_node) {
         if ($release_node->hasField('field_animal') && !$release_node->field_animal->isEmpty()) {
-          $released_manatee_ids[] = $release_node->field_animal->target_id;
+          $released_ids[] = $release_node->field_animal->target_id;
         }
       }
     }
@@ -330,27 +330,27 @@ class FacilityInventoryController extends ControllerBase {
       'manatee_release' => 'field_release_date',
     ];
 
-    // Get all manatees with MLOGs that were active in the specified year.
-    $manatee_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    // Get all species with MLOGs that were active in the specified year.
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee')
       ->condition('field_mlog', NULL, 'IS NOT NULL');
 
-    // Exclude manatees that died or were released before the specified year.
-    if (!empty($deceased_manatee_ids)) {
-      $manatee_query->condition('nid', $deceased_manatee_ids, 'NOT IN');
+    // Exclude species that died or were released before the specified year.
+    if (!empty($deceased_ids)) {
+      $species_query->condition('nid', $deceased_ids, 'NOT IN');
     }
-    if (!empty($released_manatee_ids)) {
-      $manatee_query->condition('nid', $released_manatee_ids, 'NOT IN');
+    if (!empty($released_ids)) {
+      $species_query->condition('nid', $released_ids, 'NOT IN');
     }
 
-    $manatee_ids = $manatee_query->accessCheck(FALSE)->execute();
+    $species_ids = $species_query->accessCheck(FALSE)->execute();
 
     // Get all events.
     $event_nodes = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $manatee_ids, 'IN')
+        ->condition('field_animal', $species_ids, 'IN')
         ->condition('field_animal', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->condition($date_field, $year_start, '>=')
@@ -400,7 +400,7 @@ class FacilityInventoryController extends ControllerBase {
 
     // Process events.
     $most_recent_events = [];
-    foreach ($manatee_ids as $animal_id) {
+    foreach ($species_ids as $animal_id) {
       if (isset($event_nodes[$animal_id])) {
         usort($event_nodes[$animal_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
@@ -412,39 +412,39 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Load manatees and prepare sortable data.
-    $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($manatee_ids);
+    // Load species and prepare sortable data.
+    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_ids);
     $sortable_data = [];
 
-    foreach ($manatees as $manatee) {
-      if (!isset($most_recent_events[$manatee->id()])) {
+    foreach ($species as $species_entity) {
+      if (!isset($most_recent_events[$species_entity->id()])) {
         continue;
       }
 
-      $event = $most_recent_events[$manatee->id()];
+      $event = $most_recent_events[$species_entity->id()];
 
       $mlog = "N/A";
-      if ($manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()) {
-        $mlog_value = $manatee->get('field_mlog')->getValue();
+      if ($species_entity->hasField('field_mlog') && !$species_entity->field_mlog->isEmpty()) {
+        $mlog_value = $species_entity->get('field_mlog')->getValue();
         $mlog = $mlog_value[0]['value'] ?? "N/A";
       }
 
-      $rescue_date = isset($latest_rescue_dates[$manatee->id()])
-        ? (new DrupalDateTime($latest_rescue_dates[$manatee->id()]))->format('Y-m-d')
+      $rescue_date = isset($latest_rescue_dates[$species_entity->id()])
+        ? (new DrupalDateTime($latest_rescue_dates[$species_entity->id()]))->format('Y-m-d')
         : 'N/A';
 
-      $name = $primary_names[$manatee->id()] ?? '';
-      $animal_id = $animal_ids[$manatee->id()] ?? '';
-      $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
-      $rescue_cause_detail = $rescue_cause_details[$manatee->id()] ?? 'N/A';
-      $county = $rescue_counties[$manatee->id()] ?? 'N/A';
+      $name = $primary_names[$species_entity->id()] ?? '';
+      $animal_id = $animal_ids[$species_entity->id()] ?? '';
+      $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
+      $rescue_cause_detail = $rescue_cause_details[$species_entity->id()] ?? 'N/A';
+      $county = $rescue_counties[$species_entity->id()] ?? 'N/A';
 
       $captivity_date = NULL;
-      if (isset($type_b_rescue_dates[$manatee->id()])) {
-        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$manatee->id()]);
+      if (isset($type_b_rescue_dates[$species_entity->id()])) {
+        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$species_entity->id()]);
       }
-      elseif (isset($birth_dates[$manatee->id()])) {
-        $captivity_date = new DrupalDateTime($birth_dates[$manatee->id()]);
+      elseif (isset($birth_dates[$species_entity->id()])) {
+        $captivity_date = new DrupalDateTime($birth_dates[$species_entity->id()]);
       }
 
       $time_in_captivity = 'N/A';
@@ -471,7 +471,7 @@ class FacilityInventoryController extends ControllerBase {
         $facility_name = $event['facility_term']->getName();
       }
 
-      $medical_status = $manatee_statuses[$manatee->id()] ?? 'N/A';
+      $medical_status = $species_statuses[$species_entity->id()] ?? 'N/A';
 
       if ($rescue_type === 'B' || $rescue_type === 'none') {
         $sortable_data[] = [
@@ -485,7 +485,7 @@ class FacilityInventoryController extends ControllerBase {
           'rescue_cause' => $rescue_cause_detail,
           'time_in_captivity' => $time_in_captivity,
           'medical_status' => $medical_status,
-          'manatee_nid' => $manatee->id(),
+          'manatee_nid' => $species_entity->id(),
         ];
       }
     }
@@ -566,12 +566,12 @@ class FacilityInventoryController extends ControllerBase {
         'sort' => 'asc',
       ],
       [
-        'data' => $this->t('Manatee ID'),
+        'data' => $this->t('Species ID'),
         'field' => 'animal_id',
         'sort' => 'asc',
       ],
       [
-        'data' => $this->t('Manatee Number'),
+        'data' => $this->t('Species Number'),
         'field' => 'mlog',
         'sort' => 'asc',
       ],
@@ -634,18 +634,18 @@ class FacilityInventoryController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-      '#empty' => $this->t('No manatees found'),
-      '#attributes' => ['class' => ['manatee-report-table']],
+      '#empty' => $this->t('No results found'),
+      '#attributes' => ['class' => ['tracking-report-table']],
     ];
 
     return [
       '#type' => 'container',
-      '#attributes' => ['class' => ['manatee-report-container']],
+      '#attributes' => ['class' => ['tracking-report-container']],
       'filters' => $form,
       'table' => $table,
       '#attached' => [
         'library' => [
-          'manatee_reports/manatee_reports',
+          'tracking_reports/tracking_reports',
         ],
       ],
     ];

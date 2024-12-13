@@ -10,7 +10,7 @@ fin drush cr
 
 fin drush recipe ../recipes/fws-manatee-taxonomy
 fin drush recipe ../recipes/fws-manatee-node
-fin drush recipe ../recipes/fws-manatee-reports
+fin drush recipe ../recipes/fws-tracking-reports
 fin drush recipe ../recipes/fws-manatee-user
 fin drush recipe ../recipes/fws-manatee-content
 

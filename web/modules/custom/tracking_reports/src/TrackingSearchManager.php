@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports;
+namespace Drupal\tracking_reports;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -8,9 +8,9 @@ use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Service for handling manatee search operations.
+ * Service for handling tracking search operations.
  */
-class ManateeSearchManager {
+class TrackingSearchManager {
 
   use StringTranslationTrait;
 
@@ -29,7 +29,7 @@ class ManateeSearchManager {
   protected $database;
 
   /**
-   * Constructs a new ManateeSearchManager.
+   * Constructs a new TrackingSearchManager.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
@@ -150,7 +150,7 @@ class ManateeSearchManager {
   }
 
   /**
-   * Searches for manatees based on criteria.
+   * Searches for species based on criteria.
    *
    * @param array $criteria
    *   Search criteria.
@@ -158,7 +158,7 @@ class ManateeSearchManager {
    * @return array
    *   Search results.
    */
-  public function searchManatees(array $criteria) {
+  public function searchSpecies(array $criteria) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee')
       ->accessCheck(FALSE);
@@ -196,14 +196,14 @@ class ManateeSearchManager {
           $name_matches = $name_query->execute();
           if (!empty($name_matches)) {
             $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($name_nodes as $name_node) {
               if (!$name_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $name_node->field_animal->target_id;
+                $species_ids[] = $name_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -223,14 +223,14 @@ class ManateeSearchManager {
 
           if (!empty($tag_matches)) {
             $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($tag_nodes as $tag_node) {
               if (!$tag_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $tag_node->field_animal->target_id;
+                $species_ids[] = $tag_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -253,14 +253,14 @@ class ManateeSearchManager {
 
             if (!empty($tag_matches)) {
               $tag_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($tag_matches);
-              $manatee_ids = [];
+              $species_ids = [];
               foreach ($tag_nodes as $tag_node) {
                 if (!$tag_node->field_animal->isEmpty()) {
-                  $manatee_ids[] = $tag_node->field_animal->target_id;
+                  $species_ids[] = $tag_node->field_animal->target_id;
                 }
               }
-              if (!empty($manatee_ids)) {
-                $query->condition('nid', $manatee_ids, 'IN');
+              if (!empty($species_ids)) {
+                $query->condition('nid', $species_ids, 'IN');
               }
               else {
                 $query->condition('nid', 0);
@@ -282,14 +282,14 @@ class ManateeSearchManager {
           $rescue_matches = $rescue_query->execute();
           if (!empty($rescue_matches)) {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
               if (!$rescue_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $rescue_node->field_animal->target_id;
+                $species_ids[] = $rescue_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -325,14 +325,14 @@ class ManateeSearchManager {
           $event_matches = $event_query->execute();
           if (!empty($event_matches)) {
             $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($event_nodes as $event_node) {
               if (!$event_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $event_node->field_animal->target_id;
+                $species_ids[] = $event_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -354,14 +354,14 @@ class ManateeSearchManager {
           $rescue_matches = $rescue_query->execute();
           if (!empty($rescue_matches)) {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
               if (!$rescue_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $rescue_node->field_animal->target_id;
+                $species_ids[] = $rescue_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -384,14 +384,14 @@ class ManateeSearchManager {
 
             if (!empty($rescue_matches)) {
               $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
-              $manatee_ids = [];
+              $species_ids = [];
               foreach ($rescue_nodes as $rescue_node) {
                 if (!$rescue_node->field_animal->isEmpty()) {
-                  $manatee_ids[] = $rescue_node->field_animal->target_id;
+                  $species_ids[] = $rescue_node->field_animal->target_id;
                 }
               }
-              if (!empty($manatee_ids)) {
-                $query->condition('nid', $manatee_ids, 'IN');
+              if (!empty($species_ids)) {
+                $query->condition('nid', $species_ids, 'IN');
               }
               else {
                 $query->condition('nid', 0);
@@ -419,14 +419,14 @@ class ManateeSearchManager {
 
           if (!empty($rescue_matches)) {
             $rescue_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_matches);
-            $manatee_ids = [];
+            $species_ids = [];
             foreach ($rescue_nodes as $rescue_node) {
               if (!$rescue_node->field_animal->isEmpty()) {
-                $manatee_ids[] = $rescue_node->field_animal->target_id;
+                $species_ids[] = $rescue_node->field_animal->target_id;
               }
             }
-            if (!empty($manatee_ids)) {
-              $query->condition('nid', $manatee_ids, 'IN');
+            if (!empty($species_ids)) {
+              $query->condition('nid', $species_ids, 'IN');
             }
             else {
               $query->condition('nid', 0);
@@ -486,14 +486,14 @@ class ManateeSearchManager {
             $death_matches = $death_query->execute();
             if (!empty($death_matches)) {
               $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_matches);
-              $manatee_ids = [];
+              $species_ids = [];
               foreach ($death_nodes as $death_node) {
                 if (!$death_node->field_animal->isEmpty()) {
-                  $manatee_ids[] = $death_node->field_animal->target_id;
+                  $species_ids[] = $death_node->field_animal->target_id;
                 }
               }
-              if (!empty($manatee_ids)) {
-                $query->condition('nid', $manatee_ids, 'IN');
+              if (!empty($species_ids)) {
+                $query->condition('nid', $species_ids, 'IN');
               }
               else {
                 $query->condition('nid', 0);
@@ -516,9 +516,9 @@ class ManateeSearchManager {
   }
 
   /**
-   * Get latest event for a manatee.
+   * Get latest event for a species.
    */
-  public function getLatestEvent($manatee_id, $specific_type = NULL) {
+  public function getLatestEvent($species_id, $specific_type = NULL) {
     $event_types = [
       'manatee_birth' => 'field_birth_date',
       'manatee_rescue' => 'field_rescue_date',
@@ -532,7 +532,7 @@ class ManateeSearchManager {
         $date_field = $event_types[$specific_type];
         $query = $this->entityTypeManager->getStorage('node')->getQuery()
           ->condition('type', $specific_type)
-          ->condition('field_animal', $manatee_id)
+          ->condition('field_animal', $species_id)
           ->condition($date_field, NULL, 'IS NOT NULL')
           ->sort($date_field, 'DESC')
           ->range(0, 1)
@@ -558,7 +558,7 @@ class ManateeSearchManager {
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $manatee_id)
+        ->condition('field_animal', $species_id)
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->sort($date_field, 'DESC')
         ->range(0, 1)
@@ -599,21 +599,21 @@ class ManateeSearchManager {
    */
   public function buildSearchResults($conditions) {
     $items_per_page = 20;
-    $manatee_ids = $this->searchManatees($conditions);
-    $total_items = count($manatee_ids);
+    $species_ids = $this->searchSpecies($conditions);
+    $total_items = count($species_ids);
 
     $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
     $current_page = $pager->getCurrentPage();
 
-    $page_manatee_ids = array_slice($manatee_ids, $current_page * $items_per_page, $items_per_page);
+    $page_species_ids = array_slice($species_ids, $current_page * $items_per_page, $items_per_page);
 
-    if (empty($page_manatee_ids)) {
+    if (empty($page_species_ids)) {
       return [
-        '#markup' => '<div class="no-results">' . $this->t('No manatees found matching your search criteria.') . '</div>',
+        '#markup' => '<div class="no-results">' . $this->t('No results found matching your search criteria.') . '</div>',
       ];
     }
 
-    $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($page_manatee_ids);
+    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($page_species_ids);
 
     // Extract event type from conditions if it exists.
     $event_type = NULL;
@@ -625,22 +625,22 @@ class ManateeSearchManager {
     }
 
     $rows = [];
-    foreach ($manatees as $manatee) {
-      $manatee_id = $manatee->id();
-      $latest_event = $this->getLatestEvent($manatee_id, $event_type);
+    foreach ($species as $species_entity) {
+      $species_id = $species_entity->id();
+      $latest_event = $this->getLatestEvent($species_id, $event_type);
 
-      $mlog = $this->getMlog($manatee);
+      $mlog = $this->getMlog($species_entity);
       $mlog_link = Link::createFromRoute(
         $mlog,
         'entity.node.canonical',
-        ['node' => $manatee_id]
+        ['node' => $species_id]
       );
 
       $rows[] = [
         'data' => [
           ['data' => $mlog_link],
-          ['data' => $this->getPrimaryName($manatee_id)],
-          ['data' => $this->getAnimalId($manatee_id)],
+          ['data' => $this->getPrimaryName($species_id)],
+          ['data' => $this->getAnimalId($species_id)],
           ['data' => $latest_event['type']],
           ['data' => $latest_event['date']],
         ],
@@ -657,9 +657,9 @@ class ManateeSearchManager {
 
     return [
       '#type' => 'container',
-      '#attributes' => ['class' => ['manatee-search-results']],
+      '#attributes' => ['class' => ['species-search-results']],
       'count' => [
-        '#markup' => $this->t('@count manatees found', ['@count' => $total_items]),
+        '#markup' => $this->t('@count results found', ['@count' => $total_items]),
         '#prefix' => '<div class="results-count">',
         '#suffix' => '</div>',
       ],
@@ -668,7 +668,7 @@ class ManateeSearchManager {
         '#header' => $header,
         '#rows' => $rows,
         '#empty' => $this->t('No results found'),
-        '#attributes' => ['class' => ['manatee-report-table']],
+        '#attributes' => ['class' => ['species-report-table']],
       ],
       'pager' => [
         '#type' => 'pager',
@@ -677,19 +677,19 @@ class ManateeSearchManager {
   }
 
   /**
-   * Get MLog value for a manatee.
+   * Get MLog value for a species.
    */
-  public function getMlog($manatee) {
-    return !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : 'N/A';
+  public function getMlog($species_entity) {
+    return !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : 'N/A';
   }
 
   /**
-   * Get primary name for a manatee.
+   * Get primary name for a species.
    */
-  public function getPrimaryName($manatee_id) {
+  public function getPrimaryName($species_id) {
     $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_name')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->condition('field_primary', 1)
       ->accessCheck(FALSE)
       ->execute();
@@ -704,12 +704,12 @@ class ManateeSearchManager {
   }
 
   /**
-   * Get animal ID for a manatee.
+   * Get animal ID for a species.
    */
-  public function getAnimalId($manatee_id) {
+  public function getAnimalId($species_id) {
     $id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->accessCheck(FALSE)
       ->execute();
 

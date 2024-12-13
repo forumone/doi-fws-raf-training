@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports\Controller;
+namespace Drupal\tracking_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -8,12 +8,12 @@ use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Controller for generating reports of manatees without a primary name.
+ * Controller for generating reports of species without a primary name.
  *
- * This controller identifies manatees by looking at manatee_name nodes
- * and finding cases where there are no primary names set for a given manatee.
+ * This controller identifies species by looking at nodes
+ * and finding cases where there are no primary names set for a given species.
  */
-class ManateesWithoutPrimaryNameController extends ControllerBase {
+class TrackingWithoutPrimaryNameController extends ControllerBase {
 
   /**
    * The entity type manager service.
@@ -23,7 +23,7 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
-   * Constructs a ManateesWithoutPrimaryNameController object.
+   * Constructs a TrackingWithoutPrimaryNameController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
@@ -42,19 +42,19 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
   }
 
   /**
-   * Gets all non-primary names for a manatee.
+   * Gets all non-primary names for a species.
    *
-   * @param int $manatee_id
-   *   The node ID of the manatee entity.
+   * @param int $species_id
+   *   The node ID of the species entity.
    *
    * @return string
    *   Comma-separated list of non-primary names.
    */
-  private function getNonPrimaryNames($manatee_id) {
+  private function getNonPrimaryNames($species_id) {
     $names = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_name')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->condition('field_primary', 1, '<>')
       ->accessCheck(FALSE);
 
@@ -68,19 +68,19 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
   }
 
   /**
-   * Gets all animal IDs for a manatee.
+   * Gets all animal IDs for a species.
    *
-   * @param int $manatee_id
-   *   The node ID of the manatee entity.
+   * @param int $species_id
+   *   The node ID of the species entity.
    *
    * @return string
    *   Comma-separated list of all animal IDs.
    */
-  private function getAllAnimalIds($manatee_id) {
+  private function getAllAnimalIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->accessCheck(FALSE);
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
@@ -93,25 +93,25 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
   }
 
   /**
-   * Builds the content for the manatees without primary name report.
+   * Builds the content for the species without primary name report.
    *
    * @return array
-   *   A render array for a table of manatees without primary names.
+   *   A render array for a table of species without primary names.
    */
   public function content() {
-    // First get all manatee nodes that have associated manatee_name nodes.
-    $manatee_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    // First get all species nodes that have associated nodes.
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee')
       ->accessCheck(FALSE);
 
-    $manatee_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($manatee_query->execute());
+    $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_query->execute());
 
     $rows = [];
-    foreach ($manatee_nodes as $manatee) {
-      // First check if this manatee has any name nodes at all.
+    foreach ($species_nodes as $species_entity) {
+      // First check if this species has any name nodes at all.
       $has_names_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'manatee_name')
-        ->condition('field_animal', $manatee->id())
+        ->condition('field_animal', $species_entity->id())
         ->accessCheck(FALSE);
 
       $has_any_names = !empty($has_names_query->execute());
@@ -120,7 +120,7 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
         // Then check if any of those names are primary.
         $primary_name_query = $this->entityTypeManager->getStorage('node')->getQuery()
           ->condition('type', 'manatee_name')
-          ->condition('field_animal', $manatee->id())
+          ->condition('field_animal', $species_entity->id())
           ->condition('field_primary', 1)
           ->accessCheck(FALSE);
 
@@ -128,18 +128,18 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
 
         // If no primary names found but has other names, add to our results.
         if (!$has_primary) {
-          $mlog = !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : '';
+          $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : '';
           $mlog_link = Link::createFromRoute(
             $mlog,
             'entity.node.canonical',
-            ['node' => $manatee->id()]
+            ['node' => $species_entity->id()]
           );
 
           $row = [
             'data' => [
               ['data' => $mlog_link],
-              ['data' => $this->getNonPrimaryNames($manatee->id())],
-              ['data' => $this->getAllAnimalIds($manatee->id())],
+              ['data' => $this->getNonPrimaryNames($species_entity->id())],
+              ['data' => $this->getAllAnimalIds($species_entity->id())],
             ],
           ];
 
@@ -152,12 +152,12 @@ class ManateesWithoutPrimaryNameController extends ControllerBase {
       '#type' => 'table',
       '#header' => [
         $this->t('MLog'),
-        $this->t('Manatee Name List(Not Primary)'),
+        $this->t('Species Name List (Not Primary)'),
         $this->t('Animal ID List (All)'),
       ],
       '#rows' => $rows,
-      '#empty' => $this->t('No manatees found without a primary name.'),
-      '#attributes' => ['class' => ['manatees-without-primary-name-report']],
+      '#empty' => $this->t('No results found without a primary name.'),
+      '#attributes' => ['class' => ['tracking-without-primary-name-report']],
     ];
   }
 

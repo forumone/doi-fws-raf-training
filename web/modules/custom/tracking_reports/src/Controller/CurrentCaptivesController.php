@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports\Controller;
+namespace Drupal\tracking_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Controller for displaying current captive manatees by facility.
+ * Controller for displaying current captive species by facility.
  */
 class CurrentCaptivesController extends ControllerBase {
 
@@ -75,7 +75,7 @@ class CurrentCaptivesController extends ControllerBase {
     // Build the filter form.
     $form = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['manatee-filter-form']],
+      '#attributes' => ['class' => ['tracking-filter-form']],
       'facility' => [
         '#type' => 'select',
         '#title' => $this->t('Filter by Facility:'),
@@ -87,19 +87,19 @@ class CurrentCaptivesController extends ControllerBase {
       ],
     ];
 
-    // Get deceased manatee IDs.
+    // Get deceased species IDs.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_death')
       ->condition('field_animal', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE)
       ->execute();
 
-    $deceased_manatee_ids = [];
+    $deceased_ids = [];
     if (!empty($death_query)) {
       $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_query);
       foreach ($death_nodes as $death_node) {
         if ($death_node->hasField('field_animal') && !$death_node->field_animal->isEmpty()) {
-          $deceased_manatee_ids[] = $death_node->field_animal->target_id;
+          $deceased_ids[] = $death_node->field_animal->target_id;
         }
       }
     }
@@ -216,23 +216,23 @@ class CurrentCaptivesController extends ControllerBase {
       'manatee_release' => 'field_release_date',
     ];
 
-    // Get all manatees with MLOGs that aren't deceased.
-    $manatee_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    // Get all species with MLOGs that aren't deceased.
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee')
       ->condition('field_mlog', NULL, 'IS NOT NULL');
 
-    if (!empty($deceased_manatee_ids)) {
-      $manatee_query->condition('nid', $deceased_manatee_ids, 'NOT IN');
+    if (!empty($deceased_ids)) {
+      $species_query->condition('nid', $deceased_ids, 'NOT IN');
     }
 
-    $manatee_ids = $manatee_query->accessCheck(FALSE)->execute();
+    $species_ids = $species_query->accessCheck(FALSE)->execute();
 
     // Get all events.
     $event_nodes = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_animal', $manatee_ids, 'IN')
+        ->condition('field_animal', $species_ids, 'IN')
         ->condition('field_animal', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->accessCheck(FALSE);
@@ -274,7 +274,7 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Process events.
     $most_recent_events = [];
-    foreach ($manatee_ids as $animal_id) {
+    foreach ($species_ids as $animal_id) {
       if (isset($event_nodes[$animal_id])) {
         usort($event_nodes[$animal_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
@@ -286,23 +286,23 @@ class CurrentCaptivesController extends ControllerBase {
       }
     }
 
-    // Load manatees.
-    $manatees = $this->entityTypeManager->getStorage('node')->loadMultiple($manatee_ids);
+    // Load species.
+    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species);
     $current_date = new DrupalDateTime();
 
     // Prepare rows.
     $rows = [];
-    foreach ($manatees as $manatee) {
-      if (!isset($most_recent_events[$manatee->id()])) {
+    foreach ($species as $species_entity) {
+      if (!isset($most_recent_events[$species_entity->id()])) {
         continue;
       }
 
-      $event = $most_recent_events[$manatee->id()];
+      $event = $most_recent_events[$species_entity->id()];
 
       $mlog = "N/A";
       $mlog_num = PHP_INT_MAX;
-      if ($manatee->hasField('field_mlog') && !$manatee->field_mlog->isEmpty()) {
-        $mlog_value = $manatee->get('field_mlog')->getValue();
+      if ($species_entity->hasField('field_mlog') && !$species_entity->field_mlog->isEmpty()) {
+        $mlog_value = $species_entity->get('field_mlog')->getValue();
         $mlog = $mlog_value[0]['value'] ?? "N/A";
         if (preg_match('/(\d+)/', $mlog, $matches)) {
           $mlog_num = intval($matches[0]);
@@ -313,7 +313,7 @@ class CurrentCaptivesController extends ControllerBase {
       $mlog_link = Link::createFromRoute(
         $mlog,
         'entity.node.canonical',
-        ['node' => $manatee->id()]
+        ['node' => $species_entity->id()]
       );
 
       $event_type = str_replace('manatee_', '', $event['type']);
@@ -323,16 +323,16 @@ class CurrentCaptivesController extends ControllerBase {
       $date = new DrupalDateTime($event['date']);
       $formatted_date = $date->format('Y-m-d');
 
-      $name = $primary_names[$manatee->id()] ?? '';
-      $animal_id = $animal_ids[$manatee->id()] ?? '';
-      $rescue_type = $rescue_types[$manatee->id()] ?? 'none';
+      $name = $primary_names[$species_entity->id()] ?? '';
+      $animal_id = $animal_ids[$species_entity->id()] ?? '';
+      $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
 
       $captivity_date = NULL;
-      if (isset($type_b_rescue_dates[$manatee->id()])) {
-        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$manatee->id()]);
+      if (isset($type_b_rescue_dates[$species_entity->id()])) {
+        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$species_entity->id()]);
       }
-      elseif (isset($birth_dates[$manatee->id()])) {
-        $captivity_date = new DrupalDateTime($birth_dates[$manatee->id()]);
+      elseif (isset($birth_dates[$species_entity->id()])) {
+        $captivity_date = new DrupalDateTime($birth_dates[$species_entity->id()]);
       }
 
       $days_in_captivity = NULL;
@@ -471,18 +471,18 @@ class CurrentCaptivesController extends ControllerBase {
           'data-facility' => $row['data-facility'],
         ];
       }, $rows),
-      '#empty' => $this->t('No manatees found'),
-      '#attributes' => ['class' => ['manatee-report-table']],
+      '#empty' => $this->t('No results found'),
+      '#attributes' => ['class' => ['tracking-report-table']],
     ];
 
     return [
       '#type' => 'container',
-      '#attributes' => ['class' => ['manatee-report-container']],
+      '#attributes' => ['class' => ['tracking-report-container']],
       'filters' => $form,
       'table' => $table,
       '#attached' => [
         'library' => [
-          'manatee_reports/manatee_reports',
+          'tracking_reports/tracking_reports',
         ],
       ],
     ];

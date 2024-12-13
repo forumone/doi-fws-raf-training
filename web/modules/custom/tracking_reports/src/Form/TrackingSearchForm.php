@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\manatee_reports\Form;
+namespace Drupal\tracking_reports\Form;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\manatee_reports\ManateeSearchManager;
+use Drupal\tracking_reports\TrackingSearchManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a combined manatee search form and results.
+ * Provides a combined tracking search form and results.
  */
-class ManateeSearchForm extends FormBase {
+class TrackingSearchForm extends FormBase {
 
   /**
-   * The manatee search manager.
+   * The tracking search manager.
    *
-   * @var \Drupal\manatee_reports\ManateeSearchManager
+   * @var \Drupal\tracking_reports\TrackingSearchManager
    */
   protected $searchManager;
 
@@ -28,10 +28,10 @@ class ManateeSearchForm extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * Constructs a new ManateeSearchForm.
+   * Constructs a new TrackingSearchForm.
    */
   public function __construct(
-    ManateeSearchManager $search_manager,
+    TrackingSearchManager $search_manager,
     EntityTypeManagerInterface $entity_type_manager,
   ) {
     $this->searchManager = $search_manager;
@@ -43,7 +43,7 @@ class ManateeSearchForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('manatee_reports.search_manager'),
+      $container->get('tracking_reports.search_manager'),
       $container->get('entity_type.manager')
     );
   }
@@ -52,17 +52,17 @@ class ManateeSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'manatee_search_form';
+    return 'tracking_search_form';
   }
 
   /**
    *
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['#attached']['library'][] = 'manatee_reports/manatee_reports';
+    $form['#attached']['library'][] = 'tracking_reports/tracking_reports';
     $form['#attached']['library'][] = 'bootstrap/accordion';
 
-    $form['#prefix'] = '<div class="manatee-search-form panel-group" id="manatee-search-accordion">';
+    $form['#prefix'] = '<div class="tracking-search-form panel-group" id="tracking-search-accordion">';
     $form['#suffix'] = '</div>';
 
     // Get current page from URL query.
@@ -94,7 +94,7 @@ class ManateeSearchForm extends FormBase {
           '#tag' => 'a',
           '#attributes' => [
             'data-toggle' => 'collapse',
-            'data-parent' => '#manatee-search-accordion',
+            'data-parent' => '#tracking-search-accordion',
             'href' => '#filter-options-collapse',
             'class' => ['accordion-toggle', $collapsed ? 'collapse' : ''],
           ],
@@ -123,17 +123,17 @@ class ManateeSearchForm extends FormBase {
       '#attributes' => ['class' => ['search-description']],
     ];
 
-    // Individual Manatee Search section.
+    // Individual Species Search section.
     $form['filter_options']['collapse']['body']['individual_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#value' => $this->t('Search for Individual Manatee'),
+      '#value' => $this->t('Search for Individual Species'),
     ];
 
     $form['filter_options']['collapse']['body']['individual_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Enter only one field below to identify the animal and click Next to see information about 1 manatee.'),
+      '#value' => $this->t('Enter only one field below to identify the species and click Next to see information.'),
     ];
 
     // Individual search fields.
@@ -144,12 +144,12 @@ class ManateeSearchForm extends FormBase {
         'maxlength' => 64,
       ],
       'animal_id' => [
-        'title' => 'Animal ID *',
+        'title' => 'Species ID *',
         'required' => FALSE,
         'maxlength' => 64,
       ],
       'manatee_name' => [
-        'title' => 'Manatee Name *',
+        'title' => 'Species Given Name *',
         'required' => FALSE,
         'maxlength' => 128,
       ],
@@ -168,7 +168,7 @@ class ManateeSearchForm extends FormBase {
         '#maxlength' => $field['maxlength'],
         '#size' => 64,
         '#wrapper_attributes' => ['class' => ['form-item']],
-        '#attributes' => ['class' => ['manatee-search-field']],
+        '#attributes' => ['class' => ['tracking-search-field']],
       ];
     }
 
@@ -184,13 +184,13 @@ class ManateeSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['list_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#value' => $this->t('Search for a List of Manatee(s)'),
+      '#value' => $this->t('Search for a List of Species'),
     ];
 
     $form['filter_options']['collapse']['body']['list_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Enter as many fields below as needed to describe the manatee(s) that you are interested in and click Next'),
+      '#value' => $this->t('Enter as many fields below as needed to describe the species that you are interested in and click Next'),
     ];
 
     // Location Information.
@@ -325,7 +325,7 @@ class ManateeSearchForm extends FormBase {
     if ($form_state->get('show_results') || $current_page !== NULL) {
       // Restore form values from tempstore if paginating.
       if ($current_page !== NULL && !$form_state->get('show_results')) {
-        $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+        $tempstore = \Drupal::service('tempstore.private')->get('tracking_reports');
         $stored_values = $tempstore->get('search_values');
         if ($stored_values) {
           $form_state->setValues($stored_values);
@@ -413,18 +413,18 @@ class ManateeSearchForm extends FormBase {
         ->execute();
 
       if (!empty($rescue_query)) {
-        $manatee_ids = [];
+        $species_ids = [];
         $rescues = $this->entityTypeManager->getStorage('node')->loadMultiple($rescue_query);
         foreach ($rescues as $rescue) {
           if (!$rescue->field_animal->isEmpty()) {
-            $manatee_ids[] = $rescue->field_animal->target_id;
+            $species_ids[] = $rescue->field_animal->target_id;
           }
         }
 
-        if (!empty($manatee_ids)) {
+        if (!empty($species_ids)) {
           $conditions[] = [
             'field' => 'nid',
-            'value' => $manatee_ids,
+            'value' => $species_ids,
             'operator' => 'IN',
           ];
         }
@@ -521,7 +521,7 @@ class ManateeSearchForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Store form values in tempstore for pagination.
-    $tempstore = \Drupal::service('tempstore.private')->get('manatee_reports');
+    $tempstore = \Drupal::service('tempstore.private')->get('tracking_reports');
     $tempstore->set('search_values', $form_state->getValues());
 
     $form_state->set('show_results', TRUE);

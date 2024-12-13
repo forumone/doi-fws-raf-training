@@ -8,7 +8,7 @@ acli remote:drush doifws.devapps cr
 
 acli remote:drush doifws.devapps recipe ../recipes/fws-manatee-taxonomy
 acli remote:drush doifws.devapps recipe ../recipes/fws-manatee-node
-acli remote:drush doifws.devapps recipe ../recipes/fws-manatee-reports
+acli remote:drush doifws.devapps recipe ../recipes/fws-tracking-reports
 acli remote:drush doifws.devapps recipe ../recipes/fws-manatee-user
 acli remote:drush doifws.devapps recipe ../recipes/fws-manatee-content
 

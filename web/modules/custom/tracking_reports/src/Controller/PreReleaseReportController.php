@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports\Controller;
+namespace Drupal\tracking_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -91,26 +91,26 @@ class PreReleaseReportController extends ControllerBase {
         continue;
       }
 
-      // Load the associated manatee.
-      $manatee = $this->entityTypeManager->getStorage('node')->load($pre_release->field_animal->target_id);
-      if (!$manatee) {
+      // Load the associated species entity.
+      $species_entity = $this->entityTypeManager->getStorage('node')->load($pre_release->field_animal->target_id);
+      if (!$species_entity) {
         continue;
       }
 
       // Load the node author.
       $author = $this->entityTypeManager->getStorage('user')->load($pre_release->getOwnerId());
 
-      $mlog = !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : 'N/A';
+      $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : 'N/A';
       $mlog_link = Link::createFromRoute(
         $mlog,
         'entity.node.canonical',
-        ['node' => $manatee->id()]
+        ['node' => $species_entity->id()]
       );
 
       // Get the primary name.
       $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'manatee_name')
-        ->condition('field_animal', $manatee->id())
+        ->condition('field_animal', $species_entity->id())
         ->condition('field_primary', 1)
         ->accessCheck(FALSE)
         ->execute();
@@ -153,7 +153,7 @@ class PreReleaseReportController extends ControllerBase {
       ],
       '#rows' => $rows,
       '#empty' => $this->t('No pre-release records without matching release records found.'),
-      '#attributes' => ['class' => ['manatee-prerelease-report']],
+      '#attributes' => ['class' => ['tracking-prerelease-report']],
     ];
 
     return $build;

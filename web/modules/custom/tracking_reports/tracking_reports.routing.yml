@@ -1,0 +1,55 @@
+tracking_reports.current_captives:
+  path: '/current-captives-by-facility'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\CurrentCaptivesController::content'
+    _title: 'Current Captives by Facility'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.facility_inventory:
+  path: 'facility-inventory'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\FacilityInventoryController::content'
+    _title: 'Facility Inventory Report'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.search:
+  path: '/tracking/search'
+  defaults:
+    _title: 'Search Species Information'
+    _form: '\Drupal\tracking_reports\Form\TrackingSearchForm'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.prerelease_report:
+  path: '/tracking/prerelease'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\PreReleaseReportController::content'
+    _title: 'Pre-release Records Without Release'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.tracking_without_events:
+  path: '/tracking/without-events'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutEventsController::content'
+    _title: 'Report of species without event (Birth, or Rescue)'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.tracking_without_primary_id:
+  path: '/tracking/without-primary-id'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutPrimaryIdController::content'
+    _title: 'Report of species without a Primary Species ID'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.without_primary_name:
+  path: '/tracking/without-primary-name'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutPrimaryNameController::content'
+    _title: 'Report of species without a Primary Name'
+  requirements:
+    _permission: 'access tracking reports'

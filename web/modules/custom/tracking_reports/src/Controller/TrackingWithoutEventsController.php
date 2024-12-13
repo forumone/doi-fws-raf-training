@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\manatee_reports\Controller;
+namespace Drupal\tracking_reports\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -9,13 +9,13 @@ use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Controller for generating reports of manatees without birth or rescue events.
+ * Controller for generating reports of species without birth or rescue events.
  *
- * This controller provides functionality to list all manatee entities that do not
+ * This controller provides functionality to list all species entities that do not
  * have associated birth or rescue event records. The report includes basic
- * manatee information such as IDs, names, and creation/update metadata.
+ * species information such as IDs, names, and creation/update metadata.
  */
-class ManateesWithoutEventsController extends ControllerBase {
+class TrackingWithoutEventsController extends ControllerBase {
 
   /**
    * The entity type manager service.
@@ -32,7 +32,7 @@ class ManateesWithoutEventsController extends ControllerBase {
   protected $dateFormatter;
 
   /**
-   * Constructs a ManateesWithoutEventsController object.
+   * Constructs a TrackingWithoutEventsController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
@@ -58,19 +58,19 @@ class ManateesWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves all animal IDs associated with a manatee.
+   * Retrieves all animal IDs associated with a species.
    *
-   * @param int $manatee_id
-   *   The node ID of the manatee entity.
+   * @param int $species_id
+   *   The node ID of the species entity.
    *
    * @return string
    *   Comma-separated list of animal IDs.
    */
-  private function getAnimalIds($manatee_id) {
+  private function getAnimalIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_animal_id')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->accessCheck(FALSE);
 
     $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
@@ -83,18 +83,18 @@ class ManateesWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves the primary name of a manatee.
+   * Retrieves the primary name of a species.
    *
-   * @param int $manatee_id
-   *   The node ID of the manatee entity.
+   * @param int $species_id
+   *   The node ID of the species entity.
    *
    * @return string
-   *   The primary name of the manatee, or an empty string if none exists.
+   *   The primary name of the species, or an empty string if none exists.
    */
-  private function getPrimaryName($manatee_id) {
+  private function getPrimaryName($species_id) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee_name')
-      ->condition('field_animal', $manatee_id)
+      ->condition('field_animal', $species_id)
       ->condition('field_primary', 1)
       ->accessCheck(FALSE);
 
@@ -107,17 +107,17 @@ class ManateesWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves the sex of a manatee.
+   * Retrieves the sex of a species.
    *
-   * @param \Drupal\node\NodeInterface $manatee_node
-   *   The manatee node entity.
+   * @param \Drupal\node\NodeInterface $species_node
+   *   The species node entity.
    *
    * @return string
-   *   The sex of the manatee ('M', 'F', or 'U' for unknown).
+   *   The sex of the species ('M', 'F', or 'U' for unknown).
    */
-  private function getManateeSex($manatee_node) {
-    if ($manatee_node->hasField('field_sex') && !$manatee_node->field_sex->isEmpty()) {
-      $term = $manatee_node->field_sex->entity;
+  private function getSpeciesSex($species_node) {
+    if ($species_node->hasField('field_sex') && !$species_node->field_sex->isEmpty()) {
+      $term = $species_node->field_sex->entity;
       if ($term) {
         return $term->getName();
       }
@@ -126,67 +126,67 @@ class ManateesWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Builds the content for the manatees without events report.
+   * Builds the content for the species without events report.
    *
-   * Generates a table displaying all manatees that don't have associated birth
+   * Generates a table displaying all species that don't have associated birth
    * or rescue events. The table includes the following columns:
-   * - MLog: Link to the manatee's detail page
-   * - Primary Name: The manatee's primary name
+   * - MLog: Link to the species' detail page
+   * - Primary Name: The species' primary name
    * - Animal ID List: All associated animal IDs
-   * - Sex: The manatee's sex (M/F/U)
+   * - Sex: The species' sex (M/F/U)
    * - Created By: Username of the creator
    * - Created Date: Creation date in m/d/Y format
    * - Updated By: Username of the last updater
    * - Updated Date: Last update date in m/d/Y format.
    *
    * @return array
-   *   A render array for a table of manatees without events.
+   *   A render array for a table of species without events.
    */
   public function content() {
-    $manatee_query = $this->entityTypeManager->getStorage('node')->getQuery()
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'manatee')
       ->accessCheck(FALSE);
 
-    $manatee_ids = $manatee_query->execute();
+    $species_ids = $species_query->execute();
     $rows = [];
 
-    foreach ($manatee_ids as $manatee_id) {
+    foreach ($species_ids as $species_id) {
       $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_birth')
-        ->condition('field_animal', $manatee_id)
+        ->condition('type', 'species_birth')
+        ->condition('field_animal', $species_id)
         ->accessCheck(FALSE);
 
       $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'manatee_rescue')
-        ->condition('field_animal', $manatee_id)
+        ->condition('type', 'species_rescue')
+        ->condition('field_animal', $species_id)
         ->accessCheck(FALSE);
 
       if (!empty($birth_query->execute()) || !empty($rescue_query->execute())) {
         continue;
       }
 
-      $manatee = $this->entityTypeManager->getStorage('node')->load($manatee_id);
+      $species_entity = $this->entityTypeManager->getStorage('node')->load($species_id);
 
-      $created_user = $this->entityTypeManager->getStorage('user')->load($manatee->getOwner()->id());
-      $updated_user = $this->entityTypeManager->getStorage('user')->load($manatee->getRevisionUser()->id());
+      $created_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getOwner()->id());
+      $updated_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getRevisionUser()->id());
 
-      $mlog = !$manatee->field_mlog->isEmpty() ? $manatee->field_mlog->value : '';
+      $mlog = !$species_entity->field_mlog->isEmpty() ? $species_entity->field_mlog->value : '';
       $mlog_link = Link::createFromRoute(
         $mlog,
         'entity.node.canonical',
-        ['node' => $manatee_id]
+        ['node' => $species_id]
       );
 
       $row = [
         'data' => [
           ['data' => $mlog_link],
-          ['data' => $this->getPrimaryName($manatee_id)],
-          ['data' => $this->getAnimalIds($manatee_id)],
-          ['data' => $this->getManateeSex($manatee)],
+          ['data' => $this->getPrimaryName($species_id)],
+          ['data' => $this->getAnimalIds($species_id)],
+          ['data' => $this->getSpeciesSex($species_entity)],
           ['data' => $created_user ? $created_user->getAccountName() : ''],
-          ['data' => $this->dateFormatter->format($manatee->getCreatedTime(), 'custom', 'm/d/Y')],
+          ['data' => $this->dateFormatter->format($species_entity->getCreatedTime(), 'custom', 'm/d/Y')],
           ['data' => $updated_user ? $updated_user->getAccountName() : ''],
-          ['data' => $this->dateFormatter->format($manatee->getChangedTime(), 'custom', 'm/d/Y')],
+          ['data' => $this->dateFormatter->format($species_entity->getChangedTime(), 'custom', 'm/d/Y')],
         ],
       ];
 
@@ -210,8 +210,8 @@ class ManateesWithoutEventsController extends ControllerBase {
         $this->t('Updated Date'),
       ],
       '#rows' => $rows,
-      '#empty' => $this->t('No manatees found without birth or rescue records.'),
-      '#attributes' => ['class' => ['manatees-without-events-report']],
+      '#empty' => $this->t('No results found without birth or rescue records.'),
+      '#attributes' => ['class' => ['species-without-events-report']],
     ];
   }
 

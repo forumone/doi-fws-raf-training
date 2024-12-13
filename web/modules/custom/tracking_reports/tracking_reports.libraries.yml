@@ -1,7 +1,7 @@
-manatee_reports:
+tracking_reports:
   version: 1.x
   js:
-    js/manatee_filter.js: {}
+    js/tracking_filter.js: {}
   dependencies:
     - core/jquery
     - core/drupal
