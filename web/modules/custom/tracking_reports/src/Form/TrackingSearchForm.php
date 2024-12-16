@@ -559,6 +559,16 @@ class TrackingSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+
+    // Check if at least one field has a value.
+    if (!$this->hasActualSearchValues($values)) {
+      $form_state->setErrorByName(
+        'number',
+        $this->t('Please fill out at least one search field.')
+      );
+    }
+
     $from_date = $form_state->getValue('from');
     $to_date = $form_state->getValue('to');
     $event_type = $form_state->getValue('event_type');
