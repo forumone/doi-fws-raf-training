@@ -56,6 +56,53 @@ class TrackingSearchForm extends FormBase {
   }
 
   /**
+   * Helper function to check if we have actual search values.
+   */
+  protected function hasActualSearchValues(array $values) {
+    // List of fields that should be checked for non-default values.
+    $searchFields = [
+      'number',
+      'species_id',
+      'species_name',
+      'tag_id',
+      'waterway',
+    ];
+
+    // List of select fields and their default values.
+    $selectFields = [
+      'tag_type' => 'All',
+      'county' => 'All',
+      'state' => 'All',
+      'event_type' => 'All',
+      'rescue_type' => 'All',
+      'rescue_cause' => 'All',
+      'organization' => 'All',
+      'cause_of_death' => 'All',
+    ];
+
+    // Check text fields for any non-empty values.
+    foreach ($searchFields as $field) {
+      if (!empty($values[$field])) {
+        return TRUE;
+      }
+    }
+
+    // Check select fields for non-default values.
+    foreach ($selectFields as $field => $defaultValue) {
+      if (isset($values[$field]) && $values[$field] !== $defaultValue) {
+        return TRUE;
+      }
+    }
+
+    // Check date fields.
+    if (!empty($values['from']) || !empty($values['to'])) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
@@ -65,11 +112,7 @@ class TrackingSearchForm extends FormBase {
     $form['#prefix'] = '<div class="tracking-search-form panel-group" id="tracking-search-accordion">';
     $form['#suffix'] = '</div>';
 
-    // Get all query parameters.
     $query_params = \Drupal::request()->query->all();
-
-    // Check if there are any query parameters that match our form fields.
-    $has_search_params = FALSE;
     $search_values = [];
 
     // Map URL parameters to form fields.
@@ -93,26 +136,21 @@ class TrackingSearchForm extends FormBase {
     foreach ($field_mapping as $url_param => $form_field) {
       if (isset($query_params[$url_param])) {
         $search_values[$form_field] = $query_params[$url_param];
-        $has_search_params = TRUE;
       }
     }
 
-    // If we have search parameters in the URL, set them as default values.
-    if ($has_search_params) {
-      $form_state->setValues($search_values);
+    // Determine if we should show results.
+    $show_results = FALSE;
+    if ($form_state->get('show_results') ||
+    isset($query_params['page']) ||
+    $this->hasActualSearchValues($search_values)) {
+      $show_results = TRUE;
       $form_state->set('show_results', TRUE);
     }
 
-    // Get current page from URL query.
-    $current_page = \Drupal::request()->query->get('page');
-
-    // Check if there has been a POST or if there are any query params.
+    // Determine if form should be collapsed.
     $request = \Drupal::request();
-    $collapsed = FALSE;
-
-    if ($request->isMethod('POST') || $request->query->all()) {
-      $collapsed = TRUE;
-    }
+    $collapsed = ($request->isMethod('POST') || $request->query->all()) ? TRUE : FALSE;
 
     // Main Filter Options Panel.
     $form['filter_options'] = [
@@ -134,7 +172,7 @@ class TrackingSearchForm extends FormBase {
             'data-toggle' => 'collapse',
             'data-parent' => '#tracking-search-accordion',
             'href' => '#filter-options-collapse',
-            'class' => ['accordion-toggle', $collapsed ? 'collapse' : ''],
+            'class' => ['accordion-toggle', $collapsed ? 'collapsed' : ''],
           ],
           '#value' => $this->t('Filter Options') . ' <i class="fa fa-caret-down" style="float: right;"></i>',
         ],
@@ -199,14 +237,13 @@ class TrackingSearchForm extends FormBase {
     ];
 
     foreach ($individual_fields as $key => $field) {
-      $default_value = $search_values[$key] ?? '';
       $form['filter_options']['collapse']['body'][$key] = [
         '#type' => 'textfield',
         '#title' => $this->t($field['title']),
         '#required' => $field['required'],
         '#maxlength' => $field['maxlength'],
         '#size' => 64,
-        '#default_value' => $default_value,
+        '#default_value' => $search_values[$key] ?? '',
         '#wrapper_attributes' => ['class' => ['form-item']],
         '#attributes' => ['class' => ['tracking-search-field']],
       ];
@@ -364,31 +401,15 @@ class TrackingSearchForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
-    $has_search_params = TRUE;
-
-    // Check if we need to show results.
-    if ($form_state->get('show_results') || $current_page !== NULL || $has_search_params) {
-      // Restore form values from tempstore if paginating.
-      if ($current_page !== NULL && !$form_state->get('show_results') && !$has_search_params) {
-        $tempstore = \Drupal::service('tempstore.private')->get('tracking_reports');
-        $stored_values = $tempstore->get('search_values');
-        if ($stored_values) {
-          $form_state->setValues($stored_values);
-          $form_state->set('show_results', TRUE);
-        }
-      }
-
-      // Get values either from form submission, URL parameters, or tempstore.
-      $values = $form_state->getValues() ?: $search_values;
-
-      if ($values) {
-        $conditions = $this->processSearchParameters($values);
-        $form['search_results'] = [
-          '#type' => 'container',
-          '#attributes' => ['class' => ['search-results-container']],
-          'results' => $this->searchManager->buildSearchResults($conditions),
-        ];
-      }
+    // If showing results, process the search
+    // If showing results, process the search.
+    if ($show_results && !empty($search_values)) {
+      $conditions = $this->processSearchParameters($search_values);
+      $form['search_results'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['search-results-container']],
+        'results' => $this->searchManager->buildSearchResults($conditions),
+      ];
     }
 
     return $form;
@@ -524,7 +545,7 @@ class TrackingSearchForm extends FormBase {
       ];
     }
 
-    if (!empty($values['cause_of_death'])) {
+    if (!empty($values['cause_of_death']) && $values['cause_of_death'] !== 'All') {
       $conditions[] = [
         'field' => 'field_cause_id',
         'value' => $values['cause_of_death'],
@@ -543,7 +564,6 @@ class TrackingSearchForm extends FormBase {
     $event_type = $form_state->getValue('event_type');
 
     if ((!empty($from_date) || !empty($to_date)) && ($event_type === 'All' || empty($event_type))) {
-
       $form_state->setErrorByName(
         'event_type',
         $this->t('Event type is required when specifying a date range.')
@@ -567,12 +587,26 @@ class TrackingSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Store form values in tempstore for pagination.
-    $tempstore = \Drupal::service('tempstore.private')->get('tracking_reports');
-    $tempstore->set('search_values', $form_state->getValues());
+    // Get the form values.
+    $values = $form_state->getValues();
 
-    $form_state->set('show_results', TRUE);
-    $form_state->setRebuild(TRUE);
+    // Build query parameters.
+    $query = [];
+    foreach ($values as $key => $value) {
+      // Skip empty values and form metadata.
+      if (!empty($value) && !in_array($key, ['form_build_id', 'form_token', 'form_id', 'op', 'submit'])) {
+        // Skip 'All' values from select fields.
+        if ($value !== 'All') {
+          $query[$key] = $value;
+        }
+      }
+    }
+
+    // Get current route from the route match service.
+    $current_route = \Drupal::routeMatch()->getRouteName();
+
+    // Redirect to the same route with query parameters.
+    $form_state->setRedirect($current_route, [], ['query' => $query]);
   }
 
 }
