@@ -8,10 +8,10 @@ ddev drush recipe ../recipes/fws-core
 ddev drush scr ../scripts/install-cleanup.php
 ddev drush cr
 
-ddev drush recipe ../recipes/fws-manatee-taxonomy
-ddev drush recipe ../recipes/fws-manatee-node
-ddev drush recipe ../recipes/fws-manatee-reports
-ddev drush recipe ../recipes/fws-manatee-user
+ddev drush recipe ../recipes/fws-tracking-taxonomy
+ddev drush recipe ../recipes/fws-tracking-node
+ddev drush recipe ../recipes/fws-tracking-reports
+ddev drush recipe ../recipes/fws-tracking-user
 ddev drush recipe ../recipes/fws-manatee-content
 
 # ddev drush webform-libraries-download

@@ -1,0 +1,6 @@
+name: 'FWS Tracking Reports'
+description: 'FWS species tracking reports and views.'
+type: 'Site'
+
+install:
+  - tracking_reports

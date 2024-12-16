@@ -1,4 +1,0 @@
-services:
-  manatee_reports.search_manager:
-    class: Drupal\manatee_reports\ManateeSearchManager
-    arguments: ['@entity_type.manager', '@database']

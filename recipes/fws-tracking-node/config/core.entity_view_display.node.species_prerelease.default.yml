@@ -1,0 +1,275 @@
+uuid: 00a587b9-d7a5-4265-b28e-a869529d9bd2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_prerelease.field_species_ref
+    - field.field.node.species_prerelease.field_bottom_feed
+    - field.field.node.species_prerelease.field_city
+    - field.field.node.species_prerelease.field_comments
+    - field.field.node.species_prerelease.field_cond_stop
+    - field.field.node.species_prerelease.field_county
+    - field.field.node.species_prerelease.field_display_type
+    - field.field.node.species_prerelease.field_est_length
+    - field.field.node.species_prerelease.field_est_weight
+    - field.field.node.species_prerelease.field_exp_water
+    - field.field.node.species_prerelease.field_form_complete
+    - field.field.node.species_prerelease.field_length
+    - field.field.node.species_prerelease.field_length_date
+    - field.field.node.species_prerelease.field_months_exp_water
+    - field.field.node.species_prerelease.field_months_veg
+    - field.field.node.species_prerelease.field_nat_veg
+    - field.field.node.species_prerelease.field_org
+    - field.field.node.species_prerelease.field_photos
+    - field.field.node.species_prerelease.field_rel_type
+    - field.field.node.species_prerelease.field_release_date
+    - field.field.node.species_prerelease.field_release_site
+    - field.field.node.species_prerelease.field_state
+    - field.field.node.species_prerelease.field_veg_type
+    - field.field.node.species_prerelease.field_vet_id
+    - field.field.node.species_prerelease.field_waterway
+    - field.field.node.species_prerelease.field_weight
+    - field.field.node.species_prerelease.field_weight_date
+    - node.type.species_prerelease
+  module:
+    - options
+    - text
+    - user
+id: node.species_prerelease.default
+targetEntityType: node
+bundle: species_prerelease
+mode: default
+content:
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_bottom_feed:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 118
+    region: content
+  field_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 113
+    region: content
+  field_comments:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_cond_stop:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 117
+    region: content
+  field_county:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 112
+    region: content
+  field_display_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 123
+    region: content
+  field_est_length:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_est_weight:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_exp_water:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 122
+    region: content
+  field_form_complete:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 116
+    region: content
+  field_length:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_length_date:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_months_exp_water:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 125
+    region: content
+  field_months_veg:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 121
+    region: content
+  field_nat_veg:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 119
+    region: content
+  field_org:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_photos:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 115
+    region: content
+  field_rel_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 124
+    region: content
+  field_release_date:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_release_site:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_state:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_veg_type:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 120
+    region: content
+  field_vet_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 126
+    region: content
+  field_waterway:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 114
+    region: content
+  field_weight:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 127
+    region: content
+  field_weight_date:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

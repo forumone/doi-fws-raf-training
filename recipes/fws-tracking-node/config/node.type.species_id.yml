@@ -1,0 +1,11 @@
+uuid: 6b1e8653-8a79-4ed3-b1ba-89e5ab0e0f31
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species ID'
+type: species_id
+description: 'Stores identification numbers associated with captive species.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,19 @@
+uuid: 74c99350-7c85-4e18-9467-ee5667f561ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tracker
+    - node.type.species_rescue
+id: node.species_rescue.field_tracker
+field_name: field_tracker
+entity_type: node
+bundle: species_rescue
+label: Tracker
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

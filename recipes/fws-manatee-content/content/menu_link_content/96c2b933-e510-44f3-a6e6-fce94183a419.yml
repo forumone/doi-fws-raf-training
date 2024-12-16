@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/manatees/without-primary-id'
+      uri: 'internal:/tracking/without-primary-id'
       title: ''
       options: {  }
   external:

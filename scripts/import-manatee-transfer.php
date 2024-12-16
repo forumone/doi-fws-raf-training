@@ -45,7 +45,7 @@ while (($data = fgetcsv($handle, 0, $delimiter, $enclosure, $escape)) !== FALSE)
     // Assign variables based on the CSV columns.
     [
     // "MLog"
-      $mlog,
+      $number,
     // "TransDate"
       $trans_date,
     // "Reason"
@@ -83,8 +83,8 @@ while (($data = fgetcsv($handle, 0, $delimiter, $enclosure, $escape)) !== FALSE)
     // Prepare node data.
     $node_data = [
       'type' => 'transfer',
-      'title' => "Transfer Entry MLog $mlog",
-      'field_animal' => get_manatee_node_id($mlog),
+      'title' => "Transfer Entry MLog $number",
+      'field_species_ref' => get_species_node_id($number),
       'field_transfer_date' => parse_date($trans_date),
       'field_reason' => [
         'target_id' => get_taxonomy_term_id('transfer_reason', $reason),
@@ -114,7 +114,7 @@ while (($data = fgetcsv($handle, 0, $delimiter, $enclosure, $escape)) !== FALSE)
 
     // Create and save the new node.
     $node = Node::create($node_data);
-    print("\nCreating new transfer node: MLog $mlog");
+    print("\nCreating new transfer node: MLog $number");
     $node->save();
     $created_count++;
   }
@@ -249,25 +249,25 @@ function get_user_id($username) {
 /**
  * Helper function to get Manatee node ID by MLog.
  *
- * @param int $mlog
+ * @param int $number
  *   The MLog number.
  *
  * @return int|null
  *   The node ID or NULL if not found.
  */
-function get_manatee_node_id($mlog) {
+function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {
     return reset($nodes)->id();
   }
 
-  print("\nError: Manatee node with MLog $mlog not found.");
+  print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }
 

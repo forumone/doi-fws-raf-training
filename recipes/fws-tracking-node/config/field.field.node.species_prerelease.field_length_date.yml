@@ -1,0 +1,21 @@
+uuid: 97b1a068-84d9-4f30-8abe-00133f282930
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_date
+    - node.type.species_prerelease
+  module:
+    - datetime
+id: node.species_prerelease.field_length_date
+field_name: field_length_date
+entity_type: node
+bundle: species_prerelease
+label: 'Length Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

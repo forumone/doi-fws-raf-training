@@ -8,10 +8,10 @@ fin drush recipe ../recipes/fws-core
 fin drush scr ../scripts/install-cleanup.php
 fin drush cr
 
-fin drush recipe ../recipes/fws-manatee-taxonomy
-fin drush recipe ../recipes/fws-manatee-node
-fin drush recipe ../recipes/fws-manatee-reports
-fin drush recipe ../recipes/fws-manatee-user
+fin drush recipe ../recipes/fws-tracking-taxonomy
+fin drush recipe ../recipes/fws-tracking-node
+fin drush recipe ../recipes/fws-tracking-reports
+fin drush recipe ../recipes/fws-tracking-user
 fin drush recipe ../recipes/fws-manatee-content
 
 # fin drush webform-libraries-download

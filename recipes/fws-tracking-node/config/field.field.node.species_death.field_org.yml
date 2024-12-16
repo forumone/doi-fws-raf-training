@@ -1,0 +1,29 @@
+uuid: c9e1c841-c457-4d2e-aac6-7aeca6e5d041
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.species_death
+    - taxonomy.vocabulary.org
+id: node.species_death.field_org
+field_name: field_org
+entity_type: node
+bundle: species_death
+label: Org
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      org: org
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

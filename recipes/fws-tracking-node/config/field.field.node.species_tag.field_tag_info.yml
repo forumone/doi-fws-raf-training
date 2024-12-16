@@ -1,0 +1,22 @@
+uuid: 8f920652-cf00-4d86-bb39-db1d347daaf4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tag_info
+    - node.type.species_tag
+  module:
+    - text
+id: node.species_tag.field_tag_info
+field_name: field_tag_info
+entity_type: node
+bundle: species_tag
+label: 'Tag Information'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -1,0 +1,4 @@
+services:
+  tracking_reports.search_manager:
+    class: Drupal\tracking_reports\TrackingSearchManager
+    arguments: ['@entity_type.manager', '@database']

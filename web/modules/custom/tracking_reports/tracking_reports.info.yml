@@ -1,0 +1,7 @@
+name: Tracking Reports
+type: module
+description: 'Provides reporting functionality for species tracking data.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node

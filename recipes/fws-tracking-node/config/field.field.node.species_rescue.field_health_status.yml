@@ -1,0 +1,23 @@
+uuid: ccd5371f-63de-47f7-95d8-9fa052299714
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_health_status
+    - node.type.species_rescue
+id: node.species_rescue.field_health_status
+field_name: field_health_status
+entity_type: node
+bundle: species_rescue
+label: 'Health Status'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      health: health
+field_type: entity_reference

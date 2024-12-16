@@ -1,9 +1,0 @@
-uuid: 1bff721e-3e70-4b06-8063-d0a9b15fb106
-langcode: en
-status: true
-dependencies: {  }
-name: 'Research Systems'
-vid: system
-description: 'Lookup table for names of other manatee research systems'
-weight: 0
-new_revision: false

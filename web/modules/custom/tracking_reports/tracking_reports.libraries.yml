@@ -1,0 +1,8 @@
+tracking_reports:
+  version: 1.x
+  js:
+    js/tracking_filter.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once

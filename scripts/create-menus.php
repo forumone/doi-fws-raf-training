@@ -50,7 +50,7 @@ function delete_existing_menu_links() {
  */
 function create_main_menu_links() {
   $main_menu_items = [
-    'enter-manatee-data' => [
+    'enter-species-data' => [
       'title' => 'Enter Manatee Data',
       'weight' => 1,
       'children' => [
@@ -61,7 +61,7 @@ function create_main_menu_links() {
         'status-update' => ['title' => 'Status Update', 'weight' => 5],
         'death' => ['title' => 'Death', 'weight' => 6],
         'captive-birth' => ['title' => 'Captive Birth', 'weight' => 7],
-        'other-manatee-names' => ['title' => 'Other Manatee Names', 'weight' => 8],
+        'other-species-names' => ['title' => 'Other Manatee Names', 'weight' => 8],
       ],
     ],
     'database-search' => [
@@ -69,7 +69,7 @@ function create_main_menu_links() {
       'weight' => 2,
       'children' => [
         'current-captives' => ['title' => 'Current Captives by Facility', 'weight' => 1],
-        'manatee-search' => ['title' => 'Manatee Search', 'weight' => 2],
+        'species-search' => ['title' => 'Manatee Search', 'weight' => 2],
         'table-data-search' => ['title' => 'Table Data Search', 'weight' => 3],
         'lookup-data-view' => ['title' => 'Lookup Data View', 'weight' => 4],
       ],

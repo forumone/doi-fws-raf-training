@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Drush script to import data into manatee_conditioning content type.
+ * Drush script to import data into species_conditioning content type.
  *
- * Usage: drush scr scripts/import_manatee_conditioning.php.
+ * Usage: drush scr scripts/import_species_conditioning.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -36,23 +36,23 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
   try {
     // CSV columns: MLog, CaptivityDate, Cond, Stimulus, Project, Comments, CreateBy, CreateDate, UpdateBy, UpdateDate.
-    [$mlog, $captivity_date, $cond, $stimulus, $project, $comments, $create_by, $create_date, $update_by, $update_date] = $data;
+    [$number, $captivity_date, $cond, $stimulus, $project, $comments, $create_by, $create_date, $update_by, $update_date] = $data;
 
-    // Check if manatee_conditioning node already exists.
+    // Check if species_conditioning node already exists.
     $existing_nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadByProperties([
-        'type' => 'manatee_conditioning',
-        'field_animal' => get_manatee_node_id($mlog),
+        'type' => 'species_conditioning',
+        'field_species_ref' => get_species_node_id($number),
         'field_conditioning_type' => get_conditioning_type_term_id($cond),
       ]);
 
     // Prepare node data.
     $node_data = [
-      'type' => 'manatee_conditioning',
-      'title' => "Manatee Conditioning for MLog $mlog",
-      'field_animal' => [
-        'target_id' => get_manatee_node_id($mlog),
+      'type' => 'species_conditioning',
+      'title' => "Manatee Conditioning for MLog $number",
+      'field_species_ref' => [
+        'target_id' => get_species_node_id($number),
       ],
       // ISO 8601 format.
       'field_captivity_date' => parse_date($captivity_date, FALSE),
@@ -77,14 +77,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
-      print("\nUpdating existing manatee_conditioning node: MLog $mlog");
+      print("\nUpdating existing species_conditioning node: MLog $number");
       $updated_count++;
     }
     else {
       // Create new node.
       $node_data['uid'] = get_user_id($create_by);
       $node = Node::create($node_data);
-      print("\nCreating new manatee_conditioning node: MLog $mlog");
+      print("\nCreating new species_conditioning node: MLog $number");
       $created_count++;
     }
 
@@ -159,19 +159,19 @@ function get_conditioning_type_term_id($conditioning_type) {
 /**
  * Helper function to get Manatee node ID.
  */
-function get_manatee_node_id($mlog) {
+function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadByProperties([
-      'type' => 'manatee',
-      'field_mlog' => $mlog,
+      'type' => 'species',
+      'field_number' => $number,
     ]);
 
   if (!empty($nodes)) {
     return reset($nodes)->id();
   }
 
-  print("\nError: Manatee node with MLog $mlog not found.");
+  print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }
 

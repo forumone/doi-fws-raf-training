@@ -1,9 +1,0 @@
-uuid: 0f8b8459-1469-4a45-8091-c642d23a1067
-langcode: en
-status: true
-dependencies: {  }
-name: Events
-vid: event
-description: 'Lookup table for events in manatee life'
-weight: 0
-new_revision: false
