@@ -401,7 +401,6 @@ class TrackingSearchForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
-    // If showing results, process the search
     // If showing results, process the search.
     if ($show_results && !empty($search_values)) {
       $conditions = $this->processSearchParameters($search_values);

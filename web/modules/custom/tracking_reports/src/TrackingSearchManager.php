@@ -604,7 +604,7 @@ class TrackingSearchManager {
    * @return array
    *   A render array of the search results table with header-based sorting.
    */
-  public function buildSearchResults($conditions) {
+  public function buildSearchResults(array $conditions) {
     $species_ids = $this->searchSpecies($conditions);
     $total_items = count($species_ids);
 
