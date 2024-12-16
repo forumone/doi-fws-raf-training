@@ -2,10 +2,11 @@
 
 namespace Drupal\tracking_reports;
 
+use Drupal\Core\Link;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Utility\TableSort;
 
 /**
  * Service for handling tracking search operations.
@@ -595,27 +596,26 @@ class TrackingSearchManager {
   }
 
   /**
-   * Build search results render array.
+   * Build search results render array with header-based sorting.
+   *
+   * @param array $conditions
+   *   The conditions array from processSearchParameters().
+   *
+   * @return array
+   *   A render array of the search results table with header-based sorting.
    */
   public function buildSearchResults($conditions) {
-    $items_per_page = 20;
     $species_ids = $this->searchSpecies($conditions);
     $total_items = count($species_ids);
 
-    $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
-    $current_page = $pager->getCurrentPage();
-
-    $page_species_ids = array_slice($species_ids, $current_page * $items_per_page, $items_per_page);
-
-    if (empty($page_species_ids)) {
+    // Early return if no matches.
+    if (empty($species_ids)) {
       return [
         '#markup' => '<div class="no-results">' . $this->t('No results found matching your search criteria.') . '</div>',
       ];
     }
 
-    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($page_species_ids);
-
-    // Extract event type from conditions if it exists.
+    // Identify the event_type from conditions, if present.
     $event_type = NULL;
     foreach ($conditions as $condition) {
       if ($condition['field'] === 'type') {
@@ -624,37 +624,96 @@ class TrackingSearchManager {
       }
     }
 
-    $rows = [];
-    foreach ($species as $species_entity) {
-      $species_id = $species_entity->id();
-      $latest_event = $this->getLatestEvent($species_id, $event_type);
+    // Define table header.
+    $header = [
+      'number' => [
+        'data' => $this->t('Tracking Number'),
+        'field' => 'number',
+        'sort' => 'asc',
+      ],
+      'species_name' => [
+        'data' => $this->t('Name'),
+        'field' => 'species_name',
+      ],
+      'species_id_value' => [
+        'data' => $this->t('Species ID'),
+        'field' => 'species_id_value',
+      ],
+      'latest_event_type' => [
+        'data' => $this->t('Event'),
+        'field' => 'latest_event_type',
+      ],
+      'latest_event_date' => [
+        'data' => $this->t('Last Event'),
+        'field' => 'latest_event_date',
+      ],
+    ];
 
-      $number = $this->getNumber($species_entity);
-      $number_link = Link::createFromRoute(
-        $number,
-        'entity.node.canonical',
-        ['node' => $species_id]
-      );
+    // Load all species nodes and create a data array for sorting.
+    $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_ids);
+    $data = [];
+
+    foreach ($species_nodes as $species_entity) {
+      $sid = $species_entity->id();
+      $latest_event = $this->getLatestEvent($sid, $event_type);
+
+      $data[] = [
+        'species_id' => $sid,
+        'number' => $this->getNumber($species_entity),
+        'species_name' => $this->getPrimaryName($sid),
+        'species_id_value' => $this->getSpeciesId($sid),
+        'latest_event_type' => $latest_event['type'],
+        'latest_event_date' => $latest_event['date'],
+      ];
+    }
+
+    // Get current request from the request stack.
+    $request = \Drupal::request();
+
+    // Use TableSort with the request object.
+    $order = TableSort::getOrder($header, $request);
+    $sort = TableSort::getSort($header, $request);
+
+    // Sort the data array.
+    usort($data, function ($a, $b) use ($order, $sort) {
+      $field = $order['sql'] ?? 'number';
+
+      if ($field === 'latest_event_date') {
+        $timeA = strtotime($a[$field]) ?: 0;
+        $timeB = strtotime($b[$field]) ?: 0;
+        return ($sort === 'asc') ? $timeA <=> $timeB : $timeB <=> $timeA;
+      }
+      else {
+        $valA = strtolower($a[$field] ?? '');
+        $valB = strtolower($b[$field] ?? '');
+        return ($sort === 'asc') ? $valA <=> $valB : $valB <=> $valA;
+      }
+    });
+
+    // Implement pager.
+    $items_per_page = 20;
+    $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
+    $current_page = $pager->getCurrentPage();
+    $offset = $current_page * $items_per_page;
+    $paged_data = array_slice($data, $offset, $items_per_page);
+
+    // Build rows.
+    $rows = [];
+    foreach ($paged_data as $row) {
+      $number_link = Link::createFromRoute($row['number'], 'entity.node.canonical', ['node' => $row['species_id']]);
 
       $rows[] = [
         'data' => [
-          ['data' => $number_link],
-          ['data' => $this->getPrimaryName($species_id)],
-          ['data' => $this->getSpeciesId($species_id)],
-          ['data' => $latest_event['type']],
-          ['data' => $latest_event['date']],
+          'number' => ['data' => $number_link],
+          'species_name' => ['data' => $row['species_name']],
+          'species_id_value' => ['data' => $row['species_id_value']],
+          'latest_event_type' => ['data' => $row['latest_event_type']],
+          'latest_event_date' => ['data' => $row['latest_event_date']],
         ],
       ];
     }
 
-    $header = [
-      $this->t('Tracking Number'),
-      $this->t('Name'),
-      $this->t('Species ID'),
-      $this->t('Event'),
-      $this->t('Last Event'),
-    ];
-
+    // Return the table render array.
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['species-search-results']],
@@ -669,6 +728,7 @@ class TrackingSearchManager {
         '#rows' => $rows,
         '#empty' => $this->t('No results found'),
         '#attributes' => ['class' => ['species-report-table']],
+        '#tablesort' => TRUE,
       ],
       'pager' => [
         '#type' => 'pager',
