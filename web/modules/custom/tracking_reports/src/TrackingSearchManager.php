@@ -828,4 +828,74 @@ class TrackingSearchManager {
     return $causes;
   }
 
+  /**
+   * Get matching tracking numbers for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching tracking numbers.
+   */
+  public function getTrackingNumberMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species')
+      ->condition('field_number', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_number->isEmpty()) {
+          $number = $entity->field_number->value;
+          $matches[] = [
+            'value' => $number,
+            'label' => $number,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Get matching species IDs for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching species IDs.
+   */
+  public function getSpeciesIdMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_id')
+      ->condition('field_species_id', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_species_id->isEmpty()) {
+          $species_id = $entity->field_species_id->value;
+          $matches[] = [
+            'value' => $species_id,
+            'label' => $species_id,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
 }

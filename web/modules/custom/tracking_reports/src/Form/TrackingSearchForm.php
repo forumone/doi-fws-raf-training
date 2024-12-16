@@ -195,7 +195,7 @@ class TrackingSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['search_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('* indicates a wildcard search. For example, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
+      '#value' => $this->t('* indicates a autcomplete field. For example, if you enter Bob, you will get a pop-up list containing Bob, Bob 2, New Bob, Bobber, etc.'),
       '#attributes' => ['class' => ['search-description']],
     ];
 
@@ -215,7 +215,7 @@ class TrackingSearchForm extends FormBase {
     // Individual search fields.
     $individual_fields = [
       'number' => [
-        'title' => 'Tracking Number',
+        'title' => 'Tracking Number *',
         'required' => FALSE,
         'maxlength' => 64,
       ],
@@ -248,6 +248,39 @@ class TrackingSearchForm extends FormBase {
         '#attributes' => ['class' => ['tracking-search-field']],
       ];
     }
+
+    // Update the number field to include autocomplete.
+    $form['filter_options']['collapse']['body']['number'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tracking Number *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['number'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'tracking-number-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.number_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
+
+    $form['filter_options']['collapse']['body']['species_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Species ID *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['species_id'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'species-id-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.species_id_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
 
     $form['filter_options']['collapse']['body']['tag_type'] = [
       '#type' => 'select2',
