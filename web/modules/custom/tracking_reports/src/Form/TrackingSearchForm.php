@@ -56,7 +56,7 @@ class TrackingSearchForm extends FormBase {
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'tracking_reports/tracking_reports';
@@ -64,6 +64,44 @@ class TrackingSearchForm extends FormBase {
 
     $form['#prefix'] = '<div class="tracking-search-form panel-group" id="tracking-search-accordion">';
     $form['#suffix'] = '</div>';
+
+    // Get all query parameters.
+    $query_params = \Drupal::request()->query->all();
+
+    // Check if there are any query parameters that match our form fields.
+    $has_search_params = FALSE;
+    $search_values = [];
+
+    // Map URL parameters to form fields.
+    $field_mapping = [
+      'number' => 'number',
+      'species_id' => 'species_id',
+      'species_name' => 'species_name',
+      'tag_id' => 'tag_id',
+      'waterway' => 'waterway',
+      'state' => 'state',
+      'county' => 'county',
+      'event_type' => 'event_type',
+      'from' => 'from',
+      'to' => 'to',
+      'rescue_type' => 'rescue_type',
+      'rescue_cause' => 'rescue_cause',
+      'organization' => 'organization',
+      'cause_of_death' => 'cause_of_death',
+    ];
+
+    foreach ($field_mapping as $url_param => $form_field) {
+      if (isset($query_params[$url_param])) {
+        $search_values[$form_field] = $query_params[$url_param];
+        $has_search_params = TRUE;
+      }
+    }
+
+    // If we have search parameters in the URL, set them as default values.
+    if ($has_search_params) {
+      $form_state->setValues($search_values);
+      $form_state->set('show_results', TRUE);
+    }
 
     // Get current page from URL query.
     $current_page = \Drupal::request()->query->get('page');
@@ -115,11 +153,11 @@ class TrackingSearchForm extends FormBase {
       ],
     ];
 
-    // Search description within the panel body.
+    // Search description.
     $form['filter_options']['collapse']['body']['search_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('* indicates a wildcard search. For  ample, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
+      '#value' => $this->t('* indicates a wildcard search. For example, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
       '#attributes' => ['class' => ['search-description']],
     ];
 
@@ -161,12 +199,14 @@ class TrackingSearchForm extends FormBase {
     ];
 
     foreach ($individual_fields as $key => $field) {
+      $default_value = $search_values[$key] ?? '';
       $form['filter_options']['collapse']['body'][$key] = [
         '#type' => 'textfield',
         '#title' => $this->t($field['title']),
         '#required' => $field['required'],
         '#maxlength' => $field['maxlength'],
         '#size' => 64,
+        '#default_value' => $default_value,
         '#wrapper_attributes' => ['class' => ['form-item']],
         '#attributes' => ['class' => ['tracking-search-field']],
       ];
@@ -176,7 +216,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Tag Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getTagTypes(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['tag_type'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -208,7 +248,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('County'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getCounties(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['county'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -217,6 +257,7 @@ class TrackingSearchForm extends FormBase {
       '#title' => $this->t('Waterway *'),
       '#maxlength' => 128,
       '#size' => 64,
+      '#default_value' => $search_values['waterway'] ?? '',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -224,7 +265,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('State'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getStates(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['state'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -243,7 +284,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Event'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getEventTypes(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['event_type'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -256,6 +297,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('Occurring from'),
       '#date_date_format' => 'Y-m-d',
+      '#default_value' => $search_values['from'] ?? '',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -263,6 +305,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('to'),
       '#date_date_format' => 'Y-m-d',
+      '#default_value' => $search_values['to'] ?? '',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -281,7 +324,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Rescue Type'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueTypes(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['rescue_type'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -289,7 +332,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Rescue Cause'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getRescueCauses(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['rescue_cause'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -297,7 +340,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Organization'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getOrganizations(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['organization'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -305,7 +348,7 @@ class TrackingSearchForm extends FormBase {
       '#type' => 'select2',
       '#title' => $this->t('Cause of Death'),
       '#options' => ['All' => $this->t('All')] + $this->searchManager->getDeathCauses(),
-      '#default_value' => 'All',
+      '#default_value' => $search_values['cause_of_death'] ?? 'All',
       '#wrapper_attributes' => ['class' => ['form-item']],
     ];
 
@@ -321,10 +364,12 @@ class TrackingSearchForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
+    $has_search_params = TRUE;
+
     // Check if we need to show results.
-    if ($form_state->get('show_results') || $current_page !== NULL) {
+    if ($form_state->get('show_results') || $current_page !== NULL || $has_search_params) {
       // Restore form values from tempstore if paginating.
-      if ($current_page !== NULL && !$form_state->get('show_results')) {
+      if ($current_page !== NULL && !$form_state->get('show_results') && !$has_search_params) {
         $tempstore = \Drupal::service('tempstore.private')->get('tracking_reports');
         $stored_values = $tempstore->get('search_values');
         if ($stored_values) {
@@ -333,9 +378,11 @@ class TrackingSearchForm extends FormBase {
         }
       }
 
-      // Process search parameters and show results.
-      if ($form_state->getValues()) {
-        $conditions = $this->processSearchParameters($form_state->getValues());
+      // Get values either from form submission, URL parameters, or tempstore.
+      $values = $form_state->getValues() ?: $search_values;
+
+      if ($values) {
+        $conditions = $this->processSearchParameters($values);
         $form['search_results'] = [
           '#type' => 'container',
           '#attributes' => ['class' => ['search-results-container']],
