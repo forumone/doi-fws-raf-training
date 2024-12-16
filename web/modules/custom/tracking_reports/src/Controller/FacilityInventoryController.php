@@ -47,8 +47,8 @@ class FacilityInventoryController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager'),
-      $container->get('request_stack')
+    $container->get('entity_type.manager'),
+    $container->get('request_stack')
     );
   }
 
@@ -99,6 +99,7 @@ class FacilityInventoryController extends ControllerBase {
    */
   public function content() {
     $request = $this->requestStack->getCurrentRequest();
+
     // Get selected year from query parameter or default to previous year.
     $year_options = $this->getYearOptions();
     $default_year = date('Y') - 1;
@@ -139,11 +140,11 @@ class FacilityInventoryController extends ControllerBase {
       $status_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($status_query);
       foreach ($status_nodes as $status_node) {
         if ($status_node->hasField('field_species_ref') && !$status_node->field_species_ref->isEmpty()) {
-          $species_id = $status_node->field_species_ref->target_id;
+          $species_entity_id = $status_node->field_species_ref->target_id;
           if ($status_node->hasField('field_health') && !$status_node->field_health->isEmpty()) {
             $health_term = $status_node->field_health->entity;
             if ($health_term && $health_term->hasField('field_health_status')) {
-              $species_statuses[$species_id] = $health_term->field_health_status->value;
+              $species_statuses[$species_entity_id] = $health_term->field_health_status->value;
             }
           }
         }
@@ -159,12 +160,12 @@ class FacilityInventoryController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
 
-    $deceased_ids = [];
+    $deceased_entity_ids = [];
     if (!empty($death_query)) {
       $death_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($death_query);
       foreach ($death_nodes as $death_node) {
         if ($death_node->hasField('field_species_ref') && !$death_node->field_species_ref->isEmpty()) {
-          $deceased_ids[] = $death_node->field_species_ref->target_id;
+          $deceased_entity_ids[] = $death_node->field_species_ref->target_id;
         }
       }
     }
@@ -178,12 +179,12 @@ class FacilityInventoryController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
 
-    $released_ids = [];
+    $released_entity_ids = [];
     if (!empty($release_query)) {
       $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_query);
       foreach ($release_nodes as $release_node) {
         if ($release_node->hasField('field_species_ref') && !$release_node->field_species_ref->isEmpty()) {
-          $released_ids[] = $release_node->field_species_ref->target_id;
+          $released_entity_ids[] = $release_node->field_species_ref->target_id;
         }
       }
     }
@@ -201,9 +202,9 @@ class FacilityInventoryController extends ControllerBase {
       $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
       foreach ($name_nodes as $name_node) {
         if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
-          $species_id = $name_node->field_species_ref->target_id;
+          $species_entity_id = $name_node->field_species_ref->target_id;
           if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-            $primary_names[$species_id] = $name_node->field_name->value;
+            $primary_names[$species_entity_id] = $name_node->field_name->value;
           }
         }
       }
@@ -216,14 +217,14 @@ class FacilityInventoryController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
 
-    $species_ids = [];
+    $species_id_values = [];
     if (!empty($species_id_query)) {
       $species_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_id_query);
       foreach ($species_id_nodes as $species_id_node) {
         if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
-          $species_id = $species_id_node->field_species_ref->target_id;
-          if ($species_id_node->hasField('field_species_ref') && !$species_id_node->field_species_ref->isEmpty()) {
-            $species_ids[$species_id] = $species_id_node->field_species_ref->value;
+          $species_entity_id = $species_id_node->field_species_ref->target_id;
+          if ($species_id_node->hasField('field_species_id') && !$species_id_node->field_species_id->isEmpty()) {
+            $species_id_values[$species_entity_id] = $species_id_node->field_species_id->value;
           }
         }
       }
@@ -248,7 +249,7 @@ class FacilityInventoryController extends ControllerBase {
 
       foreach ($rescue_nodes as $rescue_node) {
         if ($rescue_node->hasField('field_species_ref') && !$rescue_node->field_species_ref->isEmpty()) {
-          $species_id = $rescue_node->field_species_ref->target_id;
+          $species_entity_id = $rescue_node->field_species_ref->target_id;
           $date = $rescue_node->field_rescue_date->value;
           $rescue_type = '';
           $rescue_cause_detail = 'N/A';
@@ -271,7 +272,7 @@ class FacilityInventoryController extends ControllerBase {
             $county = $rescue_node->field_county->entity->getName();
           }
 
-          $species_rescues[$species_id][] = [
+          $species_rescues[$species_entity_id][] = [
             'date' => $date,
             'type' => $rescue_type,
             'cause_detail' => $rescue_cause_detail,
@@ -279,25 +280,25 @@ class FacilityInventoryController extends ControllerBase {
           ];
 
           // Update latest rescue date if this is more recent and store county.
-          if (!isset($latest_rescue_dates[$species_id]) || $date > $latest_rescue_dates[$species_id]) {
-            $latest_rescue_dates[$species_id] = $date;
-            $rescue_counties[$species_id] = $county;
-            $rescue_cause_details[$species_id] = $rescue_cause_detail;
+          if (!isset($latest_rescue_dates[$species_entity_id]) || $date > $latest_rescue_dates[$species_entity_id]) {
+            $latest_rescue_dates[$species_entity_id] = $date;
+            $rescue_counties[$species_entity_id] = $county;
+            $rescue_cause_details[$species_entity_id] = $rescue_cause_detail;
           }
 
           if ($rescue_type === 'B') {
-            if (!isset($type_b_rescue_dates[$species_id]) || $date > $type_b_rescue_dates[$species_id]) {
-              $type_b_rescue_dates[$species_id] = $date;
+            if (!isset($type_b_rescue_dates[$species_entity_id]) || $date > $type_b_rescue_dates[$species_entity_id]) {
+              $type_b_rescue_dates[$species_entity_id] = $date;
             }
           }
         }
       }
 
-      foreach ($species_rescues as $species_id => $rescues) {
+      foreach ($species_rescues as $species_entity_id => $rescues) {
         usort($rescues, function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
-        $rescue_types[$species_id] = $rescues[0]['type'];
+        $rescue_types[$species_entity_id] = $rescues[0]['type'];
       }
     }
 
@@ -316,8 +317,18 @@ class FacilityInventoryController extends ControllerBase {
       $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
       foreach ($birth_nodes as $birth_node) {
         if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
-          $species_id = $birth_node->field_species_ref->target_id;
-          $birth_dates[$species_id] = $birth_node->field_birth_date->value;
+          $species_entity_id = $birth_node->field_species_ref->target_id;
+          $birth_dates[$species_entity_id] = $birth_node->field_birth_date->value;
+        }
+      }
+    }
+
+    if (!empty($birth_query)) {
+      $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
+      foreach ($birth_nodes as $birth_node) {
+        if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
+          $species_entity_id = $birth_node->field_species_ref->target_id;
+          $birth_dates[$species_entity_id] = $birth_node->field_birth_date->value;
         }
       }
     }
@@ -343,14 +354,14 @@ class FacilityInventoryController extends ControllerBase {
       $species_query->condition('nid', $released_ids, 'NOT IN');
     }
 
-    $species_ids = $species_query->accessCheck(FALSE)->execute();
+    $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
 
     // Get all events.
     $event_nodes = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
-        ->condition('field_species_ref', $species_ids, 'IN')
+        ->condition('field_species_ref', $species_entity_ids, 'IN')
         ->condition('field_species_ref', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->condition($date_field, $year_start, '>=')
@@ -363,7 +374,7 @@ class FacilityInventoryController extends ControllerBase {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
           if ($node->hasField('field_species_ref') && !$node->field_species_ref->isEmpty()) {
-            $species_id = $node->field_species_ref->target_id;
+            $species_entity_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
             $facility_term = NULL;
@@ -384,7 +395,7 @@ class FacilityInventoryController extends ControllerBase {
               $length = $node->field_length->value;
             }
 
-            $event_nodes[$species_id][] = [
+            $event_nodes[$species_entity_id][] = [
               'nid' => $node->id(),
               'type' => $type,
               'date' => $date_value,
@@ -400,20 +411,20 @@ class FacilityInventoryController extends ControllerBase {
 
     // Process events.
     $most_recent_events = [];
-    foreach ($species_ids as $species_id) {
-      if (isset($event_nodes[$species_id])) {
-        usort($event_nodes[$species_id], function ($a, $b) {
+    foreach ($species_entity_ids as $species_entity_id) {
+      if (isset($event_nodes[$species_entity_id])) {
+        usort($event_nodes[$species_entity_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
 
-        if ($event_nodes[$species_id][0]['type'] !== 'species_release') {
-          $most_recent_events[$species_id] = $event_nodes[$species_id][0];
+        if ($event_nodes[$species_entity_id][0]['type'] !== 'species_release') {
+          $most_recent_events[$species_entity_id] = $event_nodes[$species_entity_id][0];
         }
       }
     }
 
     // Load species and prepare sortable data.
-    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_ids);
+    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
     $sortable_data = [];
 
     foreach ($species as $species_entity) {
@@ -434,7 +445,7 @@ class FacilityInventoryController extends ControllerBase {
         : 'N/A';
 
       $name = $primary_names[$species_entity->id()] ?? '';
-      $species_id = $species_ids[$species_entity->id()] ?? '';
+      $species_id = $species_id_values[$species_entity->id()] ?? '';
       $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
       $rescue_cause_detail = $rescue_cause_details[$species_entity->id()] ?? 'N/A';
       $county = $rescue_counties[$species_entity->id()] ?? 'N/A';
@@ -614,9 +625,9 @@ class FacilityInventoryController extends ControllerBase {
           ['data' => $data['species_id']],
           [
             'data' => Link::createFromRoute(
-            $data['number'],
-            'entity.node.canonical',
-            ['node' => $data['species_nid']]
+              $data['number'],
+              'entity.node.canonical',
+              ['node' => $data['species_nid']]
             ),
           ],
           ['data' => $data['weight_length']],
