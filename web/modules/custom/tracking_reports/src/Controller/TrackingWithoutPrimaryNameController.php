@@ -76,7 +76,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
    * @return string
    *   Comma-separated list of all species IDs.
    */
-  private function getAllAnimalIds($species_id) {
+  private function getAllSpeciesIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
@@ -139,7 +139,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
             'data' => [
               ['data' => $number_link],
               ['data' => $this->getNonPrimaryNames($species_entity->id())],
-              ['data' => $this->getAllAnimalIds($species_entity->id())],
+              ['data' => $this->getAllSpeciesIds($species_entity->id())],
             ],
           ];
 
