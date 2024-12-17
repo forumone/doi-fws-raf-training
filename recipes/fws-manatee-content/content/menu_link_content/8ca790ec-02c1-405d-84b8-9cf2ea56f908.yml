@@ -16,7 +16,7 @@ default:
       value: utility
   link:
     -
-      uri: 'internal:/profile'
+      uri: 'internal:/user'
       title: ''
       options: {  }
   external:
@@ -27,7 +27,7 @@ default:
       value: true
   weight:
     -
-      value: 4
+      value: -49
   expanded:
     -
       value: false

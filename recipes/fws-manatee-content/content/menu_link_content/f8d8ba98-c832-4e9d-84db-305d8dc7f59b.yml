@@ -16,7 +16,7 @@ default:
       value: utility
   link:
     -
-      uri: 'internal:/logout'
+      uri: 'internal:/user/logout'
       title: ''
       options: {  }
   external:
@@ -27,7 +27,7 @@ default:
       value: true
   weight:
     -
-      value: 3
+      value: -48
   expanded:
     -
       value: false
