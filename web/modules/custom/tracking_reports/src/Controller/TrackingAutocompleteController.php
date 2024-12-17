@@ -48,4 +48,27 @@ class TrackingAutocompleteController extends ControllerBase {
     return new JsonResponse($matches);
   }
 
+  /**
+   * Handles species name autocomplete.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The incoming request.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   The JSON response with autocomplete suggestions.
+   */
+  public function handleSpeciesNameAutocomplete(Request $request) {
+    $results = [];
+    $input = $request->query->get('q');
+
+    if ($input) {
+      $matches = $this->searchManager->getSpeciesNameMatches($input);
+      foreach ($matches as $match) {
+        $results[] = ['value' => $match['label'], 'label' => $match['label']];
+      }
+    }
+
+    return new JsonResponse($results);
+  }
+
 }

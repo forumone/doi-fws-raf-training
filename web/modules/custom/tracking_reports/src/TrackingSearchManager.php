@@ -898,4 +898,39 @@ class TrackingSearchManager {
     return $matches;
   }
 
+  /**
+   * Get matching species names for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching species names.
+   */
+  public function getSpeciesNameMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_name')
+      ->condition('field_name', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_name->isEmpty()) {
+          $name = $entity->field_name->value;
+          $matches[] = [
+            'value' => $name,
+            'label' => $name,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
 }

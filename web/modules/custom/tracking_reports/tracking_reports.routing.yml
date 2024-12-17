@@ -69,3 +69,11 @@ tracking_reports.species_id_autocomplete:
     _format: json
   requirements:
     _permission: 'access tracking reports'
+
+tracking_reports.species_name_autocomplete:
+  path: '/tracking-reports/species-name-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleSpeciesNameAutocomplete'
+    _format: 'json'
+  requirements:
+    _permission: 'access tracking reports'

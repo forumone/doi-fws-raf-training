@@ -282,6 +282,22 @@ class TrackingSearchForm extends FormBase {
       '#autocomplete_route_parameters' => [],
     ];
 
+    $form['filter_options']['collapse']['body']['species_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Species Given Name *'),
+      '#required' => FALSE,
+      '#maxlength' => 128,
+      '#size' => 64,
+      '#default_value' => $search_values['species_name'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'species-name-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.species_name_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
+
     $form['filter_options']['collapse']['body']['tag_type'] = [
       '#type' => 'select2',
       '#title' => $this->t('Tag Type'),
