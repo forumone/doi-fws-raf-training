@@ -103,4 +103,22 @@ class TrackingAutocompleteController extends ControllerBase {
     return new JsonResponse($results);
   }
 
+  /**
+   * Handler for Waterway autocomplete request.
+   */
+  public function handleWaterwayAutocomplete(Request $request) {
+    $input = $request->query->get('q');
+    $matches = $this->searchManager->getWaterwayMatches($input);
+    $results = [];
+
+    foreach ($matches as $match) {
+      $results[] = [
+        'value' => $match['value'],
+        'label' => $match['label'],
+      ];
+    }
+
+    return new JsonResponse($results);
+  }
+
 }

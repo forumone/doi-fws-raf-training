@@ -968,4 +968,52 @@ class TrackingSearchManager {
     return $matches;
   }
 
+  /**
+   * Get matching Waterways for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against Waterways.
+   *
+   * @return array
+   *   Array of matching Waterways.
+   */
+  public function getWaterwayMatches($string) {
+    // Query nodes of type 'species_rescue' where 'field_waterway' contains the input string.
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_rescue')
+      ->condition('field_waterway', '%' . $string . '%', 'LIKE')
+      ->accessCheck(FALSE)
+    // Limit to 10 suggestions for performance.
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      $waterways = [];
+
+      foreach ($entities as $entity) {
+        if (!$entity->field_waterway->isEmpty()) {
+          $waterway = $entity->field_waterway->value;
+          $waterways[] = $waterway;
+        }
+      }
+
+      // Remove duplicates and sort the waterways.
+      $waterways = array_unique($waterways);
+      sort($waterways);
+
+      // Prepare the matches array.
+      foreach ($waterways as $waterway) {
+        $matches[] = [
+          'value' => $waterway,
+          'label' => $waterway,
+        ];
+      }
+    }
+
+    return $matches;
+  }
+
 }

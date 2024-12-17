@@ -323,6 +323,12 @@ class TrackingSearchForm extends FormBase {
       '#size' => 64,
       '#default_value' => $search_values['waterway'] ?? '',
       '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'waterway-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.waterway_autocomplete',
+      '#autocomplete_route_parameters' => [],
     ];
 
     $form['filter_options']['collapse']['body']['location']['state'] = [
