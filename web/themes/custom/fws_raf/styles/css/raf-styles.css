@@ -186,7 +186,7 @@ header#navbar #navbar-collapse {
 
 .select2-selection.select2-selection--single {
   height: 45px !important;
-  border: 1px solid #ccc !important;
+  border: 1px solid #979797 !important;
   border-radius: 4px !important;
   display: flex !important;
   align-items: center !important;
@@ -197,7 +197,7 @@ header#navbar #navbar-collapse {
   display: flex !important;
   align-items: center !important;
   padding: 0 8px !important;
-  border-right: 1px solid #ccc !important;
+  border-right: 1px solid #979797 !important;
   margin: 0 !important;
 }
 
@@ -242,9 +242,29 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.page-node-edit .form-type-vertical-tabs,
+.page-node-add .form-type-vertical-tabs {
+  padding-top: 20px;
+}
+.page-node-edit .form-item label,
+.page-node-add .form-item label {
+  display: block;
+}
+.page-node-edit .field-multiple-table .label,
+.page-node-add .field-multiple-table .label {
+  font-size: initial;
+}
+.page-node-edit .select-wrapper,
+.page-node-add .select-wrapper {
+  width: 300px;
+}
 .page-node-edit .main-container,
 .page-node-add .main-container {
   max-width: 900px;
+}
+.page-node-edit .form-text,
+.page-node-add .form-text {
+  width: 500px;
 }
 .page-node-edit .form-required:after,
 .page-node-add .form-required:after {
