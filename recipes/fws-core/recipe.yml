@@ -55,6 +55,7 @@ install:
   - admin_toolbar
   - admin_toolbar_tools
   - admin_toolbar_search
+  - auto_entitylabel
   - better_exposed_filters
   - bootstrap
   - components
@@ -149,6 +150,7 @@ config:
     admin_toolbar: '*'
     admin_toolbar_tools: '*'
     admin_toolbar_search: '*'
+    auto_entitylabel: '*'
     bootstrap: '*'
     field_group: '*'
     linkit: '*'

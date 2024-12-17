@@ -10,6 +10,7 @@
         "drupal/admin_toolbar": "^3.4",
         "drupal/admin_toolbar_tools": "^3.4",
         "drupal/allowed_formats": "^3.0",
+        "drupal/auto_entitylabel": "^3.3",
         "drupal/better_exposed_filters": "^7.0",
         "drupal/bootstrap": "^3.32",
         "drupal/bpmn_io": "^2.0",
