@@ -7,7 +7,6 @@
 
 use Drupal\node\Entity\Node;
 use Drupal\Core\Url;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
@@ -15,20 +14,17 @@ use Drupal\views\ViewExecutable;
 use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\taxonomy\entity\term;
 
-use function Drupal\Core\Asset\file_create_url;
-
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  **/
 function fws_gov_preprocess_html(array &$variables) {
   // Add class to html tag
-  //$variables['attributes']['class'][] = 'YOURCLASS';
-  //$variables['div']['main-container'][] = 'has-slideshow';
+  // $variables['attributes']['class'][] = 'YOURCLASS';
+  // $variables['div']['main-container'][] = 'has-slideshow';
   // Don't display the site name twice on the front page (and potentially others)
   // if (isset($variables['head_title_array']['title']) && isset($variables['head_title_array']['name']) && ($variables['head_title_array']['title'] == $variables['head_title_array']['name'])) {
   //   $variables['head_title'] = $variables['head_title_array']['name'];
-  // }
-
+  // }.
   // Adds DAP tracking for all public-facing pages
   // See: https://digital.gov/guides/dap/add-your-site-dap/
   if (\Drupal::currentUser()->isAnonymous()) {
@@ -39,8 +35,8 @@ function fws_gov_preprocess_html(array &$variables) {
           'async' => TRUE,
           'id' => '_fed_an_ua_tag',
           'type' => 'text/javascript',
-          'src' => 'https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOI&subagency=USFWS'
-        ]
+          'src' => 'https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOI&subagency=USFWS',
+        ],
       ],
       'fed_an_ua_tag',
     ];
@@ -50,41 +46,40 @@ function fws_gov_preprocess_html(array &$variables) {
 /**
  * Implements hook_page_attachments_alter().
  *
-function fws_gov_page_attachments_alter(array &$page) {
-  // Tell IE to use latest rendering engine (not to use compatibility mode).
-  // $ie_edge = [
-  //   '#type' => 'html_tag',
-  //   '#tag' => 'meta',
-  //   '#attributes' => [
-  //   'http-equiv' => 'X-UA-Compatible',
-  //   'content' => 'IE=edge',
-  //   ],
-  // ];
-  // $page['#attached']['html_head'][] = [$ie_edge, 'ie_edge'];
+ * Function fws_gov_page_attachments_alter(array &$page) {
+ * // Tell IE to use latest rendering engine (not to use compatibility mode).
+ * // $ie_edge = [
+ * //   '#type' => 'html_tag',
+ * //   '#tag' => 'meta',
+ * //   '#attributes' => [
+ * //   'http-equiv' => 'X-UA-Compatible',
+ * //   'content' => 'IE=edge',
+ * //   ],
+ * // ];
+ * // $page['#attached']['html_head'][] = [$ie_edge, 'ie_edge'];
 }*/
 
 /**
  * Implements hook_preprocess_page() for page.html.twig.
  */
 function fws_gov_preprocess_page(array &$variables) {
-  if(\Drupal::service('path.matcher')->isFrontPage()) {
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
     $variables['#attached']['library'][] = 'fws_gov/home';
   }
-  if ($node = \Drupal::routeMatch()->getParameter('node')) { 
-    if(is_numeric($node)) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (is_numeric($node)) {
       $node = Node::load($node);
     }
-    if(in_array($node->bundle(),[
+    if (in_array($node->bundle(), [
       'one_column_page',
-      'species'
-      ])) {
+      'species',
+    ])) {
       $variables['page']['fluid_main'] = TRUE;
 
-      
     }
     $path = \Drupal::service('path.current')->getPath();
     $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
-    if($alias === '/news' || $alias == '/library/collections' || $alias == '/search' || $alias == '/document-search'
+    if ($alias === '/news' || $alias == '/library/collections' || $alias == '/search' || $alias == '/document-search'
         || $alias == '/our-facilities' || $alias == "/about/leadership"
         || $alias == '/policy-library/search' || $alias == '/policy-library/memarchived'
         || $alias == '/jobs'    || $alias == '/about/programs' || $alias == "/about/staff" || $alias == "/about/staff/search"
@@ -97,14 +92,14 @@ function fws_gov_preprocess_page(array &$variables) {
         || $alias == '/training' || $alias == '/find-inad' || $alias == '/release-notes' || $alias == '/science/catalog') {
       $variables['page']['fluid_main'] = FALSE;
     }
-    if($alias === '/faqs') {
+    if ($alias === '/faqs') {
       $variables['#attached']['library'][] = 'fws_gov/faqs';
     }
   }
-  else if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical') {
+  elseif (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical') {
     $term_id = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
     $term = Term::load($term_id);
-    if($term->vid->target_id == 'activity') {
+    if ($term->vid->target_id == 'activity') {
       $variables['page']['fluid_main'] = TRUE;
       $variables['#attached']['library'][] = 'fws_gov/activity';
     }
@@ -113,7 +108,7 @@ function fws_gov_preprocess_page(array &$variables) {
 
 /**
  * Implements hook_preprocess_taxonomy_term() for taxonomy-term.html.twig.
- * 
+ *
  *  This will add in some default classes about which view mode and what taxonomy type is is for stlying purposes.
  */
 function fws_gov_preprocess_taxonomy_term(array &$variables) {
@@ -124,30 +119,30 @@ function fws_gov_preprocess_taxonomy_term(array &$variables) {
 }
 
 /**
- * Implements hook_preprocess_paragraph() 
- * 
+ * Implements hook_preprocess_paragraph()
+ *
  * Used to supply the button text of the paragraph type of a theme function, so that the button that links to the selected
- * file can have custom text displayed as the text of the download button. 
+ * file can have custom text displayed as the text of the download button.
  */
 function fws_gov_preprocess_paragraph__get_started_document(array &$variables) {
 
   $paragraph = $variables['paragraph'];
-  $button_text = isset($paragraph->get('field_button_text')->value) ? $paragraph->get('field_button_text')->value : 'Download';
-  //load the media object so we can get at the file
+  $button_text = $paragraph->get('field_button_text')->value ?? 'Download';
+  // Load the media object so we can get at the file.
   $media = Media::load($paragraph->get('field_document_ref_single')->target_id);
-  //gets just the file from the media
+  // Gets just the file from the media.
   $file = File::load($media->get('field_media_file')->target_id);
 
-  //this is a theme function we created in fws_core, works similar to the "file_link" theme function
+  // This is a theme function we created in fws_core, works similar to the "file_link" theme function
   // if you supply a description, that will be used as the link text.
-  $variables['downloadable_link'] = array(
+  $variables['downloadable_link'] = [
     '#theme' => 'fws_core_download_link',
     '#file' => $file,
     '#description' => $button_text,
     '#attributes' => [
-      'class' => ['simple-btn', 'simple-btn-primary', 'simple-btn-download']
-    ]
-  );
+      'class' => ['simple-btn', 'simple-btn-primary', 'simple-btn-download'],
+    ],
+  ];
 }
 
 /**
@@ -166,75 +161,75 @@ function fws_gov_theme_suggestions_taxonomy_term_alter(array &$suggestions, arra
 /**
  * Implements hook_theme_suggestions_page_alter().
  *
- * be very careful over-riding page templates to not duplicate
+ * Be very careful over-riding page templates to not duplicate
  * code that should be shared (e.g. header/footer, etc.)
-function fws_gov_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
-    $content_type = $node->bundle();
-    $suggestions[] = 'page__'.$content_type;
-  }
+ * function fws_gov_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+ * if ($node = \Drupal::routeMatch()->getParameter('node')) {
+ * $content_type = $node->bundle();
+ * $suggestions[] = 'page__'.$content_type;
+ * }
 }*/
 
 /**
  * Implements hook_theme_suggestions_node_alter().
  *
-function fws_gov_theme_suggestions_node_alter(array &$suggestions, array $variables) {
-  // $node = $variables['elements']['#node'];
-  // if ($variables['elements']['#view_mode'] == "full") {
-  // }
+ * Function fws_gov_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+ * // $node = $variables['elements']['#node'];
+ * // if ($variables['elements']['#view_mode'] == "full") {
+ * // }
 }*/
 
 /**
  * Implements hook_preprocess_HOOK() for Block document templates.
  *
-function fws_gov_preprocess_block(array &$variables) {
+ * Function fws_gov_preprocess_block(array &$variables) {
 }*/
 
 /**
  * Implements hook_theme_suggestions_field_alter().
  *
-function fws_gov_theme_suggestions_field_alter(array &$suggestions, array $variables) {
-  // $element = $variables['element'];
-  // $suggestions[] = 'field__' . $element['#view_mode'];
-  // $suggestions[] = 'field__' . $element['#view_mode'] . '__' . $element['#field_name'];
+ * Function fws_gov_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+ * // $element = $variables['element'];
+ * // $suggestions[] = 'field__' . $element['#view_mode'];
+ * // $suggestions[] = 'field__' . $element['#view_mode'] . '__' . $element['#field_name'];
 }*/
 
 /**
  * Implements hook_theme_suggestions_field_alter().
  *
-function fws_gov_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
-  // $element = $variables['element'];
-  // if (isset($element['#attributes']['class']) && in_array('form-composite', $element['#attributes']['class'])) {
-  //   $suggestions[] = 'fieldset__form_composite';
-  // }
+ * Function fws_gov_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+ * // $element = $variables['element'];
+ * // if (isset($element['#attributes']['class']) && in_array('form-composite', $element['#attributes']['class'])) {
+ * //   $suggestions[] = 'fieldset__form_composite';
+ * // }
 }*/
 
 /**
  * Implements hook_preprocess_node().
  *
-function fws_gov_preprocess_node(array &$variables) {
-  // Default to turning off byline/submitted.
-  //$variables['display_submitted'] = FALSE;
+ * Function fws_gov_preprocess_node(array &$variables) {
+ * // Default to turning off byline/submitted.
+ * //$variables['display_submitted'] = FALSE;
 }*/
 
 /**
  * Implements hook_theme_suggestions_views_view_alter().
  *
-function fws_gov_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+ * Function fws_gov_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
 }*/
 
 /**
  * Implements hook_preprocess_form().
  *
-function fws_gov_preprocess_form(array &$variables) {
-  //$variables['attributes']['novalidate'] = 'novalidate';
+ * Function fws_gov_preprocess_form(array &$variables) {
+ * //$variables['attributes']['novalidate'] = 'novalidate';
 }*/
 
 /**
  * Implements hook_preprocess_select().
  *
-function fws_gov_preprocess_select(array &$variables) {
-  //$variables['attributes']['class'][] = 'select-chosen';
+ * Function fws_gov_preprocess_select(array &$variables) {
+ * //$variables['attributes']['class'][] = 'select-chosen';
 }*/
 
 /**
@@ -245,15 +240,18 @@ function fws_gov_preprocess_field(array &$variables, $hook) {
     case 'field_mime_type':
 
       $counter = 0;
-      foreach($variables['items'] as $item) {
-        $mime_type_values = _fws_gov_assign_mime_type_icon($item['content']['#context']['value']); 
+      foreach ($variables['items'] as $item) {
+        $mime_type_values = _fws_gov_assign_mime_type_icon($item['content']['#context']['value']);
         $variables['items'][$counter]['content'] += $mime_type_values;
         $counter++;
       }
       break;
-   }
+  }
 }
 
+/**
+ *
+ */
 function _fws_gov_assign_mime_type_icon($mime_type) {
   $metadata = [];
   switch ($mime_type) {
@@ -262,56 +260,68 @@ function _fws_gov_assign_mime_type_icon($mime_type) {
       $metadata['#mime_class'] = 'pdf';
       $metadata['#mime_label'] = 'PDF';
       break;
+
     case 'text/plain':
       $metadata['#mime_class'] = 'txt';
       $metadata['#mime_label'] = 'Text File';
       break;
+
     case 'application/msword':
     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
       $metadata['#mime_class'] = 'doc';
       $metadata['#mime_label'] = 'Word Document';
       break;
+
     case 'application/rtf':
       $metadata['#mime_class'] = 'rtf';
       $metadata['#mime_label'] = 'Rich Text File';
       break;
+
     case 'application/vnd.ms-powerpoint':
     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
       $metadata['#mime_class'] = 'ppt';
       $metadata['#mime_label'] = 'Powerpoint Presentation';
       break;
+
     case 'application/vnd.ms-excel':
     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
       $metadata['#mime_class'] = 'xls';
       $metadata['#mime_label'] = 'Excel Document';
       break;
+
     case 'application/zip':
       $metadata['#mime_class'] = 'zip';
       $metadata['#mime_label'] = 'Zip Archive';
       break;
+
     case 'image/x-citrix-jpeg':
     case 'image/jpeg':
       $metadata['#mime_class'] = 'jpg';
       $metadata['#mime_label'] = 'Image';
       break;
+
     case 'image/gif':
       $metadata['#mime_class'] = 'gif';
       $metadata['#mime_label'] = 'Image';
       break;
+
     case 'image/png':
     case 'image/x-citrix-png':
     case 'image/x-png':
       $metadata['#mime_class'] = 'png';
       $metadata['#mime_label'] = 'Image';
       break;
+
     case 'image/vnd.adobe.photoshop';
       $metadata['#mime_class'] = 'psd';
       $metadata['#mime_label'] = 'Photoshop Document';
       break;
+
     case 'image/svg+xml':
       $metadata['#mime_class'] = 'svg';
       $metadata['#mime_label'] = 'Image';
       break;
+
     default:
       $metadata['#mime_class'] = 'generic';
       $metadata['#mime_label'] = 'Document';
@@ -324,22 +334,22 @@ function _fws_gov_assign_mime_type_icon($mime_type) {
 /**
  * Implements hook_preprocess_details().
  *
-function fws_gov_preprocess_details(array &$variables) {
-  // $variables['attributes']['class'][] = 'details';
-  // $variables['summary_attributes']['class'] = 'summary';
+ * Function fws_gov_preprocess_details(array &$variables) {
+ * // $variables['attributes']['class'][] = 'details';
+ * // $variables['summary_attributes']['class'] = 'summary';
 }*/
 
 /**
  * Implements hook_theme_suggestions_details_alter().
  *
-function fws_gov_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+ * Function fws_gov_theme_suggestions_details_alter(array &$suggestions, array $variables) {
 }*/
 
 /**
  * Implements hook_preprocess_menu_local_task().
  *
-function fws_gov_preprocess_menu_local_task(array &$variables) {
-  //$variables['element']['#link']['url']->setOption('attributes', ['class'=>'rounded']);
+ * Function fws_gov_preprocess_menu_local_task(array &$variables) {
+ * //$variables['element']['#link']['url']->setOption('attributes', ['class'=>'rounded']);
 }*/
 
 /**
@@ -380,6 +390,7 @@ function fws_gov_preprocess_layout__onecol__species_characteristics(array &$vari
 
 /**
  * Implements hook_preprocess_views_view_fullcalendar().
+ *
  * @param $variables
  */
 function fws_gov_preprocess_views_view_fullcalendar(&$variables) {
@@ -395,16 +406,22 @@ function fws_gov_preprocess_views_view_fullcalendar(&$variables) {
   }
 }
 
+/**
+ *
+ */
 function fws_gov_views_post_render(ViewExecutable $view, &$output, CachePluginBase $cache) {
   $display = $view->getDisplay();
   $id = $display->display['id'];
-  if($id === 'taxonomy_block') {
+  if ($id === 'taxonomy_block') {
     $term = \Drupal::request()->attributes->get('taxonomy_term');
     $view->setTitle($term->getName() . ' Services');
   }
 
 }
 
+/**
+ *
+ */
 function fws_gov_preprocess_mimemail_message(&$variables) {
   $language = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
   $base_path = str_replace('/' . $language, '', Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString());

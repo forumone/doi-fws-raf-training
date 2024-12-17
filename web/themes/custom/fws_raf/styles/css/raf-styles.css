@@ -241,4 +241,26 @@ input.form-autocomplete {
   width: 300px;
   display: inline-block;
 }
+
+.page-node-edit .main-container,
+.page-node-add .main-container {
+  max-width: 900px;
+}
+.page-node-edit .form-required:after,
+.page-node-add .form-required:after {
+  margin-left: 3px;
+}
+
+.form-inline .control-label {
+  margin-right: 10px;
+}
+
+.filter-wrapper .form-type-select .select-wrapper select {
+  min-height: initial;
+}
+.filter-wrapper .form-type-select .select-wrapper:after {
+  z-index: 10;
+  top: 24px;
+  right: 4px;
+}
 /*# sourceMappingURL=maps/raf-styles.css.map */

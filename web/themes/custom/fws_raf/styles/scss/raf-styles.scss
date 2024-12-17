@@ -311,3 +311,35 @@ input.form-autocomplete {
   width: 300px;
   display: inline-block;
 }
+
+// Override main container width on node edit and add pages
+.page-node-edit,
+.page-node-add {
+
+  .main-container {
+    max-width: 900px;
+  }
+
+  .form-required:after {
+    margin-left: 3px;
+  }
+
+}
+
+
+// Override spacing with labels in inline forms
+.form-inline .control-label {
+  margin-right: 10px;
+}
+
+.filter-wrapper {
+  .form-type-select .select-wrapper select {
+    min-height: initial;
+  }
+
+  .form-type-select .select-wrapper:after {
+    z-index: 10;
+    top: 24px;
+    right: 4px;
+  }
+}
