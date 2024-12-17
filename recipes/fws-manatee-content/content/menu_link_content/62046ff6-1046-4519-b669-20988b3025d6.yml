@@ -16,7 +16,7 @@ default:
       value: utility
   link:
     -
-      uri: 'internal:/resources'
+      uri: 'internal:/admin'
       title: ''
       options: {  }
   external:
@@ -27,7 +27,7 @@ default:
       value: true
   weight:
     -
-      value: 1
+      value: -50
   expanded:
     -
       value: false

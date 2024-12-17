@@ -205,7 +205,7 @@ config:
         status: false
     node.settings:
       simple_config_update:
-        use_admin_theme: true
+        use_admin_theme: false
     system.theme:
       simple_config_update:
         admin: 'claro'

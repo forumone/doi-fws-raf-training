@@ -17,4 +17,11 @@ settings:
   label: 'Main navigation'
   label_display: '0'
   provider: we_megamenu
-visibility: {  }
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

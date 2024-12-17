@@ -16,7 +16,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/reports'
+      uri: 'internal:/tracking/births'
       title: ''
       options: {  }
   external:

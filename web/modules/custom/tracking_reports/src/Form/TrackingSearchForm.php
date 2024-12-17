@@ -191,14 +191,6 @@ class TrackingSearchForm extends FormBase {
       ],
     ];
 
-    // Search description.
-    $form['filter_options']['collapse']['body']['search_description'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => $this->t('* indicates a autcomplete field. For example, if you enter Bob, you will get a pop-up list containing Bob, Bob 2, New Bob, Bobber, etc.'),
-      '#attributes' => ['class' => ['search-description']],
-    ];
-
     // Individual Species Search section.
     $form['filter_options']['collapse']['body']['individual_title'] = [
       '#type' => 'html_tag',
@@ -214,7 +206,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['number'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Tracking Number *'),
+      '#title' => $this->t('Tracking Number'),
       '#required' => FALSE,
       '#maxlength' => 64,
       '#size' => 64,
@@ -230,7 +222,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['species_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Species ID *'),
+      '#title' => $this->t('Species ID'),
       '#required' => FALSE,
       '#maxlength' => 64,
       '#size' => 64,
@@ -246,7 +238,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['species_name'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Species Given Name *'),
+      '#title' => $this->t('Species Given Name'),
       '#required' => FALSE,
       '#maxlength' => 128,
       '#size' => 64,
@@ -262,7 +254,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['tag_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Tag ID *'),
+      '#title' => $this->t('Tag ID'),
       '#required' => FALSE,
       '#maxlength' => 64,
       '#size' => 64,
@@ -318,7 +310,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['location']['waterway'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Waterway *'),
+      '#title' => $this->t('Waterway'),
       '#maxlength' => 128,
       '#size' => 64,
       '#default_value' => $search_values['waterway'] ?? '',
