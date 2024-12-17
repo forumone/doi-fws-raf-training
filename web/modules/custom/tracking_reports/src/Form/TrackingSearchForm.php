@@ -195,13 +195,13 @@ class TrackingSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['individual_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#value' => $this->t('Search for Individual Species'),
+      '#value' => $this->t('Search for Individual') . ' ' . $this->t('Species'),
     ];
 
     $form['filter_options']['collapse']['body']['individual_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Enter only one field below to identify the species and click Next to see information.'),
+      '#value' => $this->t('Enter only one field below to identify the') . ' ' . $this->t('species') . ' ' . $this->t('and click Search to see information.'),
     ];
 
     $form['filter_options']['collapse']['body']['number'] = [
@@ -222,7 +222,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['species_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Species ID'),
+      '#title' => $this->t('Species') . ' ' . $this->t('ID'),
       '#required' => FALSE,
       '#maxlength' => 64,
       '#size' => 64,
@@ -238,7 +238,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['species_name'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Species Given Name'),
+      '#title' => $this->t('Species') . ' ' . $this->t('Given Name'),
       '#required' => FALSE,
       '#maxlength' => 128,
       '#size' => 64,
@@ -280,13 +280,13 @@ class TrackingSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['list_title'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#value' => $this->t('Search for a List of Species'),
+      '#value' => $this->t('Search for a List of') . ' ' . $this->t('Species'),
     ];
 
     $form['filter_options']['collapse']['body']['list_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('Enter as many fields below as needed to describe the species that you are interested in and click Next'),
+      '#value' => $this->t('Enter as many fields below as needed to describe the') . ' ' . $this->t('species') . ' ' . $this->t('that you are interested in and click Search.'),
     ];
 
     // Location Information.

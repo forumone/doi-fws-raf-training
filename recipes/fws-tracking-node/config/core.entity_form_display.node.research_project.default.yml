@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.research_project.field_species_ref
     - field.field.node.research_project.field_budget
     - field.field.node.research_project.field_budget_time
     - field.field.node.research_project.field_description
@@ -17,6 +16,7 @@ dependencies:
     - field.field.node.research_project.field_primary_research
     - field.field.node.research_project.field_project_id
     - field.field.node.research_project.field_secondary_research
+    - field.field.node.research_project.field_species_ref
     - field.field.node.research_project.field_start_date
     - field.field.node.research_project.field_subject
     - field.field.node.research_project.field_title
@@ -25,6 +25,8 @@ dependencies:
     - datetime
     - path
     - text
+_core:
+  default_config_hash: dVtQko4e20-da-x1777_yK7H9AcYO617Kz4GPewV2vc
 id: node.research_project.default
 targetEntityType: node
 bundle: research_project
@@ -35,16 +37,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 10
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_budget:
     type: number
@@ -144,6 +136,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_secondary_research:
+    type: entity_reference_autocomplete
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
     type: entity_reference_autocomplete
     weight: 10
     region: content

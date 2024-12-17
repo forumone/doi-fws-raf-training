@@ -9,7 +9,7 @@ id: node.species.field_number
 field_name: field_number
 entity_type: node
 bundle: species
-label: Species Number
+label: Number
 description: "Unique ID number for species in Captive\r\nSpecies Database"
 required: true
 translatable: false

@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_name.field_species_ref
     - field.field.node.species_name.field_name
     - field.field.node.species_name.field_primary
+    - field.field.node.species_name.field_species_ref
     - node.type.species_name
   module:
     - path
+_core:
+  default_config_hash: r2fmyyjIpuOAmEG2j_tUNdUJJE2JUo6K5ObOn-8pfKk
 id: node.species_name.default
 targetEntityType: node
 bundle: species_name
@@ -19,16 +21,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 1
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_name:
     type: string_textfield
@@ -44,6 +36,16 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

@@ -13,7 +13,7 @@ dependencies:
   module:
     - path
 _core:
-  default_config_hash: XPMoUR3kqWpDb6j8TSkIA-OFXSKLZKFhpmmj_CoGaB8
+  default_config_hash: ykCg30h-OF1pB5Zc8fxiUdP1FUiTsUKJxQLbEoZ2WLA
 id: node.species.default
 targetEntityType: node
 bundle: species

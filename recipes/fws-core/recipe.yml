@@ -71,6 +71,7 @@ install:
   - responsive_image
   - rules
   - social_media_links
+  - stringoverrides
   - svg_image
   - svg_image_responsive
   - taxonomy_access_fix
@@ -160,6 +161,7 @@ config:
     redirect: '*'
     responsive_image: '*'
     select2: '*'
+    stringoverrides: '*'
     svg_image: '*'
     svg_image_responsive: '*'
     taxonomy_access_fix: '*'

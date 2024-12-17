@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.status_report.field_species_ref
     - field.field.node.status_report.field_bloods
     - field.field.node.status_report.field_est_length
     - field.field.node.status_report.field_est_weight
@@ -15,6 +14,7 @@ dependencies:
     - field.field.node.status_report.field_release_time
     - field.field.node.status_report.field_req_half_yr
     - field.field.node.status_report.field_req_year
+    - field.field.node.status_report.field_species_ref
     - field.field.node.status_report.field_status
     - field.field.node.status_report.field_vet_id
     - field.field.node.status_report.field_weight
@@ -24,6 +24,8 @@ dependencies:
     - datetime
     - path
     - text
+_core:
+  default_config_hash: vI34S3OmnZi1lGc7WgNAu8qwOK_i67AKDtYER-CNh9E
 id: node.status_report.default
 targetEntityType: node
 bundle: status_report
@@ -34,16 +36,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_bloods:
     type: entity_reference_autocomplete
@@ -129,6 +121,16 @@ content:
     weight: 0
     region: content
     settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_status:

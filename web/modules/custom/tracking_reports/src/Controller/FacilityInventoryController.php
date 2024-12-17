@@ -577,12 +577,12 @@ class FacilityInventoryController extends ControllerBase {
         'sort' => 'asc',
       ],
       [
-        'data' => $this->t('Species ID'),
+        'data' => $this->t('Species') . ' ' . $this->t('ID'),
         'field' => 'species_id',
         'sort' => 'asc',
       ],
       [
-        'data' => $this->t('Species Number'),
+        'data' => $this->t('Species') . ' ' . $this->t('Number'),
         'field' => 'number',
         'sort' => 'asc',
       ],

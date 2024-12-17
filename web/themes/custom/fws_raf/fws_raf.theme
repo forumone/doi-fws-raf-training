@@ -5,6 +5,8 @@
  * Functions to support theming in the fws raf theme.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_preprocess_html().
  */
@@ -23,5 +25,38 @@ function fws_raf_preprocess_html(&$variables) {
     $node = \Drupal::routeMatch()->getParameter('node');
     $variables['attributes']['class'][] = 'page-node-edit';
     $variables['attributes']['class'][] = 'page-node-edit-' . $node->bundle();
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_alter().
+ */
+function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // For all node forms.
+  if (strpos($form_id, 'node_') === 0 && strpos($form_id, '_form') !== FALSE) {
+
+    if (isset($form['field_species_ref'])) {
+      $form['field_species_ref']['widget'][0]['target_id']['#title'] = 'Manatee Reference';
+    }
+
+    if (isset($form['field_species_id'])) {
+      $form['field_species_id']['widget'][0]['target_id']['#title'] = 'Manatee Animal ID';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ *
+ * Replaces the word 'Species' with 'Manatee' in page titles.
+ */
+function fws_raf_preprocess_page_title(&$variables) {
+  if (!empty($variables['title'])) {
+    // Convert title to string if it's a TranslatableMarkup object.
+    $title = (string) $variables['title'];
+
+    if (strstr($title, 'Species') !== FALSE) {
+      $variables['title'] = str_ireplace('Species', 'Manatee', $title);
+    }
   }
 }

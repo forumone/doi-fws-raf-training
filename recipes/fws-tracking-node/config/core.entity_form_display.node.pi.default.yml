@@ -3,16 +3,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.pi.field_species_ref
     - field.field.node.pi.field_pi_address
     - field.field.node.pi.field_pi_email
     - field.field.node.pi.field_pi_id
     - field.field.node.pi.field_pi_name
     - field.field.node.pi.field_pi_org
     - field.field.node.pi.field_pi_phone
+    - field.field.node.pi.field_species_ref
     - node.type.pi
   module:
     - path
+_core:
+  default_config_hash: 34jPZpFRCzIBEeaaaTK__odp_CzQaN-sULe9OA-8GF8
 id: node.pi.default
 targetEntityType: node
 bundle: pi
@@ -23,14 +25,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_pi_address:
     type: string_textfield
@@ -75,6 +69,14 @@ content:
   field_pi_phone:
     type: string_textfield
     weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: string_textfield
+    weight: 6
     region: content
     settings:
       size: 60

@@ -172,7 +172,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Species ID'
+          label: 'ID'
           exclude: false
           alter:
             alter_text: false
@@ -235,7 +235,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Species Number'
+          label: 'Number'
           exclude: false
           alter:
             alter_text: false
