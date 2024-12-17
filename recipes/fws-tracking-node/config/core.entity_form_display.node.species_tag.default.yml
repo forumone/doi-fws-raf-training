@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_tag.field_species_ref
     - field.field.node.species_tag.field_date_applied
     - field.field.node.species_tag.field_event
     - field.field.node.species_tag.field_event_date
+    - field.field.node.species_tag.field_species_ref
     - field.field.node.species_tag.field_tag_id
     - field.field.node.species_tag.field_tag_info
     - field.field.node.species_tag.field_tag_type
@@ -15,6 +15,8 @@ dependencies:
     - datetime
     - path
     - text
+_core:
+  default_config_hash: tYAGD1p3W1SZz606TO4B-WT5TEB2SgTc8vFMN9vb_1I
 id: node.species_tag.default
 targetEntityType: node
 bundle: species_tag
@@ -25,16 +27,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_date_applied:
     type: datetime_default
@@ -57,6 +49,16 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_tag_id:
     type: string_textfield

@@ -39,6 +39,7 @@
         "drupal/rules": "^4.0",
         "drupal/select2": "^1.15",
         "drupal/social_media_links": "^2.10",
+        "drupal/stringoverrides": "^1.8",
         "drupal/svg_image_responsive": "^3.0",
         "drupal/taxonomy_access_fix": "^4.0",
         "drupal/twig_field_value": "^2.0",

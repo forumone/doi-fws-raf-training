@@ -1,0 +1,22 @@
+contexts:
+  -
+    context: ''
+    translations:
+      -
+        source: 'Search Species Information'
+        translation: 'Search Manatee Information'
+      -
+        source: Species
+        translation: Manatee
+      -
+        source: species
+        translation: manatee
+      -
+        source: 'Species Births'
+        translation: 'Manatee Births'
+      -
+        source: 'Species ID'
+        translation: 'Manatee ID'
+      -
+        source: 'Species Number'
+        translation: 'Manatee Number'

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.transfer.field_species_ref
     - field.field.node.transfer.field_comments
     - field.field.node.transfer.field_estimated_length
     - field.field.node.transfer.field_estimated_weight
@@ -11,6 +10,7 @@ dependencies:
     - field.field.node.transfer.field_length
     - field.field.node.transfer.field_length_date
     - field.field.node.transfer.field_reason
+    - field.field.node.transfer.field_species_ref
     - field.field.node.transfer.field_to_facility
     - field.field.node.transfer.field_transfer_date
     - field.field.node.transfer.field_veterinarian
@@ -20,7 +20,10 @@ dependencies:
   module:
     - datetime
     - path
+    - select2
     - text
+_core:
+  default_config_hash: ZL3f5iMhxPq5OgfzLmSW_wYkTzD4bqx7wn8cqdgOX_4
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer
@@ -31,16 +34,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_comments:
     type: text_textarea
@@ -75,11 +68,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_length:
-    type: string_textfield
+    type: number
     weight: 10
     region: content
     settings:
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_length_date:
@@ -89,8 +81,18 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_reason:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 2
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 0
     region: content
     settings:
       match_operator: CONTAINS
@@ -125,11 +127,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_weight:
-    type: string_textfield
+    type: number
     weight: 7
     region: content
     settings:
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_weight_date:

@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_birth.field_species_ref
     - field.field.node.species_birth.field_birth_date
     - field.field.node.species_birth.field_comments
     - field.field.node.species_birth.field_conceived
     - field.field.node.species_birth.field_health_status
     - field.field.node.species_birth.field_length
     - field.field.node.species_birth.field_org
+    - field.field.node.species_birth.field_species_ref
     - field.field.node.species_birth.field_veterinarian
     - field.field.node.species_birth.field_weight
     - field.field.node.species_birth.field_weight_date
@@ -20,7 +20,7 @@ dependencies:
     - path
     - text
 _core:
-  default_config_hash: vBRtkFDhrj3IY6GUrUq5Lf7fCVf9Bc8PXt3ankovCOo
+  default_config_hash: 5PqUYPJDiBjAOuVikxuVKWfxgG4e7QxUSecB_yehkTg
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth
@@ -31,16 +31,6 @@ content:
     weight: 13
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 1
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_birth_date:
     type: datetime_default
@@ -86,6 +76,16 @@ content:
   field_org:
     type: entity_reference_autocomplete
     weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS

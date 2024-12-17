@@ -3,16 +3,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_conditioning.field_species_ref
     - field.field.node.species_conditioning.field_captivity_date
     - field.field.node.species_conditioning.field_comments
     - field.field.node.species_conditioning.field_conditioning_type
     - field.field.node.species_conditioning.field_project
+    - field.field.node.species_conditioning.field_species_ref
     - field.field.node.species_conditioning.field_stimulus
     - node.type.species_conditioning
   module:
     - datetime
     - path
+_core:
+  default_config_hash: w9G3jMp-Bt46A-BnfhIMyd1xhFYlPY6lvVXHWsGphpw
 id: node.species_conditioning.default
 targetEntityType: node
 bundle: species_conditioning
@@ -23,16 +25,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_captivity_date:
     type: datetime_default
@@ -61,6 +53,16 @@ content:
   field_project:
     type: entity_reference_autocomplete
     weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 0
     region: content
     settings:
       match_operator: CONTAINS

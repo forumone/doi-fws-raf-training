@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_release.field_species_ref
     - field.field.node.species_release.field_bottom_feeding
     - field.field.node.species_release.field_city
     - field.field.node.species_release.field_comments
@@ -19,6 +18,7 @@ dependencies:
     - field.field.node.species_release.field_release_date
     - field.field.node.species_release.field_release_site
     - field.field.node.species_release.field_release_water_type
+    - field.field.node.species_release.field_species_ref
     - field.field.node.species_release.field_state
     - field.field.node.species_release.field_tracker
     - field.field.node.species_release.field_vegetation_type
@@ -32,6 +32,8 @@ dependencies:
     - datetime
     - path
     - text
+_core:
+  default_config_hash: Axj3dBm2KoHvzH2Ggjo67NaJRSUl3MLseRmxOU3Gbpc
 id: node.species_release.default
 targetEntityType: node
 bundle: species_release
@@ -42,16 +44,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_bottom_feeding:
     type: boolean_checkbox
@@ -170,6 +162,16 @@ content:
   field_release_water_type:
     type: entity_reference_autocomplete
     weight: 23
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 0
     region: content
     settings:
       match_operator: CONTAINS

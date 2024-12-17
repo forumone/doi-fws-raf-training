@@ -636,7 +636,7 @@ class TrackingSearchManager {
         'field' => 'species_name',
       ],
       'species_id_value' => [
-        'data' => $this->t('Species ID'),
+        'data' => $this->t('Species') . ' ' . 'ID',
         'field' => 'species_id_value',
       ],
       'latest_event_type' => [
