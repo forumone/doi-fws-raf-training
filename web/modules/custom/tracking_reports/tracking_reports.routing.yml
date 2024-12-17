@@ -57,7 +57,7 @@ tracking_reports.without_primary_name:
 tracking_reports.number_autocomplete:
   path: '/tracking-reports/number-autocomplete'
   defaults:
-    _controller: '\Drupal\tracking_reports\Controller\NumberAutocompleteController::handleAutocomplete'
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleNumberAutocomplete'
     _format: json
   requirements:
     _permission: 'access tracking reports'

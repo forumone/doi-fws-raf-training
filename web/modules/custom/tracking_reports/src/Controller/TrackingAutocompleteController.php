@@ -71,4 +71,18 @@ class TrackingAutocompleteController extends ControllerBase {
     return new JsonResponse($results);
   }
 
+  /**
+   * Handler for autocomplete request.
+   */
+  public function handleNumberAutocomplete(Request $request) {
+    $string = $request->query->get('q');
+    $matches = [];
+
+    if ($string) {
+      $matches = $this->searchManager->getTrackingNumberMatches($string);
+    }
+
+    return new JsonResponse($matches);
+  }
+
 }
