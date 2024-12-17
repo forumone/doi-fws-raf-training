@@ -933,4 +933,39 @@ class TrackingSearchManager {
     return $matches;
   }
 
+  /**
+   * Get matching Tag IDs for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against Tag IDs.
+   *
+   * @return array
+   *   Array of matching Tag IDs.
+   */
+  public function getTagIdMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_tag')
+      ->condition('field_tag_id', '%' . $string . '%', 'LIKE')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_tag_id->isEmpty()) {
+          $tag_id = $entity->field_tag_id->value;
+          $matches[] = [
+            'value' => $tag_id,
+            'label' => $tag_id,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
 }

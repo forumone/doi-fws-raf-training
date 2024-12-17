@@ -85,4 +85,22 @@ class TrackingAutocompleteController extends ControllerBase {
     return new JsonResponse($matches);
   }
 
+  /**
+   * Handler for Tag ID autocomplete request.
+   */
+  public function handleTagIdAutocomplete(Request $request) {
+    $input = $request->query->get('q');
+    $matches = $this->searchManager->getTagIdMatches($input);
+    $results = [];
+
+    foreach ($matches as $match) {
+      $results[] = [
+        'value' => $match['value'],
+        'label' => $match['label'],
+      ];
+    }
+
+    return new JsonResponse($results);
+  }
+
 }

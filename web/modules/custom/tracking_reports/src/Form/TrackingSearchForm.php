@@ -212,44 +212,6 @@ class TrackingSearchForm extends FormBase {
       '#value' => $this->t('Enter only one field below to identify the species and click Next to see information.'),
     ];
 
-    // Individual search fields.
-    $individual_fields = [
-      'number' => [
-        'title' => 'Tracking Number *',
-        'required' => FALSE,
-        'maxlength' => 64,
-      ],
-      'species_id' => [
-        'title' => 'Species ID *',
-        'required' => FALSE,
-        'maxlength' => 64,
-      ],
-      'species_name' => [
-        'title' => 'Species Given Name *',
-        'required' => FALSE,
-        'maxlength' => 128,
-      ],
-      'tag_id' => [
-        'title' => 'Tag ID',
-        'required' => FALSE,
-        'maxlength' => 64,
-      ],
-    ];
-
-    foreach ($individual_fields as $key => $field) {
-      $form['filter_options']['collapse']['body'][$key] = [
-        '#type' => 'textfield',
-        '#title' => $this->t($field['title']),
-        '#required' => $field['required'],
-        '#maxlength' => $field['maxlength'],
-        '#size' => 64,
-        '#default_value' => $search_values[$key] ?? '',
-        '#wrapper_attributes' => ['class' => ['form-item']],
-        '#attributes' => ['class' => ['tracking-search-field']],
-      ];
-    }
-
-    // Update the number field to include autocomplete.
     $form['filter_options']['collapse']['body']['number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tracking Number *'),
@@ -295,6 +257,22 @@ class TrackingSearchForm extends FormBase {
         'data-drupal-selector' => 'species-name-autocomplete',
       ],
       '#autocomplete_route_name' => 'tracking_reports.species_name_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
+
+    $form['filter_options']['collapse']['body']['tag_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tag ID *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['tag_id'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'tag-id-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.tag_id_autocomplete',
       '#autocomplete_route_parameters' => [],
     ];
 
