@@ -215,4 +215,21 @@ header#navbar #navbar-collapse {
   top: 0 !important;
   right: 5px !important;
 }
+
+.input-group .input-group-addon {
+  display: none;
+}
+
+.ui-widget.ui-widget-content {
+  padding: 0;
+}
+
+.ui-autocomplete .ui-menu-item {
+  padding: 5px 10px;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+  padding: 2px 10px;
+  display: block;
+}
 /*# sourceMappingURL=maps/raf-styles.css.map */

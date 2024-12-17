@@ -828,4 +828,192 @@ class TrackingSearchManager {
     return $causes;
   }
 
+  /**
+   * Get matching tracking numbers for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching tracking numbers.
+   */
+  public function getTrackingNumberMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species')
+      ->condition('field_number', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_number->isEmpty()) {
+          $number = $entity->field_number->value;
+          $matches[] = [
+            'value' => $number,
+            'label' => $number,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Get matching species IDs for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching species IDs.
+   */
+  public function getSpeciesIdMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_id')
+      ->condition('field_species_id', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_species_id->isEmpty()) {
+          $species_id = $entity->field_species_id->value;
+          $matches[] = [
+            'value' => $species_id,
+            'label' => $species_id,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Get matching species names for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against.
+   *
+   * @return array
+   *   Array of matching species names.
+   */
+  public function getSpeciesNameMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_name')
+      ->condition('field_name', $string, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_name->isEmpty()) {
+          $name = $entity->field_name->value;
+          $matches[] = [
+            'value' => $name,
+            'label' => $name,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Get matching Tag IDs for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against Tag IDs.
+   *
+   * @return array
+   *   Array of matching Tag IDs.
+   */
+  public function getTagIdMatches($string) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_tag')
+      ->condition('field_tag_id', '%' . $string . '%', 'LIKE')
+      ->accessCheck(FALSE)
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      foreach ($entities as $entity) {
+        if (!$entity->field_tag_id->isEmpty()) {
+          $tag_id = $entity->field_tag_id->value;
+          $matches[] = [
+            'value' => $tag_id,
+            'label' => $tag_id,
+          ];
+        }
+      }
+    }
+
+    return $matches;
+  }
+
+  /**
+   * Get matching Waterways for autocomplete.
+   *
+   * @param string $string
+   *   The string to match against Waterways.
+   *
+   * @return array
+   *   Array of matching Waterways.
+   */
+  public function getWaterwayMatches($string) {
+    // Query nodes of type 'species_rescue' where 'field_waterway' contains the input string.
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_rescue')
+      ->condition('field_waterway', '%' . $string . '%', 'LIKE')
+      ->accessCheck(FALSE)
+    // Limit to 10 suggestions for performance.
+      ->range(0, 10);
+
+    $entity_ids = $query->execute();
+    $matches = [];
+
+    if (!empty($entity_ids)) {
+      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
+      $waterways = [];
+
+      foreach ($entities as $entity) {
+        if (!$entity->field_waterway->isEmpty()) {
+          $waterway = $entity->field_waterway->value;
+          $waterways[] = $waterway;
+        }
+      }
+
+      // Remove duplicates and sort the waterways.
+      $waterways = array_unique($waterways);
+      sort($waterways);
+
+      // Prepare the matches array.
+      foreach ($waterways as $waterway) {
+        $matches[] = [
+          'value' => $waterway,
+          'label' => $waterway,
+        ];
+      }
+    }
+
+    return $matches;
+  }
+
 }

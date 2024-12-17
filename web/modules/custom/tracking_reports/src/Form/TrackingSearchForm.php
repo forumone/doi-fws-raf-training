@@ -195,7 +195,7 @@ class TrackingSearchForm extends FormBase {
     $form['filter_options']['collapse']['body']['search_description'] = [
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => $this->t('* indicates a wildcard search. For example, if you enter Bob, you will get a list containing Bob, Bob 2, New Bob, Bobber, etc.'),
+      '#value' => $this->t('* indicates a autcomplete field. For example, if you enter Bob, you will get a pop-up list containing Bob, Bob 2, New Bob, Bobber, etc.'),
       '#attributes' => ['class' => ['search-description']],
     ];
 
@@ -212,42 +212,69 @@ class TrackingSearchForm extends FormBase {
       '#value' => $this->t('Enter only one field below to identify the species and click Next to see information.'),
     ];
 
-    // Individual search fields.
-    $individual_fields = [
-      'number' => [
-        'title' => 'Tracking Number',
-        'required' => FALSE,
-        'maxlength' => 64,
+    $form['filter_options']['collapse']['body']['number'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tracking Number *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['number'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'tracking-number-autocomplete',
       ],
-      'species_id' => [
-        'title' => 'Species ID *',
-        'required' => FALSE,
-        'maxlength' => 64,
-      ],
-      'species_name' => [
-        'title' => 'Species Given Name *',
-        'required' => FALSE,
-        'maxlength' => 128,
-      ],
-      'tag_id' => [
-        'title' => 'Tag ID',
-        'required' => FALSE,
-        'maxlength' => 64,
-      ],
+      '#autocomplete_route_name' => 'tracking_reports.number_autocomplete',
+      '#autocomplete_route_parameters' => [],
     ];
 
-    foreach ($individual_fields as $key => $field) {
-      $form['filter_options']['collapse']['body'][$key] = [
-        '#type' => 'textfield',
-        '#title' => $this->t($field['title']),
-        '#required' => $field['required'],
-        '#maxlength' => $field['maxlength'],
-        '#size' => 64,
-        '#default_value' => $search_values[$key] ?? '',
-        '#wrapper_attributes' => ['class' => ['form-item']],
-        '#attributes' => ['class' => ['tracking-search-field']],
-      ];
-    }
+    $form['filter_options']['collapse']['body']['species_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Species ID *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['species_id'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'species-id-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.species_id_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
+
+    $form['filter_options']['collapse']['body']['species_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Species Given Name *'),
+      '#required' => FALSE,
+      '#maxlength' => 128,
+      '#size' => 64,
+      '#default_value' => $search_values['species_name'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'species-name-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.species_name_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
+
+    $form['filter_options']['collapse']['body']['tag_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Tag ID *'),
+      '#required' => FALSE,
+      '#maxlength' => 64,
+      '#size' => 64,
+      '#default_value' => $search_values['tag_id'] ?? '',
+      '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'tag-id-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.tag_id_autocomplete',
+      '#autocomplete_route_parameters' => [],
+    ];
 
     $form['filter_options']['collapse']['body']['tag_type'] = [
       '#type' => 'select2',
@@ -296,6 +323,12 @@ class TrackingSearchForm extends FormBase {
       '#size' => 64,
       '#default_value' => $search_values['waterway'] ?? '',
       '#wrapper_attributes' => ['class' => ['form-item']],
+      '#attributes' => [
+        'class' => ['tracking-search-field'],
+        'data-drupal-selector' => 'waterway-autocomplete',
+      ],
+      '#autocomplete_route_name' => 'tracking_reports.waterway_autocomplete',
+      '#autocomplete_route_parameters' => [],
     ];
 
     $form['filter_options']['collapse']['body']['location']['state'] = [

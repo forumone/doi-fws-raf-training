@@ -53,3 +53,43 @@ tracking_reports.without_primary_name:
     _title: 'Report of species without a Primary Name'
   requirements:
     _permission: 'access tracking reports'
+
+tracking_reports.number_autocomplete:
+  path: '/tracking-reports/number-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleNumberAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.species_id_autocomplete:
+  path: '/tracking-reports/species-id-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleSpeciesIdAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.species_name_autocomplete:
+  path: '/tracking-reports/species-name-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleSpeciesNameAutocomplete'
+    _format: 'json'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.tag_id_autocomplete:
+  path: '/tracking-reports/tag-id-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleTagIdAutocomplete'
+    _format: 'json'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.waterway_autocomplete:
+  path: '/tracking-reports/waterway-autocomplete'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleWaterwayAutocomplete'
+    _format: 'json'
+  requirements:
+    _permission: 'access tracking reports'
