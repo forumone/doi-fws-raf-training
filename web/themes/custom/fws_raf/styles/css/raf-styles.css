@@ -283,4 +283,16 @@ input.form-autocomplete {
   top: 24px;
   right: 4px;
 }
+
+.species-search-results .results-count {
+  margin: 10px;
+}
+.species-search-results .form-type-select .select-wrapper {
+  width: 150px;
+}
+.species-search-results .form-type-select .select-wrapper::after {
+  top: 31px;
+  right: 3px;
+  z-index: 10;
+}
 /*# sourceMappingURL=maps/raf-styles.css.map */

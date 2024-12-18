@@ -26,6 +26,22 @@ function fws_raf_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'page-node-edit';
     $variables['attributes']['class'][] = 'page-node-edit-' . $node->bundle();
   }
+
+  if (!empty($variables['head_title']['title'])) {
+    // Array of word variations to replace.
+    $replacements = [
+      'Species' => 'Manatee',
+      'species' => 'manatee',
+      'SPECIES' => 'MANATEE',
+    ];
+
+    // Replace in the head title.
+    $variables['head_title']['title'] = str_replace(
+      array_keys($replacements),
+      array_values($replacements),
+      $variables['head_title']['title']
+    );
+  }
 }
 
 /**

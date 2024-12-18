@@ -366,3 +366,21 @@ input.form-autocomplete {
     right: 4px;
   }
 }
+
+// Species search results
+.species-search-results {
+  .results-count {
+    margin: 10px;
+  }
+
+  .form-type-select .select-wrapper {
+    width: 150px;
+
+    &::after {
+      top: 31px;
+      right: 3px;
+      z-index: 10;
+    }
+  }
+
+}
