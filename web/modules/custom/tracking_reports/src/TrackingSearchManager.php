@@ -624,12 +624,11 @@ class TrackingSearchManager {
       }
     }
 
-    // Define table header.
+    // Define table header with event date as default sort.
     $header = [
       'number' => [
         'data' => $this->t('Tracking Number'),
         'field' => 'number',
-        'sort' => 'asc',
       ],
       'species_name' => [
         'data' => $this->t('Name'),
@@ -646,6 +645,8 @@ class TrackingSearchManager {
       'latest_event_date' => [
         'data' => $this->t('Last Event'),
         'field' => 'latest_event_date',
+      // Set default sort.
+        'sort' => 'desc',
       ],
     ];
 
@@ -676,7 +677,8 @@ class TrackingSearchManager {
 
     // Sort the data array.
     usort($data, function ($a, $b) use ($order, $sort) {
-      $field = $order['sql'] ?? 'number';
+      // Default to event date if no sort specified.
+      $field = $order['sql'] ?? 'latest_event_date';
 
       if ($field === 'latest_event_date') {
         $timeA = strtotime($a[$field]) ?: 0;
