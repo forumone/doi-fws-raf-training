@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_species_id
     - field.storage.node.field_city
     - field.storage.node.field_county
     - field.storage.node.field_length
-    - field.storage.node.field_number
     - field.storage.node.field_name
+    - field.storage.node.field_number
     - field.storage.node.field_org
     - field.storage.node.field_rescue_date
     - field.storage.node.field_sex
+    - field.storage.node.field_species_id
     - field.storage.node.field_waterway
     - field.storage.node.field_weight
     - field.storage.taxonomy_term.field_health_status
@@ -30,7 +30,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: h1y-1wVFIp2GPDifZRBJ37eZYzTPWh14oiBiMMELS5Y
+  default_config_hash: CkNuSzaUPvG2WKZ_QMoqMENGT65a2RrkLAJgocQavlw
 id: tracking_status
 label: 'Species Status Report'
 module: views
@@ -321,7 +321,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Number'
+          label: Number
           exclude: true
           alter:
             alter_text: false

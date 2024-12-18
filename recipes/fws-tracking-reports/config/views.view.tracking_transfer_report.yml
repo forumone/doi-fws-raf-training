@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_species_id
-    - field.storage.node.field_number
     - field.storage.node.field_name
+    - field.storage.node.field_number
     - field.storage.node.field_sex
+    - field.storage.node.field_species_id
     - field.storage.node.field_transfer_date
     - field.storage.taxonomy_term.field_organization
     - field.storage.taxonomy_term.field_transfer_reason
@@ -21,7 +21,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: Y6J0J4ZpmXjCDO6SfbpuYCTCeFTNgYcbKVwMS_h8a2U
+  default_config_hash: K5X8riOfZLLk61xK6Do9kb8duv3SIoK1mG_tohIFhzk
 id: tracking_transfer_report
 label: 'Species Transfer Report'
 module: views
@@ -172,7 +172,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'ID'
+          label: ID
           exclude: false
           alter:
             alter_text: false
@@ -235,7 +235,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Number'
+          label: Number
           exclude: false
           alter:
             alter_text: false

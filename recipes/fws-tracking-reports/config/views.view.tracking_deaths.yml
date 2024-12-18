@@ -3,16 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_species_id
     - field.storage.node.field_death_date
     - field.storage.node.field_euthanasia
-    - field.storage.node.field_number
     - field.storage.node.field_name
+    - field.storage.node.field_number
     - field.storage.node.field_sex
+    - field.storage.node.field_species_id
     - field.storage.taxonomy_term.field_death_location
     - field.storage.taxonomy_term.field_organization
-    - node.type.species_id
     - node.type.species_death
+    - node.type.species_id
     - node.type.species_name
     - taxonomy.vocabulary.sex
   module:
@@ -23,7 +23,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: L3DF2_7Gbi6kFaD3S0GfjOiJ167JVk-H3NDBnTRAf-M
+  default_config_hash: vWjdPkFRkjolDVo8ri9ZufossKuRcAet3c3A-NR73-c
 id: tracking_deaths
 label: 'Species Deaths'
 module: views
@@ -174,7 +174,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'ID'
+          label: ID
           exclude: false
           alter:
             alter_text: false
@@ -237,7 +237,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Number'
+          label: Number
           exclude: false
           alter:
             alter_text: false
