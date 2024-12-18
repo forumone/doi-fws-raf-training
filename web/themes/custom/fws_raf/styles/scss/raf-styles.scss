@@ -84,7 +84,7 @@ $desktop-breakpoint: 992px;
     margin-top: 0;
   }
 
-  &.panel-group {
+  .panel-group {
     .panel-default {
       margin-bottom: 20px;
     }
@@ -102,6 +102,24 @@ $desktop-breakpoint: 992px;
         &:not(.collapsed) .fa-caret-down {
           transform: rotate(180deg);
         }
+      }
+    }
+  }
+}
+
+// Override field group styles.
+.field-group-details {
+  .panel-heading {
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      padding: 10px 15px;
+
+      &:not(.collapsed) .fa-caret-down {
+        transform: rotate(180deg);
       }
     }
   }
@@ -177,6 +195,10 @@ header#navbar {
         background-color: #337ab7;
         color: #fff;
       }
+    }
+
+    >li.active>a {
+      font-weight: bold;
     }
   }
 }
@@ -320,8 +342,18 @@ input.form-autocomplete {
     padding-top: 20px;
   }
 
-  .form-item label {
-    display: block;
+  .form-item {
+    &.form-inline label {
+      display: inline;
+    }
+
+    label {
+      display: block;
+
+      &.ck.ck-voice-label {
+        display: none !important;
+      }
+    }
   }
 
   .field-multiple-table {
@@ -375,6 +407,10 @@ input.form-autocomplete {
 
   .form-type-select .select-wrapper {
     width: 150px;
+
+    select {
+      cursor: pointer;
+    }
 
     &::after {
       top: 31px;

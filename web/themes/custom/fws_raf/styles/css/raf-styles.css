@@ -58,20 +58,31 @@
 .tracking-search-form h3 {
   margin-top: 0;
 }
-.tracking-search-form.panel-group .panel-default {
+.tracking-search-form .panel-group .panel-default {
   margin-bottom: 20px;
 }
-.tracking-search-form.panel-group .panel-title {
+.tracking-search-form .panel-group .panel-title {
   padding: 0;
 }
-.tracking-search-form.panel-group .panel-title a {
+.tracking-search-form .panel-group .panel-title a {
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
   padding: 10px 15px;
 }
-.tracking-search-form.panel-group .panel-title a:not(.collapsed) .fa-caret-down {
+.tracking-search-form .panel-group .panel-title a:not(.collapsed) .fa-caret-down {
+  transform: rotate(180deg);
+}
+
+.field-group-details .panel-heading a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+.field-group-details .panel-heading a:not(.collapsed) .fa-caret-down {
   transform: rotate(180deg);
 }
 
@@ -131,6 +142,9 @@ header#navbar #navbar-collapse {
 .navbar-main .dropdown-menu > li > a:hover, .navbar-main .dropdown-menu > li > a:focus {
   background-color: #337ab7;
   color: #fff;
+}
+.navbar-main .dropdown-menu > li.active > a {
+  font-weight: bold;
 }
 
 .navbar-default .navbar-nav > .active > a {
@@ -246,9 +260,17 @@ input.form-autocomplete {
 .page-node-add .form-type-vertical-tabs {
   padding-top: 20px;
 }
+.page-node-edit .form-item.form-inline label,
+.page-node-add .form-item.form-inline label {
+  display: inline;
+}
 .page-node-edit .form-item label,
 .page-node-add .form-item label {
   display: block;
+}
+.page-node-edit .form-item label.ck.ck-voice-label,
+.page-node-add .form-item label.ck.ck-voice-label {
+  display: none !important;
 }
 .page-node-edit .field-multiple-table .label,
 .page-node-add .field-multiple-table .label {
@@ -289,6 +311,9 @@ input.form-autocomplete {
 }
 .species-search-results .form-type-select .select-wrapper {
   width: 150px;
+}
+.species-search-results .form-type-select .select-wrapper select {
+  cursor: pointer;
 }
 .species-search-results .form-type-select .select-wrapper::after {
   top: 31px;

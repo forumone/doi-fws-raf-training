@@ -1,0 +1,10 @@
+status: 1
+pattern: 'Rescue Release [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.rescue_release
+new_content_behavior: 0
