@@ -5,25 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_org
     - node.type.species_death
-    - taxonomy.vocabulary.org
+_core:
+  default_config_hash: B3Ax-XZYqQrmWBphjon90gtR9YCv9O56XkvWHuJOf-Q
 id: node.species_death.field_org
 field_name: field_org
 entity_type: node
 bundle: species_death
-label: Org
+label: Organization
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      org: org
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
 field_type: entity_reference

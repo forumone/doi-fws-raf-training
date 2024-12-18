@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: kq_-LmJXoFjIZROnaPd_ZQffSLw6DHTBpAtKDkIrfMo
 id: node.field_subject
 field_name: field_subject
 entity_type: node

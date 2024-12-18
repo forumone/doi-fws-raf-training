@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_prerelease
   module:
     - options
+_core:
+  default_config_hash: xfB9ykoov7e_A8knTMUMeJUDulvJtzTd0tQSqzJIeoU
 id: node.species_prerelease.field_est_length
 field_name: field_est_length
 entity_type: node

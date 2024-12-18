@@ -7,6 +7,8 @@ dependencies:
     - node.type.status_report
   module:
     - options
+_core:
+  default_config_hash: KTM99-N2oEBGkSPREsuTXcrx2wdbg6VZFpR-m45ewfs
 id: node.status_report.field_est_length
 field_name: field_est_length
 entity_type: node

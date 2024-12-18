@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: SLqcLHpjh0mO3oJCuRlCGzDQFM8-CFr81fhKGkMEeck
 id: node.field_stimulus
 field_name: field_stimulus
 entity_type: node

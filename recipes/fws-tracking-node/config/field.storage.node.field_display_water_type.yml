@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: qi--bzO-bUXAYx_wAQUjUvZhz_SkhSiwCrBqszGolYw
 id: node.field_display_water_type
 field_name: field_display_water_type
 entity_type: node

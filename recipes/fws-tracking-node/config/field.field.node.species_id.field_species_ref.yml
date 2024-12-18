@@ -6,11 +6,13 @@ dependencies:
     - field.storage.node.field_species_ref
     - node.type.species
     - node.type.species_id
+_core:
+  default_config_hash: QgyHxuO0ivNahCWz1pxStvZm33GAz5zm480_tRZg004
 id: node.species_id.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: species_id
-label: 'Species'
+label: Species
 description: ''
 required: false
 translatable: false

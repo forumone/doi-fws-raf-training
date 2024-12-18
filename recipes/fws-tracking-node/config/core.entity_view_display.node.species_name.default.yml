@@ -3,25 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_name.field_species_ref
     - field.field.node.species_name.field_name
     - field.field.node.species_name.field_primary
+    - field.field.node.species_name.field_species_ref
     - node.type.species_name
   module:
     - user
+_core:
+  default_config_hash: hi-GJdnHqEKsGLN4dkalFO0lhOLJ_8EQ9teU1sEATdw
 id: node.species_name.default
 targetEntityType: node
 bundle: species_name
 mode: default
 content:
-  field_species_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_name:
     type: string
     label: above
@@ -39,6 +33,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
   links:
     settings: {  }

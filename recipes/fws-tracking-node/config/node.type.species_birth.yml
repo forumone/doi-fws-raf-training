@@ -2,10 +2,12 @@ uuid: 34460271-017e-4dfc-a1a1-27b0b454d166
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: QvqRg9vTGuljjUp9hiQqPss3wRlQum3r2ntQW1qoXVY
 name: 'Species Birth'
 type: species_birth
 description: 'Records information about species births in captivity'
 help: null
 new_revision: true
-preview_mode: 0
+preview_mode: 1
 display_submitted: true

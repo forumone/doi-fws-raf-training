@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: ce4qJYvQCPSLqMdlRSgF6Crk6ROmHlEe51U0tU6Igcw
 id: node.field_pot_status
 field_name: field_pot_status
 entity_type: node

@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: B_M9Bj0iy3UYvypytEpk1HnY1NtwPXwxE8ImGM3EBM0
 id: node.field_participating_orgs
 field_name: field_participating_orgs
 entity_type: node

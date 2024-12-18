@@ -2,10 +2,12 @@ uuid: cd53d9c8-90ef-4928-95d5-b39881a4682b
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: UNIWGHXRcuHux1lR0f_YppVrE1vubcelT9UB2U8VSWU
 name: 'Species Entanglement'
 type: species_entangle
 description: 'Records entanglement rescue details for species'
 help: null
 new_revision: true
-preview_mode: 0
+preview_mode: 1
 display_submitted: true

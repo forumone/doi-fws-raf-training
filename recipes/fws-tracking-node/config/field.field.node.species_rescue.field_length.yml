@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_length
     - node.type.species_rescue
+_core:
+  default_config_hash: E6OGIXOO6U6uuumWqGM0WGdus5yNQDcvdJQCLszwLrw
 id: node.species_rescue.field_length
 field_name: field_length
 entity_type: node

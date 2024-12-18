@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_release_time
     - node.type.status_report
-    - taxonomy.vocabulary.release_time
+_core:
+  default_config_hash: 7ItUSeIAxgjKjnNQP8XQOQ-UKyNjsoiowTYAaWYe3d0
 id: node.status_report.field_release_time
 field_name: field_release_time
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      release_time: release_time
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_10
+      arguments: {  }
 field_type: entity_reference

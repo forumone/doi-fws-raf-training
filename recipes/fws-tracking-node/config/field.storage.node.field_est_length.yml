@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - options
+_core:
+  default_config_hash: f2NdLQ1DPEBh3pXbl-vzsmNEjJhoTKM0OMtz6RaH658
 id: node.field_est_length
 field_name: field_est_length
 entity_type: node

@@ -31,9 +31,10 @@ dependencies:
   module:
     - datetime
     - path
+    - select2
     - text
 _core:
-  default_config_hash: Axj3dBm2KoHvzH2Ggjo67NaJRSUl3MLseRmxOU3Gbpc
+  default_config_hash: biMMxudhS-Zth3fXViZNY5toi0SrezgbrqI2TcmEKL8
 id: node.species_release.default
 targetEntityType: node
 bundle: species_release
@@ -79,14 +80,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_display_water_type:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 22
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_length:
     type: number
@@ -109,24 +110,24 @@ content:
       display_label: true
     third_party_settings: {  }
   field_months_vegetation:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 21
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_months_water_exposure:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 24
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_natural_vegetation:
     type: boolean_checkbox
@@ -160,14 +161,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_release_water_type:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 23
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_species_ref:
     type: entity_reference_autocomplete
@@ -180,14 +181,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_state:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 3
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_tracker:
     type: string_textfield

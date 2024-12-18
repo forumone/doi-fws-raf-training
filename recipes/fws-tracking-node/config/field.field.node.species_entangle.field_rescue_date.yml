@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_entangle
   module:
     - datetime
+_core:
+  default_config_hash: CovmcmzpbH-vsEaO8Hrn9cJevoGVLBDFszdVC7eufgg
 id: node.species_entangle.field_rescue_date
 field_name: field_rescue_date
 entity_type: node

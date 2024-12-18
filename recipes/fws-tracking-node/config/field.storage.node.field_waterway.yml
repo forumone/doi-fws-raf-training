@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: l0H-tqb-Hszb1lRMjedDGyEe0OXXNF0cS66FQKI7oQ4
 id: node.field_waterway
 field_name: field_waterway
 entity_type: node

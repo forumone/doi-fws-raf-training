@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: rXeVRZ3C3NI_24ptVucqs-I2tqBI5RqwuCdMytxqUFM
 id: node.field_rescue_per_day
 field_name: field_rescue_per_day
 entity_type: node

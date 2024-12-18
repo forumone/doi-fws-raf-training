@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_pi
     - node.type.pi
     - node.type.research_project
+_core:
+  default_config_hash: 4jZlLZMQZXksQERyArPMaY5tsnbVl_vKDybHTELEj4s
 id: node.research_project.field_pi
 field_name: field_pi
 entity_type: node

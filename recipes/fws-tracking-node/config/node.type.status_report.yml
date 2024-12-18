@@ -2,10 +2,12 @@ uuid: e969eedf-f7a0-4d31-aab3-c4f396b72cb8
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: LdTXBR7-7q3Fhk9Q1AqNnL7vXpeHieMy7r5P5RIKyf4
 name: 'Status Report'
 type: status_report
 description: 'Stores status reports for species in captivity'
 help: null
 new_revision: true
-preview_mode: 0
+preview_mode: 1
 display_submitted: true

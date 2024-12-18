@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_health_status
     - node.type.species_rescue
+_core:
+  default_config_hash: Nc9ZwcTDvczPRaAOmwdMkSH1ADlVboxM0dI2yb9X_uA
 id: node.species_rescue.field_health_status
 field_name: field_health_status
 entity_type: node
@@ -16,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      health: health
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

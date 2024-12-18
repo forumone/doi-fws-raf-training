@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: nUo14hRv1H96vd-eK-j6HsfgoUgzc8pRBsPquqgb3_g
 id: node.field_death_location
 field_name: field_death_location
 entity_type: node

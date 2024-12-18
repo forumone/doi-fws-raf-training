@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: 4ymVC-1RgQQyxf216nL6ihFwG6UP3Ki3Tg8mCX94ueg
 id: node.field_budget
 field_name: field_budget
 entity_type: node

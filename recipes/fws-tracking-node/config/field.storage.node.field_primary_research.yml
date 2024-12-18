@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: N4e4hz5XXB1WtxhX2zAaob9oGYjTXtJvQq6TKSe4ROA
 id: node.field_primary_research
 field_name: field_primary_research
 entity_type: node

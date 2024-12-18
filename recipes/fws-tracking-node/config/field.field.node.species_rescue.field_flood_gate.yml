@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_flood_gate
     - node.type.species_rescue
+_core:
+  default_config_hash: UhYo7rBB2kX5wMYn9fNw1fsRAFYNCCkjZoCpsLctVnY
 id: node.species_rescue.field_flood_gate
 field_name: field_flood_gate
 entity_type: node

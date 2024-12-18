@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_months_veg
     - node.type.species_prerelease
     - taxonomy.vocabulary.months
+_core:
+  default_config_hash: 1Si2y1rKzybXxEEweqk5tAfhun8QJ88hXAMI785X2nY
 id: node.species_prerelease.field_months_veg
 field_name: field_months_veg
 entity_type: node

@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_longitude
     - node.type.species_rescue
+_core:
+  default_config_hash: mRHLQ_DFBUYHMQLU_OJMLWtBLjRtx_L1Gj_SZgRBOzM
 id: node.species_rescue.field_longitude
 field_name: field_longitude
 entity_type: node
 bundle: species_rescue
 label: Longitude
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

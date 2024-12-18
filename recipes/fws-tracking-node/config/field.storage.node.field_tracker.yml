@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: 89IY4Ggndh2IGai63Oy8V_fy9ODPVtd44s_dt7GC-rI
 id: node.field_tracker
 field_name: field_tracker
 entity_type: node

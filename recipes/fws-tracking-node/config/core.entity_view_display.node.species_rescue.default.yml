@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_rescue.field_species_ref
     - field.field.node.species_rescue.field_city
     - field.field.node.species_rescue.field_comments
     - field.field.node.species_rescue.field_county
@@ -26,6 +25,7 @@ dependencies:
     - field.field.node.species_rescue.field_rescue_type
     - field.field.node.species_rescue.field_secondary_cause
     - field.field.node.species_rescue.field_secondary_cause_detail
+    - field.field.node.species_rescue.field_species_ref
     - field.field.node.species_rescue.field_state
     - field.field.node.species_rescue.field_tracker
     - field.field.node.species_rescue.field_transporter
@@ -40,19 +40,13 @@ dependencies:
     - datetime
     - text
     - user
+_core:
+  default_config_hash: 7tf7ejWlw6MH2k4LXqehLw9j9y_LUzmSpLTVNtA_vZ4
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue
 mode: default
 content:
-  field_species_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 10
-    region: content
   field_city:
     type: string
     label: above
@@ -236,6 +230,14 @@ content:
     type: text_default
     label: above
     settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
     third_party_settings: {  }
     weight: 10
     region: content

@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_bloods
     - node.type.status_report
-    - taxonomy.vocabulary.blood
+_core:
+  default_config_hash: J3jPdn0tiq-VvJ5PkR0rf22EdxBqUTqRS4pCG7KtKrA
 id: node.status_report.field_bloods
 field_name: field_bloods
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      blood: blood
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_9
+      arguments: {  }
 field_type: entity_reference

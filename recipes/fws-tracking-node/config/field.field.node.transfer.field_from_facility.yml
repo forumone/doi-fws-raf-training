@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_from_facility
     - node.type.transfer
-    - taxonomy.vocabulary.org
+_core:
+  default_config_hash: SV0joVsuM__SC5p_x7_2wPgYcBhYkRy70VWgM_RVLa8
 id: node.transfer.field_from_facility
 field_name: field_from_facility
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      org: org
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
 field_type: entity_reference

@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_display_type
     - node.type.species_prerelease
-    - taxonomy.vocabulary.water
+_core:
+  default_config_hash: AN6X1AoPrLDGaAk5XZ5KnIG1vL2NGhx6LIe_LeWxIbc
 id: node.species_prerelease.field_display_type
 field_name: field_display_type
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      water: water
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_8
+      arguments: {  }
 field_type: entity_reference

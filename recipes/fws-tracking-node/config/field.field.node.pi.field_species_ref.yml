@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_species_ref
-    - node.type.species_id
     - node.type.pi
+    - node.type.species_id
+_core:
+  default_config_hash: WSsvqacvfq_LU2Lou5angwilS8Y9TOUEBFyRGosKMGI
 id: node.pi.field_species_ref
 field_name: field_species_ref
 entity_type: node

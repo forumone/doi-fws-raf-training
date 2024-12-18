@@ -5,13 +5,16 @@ dependencies:
   config:
     - field.storage.node.field_county
     - node.type.species_rescue
+    - taxonomy.vocabulary.county
+_core:
+  default_config_hash: p__RTTL-oMH5wG_cI-RC_6H0Yd4kSvzUiynXURqecPI
 id: node.species_rescue.field_county
 field_name: field_county
 entity_type: node
 bundle: species_rescue
 label: County
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -20,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       county: county
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

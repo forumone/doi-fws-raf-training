@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_length
     - node.type.species_birth
+_core:
+  default_config_hash: NcJhjNYCSevms95x0pe9ypxIu8o-c7CaG_Vh7XNMJcY
 id: node.species_birth.field_length
 field_name: field_length
 entity_type: node

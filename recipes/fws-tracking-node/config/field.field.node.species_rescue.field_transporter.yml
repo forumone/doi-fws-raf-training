@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_transporter
     - node.type.species_rescue
+_core:
+  default_config_hash: NSiRQ1l1lS-Aq7sDmvG4f3vl5prOtO-epQ95FAUO8iQ
 id: node.species_rescue.field_transporter
 field_name: field_transporter
 entity_type: node
@@ -16,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      org: org
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
 field_type: entity_reference

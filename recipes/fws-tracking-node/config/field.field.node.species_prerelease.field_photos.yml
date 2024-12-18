@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_photos
     - node.type.species_prerelease
+_core:
+  default_config_hash: oSuF9Mb2kZI54_KTlgDX8n5va2L1aAvXWyVuIFQK0fQ
 id: node.species_prerelease.field_photos
 field_name: field_photos
 entity_type: node

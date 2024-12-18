@@ -6,11 +6,13 @@ dependencies:
     - field.storage.node.field_species_ref
     - node.type.species
     - node.type.species_prerelease
+_core:
+  default_config_hash: wwBgfiU5eH-I1XYZdIWXq1J-xir0qn4ub-M9kn-vSe4
 id: node.species_prerelease.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: species_prerelease
-label: Individual Species
+label: Species
 description: ''
 required: false
 translatable: true
@@ -21,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

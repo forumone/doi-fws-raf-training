@@ -5,6 +5,8 @@ dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: Ircc_SHWiQa1S9SBqu9DTsXTfX9BIWpCltro9wlhkqI
 id: node.field_transfer_date
 field_name: field_transfer_date
 entity_type: node

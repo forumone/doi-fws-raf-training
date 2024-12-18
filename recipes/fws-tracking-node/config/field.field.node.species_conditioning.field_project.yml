@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_project
+    - node.type.research_project
     - node.type.species_conditioning
+_core:
+  default_config_hash: nidl15wUymtK2Y0uberL3QPKiY-RavUcYs4VOBzfqRU
 id: node.species_conditioning.field_project
 field_name: field_project
 entity_type: node

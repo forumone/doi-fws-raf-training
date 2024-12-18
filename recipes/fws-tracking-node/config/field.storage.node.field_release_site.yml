@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: awtk4FK7KpYXIuhryZUrJZsgwctr1EW3Lv8eY5WltIs
 id: node.field_release_site
 field_name: field_release_site
 entity_type: node

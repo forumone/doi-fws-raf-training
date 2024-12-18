@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_species_ref
+    - node.type.species
     - node.type.species_rescue
+_core:
+  default_config_hash: 5wvGrR3Iwy8yJCNKvDaM4Juqu6p6aJ_T7k6-u17URec
 id: node.species_rescue.field_species_ref
 field_name: field_species_ref
 entity_type: node
@@ -16,7 +19,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
       species: species

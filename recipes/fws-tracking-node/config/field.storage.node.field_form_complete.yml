@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: mCtyQJM02lT2tiTyO7xoKDiJXJfDcIqGBzveymUEuig
 id: node.field_form_complete
 field_name: field_form_complete
 entity_type: node

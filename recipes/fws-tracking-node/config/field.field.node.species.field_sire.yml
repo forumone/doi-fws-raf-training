@@ -6,13 +6,13 @@ dependencies:
     - field.storage.node.field_sire
     - node.type.species
 _core:
-  default_config_hash: nH1Czd1ngqHtuaPjhVm2btGNFg0zVxCjEHyrVvWDevU
+  default_config_hash: aquik5aRUOAqV8okItD1_TlK1mhzb6EIdDBQqtQTtzg
 id: node.species.field_sire
 field_name: field_sire
 entity_type: node
 bundle: species
 label: Sire
-description: ''
+description: 'Look up the Sire by tracking number or <a href="/tracking/search" target="_blank">search</a> for Manatee.'
 required: false
 translatable: true
 default_value: {  }

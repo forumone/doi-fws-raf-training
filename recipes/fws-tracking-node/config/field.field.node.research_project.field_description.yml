@@ -7,6 +7,8 @@ dependencies:
     - node.type.research_project
   module:
     - text
+_core:
+  default_config_hash: Cg6PuXhe1g7K09N9AkdDBHmrz8WCfHLnany5gKvX1hk
 id: node.research_project.field_description
 field_name: field_description
 entity_type: node

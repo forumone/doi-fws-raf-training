@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - text
+_core:
+  default_config_hash: mbX23VZOkwfJJvnQefOxxs0pi6Z07DMn3IsbwExlgwc
 id: node.field_description
 field_name: field_description
 entity_type: node

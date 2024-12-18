@@ -3,29 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_entangle.field_species_ref
     - field.field.node.species_entangle.field_entanglement_location
     - field.field.node.species_entangle.field_gear_description
     - field.field.node.species_entangle.field_gear_type
     - field.field.node.species_entangle.field_rescue_date
     - field.field.node.species_entangle.field_rescue_per_day
+    - field.field.node.species_entangle.field_species_ref
     - node.type.species_entangle
   module:
     - datetime
     - user
+_core:
+  default_config_hash: eM64F6KGNsKzRw5UN70I1I5JcgyoXuVOoZXXZ1ui-hM
 id: node.species_entangle.default
 targetEntityType: node
 bundle: species_entangle
 mode: default
 content:
-  field_species_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_entanglement_location:
     type: basic_string
     label: above
@@ -65,6 +59,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
   links:
     settings: {  }

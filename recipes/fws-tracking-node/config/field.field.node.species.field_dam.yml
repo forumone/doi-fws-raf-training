@@ -6,13 +6,13 @@ dependencies:
     - field.storage.node.field_dam
     - node.type.species
 _core:
-  default_config_hash: KE5ORnP9uATSNtOVLahWJBqkzteapBujn0IuH_ViaLI
+  default_config_hash: N3jZrxHRzlTQn-Tvse2tF3hS2Tfc_6paRJfLjL2Bw68
 id: node.species.field_dam
 field_name: field_dam
 entity_type: node
 bundle: species
 label: Dam
-description: ''
+description: 'Look up the Dam by tracking number or <a href="/tracking/search" target="_blank">search</a> for Manatee.'
 required: false
 translatable: true
 default_value: {  }

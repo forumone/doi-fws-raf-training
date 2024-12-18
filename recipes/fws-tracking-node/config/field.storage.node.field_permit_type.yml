@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: tgI5RPCNAQv9hRmQEQMNid1tKn8MjoMJ_ZeEWk4OPOg
 id: node.field_permit_type
 field_name: field_permit_type
 entity_type: node

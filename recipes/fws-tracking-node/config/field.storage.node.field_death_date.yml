@@ -5,6 +5,8 @@ dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: OFqjK1LHxFtRIHAoMXMq8nuQaTs8nM1rTpvQmNKc4Fw
 id: node.field_death_date
 field_name: field_death_date
 entity_type: node

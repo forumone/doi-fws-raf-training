@@ -7,6 +7,8 @@ dependencies:
     - node.type.rescue_release
   module:
     - datetime
+_core:
+  default_config_hash: 0_kggz9j-19eBVZKgQIlYjX_bABMZGmuwlxVNdZO6vg
 id: node.rescue_release.field_release_date
 field_name: field_release_date
 entity_type: node

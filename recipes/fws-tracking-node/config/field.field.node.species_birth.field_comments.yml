@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_birth
   module:
     - text
+_core:
+  default_config_hash: 89p-Bam6frTP4QEngBzAB7oxbbjuvzhkEyCOcBOdorQ
 id: node.species_birth.field_comments
 field_name: field_comments
 entity_type: node

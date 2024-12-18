@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_rearing
     - node.type.species
-    - taxonomy.vocabulary.rearing
+_core:
+  default_config_hash: b6cizPVDHQ5lcDlvGkGtz3sdq2QicGkRzDBc_QeBbbI
 id: node.species.field_rearing
 field_name: field_rearing
 entity_type: node
 bundle: species
-label: 'Rearing Method'
+label: 'Rearing Type'
 description: ''
 required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      rearing: rearing
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_2
+      arguments: {  }
 field_type: entity_reference

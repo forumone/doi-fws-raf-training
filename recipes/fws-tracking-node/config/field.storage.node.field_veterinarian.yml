@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - user
+_core:
+  default_config_hash: by0beae4uJkjqgabIEgtIYd57G9QHGcAJjESbH95Qx0
 id: node.field_veterinarian
 field_name: field_veterinarian
 entity_type: node

@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_release
   module:
     - datetime
+_core:
+  default_config_hash: nkPdCBRYqeHxRXMBv41WkxILZDB0U6B93vdJCVfv5js
 id: node.species_release.field_length_date
 field_name: field_length_date
 entity_type: node

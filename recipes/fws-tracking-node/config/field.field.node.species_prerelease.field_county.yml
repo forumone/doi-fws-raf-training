@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_county
     - node.type.species_prerelease
     - taxonomy.vocabulary.county
+_core:
+  default_config_hash: w-uzJrCgR9iEbZLr3dDz1_8XkLyY2azwgNlvsQN_-YA
 id: node.species_prerelease.field_county
 field_name: field_county
 entity_type: node

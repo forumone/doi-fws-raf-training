@@ -18,9 +18,10 @@ dependencies:
   module:
     - datetime
     - path
+    - select2
     - text
 _core:
-  default_config_hash: 5PqUYPJDiBjAOuVikxuVKWfxgG4e7QxUSecB_yehkTg
+  default_config_hash: 2tbtS7WkAyVMatK3DxaFljRRhayQsxYzKRJbRzHGwvM
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth
@@ -47,24 +48,24 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_conceived:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 6
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_health_status:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 4
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_length:
     type: number

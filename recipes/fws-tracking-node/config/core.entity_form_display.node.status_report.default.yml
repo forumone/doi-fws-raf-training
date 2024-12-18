@@ -23,9 +23,10 @@ dependencies:
   module:
     - datetime
     - path
+    - select2
     - text
 _core:
-  default_config_hash: vI34S3OmnZi1lGc7WgNAu8qwOK_i67AKDtYER-CNh9E
+  default_config_hash: Ue71iUTy__qsgLuccp2B6jRi-8G3fmTYdaiLpbX5GBw
 id: node.status_report.default
 targetEntityType: node
 bundle: status_report
@@ -33,45 +34,47 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   field_bloods:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: select2_entity_reference
+    weight: 2
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_est_length:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_est_weight:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_health:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: select2
+    weight: 3
     region: content
     settings:
+      width: 100%
+    third_party_settings: {  }
+  field_est_weight:
+    type: select2
+    weight: 4
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_health:
+    type: select2_entity_reference
+    weight: 5
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_health_diag:
     type: text_textarea
-    weight: 0
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -79,20 +82,20 @@ content:
     third_party_settings: {  }
   field_length:
     type: number
-    weight: 0
+    weight: 7
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_length_date:
     type: datetime_default
-    weight: 0
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_org:
     type: entity_reference_autocomplete
-    weight: 0
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -101,31 +104,32 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_release_time:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: select2_entity_reference
+    weight: 10
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_req_half_yr:
-    type: options_select
-    weight: 0
+    type: select2
+    weight: 11
     region: content
-    settings: {  }
+    settings:
+      width: 100%
     third_party_settings: {  }
   field_req_year:
     type: number
-    weight: 0
+    weight: 12
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_species_ref:
     type: entity_reference_autocomplete
-    weight: 0
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -134,75 +138,73 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_status:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: select2_entity_reference
+    weight: 13
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_vet_id:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: string_textfield
+    weight: 14
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
   field_weight:
     type: number
-    weight: 0
+    weight: 15
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_weight_date:
     type: datetime_default
-    weight: 0
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 17
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 15
+    weight: 20
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 120
+    weight: 24
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 21
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -210,7 +212,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -219,7 +221,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_reason
     - node.type.transfer
-    - taxonomy.vocabulary.transfer_reason
+_core:
+  default_config_hash: yPrsUTfavLiyjcZXIv2RM5dybFEs87-PrDUb3EoHoAU
 id: node.transfer.field_reason
 field_name: field_reason
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      transfer_reason: transfer_reason
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_7
+      arguments: {  }
 field_type: entity_reference

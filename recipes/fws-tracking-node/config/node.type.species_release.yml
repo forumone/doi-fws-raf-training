@@ -2,10 +2,12 @@ uuid: faa2aa3b-2a34-4d03-ad26-51786ca47829
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: '-m8dnAHrLr3J-DKCQaLamEI_hKDkzBBOsD6qboO8M60'
 name: 'Species Release'
 type: species_release
 description: 'Records information about species releases'
 help: null
 new_revision: true
-preview_mode: 0
+preview_mode: 1
 display_submitted: true

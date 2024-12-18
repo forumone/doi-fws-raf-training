@@ -5,19 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_rescue_type
     - node.type.species_rescue
+_core:
+  default_config_hash: DAYqSyn4VlnY_Kbl41MIufZEXHxLwhEJh-Om_JTvg9g
 id: node.species_rescue.field_rescue_type
 field_name: field_rescue_type
 entity_type: node
 bundle: species_rescue
 label: 'Rescue Type'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      rescue_type: rescue_type
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_5
+      arguments: {  }
 field_type: entity_reference

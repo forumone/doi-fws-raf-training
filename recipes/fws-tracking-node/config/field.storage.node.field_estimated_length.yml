@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: tsfoiEcpd9f974rOJos7SKZ57hBO0kJP5ssJvfG3Aqs
 id: node.field_estimated_length
 field_name: field_estimated_length
 entity_type: node

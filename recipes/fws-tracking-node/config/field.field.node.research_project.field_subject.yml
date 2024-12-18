@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_subject
     - node.type.research_project
+_core:
+  default_config_hash: m1TifoDX28QVgKwES6U38mSAVX2F1DZaPjGHf_ss0mg
 id: node.research_project.field_subject
 field_name: field_subject
 entity_type: node

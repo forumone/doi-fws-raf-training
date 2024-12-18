@@ -5,7 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_health
     - node.type.status_report
-    - taxonomy.vocabulary.health
+_core:
+  default_config_hash: Qm0-cjDa_jV5F8Vx99J6ht1C790NIEkewAChwAsyXyQ
 id: node.status_report.field_health
 field_name: field_health
 entity_type: node
@@ -17,8 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      health: health
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

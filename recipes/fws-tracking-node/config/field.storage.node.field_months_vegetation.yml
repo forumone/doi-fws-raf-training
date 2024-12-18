@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: y4IetCHy2rj2ENUqKs12A3WIvPULrKpBnPxvyn2E3x0
 id: node.field_months_vegetation
 field_name: field_months_vegetation
 entity_type: node

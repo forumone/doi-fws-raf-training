@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: DU6irkr2Tr2shiI_IGs0zOcMxrrFLi5nqqfgAyCIpa8
 id: node.field_fund_org
 field_name: field_fund_org
 entity_type: node

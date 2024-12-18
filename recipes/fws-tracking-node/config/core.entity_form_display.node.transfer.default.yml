@@ -23,7 +23,7 @@ dependencies:
     - select2
     - text
 _core:
-  default_config_hash: ZL3f5iMhxPq5OgfzLmSW_wYkTzD4bqx7wn8cqdgOX_4
+  default_config_hash: Ii8l2heZJ1Pyd9jglMuIJR4-uvK4p4b9VIUBK6YFhLc
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer

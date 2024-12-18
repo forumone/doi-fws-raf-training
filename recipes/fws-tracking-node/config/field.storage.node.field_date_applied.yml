@@ -5,6 +5,8 @@ dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: sv-rYKaHhQ2QFXzDDlBe_XTPs9Tl2FYL6N5wyvqlZ-A
 id: node.field_date_applied
 field_name: field_date_applied
 entity_type: node

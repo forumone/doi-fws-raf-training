@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_estimated_length
     - node.type.transfer
+_core:
+  default_config_hash: _O6_3bylC5sa41dLye2LqiJ-Gsbra3UixLBGfH-nbgU
 id: node.transfer.field_estimated_length
 field_name: field_estimated_length
 entity_type: node

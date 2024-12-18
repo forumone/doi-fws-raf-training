@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_gear_description
     - node.type.species_entangle
+_core:
+  default_config_hash: POX1pUBi54UR6e8x2gxbx1bVvqiutz5E9WbJBSIhgoY
 id: node.species_entangle.field_gear_description
 field_name: field_gear_description
 entity_type: node

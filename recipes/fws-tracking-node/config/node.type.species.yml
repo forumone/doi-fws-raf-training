@@ -2,10 +2,12 @@ uuid: 5051f994-477d-42c0-a2f3-80c20e9a917f
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: yiqcE7JJf_ZtXdBPXoVo6WZiaxkSvAsgNCawuSeEgPE
 name: Species
 type: species
 description: 'Stores all information associated with a species.'
 help: null
 new_revision: true
-preview_mode: 0
+preview_mode: 1
 display_submitted: true

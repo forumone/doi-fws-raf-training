@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: Uj0tjdoI28Vj-94biF9C-Hn9e_EfFRdTHx1x9vh-TU4
 id: node.field_pi_email
 field_name: field_pi_email
 entity_type: node

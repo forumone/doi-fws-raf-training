@@ -7,6 +7,8 @@ dependencies:
     - node.type.status_report
   module:
     - text
+_core:
+  default_config_hash: wYhGxUy23YuVIvBIAXf_KkQ0c4i5kmVYFJhtMmkj8C0
 id: node.status_report.field_health_diag
 field_name: field_health_diag
 entity_type: node

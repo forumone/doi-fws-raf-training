@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_system_id
     - node.type.other_names
+_core:
+  default_config_hash: LJjYgHY3yMuOiD-QMvS7VwuaUe5V37U_2eBG7Xe7VAs
 id: node.other_names.field_system_id
 field_name: field_system_id
 entity_type: node
 bundle: other_names
 label: 'System ID'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

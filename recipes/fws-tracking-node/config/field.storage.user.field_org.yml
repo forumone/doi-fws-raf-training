@@ -5,6 +5,8 @@ dependencies:
   module:
     - taxonomy
     - user
+_core:
+  default_config_hash: vnG-Suj88Um2325ayOXqb-0q67kaQ6OR2vUDePJHEB8
 id: user.field_org
 field_name: field_org
 entity_type: user

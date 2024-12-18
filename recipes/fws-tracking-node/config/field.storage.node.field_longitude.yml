@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: Zi3m7Wv_7Z0QpZ_JKGN6e2QFYcJ6SwgxK1GvXHlh_v4
 id: node.field_longitude
 field_name: field_longitude
 entity_type: node

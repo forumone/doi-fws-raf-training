@@ -5,19 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_state
     - node.type.species_rescue
+_core:
+  default_config_hash: topxk6-1tOL4Pw0IRybIvPVLxwcIi_cCex92VTNKQwI
 id: node.species_rescue.field_state
 field_name: field_state
 entity_type: node
 bundle: species_rescue
 label: State
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      state: state
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_6
+      arguments: {  }
 field_type: entity_reference
