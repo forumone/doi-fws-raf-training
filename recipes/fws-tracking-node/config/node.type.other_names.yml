@@ -7,5 +7,5 @@ type: other_names
 description: 'Stores all names associated with a species that are identified in other species databases. For example, an species may be given a name in the MIPS database'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true
