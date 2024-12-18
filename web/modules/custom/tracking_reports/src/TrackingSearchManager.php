@@ -2,9 +2,9 @@
 
 namespace Drupal\tracking_reports;
 
-use Drupal\Core\Link;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Utility\TableSort;
 
@@ -648,6 +648,10 @@ class TrackingSearchManager {
       // Set default sort.
         'sort' => 'desc',
       ],
+      'add_event' => [
+        'data' => $this->t('Add Event'),
+        'sortable' => FALSE,
+      ],
     ];
 
     // Load all species nodes and create a data array for sorting.
@@ -692,6 +696,16 @@ class TrackingSearchManager {
       }
     });
 
+    // Get event types for select options.
+    $event_types = [
+      '' => $this->t('- Select event -'),
+      'species_birth' => $this->t('Add Birth'),
+      'species_rescue' => $this->t('Add Rescue'),
+      'transfer' => $this->t('Add Transfer'),
+      'species_release' => $this->t('Add Release'),
+      'species_death' => $this->t('Add Death'),
+    ];
+
     // Implement pager.
     $items_per_page = 20;
     $pager = \Drupal::service('pager.manager')->createPager($total_items, $items_per_page);
@@ -704,6 +718,20 @@ class TrackingSearchManager {
     foreach ($paged_data as $row) {
       $number_link = Link::createFromRoute($row['number'], 'entity.node.canonical', ['node' => $row['species_id']]);
 
+      // Create a select element for each row.
+      $select = [
+        '#type' => 'select',
+        '#title' => $this->t('Add event'),
+        '#title_display' => 'invisible',
+        '#options' => $event_types,
+        '#empty_option' => $this->t('- Select event -'),
+        '#name' => 'add_event_' . $row['species_id'],
+        '#attributes' => [
+          'class' => ['add-event-select'],
+          'data-species-id' => $row['species_id'],
+        ],
+      ];
+
       $rows[] = [
         'data' => [
           'number' => ['data' => $number_link],
@@ -711,14 +739,26 @@ class TrackingSearchManager {
           'species_id_value' => ['data' => $row['species_id_value']],
           'latest_event_type' => ['data' => $row['latest_event_type']],
           'latest_event_date' => ['data' => $row['latest_event_date']],
+          'add_event' => ['data' => $select],
         ],
       ];
     }
+
+    // Add JavaScript to handle the select change.
+    $form['#attached']['library'][] = 'tracking_reports/tracking_reports';
 
     // Return the table render array.
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['species-search-results']],
+      '#attached' => [
+        'library' => ['tracking_reports/tracking_reports'],
+        'drupalSettings' => [
+          'trackingReports' => [
+            'baseUrl' => '/node/add/',
+          ],
+        ],
+      ],
       'count' => [
         '#markup' => $this->t('@count results found', ['@count' => $total_items]),
         '#prefix' => '<div class="results-count">',
