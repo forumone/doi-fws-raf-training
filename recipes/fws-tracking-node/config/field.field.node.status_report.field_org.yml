@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_org
     - node.type.status_report
 _core:
-  default_config_hash: U3knoOnHVmPbHxc-n29ebndX5nE4Iszrwfv8q5C7y5I
+  default_config_hash: B0JESnQ9CU8xct3Y5N0lIxiU5gysIQZSi4dZX_jMhZA
 id: node.status_report.field_org
 field_name: field_org
 entity_type: node

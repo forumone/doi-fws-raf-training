@@ -84,7 +84,7 @@ $desktop-breakpoint: 992px;
     margin-top: 0;
   }
 
-  .panel-group {
+  .panel {
     .panel-default {
       margin-bottom: 20px;
     }
@@ -118,7 +118,7 @@ $desktop-breakpoint: 992px;
       text-decoration: none;
       padding: 10px 15px;
 
-      &:not(.collapsed) .fa-caret-down {
+      &[aria-expanded="true"] .fa-caret-down {
         transform: rotate(180deg);
       }
     }

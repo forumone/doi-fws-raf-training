@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: PvaodCW3p1E0qQcCRm4RYW5BnEutddKu3MIQTienUTc
+  default_config_hash: 4yxW1VU7gKda-sy6toNtNjWo_x_yWr6yC0HQvOOQmZI
 id: node.field_months_water_exposure
 field_name: field_months_water_exposure
 entity_type: node

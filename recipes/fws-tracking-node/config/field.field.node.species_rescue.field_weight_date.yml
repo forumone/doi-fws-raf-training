@@ -8,12 +8,12 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: yhC6O9Czslf-mgBDz609y6H5D3NWCjIOj1ba6dvHblI
+  default_config_hash: 4Cn0VTKpwSFAXQfM4hHQBsvITu9IMVblb0oJmB5J63Q
 id: node.species_rescue.field_weight_date
 field_name: field_weight_date
 entity_type: node
 bundle: species_rescue
-label: 'Weight Date'
+label: 'Date Weighed'
 description: ''
 required: false
 translatable: true

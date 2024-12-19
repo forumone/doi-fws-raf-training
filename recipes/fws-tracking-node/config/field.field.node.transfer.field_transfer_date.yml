@@ -8,14 +8,14 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: TfifPbAbM97GxvuXvE2BvmBaPeWB4I3oeYZHBEiCjyk
+  default_config_hash: ajDfh_EJWVW-iUQKm9GkK3Pt5M6vOg_nFeWbWg4V0hk
 id: node.transfer.field_transfer_date
 field_name: field_transfer_date
 entity_type: node
 bundle: transfer
 label: 'Transfer Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: YG0-7uOE1V66mL3o8wSjRVaj_5vi3INeDVo8phkj2YY
+  default_config_hash: RlEMvy7yT6nfsYrQgrNtLe4lXwCe2keQZ7rrJo7bZhA
 id: node.field_entanglement_location
 field_name: field_entanglement_location
 entity_type: node

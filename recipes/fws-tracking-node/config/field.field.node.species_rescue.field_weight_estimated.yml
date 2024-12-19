@@ -6,12 +6,12 @@ dependencies:
     - field.storage.node.field_weight_estimated
     - node.type.species_rescue
 _core:
-  default_config_hash: xcO8wmpgYDq-VU8XQsmz0KuYxqn4tV2mAgyAFGoNGRI
+  default_config_hash: mQJfGj9jaxeVil9L-btFqU9XMg6jmTegmKFX0M7WR58
 id: node.species_rescue.field_weight_estimated
 field_name: field_weight_estimated
 entity_type: node
 bundle: species_rescue
-label: 'Weight Estimated'
+label: 'Estimated Weight'
 description: ''
 required: false
 translatable: true

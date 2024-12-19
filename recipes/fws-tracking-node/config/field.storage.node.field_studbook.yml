@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: Pvh4kjEoEp4YdFIAbkHnwzQc-qWojCgHYkyrzNKqdng
+  default_config_hash: ftB4KVyeFoA8JQb6meku49NqfuppmEMfZBHo-3GrCzE
 id: node.field_studbook
 field_name: field_studbook
 entity_type: node

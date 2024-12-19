@@ -21,7 +21,7 @@ dependencies:
     - select2
     - text
 _core:
-  default_config_hash: 2tbtS7WkAyVMatK3DxaFljRRhayQsxYzKRJbRzHGwvM
+  default_config_hash: WEcW0H4Iot8J8iTGog9PBNuRpKuGPtalmJ8-su-RXAc
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth

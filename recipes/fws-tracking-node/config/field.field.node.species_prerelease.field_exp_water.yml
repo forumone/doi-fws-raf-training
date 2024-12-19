@@ -6,12 +6,12 @@ dependencies:
     - field.storage.node.field_exp_water
     - node.type.species_prerelease
 _core:
-  default_config_hash: uAXfcU4NrQa3ia_h00ixPUuK28UQsBll_X-P4gGeWtM
+  default_config_hash: z9zBIXf4Bvdf0_MlmWSyGb_VCknuCBfYFv5-eulMeOc
 id: node.species_prerelease.field_exp_water
 field_name: field_exp_water
 entity_type: node
 bundle: species_prerelease
-label: 'Exp Water'
+label: 'Exposed to release water type for over 30 days?'
 description: ''
 required: false
 translatable: true

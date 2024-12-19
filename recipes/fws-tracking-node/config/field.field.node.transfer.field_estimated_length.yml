@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_estimated_length
     - node.type.transfer
 _core:
-  default_config_hash: _O6_3bylC5sa41dLye2LqiJ-Gsbra3UixLBGfH-nbgU
+  default_config_hash: WUMJ4KBzYCmKcZb_PM9j0GImCZTWfeAkppKTVSEOIZg
 id: node.transfer.field_estimated_length
 field_name: field_estimated_length
 entity_type: node
 bundle: transfer
 label: 'Estimated Length?'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

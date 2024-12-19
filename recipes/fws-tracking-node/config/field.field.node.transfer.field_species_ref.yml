@@ -7,14 +7,14 @@ dependencies:
     - node.type.species
     - node.type.transfer
 _core:
-  default_config_hash: eXKPYDF5weiTqexNwPirmax34fNbCjHMWi8wtte57c4
+  default_config_hash: LPpp3Ms5NZbgtW4XxCsph0VWkba4pSAhtBCDbtRTKkY
 id: node.transfer.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: transfer
 label: Species
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

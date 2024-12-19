@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: LdTXBR7-7q3Fhk9Q1AqNnL7vXpeHieMy7r5P5RIKyf4
+  default_config_hash: k5xzdluNZm2d9WdIXBPNKlwxMzIeFciiGiOTWDwz2kU
 name: 'Status Report'
 type: status_report
 description: 'Stores status reports for species in captivity'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

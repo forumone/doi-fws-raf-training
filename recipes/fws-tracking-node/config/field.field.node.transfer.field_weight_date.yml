@@ -8,14 +8,14 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: J_fJghQUvnVT4w3GeTpYZtWb-ZWCYcqcRRRmRrPVFeg
+  default_config_hash: gjRgGxtC0yUCLgAofrHCQN39QGO-CEgmxCU0CwGvq1k
 id: node.transfer.field_weight_date
 field_name: field_weight_date
 entity_type: node
 bundle: transfer
 label: 'Weight Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

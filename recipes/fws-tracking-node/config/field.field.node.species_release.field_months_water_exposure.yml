@@ -7,7 +7,7 @@ dependencies:
     - node.type.species_release
     - taxonomy.vocabulary.months
 _core:
-  default_config_hash: UdgYP4oKUk-B57gqYSbuo3tHT95afMb2ZjhOLsgtYqw
+  default_config_hash: a5nSNfV9IAAw1yh01dDKdsBlpr-5ljqQ7BGlOhnO0FQ
 id: node.species_release.field_months_water_exposure
 field_name: field_months_water_exposure
 entity_type: node

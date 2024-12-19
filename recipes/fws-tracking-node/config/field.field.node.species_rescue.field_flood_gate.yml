@@ -6,13 +6,13 @@ dependencies:
     - field.storage.node.field_flood_gate
     - node.type.species_rescue
 _core:
-  default_config_hash: UhYo7rBB2kX5wMYn9fNw1fsRAFYNCCkjZoCpsLctVnY
+  default_config_hash: F-WZOx9rLfVMltZB-KnlJTvej7v9mV4G4N59-aUAtmY
 id: node.species_rescue.field_flood_gate
 field_name: field_flood_gate
 entity_type: node
 bundle: species_rescue
 label: 'Flood Gate Number'
-description: ''
+description: 'Identification of flood gate where trapped. Will only be used if primary or secondary cause of rescue was entrapment.'
 required: false
 translatable: true
 default_value: {  }

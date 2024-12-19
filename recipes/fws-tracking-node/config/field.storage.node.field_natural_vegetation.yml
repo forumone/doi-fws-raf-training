@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: MzLneVBt0I0msl6z3s4D4l2sMi5ybdBlLBjviRi_h10
+  default_config_hash: y1dEW8kshmWU_s2EItu-XkigPiIyq4f0PRdlnN7wOlc
 id: node.field_natural_vegetation
 field_name: field_natural_vegetation
 entity_type: node

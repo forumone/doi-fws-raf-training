@@ -58,20 +58,20 @@
 .tracking-search-form h3 {
   margin-top: 0;
 }
-.tracking-search-form .panel-group .panel-default {
+.tracking-search-form .panel .panel-default {
   margin-bottom: 20px;
 }
-.tracking-search-form .panel-group .panel-title {
+.tracking-search-form .panel .panel-title {
   padding: 0;
 }
-.tracking-search-form .panel-group .panel-title a {
+.tracking-search-form .panel .panel-title a {
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
   padding: 10px 15px;
 }
-.tracking-search-form .panel-group .panel-title a:not(.collapsed) .fa-caret-down {
+.tracking-search-form .panel .panel-title a:not(.collapsed) .fa-caret-down {
   transform: rotate(180deg);
 }
 
@@ -82,7 +82,7 @@
   text-decoration: none;
   padding: 10px 15px;
 }
-.field-group-details .panel-heading a:not(.collapsed) .fa-caret-down {
+.field-group-details .panel-heading a[aria-expanded=true] .fa-caret-down {
   transform: rotate(180deg);
 }
 

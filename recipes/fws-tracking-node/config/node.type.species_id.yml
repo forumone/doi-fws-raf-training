@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: h3ffzzy85kJtXj8qBFBYM9KScieisrh2p6CxbHO5LoM
+  default_config_hash: C-T4_3LGbYo-kRV_Nr1fGMQY4PeElERygpbCRSJiaak
 name: 'Species ID'
 type: species_id
 description: 'Stores identification numbers associated with captive species.'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

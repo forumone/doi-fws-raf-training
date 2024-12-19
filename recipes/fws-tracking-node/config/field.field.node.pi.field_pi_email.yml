@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_pi_email
     - node.type.pi
 _core:
-  default_config_hash: T6O4aFkAMQVwCkgHvJvKrkXxgVZ4TyfO4YwIEQqJYGY
+  default_config_hash: hPQbgr1-pjKeI_qC6d5zoKlgXhUWcCEYyQqRi3BzPfY
 id: node.pi.field_pi_email
 field_name: field_pi_email
 entity_type: node

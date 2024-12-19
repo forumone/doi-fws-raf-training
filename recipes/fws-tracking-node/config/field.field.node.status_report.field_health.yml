@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_health
     - node.type.status_report
 _core:
-  default_config_hash: Qm0-cjDa_jV5F8Vx99J6ht1C790NIEkewAChwAsyXyQ
+  default_config_hash: x_oWR-UG0nv6JiUPMD9VNy_Lhy9Q7xZ62cuOKt69S8A
 id: node.status_report.field_health
 field_name: field_health
 entity_type: node

@@ -7,12 +7,12 @@ dependencies:
     - node.type.species_prerelease
     - taxonomy.vocabulary.months
 _core:
-  default_config_hash: 1Si2y1rKzybXxEEweqk5tAfhun8QJ88hXAMI785X2nY
+  default_config_hash: B5QIH__5mM9GhVmTjp0JoUVO_-Z9blm0M5v6-yOxIe0
 id: node.species_prerelease.field_months_veg
 field_name: field_months_veg
 entity_type: node
 bundle: species_prerelease
-label: 'Months Veg'
+label: 'Exposure Time (months)'
 description: ''
 required: false
 translatable: true
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       months: months
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

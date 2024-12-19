@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_studbook
     - node.type.species
 _core:
-  default_config_hash: 4z0mHa-xgnPH6mhRuKRc5HX-Lta40kWdTSSWR3fy9r0
+  default_config_hash: 4pNygnwL0oRAtf5vPGk_1gBM4voEemW-TW1ZXwb9fmk
 id: node.species.field_studbook
 field_name: field_studbook
 entity_type: node

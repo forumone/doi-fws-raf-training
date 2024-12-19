@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_weight
     - node.type.transfer
 _core:
-  default_config_hash: aFYIsfQjA958EPlT6cC6QqXtd4ot1ZUWYtuVKAVgTnI
+  default_config_hash: 1rnfxtPchY6a1a22ZjCEWImEaV-s4hsHqO2OGvkCzPc
 id: node.transfer.field_weight
 field_name: field_weight
 entity_type: node
 bundle: transfer
 label: Weight
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -21,5 +21,5 @@ settings:
   min: null
   max: null
   prefix: ''
-  suffix: ''
+  suffix: kg
 field_type: integer

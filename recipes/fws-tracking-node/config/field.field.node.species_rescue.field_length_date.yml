@@ -8,14 +8,14 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: noaBecFRDIo7GLrfCNkrbq03f363BKoYgwq9VzP-9mE
+  default_config_hash: ImgjIHpbKoNZAKaMq25bjDDFYn-3kViDsBwThSG_Yk8
 id: node.species_rescue.field_length_date
 field_name: field_length_date
 entity_type: node
 bundle: species_rescue
-label: 'Length Date'
+label: 'Date Measured'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

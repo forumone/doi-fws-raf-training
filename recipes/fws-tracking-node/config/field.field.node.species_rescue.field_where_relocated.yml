@@ -6,12 +6,12 @@ dependencies:
     - field.storage.node.field_where_relocated
     - node.type.species_rescue
 _core:
-  default_config_hash: 2A_M73F7Z2iUswj4hDZS1n7F1k_D7UWwIHpfBWfJMRw
+  default_config_hash: XbuIyS7aRlSxxsRYyBxBz1bgRI2VBsVEc1R2TcacR9g
 id: node.species_rescue.field_where_relocated
 field_name: field_where_relocated
 entity_type: node
 bundle: species_rescue
-label: 'Where Relocated'
+label: 'Relocated, Where?'
 description: ''
 required: false
 translatable: true

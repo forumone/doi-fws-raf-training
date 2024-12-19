@@ -34,7 +34,7 @@ dependencies:
     - select2
     - text
 _core:
-  default_config_hash: biMMxudhS-Zth3fXViZNY5toi0SrezgbrqI2TcmEKL8
+  default_config_hash: XTY7WHmLtDftR7nuKchPYCEEfI5JY35wGaSRWy6vjQ4
 id: node.species_release.default
 targetEntityType: node
 bundle: species_release

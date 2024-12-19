@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: jgx5MN4GON_GRUcBHxDeekEOFCI0Lx7taA9A7lyydiQ
+  default_config_hash: tIVM8827bKiRsEjjS_g--OAjcouMEJXEXl0bIesBrIs
 id: node.field_nat_veg
 field_name: field_nat_veg
 entity_type: node

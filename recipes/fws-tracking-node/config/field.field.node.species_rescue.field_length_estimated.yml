@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_length_estimated
     - node.type.species_rescue
 _core:
-  default_config_hash: d0tAbjIt6l_y9m5gqsn0r5ZhRUmOctDPkIAfpBF61ok
+  default_config_hash: Z8XaLBOTBB2lq8aOyrVg_uX_UbSVU8s4dVIrQMhe9x0
 id: node.species_rescue.field_length_estimated
 field_name: field_length_estimated
 entity_type: node
 bundle: species_rescue
-label: 'Length Estimated'
+label: 'Estimated Length'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

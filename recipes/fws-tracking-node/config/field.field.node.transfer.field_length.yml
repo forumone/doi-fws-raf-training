@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_length
     - node.type.transfer
 _core:
-  default_config_hash: 3HB6rYFSehpkaPFNQpfzUSloY2spsQII07YKlizxujY
+  default_config_hash: HCtTcj33TyKs8OTfLognQFkbiEhBoR8abWJwUBcXGJ0
 id: node.transfer.field_length
 field_name: field_length
 entity_type: node
 bundle: transfer
 label: Length
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -21,5 +21,5 @@ settings:
   min: null
   max: null
   prefix: ''
-  suffix: ''
+  suffix: cm
 field_type: integer

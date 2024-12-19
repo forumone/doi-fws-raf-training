@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_bloods
     - node.type.status_report
 _core:
-  default_config_hash: J3jPdn0tiq-VvJ5PkR0rf22EdxBqUTqRS4pCG7KtKrA
+  default_config_hash: zYtJjRU8Ln3uYm0wFy3WXpcivSTIIN-bptwqaEmBHTo
 id: node.status_report.field_bloods
 field_name: field_bloods
 entity_type: node

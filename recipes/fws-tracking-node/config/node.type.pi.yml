@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: Y10qf-7LSTgpgI6PIWqMsSDzMsu_FBM97lHpwgJtAx0
+  default_config_hash: DD64Jo28Ji97bvGh4g4RXji4uJSO0hah056mz_mIn08
 name: PI
 type: pi
 description: 'Principal Investigator information'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

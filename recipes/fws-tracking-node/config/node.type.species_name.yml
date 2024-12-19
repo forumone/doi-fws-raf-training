@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 4NRkeKH_5OYE0fV3cUp9i4UZzgTVK6EJrj4R76ph9eU
+  default_config_hash: uYJkBis0BOhKQQLdWqHCW4JS4sYsHBL76b0y_QAdOn8
 name: 'Species Name'
 type: species_name
 description: 'Stores all names associated with a species.'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

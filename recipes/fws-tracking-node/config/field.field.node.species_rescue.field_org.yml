@@ -5,17 +5,21 @@ dependencies:
   config:
     - field.storage.node.field_org
     - node.type.species_rescue
+  content:
+    - 'taxonomy_term:org:a67c9770-3810-42bd-81a4-24d7653bd3e6'
 _core:
-  default_config_hash: 6l1qPxzYVmcfKwpukAPor-3w0xHDx-SYuS2J-krjoQs
+  default_config_hash: h5qtEC1FKIlC0nysKwSF9cn7Acy8V01i5MClJJMgTtI
 id: node.species_rescue.field_org
 field_name: field_org
 entity_type: node
 bundle: species_rescue
-label: 'Facility/Field Station'
+label: Organization
 description: ''
-required: false
+required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    target_uuid: a67c9770-3810-42bd-81a4-24d7653bd3e6
 default_value_callback: ''
 settings:
   handler: views

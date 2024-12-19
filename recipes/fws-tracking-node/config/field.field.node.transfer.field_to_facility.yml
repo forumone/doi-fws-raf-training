@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_to_facility
     - node.type.transfer
 _core:
-  default_config_hash: vsnBMWvpIc-cZ15nFqBnmI5hugeQ9QRy0GJZq23OLxY
+  default_config_hash: OekcheF1x3dTO6LBS5h6_IPgiYBYOnXO0Bz4HBViMpY
 id: node.transfer.field_to_facility
 field_name: field_to_facility
 entity_type: node
 bundle: transfer
 label: 'To Facility'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

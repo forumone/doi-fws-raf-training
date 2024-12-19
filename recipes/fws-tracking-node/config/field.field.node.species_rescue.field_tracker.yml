@@ -6,13 +6,13 @@ dependencies:
     - field.storage.node.field_tracker
     - node.type.species_rescue
 _core:
-  default_config_hash: nsKvCbI2-IJKYzjAckG5bTZ0ImHERhB2JrsStnkucgc
+  default_config_hash: pFgmBTTxXYY3TTUUsNFBuPQwvI47L46AVW6oxeOrfHw
 id: node.species_rescue.field_tracker
 field_name: field_tracker
 entity_type: node
 bundle: species_rescue
 label: Tracker
-description: ''
+description: 'The name of the person who tracked.'
 required: false
 translatable: true
 default_value: {  }
