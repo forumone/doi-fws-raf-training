@@ -7,14 +7,14 @@ dependencies:
     - node.type.species
     - node.type.species_death
 _core:
-  default_config_hash: RZucE_dvLANxV-DirqumT_---MjOBlLqhxCdrvQvO6E
+  default_config_hash: 9CIghr1C-mlL__hEqqjlhmBijNSSZN8FG9GsWNnjtnw
 id: node.species_death.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: species_death
 label: Species
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

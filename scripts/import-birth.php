@@ -73,6 +73,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       // ISO 8601.
       'field_weight_date' => parse_date($w_date, FALSE),
       'field_length' => $length,
+      'field_length_estimated' => $est_l == 'Y' ? 1 : 0,
+      // ISO 8601.
+      'field_length_date' => parse_date($l_date, FALSE),
       // UNIX timestamp.
       'created' => parse_date($create_date, TRUE),
       // UNIX timestamp.

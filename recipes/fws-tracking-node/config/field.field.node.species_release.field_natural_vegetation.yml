@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_natural_vegetation
     - node.type.species_release
 _core:
-  default_config_hash: jPEZ1Qdck_JNXVd0lvEr4g2rzFlUVe6tvnSWBG_lxqs
+  default_config_hash: h-GxQ_RqECJV6DNulL46pHKDuLnY-Qx3T6OnIpEPxLI
 id: node.species_release.field_natural_vegetation
 field_name: field_natural_vegetation
 entity_type: node

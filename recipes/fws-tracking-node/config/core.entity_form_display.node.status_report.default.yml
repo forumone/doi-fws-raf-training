@@ -21,12 +21,75 @@ dependencies:
     - field.field.node.status_report.field_weight_date
     - node.type.status_report
   module:
+    - allowed_formats
     - datetime
+    - field_group
     - path
     - select2
     - text
+third_party_settings:
+  field_group:
+    group_previous_status:
+      children:
+        - field_species_ref
+        - field_health
+        - field_health_diag
+        - field_status
+        - field_release_time
+        - field_vet_id
+        - field_org
+        - field_req_half_yr
+        - field_req_year
+      label: 'Status Information from previous status record'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        required_fields: true
+    group_new_status:
+      children:
+        - field_bloods
+      label: 'New Status Information (Enter for every status record)'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_measurements:
+      children:
+        - field_weight
+        - field_est_weight
+        - field_weight_date
+        - field_length
+        - field_est_length
+        - field_length_date
+      label: 'Measurements (Enter for every status record)'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
 _core:
-  default_config_hash: t-a_wcD9pZpfUgEneyCzYt7aQR7HBPhBp5ko3fFvhbg
+  default_config_hash: mxX5sX6ms3kuxIdLGEXVRe2pdK3RxJKUC8KqleXeu0A
 id: node.status_report.default
 targetEntityType: node
 bundle: status_report
@@ -34,13 +97,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 19
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_bloods:
     type: select2_entity_reference
-    weight: 2
+    weight: 9
     region: content
     settings:
       width: 100%
@@ -50,21 +113,21 @@ content:
     third_party_settings: {  }
   field_est_length:
     type: select2
-    weight: 3
+    weight: 14
     region: content
     settings:
       width: 100%
     third_party_settings: {  }
   field_est_weight:
     type: select2
-    weight: 4
+    weight: 11
     region: content
     settings:
       width: 100%
     third_party_settings: {  }
   field_health:
     type: select2_entity_reference
-    weight: 5
+    weight: 2
     region: content
     settings:
       width: 100%
@@ -74,28 +137,31 @@ content:
     third_party_settings: {  }
   field_health_diag:
     type: text_textarea
-    weight: 6
+    weight: 3
     region: content
     settings:
-      rows: 5
+      rows: 3
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
   field_length:
     type: number
-    weight: 7
+    weight: 13
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_length_date:
     type: datetime_default
-    weight: 8
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
   field_org:
     type: entity_reference_autocomplete
-    weight: 9
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
@@ -105,7 +171,7 @@ content:
     third_party_settings: {  }
   field_release_time:
     type: select2_entity_reference
-    weight: 10
+    weight: 5
     region: content
     settings:
       width: 100%
@@ -115,14 +181,14 @@ content:
     third_party_settings: {  }
   field_req_half_yr:
     type: select2
-    weight: 11
+    weight: 8
     region: content
     settings:
       width: 100%
     third_party_settings: {  }
   field_req_year:
     type: number
-    weight: 12
+    weight: 9
     region: content
     settings:
       placeholder: ''
@@ -139,7 +205,7 @@ content:
     third_party_settings: {  }
   field_status:
     type: select2_entity_reference
-    weight: 13
+    weight: 4
     region: content
     settings:
       width: 100%
@@ -149,7 +215,7 @@ content:
     third_party_settings: {  }
   field_vet_id:
     type: string_textfield
-    weight: 14
+    weight: 6
     region: content
     settings:
       size: 60
@@ -157,47 +223,47 @@ content:
     third_party_settings: {  }
   field_weight:
     type: number
-    weight: 15
+    weight: 10
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_weight_date:
     type: datetime_default
-    weight: 16
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 17
+    weight: 2
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 22
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 20
+    weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 24
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 21
+    weight: 10
     region: content
     settings:
       display_label: true
@@ -212,7 +278,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -221,7 +287,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 23
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_org
     - node.type.species_birth
 _core:
-  default_config_hash: aARi8040YrZ9aKyhsxl07bV_uBlKftgyCRXtQBghiDg
+  default_config_hash: Cl10-zLX2OM-d_9AwgWHLli92RymrGscACBSZL3oz-s
 id: node.species_birth.field_org
 field_name: field_org
 entity_type: node
 bundle: species_birth
-label: Organization
+label: Facility
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

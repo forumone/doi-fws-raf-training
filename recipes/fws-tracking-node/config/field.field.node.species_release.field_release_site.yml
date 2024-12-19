@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_release_site
     - node.type.species_release
 _core:
-  default_config_hash: qDp4MWG2jhr7vi7eN8qJSvaaz8MRX0XSJ90Y3AOc95E
+  default_config_hash: IXiHQFtVCcF_GMoWcxRObtQe06IoJxByZPajU3cxkik
 id: node.species_release.field_release_site
 field_name: field_release_site
 entity_type: node
 bundle: species_release
 label: 'Release Site'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

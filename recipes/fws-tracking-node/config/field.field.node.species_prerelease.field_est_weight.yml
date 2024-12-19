@@ -8,12 +8,12 @@ dependencies:
   module:
     - options
 _core:
-  default_config_hash: V3lOs6xPxmWfXR1I05CUI0v_Ouuj8cejqkgdxsEsteI
+  default_config_hash: _W084PAnAODfw10zKE_eWqHdf8Ie4roNMdu0-jVWdoc
 id: node.species_prerelease.field_est_weight
 field_name: field_est_weight
 entity_type: node
 bundle: species_prerelease
-label: 'Est Weight'
+label: 'Estimated Weight'
 description: ''
 required: true
 translatable: true

@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 544c0031-3a9e-4350-8129-5ebc57686f55
+  uuid: 49bdfae4-d9fe-4c36-984a-273d0e0d8a0f
   bundle: menu_link_content
   default_langcode: en
   depends:
@@ -12,13 +12,13 @@ default:
       value: true
   title:
     -
-      value: 'Pre-Release Authorization'
+      value: Manatee
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/node/add/species_prerelease'
+      uri: 'internal:/node/add/species'
       title: ''
       options: {  }
   external:
@@ -29,7 +29,7 @@ default:
       value: true
   weight:
     -
-      value: -47
+      value: -50
   expanded:
     -
       value: false

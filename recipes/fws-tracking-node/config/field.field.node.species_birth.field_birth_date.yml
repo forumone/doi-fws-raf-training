@@ -8,14 +8,14 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: Wz9QtDkvXKwrEgDurvf5VCp8yl26zLt0Xe89w8Pr3l4
+  default_config_hash: zLyusfq-rHFO-2PupSziEE_CdhCMrROO9IJC27DYgKY
 id: node.species_birth.field_birth_date
 field_name: field_birth_date
 entity_type: node
 bundle: species_birth
 label: 'Birth Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

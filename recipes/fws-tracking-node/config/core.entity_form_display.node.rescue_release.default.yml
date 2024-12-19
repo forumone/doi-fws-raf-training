@@ -12,7 +12,7 @@ dependencies:
     - datetime
     - path
 _core:
-  default_config_hash: gLklSGeY5soEbb8RoSMEIuo22f9UKVPQ2Qsw0VBimvI
+  default_config_hash: TMtBCOAfQXiuFLIKnwLVw0HMik34JtJxoakUm6rsfSc
 id: node.rescue_release.default
 targetEntityType: node
 bundle: rescue_release

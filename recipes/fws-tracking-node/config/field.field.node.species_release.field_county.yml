@@ -7,14 +7,14 @@ dependencies:
     - node.type.species_release
     - taxonomy.vocabulary.county
 _core:
-  default_config_hash: oV7CMxOxlfzZVzlN9gx0FnQK2zLzPoYy5ywS-SwQqig
+  default_config_hash: 1-7bxoDvjBSkVZWuGd9dAWy1l6Ti9_IlodlCRCZ_dGw
 id: node.species_release.field_county
 field_name: field_county
 entity_type: node
 bundle: species_release
 label: County
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       county: county
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

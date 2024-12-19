@@ -6,7 +6,7 @@ dependencies:
     - node
     - text
 _core:
-  default_config_hash: XiWP8M9crW3iEsJdb9GcB0t03UbZp4thyrlHzwpbe-0
+  default_config_hash: 94I3iRuKiF7rl9MfC8w2U82EiZexSLRwmlGARoFj9jI
 id: node.field_tag_info
 field_name: field_tag_info
 entity_type: node

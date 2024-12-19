@@ -7,7 +7,7 @@ dependencies:
     - node.type.species_release
     - taxonomy.vocabulary.months
 _core:
-  default_config_hash: PXEHAbUy_JEu5oAjuehCNmCUJ9oSdk1f2AYZQ7SGwso
+  default_config_hash: wRwh_0PbO1ecGVbqz1PewJvt2GDLWzsn98G-M_WlUxw
 id: node.species_release.field_months_vegetation
 field_name: field_months_vegetation
 entity_type: node

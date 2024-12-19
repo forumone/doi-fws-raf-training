@@ -8,12 +8,12 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: OxcK8c888JVuQTqTnVXtzXEFjQmmMjc7F1Mf0JJvWxA
+  default_config_hash: D1gkM5V6Sv6-UDC6D51GqG_QDWtNufsoMHDduVqP1C0
 id: node.status_report.field_length_date
 field_name: field_length_date
 entity_type: node
 bundle: status_report
-label: 'Length Date'
+label: 'Date Measured'
 description: ''
 required: false
 translatable: true

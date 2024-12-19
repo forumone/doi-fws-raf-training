@@ -19,11 +19,66 @@ dependencies:
     - node.type.transfer
   module:
     - datetime
+    - field_group
     - path
     - select2
     - text
+third_party_settings:
+  field_group:
+    group_transfer_info:
+      children:
+        - field_species_ref
+        - field_reason
+        - field_transfer_date
+        - field_from_facility
+        - field_to_facility
+      label: 'Transfer Information'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        required_fields: true
+    group_measurements:
+      children:
+        - field_weight
+        - field_estimated_weight
+        - field_weight_date
+        - field_length
+        - field_estimated_length
+        - field_length_date
+      label: Measurements
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        required_fields: true
+    group_veterinary:
+      children:
+        - field_veterinarian
+        - field_comments
+      label: 'Veterinary Information'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        required_fields: true
 _core:
-  default_config_hash: xQZBzOVraZosn5qU5nTtNfzU6xSSpAnfIEEwGrAXwjY
+  default_config_hash: lti9dJDpoEnrKyJWSPzZPaqqPOrWMJrwmfnogWEE7gc
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer

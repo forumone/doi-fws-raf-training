@@ -7,14 +7,14 @@ dependencies:
     - node.type.species
     - node.type.species_release
 _core:
-  default_config_hash: 8MhwcE_BdkCzsqUR7DVNvRJinz4dDxI-rMGwxVeA4gQ
+  default_config_hash: 5mJsC0VZBSTe60Qb-W8xLwYMubr1qDyqArjwy_8jyAE
 id: node.species_release.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: species_release
 label: Species
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

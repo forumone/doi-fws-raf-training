@@ -7,14 +7,14 @@ dependencies:
     - node.type.species
     - node.type.status_report
 _core:
-  default_config_hash: AKRVPjeDv5hwnBHlw0c95aZNgyLc9vciudb6ms9kHM8
+  default_config_hash: svhOkrUhwbVPLQxtHq4bb6XUL_OL_jhzP30M_j8eHpk
 id: node.status_report.field_species_ref
 field_name: field_species_ref
 entity_type: node
 bundle: status_report
 label: Species
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -23,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

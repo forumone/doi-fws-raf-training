@@ -8,12 +8,12 @@ dependencies:
   module:
     - options
 _core:
-  default_config_hash: JJZLCzGXdKEiZqsN-pHF9VzVtR1OJWrJ709T1HCXh2U
+  default_config_hash: Wpxm-jny5Ouh8xcvqAkNgoA1JwKdeo6QGzR50y6fOGk
 id: node.species_prerelease.field_est_length
 field_name: field_est_length
 entity_type: node
 bundle: species_prerelease
-label: 'Est Length'
+label: 'Estimated Length'
 description: ''
 required: true
 translatable: true

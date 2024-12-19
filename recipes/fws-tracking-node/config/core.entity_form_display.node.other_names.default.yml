@@ -11,7 +11,7 @@ dependencies:
     - path
     - select2
 _core:
-  default_config_hash: f4hmbcNWpQwQbjzUczcv6imyj_bOEeaiEHJ9JUu46es
+  default_config_hash: KcPGlfNI-F6ViZivFnJ1qskhmOZ-YB0WZ8k9bt47_Ts
 id: node.other_names.default
 targetEntityType: node
 bundle: other_names

@@ -7,7 +7,7 @@ dependencies:
     - node.type.other_names
     - taxonomy.vocabulary.system
 _core:
-  default_config_hash: BlDVTD4awRsM_dfJSrAyE8t9DGnsr068TfwDTWjisu0
+  default_config_hash: wsijHohTZLgYgPbwWHy3N_TpSp6DYOS_DgB5HHKUHKQ
 id: node.other_names.field_system
 field_name: field_system
 entity_type: node

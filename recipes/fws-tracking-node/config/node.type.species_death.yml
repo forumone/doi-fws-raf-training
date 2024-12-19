@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: RNIb-iG9IKQ5zPuvi2MX2Xwjts1nkMn80j-sMRZeWak
+  default_config_hash: xUfg9eXzjaPN0Fd9_Y88BIsrB_kphqMbzkkV8fSCvdQ
 name: 'Species Death Record'
 type: species_death
 description: 'Records information associated with a death of a species whether in a facility, during rescue or transport, or in the wild.'

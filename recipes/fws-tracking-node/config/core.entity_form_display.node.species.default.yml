@@ -14,7 +14,7 @@ dependencies:
     - path
     - select2
 _core:
-  default_config_hash: k9JKAb8lTAt3W0WZOUiqdmpMwA2uOO4fA64cYWA4PuA
+  default_config_hash: DZGFCpRItrBMGJnA06nzzXcCe-_4Q6XKuaRpD7W98Vo
 id: node.species.default
 targetEntityType: node
 bundle: species

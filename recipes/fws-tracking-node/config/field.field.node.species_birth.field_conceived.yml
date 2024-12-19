@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_conceived
     - node.type.species_birth
 _core:
-  default_config_hash: bDw6ApMqBurU16j-88hOLXm1rsGuyhc-faP6Z7a0yzU
+  default_config_hash: '-L4dxuGBBeG1Jx22hqCXgSA5gYpMnulV6PvXcfvFsbs'
 id: node.species_birth.field_conceived
 field_name: field_conceived
 entity_type: node
 bundle: species_birth
-label: 'Where Conceived'
+label: 'Where Conceived?'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

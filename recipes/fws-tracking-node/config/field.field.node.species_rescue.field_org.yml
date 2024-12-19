@@ -5,10 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_org
     - node.type.species_rescue
-  content:
-    - 'taxonomy_term:org:a67c9770-3810-42bd-81a4-24d7653bd3e6'
 _core:
-  default_config_hash: h5qtEC1FKIlC0nysKwSF9cn7Acy8V01i5MClJJMgTtI
+  default_config_hash: lSB9MKtoCDQ6siIEwlo-WH1b7qZv0ZSH_1vJXGFDDfA
 id: node.species_rescue.field_org
 field_name: field_org
 entity_type: node

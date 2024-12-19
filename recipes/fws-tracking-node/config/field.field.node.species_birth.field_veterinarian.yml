@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_veterinarian
     - node.type.species_birth
 _core:
-  default_config_hash: 04ovrLa9P3-HQVezcc83Ji96wI3DL6SidQJQpYUhnig
+  default_config_hash: LSp_91ZmfRLXpiQ_HEDH2WZrbjxTDlJXSUtLiye8B1Y
 id: node.species_birth.field_veterinarian
 field_name: field_veterinarian
 entity_type: node
 bundle: species_birth
 label: Veterinarian
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

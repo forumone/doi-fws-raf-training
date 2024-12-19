@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_vegetation_type
     - node.type.species_release
 _core:
-  default_config_hash: EukuwFgKwNcccaA1szqn1xrDe2ZD0_cpmMRZUAH6r9s
+  default_config_hash: feSXk0vPGb-XyJJRZ-GvIgdnytAMsKU0YgH_ZfCB1aQ
 id: node.species_release.field_vegetation_type
 field_name: field_vegetation_type
 entity_type: node

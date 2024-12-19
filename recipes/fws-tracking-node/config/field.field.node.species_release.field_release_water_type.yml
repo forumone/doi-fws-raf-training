@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_release_water_type
     - node.type.species_release
 _core:
-  default_config_hash: z2Tacxbm5j1LDu06soAXzAF5NiHTlzzkPzT4DMNKtmw
+  default_config_hash: 05mwL7g9jCkAHpIvEFlead8DmUWqvwSxWhsKq8lqwvU
 id: node.species_release.field_release_water_type
 field_name: field_release_water_type
 entity_type: node

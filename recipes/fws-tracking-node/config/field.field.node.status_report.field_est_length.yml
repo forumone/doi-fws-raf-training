@@ -8,14 +8,14 @@ dependencies:
   module:
     - options
 _core:
-  default_config_hash: hK9ROH8m1CbfozwPxaFT-0XrJTPjIhUYUcar_E9ddXc
+  default_config_hash: kQcZSfny0ftrtksxDVEWF5wnX6NjRNj4uL3bjAYOGvs
 id: node.status_report.field_est_length
 field_name: field_est_length
 entity_type: node
 bundle: status_report
 label: 'Estimated Length'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

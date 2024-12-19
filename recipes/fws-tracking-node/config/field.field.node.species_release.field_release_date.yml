@@ -8,14 +8,14 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: rhwJ_yq0Ba-h4_QE4Xm2smlMS2vVEeLzsWcVQzbU48c
+  default_config_hash: y4ws-GA6tgB5E4sG4OPIpM0oQ9W55sjzIRnGEffG6m0
 id: node.species_release.field_release_date
 field_name: field_release_date
 entity_type: node
 bundle: species_release
 label: 'Release Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

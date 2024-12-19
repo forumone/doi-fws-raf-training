@@ -7,7 +7,7 @@ dependencies:
     - node.type.species_entangle
     - taxonomy.vocabulary.gear_type
 _core:
-  default_config_hash: aBl7I8iUZKyN5s17_xDuY6dpDZjks-DY268brM-KW_U
+  default_config_hash: 6E_RQ7V5gVE36zwNdnodcut4gKPUt6ojQpDcc6WuaD0
 id: node.species_entangle.field_gear_type
 field_name: field_gear_type
 entity_type: node

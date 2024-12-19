@@ -134,10 +134,12 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        open: true
+        label_as_html: false
+        open: false
+        description: ''
         required_fields: true
 _core:
-  default_config_hash: MUXYGJO3ZsSSwakOHZKvAEdiI1Ef3Q4eIrowR5kIwJk
+  default_config_hash: yI8e_qi_qOkF0_cinRkHLuf_4pYHPEALbZek5mzVcyA
 id: node.species_prerelease.default
 targetEntityType: node
 bundle: species_prerelease

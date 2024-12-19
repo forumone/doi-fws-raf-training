@@ -6,7 +6,7 @@ dependencies:
     - node
     - options
 _core:
-  default_config_hash: 5PieXgeyULhoIS9SY06E_KsjfH7289bjF2RUioHsfCQ
+  default_config_hash: foxX9QfJ18h_myNEwyGcQyms0GXNFsNlAlwmnKPtpZ8
 id: node.field_req_half_yr
 field_name: field_req_half_yr
 entity_type: node

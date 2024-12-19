@@ -68,6 +68,7 @@ install:
   - metatag
   - node_revision_delete
   - pathauto
+  - prepopulate
   - redirect
   - responsive_image
   - rules
@@ -160,6 +161,7 @@ config:
     paragraphs: '*'
     paragraphs_ee: '*'
     paragraphs_features: '*'
+    prepopulate: '*'
     redirect: '*'
     responsive_image: '*'
     select2: '*'

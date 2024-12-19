@@ -8,12 +8,12 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: XvwUShWSsKgrJUlMIPUC0ZcjGirtPTYlKnafGhdFwKg
+  default_config_hash: Pz0P13YnPSW4VotVntF9oFGSI64YkKdDEIKJIT0tCU8
 id: node.species_prerelease.field_length_date
 field_name: field_length_date
 entity_type: node
 bundle: species_prerelease
-label: 'Length Date'
+label: 'Date Measured'
 description: ''
 required: true
 translatable: true

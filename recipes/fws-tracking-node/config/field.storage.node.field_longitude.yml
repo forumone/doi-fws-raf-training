@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: 4bnCipyCB2luKbKQluQnhPklz3dtDjelSGHLqrSzAMM
+  default_config_hash: SV-XqMs263EigBcNHnQL4bYKtzwqE-NMc_HuLNvs1H4
 id: node.field_longitude
 field_name: field_longitude
 entity_type: node

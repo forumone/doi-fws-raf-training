@@ -8,12 +8,12 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 8xUi1GlPaa_QPRe4yNJfu1W9z-BpF9bbvSaV9oNDVFQ
+  default_config_hash: LOCH9kXEVlZBtvjJFyWrsCubTVyxjOtC16T70QTq2lQ
 id: node.species_release.field_comments
 field_name: field_comments
 entity_type: node
 bundle: species_release
-label: Comments
+label: 'Additional Narrative'
 description: ''
 required: false
 translatable: true

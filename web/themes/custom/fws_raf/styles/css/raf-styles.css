@@ -263,6 +263,7 @@ input.form-autocomplete {
 .page-node-edit .form-item.form-inline label,
 .page-node-add .form-item.form-inline label {
   display: inline;
+  margin-right: 3px;
 }
 .page-node-edit .form-item label,
 .page-node-add .form-item label {

@@ -8,14 +8,14 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 2P0auOjdqzjKkUfDIan1vt5QamM1PxqIdx8_Qcp_y1w
+  default_config_hash: Uptqq2K4gZNmkGQORBVzBQrdNz6yJ22yfTOiAR6vC1k
 id: node.status_report.field_health_diag
 field_name: field_health_diag
 entity_type: node
 bundle: status_report
 label: 'Health Diagnosis'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

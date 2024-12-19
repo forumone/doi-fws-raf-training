@@ -103,7 +103,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
 
     // Parse death date.
-    $parsed_death_date = parse_datetime($death_date);
+    $parsed_death_date = parse_date($death_date);
     if (is_null($parsed_death_date)) {
       print("\nError: Invalid DeathDate '$death_date' in row $row_count.\n");
       $error_count++;

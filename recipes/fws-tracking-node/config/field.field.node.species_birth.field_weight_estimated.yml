@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_weight_estimated
     - node.type.species_birth
 _core:
-  default_config_hash: gKxAJwHJBSEqF4p-5qNr1r8ua38oES-XWXlrtBgkBe0
+  default_config_hash: S1hCD_ya__9SiGqX5uBE3fLe1HzY98U6tTpZpaUn8jk
 id: node.species_birth.field_weight_estimated
 field_name: field_weight_estimated
 entity_type: node
 bundle: species_birth
-label: 'Weight Estimated?'
+label: 'Estimated Weight'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
