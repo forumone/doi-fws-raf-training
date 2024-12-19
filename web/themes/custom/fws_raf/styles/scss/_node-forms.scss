@@ -1,0 +1,54 @@
+.page-node-edit,
+.page-node-add {
+  .form-type-vertical-tabs {
+    padding-top: 20px;
+  }
+
+  .form-item {
+    &.form-inline label {
+      display: inline;
+    }
+
+    label {
+      display: block;
+
+      &.ck.ck-voice-label {
+        display: none !important;
+      }
+    }
+  }
+
+  .field-multiple-table {
+    .label {
+      font-size: initial;
+    }
+  }
+
+  .select-wrapper {
+    width: 300px;
+  }
+
+  .main-container {
+    max-width: 900px;
+  }
+
+  .form-text {
+    width: 500px;
+  }
+
+  .form-required:after {
+    margin-left: 3px;
+  }
+
+  .text-format-wrapper {
+    .form-type-select .select-wrapper:after {
+      z-index: 1;
+      top: 24px;
+      right: 0;
+    }
+
+    .form-type-select .select-wrapper select {
+      min-height: initial;
+    }
+  }
+}

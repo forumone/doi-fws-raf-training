@@ -1,0 +1,84 @@
+@use 'variables' as v;
+
+header#navbar {
+  #navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  @media (min-width: v.$desktop-breakpoint) {
+    .navbar-header {
+      min-width: 250px;
+    }
+  }
+
+  @media (max-width: v.$mobile-breakpoint) {
+    >.container {
+      width: 100%;
+    }
+  }
+}
+
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+.mb-menuwrapper {
+  @media (max-width: v.$mobile-breakpoint) {
+    height: calc(100% - 115px);
+    top: 115px;
+  }
+}
+
+.fws-branding__logo {
+  img {
+    width: 100%;
+  }
+}
+
+.navbar-main {
+  width: auto;
+  margin-bottom: 0;
+
+  .navbar-nav {
+    float: right;
+    margin-top: 20px;
+
+    >li>a {
+      font-size: 1.062em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+
+    >li>a {
+      background-color: #fff;
+      color: #333;
+      padding: 10px 15px;
+
+      &:hover,
+      &:focus {
+        background-color: #337ab7;
+        color: #fff;
+      }
+    }
+
+    >li.active>a {
+      font-weight: bold;
+    }
+  }
+}
+
+.navbar-default .navbar-nav>.active>a {
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}

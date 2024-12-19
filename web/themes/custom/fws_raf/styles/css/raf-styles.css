@@ -75,21 +75,6 @@
   transform: rotate(180deg);
 }
 
-.field-group-details .panel-heading a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-decoration: none;
-  padding: 10px 15px;
-}
-.field-group-details .panel-heading a[aria-expanded=true] .fa-caret-down {
-  transform: rotate(180deg);
-}
-
-#block-fws-raf-mainnavigation {
-  display: none;
-}
-
 header#navbar #navbar-collapse {
   border-top: 0;
   box-shadow: none;
@@ -103,6 +88,10 @@ header#navbar #navbar-collapse {
   header#navbar > .container {
     width: 100%;
   }
+}
+
+#block-fws-raf-mainnavigation {
+  display: none;
 }
 
 @media (max-width: 991px) {
@@ -230,6 +219,17 @@ header#navbar #navbar-collapse {
   right: 5px !important;
 }
 
+.field-group-details .panel-heading a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+.field-group-details .panel-heading a[aria-expanded=true] .fa-caret-down {
+  transform: rotate(180deg);
+}
+
 .input-group .input-group-addon {
   display: none;
 }
@@ -292,18 +292,15 @@ input.form-autocomplete {
 .page-node-add .form-required:after {
   margin-left: 3px;
 }
-
-.form-inline .control-label {
-  margin-right: 10px;
-}
-
-.filter-wrapper .form-type-select .select-wrapper select {
-  min-height: initial;
-}
-.filter-wrapper .form-type-select .select-wrapper:after {
-  z-index: 10;
+.page-node-edit .text-format-wrapper .form-type-select .select-wrapper:after,
+.page-node-add .text-format-wrapper .form-type-select .select-wrapper:after {
+  z-index: 1;
   top: 24px;
-  right: 4px;
+  right: 0;
+}
+.page-node-edit .text-format-wrapper .form-type-select .select-wrapper select,
+.page-node-add .text-format-wrapper .form-type-select .select-wrapper select {
+  min-height: initial;
 }
 
 .species-search-results .results-count {
