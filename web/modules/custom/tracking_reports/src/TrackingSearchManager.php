@@ -190,27 +190,42 @@ class TrackingSearchManager {
           break;
 
         case 'field_name':
-          $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-            ->condition('type', 'species_name')
-            ->condition('field_name', '%' . $condition['value'] . '%', 'LIKE')
-            ->accessCheck(FALSE);
-          $name_matches = $name_query->execute();
-          if (!empty($name_matches)) {
-            $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_matches);
-            $species_ids = [];
-            foreach ($name_nodes as $name_node) {
-              if (!$name_node->field_species_ref->isEmpty()) {
-                $species_ids[] = $name_node->field_species_ref->target_id;
+          // Get all species nodes that have a name containing the search value.
+          $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', 'species')
+            ->accessCheck(FALSE)
+            ->execute();
+
+          if (!empty($species_query)) {
+            $matching_species_ids = [];
+            $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_query);
+
+            foreach ($species_nodes as $species_node) {
+              if ($species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+                $names_paragraphs = $species_node->field_names->referencedEntities();
+                foreach ($names_paragraphs as $paragraph) {
+                  if ($paragraph->hasField('field_name') && !$paragraph->field_name->isEmpty()) {
+                    $name = $paragraph->field_name->value;
+                    if (stripos($name, $condition['value']) !== FALSE) {
+                      $matching_species_ids[] = $species_node->id();
+                      // Found a match, no need to check other names.
+                      break;
+                    }
+                  }
+                }
               }
             }
-            if (!empty($species_ids)) {
-              $query->condition('nid', $species_ids, 'IN');
+
+            if (!empty($matching_species_ids)) {
+              $query->condition('nid', $matching_species_ids, 'IN');
             }
             else {
+              // Force no results if no matches found.
               $query->condition('nid', 0);
             }
           }
           else {
+            // Force no results if no species found.
             $query->condition('nid', 0);
           }
           break;
@@ -789,17 +804,17 @@ class TrackingSearchManager {
    * Get primary name for a species.
    */
   public function getPrimaryName($species_id) {
-    $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_species_ref', $species_id)
-      ->condition('field_primary', 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    if (!empty($name_query)) {
-      $name_node = $this->entityTypeManager->getStorage('node')->load(reset($name_query));
-      if ($name_node && !$name_node->field_name->isEmpty()) {
-        return $name_node->field_name->value;
+    $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
+    if ($species_node && $species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+      $names_paragraphs = $species_node->field_names->referencedEntities();
+      foreach ($names_paragraphs as $paragraph) {
+        if ($paragraph->hasField('field_primary') &&
+            !$paragraph->field_primary->isEmpty() &&
+            $paragraph->field_primary->value == 1 &&
+            $paragraph->hasField('field_name') &&
+            !$paragraph->field_name->isEmpty()) {
+          return $paragraph->field_name->value;
+        }
       }
     }
     return 'N/A';
@@ -950,26 +965,37 @@ class TrackingSearchManager {
    *   Array of matching species names.
    */
   public function getSpeciesNameMatches($string) {
-    $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_name', $string, 'CONTAINS')
+    // First, get all species nodes.
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species')
       ->accessCheck(FALSE)
-      ->range(0, 10);
+      ->execute();
 
-    $entity_ids = $query->execute();
     $matches = [];
+    if (!empty($species_query)) {
+      $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_query);
 
-    if (!empty($entity_ids)) {
-      $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($entity_ids);
-      foreach ($entities as $entity) {
-        if (!$entity->field_name->isEmpty()) {
-          $name = $entity->field_name->value;
-          $matches[] = [
-            'value' => $name,
-            'label' => $name,
-          ];
+      foreach ($species_nodes as $species_node) {
+        if ($species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+          $names_paragraphs = $species_node->field_names->referencedEntities();
+          foreach ($names_paragraphs as $paragraph) {
+            if ($paragraph->hasField('field_name') && !$paragraph->field_name->isEmpty()) {
+              $name = $paragraph->field_name->value;
+              // Check if the name contains the search string.
+              if (stripos($name, $string) !== FALSE) {
+                $matches[] = [
+                  'value' => $name,
+                  'label' => $name,
+                ];
+              }
+            }
+          }
         }
       }
+
+      // Remove duplicates and limit to 10 results.
+      $matches = array_unique($matches, SORT_REGULAR);
+      $matches = array_slice($matches, 0, 10);
     }
 
     return $matches;

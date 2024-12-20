@@ -6,7 +6,7 @@ dependencies:
     - node
     - options
 _core:
-  default_config_hash: zJEgs6MbYKODGHrOKWZYIE6Tx9G3eHr57s1H2OJXI6o
+  default_config_hash: apRnIfKRTTH25d6OLF0ifhCTS2VL8NAx_EaRlHfiMWs
 id: node.field_est_weight
 field_name: field_est_weight
 entity_type: node

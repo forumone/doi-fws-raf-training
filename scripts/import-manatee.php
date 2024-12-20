@@ -2,51 +2,57 @@
 
 /**
  * @file
- * Drush script to import T_Manatee.csv data into species content type nodes.
- * Updates existing nodes if they already exist.
+ * Drush script to import Manatee data and names into species nodes with paragraphs.
  *
- * Usage: drush scr scripts/import_species.php.
+ * Usage: drush scr scripts/import_manatee_data.php.
  */
 
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 
-$csv_file = '../scripts/data/T_Manatee.csv';
-if (!file_exists($csv_file)) {
-  exit('CSV file not found at: ' . $csv_file);
+// Configuration.
+$species_csv = '../scripts/data/T_Manatee.csv';
+$names_csv = '../scripts/data/T_Manatee_Name.csv';
+
+// Verify files exist.
+if (!file_exists($species_csv) || !file_exists($names_csv)) {
+  exit("One or more CSV files not found.\n");
 }
 
 // Initialize counters.
-$row_count = 0;
-$created_count = 0;
-$updated_count = 0;
+$species_count = 0;
+$species_created = 0;
+$species_updated = 0;
+$names_count = 0;
+$names_created = 0;
 $error_count = 0;
 
 // Arrays to hold data for second pass.
 $data_rows = [];
 $number_to_nid = [];
 
-// Open CSV file.
-$handle = fopen($csv_file, 'r');
+// First Pass: Import species nodes without parent references.
+print("\nStarting species import...\n");
+
+$handle = fopen($species_csv, 'r');
 if (!$handle) {
-  exit('Error opening CSV file.');
+  exit('Error opening species CSV file.');
 }
 
 // Skip header row.
 fgetcsv($handle);
 
-// First Pass: Import nodes without 'field_dam' and 'field_sire'.
 while (($data = fgetcsv($handle)) !== FALSE) {
-  $row_count++;
+  $species_count++;
 
-  // Store the data for the second pass.
+  // Store data for second pass.
   $data_rows[] = $data;
 
   try {
-    // CSV columns from T_Manatee: MLog,Sex,Dam,Sire,Rearing,StudBook,CreateBy,CreateDate,UpdateBy,UpdateDate.
+    // CSV columns from T_Manatee.
     [$number, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
 
-    // Check if node already exists.
+    // Check if node exists.
     $existing_nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadByProperties([
@@ -61,7 +67,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_sex' => [
         'target_id' => get_sex_term_id($sex),
       ],
-      // Exclude 'field_dam' and 'field_sire' for now.
       'field_rearing' => [
         'target_id' => get_rearing_term_id($rearing),
       ],
@@ -77,7 +82,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         $node->set($field, $value);
       }
       print("\nUpdating existing species node: Manatee $number");
-      $updated_count++;
+      $species_updated++;
     }
     else {
       // Create new node.
@@ -85,39 +90,31 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       $node_data['created'] = strtotime($create_date);
       $node = Node::create($node_data);
       print("\nCreating new species node: Manatee $number");
-      $created_count++;
+      $species_created++;
     }
 
     $node->save();
-
-    // Map 'number' to node ID for the second pass.
     $number_to_nid[$number] = $node->id();
-
-  }
-  catch (EntityStorageException $e) {
-    print("\nError on row $row_count: " . $e->getMessage());
-    $error_count++;
   }
   catch (Exception $e) {
-    print("\nGeneral error on row $row_count: " . $e->getMessage());
+    print("\nError processing species $number: " . $e->getMessage());
     $error_count++;
   }
 }
 
 fclose($handle);
 
-// Second Pass: Update 'field_dam' and 'field_sire' fields.
-print("\n\nStarting second pass to update 'field_dam' and 'field_sire' fields.\n");
+// Second Pass: Update parent references.
+print("\n\nUpdating parent references...\n");
 
 foreach ($data_rows as $data) {
-  try {
-    [$number, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
+  [$number, $sex, $dam, $sire, $rearing, $studbook, $create_by, $create_date, $update_by, $update_date] = $data;
 
-    // Load the node by 'number'.
+  try {
     $node_id = $number_to_nid[$number];
     $node = Node::load($node_id);
 
-    // Update 'field_dam' and 'field_sire' if they exist in the mapping.
+    // Update parent references if they exist.
     $dam_id = $number_to_nid[$dam] ?? NULL;
     $sire_id = $number_to_nid[$sire] ?? NULL;
 
@@ -129,24 +126,88 @@ foreach ($data_rows as $data) {
     }
 
     $node->save();
-    print("\nUpdated 'field_dam' and 'field_sire' for Manatee $number");
-
-  }
-  catch (EntityStorageException $e) {
-    print("\nError updating 'field_dam' and 'field_sire' for Manatee $number: " . $e->getMessage());
-    $error_count++;
+    print("\nUpdated parents for Manatee $number");
   }
   catch (Exception $e) {
-    print("\nGeneral error updating 'field_dam' and 'field_sire' for Manatee $number: " . $e->getMessage());
+    print("\nError updating parents for $number: " . $e->getMessage());
     $error_count++;
   }
 }
 
+// Third Pass: Import names as paragraphs.
+print("\n\nImporting names as paragraphs...\n");
+
+$handle = fopen($names_csv, 'r');
+if (!$handle) {
+  exit('Error opening names CSV file.');
+}
+
+// Skip and validate header.
+$header = fgetcsv($handle);
+$expected_headers = ['MLog', 'Name', 'Primary', 'CreateBy', 'CreateDate', 'UpdateBy', 'UpdateDate'];
+$missing_headers = array_diff($expected_headers, $header);
+if (!empty($missing_headers)) {
+  exit("Names CSV is missing headers: " . implode(', ', $missing_headers));
+}
+
+while (($data = fgetcsv($handle)) !== FALSE) {
+  $names_count++;
+  $row = array_combine($header, $data);
+
+  try {
+    $number = trim($row['MLog']);
+    $name = trim($row['Name']);
+    $primary = trim($row['Primary']);
+
+    // Skip if required fields are empty.
+    if (empty($number) || empty($name)) {
+      print("\nSkipping row with missing data");
+      continue;
+    }
+
+    // Get the species node.
+    if (!isset($number_to_nid[$number])) {
+      print("\nSpecies not found for MLog: $number");
+      continue;
+    }
+
+    $node = Node::load($number_to_nid[$number]);
+
+    // Create new name paragraph.
+    $paragraph = Paragraph::create([
+      'type' => 'species_name',
+      'field_name' => $name,
+      'field_primary' => filter_var($primary, FILTER_VALIDATE_BOOLEAN),
+    ]);
+    $paragraph->save();
+
+    // Add paragraph to species node.
+    $current_names = $node->get('field_names')->getValue();
+    $current_names[] = [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ];
+    $node->set('field_names', $current_names);
+    $node->save();
+
+    $names_created++;
+    print("\nAdded name '$name' to Manatee $number");
+  }
+  catch (Exception $e) {
+    print("\nError adding name for $number: " . $e->getMessage());
+    $error_count++;
+  }
+}
+
+fclose($handle);
+
 // Print summary.
-print("\nImport completed:");
-print("\nTotal rows processed: $row_count");
-print("\nNewly created: $created_count");
-print("\nUpdated: $updated_count");
+print("\n\nImport completed:");
+print("\nSpecies processed: $species_count");
+print("\nSpecies created: $species_created");
+print("\nSpecies updated: $species_updated");
+print("\nNames processed: $names_count");
+print("\nNames created: $names_created");
 print("\nErrors: $error_count\n");
 
 /**
@@ -187,6 +248,15 @@ function get_rearing_term_id($rearing) {
  * Helper function to get user ID from username.
  */
 function get_user_id($username) {
+  if (empty($username)) {
+    return 1;
+  }
+
+  // Use super admin for 'D'.
+  if ($username == 'D') {
+    return 1;
+  }
+
   $users = \Drupal::entityTypeManager()
     ->getStorage('user')
     ->loadByProperties(['name' => $username]);
@@ -194,6 +264,7 @@ function get_user_id($username) {
   if (!empty($users)) {
     return reset($users)->id();
   }
-  // Default to user 1 if not found.
+
+  print("\nWarning: User '$username' not found, using admin (uid:1)");
   return 1;
 }

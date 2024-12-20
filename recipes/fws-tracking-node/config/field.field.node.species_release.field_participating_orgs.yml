@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_participating_orgs
     - node.type.species_release
 _core:
-  default_config_hash: bFJhLx5xOEb2NgnZ3NXfRw8VIWmlc6VyIbJU2CM9S9g
+  default_config_hash: N8g8zNqwz3K1EOn5mFdyCJGrE9wDxBshqmtIzJlQhww
 id: node.species_release.field_participating_orgs
 field_name: field_participating_orgs
 entity_type: node

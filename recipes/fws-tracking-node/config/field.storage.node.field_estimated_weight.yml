@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: ObN-NOnqV8nuOwYnxRlDGbrSMbssvtq5Ys7zFe7yb9g
+  default_config_hash: we_I85BLyh_FfGUhQqDhQfujtIAPv-0rNLA0GSITgBg
 id: node.field_estimated_weight
 field_name: field_estimated_weight
 entity_type: node

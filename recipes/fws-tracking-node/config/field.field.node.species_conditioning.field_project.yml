@@ -7,7 +7,7 @@ dependencies:
     - node.type.research_project
     - node.type.species_conditioning
 _core:
-  default_config_hash: Em91_TTGQnmdy6l3czEMSy0X_ztKqkymcmm6Rmq9g-A
+  default_config_hash: '-p-QFPY6JVJB99a8BM5ux0UW0CwidMc_hylFf8cd7hA'
 id: node.species_conditioning.field_project
 field_name: field_project
 entity_type: node

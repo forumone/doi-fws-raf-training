@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.species.field_dam
+    - field.field.node.species.field_names
     - field.field.node.species.field_number
     - field.field.node.species.field_rearing
     - field.field.node.species.field_sex
@@ -11,9 +12,10 @@ dependencies:
     - field.field.node.species.field_studbook
     - node.type.species
   module:
+    - entity_reference_revisions
     - user
 _core:
-  default_config_hash: cIAsVRiXmTE0My8haZK81giZXM1PNMB_qxYW1CHmyik
+  default_config_hash: Ss3BsROymGsD6GnASG2VWcAYL4tD55WfoLsqu46Tl7g
 id: node.species.default
 targetEntityType: node
 bundle: species
@@ -26,6 +28,15 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_names:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 101
     region: content
   field_rearing:
     type: entity_reference_label

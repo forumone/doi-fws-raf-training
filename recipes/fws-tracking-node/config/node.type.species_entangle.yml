@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: xU9va7pvchvzMKLfFfk9NADqG3LzmtEYZBgiCPAOnIU
+  default_config_hash: yWXIqxZsjzX2UXG07hsLqfoGwTacrxx_npv-mccfPFk
 name: 'Species Entanglement'
 type: species_entangle
 description: 'Records entanglement rescue details for species'

@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_permit_number
     - node.type.research_project
 _core:
-  default_config_hash: xxVIvXrn0G32CLI6B6XbiG4gIWZQHndOuQcz5jh4QyI
+  default_config_hash: SZtSWK1axr6CAnNtarnfBSDT2spbppDAYJxgmzujW0o
 id: node.research_project.field_permit_number
 field_name: field_permit_number
 entity_type: node

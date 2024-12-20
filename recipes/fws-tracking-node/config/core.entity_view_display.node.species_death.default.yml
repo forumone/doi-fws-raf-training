@@ -18,7 +18,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: VfusJhPpt2ecltwm3hA8-klzzf6nr2odpnOWh4SLmIE
+  default_config_hash: DbqdtdlNHPc---9CMIiX_tM93wXWoso3lJBYj-CkTZg
 id: node.species_death.default
 targetEntityType: node
 bundle: species_death

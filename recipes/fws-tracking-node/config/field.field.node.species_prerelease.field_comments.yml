@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: G-5_NoYit3DwD61q5KQqZ-1qPRl2WkypoqvSvR5K4DY
+  default_config_hash: nIKRneYnIeWXK-VgFwRCIv2_a3S54Zwp2PudGimzfmo
 id: node.species_prerelease.field_comments
 field_name: field_comments
 entity_type: node

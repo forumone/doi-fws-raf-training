@@ -6,7 +6,7 @@ dependencies:
     - datetime
     - node
 _core:
-  default_config_hash: Mb016cQicgSgWBjlYF8qGHsIYKGnqwI4kNSwwFFY6Bw
+  default_config_hash: AK0K2uu9i53uYUPbZkwHmCP8ULdXKH3RHksS1QHkUmw
 id: node.field_captivity_date
 field_name: field_captivity_date
 entity_type: node

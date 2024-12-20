@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: vHRXUmKEwkDpuGIba0ni59OI8DSTWPNZq1y3iARPXDo
+  default_config_hash: ufLvEE1xfs8sXev2dH7qoH2iK82HJvTmDt4dBxo96ZQ
 name: 'Species Rescue'
 type: species_rescue
 description: 'Stores information about species rescues'

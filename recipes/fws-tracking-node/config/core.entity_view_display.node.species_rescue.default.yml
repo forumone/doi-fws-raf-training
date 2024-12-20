@@ -41,7 +41,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: OsKeqRAJp_0JYYB2gLWhIMEDYpMqsgtQxQc8FsCPfkM
+  default_config_hash: ojANuR1CBLjgFQEUVbvoXmWRhXO0uFCKZTAo4dj5Frk
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue

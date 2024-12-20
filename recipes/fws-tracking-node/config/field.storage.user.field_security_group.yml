@@ -6,7 +6,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: KZfFRtPN7EmUNZ4wpkgA9FsvSOv41hOETu-UxVmKSks
+  default_config_hash: fPWAFqzmf_HhI2VRqg_mbOPlFLdelutwxwkcmRuVxto
 id: user.field_security_group
 field_name: field_security_group
 entity_type: user

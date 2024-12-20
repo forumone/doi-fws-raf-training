@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: gBF0AnOBkRAg0AldzasGdInF_pQBU4OSnIewjhPiWFs
+  default_config_hash: ZHpInfhBGc7j5Ms9pbUa1eY69eeHWjM7zJRVRj_LpHQ
 id: node.field_state
 field_name: field_state
 entity_type: node

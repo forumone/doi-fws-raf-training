@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: BEq7SUZNMZlBTP8VAMS5iBxy6v8-Q2GNUsCTfQ4xlEI
+  default_config_hash: XdiXGH4IxZTZ_oDsNhmRhkWoMRrI7zsGCwKlhTRSidA
 id: node.field_waterway
 field_name: field_waterway
 entity_type: node

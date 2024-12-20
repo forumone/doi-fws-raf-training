@@ -5,25 +5,25 @@ dependencies:
   config:
     - field.storage.node.field_birth_date
     - field.storage.node.field_length
-    - field.storage.node.field_name
     - field.storage.node.field_number
     - field.storage.node.field_sex
     - field.storage.node.field_species_id
     - field.storage.node.field_weight
+    - field.storage.paragraph.field_name
     - field.storage.taxonomy_term.field_conceive_text
     - field.storage.taxonomy_term.field_health_status
     - field.storage.taxonomy_term.field_organization
     - node.type.species_id
-    - node.type.species_name
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
     - datetime
     - node
+    - paragraphs
     - taxonomy
     - user
 _core:
-  default_config_hash: _0wx47_tPwIC5phbNKTO7a9UYDDl8dpkz1NfdlzME7M
+  default_config_hash: RmpSkgL-q_5zAL8bGUiokKU4yJHRkVWRQCw0mT6HX6o
 id: tracking_births
 label: 'Species Births'
 module: views
@@ -40,11 +40,11 @@ display:
     display_options:
       title: 'Species Births'
       fields:
-        field_name:
-          id: field_name
-          table: node__field_name
+        field_name_1:
+          id: field_name_1
+          table: paragraph__field_name
           field: field_name
-          relationship: reverse__node__field_species_ref
+          relationship: field_names
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -91,8 +91,7 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: false
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -884,7 +883,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           fields:
-            field_name: field_name
+            field_name_1: field_name_1
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
@@ -912,48 +911,6 @@ display:
           value:
             - species_birth
           group: 1
-        type_1:
-          id: type_1
-          table: node_field_data
-          field: type
-          relationship: reverse__node__field_species_ref
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            species_name: species_name
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         type_2:
           id: type_2
           table: node_field_data
@@ -1178,6 +1135,44 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        field_primary_value:
+          id: field_primary_value
+          table: paragraph__field_primary
+          field: field_primary_value
+          relationship: field_names
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1189,7 +1184,7 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            field_name: field_name
+            field_name_1: field_name_1
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
@@ -1202,7 +1197,7 @@ display:
             field_length: field_length
           default: field_birth_date
           info:
-            field_name:
+            field_name_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1305,16 +1300,6 @@ display:
           admin_label: Species
           plugin_id: standard
           required: true
-        reverse__node__field_species_ref:
-          id: reverse__node__field_species_ref
-          table: node_field_data
-          field: reverse__node__field_species_ref
-          relationship: field_species_ref
-          group_type: group
-          admin_label: 'Species Name'
-          entity_type: node
-          plugin_id: entity_reverse
-          required: true
         reverse__node__field_species_ref_1:
           id: reverse__node__field_species_ref_1
           table: node_field_data
@@ -1361,6 +1346,15 @@ display:
           admin_label: Organization
           plugin_id: standard
           required: false
+        field_names:
+          id: field_names
+          table: node__field_names
+          field: field_names
+          relationship: field_species_ref
+          group_type: group
+          admin_label: Names
+          plugin_id: standard
+          required: false
       use_ajax: true
       display_extenders: {  }
     cache_metadata:
@@ -1375,11 +1369,11 @@ display:
       tags:
         - 'config:field.storage.node.field_birth_date'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_name'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
+        - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_conceive_text'
         - 'config:field.storage.taxonomy_term.field_health_status'
         - 'config:field.storage.taxonomy_term.field_organization'
@@ -1412,11 +1406,11 @@ display:
       tags:
         - 'config:field.storage.node.field_birth_date'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_name'
         - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
+        - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_conceive_text'
         - 'config:field.storage.taxonomy_term.field_health_status'
         - 'config:field.storage.taxonomy_term.field_organization'

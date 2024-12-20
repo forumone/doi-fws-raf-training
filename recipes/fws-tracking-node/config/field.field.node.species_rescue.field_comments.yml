@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 9nFWlomY8lfiPMJqLMpR5mxygEl9XleKKfrzDCWztBo
+  default_config_hash: EPK_JoBbV2ahbq-FRTfhXVwBTCR72du7jxKWzqDFte8
 id: node.species_rescue.field_comments
 field_name: field_comments
 entity_type: node

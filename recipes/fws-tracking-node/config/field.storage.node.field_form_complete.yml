@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: BQ_F4bpRAbbRvPvU-mBCCSLeWhIBOgYyqam0Wjzmsgs
+  default_config_hash: xVzg0KEcDZFi7eLNcFURfk_uBDtl2ZF-zUwyJ3QMDXk
 id: node.field_form_complete
 field_name: field_form_complete
 entity_type: node

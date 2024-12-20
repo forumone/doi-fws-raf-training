@@ -189,27 +189,6 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Get primary names.
-    $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_species_ref', NULL, 'IS NOT NULL')
-      ->condition('field_primary', 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    $primary_names = [];
-    if (!empty($name_query)) {
-      $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
-      foreach ($name_nodes as $name_node) {
-        if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
-          $species_entity_id = $name_node->field_species_ref->target_id;
-          if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-            $primary_names[$species_entity_id] = $name_node->field_name->value;
-          }
-        }
-      }
-    }
-
     // Get species IDs.
     $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
@@ -355,6 +334,26 @@ class FacilityInventoryController extends ControllerBase {
     }
 
     $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
+
+    // Get primary names from paragraphs.
+    $primary_names = [];
+    if (!empty($species_entity_ids)) {
+      $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
+      foreach ($species_nodes as $species_node) {
+        if ($species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+          foreach ($species_node->field_names->referencedEntities() as $name_paragraph) {
+            if ($name_paragraph->hasField('field_primary') &&
+                $name_paragraph->field_primary->value == 1 &&
+                $name_paragraph->hasField('field_name') &&
+                !$name_paragraph->field_name->isEmpty()) {
+              $primary_names[$species_node->id()] = $name_paragraph->field_name->value;
+              // Stop after finding the primary name.
+              break;
+            }
+          }
+        }
+      }
+    }
 
     // Get all events.
     $event_nodes = [];

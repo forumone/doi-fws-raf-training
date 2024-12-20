@@ -8,7 +8,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: Mu0V8A3ZSiabGx2i0ipnNSBajcKVS9djDACoVQBra4M
+  default_config_hash: SOeOHwZ3m3bgDcKmbq9VUy8whU6JL5uMZHmRMaFiaws
 id: user.user.field_security_group
 field_name: field_security_group
 entity_type: user

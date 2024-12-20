@@ -26,21 +26,6 @@ dependencies:
     - text
 third_party_settings:
   field_group:
-    group_manatee_information:
-      children:
-        - title
-        - field_org
-      label: 'Manatee Information'
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        open: true
-        required_fields: true
     group_birth_information:
       children:
         - field_birth_date
@@ -99,7 +84,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: VE4Nu4VB22yDG0-YqbGZSGd5ChbjSwIb6fQhxHvNVzE
+  default_config_hash: w0lXhEKNjfhMYKCB-pU5rmtTbxAVqgCby_UM8loY8Ms
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth

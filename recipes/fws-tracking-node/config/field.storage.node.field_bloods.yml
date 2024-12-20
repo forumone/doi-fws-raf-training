@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: EggHTmf9AJyEY1fbogvULskwaN1zy04L460tdKHq2AE
+  default_config_hash: Ne3QN_CVvnTdNcCrC1ZlYQ-YKSfrkkUm9C-BV3IBiJw
 id: node.field_bloods
 field_name: field_bloods
 entity_type: node

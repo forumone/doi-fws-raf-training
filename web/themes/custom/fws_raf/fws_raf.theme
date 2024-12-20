@@ -76,3 +76,10 @@ function fws_raf_preprocess_page_title(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for panel templates.
+ */
+function fws_raf_preprocess_bootstrap_panel(&$variables) {
+  $variables['heading'] = str_ireplace('Species', 'Manatee', $variables['heading']);
+}
