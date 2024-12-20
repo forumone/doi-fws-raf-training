@@ -34,7 +34,6 @@ dependencies:
   module:
     - datetime
     - field_group
-    - path
     - select2
     - text
 third_party_settings:
@@ -139,7 +138,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: J9CVEkl27061fBNmSIvXp4Ho1dtoqafAwD7utny0N1c
+  default_config_hash: dvoJimIR1OBZ0p3Xy2gGm3uRlquHLmFremn3avtfbnQ
 id: node.species_prerelease.default
 targetEntityType: node
 bundle: species_prerelease
@@ -147,7 +146,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 28
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -369,37 +368,10 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 30
+    weight: 9
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 31
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 32
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 34
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 33
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -411,7 +383,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 29
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
@@ -419,9 +391,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 35
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

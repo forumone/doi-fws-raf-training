@@ -40,7 +40,6 @@ dependencies:
     - allowed_formats
     - datetime
     - field_group
-    - path
     - select2
     - text
 third_party_settings:
@@ -55,7 +54,7 @@ third_party_settings:
       label: 'Rescue Information'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: details
       format_settings:
         classes: ''
@@ -80,7 +79,7 @@ third_party_settings:
       label: 'Rescue Location Information'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -112,7 +111,7 @@ third_party_settings:
       label: 'Measurement (Exact or estimate)'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -123,7 +122,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: DBMoXsTiqVcLveJX_Cd8fTXB3uuVvvemooZ7x0q8sVI
+  default_config_hash: K_dr0TALyqEmD8IDKmyyCIHLvorbUKJ7vOrdDMKheoM
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue
@@ -131,7 +130,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -409,37 +408,10 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 5
+    weight: 4
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 13
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 14
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -451,7 +423,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -459,9 +431,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

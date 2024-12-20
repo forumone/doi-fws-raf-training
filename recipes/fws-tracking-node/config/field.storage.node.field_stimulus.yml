@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: hw4nZIfxKv5uzJzaIMskbJgkdSQRSZIsdklSH8pj5YU
+  default_config_hash: jnZKTcKHjLtzRwU3Fz9P_bsNojtuGS3jgVSb9m1dl7w
 id: node.field_stimulus
 field_name: field_stimulus
 entity_type: node

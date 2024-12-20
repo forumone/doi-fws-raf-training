@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: RJqGB2_R_U8scwZp0XUO6_bN2KWnvbHCi8HVw6MMRjg
+  default_config_hash: wrFkrHwELFscPVzl6QFrhbQuQsxLIECVBHi9RshV1iE
 id: node.field_pi_phone
 field_name: field_pi_phone
 entity_type: node

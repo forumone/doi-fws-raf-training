@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: 1D88_AR_A_kihWN9fqQPmqbvh3ki-485632mXQZ2ihQ
+  default_config_hash: Su40ZPiQHO94itdO9WksSgWUPyS9RWIX3l0u-6QEo5g
 id: node.field_health
 field_name: field_health
 entity_type: node

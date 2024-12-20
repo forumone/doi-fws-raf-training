@@ -8,6 +8,8 @@ dependencies:
     - paragraphs.paragraphs_type.species_name
   module:
     - entity_reference_revisions
+_core:
+  default_config_hash: FWAuSU87xjYadmwZN-BmtKDgkAX1e9WLPACYts3eK6M
 id: node.species.field_names
 field_name: field_names
 entity_type: node

@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: 94aBScoJOqX2Mz-OzJmFPs96tN4dstINZ6s7QakB72o
+  default_config_hash: Gv_H-dzfnjacjS8qOYazapwMNlEakmHy9wzHzkM_jjI
 id: node.species_death.field_death_date
 field_name: field_death_date
 entity_type: node

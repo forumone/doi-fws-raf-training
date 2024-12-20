@@ -16,11 +16,10 @@ dependencies:
   module:
     - allowed_formats
     - datetime
-    - path
     - select2
     - text
 _core:
-  default_config_hash: AKgKM5MN2GoGvhECjl8YHdH9ZEaVqX4siOCinGU7Wg0
+  default_config_hash: 8X3Oq6U9fwlNTOmO32Ly-f4xnrxpqiJlfUaUSdeEngk
 id: node.species_death.default
 targetEntityType: node
 bundle: species_death
@@ -124,33 +123,6 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 13
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 14
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -169,9 +141,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

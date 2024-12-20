@@ -28,6 +28,7 @@ third_party_settings:
   field_group:
     group_birth_information:
       children:
+        - field_org
         - field_birth_date
         - field_conceived
         - langcode
@@ -84,7 +85,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: w0lXhEKNjfhMYKCB-pU5rmtTbxAVqgCby_UM8loY8Ms
+  default_config_hash: 3P_l0mqCrnxVYBd7QnkAYoscl4tElLyJJPUyidScmtA
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth
@@ -98,7 +99,7 @@ content:
     third_party_settings: {  }
   field_birth_date:
     type: datetime_default
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -115,7 +116,7 @@ content:
         hide_guidelines: '0'
   field_conceived:
     type: select2_entity_reference
-    weight: 3
+    weight: 4
     region: content
     settings:
       width: 100%
@@ -125,7 +126,7 @@ content:
     third_party_settings: {  }
   field_health_status:
     type: select2_entity_reference
-    weight: 5
+    weight: 6
     region: content
     settings:
       width: 100%
@@ -208,7 +209,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 4
+    weight: 5
     region: content
     settings:
       include_locked: true

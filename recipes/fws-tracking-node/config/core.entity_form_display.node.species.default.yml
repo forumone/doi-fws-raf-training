@@ -12,24 +12,42 @@ dependencies:
     - field.field.node.species.field_studbook
     - node.type.species
   module:
+    - field_group
     - paragraphs
     - select2
+third_party_settings:
+  field_group:
+    group_basic_information:
+      children:
+        - field_number
+        - field_sex
+        - field_dam
+        - field_sire
+        - field_rearing
+        - field_studbook
+      label: 'Basic Information'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
 _core:
-  default_config_hash: 7IrF1TWpv6C1iYQbT73_msHGNlgHIMs4ooNb2a4ID5o
+  default_config_hash: h2EV159MJb-LMyjEX2u6JOlzLKFeHxvgADGraK66dYI
 id: node.species.default
 targetEntityType: node
 bundle: species
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_dam:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -58,7 +76,7 @@ content:
     third_party_settings: {  }
   field_rearing:
     type: select2_entity_reference
-    weight: 7
+    weight: 6
     region: content
     settings:
       width: 100%
@@ -78,7 +96,7 @@ content:
     third_party_settings: {  }
   field_sire:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -88,7 +106,7 @@ content:
     third_party_settings: {  }
   field_studbook:
     type: string_textfield
-    weight: 8
+    weight: 7
     region: content
     settings:
       size: 60
@@ -96,7 +114,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 4
+    weight: 3
     region: content
     settings:
       include_locked: true
@@ -109,23 +127,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 9
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  url_redirects:
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  created: true
   path: true
   promote: true
   status: true
   sticky: true
+  uid: true
+  url_redirects: true

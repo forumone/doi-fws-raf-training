@@ -20,7 +20,6 @@ dependencies:
   module:
     - datetime
     - field_group
-    - path
     - select2
     - text
 third_party_settings:
@@ -28,8 +27,8 @@ third_party_settings:
     group_transfer_info:
       children:
         - field_species_ref
-        - field_reason
         - field_transfer_date
+        - field_reason
         - field_from_facility
         - field_to_facility
       label: 'Transfer Information'
@@ -54,7 +53,7 @@ third_party_settings:
       label: Measurements
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -69,7 +68,7 @@ third_party_settings:
       label: 'Veterinary Information'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -78,7 +77,7 @@ third_party_settings:
         open: false
         required_fields: true
 _core:
-  default_config_hash: gJEju9cgP4sQoYSKcsHQac333Iqng-UMVLc9dzvnDJ8
+  default_config_hash: lIFWZCb9S48VnnxFYTB3ivO0KyAh1Ke77axbD0oU9ws
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer
@@ -86,7 +85,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -201,36 +200,9 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 15
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 120
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 16
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -15
+    weight: 0
     region: content
     settings:
       size: 60
@@ -246,9 +218,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 50
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true
