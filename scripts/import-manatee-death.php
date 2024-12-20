@@ -200,25 +200,28 @@ print("Updated: $updated_count\n");
 print("Errors: $error_count\n");
 
 /**
- * Helper function to parse and format date values.
- *
- * @param string $date_value
- *   The date string from CSV.
- *
- * @return string|null
- *   The formatted date in 'Y-m-d' format or NULL on failure.
+ * Helper function to parse and format date values (YYYY-MM-DD).
  */
 function parse_date($date_value) {
+
   try {
     if (empty($date_value)) {
+      // Return NULL if date_value is empty.
       return NULL;
     }
 
-    $date = new DateTime($date_value);
-    return $date->format('Y-m-d');
+    // Use regex to extract the YYYY-mm-dd part from the date_value.
+    if (preg_match('/(\d{4}-\d{2}-\d{2})/', $date_value, $matches)) {
+      // Return the matched date.
+      return $matches[1];
+    }
+    else {
+      print("\nError parsing date: $date_value");
+      return NULL;
+    }
   }
   catch (Exception $e) {
-    print("\nException while parsing date '$date_value': " . $e->getMessage() . "\n");
+    print("\nException while parsing date: " . $e->getMessage());
     return NULL;
   }
 }
@@ -382,29 +385,4 @@ function get_user_id($username) {
 
   // Default user ID if user not found.
   return 1;
-}
-
-/**
- * Helper function to parse and format datetime values (YYYY-MM-DDTHH:MM:SS).
- */
-function parse_datetime($datetime_value) {
-  try {
-    if (empty($datetime_value)) {
-      return NULL;
-    }
-
-    // Use regex to extract the datetime part.
-    if (preg_match('/(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})/', $datetime_value, $matches)) {
-      // Combine date and time with 'T' separator.
-      return $matches[1] . 'T' . $matches[2];
-    }
-    else {
-      print("\nError parsing datetime: $datetime_value");
-      return NULL;
-    }
-  }
-  catch (Exception $e) {
-    print("\nException while parsing datetime: " . $e->getMessage());
-    return NULL;
-  }
 }

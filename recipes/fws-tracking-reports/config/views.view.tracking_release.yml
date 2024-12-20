@@ -15,6 +15,7 @@ dependencies:
     - field.storage.taxonomy_term.field_rescue_cause_detail
     - node.type.species_id
     - node.type.species_name
+    - node.type.species_prerelease
     - node.type.species_release
     - node.type.species_rescue
     - taxonomy.vocabulary.sex
@@ -25,7 +26,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: OsoHEh37q6btv1mpqqgz7MRau_JG0tMHrukJJXnKERk
+  default_config_hash: zzBzDknC7zrilJl6CcTyYOlgJc6CyHhkJbkyhEffADk
 id: tracking_release
 label: 'Species Release'
 module: views
@@ -618,7 +619,7 @@ display:
           id: field_length
           table: node__field_length
           field: field_length
-          relationship: none
+          relationship: reverse__node__field_species_ref_3
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -682,7 +683,7 @@ display:
           id: field_weight
           table: node__field_weight
           field: field_weight
-          relationship: none
+          relationship: reverse__node__field_species_ref_3
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -1517,6 +1518,48 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        type_4:
+          id: type_4
+          table: node_field_data
+          field: type
+          relationship: reverse__node__field_species_ref_3
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            species_prerelease: species_prerelease
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1708,6 +1751,16 @@ display:
           admin_label: 'Primary Cause'
           plugin_id: standard
           required: false
+        reverse__node__field_species_ref_3:
+          id: reverse__node__field_species_ref_3
+          table: node_field_data
+          field: reverse__node__field_species_ref
+          relationship: field_species_ref
+          group_type: group
+          admin_label: Prerelease
+          entity_type: node
+          plugin_id: entity_reverse
+          required: false
       use_ajax: true
       footer: {  }
       display_extenders: {  }
@@ -1721,14 +1774,14 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_county'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_release_date'
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
   page_1:
@@ -1758,13 +1811,13 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_county'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_release_date'
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'

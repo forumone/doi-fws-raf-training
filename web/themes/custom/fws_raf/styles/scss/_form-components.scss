@@ -48,3 +48,22 @@
     }
   }
 }
+
+.field--widget-inline-entity-form-complex,
+.field--widget-inline-entity-form-simple {
+  .panel-heading a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px 15px;
+
+    &[aria-expanded="true"] .fa-caret-down {
+      transform: rotate(180deg);
+    }
+
+    &.form-required:after {
+      display: none;
+    }
+  }
+}

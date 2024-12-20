@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_pi_phone
     - node.type.pi
 _core:
-  default_config_hash: dF5rpW3EHJJsDjqIbkNNmi0NFBJ2uGpoT_94rSTq8GY
+  default_config_hash: jTStxGwhaBG2Ph6zlGs20dUIhJblzd6LNV_W6U4-AMU
 id: node.pi.field_pi_phone
 field_name: field_pi_phone
 entity_type: node

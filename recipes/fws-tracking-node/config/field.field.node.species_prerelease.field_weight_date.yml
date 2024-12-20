@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: THekX78_1YOas_nOMGl8m7_gdvLClrwDIzBmp97HxKo
+  default_config_hash: HXDbvN4g8pSCDJGNEtHFz8mYUlwUomQkdibbaPNm6pU
 id: node.species_prerelease.field_weight_date
 field_name: field_weight_date
 entity_type: node

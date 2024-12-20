@@ -23,7 +23,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: wVbPrRibatK6xpCwgOutxjmNq0cL53xZZPj7u1j-WTA
+  default_config_hash: _0wx47_tPwIC5phbNKTO7a9UYDDl8dpkz1NfdlzME7M
 id: tracking_births
 label: 'Species Births'
 module: views
@@ -1373,12 +1373,12 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_birth_date'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.taxonomy_term.field_conceive_text'
         - 'config:field.storage.taxonomy_term.field_health_status'
@@ -1410,12 +1410,12 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_birth_date'
         - 'config:field.storage.node.field_length'
-        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_name'
+        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.taxonomy_term.field_conceive_text'
         - 'config:field.storage.taxonomy_term.field_health_status'

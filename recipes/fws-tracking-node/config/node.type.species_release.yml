@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: g8Jn8bQcUVYH_vBizlYqKD4J-lxEc5CwNSikwyVBeKU
+  default_config_hash: W1atPLAovcZwmTHXXZQcVI8iAaGJpm3ZOW5Azqw-9pU
 name: 'Species Release'
 type: species_release
 description: 'Records information about species releases'

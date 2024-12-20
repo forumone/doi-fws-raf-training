@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_euthanasia
     - node.type.species_death
 _core:
-  default_config_hash: 0J0pZj8Hr2mPUKRV6ZL4C64f_wfuX2lbzqqneh0Y1QU
+  default_config_hash: '-913a-fDOk_218Ki_5yDqaI6i1o1m02OpbfTlLYrTuo'
 id: node.species_death.field_euthanasia
 field_name: field_euthanasia
 entity_type: node

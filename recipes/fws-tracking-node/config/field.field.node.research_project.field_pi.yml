@@ -7,7 +7,7 @@ dependencies:
     - node.type.pi
     - node.type.research_project
 _core:
-  default_config_hash: agcUbfkePVb7gjOdp2rNRL4ygFTC1FYAm-qCKMZ5j8U
+  default_config_hash: OHylpw_8UDeFSeTsQa-6bYXvjPwNJfdrQpb_ZrHH2Fg
 id: node.research_project.field_pi
 field_name: field_pi
 entity_type: node

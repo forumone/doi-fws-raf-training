@@ -21,7 +21,7 @@ dependencies:
     - allowed_formats
     - datetime
     - field_group
-    - path
+    - inline_entity_form
     - select2
     - text
 third_party_settings:
@@ -29,7 +29,6 @@ third_party_settings:
     group_manatee_information:
       children:
         - title
-        - field_species_ref
         - field_org
       label: 'Manatee Information'
       region: content
@@ -100,7 +99,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: TOt2PzvPwsuxuEcLVIVU98uGg9f06JCI7sMm9gmwTwk
+  default_config_hash: VE4Nu4VB22yDG0-YqbGZSGd5ChbjSwIb6fQhxHvNVzE
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth
@@ -108,7 +107,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -171,7 +170,7 @@ content:
     third_party_settings: {  }
   field_org:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -180,14 +179,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_species_ref:
-    type: entity_reference_autocomplete
-    weight: 1
+    type: inline_entity_form_simple
+    weight: 0
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
     third_party_settings: {  }
   field_veterinarian:
     type: entity_reference_autocomplete
@@ -226,36 +228,9 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 14
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 18
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 15
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
@@ -263,7 +238,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -271,9 +246,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 17
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

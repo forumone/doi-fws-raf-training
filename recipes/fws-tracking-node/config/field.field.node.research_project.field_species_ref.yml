@@ -7,7 +7,7 @@ dependencies:
     - node.type.research_project
     - node.type.species_id
 _core:
-  default_config_hash: I-ANuXg36PyZlxAFaYAl5EvQEoapG8Mb-Fx9cRFAorM
+  default_config_hash: Pkj0k_xGxdr9X3MxXRhcTUZyqJQB47rT6AWnLMpeCY4
 id: node.research_project.field_species_ref
 field_name: field_species_ref
 entity_type: node

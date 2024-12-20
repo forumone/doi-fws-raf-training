@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_participating_orgs
     - node.type.species_rescue
 _core:
-  default_config_hash: '-nc3FO6z24FSnYnsmmu2lS0Yol7kOBAKo-T4zGZavL0'
+  default_config_hash: 0J8MSGkQsBmnFdsHLkSYOpxrvtYvQ3zwSt-G-l3UqjA
 id: node.species_rescue.field_participating_orgs
 field_name: field_participating_orgs
 entity_type: node

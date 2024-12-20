@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: 7aMH-LkYW7bMWFQJgzKYu9f_93fLCpSVyIFD1Zx9CXg
+  default_config_hash: AnMdAw7QTEL89UsnDolXrM8UaMPodcbJx1Ow2hbN8pU
 id: node.rescue_release.field_rescue_date
 field_name: field_rescue_date
 entity_type: node

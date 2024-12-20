@@ -6,7 +6,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: O9i1mCObFlr22pmBxOU4bTygEUcKzJsp5SKteOXqlWU
+  default_config_hash: FCyB4R6UyyEzJLujxjk3m4gIYph1wZNlKgtW0z7bCTY
 id: user.field_org
 field_name: field_org
 entity_type: user

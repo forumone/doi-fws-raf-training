@@ -230,6 +230,23 @@ header#navbar #navbar-collapse {
   transform: rotate(180deg);
 }
 
+.field--widget-inline-entity-form-complex .panel-heading a,
+.field--widget-inline-entity-form-simple .panel-heading a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+.field--widget-inline-entity-form-complex .panel-heading a[aria-expanded=true] .fa-caret-down,
+.field--widget-inline-entity-form-simple .panel-heading a[aria-expanded=true] .fa-caret-down {
+  transform: rotate(180deg);
+}
+.field--widget-inline-entity-form-complex .panel-heading a.form-required:after,
+.field--widget-inline-entity-form-simple .panel-heading a.form-required:after {
+  display: none;
+}
+
 .input-group .input-group-addon {
   display: none;
 }

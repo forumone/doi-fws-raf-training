@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 7X8hCm-Y0LB9Sx2q89iZMf2Zt3xQMpP596Fx_VT_18E
+  default_config_hash: vWnEWlqJ0dxJsaNVhxl6HbeF9kSbkl6FdAIqReuBuzk
 id: node.transfer.field_comments
 field_name: field_comments
 entity_type: node

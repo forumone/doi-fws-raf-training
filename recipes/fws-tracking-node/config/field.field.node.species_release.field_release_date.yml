@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: y4ws-GA6tgB5E4sG4OPIpM0oQ9W55sjzIRnGEffG6m0
+  default_config_hash: oWhWvbC-kDIgZt3QR80d58u9z-s-6x1Q7seYbeO1L_k
 id: node.species_release.field_release_date
 field_name: field_release_date
 entity_type: node

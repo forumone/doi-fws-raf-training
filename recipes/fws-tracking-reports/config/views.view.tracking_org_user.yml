@@ -7,6 +7,8 @@ dependencies:
     - field.storage.user.field_last_name
   module:
     - user
+_core:
+  default_config_hash: CS62r-uyloNCvTklrKphys1c1e_wr2dsTufkHv1n_ZE
 id: tracking_org_user
 label: 'Tracking Org User'
 module: views

@@ -7,7 +7,7 @@ dependencies:
     - node.type.species_tag
     - taxonomy.vocabulary.event
 _core:
-  default_config_hash: 9vTCjMHUAzRf2HWngFgp8o2S2kc0XuU_kTyDvFKTqL8
+  default_config_hash: '-NcKLM1YE2rvGQxX8G4DEWe43e1VhJijfxdk1DuOmgM'
 id: node.species_tag.field_event
 field_name: field_event
 entity_type: node

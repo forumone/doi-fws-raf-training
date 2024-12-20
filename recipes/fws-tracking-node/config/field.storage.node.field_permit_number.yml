@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: 4Sz4Sff5ydgDhoQsF2hr5tc4R0XyAbraoXzncEdhSww
+  default_config_hash: HU3HEb8oLEPGQIo75Ufs1Hd05p_vJrtfFJdeN0RgNuY
 id: node.field_permit_number
 field_name: field_permit_number
 entity_type: node

@@ -7,7 +7,7 @@ dependencies:
     - node.type.research_project
     - taxonomy.vocabulary.research_cat
 _core:
-  default_config_hash: '-7fMELONEcVPbwkWMYUNdzaR1Ymxcuw2fdl-xKOktHg'
+  default_config_hash: iTKZ7VngdbTpX0StHzP6ecTw9FDr3A1JaGw1bEwpUcQ
 id: node.research_project.field_primary_research
 field_name: field_primary_research
 entity_type: node

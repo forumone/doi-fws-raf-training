@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_death_location
     - node.type.species_death
 _core:
-  default_config_hash: 78PHGXU7O9IVEgfC_8g-t1vAO7A8_SqZFuxO0PGFtys
+  default_config_hash: 7UWtIH2vcRmi0AHqZwa1XufxJ4GNSA6Jl4UJrVJmBwY
 id: node.species_death.field_death_location
 field_name: field_death_location
 entity_type: node

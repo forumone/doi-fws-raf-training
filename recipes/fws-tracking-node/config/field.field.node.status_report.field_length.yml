@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_length
     - node.type.status_report
 _core:
-  default_config_hash: CEursmOdpQqjZ3cmOv0wlsIbN9Z2TXIqbf6y5UkXMUs
+  default_config_hash: AKYO9k6s-2eMyr_TBufh61Vl8qQkdMvA_8NEPcrtaEQ
 id: node.status_report.field_length
 field_name: field_length
 entity_type: node

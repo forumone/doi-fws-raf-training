@@ -1,22 +1,20 @@
-uuid: ea45fbee-3821-4509-890b-414e5d177276
+uuid: 1adc8280-a4d3-4a30-a098-358fa09a88b8
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_length_date
-    - node.type.species_rescue
+    - node.type.species_birth
   module:
     - datetime
-_core:
-  default_config_hash: 9LPvEno_AxMR6NkiS1jIKzhKTwO_bG70QhkST27kL0w
-id: node.species_rescue.field_length_date
+id: node.species_birth.field_length_date
 field_name: field_length_date
 entity_type: node
-bundle: species_rescue
+bundle: species_birth
 label: 'Date Measured'
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

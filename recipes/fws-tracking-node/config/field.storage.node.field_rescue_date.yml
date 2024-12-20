@@ -6,7 +6,7 @@ dependencies:
     - datetime
     - node
 _core:
-  default_config_hash: fls5YNyxEwzfA--G-Uy9vPrVNrFlJd0yj6kYRunks1s
+  default_config_hash: d_iDUbUN_onVCv4mm_-ZCsQ7dLFiBCJsgdabUStZ0HE
 id: node.field_rescue_date
 field_name: field_rescue_date
 entity_type: node

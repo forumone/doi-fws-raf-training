@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: m7Z0fKn2nMMHnaViWhvGYC4fcMB4-1CpKKvw-5zroL0
+  default_config_hash: '-mVrIuARXj7CCcK8bY7LfqkeB_IREK-S_Z_Iu8iYjxc'
 id: node.research_project.field_description
 field_name: field_description
 entity_type: node

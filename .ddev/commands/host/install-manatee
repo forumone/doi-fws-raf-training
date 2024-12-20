@@ -7,7 +7,7 @@ ddev drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee D
 ddev drush recipe ../recipes/fws-core
 ddev drush scr ../scripts/install-cleanup.php
 ddev drush cr
-
+ddev drush cr
 ddev drush recipe ../recipes/fws-tracking-taxonomy
 ddev drush recipe ../recipes/fws-tracking-node
 ddev drush recipe ../recipes/fws-tracking-reports

@@ -6,7 +6,7 @@ dependencies:
     - node
     - text
 _core:
-  default_config_hash: suaDkHitpe9CfXQqJ1_rcmJddPpERP3ttBtiDxauy4k
+  default_config_hash: r3OGsEmqDI5UBPyS1c0VM7XOXxeJNAuwpH0UAN3WoCY
 id: node.field_secondary_cause_detail
 field_name: field_secondary_cause_detail
 entity_type: node

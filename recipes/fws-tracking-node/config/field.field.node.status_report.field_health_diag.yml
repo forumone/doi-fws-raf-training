@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: Uptqq2K4gZNmkGQORBVzBQrdNz6yJ22yfTOiAR6vC1k
+  default_config_hash: fVsLLjolu7gg0BTXxSSSi0ZDl9FaGaqHKDfwDTt13ZY
 id: node.status_report.field_health_diag
 field_name: field_health_diag
 entity_type: node

@@ -6,7 +6,7 @@ dependencies:
     - datetime
     - node
 _core:
-  default_config_hash: b6lhPzLAGYzuRj_WST6_q0a3HRJgUcOdNe0IFJED8fQ
+  default_config_hash: Dck1BbJmkkpWO2Aha-EoxpIY7p-feTxMid2WOJhbs1g
 id: node.field_expire_date
 field_name: field_expire_date
 entity_type: node

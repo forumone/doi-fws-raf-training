@@ -7,7 +7,7 @@ dependencies:
     - node.type.research_project
     - taxonomy.vocabulary.budget_time
 _core:
-  default_config_hash: _nscePq_etK5yW0-hssbnqOskq_3GgmBpiZJCtwrLx8
+  default_config_hash: H9Gef__jPAjSta-Vud26GuEC5L-0SGgk-SBQ1TBt1NQ
 id: node.research_project.field_budget_time
 field_name: field_budget_time
 entity_type: node

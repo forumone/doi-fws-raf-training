@@ -6,7 +6,7 @@ dependencies:
     - datetime
     - node
 _core:
-  default_config_hash: Rd38JgXoTHi4EkcBTgcBYI7HsuieY3AyuHTRCeYcX3c
+  default_config_hash: 6wEer1fMUlq9w_l8STdISTgWhO3TbNeK8vFfensDeYY
 id: node.field_end_date
 field_name: field_end_date
 entity_type: node
