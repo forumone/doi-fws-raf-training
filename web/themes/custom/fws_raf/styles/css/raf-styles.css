@@ -321,6 +321,10 @@ input.form-autocomplete {
   min-height: initial;
 }
 
+.page-node-type-species .main-container {
+  padding-bottom: 30px;
+}
+
 .species-search-results .results-count {
   margin: 10px;
 }

@@ -1,0 +1,69 @@
+{#
+/**
+ * @file
+ * Theme override to display Manatee information using table layout.
+ */
+#}
+
+{%
+  set classes = [
+    'manatee-information',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="panel panel-primary">
+    {# Header section with ID and tracking number #}
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        Species Information
+        {% if content.field_number %}
+          (Number: {{ content.field_number.0['#markup'] }})
+        {% endif %}
+      </h3>
+    </div>
+
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th class="col-md-3">Sex</th>
+              <td class="col-md-9">{{ content.field_sex }}</td>
+            </tr>
+            <tr>
+              <th>Tracking ID</th>
+              <td>{{ content.field_number.0['#markup'] }}</td>
+            </tr>
+            <tr>
+              <th>Studbook</th>
+              <td>{{ content.field_studbook.0['#context'].value ? content.field_studbook : 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Rearing</th>
+              <td>{{ node.field_rearing is not empty ? node.field_rearing.entity.field_rearing_type.value : 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Names</th>
+              <td>{{ content.field_names }}</td>
+            </tr>
+            <tr>
+              <th>Dam</th>
+              <td>{{ content.field_dam.0['#title'] ? content.field_dam : 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Sire</th>
+              <td>{{ content.field_sire.0['#title'] ? content.field_sire : 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</article>
