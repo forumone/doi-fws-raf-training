@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: lOUgpmvzpAJckzSeu87hxkrrMH55DlygWGVwD3eSvq8
 id: node.field_conditioning_type
 field_name: field_conditioning_type
 entity_type: node

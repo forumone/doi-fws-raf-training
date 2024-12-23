@@ -12,6 +12,8 @@ dependencies:
   module:
     - path
     - user
+_core:
+  default_config_hash: nfvO7TACkRuWm0J_lMbH5ESL35c7HcA8x6P7lf7VMdw
 id: user.user.default
 targetEntityType: user
 bundle: user

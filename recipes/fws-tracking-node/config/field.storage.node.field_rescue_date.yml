@@ -5,6 +5,8 @@ dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: ZLzGFzIhTBOwp8J0IGCGUmflBNi2-wLCIH2Gy6-lxcM
 id: node.field_rescue_date
 field_name: field_rescue_date
 entity_type: node

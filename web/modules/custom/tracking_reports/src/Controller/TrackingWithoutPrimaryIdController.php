@@ -51,17 +51,21 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
    *   The primary name or empty string if none exists.
    */
   private function getPrimaryName($species_id) {
-    $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_species_ref', $species_id)
-      ->condition('field_primary', 1)
-      ->accessCheck(FALSE);
-
-    $results = $query->execute();
-    if (!empty($results)) {
-      $name_node = $this->entityTypeManager->getStorage('node')->load(reset($results));
-      return !$name_node->field_name->isEmpty() ? $name_node->field_name->value : '';
+    $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
+    if (!$species_node || !$species_node->hasField('field_names')) {
+      return '';
     }
+
+    // Iterate through the paragraph references.
+    foreach ($species_node->field_names->referencedEntities() as $paragraph) {
+      if ($paragraph->hasField('field_primary')
+          && !$paragraph->field_primary->isEmpty()
+          && $paragraph->field_primary->value == 1
+          && !$paragraph->field_name->isEmpty()) {
+        return $paragraph->field_name->value;
+      }
+    }
+
     return '';
   }
 

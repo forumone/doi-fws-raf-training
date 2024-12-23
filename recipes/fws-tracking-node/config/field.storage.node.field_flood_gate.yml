@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: hS2IkoZLB4L5RFsYPrHEkcYB0zfgVhNdIEHZQwFUdXY
 id: node.field_flood_gate
 field_name: field_flood_gate
 entity_type: node

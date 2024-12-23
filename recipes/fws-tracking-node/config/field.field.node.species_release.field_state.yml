@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_state
     - node.type.species_release
-    - taxonomy.vocabulary.state
+_core:
+  default_config_hash: yHLpKvmw7YgnFO1SFxQ2PF1FzavdHU0JMaPrq4KrTAY
 id: node.species_release.field_state
 field_name: field_state
 entity_type: node
 bundle: species_release
 label: State
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      state: state
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_6
+      arguments: {  }
 field_type: entity_reference

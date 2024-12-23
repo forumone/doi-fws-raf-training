@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_length
     - node.type.species_rescue
+_core:
+  default_config_hash: kEgs5KzAYr5YFZmtK38qcEBt0dUugfLEuE2YJNOKzBc
 id: node.species_rescue.field_length
 field_name: field_length
 entity_type: node
 bundle: species_rescue
 label: Length
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -19,5 +21,5 @@ settings:
   min: null
   max: null
   prefix: ''
-  suffix: ''
+  suffix: cm
 field_type: integer

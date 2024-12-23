@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: yDLsAzXtqsPTLv2Mo2mWPGrXuiiFtl4C3IV_Zu3KjfE
 id: node.field_entanglement_location
 field_name: field_entanglement_location
 entity_type: node

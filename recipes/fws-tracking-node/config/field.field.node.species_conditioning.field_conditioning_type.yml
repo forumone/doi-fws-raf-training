@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_conditioning_type
     - node.type.species_conditioning
     - taxonomy.vocabulary.conditioning
+_core:
+  default_config_hash: 8s_wSwonTB68TBCqWWId2dfYeTNaCaC2tHoVh1DsdNQ
 id: node.species_conditioning.field_conditioning_type
 field_name: field_conditioning_type
 entity_type: node

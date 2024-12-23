@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_entanglement_location
     - node.type.species_entangle
+_core:
+  default_config_hash: cqK83ceNFZP-nVrA7CYvusg3gb2-fXSNPWdAwTvOlec
 id: node.species_entangle.field_entanglement_location
 field_name: field_entanglement_location
 entity_type: node

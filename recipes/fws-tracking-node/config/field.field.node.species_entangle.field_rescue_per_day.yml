@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_rescue_per_day
     - node.type.species_entangle
+_core:
+  default_config_hash: 7LCAOolLtYcvRnmZ_Vkjmhlctt_ENQUO90rq1GZDqOs
 id: node.species_entangle.field_rescue_per_day
 field_name: field_rescue_per_day
 entity_type: node

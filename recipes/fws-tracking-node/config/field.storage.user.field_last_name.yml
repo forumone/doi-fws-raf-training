@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - user
+_core:
+  default_config_hash: vmPR50S1k2NQBP6mNIhnEmFPIdj26U9kpOXRtq1sVxA
 id: user.field_last_name
 field_name: field_last_name
 entity_type: user

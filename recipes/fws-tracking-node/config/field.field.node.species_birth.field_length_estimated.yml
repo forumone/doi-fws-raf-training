@@ -1,18 +1,20 @@
-uuid: f25f8eab-7c54-4485-8f86-5c281eaffc5a
+uuid: fb8bdb1e-8ddf-43f9-b602-89fee196569a
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_length_estimated
-    - node.type.species_release
-id: node.species_release.field_length_estimated
+    - node.type.species_birth
+_core:
+  default_config_hash: 5VCcU7sBSsaQlnQn-CeOx0didxluCeUkygx46iYbKxo
+id: node.species_birth.field_length_estimated
 field_name: field_length_estimated
 entity_type: node
-bundle: species_release
-label: 'Length Estimated'
+bundle: species_birth
+label: 'Estimated Length'
 description: ''
-required: false
-translatable: true
+required: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

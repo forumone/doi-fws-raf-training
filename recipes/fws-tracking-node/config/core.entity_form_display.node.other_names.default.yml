@@ -8,10 +8,9 @@ dependencies:
     - field.field.node.other_names.field_system_id
     - node.type.other_names
   module:
-    - path
     - select2
 _core:
-  default_config_hash: WE6JPD6BRWUIYeeJk0SfWkltBeSNe7_ra8AcBNsuhHk
+  default_config_hash: PUzaJ3yItR7tnra_OIYqp0u-u91xLA0nv_5JSUDNazs
 id: node.other_names.default
 targetEntityType: node
 bundle: other_names
@@ -56,33 +55,6 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 7
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 11
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 8
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -101,9 +73,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

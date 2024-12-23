@@ -7,11 +7,13 @@ dependencies:
     - node.type.status_report
   module:
     - datetime
+_core:
+  default_config_hash: 36bA7GxQbvjWElN0h_zggzJ_bFjKixzIb7XzR17pcVY
 id: node.status_report.field_weight_date
 field_name: field_weight_date
 entity_type: node
 bundle: status_report
-label: 'Weight Date'
+label: 'Date Weighed'
 description: ''
 required: false
 translatable: true

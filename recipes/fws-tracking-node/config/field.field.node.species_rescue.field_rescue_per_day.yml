@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_rescue_per_day
     - node.type.species_rescue
+_core:
+  default_config_hash: yBz1kGjqyQ5t1eOKmeQlWoLaEZjPcPFMvXml9cjOjMg
 id: node.species_rescue.field_rescue_per_day
 field_name: field_rescue_per_day
 entity_type: node
 bundle: species_rescue
 label: 'Rescue Per Day'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

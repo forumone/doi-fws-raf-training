@@ -139,7 +139,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_pot_status' => $pot,
       'field_weight' => is_numeric($weight) ? (int) $weight : NULL,
       'field_weight_estimated' => filter_boolean($est_w),
-      'field_weight_date' => parse_datetime($w_date),
+      'field_weight_date' => parse_date($w_date),
       'field_length' => is_numeric($length) ? (int) $length : NULL,
       'field_length_estimated' => filter_boolean($est_l),
       'field_length_date' => parse_date($l_date),

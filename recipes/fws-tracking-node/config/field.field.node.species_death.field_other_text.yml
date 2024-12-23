@@ -7,11 +7,13 @@ dependencies:
     - node.type.species_death
   module:
     - text
+_core:
+  default_config_hash: mnyyEUU61TYu2IXl2snXXwGqBIhkdxm8RvZj9W8Vpvw
 id: node.species_death.field_other_text
 field_name: field_other_text
 entity_type: node
 bundle: species_death
-label: 'Other Text'
+label: 'If Other, explain'
 description: ''
 required: false
 translatable: true

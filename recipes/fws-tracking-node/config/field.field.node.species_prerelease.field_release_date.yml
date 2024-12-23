@@ -7,13 +7,15 @@ dependencies:
     - node.type.species_prerelease
   module:
     - datetime
+_core:
+  default_config_hash: L9r6A7yOohtWLUsntHtSYKz2ODA9jFywqc8_5uyjYnw
 id: node.species_prerelease.field_release_date
 field_name: field_release_date
 entity_type: node
 bundle: species_prerelease
 label: 'Release Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

@@ -7,13 +7,15 @@ dependencies:
     - node.type.species_rescue
   module:
     - datetime
+_core:
+  default_config_hash: xd-XkEN5FsUe7d4WhwbURn0bYSAsJIaCDbtoD61OXrI
 id: node.species_rescue.field_rescue_date
 field_name: field_rescue_date
 entity_type: node
 bundle: species_rescue
 label: 'Rescue Date'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - options
+_core:
+  default_config_hash: gmTuJpB-cZ9NtwxM0Loh-tdjpfRX9rP2Frr4bAis5bc
 id: node.field_est_weight
 field_name: field_est_weight
 entity_type: node

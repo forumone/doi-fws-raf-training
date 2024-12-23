@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_to_facility
     - node.type.transfer
-    - taxonomy.vocabulary.org
+_core:
+  default_config_hash: aMXFf7y5sBZy0gZCmc2NXJ-rs7LQPuqxEw_3q1LtFzE
 id: node.transfer.field_to_facility
 field_name: field_to_facility
 entity_type: node
 bundle: transfer
 label: 'To Facility'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      org: org
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
 field_type: entity_reference

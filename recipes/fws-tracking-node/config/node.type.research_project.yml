@@ -2,10 +2,12 @@ uuid: a68cac0b-7055-4910-8de9-2083b683f853
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: LXjl8R91a-sQXpRQ5Kv47hDxPPDp6Wvnv626umZEe1c
 name: 'Research Project'
 type: research_project
 description: 'Scientific research projects involving species'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

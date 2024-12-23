@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: p5zlxzRTVfrGg7q_hZwhS3ArXcj5SpJjK6bIXe7qsKQ
 id: node.field_health_status
 field_name: field_health_status
 entity_type: node

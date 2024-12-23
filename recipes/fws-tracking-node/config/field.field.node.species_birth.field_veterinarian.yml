@@ -5,18 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_veterinarian
     - node.type.species_birth
+_core:
+  default_config_hash: 83cYh4U4U24rtYXOp05AbRZww8PrPfZOTmLJR4IkEtQ
 id: node.species_birth.field_veterinarian
 field_name: field_veterinarian
 entity_type: node
 bundle: species_birth
 label: Veterinarian
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:user'
+  handler: views
   handler_settings:
-    include_anonymous: false
+    view:
+      view_name: tracking_org_user
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

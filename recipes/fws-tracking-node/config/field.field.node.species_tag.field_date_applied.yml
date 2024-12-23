@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_tag
   module:
     - datetime
+_core:
+  default_config_hash: uPHZEdefOMc50zX3Ku4avS80YadvO4B2Rsh62Qi6Pio
 id: node.species_tag.field_date_applied
 field_name: field_date_applied
 entity_type: node

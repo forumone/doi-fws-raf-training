@@ -1,0 +1,33 @@
+uuid: 20ddf685-13ed-4a79-ae38-ddba47caf14d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_names
+    - node.type.species
+    - paragraphs.paragraphs_type.species_name
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: FWAuSU87xjYadmwZN-BmtKDgkAX1e9WLPACYts3eK6M
+id: node.species.field_names
+field_name: field_names
+entity_type: node
+bundle: species
+label: Names
+description: 'Given name of the individual species.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      species_name: species_name
+    negate: 0
+    target_bundles_drag_drop:
+      species_name:
+        weight: 2
+        enabled: true
+field_type: entity_reference_revisions

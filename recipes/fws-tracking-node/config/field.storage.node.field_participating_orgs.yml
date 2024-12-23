@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: Fwt-i4JEkrESw0JAeYqnPIEunGqOmieheR1d6UzwNXE
 id: node.field_participating_orgs
 field_name: field_participating_orgs
 entity_type: node

@@ -6,6 +6,8 @@ dependencies:
     - field.storage.user.field_vet
   module:
     - user
+_core:
+  default_config_hash: Rc7C1T5k8ffzlHYedvJLrDRtg-FuSd8qB1pDKr5QGbc
 id: user.user.field_vet
 field_name: field_vet
 entity_type: user

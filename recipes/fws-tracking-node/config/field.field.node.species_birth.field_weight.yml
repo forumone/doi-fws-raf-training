@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_weight
     - node.type.species_birth
+_core:
+  default_config_hash: EVCz9GGmGh0AXBgZ3_1YWoTBC7YHdGPMaHULcxSZG60
 id: node.species_birth.field_weight
 field_name: field_weight
 entity_type: node
 bundle: species_birth
 label: Weight
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

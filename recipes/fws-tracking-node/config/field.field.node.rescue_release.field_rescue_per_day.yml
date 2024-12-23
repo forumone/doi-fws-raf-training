@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_rescue_per_day
     - node.type.rescue_release
+_core:
+  default_config_hash: AFMO8Kf6YLtLRNCsXjR26rsrwhFqg6H01HbRN1ygEoI
 id: node.rescue_release.field_rescue_per_day
 field_name: field_rescue_per_day
 entity_type: node

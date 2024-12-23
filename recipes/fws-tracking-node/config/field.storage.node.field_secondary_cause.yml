@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: nuM7W5o6ClLEWdcaT0UI2YcikJuHoEz3497BANmfi7o
 id: node.field_secondary_cause
 field_name: field_secondary_cause
 entity_type: node

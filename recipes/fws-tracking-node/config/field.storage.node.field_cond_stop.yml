@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: h1Yet_fXOyK7Dfd6v2jOxG35I5lk6SHQB6qXhabJH88
 id: node.field_cond_stop
 field_name: field_cond_stop
 entity_type: node

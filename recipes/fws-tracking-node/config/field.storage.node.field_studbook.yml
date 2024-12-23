@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: N7z_hObEQE1LJ4EBNwQWQ4pR_mEzR6LHfcUeZvryTDc
 id: node.field_studbook
 field_name: field_studbook
 entity_type: node

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.species_prerelease.field_species_ref
     - field.field.node.species_prerelease.field_bottom_feed
     - field.field.node.species_prerelease.field_city
     - field.field.node.species_prerelease.field_comments
@@ -24,6 +23,7 @@ dependencies:
     - field.field.node.species_prerelease.field_rel_type
     - field.field.node.species_prerelease.field_release_date
     - field.field.node.species_prerelease.field_release_site
+    - field.field.node.species_prerelease.field_species_ref
     - field.field.node.species_prerelease.field_state
     - field.field.node.species_prerelease.field_veg_type
     - field.field.node.species_prerelease.field_vet_id
@@ -35,19 +35,13 @@ dependencies:
     - options
     - text
     - user
+_core:
+  default_config_hash: zBBTHgs-nN0AmQgssA_bY_olBOs4Vnreov8MlK_waPo
 id: node.species_prerelease.default
 targetEntityType: node
 bundle: species_prerelease
 mode: default
 content:
-  field_species_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 101
-    region: content
   field_bottom_feed:
     type: boolean
     label: above
@@ -216,6 +210,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 110
+    region: content
+  field_species_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
     region: content
   field_state:
     type: entity_reference_label

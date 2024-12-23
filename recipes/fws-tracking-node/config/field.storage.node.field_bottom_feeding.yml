@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: 7zb2t2KV88T02NRPn3AYpWfRLqYqTOZQ775Lr-_K0Ns
 id: node.field_bottom_feeding
 field_name: field_bottom_feeding
 entity_type: node

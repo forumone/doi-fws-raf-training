@@ -7,13 +7,15 @@ dependencies:
     - node.type.species_rescue
   module:
     - datetime
+_core:
+  default_config_hash: ZefbtY6KY1hsUnX6PjbZAUMSnpXgxFU2_9wotCSMJVQ
 id: node.species_rescue.field_length_date
 field_name: field_length_date
 entity_type: node
 bundle: species_rescue
-label: 'Length Date'
+label: 'Date Measured'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

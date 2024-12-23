@@ -7,13 +7,15 @@ dependencies:
     - node.type.status_report
   module:
     - options
+_core:
+  default_config_hash: L0gLW2qGgwOE7MYzG3Xb5GsBqnMahSlst5KbRCBp3VM
 id: node.status_report.field_est_length
 field_name: field_est_length
 entity_type: node
 bundle: status_report
 label: 'Estimated Length'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

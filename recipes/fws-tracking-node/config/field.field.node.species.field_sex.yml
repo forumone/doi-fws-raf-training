@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_sex
     - node.type.species
     - taxonomy.vocabulary.sex
+_core:
+  default_config_hash: RqwA9YKbX15sMcVZ8ScdcaHCBLvT101a4Yp_o5qdETE
 id: node.species.field_sex
 field_name: field_sex
 entity_type: node
@@ -21,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       sex: sex
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

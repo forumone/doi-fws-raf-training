@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_euthanasia
     - node.type.species_death
+_core:
+  default_config_hash: 3Y5deVqIDTu9zJNh2aXGq82hy5Ogc7ldZuwQIRxoKXY
 id: node.species_death.field_euthanasia
 field_name: field_euthanasia
 entity_type: node
 bundle: species_death
-label: Euthanasia
+label: 'Euthanized?'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

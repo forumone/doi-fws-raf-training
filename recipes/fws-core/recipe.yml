@@ -55,18 +55,21 @@ install:
   - admin_toolbar
   - admin_toolbar_tools
   - admin_toolbar_search
+  - auto_entitylabel
   - better_exposed_filters
   - bootstrap
   - components
   - default_content
   - field_group
   - field_permissions
+  - inline_entity_form
   - jquery_ui_draggable
   - jquery_ui_resizable
   - linkit
   - metatag
   - node_revision_delete
   - pathauto
+  - prepopulate
   - redirect
   - responsive_image
   - rules
@@ -149,8 +152,10 @@ config:
     admin_toolbar: '*'
     admin_toolbar_tools: '*'
     admin_toolbar_search: '*'
+    auto_entitylabel: '*'
     bootstrap: '*'
     field_group: '*'
+    inline_entity_form: '*'
     linkit: '*'
     metatag: '*'
     node_revision_delete: '*'
@@ -158,6 +163,7 @@ config:
     paragraphs: '*'
     paragraphs_ee: '*'
     paragraphs_features: '*'
+    prepopulate: '*'
     redirect: '*'
     responsive_image: '*'
     select2: '*'

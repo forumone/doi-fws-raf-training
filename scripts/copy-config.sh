@@ -2,7 +2,10 @@
 
 # Define source and destination directories
 SOURCE_DIR="./config/sync/"
-DEST_DIR="./recipes/fws-core/config/"
+DEST_DIR="./recipes/fws-tracking-node/config/"
+
+# Define file to ignore
+IGNORE_FILE="core.entity_form_display.node.page.default.yml"
 
 # Check if the source directory exists
 if [ ! -d "$SOURCE_DIR" ]; then
@@ -28,19 +31,32 @@ is_only_hash_change() {
   fi
 }
 
-# Sync only existing files, ignoring those with only default_config_hash changes
-for file in "$DEST_DIR"/*; do
-  filename=$(basename "$file")
-  source_file="$SOURCE_DIR/$filename"
-  dest_file="$DEST_DIR/$filename"
-
+# Process all files in source directory
+for source_file in "$SOURCE_DIR"*; do
   if [ -f "$source_file" ]; then
+    filename=$(basename "$source_file")
+    dest_file="$DEST_DIR$filename"
+
+    # Skip if destination file doesn't exist
+    if [ ! -f "$dest_file" ]; then
+      echo "Skipping $filename - not present in destination"
+      continue
+    fi
+
+    # Skip the ignored file
+    if [ "$filename" = "$IGNORE_FILE" ]; then
+      echo "Skipping ignored file: $filename"
+      continue
+    fi
+
+    # Check for hash-only changes
     if is_only_hash_change "$source_file" "$dest_file"; then
       echo "Ignoring $filename as only default_config_hash has changed."
-    else
-      echo "Updating $filename with changes from $source_file"
-      cp "$source_file" "$DEST_DIR"
+      continue
     fi
+
+    echo "Copying $filename to destination"
+    cp "$source_file" "$DEST_DIR"
   fi
 done
 

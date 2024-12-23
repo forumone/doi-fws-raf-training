@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.storage.node.field_number
     - node.type.species
+_core:
+  default_config_hash: Gx9nXW1UdeJquVry4rKbL-Jr8vo-81OGm1cBWyKX0PE
 id: node.species.field_number
 field_name: field_number
 entity_type: node
 bundle: species
-label: Number
+label: 'Tracking Number'
 description: "Unique ID number for species in Captive\r\nSpecies Database"
 required: true
 translatable: false

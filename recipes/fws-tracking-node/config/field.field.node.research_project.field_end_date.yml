@@ -7,6 +7,8 @@ dependencies:
     - node.type.research_project
   module:
     - datetime
+_core:
+  default_config_hash: CHRrdyU0Wg69Puw36fjb1nvv4q5CDzFakxjvVpNnbX4
 id: node.research_project.field_end_date
 field_name: field_end_date
 entity_type: node

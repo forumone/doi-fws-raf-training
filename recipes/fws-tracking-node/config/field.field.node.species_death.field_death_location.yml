@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_death_location
     - node.type.species_death
-    - taxonomy.vocabulary.death_location
+_core:
+  default_config_hash: C8wo3MvBnvnxglnVcXC5NBRYDjMO3w7-KQpyA3Kuf44
 id: node.species_death.field_death_location
 field_name: field_death_location
 entity_type: node
 bundle: species_death
-label: 'Death Location'
+label: 'Death Occurred?'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      death_location: death_location
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_13
+      arguments: {  }
 field_type: entity_reference

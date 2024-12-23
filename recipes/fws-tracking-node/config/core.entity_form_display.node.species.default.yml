@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.species.field_dam
+    - field.field.node.species.field_names
     - field.field.node.species.field_number
     - field.field.node.species.field_rearing
     - field.field.node.species.field_sex
@@ -11,38 +12,40 @@ dependencies:
     - field.field.node.species.field_studbook
     - node.type.species
   module:
-    - path
+    - field_group
+    - paragraphs
+    - select2
+third_party_settings:
+  field_group:
+    group_basic_information:
+      children:
+        - field_number
+        - field_sex
+        - field_dam
+        - field_sire
+        - field_rearing
+        - field_studbook
+      label: 'Basic Information'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
 _core:
-  default_config_hash: ykCg30h-OF1pB5Zc8fxiUdP1FUiTsUKJxQLbEoZ2WLA
+  default_config_hash: h2EV159MJb-LMyjEX2u6JOlzLKFeHxvgADGraK66dYI
 id: node.species.default
 targetEntityType: node
 bundle: species
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_dam:
-    type: entity_reference_autocomplete
-    weight: 2
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_number:
-    type: number
-    weight: 121
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_rearing:
     type: entity_reference_autocomplete
     weight: 4
     region: content
@@ -52,19 +55,48 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_sex:
-    type: entity_reference_autocomplete
+  field_names:
+    type: entity_reference_paragraphs
     weight: 1
     region: content
     settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_number:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_rearing:
+    type: select2_entity_reference
+    weight: 6
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
+    third_party_settings: {  }
+  field_sex:
+    type: select2_entity_reference
+    weight: 3
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_sire:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -74,7 +106,7 @@ content:
     third_party_settings: {  }
   field_studbook:
     type: string_textfield
-    weight: 5
+    weight: 7
     region: content
     settings:
       size: 60
@@ -82,59 +114,24 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 15
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 120
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 16
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  url_redirects:
-    weight: 50
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

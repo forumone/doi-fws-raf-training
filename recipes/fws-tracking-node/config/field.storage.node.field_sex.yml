@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: jzgcIvfXlgVmDU-gwSOKJcof7ZZNmB31qHrN-_Oi4Kw
 id: node.field_sex
 field_name: field_sex
 entity_type: node

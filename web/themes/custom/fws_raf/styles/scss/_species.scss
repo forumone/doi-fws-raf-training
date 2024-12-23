@@ -1,0 +1,19 @@
+.species-search-results {
+  .results-count {
+    margin: 10px;
+  }
+
+  .form-type-select .select-wrapper {
+    width: 150px;
+
+    select {
+      cursor: pointer;
+    }
+
+    &::after {
+      top: 31px;
+      right: 3px;
+      z-index: 10;
+    }
+  }
+}

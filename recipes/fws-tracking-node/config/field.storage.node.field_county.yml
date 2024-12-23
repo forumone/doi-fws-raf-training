@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: GFec0siAl1kjKt8ExjRNVP0Mv--_wplF1Xz1Fuy9Mbw
 id: node.field_county
 field_name: field_county
 entity_type: node

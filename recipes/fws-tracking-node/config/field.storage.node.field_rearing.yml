@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: gP89yXeuYcoHE5DnEd-X255mSnOLChKRTGdunM3yups
 id: node.field_rearing
 field_name: field_rearing
 entity_type: node

@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_city
     - node.type.species_prerelease
+_core:
+  default_config_hash: W0f-5bGBEIlJudE7QXlv57CWoeYzb4cyb1DnTjZvpr0
 id: node.species_prerelease.field_city
 field_name: field_city
 entity_type: node
 bundle: species_prerelease
 label: City
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

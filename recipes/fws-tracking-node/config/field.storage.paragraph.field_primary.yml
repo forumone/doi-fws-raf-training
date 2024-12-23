@@ -1,12 +1,14 @@
-uuid: e2810bf8-599a-4d3b-91b4-a7032d8ff3ec
+uuid: 9a2e431f-5888-4dec-af0e-23a340f4776f
 langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.field_primary
+    - paragraphs
+_core:
+  default_config_hash: U6KTtAkG7ltya4VkWvzVBo6ehN8fTnOKGS3DJtQIoVI
+id: paragraph.field_primary
 field_name: field_primary
-entity_type: node
+entity_type: paragraph
 type: boolean
 settings: {  }
 module: core

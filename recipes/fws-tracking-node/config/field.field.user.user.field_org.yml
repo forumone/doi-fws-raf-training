@@ -7,6 +7,8 @@ dependencies:
     - taxonomy.vocabulary.org
   module:
     - user
+_core:
+  default_config_hash: eOrTW1w2rDqQj8xBgR5e7QD1yqrLSUJcInQ6Kcu1yPk
 id: user.user.field_org
 field_name: field_org
 entity_type: user

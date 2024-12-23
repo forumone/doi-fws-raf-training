@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_org
     - node.type.species_prerelease
-    - taxonomy.vocabulary.org
+_core:
+  default_config_hash: D_sO1a_BVM__fgdJOWD6Zs2PmwoB6ELPlcba5ixEw1A
 id: node.species_prerelease.field_org
 field_name: field_org
 entity_type: node
 bundle: species_prerelease
-label: Org
+label: Facility
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      org: org
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
 field_type: entity_reference

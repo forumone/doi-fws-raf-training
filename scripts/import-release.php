@@ -93,32 +93,11 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       ],
       'field_city' => $city,
       'field_waterway' => $waterway,
-      'field_bottom_feeding' => filter_boolean($bottom_feed),
-      'field_natural_vegetation' => filter_boolean($nat_veg),
-      'field_vegetation_type' => $veg_type,
-      'field_months_vegetation' => [
-        'target_id' => get_taxonomy_term_id('months', $months_veg),
-      ],
-      'field_display_water_type' => [
-        'target_id' => get_taxonomy_term_id('water', $display_type),
-      ],
-      'field_release_water_type' => [
-        'target_id' => get_taxonomy_term_id('water', $rel_type),
-      ],
-      'field_months_water_exposure' => [
-        'target_id' => get_taxonomy_term_id('months', $months_exp_water),
-      ],
       'field_tracker' => $tracker,
       'field_participating_orgs' => [
         'target_id' => get_taxonomy_term_id('org', $part_org),
       ],
       'field_veterinarian' => get_user_id($vet_id),
-      'field_weight' => is_numeric($weight) ? (int) $weight : NULL,
-      'field_weight_estimated' => filter_boolean($est_w),
-      'field_weight_date' => parse_date($w_date),
-      'field_length' => is_numeric($length) ? (int) $length : NULL,
-      'field_length_estimated' => filter_boolean($est_l),
-      'field_length_date' => parse_date($l_date),
       'field_comments' => [
         'value' => $comments,
         'format' => 'full_html',

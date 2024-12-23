@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: N9tV-QPZXRfsVVJ0X6ONf8U1tObSKe8Nivp-UssxSRw
 id: node.field_estimated_weight
 field_name: field_estimated_weight
 entity_type: node

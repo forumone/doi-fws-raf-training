@@ -2,10 +2,12 @@ uuid: aaad72b6-8ac4-4a9b-b004-b1cf1613dabc
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: 6MZHbZAoFlRSYnSN7rQ4ExDaTEK8x5h3LgodnXGbNXo
 name: 'Other Names'
 type: other_names
 description: 'Stores all names associated with a species that are identified in other species databases. For example, an species may be given a name in the MIPS database'
 help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

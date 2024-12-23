@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_tracker
     - node.type.species_release
+_core:
+  default_config_hash: oiUePSQsQgkxEAp_6oW_Wf2gpo2kxrYr3iiTHZONiA4
 id: node.species_release.field_tracker
 field_name: field_tracker
 entity_type: node

@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: nRzkVcJKhrxDZiJWOtVO-nE4uKT_ehXYwzAr6WN9w1g
 id: node.field_tag_type
 field_name: field_tag_type
 entity_type: node

@@ -5,6 +5,8 @@ dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: PQoM-b_VBCEVGxvfisVMV0sM28j7LiLpB3AfvNmvtRk
 id: node.field_display_water_type
 field_name: field_display_water_type
 entity_type: node

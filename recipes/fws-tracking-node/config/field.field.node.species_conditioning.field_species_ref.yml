@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_species_ref
     - node.type.species
     - node.type.species_conditioning
+_core:
+  default_config_hash: nzidiwLABklH9vETxSKHRbgyv31xHABIaiuFUdcTMNw
 id: node.species_conditioning.field_species_ref
 field_name: field_species_ref
 entity_type: node

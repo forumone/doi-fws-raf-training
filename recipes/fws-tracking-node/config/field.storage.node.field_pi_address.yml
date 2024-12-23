@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: x-z9M63wja2imN6uywpe5WoZDf8jF82yxxT7Ym7_A5E
 id: node.field_pi_address
 field_name: field_pi_address
 entity_type: node

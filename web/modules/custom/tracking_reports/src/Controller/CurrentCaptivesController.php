@@ -104,27 +104,6 @@ class CurrentCaptivesController extends ControllerBase {
       }
     }
 
-    // Get primary names.
-    $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_species_ref', NULL, 'IS NOT NULL')
-      ->condition('field_primary', 1)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    $primary_names = [];
-    if (!empty($name_query)) {
-      $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($name_query);
-      foreach ($name_nodes as $name_node) {
-        if ($name_node->hasField('field_species_ref') && !$name_node->field_species_ref->isEmpty()) {
-          $species_ref_id = $name_node->field_species_ref->target_id;
-          if ($name_node->hasField('field_name') && !$name_node->field_name->isEmpty()) {
-            $primary_names[$species_ref_id] = $name_node->field_name->value;
-          }
-        }
-      }
-    }
-
     // Get species IDs.
     $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
@@ -226,6 +205,26 @@ class CurrentCaptivesController extends ControllerBase {
     }
 
     $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
+
+    // Get primary names.
+    $primary_names = [];
+    foreach ($species_entity_ids as $species_id) {
+      $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
+      if ($species_node && $species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+        $names_paragraphs = $species_node->field_names->referencedEntities();
+        foreach ($names_paragraphs as $paragraph) {
+          if ($paragraph->hasField('field_primary') &&
+              !$paragraph->field_primary->isEmpty() &&
+              $paragraph->field_primary->value == 1 &&
+              $paragraph->hasField('field_name') &&
+              !$paragraph->field_name->isEmpty()) {
+            $primary_names[$species_id] = $paragraph->field_name->value;
+            // We found the primary name, no need to continue checking.
+            break;
+          }
+        }
+      }
+    }
 
     // Get all events.
     $event_nodes = [];

@@ -31,4 +31,19 @@
       });
     }
   };
+
+  Drupal.behaviors.trackingReportsAddEvent = {
+    attach: function (context, settings) {
+      once('tracking-reports-add-event', '.add-event-select', context).forEach(function (element) {
+        $(element).on('change', function (e) {
+          const selectedType = $(this).val();
+          const speciesId = $(this).data('species-id');
+
+          if (selectedType) {
+            window.location.href = `${drupalSettings.trackingReports.baseUrl}${selectedType}?edit[field_species_ref][widget][0][target_id]=${speciesId}`;
+          }
+        });
+      });
+    }
+  };
 })(jQuery, Drupal, once);

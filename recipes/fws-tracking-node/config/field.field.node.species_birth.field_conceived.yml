@@ -5,21 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_conceived
     - node.type.species_birth
-    - taxonomy.vocabulary.conceived
+_core:
+  default_config_hash: roi0ENyHDi4OnAdw_-EOzDK-1Nusc5thjCbLL1UdqCQ
 id: node.species_birth.field_conceived
 field_name: field_conceived
 entity_type: node
 bundle: species_birth
-label: 'Where Conceived'
+label: 'Where Conceived?'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      conceived: conceived
-    auto_create: false
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_14
+      arguments: {  }
 field_type: entity_reference

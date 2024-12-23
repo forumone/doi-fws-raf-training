@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_species_ref
     - node.type.species
     - node.type.species_entangle
+_core:
+  default_config_hash: 9Yu40zFp6En89L7vhSc2xvoc9UAHA5gGay9QM99xLao
 id: node.species_entangle.field_species_ref
 field_name: field_species_ref
 entity_type: node

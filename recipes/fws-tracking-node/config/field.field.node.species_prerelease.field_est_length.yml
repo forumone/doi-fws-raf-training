@@ -7,11 +7,13 @@ dependencies:
     - node.type.species_prerelease
   module:
     - options
+_core:
+  default_config_hash: c_SdSZCAxWwylXlFPLm4DekNmeWhXUncr8TsaxOt86c
 id: node.species_prerelease.field_est_length
 field_name: field_est_length
 entity_type: node
 bundle: species_prerelease
-label: 'Est Length'
+label: 'Estimated Length'
 description: ''
 required: true
 translatable: true

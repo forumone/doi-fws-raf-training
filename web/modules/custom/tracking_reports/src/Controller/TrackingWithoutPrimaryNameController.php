@@ -44,26 +44,28 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   /**
    * Gets all non-primary names for a species.
    *
-   * @param int $species_id
-   *   The node ID of the species entity.
+   * @param \Drupal\node\NodeInterface $species_node
+   *   The species node entity.
    *
    * @return string
    *   Comma-separated list of non-primary names.
    */
-  private function getNonPrimaryNames($species_id) {
+  private function getNonPrimaryNames($species_node) {
     $names = [];
-    $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_species_ref', $species_id)
-      ->condition('field_primary', 1, '<>')
-      ->accessCheck(FALSE);
 
-    $name_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
-    foreach ($name_nodes as $node) {
-      if (!$node->field_name->isEmpty()) {
-        $names[] = $node->field_name->value;
+    if ($species_node->hasField('field_names')) {
+      foreach ($species_node->field_names->referencedEntities() as $paragraph) {
+        if ($paragraph->hasField('field_name') && !$paragraph->field_name->isEmpty()) {
+          // Only include names that are not marked as primary.
+          if (!$paragraph->hasField('field_primary')
+              || $paragraph->field_primary->isEmpty()
+              || !$paragraph->field_primary->value) {
+            $names[] = $paragraph->field_name->value;
+          }
+        }
       }
     }
+
     return implode(', ', $names);
   }
 
@@ -93,13 +95,52 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   }
 
   /**
+   * Checks if a species has any names.
+   *
+   * @param \Drupal\node\NodeInterface $species_node
+   *   The species node entity.
+   *
+   * @return bool
+   *   TRUE if the species has any names, FALSE otherwise.
+   */
+  private function hasAnyNames($species_node) {
+    return $species_node->hasField('field_names')
+           && !$species_node->field_names->isEmpty();
+  }
+
+  /**
+   * Checks if a species has a primary name.
+   *
+   * @param \Drupal\node\NodeInterface $species_node
+   *   The species node entity.
+   *
+   * @return bool
+   *   TRUE if the species has a primary name, FALSE otherwise.
+   */
+  private function hasPrimaryName($species_node) {
+    if (!$species_node->hasField('field_names')) {
+      return FALSE;
+    }
+
+    foreach ($species_node->field_names->referencedEntities() as $paragraph) {
+      if ($paragraph->hasField('field_primary')
+          && !$paragraph->field_primary->isEmpty()
+          && $paragraph->field_primary->value == 1) {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Builds the content for the species without primary name report.
    *
    * @return array
    *   A render array for a table of species without primary names.
    */
   public function content() {
-    // First get all species nodes that have associated nodes.
+    // First get all species nodes.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species')
       ->accessCheck(FALSE);
@@ -108,23 +149,12 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
 
     $rows = [];
     foreach ($species_nodes as $species_entity) {
-      // First check if this species has any name nodes at all.
-      $has_names_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species_name')
-        ->condition('field_species_ref', $species_entity->id())
-        ->accessCheck(FALSE);
-
-      $has_any_names = !empty($has_names_query->execute());
+      // First check if this species has any names at all.
+      $has_any_names = $this->hasAnyNames($species_entity);
 
       if ($has_any_names) {
         // Then check if any of those names are primary.
-        $primary_name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-          ->condition('type', 'species_name')
-          ->condition('field_species_ref', $species_entity->id())
-          ->condition('field_primary', 1)
-          ->accessCheck(FALSE);
-
-        $has_primary = !empty($primary_name_query->execute());
+        $has_primary = $this->hasPrimaryName($species_entity);
 
         // If no primary names found but has other names, add to our results.
         if (!$has_primary) {
@@ -138,7 +168,7 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
           $row = [
             'data' => [
               ['data' => $number_link],
-              ['data' => $this->getNonPrimaryNames($species_entity->id())],
+              ['data' => $this->getNonPrimaryNames($species_entity)],
               ['data' => $this->getAllSpeciesIds($species_entity->id())],
             ],
           ];

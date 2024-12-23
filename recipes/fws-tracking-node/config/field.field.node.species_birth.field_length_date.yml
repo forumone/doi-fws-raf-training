@@ -1,0 +1,23 @@
+uuid: 1adc8280-a4d3-4a30-a098-358fa09a88b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_date
+    - node.type.species_birth
+  module:
+    - datetime
+_core:
+  default_config_hash: COA3UF0QZwl32-sXqiOigehh26k-F9R_VrXQbwLDhjg
+id: node.species_birth.field_length_date
+field_name: field_length_date
+entity_type: node
+bundle: species_birth
+label: 'Date Measured'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

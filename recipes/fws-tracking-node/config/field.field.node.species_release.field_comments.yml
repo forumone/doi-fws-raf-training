@@ -7,11 +7,13 @@ dependencies:
     - node.type.species_release
   module:
     - text
+_core:
+  default_config_hash: JYPfAN3P6xUv9Z97yMCwBy0o2KK7ID3xKI1e07LINiA
 id: node.species_release.field_comments
 field_name: field_comments
 entity_type: node
 bundle: species_release
-label: Comments
+label: 'Additional Narrative'
 description: ''
 required: false
 translatable: true

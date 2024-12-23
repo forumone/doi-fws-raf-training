@@ -5,13 +5,16 @@ dependencies:
   config:
     - field.storage.node.field_pregnant
     - node.type.species_rescue
+    - taxonomy.vocabulary.pregnant
+_core:
+  default_config_hash: yh4Q2RPcgtOcc6458tjzv85WGXFg_DCIMzPqeswEJ7g
 id: node.species_rescue.field_pregnant
 field_name: field_pregnant
 entity_type: node
 bundle: species_rescue
 label: 'Suspected Pregnant'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -20,4 +23,9 @@ settings:
   handler_settings:
     target_bundles:
       pregnant: pregnant
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

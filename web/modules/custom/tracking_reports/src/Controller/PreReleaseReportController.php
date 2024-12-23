@@ -54,6 +54,29 @@ class PreReleaseReportController extends ControllerBase {
   }
 
   /**
+   * Gets the primary name for a species entity.
+   *
+   * @param \Drupal\node\NodeInterface $species
+   *   The species node.
+   *
+   * @return string
+   *   The primary name or 'N/A' if not found.
+   */
+  protected function getPrimaryName($species) {
+    if ($species->hasField('field_names') && !$species->field_names->isEmpty()) {
+      foreach ($species->field_names->referencedEntities() as $paragraph) {
+        if ($paragraph->hasField('field_primary')
+            && !$paragraph->field_primary->isEmpty()
+            && $paragraph->field_primary->value == 1
+            && !$paragraph->field_name->isEmpty()) {
+          return $paragraph->field_name->value;
+        }
+      }
+    }
+    return 'N/A';
+  }
+
+  /**
    * Builds the report page.
    *
    * @return array
@@ -107,21 +130,8 @@ class PreReleaseReportController extends ControllerBase {
         ['node' => $species_entity->id()]
       );
 
-      // Get the primary name.
-      $name_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species_name')
-        ->condition('field_species_ref', $species_entity->id())
-        ->condition('field_primary', 1)
-        ->accessCheck(FALSE)
-        ->execute();
-
-      $name = 'N/A';
-      if (!empty($name_query)) {
-        $name_node = $this->entityTypeManager->getStorage('node')->load(reset($name_query));
-        if ($name_node && !$name_node->field_name->isEmpty()) {
-          $name = $name_node->field_name->value;
-        }
-      }
+      // Get the primary name using the new method.
+      $name = $this->getPrimaryName($species_entity);
 
       // Build the row.
       $row = [

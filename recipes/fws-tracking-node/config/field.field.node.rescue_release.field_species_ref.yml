@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_species_ref
-    - node.type.species
     - node.type.rescue_release
+    - node.type.species
+_core:
+  default_config_hash: 1ijrHRWiZbhiCJEQTcIE7O11wDwTKsP70he76-whYsY
 id: node.rescue_release.field_species_ref
 field_name: field_species_ref
 entity_type: node

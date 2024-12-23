@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.storage.node.field_health
     - node.type.status_report
-    - taxonomy.vocabulary.health
+_core:
+  default_config_hash: JvuSy-NOtno-2ITeOEmBLF_tVx2_CRtcMjO018ydfjg
 id: node.status_report.field_health
 field_name: field_health
 entity_type: node
 bundle: status_report
 label: 'Health Status'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      health: health
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.node.field_length
     - node.type.status_report
+_core:
+  default_config_hash: BlNK_Kr1SAQN9iROnCnZN3bQVwrimx-Wlky2Vr91IzM
 id: node.status_report.field_length
 field_name: field_length
 entity_type: node
 bundle: status_report
 label: Length
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -19,5 +21,5 @@ settings:
   min: null
   max: null
   prefix: ''
-  suffix: ''
+  suffix: cm
 field_type: integer

@@ -54,7 +54,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'target_id' => get_species_node_id($number),
       ],
       // ISO 8601.
-      'field_birth_date' => parse_date($birth_date, FALSE),
+      'field_birth_date' => parse_date($birth_date),
       'field_health_status' => [
         'target_id' => get_health_status_term_id($health),
       ],
@@ -71,12 +71,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_weight' => $weight,
       'field_weight_estimated' => $est_w == 'Y' ? 1 : 0,
       // ISO 8601.
-      'field_weight_date' => parse_date($w_date, FALSE),
+      'field_weight_date' => parse_date($w_date),
       'field_length' => $length,
+      'field_length_estimated' => $est_l == 'Y' ? 1 : 0,
+      // ISO 8601.
+      'field_length_date' => parse_date($l_date),
       // UNIX timestamp.
-      'created' => parse_date($create_date, TRUE),
+      'created' => strtotime($create_date),
       // UNIX timestamp.
-      'changed' => parse_date($update_date, TRUE),
+      'changed' => strtotime($update_date),
       'status' => 1,
     ];
 
@@ -93,7 +96,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     else {
       // Create new node.
       $node_data['uid'] = get_user_id($create_by);
-      $node_data['created'] = parse_date($create_date);
+      $node_data['created'] = strtotime($create_date);
       $node = Node::create($node_data);
       print("\nCreating new species_birth node: MLog $number");
       $created_count++;
@@ -122,24 +125,24 @@ print("\nUpdated: $updated_count");
 print("\nErrors: $error_count\n");
 
 /**
- * Helper function to parse and format date values.
- * Returns UNIX timestamp by default, or ISO 8601 if specified.
+ * Helper function to parse and format date values (YYYY-MM-DD).
  */
-function parse_date($date_value, $as_timestamp = TRUE) {
+function parse_date($date_value) {
   try {
     if (empty($date_value)) {
+      // Return NULL if date_value is empty.
       return NULL;
     }
-    $date = \DateTime::createFromFormat('Y-m-d H:i:s.u', $date_value);
-    if ($date === FALSE) {
-      // Try without microseconds if the format doesn't match.
-      $date = \DateTime::createFromFormat('Y-m-d H:i:s', $date_value);
+
+    // Use regex to extract the YYYY-mm-dd part from the date_value.
+    if (preg_match('/(\d{4}-\d{2}-\d{2})/', $date_value, $matches)) {
+      // Return the matched date.
+      return $matches[1];
     }
-    if ($date !== FALSE) {
-      return $as_timestamp ? $date->getTimestamp() : $date->format('Y-m-d\TH:i:s');
+    else {
+      print("\nError parsing date: $date_value");
+      return NULL;
     }
-    print("\nError parsing date: $date_value");
-    return NULL;
   }
   catch (Exception $e) {
     print("\nException while parsing date: " . $e->getMessage());

@@ -7,6 +7,8 @@ dependencies:
     - node.type.species_rescue
   module:
     - text
+_core:
+  default_config_hash: fhIOIZ7b-pEVT1URlt7tWySS-36PIc7894ybfYCOLJQ
 id: node.species_rescue.field_primary_cause_detail
 field_name: field_primary_cause_detail
 entity_type: node
