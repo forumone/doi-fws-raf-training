@@ -17,12 +17,12 @@
   ]
 %}
 
-<article{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
   <div class="panel panel-primary">
     {# Header section with ID and tracking number #}
     <div class="panel-heading">
       <h3 class="panel-title">
-        Species Information
+        Basic Information
         {% if content.field_number %}
           (Number: {{ content.field_number.0['#markup'] }})
         {% endif %}
