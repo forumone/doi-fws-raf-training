@@ -15,7 +15,7 @@ dependencies:
     - entity_reference_revisions
     - user
 _core:
-  default_config_hash: iQanYA-FzLUAjo-3Q24-Qnpkck_wgDluFyIjriDIp8A
+  default_config_hash: rHusaAdpobHXlIah2yMTe6MbQ45EOtn0B8JNk2qeSvo
 id: node.species.default
 targetEntityType: node
 bundle: species
@@ -23,44 +23,51 @@ mode: default
 content:
   field_dam:
     type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_names:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 101
-    region: content
-  field_rearing:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_sex:
-    type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
     weight: 1
     region: content
+  field_names:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_number:
+    type: number_unformatted
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_rearing:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_sex:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_sire:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_species_id:
     type: string
@@ -72,18 +79,13 @@ content:
     region: content
   field_studbook:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
+    weight: 4
     region: content
 hidden:
-  field_number: true
   langcode: true
+  links: true
   search_api_excerpt: true

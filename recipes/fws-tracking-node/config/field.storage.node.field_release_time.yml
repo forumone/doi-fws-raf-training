@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: qEjMFpG8iG7QRzOF8aXxSW0EJA2mfXyfe-LyL2x91Sk
+  default_config_hash: _nLEMEzr2rwm4P36NPJHUrwRxdrovdQpD4zye6koKhM
 id: node.field_release_time
 field_name: field_release_time
 entity_type: node

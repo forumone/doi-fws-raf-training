@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: anvBOSWMRLZ2kGc1nqQd8edgYJiiHo0_Na8DKrW6uu8
+  default_config_hash: '-MvH3sN6xq5Sm34EcUfJQIawkkqj6cKCh1dbzlnpKGs'
 name: PI
 type: pi
 description: 'Principal Investigator information'

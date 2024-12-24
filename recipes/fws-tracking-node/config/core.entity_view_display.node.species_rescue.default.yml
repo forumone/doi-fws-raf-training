@@ -41,7 +41,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: Sc5YVV433owmoJ_iMF1ng7FNRUa9hYYKWd24xsxMzw0
+  default_config_hash: eUJdUvyutnH2AGI3ed2GkSsWEe5XE6hTga-lyV5jRpA
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue
@@ -49,7 +49,7 @@ mode: default
 content:
   field_city:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -57,24 +57,24 @@ content:
     region: content
   field_comments:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
   field_county:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_dead:
     type: boolean
-    label: above
+    label: hidden
     settings:
-      format: default
+      format: yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -82,7 +82,7 @@ content:
     region: content
   field_flood_gate:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -90,15 +90,15 @@ content:
     region: content
   field_health_status:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_latitude:
     type: number_decimal
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -109,7 +109,7 @@ content:
     region: content
   field_length:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -117,19 +117,19 @@ content:
     weight: 10
     region: content
   field_length_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 10
     region: content
   field_length_estimated:
     type: boolean
-    label: above
+    label: hidden
     settings:
-      format: default
+      format: yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -137,7 +137,7 @@ content:
     region: content
   field_longitude:
     type: number_decimal
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -147,23 +147,24 @@ content:
     weight: 10
     region: content
   field_org:
-    type: string
-    label: above
+    type: entity_reference_label
+    label: hidden
     settings:
-      link_to_entity: false
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_participating_orgs:
-    type: text_default
-    label: above
-    settings: {  }
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_pot_status:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -171,39 +172,39 @@ content:
     region: content
   field_pregnant:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_primary_cause:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_primary_cause_detail:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
   field_rescue_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 10
     region: content
   field_rescue_per_day:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -212,46 +213,47 @@ content:
     region: content
   field_rescue_type:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_secondary_cause:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_secondary_cause_detail:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
   field_species_ref:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_state:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_tracker:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -259,23 +261,23 @@ content:
     region: content
   field_transporter:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_veterinarian:
-    type: string
-    label: above
+    type: entity_reference_label
+    label: hidden
     settings:
-      link_to_entity: false
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
   field_waterway:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -283,7 +285,7 @@ content:
     region: content
   field_weight:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -291,19 +293,19 @@ content:
     weight: 10
     region: content
   field_weight_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 10
     region: content
   field_weight_estimated:
     type: boolean
-    label: above
+    label: hidden
     settings:
-      format: default
+      format: yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -311,7 +313,7 @@ content:
     region: content
   field_where_relocated:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }

@@ -5,7 +5,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: DCf_3XvLk8N9m_FIVaxdXpF58yv9hSAxTkr4qtjv8Ro
+  default_config_hash: ovC6lJaROVgwByPLkk2dV2qwmi5QdikcrXrjnMJGoG8
 id: user.field_phone
 field_name: field_phone
 entity_type: user

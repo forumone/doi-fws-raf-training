@@ -19,10 +19,11 @@ dependencies:
     - node.type.transfer
   module:
     - datetime
+    - file
     - text
     - user
 _core:
-  default_config_hash: BgWem8J6w8HJcWNRqWXijmdmVozd09uJMiYhvCMXpj0
+  default_config_hash: uuZZ63fZUBMVbF49AbeNaUHnumpSal18QyjCUOVqH2U
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer
@@ -30,16 +31,16 @@ mode: default
 content:
   field_comments:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
   field_estimated_length:
     type: boolean
-    label: above
+    label: hidden
     settings:
-      format: default
+      format: yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -47,9 +48,9 @@ content:
     region: content
   field_estimated_weight:
     type: boolean
-    label: above
+    label: hidden
     settings:
-      format: default
+      format: yes-no
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
@@ -57,92 +58,87 @@ content:
     region: content
   field_from_facility:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 3
     region: content
   field_length:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: file_size
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
   field_length_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 12
     region: content
   field_reason:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 2
     region: content
   field_species_ref:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
   field_to_facility:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content
   field_transfer_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 1
     region: content
   field_veterinarian:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 6
     region: content
   field_weight:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: file_size
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 7
     region: content
   field_weight_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 9
     region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
 hidden:
   langcode: true
+  links: true
   search_api_excerpt: true

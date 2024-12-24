@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: DkXdQHD4OBN5U5f3t0CIUB8bQo_YACScAMEhB0XNybs
+  default_config_hash: RcwJDpH3uSQt8VzHXxMKryK4mdkeiyj0A1d5sSPSruU
 id: node.field_latitude
 field_name: field_latitude
 entity_type: node

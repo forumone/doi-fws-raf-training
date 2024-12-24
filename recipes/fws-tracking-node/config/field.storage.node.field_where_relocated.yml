@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: GWiqm24nrvte-jvPAybaJ-cCN8J-jT65M4aUH9k-vMQ
+  default_config_hash: EJxNOScV6lkQbjtlaZT1dBBQ7baHZHNyjFO8aVIVa8k
 id: node.field_where_relocated
 field_name: field_where_relocated
 entity_type: node

@@ -7,7 +7,7 @@ dependencies:
     - node
     - paragraphs
 _core:
-  default_config_hash: QAO5OxRIg4MKOoY3Q7Hc3oyPG1HjnPr3SYvdp_sJrHs
+  default_config_hash: sWHyDuLypyp4Q5KDQy3qT9Q6QmkulhNb0Y_5uIX7eic
 id: node.field_names
 field_name: field_names
 entity_type: node

@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_fund_org
     - node.type.research_project
 _core:
-  default_config_hash: 2BvkoM84V_pCKgFEK4pPb3abLy-ziEZVN_FiKruoGsA
+  default_config_hash: bki7VNkcr2rXjk857ck6sIk63isdNmn_2Mshv5PwIQc
 id: node.research_project.field_fund_org
 field_name: field_fund_org
 entity_type: node

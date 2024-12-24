@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: PQoM-b_VBCEVGxvfisVMV0sM28j7LiLpB3AfvNmvtRk
+  default_config_hash: 1MP88-3wh_lLmLz2XNbAT7dg5egk6zQNUC7U9oXByBw
 id: node.field_display_water_type
 field_name: field_display_water_type
 entity_type: node

@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: h1Yet_fXOyK7Dfd6v2jOxG35I5lk6SHQB6qXhabJH88
+  default_config_hash: TrTUU125gi5-oo7r0STtLfBMMq7efzF0g8C632BNe9I
 id: node.field_cond_stop
 field_name: field_cond_stop
 entity_type: node

@@ -14,7 +14,7 @@ dependencies:
     - datetime
     - user
 _core:
-  default_config_hash: 6zACz7CFEH9_8vzkio0UA2gN2TgXheL_B4WJdkXFCLs
+  default_config_hash: ew-eC4uXrAlR4DDpBYrm7S9eQ-Ja32wwIt1-arLATEE
 id: node.species_entangle.default
 targetEntityType: node
 bundle: species_entangle
@@ -22,57 +22,54 @@ mode: default
 content:
   field_entanglement_location:
     type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_gear_description:
-    type: basic_string
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
-  field_gear_type:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
+  field_gear_description:
+    type: basic_string
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
+  field_gear_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_rescue_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_rescue_per_day:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_species_ref:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
-    weight: 1
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   langcode: true
+  links: true
   search_api_excerpt: true
