@@ -12,12 +12,12 @@
     'clearfix',
   ]
 %}
-<section{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
-  {{ title_prefix }}
-  {{ title_suffix }}
+{% if content|render|striptags|trim %}
+  <section{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+    {{ title_prefix }}
+    {{ title_suffix }}
 
-  {% block content %}
-    {% if content|render|striptags|trim %}
+    {% block content %}
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">{{ label }}</h3>
@@ -26,6 +26,6 @@
           {{ content }}
         </div>
       </div>
-    {% endif %}
-  {% endblock %}
-</section>
+    {% endblock %}
+  </section>
+{% endif %}
