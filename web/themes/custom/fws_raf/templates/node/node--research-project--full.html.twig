@@ -1,0 +1,144 @@
+{#
+/**
+ * @file
+ * Theme override to display Research Project information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'research-project',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Basic Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Project Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Title</th>
+                <td class="col-md-9">{{ content.field_title }}</td>
+              </tr>
+              <tr>
+                <th>Subject/Research Question</th>
+                <td>{{ content.field_subject }}</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td>{{ content.field_description }}</td>
+              </tr>
+              <tr>
+                <th>Primary Research Category</th>
+                <td>{{ content.field_primary_research }}</td>
+              </tr>
+              <tr>
+                <th>Secondary Research Category</th>
+                <td>{{ content.field_secondary_research }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Project Timeline</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Start Date</th>
+                <td class="col-md-9">{{ content.field_start_date }}</td>
+              </tr>
+              <tr>
+                <th>End Date</th>
+                <td>{{ content.field_end_date }}</td>
+              </tr>
+              <tr>
+                <th>Budget Time</th>
+                <td>{{ content.field_budget_time }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Details Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Project Details</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Budget</th>
+                <td class="col-md-9">{{ content.field_budget }}</td>
+              </tr>
+              <tr>
+                <th>Funding Organization</th>
+                <td>{{ content.field_fund_org }}</td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>{{ content.field_location }}</td>
+              </tr>
+              <tr>
+                <th>PI</th>
+                <td>{{ content.field_pi }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permit Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Permit Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Permit Number</th>
+                <td class="col-md-9">{{ content.field_permit_number }}</td>
+              </tr>
+              <tr>
+                <th>Permit Type</th>
+                <td>{{ content.field_permit_type }}</td>
+              </tr>
+              <tr>
+                <th>Permit Expiration Date</th>
+                <td>{{ content.field_expire_date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

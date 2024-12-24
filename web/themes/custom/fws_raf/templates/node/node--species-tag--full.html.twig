@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Theme override to display Species Tag information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'species-tag',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Tag Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Tag Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Tag ID</th>
+                <td class="col-md-9">{{ content.field_tag_id }}</td>
+              </tr>
+              <tr>
+                <th>Tag Type</th>
+                <td>{{ node.field_tag_type is not empty ? node.field_tag_type.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Date Applied</th>
+                <td>{{ content.field_date_applied }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Event Details</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Event Type</th>
+                <td class="col-md-9">{{ node.field_event is not empty ? node.field_event.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Event Date</th>
+                <td>{{ content.field_event_date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Tag Information</th>
+                <td class="col-md-9">{{ content.field_tag_info }}</td>
+              </tr>
+              <tr>
+                <th>Species</th>
+                <td>{{ node.field_species_ref is not empty ? node.field_species_ref.entity.label : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Created Date</th>
+                <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

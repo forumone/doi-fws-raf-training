@@ -1,0 +1,111 @@
+{#
+/**
+ * @file
+ * Theme override to display Mortality Record information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'mortality-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Primary Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Primary Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Date</th>
+                <td class="col-md-9">{{ content.field_death_date }}</td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>{{ node.field_death_location is not empty ? node.field_death_location.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Cause</th>
+                <td>{{ node.field_cause_id is not empty ? node.field_cause_id.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Euthanasia</th>
+                <td>{{ node.field_euthanasia ? 'Yes' : 'No' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Care Provider Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Care Provider Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Organization</th>
+                <td class="col-md-9">{{ node.field_org is not empty ? node.field_org.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Veterinarian</th>
+                <td>{{ content.field_veterinarian }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Additional Narrative</th>
+                <td class="col-md-9">{{ content.field_comments }}</td>
+              </tr>
+              {% if node.field_other_text is not empty %}
+              <tr>
+                <th>Additional Details</th>
+                <td>{{ content.field_other_text }}</td>
+              </tr>
+              {% endif %}
+              <tr>
+                <th>Created Date</th>
+                <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
