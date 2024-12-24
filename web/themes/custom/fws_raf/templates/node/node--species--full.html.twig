@@ -39,7 +39,7 @@
             </tr>
             <tr>
               <th>Tracking ID</th>
-              <td>{{ content.field_number.0['#markup'] }}</td>
+              <td><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] }}</a></td>
             </tr>
             <tr>
               <th>Studbook</th>
