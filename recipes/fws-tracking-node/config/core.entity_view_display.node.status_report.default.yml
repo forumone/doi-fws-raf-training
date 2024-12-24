@@ -1,0 +1,166 @@
+uuid: a8051db8-fe9b-492d-b1db-bc0b069ba7b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.status_report.field_bloods
+    - field.field.node.status_report.field_est_length
+    - field.field.node.status_report.field_est_weight
+    - field.field.node.status_report.field_health
+    - field.field.node.status_report.field_health_diag
+    - field.field.node.status_report.field_length
+    - field.field.node.status_report.field_length_date
+    - field.field.node.status_report.field_org
+    - field.field.node.status_report.field_release_time
+    - field.field.node.status_report.field_req_half_yr
+    - field.field.node.status_report.field_req_year
+    - field.field.node.status_report.field_species_ref
+    - field.field.node.status_report.field_status
+    - field.field.node.status_report.field_vet_id
+    - field.field.node.status_report.field_weight
+    - field.field.node.status_report.field_weight_date
+    - node.type.status_report
+  module:
+    - datetime
+    - options
+    - text
+    - user
+id: node.status_report.default
+targetEntityType: node
+bundle: status_report
+mode: default
+content:
+  field_bloods:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_est_length:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_est_weight:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_health:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_health_diag:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_length:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_length_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_org:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_release_time:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_req_half_yr:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_req_year:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_status:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_vet_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_weight:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_weight_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 14
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true
