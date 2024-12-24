@@ -11,6 +11,8 @@ dependencies:
   module:
     - datetime
     - user
+_core:
+  default_config_hash: FqX8bvWujpx_CA2-SC7wzIfHYKoJyFnCzumS4OztQTU
 id: node.rescue_release.default
 targetEntityType: node
 bundle: rescue_release

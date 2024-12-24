@@ -32,11 +32,11 @@
             <tbody>
               <tr>
                 <th>Species ID</th>
-                <td>{{ content.field_species_id }}</td>
+                <td>{{ content.field_species_id|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>ID Type</th>
-                <td>{{ content.field_id_type }}</td>
+                <td>{{ content.field_id_type|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Primary ID</th>

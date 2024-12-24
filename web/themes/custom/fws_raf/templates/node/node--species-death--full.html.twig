@@ -32,7 +32,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Date</th>
-                <td class="col-md-9">{{ content.field_death_date }}</td>
+                <td class="col-md-9">{{ content.field_death_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Location</th>
@@ -67,7 +67,7 @@
               </tr>
               <tr>
                 <th>Veterinarian</th>
-                <td>{{ content.field_veterinarian }}</td>
+                <td>{{ content.field_veterinarian|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -86,12 +86,12 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Additional Narrative</th>
-                <td class="col-md-9">{{ content.field_comments }}</td>
+                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
               </tr>
               {% if node.field_other_text is not empty %}
               <tr>
                 <th>Additional Details</th>
-                <td>{{ content.field_other_text }}</td>
+                <td>{{ content.field_other_text|default('N/A') }}</td>
               </tr>
               {% endif %}
               <tr>

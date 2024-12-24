@@ -19,7 +19,7 @@
 
 <article{{ attributes.addClass(classes) }}>
   <div class="container-fluid">
-    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref ?: 'N/A' }}</div>
 
     <!-- Principal Investigator Information Section -->
     <div class="panel panel-primary">
@@ -32,15 +32,15 @@
             <tbody>
               <tr>
                 <th class="col-md-3">PI Name</th>
-                <td class="col-md-9">{{ content.field_pi_name }}</td>
+                <td class="col-md-9">{{ content.field_pi_name ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>PI ID</th>
-                <td>{{ content.field_pi_id }}</td>
+                <td>{{ content.field_pi_id ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Organization</th>
-                <td>{{ content.field_pi_org }}</td>
+                <td>{{ content.field_pi_org ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>
@@ -59,15 +59,15 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Email</th>
-                <td class="col-md-9">{{ content.field_pi_email }}</td>
+                <td class="col-md-9">{{ content.field_pi_email ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Phone</th>
-                <td>{{ content.field_pi_phone }}</td>
+                <td>{{ content.field_pi_phone ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Address</th>
-                <td>{{ content.field_pi_address }}</td>
+                <td>{{ content.field_pi_address ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>

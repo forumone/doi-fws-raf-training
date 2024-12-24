@@ -9,6 +9,8 @@ dependencies:
     - node.type.other_names
   module:
     - user
+_core:
+  default_config_hash: pnSEfGjXsy825c7YZGX-p6KKU8I9s6APt0C32sR38XY
 id: node.other_names.default
 targetEntityType: node
 bundle: other_names

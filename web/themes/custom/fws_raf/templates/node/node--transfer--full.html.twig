@@ -19,7 +19,7 @@
 
 <article{{ attributes.addClass(classes) }}>
   <div class="container-fluid">
-    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref ?: 'N/A' }}</div>
 
     <!-- Transfer Information Section -->
     <div class="panel panel-primary">
@@ -32,19 +32,19 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Transfer Date</th>
-                <td class="col-md-9">{{ content.field_transfer_date }}</td>
+                <td class="col-md-9">{{ content.field_transfer_date ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>From Facility</th>
-                <td>{{ content.field_from_facility }}</td>
+                <td>{{ content.field_from_facility ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>To Facility</th>
-                <td>{{ content.field_to_facility }}</td>
+                <td>{{ content.field_to_facility ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Transfer Reason</th>
-                <td>{{ content.field_reason }}</td>
+                <td>{{ content.field_reason ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,11 +63,11 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Length</th>
-                <td class="col-md-9">{{ content.field_length }}</td>
+                <td class="col-md-9">{{ content.field_length ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Weight</th>
-                <td>{{ content.field_weight }}</td>
+                <td>{{ content.field_weight ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Estimated Length?</th>
@@ -79,11 +79,11 @@
               </tr>
               <tr>
                 <th>Length Date</th>
-                <td>{{ content.field_length_date }}</td>
+                <td>{{ content.field_length_date ?: 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Weight Date</th>
-                <td>{{ content.field_weight_date }}</td>
+                <td>{{ content.field_weight_date ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>
@@ -102,7 +102,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Veterinarian</th>
-                <td class="col-md-9">{{ content.field_veterinarian }}</td>
+                <td class="col-md-9">{{ content.field_veterinarian ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>
@@ -121,7 +121,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Additional Narrative</th>
-                <td class="col-md-9">{{ content.field_comments }}</td>
+                <td class="col-md-9">{{ content.field_comments ?: 'N/A' }}</td>
               </tr>
             </tbody>
           </table>

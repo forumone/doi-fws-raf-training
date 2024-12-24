@@ -14,7 +14,7 @@ dependencies:
   module:
     - path
 _core:
-  default_config_hash: gxPouvIxPYtTmc1M5dA4r4Nl-S9UHspXU90qjeAxcMQ
+  default_config_hash: pT3G4sH1s0CIoufjTyAJ1PigVs0A-BXXLtyWAeNz7V4
 id: node.pi.default
 targetEntityType: node
 bundle: pi

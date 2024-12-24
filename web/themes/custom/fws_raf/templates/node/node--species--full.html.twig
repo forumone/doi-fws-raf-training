@@ -35,11 +35,11 @@
           <tbody>
             <tr>
               <th class="col-md-3">Sex</th>
-              <td class="col-md-9">{{ content.field_sex }}</td>
+              <td class="col-md-9">{{ content.field_sex is not empty ? content.field_sex : 'N/A' }}</td>
             </tr>
             <tr>
               <th>Tracking ID</th>
-              <td><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] }}</a></td>
+              <td><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] is not empty ? content.field_number.0['#markup'] : 'N/A' }}</a></td>
             </tr>
             <tr>
               <th>Studbook</th>
@@ -51,7 +51,7 @@
             </tr>
             <tr>
               <th>Names</th>
-              <td>{{ content.field_names }}</td>
+              <td>{{ content.field_names is not empty ? content.field_names : 'N/A' }}</td>
             </tr>
             <tr>
               <th>Dam</th>

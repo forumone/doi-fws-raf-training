@@ -32,19 +32,19 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Release Date</th>
-                <td class="col-md-9">{{ content.field_release_date }}</td>
+                <td class="col-md-9">{{ content.field_release_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Release Site</th>
-                <td>{{ content.field_release_site }}</td>
+                <td>{{ content.field_release_site|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Waterway</th>
-                <td>{{ content.field_waterway }}</td>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Tracker</th>
-                <td>{{ content.field_tracker }}</td>
+                <td>{{ content.field_tracker|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,15 +63,15 @@
             <tbody>
               <tr>
                 <th class="col-md-3">City</th>
-                <td class="col-md-9">{{ content.field_city }}</td>
+                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>County</th>
-                <td>{{ content.field_county }}</td>
+                <td>{{ content.field_county|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>State</th>
-                <td>{{ content.field_state }}</td>
+                <td>{{ content.field_state|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -90,11 +90,11 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Participating Organizations</th>
-                <td class="col-md-9">{{ content.field_participating_orgs }}</td>
+                <td class="col-md-9">{{ content.field_participating_orgs|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Veterinarian</th>
-                <td>{{ content.field_veterinarian }}</td>
+                <td>{{ content.field_veterinarian|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -113,7 +113,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Additional Narrative</th>
-                <td class="col-md-9">{{ content.field_comments }}</td>
+                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>

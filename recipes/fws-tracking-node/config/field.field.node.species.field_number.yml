@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_number
     - node.type.species
 _core:
-  default_config_hash: wnR9twygC9OgwaMfx4lFvudfzfH-ZJQyII0REFeEzfo
+  default_config_hash: RFkB2uCWK10F0OZk2gH-mRtngh0LYUCmeclE2J5Z1Ac
 id: node.species.field_number
 field_name: field_number
 entity_type: node

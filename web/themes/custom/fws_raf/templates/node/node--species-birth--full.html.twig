@@ -32,7 +32,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Birth Date</th>
-                <td class="col-md-9">{{ content.field_birth_date }}</td>
+                <td class="col-md-9">{{ content.field_birth_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Health Status</th>
@@ -69,15 +69,15 @@
                 <tbody>
                   <tr>
                     <td><strong>Weight</strong></td>
-                    <td>{{ content.field_weight }}</td>
-                    <td>{{ content.field_weight_estimated }}</td>
-                    <td>{{ content.field_weight_date }}</td>
+                    <td>{{ content.field_weight|default('N/A') }}</td>
+                    <td>{{ content.field_weight_estimated|default('N/A') }}</td>
+                    <td>{{ content.field_weight_date|default('N/A') }}</td>
                   </tr>
                   <tr>
                     <td><strong>Length</strong></td>
-                    <td>{{ content.field_length }}</td>
-                    <td>{{ content.field_length_estimated }}</td>
-                    <td>{{ content.field_length_date }}</td>
+                    <td>{{ content.field_length|default('N/A') }}</td>
+                    <td>{{ content.field_length_estimated|default('N/A') }}</td>
+                    <td>{{ content.field_length_date|default('N/A') }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -106,15 +106,15 @@
             </tr>
             <tr>
               <th>Additional Narrative</th>
-              <td>{{ content.field_comments }}</td>
+              <td>{{ content.field_comments|default('N/A') }}</td>
             </tr>
             <tr>
               <th>Created Date</th>
-              <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              <td>{{ node.getCreatedTime() }}</td>
             </tr>
             <tr>
               <th>Last Updated</th>
-              <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              <td>{{ node.getChangedTime() }}</td>
             </tr>
           </tbody>
         </table>

@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.species_name.field_primary
     - paragraphs.paragraphs_type.species_name
 _core:
-  default_config_hash: 7CVbV5eH9F4GTN_4jQZFC0uDXMp9ER-oleDGlcxhO9Y
+  default_config_hash: 6XVTYdBBporFvyuxUXhpb3T4UhPmlyHEYdDVMf6LOGE
 id: paragraph.species_name.default
 targetEntityType: paragraph
 bundle: species_name

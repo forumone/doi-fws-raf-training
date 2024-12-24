@@ -32,23 +32,23 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Release Date</th>
-                <td class="col-md-9">{{ content.field_release_date }}</td>
+                <td class="col-md-9">{{ content.field_release_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Release Site</th>
-                <td>{{ content.field_release_site }}</td>
+                <td>{{ content.field_release_site|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Release Water Type</th>
-                <td>{{ content.field_rel_type }}</td>
+                <td>{{ content.field_rel_type.entity|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Waterway</th>
-                <td>{{ content.field_waterway }}</td>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Display Water Type</th>
-                <td>{{ content.field_display_type }}</td>
+                <td>{{ content.field_display_type|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -67,19 +67,19 @@
             <tbody>
               <tr>
                 <th class="col-md-3">City</th>
-                <td class="col-md-9">{{ content.field_city }}</td>
+                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>County</th>
-                <td>{{ content.field_county }}</td>
+                <td>{{ content.field_county|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>State</th>
-                <td>{{ content.field_state }}</td>
+                <td>{{ content.field_state|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Facility</th>
-                <td>{{ content.field_org }}</td>
+                <td>{{ content.field_org|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -98,27 +98,27 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Length</th>
-                <td class="col-md-9">{{ content.field_length }}</td>
+                <td class="col-md-9">{{ content.field_length|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Weight</th>
-                <td>{{ content.field_weight }}</td>
+                <td>{{ content.field_weight|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Estimated Length</th>
-                <td>{{ content.field_est_length }}</td>
+                <td>{{ content.field_est_length|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Estimated Weight</th>
-                <td>{{ content.field_est_weight }}</td>
+                <td>{{ content.field_est_weight|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Date Measured</th>
-                <td>{{ content.field_length_date }}</td>
+                <td>{{ content.field_length_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Date Weighed</th>
-                <td>{{ content.field_weight_date }}</td>
+                <td>{{ content.field_weight_date|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -149,15 +149,15 @@
               </tr>
               <tr>
                 <th>Exposure Time (months)</th>
-                <td>{{ content.field_months_veg }}</td>
+                <td>{{ content.field_months_veg|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Months Exp Water</th>
-                <td>{{ content.field_months_exp_water }}</td>
+                <td>{{ content.field_months_exp_water|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Vegetation Type</th>
-                <td>{{ content.field_veg_type }}</td>
+                <td>{{ content.field_veg_type|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -203,11 +203,11 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Veterinarian</th>
-                <td class="col-md-9">{{ content.field_vet_id }}</td>
+                <td class="col-md-9">{{ content.field_vet_id|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Additional Narrative</th>
-                <td>{{ content.field_comments }}</td>
+                <td>{{ content.field_comments|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>

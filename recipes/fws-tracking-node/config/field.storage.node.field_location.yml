@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: 99c8PTNexLYf2j61K2a3sRfLG7rD2FNTVPZNe6rL1Lk
+  default_config_hash: UJo-XnakXz7rPnfFs1rXXM4FzkM-viMeZX-0m9xCQrA
 id: node.field_location
 field_name: field_location
 entity_type: node

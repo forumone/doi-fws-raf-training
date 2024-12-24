@@ -2,13 +2,12 @@ uuid: 8ec513aa-cff3-467e-9153-8a170ae12dc1
 langcode: en
 status: true
 dependencies:
-  config:
-    - views.view.tracking_deaths
   module:
     - node
-    - views
   theme:
     - fws_raf
+_core:
+  default_config_hash: 7dotwP13HcOMvlDkYH19-4tOPMR9QlU0y0-hmMJXMb8
 id: fws_raf_views_block__tracking_deaths_block_1
 theme: fws_raf
 region: content

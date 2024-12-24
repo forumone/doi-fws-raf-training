@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: EVEtapoNMIY2a2fyNKLDZNqMpwv6aHXPHWt8qcS9xOo
+  default_config_hash: U7Izctb7yxVNOlAMuo8eK9AaKRrW1pzB4xJeWnD9ROw
 id: node.species_rescue.field_weight_date
 field_name: field_weight_date
 entity_type: node

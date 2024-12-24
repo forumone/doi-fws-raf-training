@@ -32,7 +32,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Tag ID</th>
-                <td class="col-md-9">{{ content.field_tag_id }}</td>
+                <td class="col-md-9">{{ content.field_tag_id|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Tag Type</th>
@@ -40,7 +40,7 @@
               </tr>
               <tr>
                 <th>Date Applied</th>
-                <td>{{ content.field_date_applied }}</td>
+                <td>{{ content.field_date_applied|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,7 +63,7 @@
               </tr>
               <tr>
                 <th>Event Date</th>
-                <td>{{ content.field_event_date }}</td>
+                <td>{{ content.field_event_date|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -82,7 +82,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Tag Information</th>
-                <td class="col-md-9">{{ content.field_tag_info }}</td>
+                <td class="col-md-9">{{ content.field_tag_info|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Species</th>

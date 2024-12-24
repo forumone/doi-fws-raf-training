@@ -15,6 +15,8 @@ dependencies:
     - datetime
     - text
     - user
+_core:
+  default_config_hash: LaPwF__54T2sM5n4-w4cRNJiBk0Frxd6VRdqHGdfPJg
 id: node.species_tag.default
 targetEntityType: node
 bundle: species_tag

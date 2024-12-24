@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: Ocp5W3ZQ3RgJ8x0IMoLFdWtKCF91H7OsrUK4ccUnxeA
+  default_config_hash: 8YzIm-VyPDJ3x7NLr-gmSrPIcVFMl1XIBfi1ZnzLII8
 id: node.field_req_year
 field_name: field_req_year
 entity_type: node

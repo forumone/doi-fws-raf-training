@@ -7,7 +7,7 @@ dependencies:
     - node.type.species_rescue
     - taxonomy.vocabulary.county
 _core:
-  default_config_hash: IYK1e8xd7UckGWXZAh26VVBYTB87L4VTpSrANh791KU
+  default_config_hash: GljShYUS48eZ9ctIjUKyNSBX0rkAB3DwOG9kPEaJu_c
 id: node.species_rescue.field_county
 field_name: field_county
 entity_type: node

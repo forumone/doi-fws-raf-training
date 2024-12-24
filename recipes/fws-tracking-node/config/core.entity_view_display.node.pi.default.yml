@@ -13,6 +13,8 @@ dependencies:
     - node.type.pi
   module:
     - user
+_core:
+  default_config_hash: qf9T6zwaBD8l4ijuav1R79PcLy6UUQHuxmXzotwfK3k
 id: node.pi.default
 targetEntityType: node
 bundle: pi

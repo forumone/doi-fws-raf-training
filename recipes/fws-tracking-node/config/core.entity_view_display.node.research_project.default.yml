@@ -25,6 +25,8 @@ dependencies:
     - datetime
     - text
     - user
+_core:
+  default_config_hash: iiUIQ1c4Aehx6oXMsKS8sqe8lYVtgIBeVd4wvjNCjOM
 id: node.research_project.default
 targetEntityType: node
 bundle: research_project

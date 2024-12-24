@@ -32,7 +32,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Location</th>
-                <td class="col-md-9">{{ content.field_entanglement_location }}</td>
+                <td class="col-md-9">{{ content.field_entanglement_location|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Type of Gear</th>
@@ -40,7 +40,7 @@
               </tr>
               <tr>
                 <th>Gear Description</th>
-                <td>{{ content.field_gear_description }}</td>
+                <td>{{ content.field_gear_description|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -59,11 +59,11 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Rescue Date</th>
-                <td class="col-md-9">{{ content.field_rescue_date }}</td>
+                <td class="col-md-9">{{ content.field_rescue_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Rescues Per Day</th>
-                <td>{{ content.field_rescue_per_day }}</td>
+                <td>{{ content.field_rescue_per_day|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>

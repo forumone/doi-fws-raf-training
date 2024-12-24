@@ -32,23 +32,23 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Rescue Date</th>
-                <td class="col-md-9">{{ content.field_rescue_date }}</td>
+                <td class="col-md-9">{{ content.field_rescue_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Rescue Type</th>
-                <td>{{ content.field_rescue_type }}</td>
+                <td>{{ content.field_rescue_type|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Rescue Per Day</th>
-                <td>{{ content.field_rescue_per_day }}</td>
+                <td>{{ content.field_rescue_per_day|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Waterway</th>
-                <td>{{ content.field_waterway }}</td>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Flood Gate Number</th>
-                <td>{{ content.field_flood_gate }}</td>
+                <td>{{ content.field_flood_gate|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -67,23 +67,23 @@
             <tbody>
               <tr>
                 <th class="col-md-3">City</th>
-                <td class="col-md-9">{{ content.field_city }}</td>
+                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>County</th>
-                <td>{{ content.field_county }}</td>
+                <td>{{ content.field_county|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>State</th>
-                <td>{{ content.field_state }}</td>
+                <td>{{ content.field_state|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Latitude</th>
-                <td>{{ content.field_latitude }}</td>
+                <td>{{ content.field_latitude|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Longitude</th>
-                <td>{{ content.field_longitude }}</td>
+                <td>{{ content.field_longitude|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -102,15 +102,15 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Health Status</th>
-                <td class="col-md-9">{{ content.field_health_status }}</td>
+                <td class="col-md-9">{{ content.field_health_status|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Length</th>
-                <td>{{ content.field_length }}</td>
+                <td>{{ content.field_length|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Weight</th>
-                <td>{{ content.field_weight }}</td>
+                <td>{{ content.field_weight|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Estimated Length</th>
@@ -122,15 +122,15 @@
               </tr>
               <tr>
                 <th>Date Measured</th>
-                <td>{{ content.field_length_date }}</td>
+                <td>{{ content.field_length_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Date Weighed</th>
-                <td>{{ content.field_weight_date }}</td>
+                <td>{{ content.field_weight_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Suspected Pregnant</th>
-                <td>{{ content.field_pregnant }}</td>
+                <td>{{ content.field_pregnant|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Did animal die during rescue or transport?</th>
@@ -153,19 +153,19 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Primary Cause</th>
-                <td class="col-md-9">{{ content.field_primary_cause }}</td>
+                <td class="col-md-9">{{ content.field_primary_cause|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Primary Cause Detail</th>
-                <td>{{ content.field_primary_cause_detail }}</td>
+                <td>{{ content.field_primary_cause_detail|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Secondary Cause</th>
-                <td>{{ content.field_secondary_cause }}</td>
+                <td>{{ content.field_secondary_cause|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Secondary Cause Detail</th>
-                <td>{{ content.field_secondary_cause_detail }}</td>
+                <td>{{ content.field_secondary_cause_detail|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -184,23 +184,23 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Organization</th>
-                <td class="col-md-9">{{ content.field_org }}</td>
+                <td class="col-md-9">{{ content.field_org|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Participating Organizations</th>
-                <td>{{ content.field_participating_orgs }}</td>
+                <td>{{ content.field_participating_orgs|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Veterinarian</th>
-                <td>{{ content.field_veterinarian }}</td>
+                <td>{{ content.field_veterinarian|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Transporter</th>
-                <td>{{ content.field_transporter }}</td>
+                <td>{{ content.field_transporter|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Tracker</th>
-                <td>{{ content.field_tracker }}</td>
+                <td>{{ content.field_tracker|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -219,15 +219,15 @@
             <tbody>
               <tr>
                 <th class="col-md-3">POT Status</th>
-                <td class="col-md-9">{{ content.field_pot_status }}</td>
+                <td class="col-md-9">{{ content.field_pot_status|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Relocated, Where?</th>
-                <td>{{ content.field_where_relocated }}</td>
+                <td>{{ content.field_where_relocated|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Additional Narrative</th>
-                <td>{{ content.field_comments }}</td>
+                <td>{{ content.field_comments|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>

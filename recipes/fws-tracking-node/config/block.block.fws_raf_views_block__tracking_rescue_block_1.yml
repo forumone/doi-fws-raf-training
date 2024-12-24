@@ -2,13 +2,12 @@ uuid: 55f7c65a-988d-42f5-879e-442d4b5a96f8
 langcode: en
 status: true
 dependencies:
-  config:
-    - views.view.tracking_rescue
   module:
     - node
-    - views
   theme:
     - fws_raf
+_core:
+  default_config_hash: KRzoqj7mLoo4O6a1OqQTFMk9RQZyOSf7DgMFVL0zYI4
 id: fws_raf_views_block__tracking_rescue_block_1
 theme: fws_raf
 region: content

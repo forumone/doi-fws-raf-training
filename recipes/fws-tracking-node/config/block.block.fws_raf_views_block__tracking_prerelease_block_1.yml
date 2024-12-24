@@ -2,13 +2,12 @@ uuid: 66acc92b-9e9d-44a7-9b27-1b7b5bce0f25
 langcode: en
 status: true
 dependencies:
-  config:
-    - views.view.tracking_prerelease
   module:
     - node
-    - views
   theme:
     - fws_raf
+_core:
+  default_config_hash: SuWwRp6pkaGiHtD6kkiAw9Ye_Kw1F_uN47Sq-_71n1c
 id: fws_raf_views_block__tracking_prerelease_block_1
 theme: fws_raf
 region: content

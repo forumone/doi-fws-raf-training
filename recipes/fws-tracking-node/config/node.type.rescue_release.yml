@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: v4TAhP5j7fwoHUuxYqVLRJvdIdt3QSvhWYecvKgcV-0
+  default_config_hash: S1oF4G7C5MNRsgM7n_h9imbeiDAH06F66uDwppf3RAQ
 name: 'Rescue Release'
 type: rescue_release
 description: 'Links rescue to release information for species.'

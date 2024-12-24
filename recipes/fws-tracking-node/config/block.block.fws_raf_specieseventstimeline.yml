@@ -2,10 +2,10 @@ uuid: 82dbc5d7-af9e-4193-8451-90a6cc69d96a
 langcode: en
 status: true
 dependencies:
-  module:
-    - tracking_reports
   theme:
     - fws_raf
+_core:
+  default_config_hash: DQRsM6M3DFJjARPLR9xPZohJBVstEmvVJ2tXIY-0BtQ
 id: fws_raf_specieseventstimeline
 theme: fws_raf
 region: content

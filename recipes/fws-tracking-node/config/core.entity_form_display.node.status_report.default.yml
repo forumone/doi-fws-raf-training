@@ -88,7 +88,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: jlSM1uFPWmxPWOjCG2CbTvibg3AQj8Fu03a8ZtF84EQ
+  default_config_hash: 4vrgYfUoGyIPI0Ls0H2PxGvW1wVxF3zPuYdXDLED84c
 id: node.status_report.default
 targetEntityType: node
 bundle: status_report

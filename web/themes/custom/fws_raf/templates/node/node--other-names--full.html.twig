@@ -30,7 +30,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Name</th>
-                <td class="col-md-9">{{ content.field_name }}</td>
+                <td class="col-md-9">{{ content.field_name is not empty ? content.field_name : 'N/A' }}</td>
               </tr>
               <tr>
                 <th>System</th>
@@ -38,7 +38,7 @@
               </tr>
               <tr>
                 <th>System ID</th>
-                <td>{{ content.field_system_id }}</td>
+                <td>{{ content.field_system_id is not empty ? content.field_system_id : 'N/A' }}</td>
               </tr>
             </tbody>
           </table>

@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: ifCpLc3UjW0LqSKoEQgPWqFyk0OXf1A3b_7lyxTKTMU
+  default_config_hash: oHrAuNBFp75ammENgeIemTVXIYI_TNZdwGxhBtpYPoQ
 id: node.species_conditioning.field_captivity_date
 field_name: field_captivity_date
 entity_type: node

@@ -32,11 +32,11 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Rescue Date</th>
-                <td class="col-md-9">{{ content.field_rescue_date }}</td>
+                <td class="col-md-9">{{ content.field_rescue_date is not empty ? content.field_rescue_date : 'N/A' }}</td>
               </tr>
               <tr>
                 <th>Rescues Per Day</th>
-                <td>{{ content.field_rescue_per_day }}</td>
+                <td>{{ content.field_rescue_per_day is not empty ? content.field_rescue_per_day : 'N/A' }}</td>
               </tr>
             </tbody>
           </table>
@@ -55,7 +55,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Release Date</th>
-                <td class="col-md-9">{{ content.field_release_date }}</td>
+                <td class="col-md-9">{{ content.field_release_date is not empty ? content.field_release_date : 'N/A' }}</td>
               </tr>
             </tbody>
           </table>

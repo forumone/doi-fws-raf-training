@@ -36,11 +36,11 @@
               </tr>
               <tr>
                 <th>Captivity Date</th>
-                <td>{{ content.field_captivity_date }}</td>
+                <td>{{ content.field_captivity_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Stimulus</th>
-                <td>{{ content.field_stimulus }}</td>
+                <td>{{ content.field_stimulus|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -82,7 +82,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Comments</th>
-                <td class="col-md-9">{{ content.field_comments }}</td>
+                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Created Date</th>
