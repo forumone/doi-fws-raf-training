@@ -102,12 +102,13 @@ $users = [
   'researcher' => 'other_researchers',
   'partner' => 'partner_administrator',
   'viewer' => 'viewer',
+  'sonal' => 'administrator',
 ];
 
 foreach ($users as $username => $role) {
   $user = User::create([
     'name' => $username,
-    'mail' => $username . '@example.com',
+    'mail' => $username === 'sonal' ? 'sonal@prometsource.com' : $username . '@example.com',
     'status' => 1,
     'roles' => [$role],
   ]);
