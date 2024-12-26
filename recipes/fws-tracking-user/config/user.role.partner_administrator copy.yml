@@ -1,0 +1,29 @@
+uuid: 6d6271e6-2c56-43bb-a29d-cb9c40c1eeaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_moderation
+    - node
+    - system
+    - taxonomy
+    - toolbar
+    - tracking_reports
+_core:
+  default_config_hash: FEbcFP6skfftPcRQ_z225tJ-djSip54tZUqkBfdItKw
+id: partner_administrator
+label: 'Partner Administrator'
+weight: -2
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'access tracking reports'
+  - 'administer nodes'
+  - 'administer taxonomy'
+  - 'administer users'
+  - 'bypass node access'
+  - 'view any unpublished content'
+  - 'view the administration theme'

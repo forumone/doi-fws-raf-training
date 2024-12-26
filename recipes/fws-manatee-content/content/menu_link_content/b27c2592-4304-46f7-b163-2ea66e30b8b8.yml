@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 96c2b933-e510-44f3-a6e6-fce94183a419
+  uuid: b27c2592-4304-46f7-b163-2ea66e30b8b8
   bundle: menu_link_content
   default_langcode: en
   depends:
@@ -12,13 +12,13 @@ default:
       value: true
   title:
     -
-      value: 'Manatees without a Primary Animal ID'
+      value: 'All Taxonomy Terms (Lookup Tables)'
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/tracking/without-primary-id'
+      uri: 'internal:/taxonomy-terms'
       title: ''
       options: {  }
   external:
@@ -29,7 +29,7 @@ default:
       value: true
   weight:
     -
-      value: -47
+      value: -50
   expanded:
     -
       value: false

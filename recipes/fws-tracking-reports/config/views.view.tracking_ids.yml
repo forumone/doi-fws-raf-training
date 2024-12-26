@@ -11,6 +11,8 @@ dependencies:
     - node
     - taxonomy
     - user
+_core:
+  default_config_hash: V_BQgZNTZAt1PhO9MQgY5aQy-vvdVppUxOal5d7KO6E
 id: tracking_ids
 label: 'Tracking IDs'
 module: views

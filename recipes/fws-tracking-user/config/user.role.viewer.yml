@@ -1,0 +1,14 @@
+uuid: 24032e7f-8638-4d7c-9f7f-db18682629b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_moderation
+    - tracking_reports
+id: viewer
+label: Viewer
+weight: -4
+is_admin: null
+permissions:
+  - 'access tracking reports'
+  - 'view any unpublished content'

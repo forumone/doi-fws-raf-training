@@ -1,0 +1,18 @@
+uuid: 6d6271e6-2c56-43bb-a29d-cb9c40c1eeaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_moderation
+    - node
+    - tracking_reports
+id: partner_administrator
+label: 'Partner Administrator'
+weight: -2
+is_admin: null
+permissions:
+  - 'access tracking reports'
+  - 'administer nodes'
+  - 'administer users'
+  - 'bypass node access'
+  - 'view any unpublished content'

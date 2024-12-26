@@ -103,6 +103,7 @@ header#navbar #navbar-collapse {
 
 .fws-branding__logo img {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .navbar-main {
@@ -111,7 +112,7 @@ header#navbar #navbar-collapse {
 }
 .navbar-main .navbar-nav {
   float: right;
-  margin-top: 20px;
+  clear: both;
 }
 .navbar-main .navbar-nav > li > a {
   font-size: 1.062em;
@@ -245,6 +246,10 @@ header#navbar #navbar-collapse {
 .field--widget-inline-entity-form-complex .panel-heading a.form-required:after,
 .field--widget-inline-entity-form-simple .panel-heading a.form-required:after {
   display: none;
+}
+
+.user-login-form .form-control {
+  max-width: 500px;
 }
 
 .input-group .input-group-addon {
