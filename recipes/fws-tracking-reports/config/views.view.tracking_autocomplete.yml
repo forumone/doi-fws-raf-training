@@ -37,11 +37,11 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: Jy3RDO3gxipFv0ey4l2hzFDkIESxbeKHwCntTdOUa3k
+  default_config_hash: iNYxFci5g7s4NCHhR7efOH8dg41rUcEaJgHbCITff64
 id: tracking_autocomplete
 label: 'Tracking Autocomplete'
 module: views
-description: ''
+description: 'Autocomplete views for reference fields.'
 tag: ''
 base_table: taxonomy_term_field_data
 base_field: tid

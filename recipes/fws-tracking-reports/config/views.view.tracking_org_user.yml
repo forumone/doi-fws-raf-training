@@ -8,11 +8,11 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: qTTrA5Yi3rJzkhe7Z2D7z-VVLPiFTH820P3Z5b8DfT8
+  default_config_hash: fUy3udiIKSgV08YCFpHcH2u6aVHyfMTzeT8hbdr1H-o
 id: tracking_org_user
 label: 'Tracking Org User'
 module: views
-description: ''
+description: 'Organization user autocomplete for reference fields.'
 tag: ''
 base_table: users_field_data
 base_field: uid

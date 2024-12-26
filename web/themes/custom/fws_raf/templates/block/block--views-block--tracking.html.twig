@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'clearfix',
+  ]
+%}
+{% if content|render|striptags|trim %}
+  <section{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+    {{ title_prefix }}
+    {{ title_suffix }}
+
+    {% block content %}
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ label }}</h3>
+        </div>
+        <div class="panel-body">
+          {{ content }}
+        </div>
+      </div>
+    {% endblock %}
+  </section>
+{% endif %}

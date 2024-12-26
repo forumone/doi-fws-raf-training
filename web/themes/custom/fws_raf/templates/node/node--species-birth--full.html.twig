@@ -1,0 +1,124 @@
+{#
+/**
+ * @file
+ * Theme override to display Birth information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'birth-information',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Birth Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Birth Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Birth Date</th>
+                <td class="col-md-9">{{ content.field_birth_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Health Status</th>
+                <td>{{ node.field_health_status is not empty ? node.field_health_status.entity.field_health_status.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Where Conceived</th>
+                <td>{{ node.field_conceived is not empty ? node.field_conceived.entity.field_conceive_text.value : 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurement Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Measurement Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Measurement</th>
+                    <th>Value</th>
+                    <th>Estimated?</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Weight</strong></td>
+                    <td>{{ content.field_weight|default('N/A') }}</td>
+                    <td>{{ content.field_weight_estimated|default('N/A') }}</td>
+                    <td>{{ content.field_weight_date|default('N/A') }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Length</strong></td>
+                    <td>{{ content.field_length|default('N/A') }}</td>
+                    <td>{{ content.field_length_estimated|default('N/A') }}</td>
+                    <td>{{ content.field_length_date|default('N/A') }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Additional Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="col-md-3">Facility</th>
+              <td class="col-md-9">{{ node.field_org is not empty ? node.field_org.entity.field_organization.value : 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Veterinarian</th>
+              <td>{{ node.field_veterinarian.entity is not empty ? node.field_veterinarian.entity.field_first_name.value ~ ' ' ~  node.field_veterinarian.entity.field_last_name.value : 'N/A' }}</td>
+            </tr>
+            <tr>
+              <th>Additional Narrative</th>
+              <td>{{ content.field_comments|default('N/A') }}</td>
+            </tr>
+            <tr>
+              <th>Created Date</th>
+              <td>{{ node.getCreatedTime() }}</td>
+            </tr>
+            <tr>
+              <th>Last Updated</th>
+              <td>{{ node.getChangedTime() }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</article>

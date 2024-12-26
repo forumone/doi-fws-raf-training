@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_latitude
     - node.type.species_rescue
 _core:
-  default_config_hash: JGUjzMb4JhLFSRFljcYO9XktlPV6IlYnHSgL-nPw8Bk
+  default_config_hash: FEwXFH_ZGquBl3GUeJmXo5bXCZPrgXyNdy0I2wwWf8Q
 id: node.species_rescue.field_latitude
 field_name: field_latitude
 entity_type: node

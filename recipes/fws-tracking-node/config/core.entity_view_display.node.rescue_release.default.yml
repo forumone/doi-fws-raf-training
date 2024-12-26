@@ -1,0 +1,60 @@
+uuid: 0f02246c-d844-4771-bb61-4ed98b36419f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.rescue_release.field_release_date
+    - field.field.node.rescue_release.field_rescue_date
+    - field.field.node.rescue_release.field_rescue_per_day
+    - field.field.node.rescue_release.field_species_ref
+    - node.type.rescue_release
+  module:
+    - datetime
+    - user
+_core:
+  default_config_hash: FqX8bvWujpx_CA2-SC7wzIfHYKoJyFnCzumS4OztQTU
+id: node.rescue_release.default
+targetEntityType: node
+bundle: rescue_release
+mode: default
+content:
+  field_release_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_rescue_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_rescue_per_day:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

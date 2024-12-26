@@ -18,7 +18,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: 6zqpjQJIeJlsjx9mo9h8qQ5o8IsRhflXRX2o14uwKCQ
+  default_config_hash: 6BOqydGm9hRLEeRm54B4z-AU6gPKaprqdrplHU_g7As
 id: node.species_death.default
 targetEntityType: node
 bundle: species_death
@@ -26,39 +26,39 @@ mode: default
 content:
   field_cause_id:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 3
     region: content
   field_comments:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   field_death_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 2
     region: content
   field_death_location:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 6
     region: content
   field_euthanasia:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -66,35 +66,39 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_org:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
   field_other_text:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
   field_species_ref:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
   field_veterinarian:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
 hidden:
-  field_org: true
   langcode: true
+  links: true
   search_api_excerpt: true

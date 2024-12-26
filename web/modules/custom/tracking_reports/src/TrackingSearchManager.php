@@ -613,20 +613,28 @@ class TrackingSearchManager {
   /**
    * Build search results render array with header-based sorting.
    *
-   * @param array $conditions
-   *   The conditions array from processSearchParameters().
+   * @param array|null $conditions
+   *   Optional conditions array from processSearchParameters().
+   * @param int|null $species_id
+   *   Optional specific species ID to show results for.
    *
    * @return array
    *   A render array of the search results table with header-based sorting.
    */
-  public function buildSearchResults(array $conditions) {
-    $species_ids = $this->searchSpecies($conditions);
+  public function buildSearchResults(?array $conditions = NULL, ?int $species_id = NULL) {
+    if ($species_id) {
+      $species_ids = [$species_id];
+    }
+    else {
+      $species_ids = !empty($conditions) ? $this->searchSpecies($conditions) : [];
+    }
+
     $total_items = count($species_ids);
 
     // Early return if no matches.
     if (empty($species_ids)) {
       return [
-        '#markup' => '<div class="no-results">' . $this->t('No results found matching your search criteria.') . '</div>',
+        '#markup' => '<div class="no-results">' . $this->t('No results found.') . '</div>',
       ];
     }
 

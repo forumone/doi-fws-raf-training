@@ -1,0 +1,23 @@
+uuid: 80d67ae8-c59e-4bac-b0ff-80c9b1582f25
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: kxQTLu-b2w6lTQQg4bbmBj2tbqUxMPgu1-8waj7KVKk
+id: fws_raf_views_block__tracking_ids_block_1
+theme: fws_raf
+region: content
+weight: 2
+provider: null
+plugin: 'views_block:tracking_ids-block_1'
+settings:
+  id: 'views_block:tracking_ids-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility: {  }

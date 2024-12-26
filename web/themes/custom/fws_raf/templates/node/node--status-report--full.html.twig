@@ -1,0 +1,144 @@
+{#
+/**
+ * @file
+ * Theme override to display Health Assessment information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'health-assessment',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Health Status Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Health Status</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Health Status</th>
+                <td class="col-md-9">{{ content.field_health|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Health Diagnosis</th>
+                <td>{{ content.field_health_diag|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Were bloods taken?</th>
+                <td>{{ content.field_bloods|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurements Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Measurements</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Length</th>
+                <td class="col-md-9">{{ content.field_length|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Weight</th>
+                <td>{{ content.field_weight|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Length</th>
+                <td>{{ content.field_est_length|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Weight</th>
+                <td>{{ content.field_est_weight|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Date Measured</th>
+                <td>{{ content.field_length_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Date Weighed</th>
+                <td>{{ content.field_weight_date|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Release Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Release Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Release Status</th>
+                <td class="col-md-9">{{ content.field_status|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Release Time?</th>
+                <td>{{ content.field_release_time|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>6 Month Period</th>
+                <td>{{ content.field_req_half_yr|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Year Report</th>
+                <td>{{ content.field_req_year|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personnel & Organization Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Personnel & Organization</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Organization</th>
+                <td class="col-md-9">{{ content.field_org|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Veterinarian</th>
+                <td>{{ content.field_vet_id|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

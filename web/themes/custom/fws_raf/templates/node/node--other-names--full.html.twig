@@ -1,0 +1,72 @@
+{#
+/**
+ * @file
+ * Theme override to display Other Names information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'other-names',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <!-- Basic Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Name Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Name</th>
+                <td class="col-md-9">{{ content.field_name is not empty ? content.field_name : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>System</th>
+                <td>{{ node.field_system is not empty ? node.field_system.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>System ID</th>
+                <td>{{ content.field_system_id is not empty ? content.field_system_id : 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metadata Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Record Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Created Date</th>
+                <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

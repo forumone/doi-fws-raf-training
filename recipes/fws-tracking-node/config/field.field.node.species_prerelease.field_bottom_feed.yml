@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_bottom_feed
     - node.type.species_prerelease
 _core:
-  default_config_hash: C52cy4pinS1wcaQbUkm-LFS8F9XaCMpBS5qK2lhDH34
+  default_config_hash: 7LlSz31dRU6ozdRhHPbBw14nZXW51gix91P-7PwF1vY
 id: node.species_prerelease.field_bottom_feed
 field_name: field_bottom_feed
 entity_type: node

@@ -1,0 +1,97 @@
+{#
+/**
+ * @file
+ * Theme override to display Entanglement Record information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'entanglement-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Entanglement Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Entanglement Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Location</th>
+                <td class="col-md-9">{{ content.field_entanglement_location|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Type of Gear</th>
+                <td>{{ node.field_gear_type is not empty ? node.field_gear_type.entity.name.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Gear Description</th>
+                <td>{{ content.field_gear_description|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rescue Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Rescue Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Rescue Date</th>
+                <td class="col-md-9">{{ content.field_rescue_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Rescues Per Day</th>
+                <td>{{ content.field_rescue_per_day|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>Created Date</th>
+                <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

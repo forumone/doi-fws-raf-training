@@ -1,0 +1,124 @@
+{#
+/**
+ * @file
+ * Theme override to display Sighting/Rescue information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'sighting-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Basic Sighting Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sighting Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Release Date</th>
+                <td class="col-md-9">{{ content.field_release_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Release Site</th>
+                <td>{{ content.field_release_site|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Waterway</th>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Tracker</th>
+                <td>{{ content.field_tracker|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Location Details</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">City</th>
+                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>County</th>
+                <td>{{ content.field_county|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>State</th>
+                <td>{{ content.field_state|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organization Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Organization Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Participating Organizations</th>
+                <td class="col-md-9">{{ content.field_participating_orgs|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Veterinarian</th>
+                <td>{{ content.field_veterinarian|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Additional Narrative</th>
+                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

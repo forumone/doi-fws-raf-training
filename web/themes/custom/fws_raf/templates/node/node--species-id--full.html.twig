@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Theme override to display Species ID information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'species-id',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Species Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Species ID Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>Species ID</th>
+                <td>{{ content.field_species_id|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>ID Type</th>
+                <td>{{ content.field_id_type|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Primary ID</th>
+                <td>{{ content.field_primary_id ? 'Yes' : 'No' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Fields Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Record Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Created Date</th>
+                <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

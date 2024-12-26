@@ -12,68 +12,65 @@ dependencies:
     - node.type.species_conditioning
   module:
     - datetime
+    - text
     - user
 _core:
-  default_config_hash: Zg7FcUFcG-_ZRw4y7F_xP4t3BxAznKDQHjrPdo0T_1I
+  default_config_hash: ktrsB5EqKPV_BeNk3PAupWC8oef6twkQHz2Q-xSsH0I
 id: node.species_conditioning.default
 targetEntityType: node
 bundle: species_conditioning
 mode: default
 content:
   field_captivity_date:
-    type: datetime_default
-    label: above
+    type: datetime_custom
+    label: hidden
     settings:
       timezone_override: ''
-      format_type: medium
+      date_format: m/d/Y
     third_party_settings: {  }
     weight: 1
     region: content
   field_comments:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: text_default
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 5
     region: content
   field_conditioning_type:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 2
     region: content
   field_project:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content
   field_species_ref:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
   field_stimulus:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
     region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
 hidden:
   langcode: true
+  links: true
   search_api_excerpt: true

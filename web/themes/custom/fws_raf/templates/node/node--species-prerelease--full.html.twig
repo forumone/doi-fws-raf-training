@@ -1,0 +1,218 @@
+{#
+/**
+ * @file
+ * Theme override to display Release information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'release-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
+
+    <!-- Basic Release Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Release Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Release Date</th>
+                <td class="col-md-9">{{ content.field_release_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Release Site</th>
+                <td>{{ content.field_release_site|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Release Water Type</th>
+                <td>{{ content.field_rel_type.entity|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Waterway</th>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Display Water Type</th>
+                <td>{{ content.field_display_type|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Location Details</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">City</th>
+                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>County</th>
+                <td>{{ content.field_county|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>State</th>
+                <td>{{ content.field_state|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Facility</th>
+                <td>{{ content.field_org|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurements Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Measurements</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Length</th>
+                <td class="col-md-9">{{ content.field_length|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Weight</th>
+                <td>{{ content.field_weight|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Length</th>
+                <td>{{ content.field_est_length|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Weight</th>
+                <td>{{ content.field_est_weight|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Date Measured</th>
+                <td>{{ content.field_length_date|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Date Weighed</th>
+                <td>{{ content.field_weight_date|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treatment Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Treatment Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Bottom-feeding?</th>
+                <td class="col-md-9">{{ content.field_bottom_feed ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Exposed to release water type for over 30 days?</th>
+                <td>{{ content.field_exp_water ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Exposed to natural vegetation for over 30 days?</th>
+                <td>{{ content.field_nat_veg ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Exposure Time (months)</th>
+                <td>{{ content.field_months_veg|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Months Exp Water</th>
+                <td>{{ content.field_months_exp_water|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Vegetation Type</th>
+                <td>{{ content.field_veg_type|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conditioning Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Conditioning Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">If conditioned, was reinforcement stopped 60 days prior?</th>
+                <td class="col-md-9">{{ content.field_cond_stop ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>If freeze-branded, Scar, or Cookie applied, was form completed?</th>
+                <td>{{ content.field_form_complete ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Photos sent to FWS Sirenia?</th>
+                <td>{{ content.field_photos ? 'Yes' : 'No' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Veterinarian</th>
+                <td class="col-md-9">{{ content.field_vet_id|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Additional Narrative</th>
+                <td>{{ content.field_comments|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

@@ -6,7 +6,7 @@ dependencies:
     - node
     - text
 _core:
-  default_config_hash: crc_arZv3FsogYB4f0IrIwipby8dptijkEjhn_Y_S8g
+  default_config_hash: tpz5hPYQc_1on3S_6Zwk8qvfAvufcXgIlV3Bi-7ZBDo
 id: node.field_health_diag
 field_name: field_health_diag
 entity_type: node

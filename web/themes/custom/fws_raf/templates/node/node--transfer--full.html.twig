@@ -1,0 +1,132 @@
+{#
+/**
+ * @file
+ * Theme override to display Transfer information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'transfer-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <div style="margin-bottom: 22px;">{{ content.field_species_ref ?: 'N/A' }}</div>
+
+    <!-- Transfer Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Transfer Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Transfer Date</th>
+                <td class="col-md-9">{{ content.field_transfer_date ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>From Facility</th>
+                <td>{{ content.field_from_facility ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>To Facility</th>
+                <td>{{ content.field_to_facility ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Transfer Reason</th>
+                <td>{{ content.field_reason ?: 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Measurements Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Measurements</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Length</th>
+                <td class="col-md-9">{{ content.field_length ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Weight</th>
+                <td>{{ content.field_weight ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Length?</th>
+                <td>{{ content.field_estimated_length ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Weight?</th>
+                <td>{{ content.field_estimated_weight ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Length Date</th>
+                <td>{{ content.field_length_date ?: 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Weight Date</th>
+                <td>{{ content.field_weight_date ?: 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personnel Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Personnel</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Veterinarian</th>
+                <td class="col-md-9">{{ content.field_veterinarian ?: 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Additional Narrative</th>
+                <td class="col-md-9">{{ content.field_comments ?: 'N/A' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

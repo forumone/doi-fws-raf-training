@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: f09zH_FVi3673QUPkZKa5hK3Mc5b9iCw0AYSOEryeAc
+  default_config_hash: GxmJP9IxrzUqvuLDrqWuuQJCIqSPAEnJduTYXkPrLYQ
 id: node.species_tag.field_event_date
 field_name: field_event_date
 entity_type: node

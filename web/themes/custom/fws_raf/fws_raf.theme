@@ -83,3 +83,18 @@ function fws_raf_preprocess_page_title(&$variables) {
 function fws_raf_preprocess_bootstrap_panel(&$variables) {
   $variables['heading'] = str_ireplace('Species', 'Manatee', $variables['heading']);
 }
+
+/**
+ * Implements hook_theme_suggestions_block_alter().
+ */
+function fws_raf_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (isset($variables['elements']['content']['#view'])) {
+    $view = $variables['elements']['content']['#view'];
+    $view_id = $view->id();
+
+    // Check if the view ID starts with 'tracking'.
+    if (strpos($view_id, 'tracking') === 0) {
+      $suggestions[] = 'block__views_block__tracking';
+    }
+  }
+}

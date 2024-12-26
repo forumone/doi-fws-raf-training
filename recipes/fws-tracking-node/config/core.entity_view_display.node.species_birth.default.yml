@@ -1,0 +1,147 @@
+uuid: f67e388a-a557-4838-a976-7425b49c4345
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_birth.field_birth_date
+    - field.field.node.species_birth.field_comments
+    - field.field.node.species_birth.field_conceived
+    - field.field.node.species_birth.field_health_status
+    - field.field.node.species_birth.field_length
+    - field.field.node.species_birth.field_length_date
+    - field.field.node.species_birth.field_length_estimated
+    - field.field.node.species_birth.field_org
+    - field.field.node.species_birth.field_species_ref
+    - field.field.node.species_birth.field_veterinarian
+    - field.field.node.species_birth.field_weight
+    - field.field.node.species_birth.field_weight_date
+    - field.field.node.species_birth.field_weight_estimated
+    - node.type.species_birth
+  module:
+    - datetime
+    - text
+    - user
+_core:
+  default_config_hash: Sb9s7QaF-GRUA-OW0m247rqray9CX2qKAGnI1Aggwwg
+id: node.species_birth.default
+targetEntityType: node
+bundle: species_birth
+mode: default
+content:
+  field_birth_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_comments:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_conceived:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_health_status:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_length:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_length_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_length_estimated:
+    type: boolean
+    label: hidden
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_org:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_veterinarian:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_weight:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_weight_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_weight_estimated:
+    type: boolean
+    label: hidden
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 12
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true
