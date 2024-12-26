@@ -2,18 +2,27 @@
 
 /**
  * @file
- * Drush script to import user data from CSV into Drupal users.
+ * Drush script to import user data from CSV into Drupal users with role mapping.
  *
- * Usage: drush scr scripts/import_users.php.
+ * Usage: drush scr scripts/import_users.php
  */
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
 
 // Initialize counters.
 $row_count = 0;
 $success_count = 0;
 $error_count = 0;
+
+// Define security group to role mapping.
+$security_group_roles = [
+  'V' => 'viewer',
+  'E' => 'contributor',
+  'O' => 'other_researchers',
+  'A' => 'partner_administrator',
+];
 
 try {
   // Read CSV data.
@@ -50,15 +59,15 @@ try {
         ->loadByProperties(['name' => $username]);
 
       if (!empty($existing_users)) {
-        print("\nUser already exists: $username - skipping");
-        continue;
+        $user = reset($existing_users);
+        print("\nUpdating existing user: $username");
+      } else {
+        // Create new user if doesn't exist
+        $user = User::create();
+        $user->setUsername($username);
       }
 
-      // Create new user.
-      $user = User::create();
-
       // Set required fields.
-      $user->setUsername($username);
       $user->setPassword($password);
       // Set dummy email if empty.
       $user->setEmail($email ?: "$username@example.com");
@@ -77,11 +86,38 @@ try {
         }
       }
 
-      // Set security group reference.
+      // Set security group reference and corresponding role.
       if (!empty($group)) {
-        $group_term = ensure_taxonomy_term('security_groups', $group);
-        if ($group_term) {
-          $user->set('field_security_group', ['target_id' => $group_term->id()]);
+        try {
+          // Try to load the existing security group term
+          $terms = \Drupal::entityTypeManager()
+            ->getStorage('taxonomy_term')
+            ->loadByProperties([
+              'vid' => 'security_group',
+              'name' => $group,
+            ]);
+          
+          if (!empty($terms)) {
+            $group_term = reset($terms);
+            $user->set('field_security_group', ['target_id' => $group_term->id()]);
+          } else {
+            print("\nWarning: Security group '$group' not found in taxonomy");
+          }
+
+          // Assign corresponding role if mapping exists
+          if (isset($security_group_roles[$group])) {
+            $role_id = $security_group_roles[$group];
+            if (Role::load($role_id)) {
+              $user->addRole($role_id);
+              print("\nAssigned role '$role_id' to user: $username");
+            } else {
+              print("\nWarning: Role '$role_id' does not exist - skipping role assignment for user: $username");
+            }
+          } else {
+            print("\nWarning: No role mapping found for security group '$group' - user: $username");
+          }
+        } catch (Exception $e) {
+          print("\nError handling security group for user $username: " . $e->getMessage());
         }
       }
 
@@ -99,21 +135,19 @@ try {
       // Save user.
       $user->save();
       $success_count++;
-      print("\nCreated user: $username");
-    }
-    catch (EntityStorageException $e) {
+      print("\n" . (isset($existing_users) ? "Updated" : "Created") . " user: $username");
+
+    } catch (EntityStorageException $e) {
       print("\nError processing row $row_count: " . $e->getMessage());
       $error_count++;
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       print("\nError processing row $row_count: " . $e->getMessage());
       $error_count++;
     }
   }
 
   fclose($file_handle);
-}
-catch (Exception $e) {
+} catch (Exception $e) {
   print("\nFatal error: " . $e->getMessage() . "\n");
   exit(1);
 }
@@ -148,8 +182,18 @@ function ensure_taxonomy_term($vocabulary, $name) {
     if (!empty($terms)) {
       return reset($terms);
     }
-  }
-  catch (Exception $e) {
+    
+    // Create new term if it doesn't exist
+    $term = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->create([
+        'vid' => $vocabulary,
+        'name' => $name,
+      ]);
+    $term->save();
+    return $term;
+
+  } catch (Exception $e) {
     print("\nError ensuring taxonomy term ($vocabulary: $name): " . $e->getMessage());
     return NULL;
   }
