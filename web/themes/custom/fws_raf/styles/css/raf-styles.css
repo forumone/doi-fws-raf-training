@@ -252,6 +252,10 @@ header#navbar #navbar-collapse {
   max-width: 500px;
 }
 
+.openid-connect-login-form {
+  margin-bottom: 40px;
+}
+
 .input-group .input-group-addon {
   display: none;
 }

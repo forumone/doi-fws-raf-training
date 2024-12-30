@@ -1,18 +1,18 @@
-uuid: de93def3-2313-4b4a-baed-45954999a219
+uuid: f91c05b3-c2d3-496e-880f-49c6ca5e33c4
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_last_name
+    - field.storage.user.field_phone
   module:
     - user
 _core:
-  default_config_hash: g__1cml6RnyD-2PUEpJuJVdrW7YZHXBkTZi4DHD-27o
-id: user.user.field_last_name
-field_name: field_last_name
+  default_config_hash: HuLkRUURBiemCRv3tqAC2v0sliF6TXvrffCCHT8v8NU
+id: user.user.field_phone
+field_name: field_phone
 entity_type: user
 bundle: user
-label: 'Last Name'
+label: Phone
 description: ''
 required: false
 translatable: true

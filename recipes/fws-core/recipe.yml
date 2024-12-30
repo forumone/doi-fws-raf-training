@@ -238,3 +238,7 @@ config:
       grantPermissions:
         - 'use text format basic_html'
         - 'use text format full_html'
+    # Set user registration to admin only
+    user.settings:
+      simple_config_update:
+        register: admin_only
