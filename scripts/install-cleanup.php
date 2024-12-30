@@ -6,6 +6,9 @@
  * @file install-cleanup.php
  */
 
+use Drupal\user\Entity\User;
+use Drupal\views\Entity\View;
+
 // Small cleanup to delete erroneous folder.
 if (file_exists('public:') && is_writable('public:')) {
   rmdir('public:');
@@ -91,4 +94,34 @@ try {
 }
 catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
+}
+
+// Create users with specific roles.
+$users = [
+  'contributor' => 'contributor',
+  'researcher' => 'other_researchers',
+  'partner' => 'partner_administrator',
+  'viewer' => 'viewer',
+  'sonal' => 'administrator',
+];
+
+foreach ($users as $username => $role) {
+  $user = User::create([
+    'name' => $username,
+    'mail' => $username === 'sonal' ? 'sonal@prometsource.com' : $username . '@example.com',
+    'status' => 1,
+    'roles' => [$role],
+  ]);
+  $user->save();
+  echo "User '$username' with role '$role' has been created.\n";
+}
+
+// Disable the taxonomy_term view.
+$view = View::load('taxonomy_term');
+if ($view) {
+  $view->disable()->save();
+  echo "The taxonomy_term view has been disabled.\n";
+}
+else {
+  echo "The taxonomy_term view does not exist.\n";
 }

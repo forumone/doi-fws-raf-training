@@ -37,6 +37,7 @@
         "drupal/paragraphs_features": "^2.0",
         "drupal/pathauto": "^1.12",
         "drupal/prepopulate": "^2.5",
+        "drupal/publishcontent": "^1.7",
         "drupal/quiz": "^6.0@alpha",
         "drupal/redirect": "^1.9",
         "drupal/rules": "^4.0",

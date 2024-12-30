@@ -1,0 +1,39 @@
+uuid: 5d10eb6c-e7f0-4d13-89a6-20ba441014bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+  module:
+    - admin_toolbar_search
+    - content_moderation
+    - contextual
+    - filter
+    - node
+    - paragraphs
+    - publishcontent
+    - system
+    - toolbar
+id: content_publisher
+label: 'Content publisher'
+weight: -8
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access toolbar'
+  - 'publish any content'
+  - 'publish editable content'
+  - 'unpublish any content'
+  - 'use admin toolbar search'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view the administration theme'
+  - 'view unpublished paragraphs'

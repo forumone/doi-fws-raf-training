@@ -11,6 +11,7 @@ ddev drush cr
 ddev drush recipe ../recipes/fws-tracking-taxonomy
 ddev drush recipe ../recipes/fws-tracking-node
 ddev drush recipe ../recipes/fws-tracking-reports
+ddev drush recipe ../recipes/fws-tracking-blocks
 ddev drush recipe ../recipes/fws-tracking-user
 ddev drush recipe ../recipes/fws-manatee-content
 

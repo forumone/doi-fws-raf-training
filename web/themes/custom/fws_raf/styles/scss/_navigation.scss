@@ -33,6 +33,7 @@ header#navbar {
 .fws-branding__logo {
   img {
     width: 100%;
+    margin-bottom: 10px;
   }
 }
 
@@ -42,7 +43,7 @@ header#navbar {
 
   .navbar-nav {
     float: right;
-    margin-top: 20px;
+    clear: both;
 
     >li>a {
       font-size: 1.062em;

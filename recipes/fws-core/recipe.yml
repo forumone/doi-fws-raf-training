@@ -106,6 +106,7 @@ install:
   - paragraphs
   - paragraphs_features
   - paragraphs_ee
+  - publishcontent
   - select2
   - viewfield
 
@@ -143,6 +144,7 @@ config:
       - views.view.content_recent
     datetime: '*'
     datetime_range: '*'
+    taxonomy: '*'
     views: '*'
     views_ui: '*'
     user:
@@ -164,6 +166,7 @@ config:
     paragraphs_ee: '*'
     paragraphs_features: '*'
     prepopulate: '*'
+    publishcontent: '*'
     redirect: '*'
     responsive_image: '*'
     select2: '*'
@@ -228,7 +231,7 @@ config:
         tags.abstract: '[node:summary]'
         tags.canonical_url: '[node:url]'
         tags.description: '[node:summary]'
-     # Set permissions for content editor role.
+    # Set permissions for content editor role.
     user.role.content_editor:
       ensure_exists:
         id: content_editor

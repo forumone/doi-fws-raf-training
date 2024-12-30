@@ -37,7 +37,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: iNYxFci5g7s4NCHhR7efOH8dg41rUcEaJgHbCITff64
+  default_config_hash: xAQ8B4Txnw-sW78PbRahh7o9Ay5ZRhfnH2_vC9Wlsis
 id: tracking_autocomplete
 label: 'Tracking Autocomplete'
 module: views

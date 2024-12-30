@@ -26,7 +26,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: d11iTsi_Rm0UbLY2JgLezfvYLsXDE77xHqoHi7GArZc
+  default_config_hash: wFnfA8Ia6A930hcBIb-x9T-fbGPz7jdtmpl7Ec4XLFo
 id: tracking_release
 label: 'Species Release'
 module: views
