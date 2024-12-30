@@ -1,0 +1,6 @@
+doi_login.settings_form:
+  title: 'DOI Login Preferences'
+  parent: user.admin_index
+  description: "Manage password preferences"
+  weight: 10
+  route_name: doi_login.settings_form
