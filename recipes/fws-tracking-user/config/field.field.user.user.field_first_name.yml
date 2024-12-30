@@ -7,14 +7,14 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: bi6IvNALYjO2lRBB8qzbSQjmojgj46dZe5FlRVyKCrw
+  default_config_hash: EHdr0uQKXG3Z8GZIirY8-MBdeQM8F9G0-eaosUqEXOQ
 id: user.user.field_first_name
 field_name: field_first_name
 entity_type: user
 bundle: user
 label: 'First Name'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

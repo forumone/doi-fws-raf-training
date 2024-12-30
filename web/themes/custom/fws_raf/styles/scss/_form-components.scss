@@ -68,9 +68,14 @@
   }
 }
 
+// User login page overrides.
 .user-login-form {
 
   .form-control {
     max-width: 500px;
   }
+}
+
+.openid-connect-login-form {
+  margin-bottom: 40px;
 }
