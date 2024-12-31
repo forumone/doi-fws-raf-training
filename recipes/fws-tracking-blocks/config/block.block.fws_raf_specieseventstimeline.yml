@@ -17,4 +17,11 @@ settings:
   label: 'Event History'
   label_display: visible
   provider: tracking_reports
-visibility: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      species: species

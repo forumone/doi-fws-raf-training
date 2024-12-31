@@ -1,24 +1,25 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 62046ff6-1046-4519-b669-20988b3025d6
+  uuid: e28cbdb0-b3fc-4cbb-a5d6-7c3d8a594adc
   bundle: menu_link_content
   default_langcode: en
   depends:
-    684d4c62-c47e-4f1c-8af8-24730b739bc2: node
+    2ef266ab-4177-4372-a6af-19206fb1a5fb: menu_link_content
+    84ff6def-bed8-4250-bade-fc22b6a61efc: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: Resources
+      value: 'Database Notes'
   menu_name:
     -
-      value: utility
+      value: main
   link:
     -
-      target_uuid: 684d4c62-c47e-4f1c-8af8-24730b739bc2
+      target_uuid: 84ff6def-bed8-4250-bade-fc22b6a61efc
       title: ''
       options: {  }
   external:
@@ -29,10 +30,13 @@ default:
       value: false
   weight:
     -
-      value: -50
+      value: -49
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:2ef266ab-4177-4372-a6af-19206fb1a5fb'
   revision_translation_affected:
     -
       value: true
