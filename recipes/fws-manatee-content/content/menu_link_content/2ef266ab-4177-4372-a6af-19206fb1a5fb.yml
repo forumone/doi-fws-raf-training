@@ -1,24 +1,24 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 62046ff6-1046-4519-b669-20988b3025d6
+  uuid: 2ef266ab-4177-4372-a6af-19206fb1a5fb
   bundle: menu_link_content
   default_langcode: en
   depends:
-    684d4c62-c47e-4f1c-8af8-24730b739bc2: node
+    14059eee-d9c2-4375-b6cc-5fb317b63042: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: Resources
+      value: Help
   menu_name:
     -
-      value: utility
+      value: main
   link:
     -
-      target_uuid: 684d4c62-c47e-4f1c-8af8-24730b739bc2
+      target_uuid: 14059eee-d9c2-4375-b6cc-5fb317b63042
       title: ''
       options: {  }
   external:
@@ -29,7 +29,7 @@ default:
       value: false
   weight:
     -
-      value: -50
+      value: 0
   expanded:
     -
       value: false

@@ -1,0 +1,59 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 684d4c62-c47e-4f1c-8af8-24730b739bc2
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Resources
+  created:
+    -
+      value: 1735675872
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Resources | FWS: Captive Manatee Database'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Dow'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Dow'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/resources'
+  path:
+    -
+      alias: /resources
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<table class="document-library" role="grid"><thead><tr><th scope="col">Category</th><th scope="col">Document Name</th><th scope="col">Download</th></tr></thead><tbody><tr><td class="category">Genetics</td><td><ul class="document-list"><li>FWS Sirenian Tissue DNA Collection Protocol 2007</li><li>FWS Sirenian Blood DNA Collection Protocol 2008</li></ul></td><td><ul class="document-list"><li><a class="document-link" href="https://www.fws.gov/manatee/Document/fws%20Sirenian%20Tissue%20DNA%20Collection%20Protocol%202007.pdf" aria-label="Download FWS Sirenian Tissue DNA Collection Protocol 2007">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/fws%20Sirenian%20Blood%20DNA%20Collection%20Protocol%202008.pdf" aria-label="Download FWS Sirenian Blood DNA Collection Protocol 2008">Download <span class="file-type">(PDF)</span></a></li></ul></td></tr><tr><td class="category">Necropsy</td><td><ul class="document-list"><li>Bonde et al 2006 Spanish Translation of 1983 Manatee Necropsy Manual</li><li>Bonde et al 1983 Manatee Necropsy Manual</li><li>Tm-viscera w xtra labels English</li><li>Blank Necropsy Form</li><li>Manatee Necropsy Handout 2007</li><li>Pg 1 External data sheet Instructions 2007</li><li>Pg 2 carcass measurement data sheet</li><li>earbone removal FIELDSTAFF TRAINING</li><li>Guideline manatee necropsy OutofStateWorkshops</li></ul></td><td><ul class="document-list"><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Bonde%20et%20al%202006%20Spanish%20Translation%20of%201983%20Manatee%20Necropsy%20Manual.pdf" aria-label="Download Spanish Translation of Manatee Necropsy Manual">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Bonde%20et%20al%201983%20Manatee%20Necropsy%20Manual.pdf" aria-label="Download Manatee Necropsy Manual">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Tm-viscera%20w%20xtra%20labels%20English.pdf" aria-label="Download Viscera Labels">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Blank%20Necropsy%20Form.pdf" aria-label="Download Blank Necropsy Form">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Manatee%20Necropsy%20Handout%202007.pdf" aria-label="Download Necropsy Handout">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Pg%201%20External%20data%20sheet_Instructions2007.pdf" aria-label="Download External Data Sheet Instructions">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Pg%202%20carcass%20measurement%20data%20sheet.pdf" aria-label="Download Carcass Measurement Sheet">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/earbone%20removal%20FIELDSTAFF%20TRAINING_org_updated082009a.pdf" aria-label="Download Earbone Removal Training">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Guideline%20manatee%20necropsy_OutofStateWorkshops.pdf" aria-label="Download Out of State Workshop Guidelines">Download <span class="file-type">(PDF)</span></a></li></ul></td></tr><tr><td class="category">Photo-ID</td><td><ul class="document-list"><li>Guidelines for Photography</li></ul></td><td><ul class="document-list"><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Guidelines%20for%20Photography.pdf" aria-label="Download Photography Guidelines">Download <span class="file-type">(PDF)</span></a></li></ul></td></tr><tr><td class="category">Tagging &amp; Freeze Branding</td><td><ul class="document-list"><li>Tag Sighting flyer-generic 2009</li><li>Radio-tag Sighting Form blank 0907</li><li>Freezebrand Protocol 07</li><li>PIT Tagging Protocol 03</li><li>Scar Form Sep 02</li></ul></td><td><ul class="document-list"><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Tag%20Sighting%20flyer-generic.2009.pdf" aria-label="Download Tag Sighting Flyer">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Radio-tag%20Sighting%20Form%20blank.0907.pdf" aria-label="Download Radio-tag Sighting Form">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Freezebrand%20Protocol%2007.pdf" aria-label="Download Freezebrand Protocol">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/PIT%20Tagging%20Protocol%2003.pdf" aria-label="Download PIT Tagging Protocol">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Scar%20Form%20Sep%2002.doc" aria-label="Download Scar Form">Download <span class="file-type">(DOC)</span></a></li></ul></td></tr><tr><td class="category">Orphan Calf Guidance</td><td><ul class="document-list"><li>Final Small Manatee Worksheet</li><li>Final General Rescue Guidance for Small</li></ul></td><td><ul class="document-list"><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Final%20Small%20Manatee%20Worksheet.pdf" aria-label="Download Small Manatee Worksheet">Download <span class="file-type">(PDF)</span></a></li><li><a class="document-link" href="https://www.fws.gov/manatee/Document/Final%20General%20Rescue%20Guidance%20for%20Small.pdf" aria-label="Download General Rescue Guidance">Download <span class="file-type">(PDF)</span></a></li></ul></td></tr></tbody></table>'
+      format: full_html
+      summary: ''

@@ -349,4 +349,12 @@ input.form-autocomplete {
   right: 3px;
   z-index: 10;
 }
+
+#node-species-edit-form {
+  margin-bottom: 50px;
+}
+
+.footer {
+  margin-top: 50px;
+}
 /*# sourceMappingURL=maps/raf-styles.css.map */
