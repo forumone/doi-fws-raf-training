@@ -175,17 +175,37 @@ class TrackingSearchManager {
           break;
 
         case 'field_species_id':
+          // 1) Query for nodes of type 'species_id' where the text in
+          // field_species_id matches whatever user typed (exact match or
+          // partial match).
           $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->condition('type', 'species_id')
-            ->condition('field_species_ref', $condition['value'], '=')
+            ->condition('field_species_id', $condition['value'], 'CONTAINS')
             ->accessCheck(FALSE);
-          $species_ids = $species_id_query->execute();
 
-          if (!empty($species_ids)) {
-            $species_id_node = $this->entityTypeManager->getStorage('node')->load(reset($species_ids));
-            if (!$species_id_node->field_species_ref->isEmpty()) {
-              $query->condition('nid', $species_id_node->field_species_ref->target_id);
+          $id_node_ids = $species_id_query->execute();
+
+          if (!empty($id_node_ids)) {
+            // 2) Load those nodes, extract the referenced Species node IDs,
+            // collect in an array.
+            $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($id_node_ids);
+            $referenced_species_ids = [];
+            foreach ($id_nodes as $id_node) {
+              if (!$id_node->get('field_species_ref')->isEmpty()) {
+                $referenced_species_ids[] = $id_node->get('field_species_ref')->target_id;
+              }
             }
+
+            // 3) Filter the main query on those species node IDs.
+            if (!empty($referenced_species_ids)) {
+              $query->condition('nid', $referenced_species_ids, 'IN');
+            }
+            else {
+              $query->condition('nid', 0);
+            }
+          }
+          else {
+            $query->condition('nid', 0);
           }
           break;
 
