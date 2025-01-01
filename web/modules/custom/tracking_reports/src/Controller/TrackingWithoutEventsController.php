@@ -7,13 +7,10 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Database\Connection;
 
 /**
  * Controller for generating reports of species without birth or rescue events.
- *
- * This controller provides functionality to list all species entities that do not
- * have associated birth or rescue event records. The report includes basic
- * species information such as IDs, names, and creation/update metadata.
  */
 class TrackingWithoutEventsController extends ControllerBase {
 
@@ -32,19 +29,30 @@ class TrackingWithoutEventsController extends ControllerBase {
   protected $dateFormatter;
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
    * Constructs a TrackingWithoutEventsController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date formatter service.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
+    Connection $database
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
+    $this->database = $database;
   }
 
   /**
@@ -53,7 +61,8 @@ class TrackingWithoutEventsController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('date.formatter')
+      $container->get('date.formatter'),
+      $container->get('database')
     );
   }
 
@@ -132,87 +141,119 @@ class TrackingWithoutEventsController extends ControllerBase {
   /**
    * Builds the content for the species without events report.
    *
-   * Generates a table displaying all species that don't have associated birth
-   * or rescue events. The table includes the following columns:
-   * - Tracking Number: Link to the species' detail page
-   * - Primary Name: The species' primary name
-   * - Species ID List: All associated species IDs
-   * - Sex: The species' sex (M/F/U)
-   * - Created By: Username of the creator
-   * - Created Date: Creation date in m/d/Y format
-   * - Updated By: Username of the last updater
-   * - Updated Date: Last update date in m/d/Y format.
-   *
    * @return array
    *   A render array for a table of species without events.
    */
   public function content() {
-    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species')
-      ->accessCheck(FALSE);
+    // Define table headers.
+    $header = [
+      'tracking_number' => [
+        'data' => $this->t('Tracking Number'),
+        'field' => 'fn.field_number_value',
+        'sort' => 'asc',
+      ],
+      'primary_name' => [
+        'data' => $this->t('Primary Name'),
+      ],
+      'species_ids' => [
+        'data' => $this->t('Species') . ' ' . $this->t('ID List'),
+      ],
+      'sex' => [
+        'data' => $this->t('Sex'),
+        'field' => 'fs.field_sex_target_id',
+      ],
+      'created_by' => [
+        'data' => $this->t('Created By'),
+        'field' => 'n.uid',
+      ],
+      'created_date' => [
+        'data' => $this->t('Created Date'),
+        'field' => 'n.created',
+        'sort' => 'desc',
+      ],
+      'updated_by' => [
+        'data' => $this->t('Updated By'),
+        'field' => 'nr.revision_uid',
+      ],
+      'updated_date' => [
+        'data' => $this->t('Updated Date'),
+        'field' => 'n.changed',
+        'sort' => 'desc',
+      ],
+    ];
 
-    $species_ids = $species_query->execute();
+    // Build the query.
+    $query = $this->database->select('node_field_data', 'n')
+      ->extend('Drupal\Core\Database\Query\TableSortExtender');
+    
+    // Add fields from node_field_data
+    $query->fields('n', ['nid', 'uid', 'created', 'changed']);
+    
+    // Join with node_revision to get revision_uid
+    $query->leftJoin('node_revision', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
+    $query->fields('nr', ['revision_uid']);
+    
+    // Join with field tables
+    $query->leftJoin('node__field_number', 'fn', 'n.nid = fn.entity_id');
+    $query->leftJoin('node__field_sex', 'fs', 'n.nid = fs.entity_id');
+    $query->fields('fn', ['field_number_value']);
+    $query->fields('fs', ['field_sex_target_id']);
+
+    // Add conditions
+    $query->condition('n.type', 'species');
+    
+    // Apply the table sorting
+    $query->orderByHeader($header);
+    
+    // Execute query
+    $result = $query->execute();
+
+    // Build rows
     $rows = [];
-
-    foreach ($species_ids as $species_id) {
+    foreach ($result as $record) {
+      // Skip if has birth or rescue events
       $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'species_birth')
-        ->condition('field_species_ref', $species_id)
+        ->condition('field_species_ref', $record->nid)
         ->accessCheck(FALSE);
 
       $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'species_rescue')
-        ->condition('field_species_ref', $species_id)
+        ->condition('field_species_ref', $record->nid)
         ->accessCheck(FALSE);
 
       if (!empty($birth_query->execute()) || !empty($rescue_query->execute())) {
         continue;
       }
 
-      $species_entity = $this->entityTypeManager->getStorage('node')->load($species_id);
+      $species_entity = $this->entityTypeManager->getStorage('node')->load($record->nid);
+      $created_user = $this->entityTypeManager->getStorage('user')->load($record->uid);
+      $updated_user = $this->entityTypeManager->getStorage('user')->load($record->revision_uid);
 
-      $created_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getOwner()->id());
-      $updated_user = $this->entityTypeManager->getStorage('user')->load($species_entity->getRevisionUser()->id());
-
-      $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : '';
+      $number = $record->field_number_value ?? '';
       $number_link = Link::createFromRoute(
         $number,
         'entity.node.canonical',
-        ['node' => $species_id]
+        ['node' => $record->nid]
       );
 
-      $row = [
+      $rows[] = [
         'data' => [
           ['data' => $number_link],
-          ['data' => $this->getPrimaryName($species_id)],
-          ['data' => $this->getSpeciesIds($species_id)],
+          ['data' => $this->getPrimaryName($record->nid)],
+          ['data' => $this->getSpeciesIds($record->nid)],
           ['data' => $this->getSpeciesSex($species_entity)],
           ['data' => $created_user ? $created_user->getAccountName() : ''],
-          ['data' => $this->dateFormatter->format($species_entity->getCreatedTime(), 'custom', 'm/d/Y')],
+          ['data' => $this->dateFormatter->format($record->created, 'custom', 'm/d/Y')],
           ['data' => $updated_user ? $updated_user->getAccountName() : ''],
-          ['data' => $this->dateFormatter->format($species_entity->getChangedTime(), 'custom', 'm/d/Y')],
+          ['data' => $this->dateFormatter->format($record->changed, 'custom', 'm/d/Y')],
         ],
       ];
-
-      $rows[] = $row;
     }
-
-    usort($rows, function ($a, $b) {
-      return strcasecmp($a['data'][1]['data'], $b['data'][1]['data']);
-    });
 
     return [
       '#type' => 'table',
-      '#header' => [
-        $this->t('Tracking Number'),
-        $this->t('Primary Name'),
-        $this->t('Species') . ' ' . $this->t('ID List'),
-        $this->t('Sex'),
-        $this->t('Created By'),
-        $this->t('Created Date'),
-        $this->t('Updated By'),
-        $this->t('Updated Date'),
-      ],
+      '#header' => $header,
       '#rows' => $rows,
       '#empty' => $this->t('No results found without birth or rescue records.'),
       '#attributes' => ['class' => ['species-without-events-report']],
