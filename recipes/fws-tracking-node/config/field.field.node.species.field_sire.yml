@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_sire
     - node.type.species
 _core:
-  default_config_hash: 7KswZ1BADLPSQ7xN8i8l-h23fDb3ef4sZsUdM9re2qg
+  default_config_hash: 0NxAMTOq5VnkfxmjD1ljx63d93jFCqo0M9cfpTHRj5U
 id: node.species.field_sire
 field_name: field_sire
 entity_type: node

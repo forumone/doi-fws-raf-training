@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: A_RKV8Y6mjGlYGKcg695nnL77tV7FyLI8txNOnXpJl8
+  default_config_hash: OayLgW9ddcOLosGktCz-QX5_Tvk3hXdVwLEF1R8kFUQ
 id: node.species_rescue.field_primary_cause_detail
 field_name: field_primary_cause_detail
 entity_type: node

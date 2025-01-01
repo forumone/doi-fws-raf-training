@@ -6,7 +6,7 @@ dependencies:
     - node
     - text
 _core:
-  default_config_hash: 1d-NlTm_0tEG-MUxHz4n-G5kNvhIrboQJhXBwr1g8ZM
+  default_config_hash: 4rf0d-SuYHXYqw0Oo5KWW73YMJsRUZeYgpCC08TuKCY
 id: node.field_comments
 field_name: field_comments
 entity_type: node

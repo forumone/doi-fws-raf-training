@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: SBTIc-KJbWnX4XcbuFTsYKqfxOoC90Mwm5rcIDV-qEQ
+  default_config_hash: iuK5M8eZ-Oqtk0r33YGn8kjz2OyfJ5ewe_sFGeLjHmY
 id: node.field_project
 field_name: field_project
 entity_type: node

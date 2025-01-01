@@ -2,13 +2,10 @@ uuid: 2d523f81-7c78-4d71-bd2d-e92d016d649a
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.user.field_first_name
-    - field.storage.user.field_last_name
   module:
     - user
 _core:
-  default_config_hash: HCBYlmnUwuOPzb08C_T8N0gPpVPRMYLFUs-p4w7UeHs
+  default_config_hash: kbXJqNg-QIM2_1J8udMAnc_58LAMqgWlqxlpchb1KzA
 id: tracking_org_user
 label: 'Tracking Org User'
 module: views

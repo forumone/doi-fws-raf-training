@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: C6TpZK4aBrgnNsEl8_dSRJr2nQc-u0lVpJGnhhW_3_E
+  default_config_hash: 8imVCJk460Lsdk1SGzhASSK6jj1upxgC6CZODU8DnRo
 id: node.field_fund_org
 field_name: field_fund_org
 entity_type: node

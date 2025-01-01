@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_stimulus
     - node.type.species_conditioning
 _core:
-  default_config_hash: In3H8EHvX69MfGKIBJYvpCY8x24mmHIzPiP_0DAKcZE
+  default_config_hash: 8ZpuP2W0XLeRF3RgLeY5OLO7FSrZrxOeeUXeVFSfOFw
 id: node.species_conditioning.field_stimulus
 field_name: field_stimulus
 entity_type: node

@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: EaYVyo-pp4f7hjyi88BXbUn0QY5fnD06EWed4r7dIwg
+  default_config_hash: LIQWHhmpXaKXGyH8lfxy6FpFzmMV5Gragg4sJ_B0ing
 id: node.field_release_water_type
 field_name: field_release_water_type
 entity_type: node

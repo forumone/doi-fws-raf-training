@@ -8,7 +8,7 @@ dependencies:
     - node
     - user
 _core:
-  default_config_hash: d7p-wwJZ_Wmz1gnvla9jDtRsjOaWAhPoIoW9w3vo4R4
+  default_config_hash: BiM53ObxMkUAhq4dCs_5A_cRjPikcSnmakdVCbuUafs
 id: tracking_other_names
 label: 'Tracking Other Names'
 module: node
