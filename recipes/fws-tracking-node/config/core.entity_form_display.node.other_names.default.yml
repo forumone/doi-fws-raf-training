@@ -10,7 +10,7 @@ dependencies:
   module:
     - select2
 _core:
-  default_config_hash: k-BzUglX-tgChAJNZeqbCTO0AZYM4-3UlU23w_ngQkU
+  default_config_hash: 9gSjpdZL0pLY4Qq4S4x4Q-u1NSsEbkbW8qzof59_S1U
 id: node.other_names.default
 targetEntityType: node
 bundle: other_names

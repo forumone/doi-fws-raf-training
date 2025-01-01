@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: uuirMPZjKjGTHtSwdDqzOh9E-zqxGQPKU0T0C8cRthU
+  default_config_hash: xD3nO4mfa8ui7V-Bib9F9nJaITh5mUo9ZZ9YNbbe1Ds
 name: 'Other Names'
 type: other_names
 description: 'Stores all names associated with a species that are identified in other species databases. For example, an species may be given a name in the MIPS database'

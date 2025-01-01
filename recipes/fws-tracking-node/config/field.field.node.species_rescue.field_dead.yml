@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_dead
     - node.type.species_rescue
 _core:
-  default_config_hash: Dr1Kp7RRhnbo2IV8_HQWtguycN_sN4E6N1PMUr06V40
+  default_config_hash: YR3H9IpPbzExHQptW5Glrh-TEDCPeP21ONbIOERL7bk
 id: node.species_rescue.field_dead
 field_name: field_dead
 entity_type: node
 bundle: species_rescue
-label: 'Did animal die during rescue or transport?'
+label: 'Died during rescue or transport'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

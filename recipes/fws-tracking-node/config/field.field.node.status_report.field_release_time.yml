@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_release_time
     - node.type.status_report
 _core:
-  default_config_hash: j7D0IeO--Z9dX1Ga_FlC89ZPHDs0I_fd-ff2GU1qe3M
+  default_config_hash: R87Yr3EWrYdGGyXgksV4wh-UQBLUKDq8iwYjitHDWik
 id: node.status_report.field_release_time
 field_name: field_release_time
 entity_type: node

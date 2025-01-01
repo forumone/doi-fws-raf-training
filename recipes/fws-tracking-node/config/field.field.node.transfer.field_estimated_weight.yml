@@ -6,14 +6,14 @@ dependencies:
     - field.storage.node.field_estimated_weight
     - node.type.transfer
 _core:
-  default_config_hash: _0b3RPRqzt1I750q0Rg_GWGi9tpq03hS-_33cgNA9iw
+  default_config_hash: YpqYJvFuZvizsKJfDvPtUbxGGnALhb3cxwwO-b6W9u0
 id: node.transfer.field_estimated_weight
 field_name: field_estimated_weight
 entity_type: node
 bundle: transfer
 label: 'Estimated Weight?'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

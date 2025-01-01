@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: EZweSfGE-QtEBUUKeH003UN3vTx2v0WdDIFlclTXmWk
+  default_config_hash: aulu8Nh2eZc4u7eL3JpjWN9sgX0UvctyZ8KCfNUuBDU
 id: node.field_transporter
 field_name: field_transporter
 entity_type: node

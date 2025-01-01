@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_waterway
     - node.type.species_release
 _core:
-  default_config_hash: 7ocncEyVnUtH5G_usimZVKjaAByKCJ6yrMSIrEnRq2w
+  default_config_hash: yZTmb5bBlsc0hJ2Xng5vs8hXJS06SqXvJY4TgeBNMOU
 id: node.species_release.field_waterway
 field_name: field_waterway
 entity_type: node
