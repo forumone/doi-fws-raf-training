@@ -67,27 +67,28 @@ class TrackingWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves all species IDs associated with a species.
+   * Retrieves all "species ID" values for the species node.
    *
    * @param int $species_id
    *   The node ID of the species entity.
    *
    * @return string
-   *   Comma-separated list of species IDs.
+   *   Comma-separated list of species ID values.
    */
   private function getSpeciesIds($species_id) {
     $ids = [];
-    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+    $storage = $this->entityTypeManager->getStorage('node');
+    $query = $storage->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', $species_id)
       ->accessCheck(FALSE);
 
-    $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
+    $id_nodes = $storage->loadMultiple($query->execute());
+
     foreach ($id_nodes as $node) {
-      if (!$node->field_species_ref->isEmpty()) {
-        $ids[] = $node->field_species_ref->value;
-      }
+      $ids[] = $node->field_species_id->value;
     }
+
     return implode(', ', $ids);
   }
 
@@ -185,14 +186,14 @@ class TrackingWithoutEventsController extends ControllerBase {
     // Build the query.
     $query = $this->database->select('node_field_data', 'n')
       ->extend('Drupal\Core\Database\Query\TableSortExtender');
-    
+
     // Add fields from node_field_data
     $query->fields('n', ['nid', 'uid', 'created', 'changed']);
-    
+
     // Join with node_revision to get revision_uid
     $query->leftJoin('node_revision', 'nr', 'n.nid = nr.nid AND n.vid = nr.vid');
     $query->fields('nr', ['revision_uid']);
-    
+
     // Join with field tables
     $query->leftJoin('node__field_number', 'fn', 'n.nid = fn.entity_id');
     $query->leftJoin('node__field_sex', 'fs', 'n.nid = fs.entity_id');
@@ -201,17 +202,17 @@ class TrackingWithoutEventsController extends ControllerBase {
 
     // Add conditions
     $query->condition('n.type', 'species');
-    
+
     // Apply the table sorting
     $query->orderByHeader($header);
-    
+
     // Execute query
     $result = $query->execute();
 
     // Build rows
     $rows = [];
     foreach ($result as $record) {
-      // Skip if has birth or rescue events
+      // Skip if the species already has birth or rescue events.
       $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', 'species_birth')
         ->condition('field_species_ref', $record->nid)
@@ -223,13 +224,16 @@ class TrackingWithoutEventsController extends ControllerBase {
         ->accessCheck(FALSE);
 
       if (!empty($birth_query->execute()) || !empty($rescue_query->execute())) {
+        // Skip species if either query returns something
         continue;
       }
 
+      // Load relevant entities
       $species_entity = $this->entityTypeManager->getStorage('node')->load($record->nid);
       $created_user = $this->entityTypeManager->getStorage('user')->load($record->uid);
       $updated_user = $this->entityTypeManager->getStorage('user')->load($record->revision_uid);
 
+      // Create a link to the species node using the field_number_value as the link text
       $number = $record->field_number_value ?? '';
       $number_link = Link::createFromRoute(
         $number,
@@ -237,6 +241,7 @@ class TrackingWithoutEventsController extends ControllerBase {
         ['node' => $record->nid]
       );
 
+      // Add the row data
       $rows[] = [
         'data' => [
           ['data' => $number_link],
@@ -251,6 +256,7 @@ class TrackingWithoutEventsController extends ControllerBase {
       ];
     }
 
+    // Return the render array
     return [
       '#type' => 'table',
       '#header' => $header,
