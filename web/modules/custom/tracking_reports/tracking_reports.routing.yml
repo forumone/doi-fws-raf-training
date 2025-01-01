@@ -7,7 +7,7 @@ tracking_reports.current_captives:
     _permission: 'access tracking reports'
 
 tracking_reports.facility_inventory:
-  path: 'facility-inventory'
+  path: '/facility-inventory'
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\FacilityInventoryController::content'
     _title: 'Facility Inventory Report'
