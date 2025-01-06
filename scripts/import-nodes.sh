@@ -12,7 +12,6 @@ scripts=(
 "../scripts/import-manatee-death.php"
 "../scripts/import-manatee-entangle.php"
 "../scripts/import-other-names.php"
-"../scripts/import-pre-release.php"
 "../scripts/import-release.php"
 "../scripts/import-rescue.php"
 "../scripts/import-rescue-release.php"
