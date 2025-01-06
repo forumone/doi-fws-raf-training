@@ -559,40 +559,43 @@ class TrackingSearchManager {
   public function getLatestEvent($species_id, $specific_type = NULL) {
     $event_types = [
       'species_birth' => 'field_birth_date',
-      'species_rescue' => 'field_rescue_date',
+      'species_rescue' => 'field_rescue_date', 
       'transfer' => 'field_transfer_date',
       'species_release' => 'field_release_date',
       'species_death' => 'field_death_date',
     ];
 
-    if ($specific_type) {
-      if (isset($event_types[$specific_type])) {
-        $date_field = $event_types[$specific_type];
-        $query = $this->entityTypeManager->getStorage('node')->getQuery()
-          ->condition('type', $specific_type)
-          ->condition('field_species_ref', $species_id)
-          ->condition($date_field, NULL, 'IS NOT NULL')
-          ->sort($date_field, 'DESC')
-          ->range(0, 1)
-          ->accessCheck(FALSE);
+    // If a specific type is requested.
+    if ($specific_type && isset($event_types[$specific_type])) {
+      $date_field = $event_types[$specific_type];
+      $query = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', $specific_type)
+        ->condition('field_species_ref', $species_id)
+        ->condition($date_field, NULL, 'IS NOT NULL')
+        ->sort($date_field, 'DESC')
+        ->range(0, 1)
+        ->accessCheck(FALSE);
 
-        $results = $query->execute();
-        if (!empty($results)) {
-          $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
-          if ($node && !$node->get($date_field)->isEmpty()) {
-            $date_value = $node->get($date_field)->value;
-            $formatted_date = date('m/d/Y', strtotime($date_value));
-            return [
-              'type' => ucfirst(str_replace(['species_', '_'], ['', ' '], $specific_type)),
-              'date' => $formatted_date,
-            ];
-          }
+      $results = $query->execute();
+      if (!empty($results)) {
+        $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
+        if ($node && !$node->get($date_field)->isEmpty()) {
+          $date_value = $node->get($date_field)->value;
+          $formatted_date = date('m/d/Y', strtotime($date_value));
+          return [
+            'type' => ucfirst(str_replace(['species_', '_'], ['', ' '], $specific_type)),
+            'date' => $formatted_date,
+            'timestamp' => strtotime($date_value), // Added for sorting
+          ];
         }
-        return ['type' => 'N/A', 'date' => 'N/A'];
       }
+      return ['type' => 'N/A', 'date' => 'N/A', 'timestamp' => 0];
     }
 
-    $events = [];
+    // Otherwise, find the latest event across all types.
+    $latest_event = NULL;
+    $latest_timestamp = 0;
+
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
@@ -603,33 +606,48 @@ class TrackingSearchManager {
         ->accessCheck(FALSE);
 
       $results = $query->execute();
-
       if (!empty($results)) {
         $node = $this->entityTypeManager->getStorage('node')->load(reset($results));
         if ($node && !$node->get($date_field)->isEmpty()) {
           $date_value = $node->get($date_field)->value;
-          $formatted_date = date('m/d/Y', strtotime($date_value));
-          $events[] = [
-            'type' => str_replace('species_', '', $type),
-            'date' => $formatted_date,
-          ];
+          $timestamp = strtotime($date_value);
+
+          if ($timestamp > $latest_timestamp) {
+            $latest_timestamp = $timestamp;
+            $latest_event = [
+              'type' => ucfirst(str_replace(['species_', '_'], ['', ' '], $type)),
+              'date' => date('m/d/Y', $timestamp),
+              'timestamp' => $timestamp,
+            ];
+          }
         }
       }
     }
 
-    if (empty($events)) {
-      return ['type' => 'N/A', 'date' => 'N/A'];
+    return $latest_event ?: ['type' => 'N/A', 'date' => 'N/A', 'timestamp' => 0];
+  }
+
+  /**
+   * Build search results render array with header-based sorting.
+   */
+  protected function buildSortableData($species_nodes, $event_type = NULL) {
+    $data = [];
+    foreach ($species_nodes as $species_entity) {
+      $sid = $species_entity->id();
+      $latest_event = $this->getLatestEvent($sid, $event_type);
+
+      $data[] = [
+        'species_id' => $sid,
+        'number' => $this->getNumber($species_entity),
+        'species_name' => $this->getPrimaryName($sid),
+        'species_id_value' => $this->getSpeciesId($sid),
+        'latest_event_type' => $latest_event['type'],
+        'latest_event_date' => $latest_event['date'],
+        'latest_event_timestamp' => $latest_event['timestamp'], // Added for sorting
+      ];
     }
 
-    usort($events, function ($a, $b) {
-      return strcmp($b['date'], $a['date']);
-    });
-
-    $latest = $events[0];
-    return [
-      'type' => ucfirst(str_replace('_', ' ', $latest['type'])),
-      'date' => $latest['date'],
-    ];
+    return $data;
   }
 
   /**
@@ -1297,26 +1315,37 @@ class TrackingSearchManager {
         break;
 
       case 'species_rescue':
-        $org_name = 'N/A';
-        $primary_cause = 'N/A';
-
         if ($node->hasField('field_org') && !$node->field_org->isEmpty()) {
+          $org_name = 'N/A';
+          $primary_cause = 'N/A';
+
           $org_id = $node->field_org->target_id;
           $org_name = $this->getOrganizationName($org_id);
-        }
 
-        if ($node->hasField('field_primary_cause') && !$node->field_primary_cause->isEmpty()) {
-          $cause_id = $node->field_primary_cause->target_id;
-          $cause_term = $this->entityTypeManager->getStorage('taxonomy_term')->load($cause_id);
-          if ($cause_term && $cause_term->hasField('field_rescue_cause') && !$cause_term->field_rescue_cause->isEmpty()) {
-            $primary_cause = $cause_term->field_rescue_cause->value;
+          if ($node->hasField('field_primary_cause') && !$node->field_primary_cause->isEmpty()) {
+            $cause_id = $node->field_primary_cause->target_id;
+            $cause_term = $this->entityTypeManager->getStorage('taxonomy_term')->load($cause_id);
+            if ($cause_term && $cause_term->hasField('field_rescue_cause') && !$cause_term->field_rescue_cause->isEmpty()) {
+              $primary_cause = $cause_term->field_rescue_cause->value;
+            }
           }
-        }
 
-        $details = $this->t('To: @org (@cause)', [
-          '@org' => $org_name,
-          '@cause' => $primary_cause,
-        ]);
+          $details = $this->t('To: @org (@cause)', [
+            '@org' => $org_name,
+            '@cause' => $primary_cause,
+          ]);
+        }
+        else {
+          $rescue_type = 'N/A';
+          if ($node->hasField('field_rescue_type') && !$node->field_rescue_type->isEmpty()) {
+            $type_id = $node->field_rescue_type->target_id;
+            $type_term = $this->entityTypeManager->getStorage('taxonomy_term')->load($type_id);
+            if ($type_term && $type_term->hasField('field_rescue_type_text') && !$type_term->field_rescue_type_text->isEmpty()) {
+              $rescue_type = $type_term->field_rescue_type_text->value;
+            }
+          }
+          $details = $rescue_type;
+        }
         break;
 
       case 'species_release':
