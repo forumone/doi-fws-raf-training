@@ -172,7 +172,7 @@ display:
         type: full
         options:
           pagination_heading_level: h4
-          items_per_page: 50
+          items_per_page: 25
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
