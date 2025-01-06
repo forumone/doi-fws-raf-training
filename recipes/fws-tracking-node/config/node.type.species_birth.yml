@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: '-EBdIDE4A8HBa9QAivMRdN6PtjX1RFAbDOkV94eZcWk'
+  default_config_hash: j-sa2vv6OnGx5KxbsgSd2vCds5AlJgiB50oajL82gic
 name: 'Species Birth'
 type: species_birth
 description: 'Records information about species births in captivity'

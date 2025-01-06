@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: PrNxNjLBMSqboAalieksulPnq-G7FN9wR_1G0yIkYGk
+  default_config_hash: LSmwGUdEH5XEmXL12oDY331G6iyERAYjkGkjtEqE0jk
 id: node.species_death.field_other_text
 field_name: field_other_text
 entity_type: node

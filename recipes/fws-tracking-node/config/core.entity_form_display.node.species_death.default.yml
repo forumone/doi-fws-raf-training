@@ -19,7 +19,7 @@ dependencies:
     - select2
     - text
 _core:
-  default_config_hash: re2MftFSXZNB8G0ApZfwiMNGP-Hfe_Gcj22YI1n-Scw
+  default_config_hash: lSprH3PuzCCBCLvhHTSUv7ozIPJf2dmjlVdoKBzcHlY
 id: node.species_death.default
 targetEntityType: node
 bundle: species_death

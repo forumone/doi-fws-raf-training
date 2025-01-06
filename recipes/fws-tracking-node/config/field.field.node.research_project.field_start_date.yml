@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: 2wntCsGGJj9QDwVpQeDlWPEOqcdPkKeDAmzNw2FtRew
+  default_config_hash: dhuNE8mQxNasRsGETCOpbAXsy8PXPuD0KhLRrJgwsPY
 id: node.research_project.field_start_date
 field_name: field_start_date
 entity_type: node

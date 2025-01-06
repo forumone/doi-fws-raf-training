@@ -8,7 +8,7 @@ dependencies:
   module:
     - options
 _core:
-  default_config_hash: J1XYcb0CdiC6KcNqskX3sC8NBxIWuKzhBeoVvaubqIY
+  default_config_hash: 3x6ZjJ0Y_pHqKhI282MhXZumaB83ea-OvufSPQ86h1U
 id: node.species_prerelease.field_est_weight
 field_name: field_est_weight
 entity_type: node

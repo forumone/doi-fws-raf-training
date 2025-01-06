@@ -26,7 +26,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: O0AaKU3AbwQti-AO6lF0CUKw2JhmAH7rNgGF4GJ0gpI
+  default_config_hash: 8fQeJ3IQkvDTbjkpqnKHwCwQvx_L-bc8My85Mz0uFIo
 id: node.status_report.default
 targetEntityType: node
 bundle: status_report

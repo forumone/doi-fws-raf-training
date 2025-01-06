@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 3OticcOIC54eUbc_E6hWiz1CC9509ni8lYVIwNsXgj8
+  default_config_hash: KBajTSAhagiULtk6jhv_bod1LcRISN1tXb4Gl40waic
 id: node.species_tag.field_tag_info
 field_name: field_tag_info
 entity_type: node

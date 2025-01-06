@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: gcFC8nirQFnsI8Wh2ZmOx_O-5ErqkjfVn0eLEexdAT8
+  default_config_hash: o_vw5188v8oKX6UbYcU4srLDG47ytnfPN5l2_s08jXw
 id: node.research_project.field_expire_date
 field_name: field_expire_date
 entity_type: node
