@@ -10,7 +10,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: 3EdHPWX6sWU9O52B_-3ZdL_VyGg2adBZmIVm4LDU2rA
+  default_config_hash: BJ943ymvpweG5sjyiQnUcMYbiVuTwESHXfuTE4M-LTA
 id: node.other_names.default
 targetEntityType: node
 bundle: other_names

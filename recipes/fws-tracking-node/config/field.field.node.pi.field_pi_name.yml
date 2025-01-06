@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_pi_name
     - node.type.pi
 _core:
-  default_config_hash: rMbqVuoh9ldNEcsBxn_m_TDwyNFkfMeCvGyVD3Y3IlM
+  default_config_hash: EjYZZ7KJ5k3mUtYy9Z5hA8gL-y6el0s0zGyMFH0PdKI
 id: node.pi.field_pi_name
 field_name: field_pi_name
 entity_type: node

@@ -7,7 +7,7 @@ dependencies:
     - node.type.species
     - node.type.species_death
 _core:
-  default_config_hash: HZvfivldcGhACDmwcPcG8linWDSWw-RIJnKYrEgk3nY
+  default_config_hash: 2WQ3IMjgBXDx0Ek_XIE2OykT9ZPYQ0vfVZwGiSd0U_Q
 id: node.species_death.field_species_ref
 field_name: field_species_ref
 entity_type: node

@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <th>Rescue Type</th>
-                <td>{{ content.field_rescue_type|default('N/A') }}</td>
+                <td>{{ node.field_rescue_type.entity.field_rescue_type_text.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Rescue Per Day</th>
@@ -75,7 +75,7 @@
               </tr>
               <tr>
                 <th>State</th>
-                <td>{{ content.field_state|default('N/A') }}</td>
+                <td>{{ node.field_state.entity.field_state_name.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Latitude</th>
@@ -94,7 +94,7 @@
     <!-- Health & Measurements Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Health & Measurements</h3>
+        <h3 class="panel-title">Health &amp; Measurements</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
@@ -153,7 +153,7 @@
             <tbody>
               <tr>
                 <th class="col-md-3">Primary Cause</th>
-                <td class="col-md-9">{{ content.field_primary_cause|default('N/A') }}</td>
+                <td class="col-md-9">{{ node.field_primary_cause.entity.field_rescue_cause.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Primary Cause Detail</th>
@@ -176,15 +176,15 @@
     <!-- Personnel & Organization Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Personnel & Organization</h3>
+        <h3 class="panel-title">Personnel &amp; Organization</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th class="col-md-3">Organization</th>
-                <td class="col-md-9">{{ content.field_org|default('N/A') }}</td>
+                <th class="col-md-3">Facility transported to</th>
+                <td class="col-md-9">{{ node.field_org.entity.field_organization.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Participating Organizations</th>
@@ -192,11 +192,18 @@
               </tr>
               <tr>
                 <th>Veterinarian</th>
-                <td>{{ content.field_veterinarian|default('N/A') }}</td>
+                <td>
+                  {% if node.field_veterinarian.entity.field_first_name.value %}
+                    {{ node.field_veterinarian.entity.field_first_name.value|default(content.field_veterinarian) }} 
+                    {{ node.field_veterinarian.entity.field_last_name.value|default('') }}
+                  {% else %}
+                    {{ content.field_veterinarian|default('N/A') }}
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <th>Transporter</th>
-                <td>{{ content.field_transporter|default('N/A') }}</td>
+                <td>{{ node.field_transporter.entity.field_organization.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Tracker</th>

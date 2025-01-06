@@ -30,7 +30,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: oAI5LnabGnrzMmeOh1Sh3dXqRBKglGoG-mJ9ouJ9ANw
+  default_config_hash: WYJPN358OY8S16l6MXmuYELjD4D-PHdjwxxYJxRpiEc
 id: tracking_status
 label: 'Species Status Report'
 module: views
@@ -1205,7 +1205,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 50
+          items_per_page: 25
       exposed_form:
         type: bef
         options:

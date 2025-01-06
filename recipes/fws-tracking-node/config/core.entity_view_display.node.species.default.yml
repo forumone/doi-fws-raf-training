@@ -15,7 +15,7 @@ dependencies:
     - entity_reference_revisions
     - user
 _core:
-  default_config_hash: VArokDxB0eCmnR_7P2ii2KTVYig2ij9aJvmZlkXKxOc
+  default_config_hash: bvMCojhu0OKpp4Hj7vmfClj2JZLLBnkJycG3cvdpQdg
 id: node.species.default
 targetEntityType: node
 bundle: species

@@ -8,7 +8,7 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: DbB0jHeb4kEJaqKM_lVQ-DZ3I-SvSwVSmTRpjN_xPv8
+  default_config_hash: rlSnoCMNPEWci3z_7iHqMwkiz0ygUgxukHRw45Kc8aM
 id: node.species_birth.field_comments
 field_name: field_comments
 entity_type: node

@@ -8,7 +8,7 @@ dependencies:
   module:
     - datetime
 _core:
-  default_config_hash: CAfhLfoB7PM_3FCYoJYIqZ4zRlO4Qx7aAydY5_yjBwk
+  default_config_hash: 5ikPZ91sPF98fFbOy-L2KbRMQt9CmDI8eMJio3modDI
 id: node.status_report.field_weight_date
 field_name: field_weight_date
 entity_type: node

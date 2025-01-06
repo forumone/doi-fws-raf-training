@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_weight
     - node.type.species_rescue
 _core:
-  default_config_hash: Zs9eLBACmvsnL41Y6-JB_biQplJkQHvLaYneIIOfrvs
+  default_config_hash: FNypFd2M1ZHKdlTjY3TeWdc1m_RhEkNZ4vqWUVDPOA0
 id: node.species_rescue.field_weight
 field_name: field_weight
 entity_type: node

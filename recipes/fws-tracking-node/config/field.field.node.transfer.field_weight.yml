@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_weight
     - node.type.transfer
 _core:
-  default_config_hash: dpq59EffU0BWVPUS74d7mXivJbExx7cApnBj97wyaLI
+  default_config_hash: c9Ju90B8RyJ1qglKQUOeHv3B4pf_oYZuURaObLG8tAc
 id: node.transfer.field_weight
 field_name: field_weight
 entity_type: node

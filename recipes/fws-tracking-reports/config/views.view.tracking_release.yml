@@ -26,7 +26,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 52adZ2CSuZPAuG0OWtnBW8TaPI_RuwYavMNsqAfFOT8
+  default_config_hash: 15Rv38qXG3RSvhWQPszeNIDxQAU3PKA369Ehajqfmak
 id: tracking_release
 label: 'Species Release'
 module: views
@@ -869,7 +869,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 50
+          items_per_page: 25
       exposed_form:
         type: bef
         options:
