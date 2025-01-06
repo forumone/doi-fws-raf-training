@@ -82,12 +82,19 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       throw new Exception("MLog is empty.");
     }
 
+    // Check if a node already exists with this MLog number
+    $existing_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'species_prerelease',
+        'field_species_ref' => get_species_node_id($number),
+      ]);
+
     // Prepare node data.
     $node_data = [
       'type' => 'species_prerelease',
       'title' => "Manatee PreRelease Entry MLog $number",
       'field_species_ref' => get_species_node_id($number),
-      'field_entry_date' => parse_datetime($entry_date),
       'field_release_date' => parse_date($rel_date),
       'field_release_site' => $rel_site,
       'field_state' => [
@@ -131,7 +138,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_org' => [
         'target_id' => get_taxonomy_term_id('org', $org),
       ],
-      'field_status' => $status,
+      'status' => $status,
       // UNIX timestamp.
       'created' => strtotime($create_date),
       // UNIX timestamp.
@@ -139,14 +146,29 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'status' => filter_boolean($status) ? 1 : 0,
     ];
 
-    // Create new node.
-    $node_data['uid'] = get_user_id($create_by);
-    $node = Node::create($node_data);
-    print("\nCreating new species_prerelease node: MLog $number");
-    $created_count++;
+    if (!empty($existing_nodes)) {
+      // Update existing node
+      $node = reset($existing_nodes);
+
+      // Update each field individually to preserve any fields not in CSV
+      foreach ($node_data as $field => $value) {
+        if ($field != 'type') {
+          $node->set($field, $value);
+        }
+      }
+
+      print("\nUpdating existing species_prerelease node: MLog $number");
+      $updated_count++;
+    }
+    else {
+      // Create new node
+      $node_data['uid'] = get_user_id($create_by);
+      $node = Node::create($node_data);
+      print("\nCreating new species_prerelease node: MLog $number");
+      $created_count++;
+    }
 
     $node->save();
-
   }
   catch (EntityStorageException $e) {
     print("\nError on row $row_count: " . $e->getMessage());
