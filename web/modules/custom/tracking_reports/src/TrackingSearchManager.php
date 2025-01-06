@@ -8,6 +8,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Utility\TableSort;
+use Drupal\node\NodeInterface;
 
 /**
  * Service for handling tracking search operations.
@@ -1332,7 +1333,7 @@ class TrackingSearchManager {
           if (!empty($prerelease_query)) {
             $prerelease_node = $this->entityTypeManager->getStorage('node')->load(reset($prerelease_query));
             if ($prerelease_node && $prerelease_node->hasField('field_org') && !$prerelease_node->field_org->isEmpty()) {
-              echo $org_id = $prerelease_node->field_org->target_id;
+              $org_id = $prerelease_node->field_org->target_id;
               $org_name = $this->getOrganizationName($org_id);
               $details = $this->t('From: @org', ['@org' => $org_name]);
             }
