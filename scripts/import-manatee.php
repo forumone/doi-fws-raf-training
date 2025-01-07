@@ -3,8 +3,9 @@
 /**
  * @file
  * Drush script to import Manatee data and names into species nodes with paragraphs.
+ * Now includes revision support to track creation and update information.
  *
- * Usage: drush scr scripts/import_manatee_data.php.
+ * Usage: drush scr scripts/import-manatee.php.
  */
 
 use Drupal\node\Entity\Node;
@@ -60,9 +61,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'field_number' => $number,
       ]);
 
+    // Prepare base node data
     $node_data = [
       'type' => 'species',
-      'title' => "Manatee $number",
       'field_number' => $number,
       'field_sex' => [
         'target_id' => get_sex_term_id($sex),
@@ -71,29 +72,85 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'target_id' => get_rearing_term_id($rearing),
       ],
       'field_studbook' => $studbook,
-      'changed' => strtotime($update_date),
       'status' => 1,
     ];
 
     if (!empty($existing_nodes)) {
-      // Update existing node.
-      $node = reset($existing_nodes);
+      // Update existing node with revisions
+      $original_node = reset($existing_nodes);
+      $nid = $original_node->id();
+      
+      // Create a fresh node object
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $node = $node_storage->load($nid);
+      
+      // Update base data
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
+      
+      // Create initial revision with creation info
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionUserId(get_user_id($create_by));
+      $node->setRevisionCreationTime(strtotime($create_date));
+      $node->set('created', strtotime($create_date));
+      $node->set('changed', strtotime($create_date));
+      $node->set('title', "Manatee $number (temp)");
+      $node->setRevisionLogMessage('Initial revision created by ' . $create_by);
+      $node->enforceIsNew(FALSE);
+      $node->save();
+      
+      // Create update revision
+      $node = $node_storage->load($nid);
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->set('title', "Manatee $number");
+      $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+      $node->setRevisionUserId($update_user_id);
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->set('changed', strtotime($update_date));
+      $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      $node->save();
+      
       print("\nUpdating existing species node: Manatee $number");
       $species_updated++;
     }
     else {
-      // Create new node.
+      // Create new node with revisions
       $node_data['uid'] = get_user_id($create_by);
       $node_data['created'] = strtotime($create_date);
+      $node_data['changed'] = strtotime($create_date);
+      $node_data['title'] = "Manatee $number (temp)";
       $node = Node::create($node_data);
+      
+      // Set initial revision information
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionUserId(get_user_id($create_by));
+      $node->setRevisionCreationTime(strtotime($create_date));
+      $node->setRevisionLogMessage('Initial revision created by ' . $create_by);
+      $node->save();
+      
+      // Create update revision
+      $node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($node->id());
+      
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->set('title', "Manatee $number");
+      $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+      $node->setRevisionUserId($update_user_id);
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->set('changed', strtotime($update_date));
+      $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      $node->save();
+      
       print("\nCreating new species node: Manatee $number");
       $species_created++;
     }
 
-    $node->save();
     $number_to_nid[$number] = $node->id();
   }
   catch (Exception $e) {
@@ -114,19 +171,28 @@ foreach ($data_rows as $data) {
     $node_id = $number_to_nid[$number];
     $node = Node::load($node_id);
 
-    // Update parent references if they exist.
+    // Update parent references if they exist
     $dam_id = $number_to_nid[$dam] ?? NULL;
     $sire_id = $number_to_nid[$sire] ?? NULL;
 
-    if ($dam_id) {
-      $node->set('field_dam', ['target_id' => $dam_id]);
+    if ($dam_id || $sire_id) {
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      
+      if ($dam_id) {
+        $node->set('field_dam', ['target_id' => $dam_id]);
+      }
+      if ($sire_id) {
+        $node->set('field_sire', ['target_id' => $sire_id]);
+      }
+      
+      $node->setRevisionUserId(get_user_id($update_by));
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->setRevisionLogMessage('Parent references updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      $node->save();
+      
+      print("\nUpdated parents for Manatee $number");
     }
-    if ($sire_id) {
-      $node->set('field_sire', ['target_id' => $sire_id]);
-    }
-
-    $node->save();
-    print("\nUpdated parents for Manatee $number");
   }
   catch (Exception $e) {
     print("\nError updating parents for $number: " . $e->getMessage());
@@ -134,7 +200,7 @@ foreach ($data_rows as $data) {
   }
 }
 
-// Third Pass: Import names as paragraphs.
+// Third Pass: Import names as paragraphs with revisions.
 print("\n\nImporting names as paragraphs...\n");
 
 $handle = fopen($names_csv, 'r');
@@ -159,35 +225,68 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $name = trim($row['Name']);
     $primary = trim($row['Primary']);
 
-    // Skip if required fields are empty.
+    // Skip if required fields are empty
     if (empty($number) || empty($name)) {
       print("\nSkipping row with missing data");
       continue;
     }
 
-    // Get the species node.
+    // Get the species node
     if (!isset($number_to_nid[$number])) {
       print("\nSpecies not found for MLog: $number");
       continue;
     }
 
     $node = Node::load($number_to_nid[$number]);
+    
+    // Delete existing paragraphs for this node
+    $existing_paragraphs = [];
+    foreach ($node->get('field_names') as $item) {
+      $existing_paragraphs[] = $item->target_id;
+    }
+    if (!empty($existing_paragraphs)) {
+      $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+      $entities = $storage->loadMultiple($existing_paragraphs);
+      $storage->delete($entities);
+      $node->set('field_names', []);
+      $node->save();
+      print("\nDeleted existing names for Manatee $number");
+    }
 
-    // Create new name paragraph.
-    $paragraph = Paragraph::create([
+    // Create new name paragraph with base fields
+    $values = [
       'type' => 'species_name',
       'field_name' => $name,
       'field_primary' => filter_var($primary, FILTER_VALIDATE_BOOLEAN),
-    ]);
+      'created' => strtotime($row['CreateDate']),
+    ];
+
+    $paragraph = Paragraph::create($values);
+    $create_user_id = get_user_id($row['CreateBy']);
+    $paragraph->setOwnerId($create_user_id);
+    // Ensure paragraph is properly revisioned
+    $paragraph->setNewRevision(TRUE);
+    $paragraph->isDefaultRevision(TRUE);
+    // Set the parent entity
+    $paragraph->set('parent_type', 'node');
+    $paragraph->set('parent_id', $number_to_nid[$number]);
+    $paragraph->set('parent_field_name', 'field_names');
     $paragraph->save();
 
-    // Add paragraph to species node.
+    // Add paragraph to species node
+    $node->setNewRevision();
+    $node->isDefaultRevision(TRUE);
+    
+    // Add the new paragraph reference
     $current_names = $node->get('field_names')->getValue();
     $current_names[] = [
       'target_id' => $paragraph->id(),
       'target_revision_id' => $paragraph->getRevisionId(),
     ];
     $node->set('field_names', $current_names);
+    $node->setRevisionUserId(get_user_id($row['UpdateBy']));
+    $node->setRevisionCreationTime(strtotime($row['UpdateDate']));
+    $node->setRevisionLogMessage('Added name "' . $name . '" by ' . ($row['UpdateBy'] === 'D' ? 'admin' : $row['UpdateBy']));
     $node->save();
 
     $names_created++;
@@ -211,7 +310,7 @@ print("\nNames created: $names_created");
 print("\nErrors: $error_count\n");
 
 /**
- * Helper function to get sex taxonomy term ID.
+ * Helper functions remain unchanged.
  */
 function get_sex_term_id($sex) {
   $terms = \Drupal::entityTypeManager()
@@ -227,9 +326,6 @@ function get_sex_term_id($sex) {
   return NULL;
 }
 
-/**
- * Helper function to get rearing taxonomy term ID.
- */
 function get_rearing_term_id($rearing) {
   $terms = \Drupal::entityTypeManager()
     ->getStorage('taxonomy_term')
@@ -244,15 +340,12 @@ function get_rearing_term_id($rearing) {
   return NULL;
 }
 
-/**
- * Helper function to get user ID from username.
- */
 function get_user_id($username) {
   if (empty($username)) {
     return 1;
   }
 
-  // Use super admin for 'D'.
+  // Use super admin for 'D'
   if ($username == 'D') {
     return 1;
   }

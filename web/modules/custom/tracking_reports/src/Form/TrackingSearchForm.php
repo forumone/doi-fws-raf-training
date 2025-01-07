@@ -222,7 +222,7 @@ class TrackingSearchForm extends FormBase {
 
     $form['filter_options']['collapse']['body']['species_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Species') . ' ' . $this->t('ID'),
+      '#title' => $this->t('Species ID'),
       '#required' => FALSE,
       '#maxlength' => 64,
       '#size' => 64,

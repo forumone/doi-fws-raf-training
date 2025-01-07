@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: pAf8OfMLO0FLARORHBHqHphfpO56Gn4fqpYVGfYWiSE
 contexts:
   -
     context: ''
@@ -16,7 +18,16 @@ contexts:
         translation: 'Manatee Births'
       -
         source: 'Species ID'
-        translation: 'Manatee ID'
+        translation: 'Animal ID'
       -
         source: 'Species Number'
         translation: 'Manatee Number'
+      -
+        source: 'Tracking ID Information'
+        translation: 'Animal ID Information'
+      -
+        source: 'Tracking Number'
+        translation: MLog
+      -
+        source: 'Tracking ID'
+        translation: 'Animal ID'

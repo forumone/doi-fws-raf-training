@@ -10,7 +10,7 @@ dependencies:
     - node
     - paragraphs
 _core:
-  default_config_hash: JcZq2hLMp1sinPV9EF4TJB2XlvQ6X4Qeyly8HdYejDk
+  default_config_hash: tDcuczHMPmgBl6FKtT4xHy-YtCwg35YiyrGuXQVhegU
 id: tracking_names
 label: 'Species Names'
 module: views
@@ -208,8 +208,8 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
-            custom_date_format: ''
+            date_format: custom
+            custom_date_format: m/d/Y
             timezone: ''
             tooltip:
               date_format: long
@@ -391,6 +391,7 @@ display:
             field_primary: field_primary
             created: created
             uid: uid
+            changed: changed
           default: created
           info:
             field_name:
@@ -415,6 +416,13 @@ display:
               empty_column: false
               responsive: ''
             uid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
               sortable: true
               default_sort_order: asc
               align: ''

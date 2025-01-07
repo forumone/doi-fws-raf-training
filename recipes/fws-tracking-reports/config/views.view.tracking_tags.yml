@@ -7,14 +7,15 @@ dependencies:
     - field.storage.node.field_event
     - field.storage.node.field_event_date
     - field.storage.node.field_tag_id
-    - field.storage.node.field_tag_type
+    - field.storage.taxonomy_term.field_tag_type_text
     - node.type.species_tag
   module:
     - datetime
     - node
+    - taxonomy
     - user
 _core:
-  default_config_hash: 0gIFmq2hdJ8C3uupFhZrwOZlb1mXPeVrxzne7s7jReA
+  default_config_hash: K1towQVrxSlrbz0iMICUYJA0MrJJFPQ2emMTe1qRgQk
 id: tracking_tags
 label: 'Species Tags'
 module: views
@@ -29,7 +30,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Tags Information'
+      title: 'Tag Information'
       fields:
         nid:
           id: nid
@@ -97,11 +98,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_tag_type:
-          id: field_tag_type
-          table: node__field_tag_type
-          field: field_tag_type
-          relationship: none
+        field_tag_type_text:
+          id: field_tag_type_text
+          table: taxonomy_term__field_tag_type_text
+          field: field_tag_type_text
+          relationship: field_tag_type
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -146,11 +147,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: string
           settings:
-            link: false
-          group_column: target_id
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -691,7 +692,8 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            field_tag_type: field_tag_type
+            nid: nid
+            field_tag_type_text: field_tag_type_text
             field_date_applied: field_date_applied
             field_tag_id: field_tag_id
             field_event: field_event
@@ -700,7 +702,14 @@ display:
             created: created
           default: field_date_applied
           info:
-            field_tag_type:
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_tag_type_text:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -765,7 +774,16 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_tag_type:
+          id: field_tag_type
+          table: node__field_tag_type
+          field: field_tag_type
+          relationship: none
+          group_type: group
+          admin_label: 'field_tag_type: Taxonomy term'
+          plugin_id: standard
+          required: false
       use_ajax: true
       header: {  }
       footer: {  }
@@ -784,7 +802,7 @@ display:
         - 'config:field.storage.node.field_event'
         - 'config:field.storage.node.field_event_date'
         - 'config:field.storage.node.field_tag_id'
-        - 'config:field.storage.node.field_tag_type'
+        - 'config:field.storage.taxonomy_term.field_tag_type_text'
   block_1:
     id: block_1
     display_title: Block
@@ -806,4 +824,4 @@ display:
         - 'config:field.storage.node.field_event'
         - 'config:field.storage.node.field_event_date'
         - 'config:field.storage.node.field_tag_id'
-        - 'config:field.storage.node.field_tag_type'
+        - 'config:field.storage.taxonomy_term.field_tag_type_text'

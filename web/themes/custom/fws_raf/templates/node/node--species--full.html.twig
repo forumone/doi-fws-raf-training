@@ -55,11 +55,27 @@
             </tr>
             <tr>
               <th>Dam</th>
-              <td>{{ content.field_dam.0['#title'] ? content.field_dam : 'N/A' }}</td>
+              <td>
+              {% if node.field_dam is not empty and node.field_dam.entity.field_names is not empty %}
+                {% for name in node.field_dam.entity.field_names %}
+                  {{ name.entity.field_name.value }}{% if name.entity.field_primary.value == 1 %} (primary){% endif %}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+              {% else %}
+                N/A
+              {% endif %}
+              </td>
             </tr>
             <tr>
               <th>Sire</th>
-              <td>{{ content.field_sire.0['#title'] ? content.field_sire : 'N/A' }}</td>
+              <td>
+              {% if node.field_sire is not empty and node.field_sire.entity.field_names is not empty %}
+                {% for name in node.field_sire.entity.field_names %}
+                  {{ name.entity.field_name.value }}{% if name.entity.field_primary.value == 1 %} (primary){% endif %}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+              {% else %}
+                N/A
+              {% endif %}
+              </td>
             </tr>
           </tbody>
         </table>

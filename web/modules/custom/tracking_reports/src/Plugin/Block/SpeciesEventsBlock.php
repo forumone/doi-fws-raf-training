@@ -7,6 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\tracking_reports\TrackingSearchManager;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a block displaying species events in chronological order.
@@ -52,7 +53,7 @@ class SpeciesEventsBlock extends BlockBase implements ContainerFactoryPluginInte
     $plugin_id,
     $plugin_definition,
     TrackingSearchManager $search_manager,
-    RouteMatchInterface $route_match
+    RouteMatchInterface $route_match,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->searchManager = $search_manager;
@@ -78,14 +79,52 @@ class SpeciesEventsBlock extends BlockBase implements ContainerFactoryPluginInte
   public function build() {
     // Get the current node.
     $node = $this->routeMatch->getParameter('node');
-    
+
     // Return empty if not on a species node.
     if (!$node || $node->bundle() !== 'species') {
       return [];
     }
 
-    // Use the buildSearchResults method with just the species ID.
-    return $this->searchManager->buildSearchResults(NULL, $node->id());
+    $build = $this->searchManager->buildChronologicalEvents($node->id());
+
+    // Add the node as a cache dependency
+    $build['#cache']['tags'] = Cache::mergeTags(
+      $build['#cache']['tags'] ?? [],
+      $node->getCacheTags()
+    );
+
+    return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(
+      parent::getCacheContexts(),
+      ['route', 'url.path']
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $node = $this->routeMatch->getParameter('node');
+    if ($node && $node->bundle() === 'species') {
+      return Cache::mergeTags(
+        parent::getCacheTags(),
+        $node->getCacheTags()
+      );
+    }
+    return parent::getCacheTags();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheMaxAge() {
+    return Cache::PERMANENT;
   }
 
 }
