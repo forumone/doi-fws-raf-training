@@ -1232,7 +1232,8 @@ class TrackingSearchManager {
       ],
       'transfer' => [
         'date_field' => 'field_transfer_date',
-        'location_field' => 'field_waterway',
+        'location_field' => ['from' => 'field_from_facility', 'to' => 'field_to_facility'],
+        'details_field' => 'field_reason',
         'label' => $this->t('Transfer'),
       ],
       'species_release' => [
@@ -1284,6 +1285,29 @@ class TrackingSearchManager {
               }
             }
           }
+          elseif ($type === 'transfer') {
+            // For transfer events, get facility names from taxonomy terms
+            $from_facility = 'N/A';
+            $to_facility = 'N/A';
+            
+            if (!$node->field_from_facility->isEmpty()) {
+              $term_id = $node->field_from_facility->target_id;
+              $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id);
+              if ($term) {
+                $from_facility = $term->getName();
+              }
+            }
+            
+            if (!$node->field_to_facility->isEmpty()) {
+              $term_id = $node->field_to_facility->target_id;
+              $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id);
+              if ($term) {
+                $to_facility = $term->getName();
+              }
+            }
+            
+            $location = "To: {$to_facility} From: {$from_facility}";
+          }
           else {
             // For all other events, get location directly from waterway field.
             if (!$node->get($config['location_field'])->isEmpty()) {
@@ -1291,11 +1315,23 @@ class TrackingSearchManager {
             }
           }
 
+          // Get event details
+          $details = '';
+          if ($type === 'transfer' && !$node->field_reason->isEmpty()) {
+            $term_id = $node->field_reason->target_id;
+            $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id);
+            $details = 'Reason: ' . ($term && !$term->field_transfer_reason->isEmpty() ? $term->field_transfer_reason->value : 'N/A');
+          }
+          else {
+            $details = $this->getEventDetails($node);
+          }
+
           $events[] = [
             'date' => $date_value,
             'type' => $config['label'],
             'node_id' => $node->id(),
             'location' => $location,
+            'details' => $details,
           ];
         }
       }
@@ -1309,9 +1345,6 @@ class TrackingSearchManager {
     // Format the data for display.
     $rows = [];
     foreach ($events as $event) {
-      $node = $this->entityTypeManager->getStorage('node')->load($event['node_id']);
-      $details = $this->getEventDetails($node);
-
       $rows[] = [
         'date' => ['data' => ['#markup' => date('m/d/Y', strtotime($event['date']))]],
         'type' => [
@@ -1321,7 +1354,7 @@ class TrackingSearchManager {
             '#url' => Url::fromRoute('entity.node.canonical', ['node' => $event['node_id']]),
           ],
         ],
-        'details' => ['data' => ['#markup' => $details]],
+        'details' => ['data' => ['#markup' => $event['details']]],
         'location' => ['data' => ['#markup' => $event['location']]],
       ];
     }
