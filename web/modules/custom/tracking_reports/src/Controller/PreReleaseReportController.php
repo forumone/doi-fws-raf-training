@@ -79,6 +79,30 @@ class PreReleaseReportController extends ControllerBase {
   }
 
   /**
+   * Gets a sortable value from a table cell.
+   *
+   * @param mixed $cell_data
+   *   The cell data to process.
+   *
+   * @return string
+   *   A string value suitable for sorting.
+   */
+  protected function getSortableValue($cell_data) {
+    if ($cell_data instanceof Link) {
+      return $cell_data->getText();
+    }
+    
+    if (is_array($cell_data) && isset($cell_data['data'])) {
+      if ($cell_data['data'] instanceof Link) {
+        return $cell_data['data']->getText();
+      }
+      return (string) $cell_data['data'];
+    }
+    
+    return (string) $cell_data;
+  }
+
+  /**
    * Sorts the rows array by the specified column.
    *
    * @param array $rows
@@ -109,8 +133,8 @@ class PreReleaseReportController extends ControllerBase {
     $column = $column_map[$sort];
 
     usort($rows, function ($a, $b) use ($column, $direction) {
-      $a_value = strip_tags($a['data'][$column]['data']);
-      $b_value = strip_tags($b['data'][$column]['data']);
+      $a_value = $this->getSortableValue($a['data'][$column]);
+      $b_value = $this->getSortableValue($b['data'][$column]);
 
       // Special handling for dates
       if ($column === 3 && $a_value !== 'N/A' && $b_value !== 'N/A') {
@@ -119,9 +143,9 @@ class PreReleaseReportController extends ControllerBase {
       }
 
       if ($direction === 'asc') {
-        return strcasecmp($a_value, $b_value);
+        return strcasecmp((string) $a_value, (string) $b_value);
       }
-      return strcasecmp($b_value, $a_value);
+      return strcasecmp((string) $b_value, (string) $a_value);
     });
 
     return $rows;
