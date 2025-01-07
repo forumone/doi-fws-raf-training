@@ -36,6 +36,13 @@ class TrackingWithoutEventsController extends ControllerBase {
   protected $database;
 
   /**
+   * Number of items to show per page.
+   *
+   * @var int
+   */
+  protected $itemsPerPage = 25;
+
+  /**
    * Constructs a TrackingWithoutEventsController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -93,34 +100,6 @@ class TrackingWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves the primary name of a species.
-   *
-   * @param int $species_id
-   *   The node ID of the species entity.
-   *
-   * @return string
-   *   The primary name of the species, or an empty string if none exists.
-   */
-  private function getPrimaryName($species_id) {
-    $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
-    if (!$species_node || !$species_node->hasField('field_names')) {
-      return '';
-    }
-
-    // Iterate through the paragraph references.
-    foreach ($species_node->field_names->referencedEntities() as $paragraph) {
-      if ($paragraph->hasField('field_primary')
-          && !$paragraph->field_primary->isEmpty()
-          && $paragraph->field_primary->value == 1
-          && !$paragraph->field_name->isEmpty()) {
-        return $paragraph->field_name->value;
-      }
-    }
-
-    return '';
-  }
-
-  /**
    * Retrieves the sex of a species.
    *
    * @param \Drupal\node\NodeInterface $species_node
@@ -146,6 +125,9 @@ class TrackingWithoutEventsController extends ControllerBase {
    *   A render array for a table of species without events.
    */
   public function content() {
+    // Get the current page from the query parameters
+    $page = \Drupal::request()->query->get('page') ?? 0;
+
     // Define table headers.
     $header = [
       'tracking_number' => [
@@ -155,6 +137,8 @@ class TrackingWithoutEventsController extends ControllerBase {
       ],
       'primary_name' => [
         'data' => $this->t('Primary Name'),
+        'field' => 'pn.field_name_value',
+        'sort' => 'asc',
       ],
       'species_ids' => [
         'data' => $this->t('Species') . ' ' . $this->t('ID List'),
@@ -185,7 +169,8 @@ class TrackingWithoutEventsController extends ControllerBase {
 
     // Build the query.
     $query = $this->database->select('node_field_data', 'n')
-      ->extend('Drupal\Core\Database\Query\TableSortExtender');
+      ->extend('Drupal\Core\Database\Query\TableSortExtender')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender');
 
     // Add fields from node_field_data
     $query->fields('n', ['nid', 'uid', 'created', 'changed']);
@@ -200,11 +185,42 @@ class TrackingWithoutEventsController extends ControllerBase {
     $query->fields('fn', ['field_number_value']);
     $query->fields('fs', ['field_sex_target_id']);
 
+    // Join with names paragraph tables using a subquery to get only primary names
+    $primary_names = $this->database->select('node__field_names', 'names')
+      ->fields('names', ['entity_id'])
+      ->fields('p', ['field_name_value']);
+    $primary_names->leftJoin('paragraph__field_primary', 'pri', 'names.field_names_target_id = pri.entity_id');
+    $primary_names->leftJoin('paragraph__field_name', 'p', 'names.field_names_target_id = p.entity_id');
+    $primary_names->condition('pri.field_primary_value', 1);
+    
+    // Left join with the primary names subquery
+    $query->leftJoin(
+      $primary_names,
+      'pn',
+      'n.nid = pn.entity_id'
+    );
+    $query->fields('pn', ['field_name_value']);
+
+    // Add subqueries to check for birth and rescue events
+    $birth_subquery = $this->database->select('node__field_species_ref', 'birth_ref')
+      ->fields('birth_ref', ['field_species_ref_target_id'])
+      ->condition('birth_ref.bundle', 'species_birth');
+
+    $rescue_subquery = $this->database->select('node__field_species_ref', 'rescue_ref')
+      ->fields('rescue_ref', ['field_species_ref_target_id'])
+      ->condition('rescue_ref.bundle', 'species_rescue');
+
     // Add conditions
-    $query->condition('n.type', 'species');
+    $query->condition('n.type', 'species')
+      ->condition('n.status', 1)
+      ->notExists($birth_subquery->where('birth_ref.field_species_ref_target_id = n.nid'))
+      ->notExists($rescue_subquery->where('rescue_ref.field_species_ref_target_id = n.nid'));
 
     // Apply the table sorting
     $query->orderByHeader($header);
+
+    // Add the pager
+    $query->limit($this->itemsPerPage);
 
     // Execute query
     $result = $query->execute();
@@ -212,22 +228,6 @@ class TrackingWithoutEventsController extends ControllerBase {
     // Build rows
     $rows = [];
     foreach ($result as $record) {
-      // Skip if the species already has birth or rescue events.
-      $birth_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species_birth')
-        ->condition('field_species_ref', $record->nid)
-        ->accessCheck(FALSE);
-
-      $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species_rescue')
-        ->condition('field_species_ref', $record->nid)
-        ->accessCheck(FALSE);
-
-      if (!empty($birth_query->execute()) || !empty($rescue_query->execute())) {
-        // Skip species if either query returns something
-        continue;
-      }
-
       // Load relevant entities
       $species_entity = $this->entityTypeManager->getStorage('node')->load($record->nid);
       $created_user = $this->entityTypeManager->getStorage('user')->load($record->uid);
@@ -245,7 +245,7 @@ class TrackingWithoutEventsController extends ControllerBase {
       $rows[] = [
         'data' => [
           ['data' => $number_link],
-          ['data' => $this->getPrimaryName($record->nid)],
+          ['data' => $record->field_name_value ?? ''],
           ['data' => $this->getSpeciesIds($record->nid)],
           ['data' => $this->getSpeciesSex($species_entity)],
           ['data' => $created_user ? $created_user->getAccountName() : ''],
@@ -256,14 +256,20 @@ class TrackingWithoutEventsController extends ControllerBase {
       ];
     }
 
-    // Return the render array
+    // Return the render array with separate table and pager
     return [
-      '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
-      '#empty' => $this->t('No results found without birth or rescue records.'),
-      '#attributes' => ['class' => ['species-without-events-report']],
+      'table' => [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#empty' => $this->t('No results found without birth or rescue records.'),
+        '#attributes' => ['class' => ['species-without-events-report']],
+        '#prefix' => '<div class="species-without-events-wrapper">',
+        '#suffix' => '</div>',
+      ],
+      'pager' => [
+        '#type' => 'pager',
+      ],
     ];
   }
-
 }
