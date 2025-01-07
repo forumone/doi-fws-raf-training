@@ -6,13 +6,10 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Query\TableSortExtender;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
-use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Controller for generating a report of species without a primary ID.
- *
- * Uses a custom SQL query (with TableSortExtender) to allow table sorting.
+ * Controller for tracking reports without primary ID.
  */
 class TrackingWithoutPrimaryIdController extends ControllerBase {
 
@@ -24,10 +21,14 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
-   * Constructs a TrackingWithoutPrimaryIdController object.
+   * The number of items to display per page.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
+   * @var int
+   */
+  protected $itemsPerPage = 25;
+
+  /**
+   * Constructor.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
@@ -43,172 +44,156 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
   }
 
   /**
-   * Checks if a species node has at least one primary ID (via a separate query).
-   *
-   * @param \Drupal\node\Entity\Node $species_node
-   *   The species node to check.
-   *
-   * @return bool
-   *   TRUE if the species has at least one primary ID, FALSE otherwise.
-   */
-  private function hasPrimaryId(Node $species_node) {
-    $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species_id')
-      ->condition('field_species_ref', $species_node->id())
-      ->condition('field_primary_id', 1)
-      ->accessCheck(FALSE);
-
-    $result = $query->execute();
-    return !empty($result);
-  }
-
-  /**
-   * Gets the "primary name" for a species (from your snippet).
+   * Returns a comma-separated string of non-primary species IDs.
    *
    * @param int $species_id
-   *   The node ID of the species entity.
+   *   The Node ID of the species to get non-primary IDs for.
    *
    * @return string
-   *   The primary name or empty string if none is found.
+   *   A comma-separated list of IDs or an empty string if none found.
    */
-  private function getPrimaryName($species_id) {
-    $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
-    if (!$species_node || !$species_node->hasField('field_names')) {
-      return '';
-    }
-
-    // Example logic: if a Paragraph reference has 'field_primary' == 1,
-    // use 'field_name'.
-    foreach ($species_node->field_names->referencedEntities() as $paragraph) {
-      if ($paragraph->hasField('field_primary')
-          && !$paragraph->field_primary->isEmpty()
-          && $paragraph->field_primary->value == 1
-          && !$paragraph->field_name->isEmpty()) {
-        return $paragraph->field_name->value;
-      }
-    }
-    return '';
-  }
-
-  /**
-   * Gets a list of non-primary IDs (from your snippet).
-   *
-   * @param int $species_id
-   *   The node ID of the species entity.
-   *
-   * @return string
-   *   Comma-separated list of non-primary species IDs.
-   */
-  private function getNonPrimaryAnimalIds($species_id) {
+  private function getNonPrimarySpeciesIds($species_id) {
     $ids = [];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', $species_id)
-      ->accessCheck(FALSE);
+      // Only get non-primary IDs.
+      ->condition('field_primary_id', 1, '<>')
+      ->accessCheck(FALSE)
+      ->execute();
 
-    $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query->execute());
-    foreach ($id_nodes as $node) {
-      // Only include IDs that are NOT marked as primary.
-      if (!$node->field_species_ref->isEmpty()
-        && (
-          !$node->hasField('field_primary_id')
-          || $node->field_primary_id->isEmpty()
-          || !$node->field_primary_id->value
-        )
-      ) {
-        $ids[] = $node->field_species_ref->value;
+    if (!empty($query)) {
+      $id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($query);
+      foreach ($id_nodes as $node) {
+        if (!$node->field_species_id->isEmpty()) {
+          $ids[] = $node->field_species_id->value;
+        }
       }
     }
+
     return implode(', ', $ids);
   }
 
   /**
-   * Builds the species-without-primary-ID report.
-   *
-   * @return array
-   *   A render array for a table, sorted by the numeric "Tracking Number".
+   * Renders the report.
    */
   public function content() {
-    // 1) Define a header array. We'll only sort by 'field_number_value'.
-    // That must match the alias used in our custom SQL query below.
+    // Table headers.
     $header = [
       'field_number_value' => [
         'data' => $this->t('Tracking Number'),
-        'field' => 'field_number_value', // Must match the query alias
+        'field' => 'field_number_value',
         'sort' => 'asc',
       ],
       'primary_name' => [
         'data' => $this->t('Primary Name'),
+        'field' => 'primary_name_value',
+        'sort' => 'asc',
       ],
       'non_primary_ids' => [
-        'data' => $this->t('Species') . ' ' . $this->t('IDs (Not Primary List)'),
+        'data' => $this->t('Species IDs (Not Primary List)'),
       ],
     ];
 
-    // 2) Build a custom DB query so we can do table sorting on 'field_number_value'.
+    // Main DB query for species.
     $database = \Drupal::database();
     $query = $database->select('node_field_data', 'n');
-    // Extend it so we can use orderByHeader() from TableSortExtender.
     $query = $query->extend(TableSortExtender::class);
+    $query = $query->extend('Drupal\Core\Database\Query\PagerSelectExtender');
 
-    // Join the table for your numeric field "field_number".
-    // Make sure to update 'node__field_number' & 'field_number_value'
-    // to your actual field machine name.
+    // Join to retrieve field_number (Tracking Number).
     $query->join('node__field_number', 'nf', 'nf.entity_id = n.nid');
 
-    // Grab the node ID and the numeric field "field_number_value" from the
-    // joined table.
+    // Join to retrieve paragraphs referencing names.
+    $query->leftJoin('node__field_names', 'names', 'names.entity_id = n.nid');
+    $query->leftJoin('paragraphs_item_field_data', 'p', 'p.id = names.field_names_target_id');
+    // Join to get "primary" flag and name value from the paragraph.
+    $query->leftJoin('paragraph__field_primary', 'fp', 'fp.entity_id = p.id');
+    $query->leftJoin('paragraph__field_name', 'fn', 'fn.entity_id = p.id');
+
+    // Select needed fields.
     $query->fields('n', ['nid']);
-    // Alias must match what we used in $header['field_number_value']['field'].
     $query->addField('nf', 'field_number_value', 'field_number_value');
+    $query->addField('fn', 'field_name_value', 'primary_name_value');
 
-    // Filter: only load 'species' type.
-    $query->condition('n.type', 'species', '=');
+    // We only care about species nodes.
+    $query->condition('n.type', 'species');
 
-    // Let TableSortExtender handle ordering from $header (by
-    // 'field_number_value').
+    // Instead of excluding rows without primary name (fp.field_primary_value = 1),
+    // we create an OR condition so that rows with NULL "primary" also show up.
+    $or = $query->orConditionGroup()
+      ->condition('fp.field_primary_value', '1')
+      ->isNull('fp.field_primary_value');
+    $query->condition($or);
+
+    // ---- Exclude species that DO have a primary ID ----
+    // If a species_id node references this species via field_species_ref
+    // AND has field_primary_id_value = 1, exclude it.
+    $primary_id_subquery = $database->select('node_field_data', 'pid_n')
+      ->fields('pid_n', ['nid']);
+    $primary_id_subquery->join(
+      'node__field_species_ref',
+      'pid_ref',
+      'pid_n.nid = pid_ref.entity_id'
+    );
+    $primary_id_subquery->join(
+      'node__field_primary_id',
+      'pid_primary',
+      'pid_n.nid = pid_primary.entity_id'
+    );
+    $primary_id_subquery->condition('pid_n.type', 'species_id');
+    $primary_id_subquery->condition('pid_primary.field_primary_id_value', 1);
+    // Link back to main species node.
+    $primary_id_subquery->where('pid_ref.field_species_ref_target_id = n.nid');
+
+    // Exclude species that DO have a species_id (type=species_id) with primary flag.
+    $query->notExists($primary_id_subquery);
+
+    // TableSort + Pager.
     $query->orderByHeader($header);
+    $query->limit($this->itemsPerPage);
+    // Use DISTINCT if you see duplicates from the joins.
+    $query->distinct();
 
-    // 3) Execute and get the node IDs in sorted order.
-    $nids = $query->execute()->fetchCol();
+    $results = $query->execute()->fetchAll();
 
-    // 4) Load the species nodes by these IDs.
-    $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-
-    // 5) Build the table rows.
+    // Build table rows.
     $rows = [];
-    foreach ($species_nodes as $node) {
-      // Skip nodes that DO have a primary ID. We only want "no primary ID"
-      // results.
-      if ($this->hasPrimaryID($node)) {
-        continue;
-      }
-
-      // Use "field_number" to get the numeric tracking number.
-      // Adjust if your field is different.
+    foreach ($results as $result) {
+      /** @var \Drupal\node\Entity\Node $node */
+      $node = $this->entityTypeManager->getStorage('node')->load($result->nid);
       $tracking_number = $node->get('field_number')->value ?? '';
-      $tracking_link = Link::createFromRoute($tracking_number, 'entity.node.canonical', ['node' => $node->id()]);
 
-      // Build one row. The key names should match the $header.
+      // Create a link to the species node.
+      $tracking_link = Link::createFromRoute(
+        $tracking_number,
+        'entity.node.canonical',
+        ['node' => $node->id()]
+      );
+
       $rows[] = [
         'field_number_value' => [
           'data' => $tracking_link,
         ],
-        'primary_name' => $this->getPrimaryName($node->id()),
-        'non_primary_ids' => $this->getNonPrimaryAnimalIds($node->id()),
+        'primary_name' => $result->primary_name_value ?? '',
+        'non_primary_ids' => $this->getNonPrimarySpeciesIds($node->id()),
       ];
     }
 
-    // 6) Return the render array.
-    // #tablesort => TRUE means Drupal will pass the "sort by" parameters
-    // to the TableSortExtender query above.
     return [
-      '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
-      '#empty' => $this->t('No results found without a primary ID.'),
-      '#attributes' => ['class' => ['tracking-without-primary-id-report']],
-      '#tablesort' => TRUE,
+      'table' => [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#empty' => $this->t('No results found without a primary ID.'),
+        '#attributes' => ['class' => ['tracking-without-primary-id-report']],
+        '#prefix' => '<div class="tracking-without-primary-id-wrapper">',
+        '#suffix' => '</div>',
+        '#tablesort' => TRUE,
+      ],
+      'pager' => [
+        '#type' => 'pager',
+      ],
     ];
   }
 

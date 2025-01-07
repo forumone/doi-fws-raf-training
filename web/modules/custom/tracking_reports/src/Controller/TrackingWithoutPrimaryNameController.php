@@ -5,7 +5,7 @@ namespace Drupal\tracking_reports\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
-use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,142 +21,171 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
-   * Constructs a new controller instance.
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  protected $database;
+
+  /**
+   * Items to show per page.
+   *
+   * @var int
+   */
+  protected $itemsPerPage = 25;
+
+  /**
+   * Constructs a new controller instance.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   */
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    Connection $database
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->database = $database;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity_type.manager'));
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('database')
+    );
   }
 
   /**
-   * Page callback: Lists species without a primary name, manually sortable by "Tracking Number".
+   * Page callback: Lists species without a primary name, with pagination.
    */
   public function content() {
     // Define the header for the table.
     $header = [
       'tracking_number' => [
         'data' => $this->t('Tracking Number'),
-        'field' => 'tracking_number',
+        'field' => 'fn.field_number_value',
         'sort' => 'asc',
       ],
       'species_names' => [
-        'data' => $this->t('Species Name List (Not Primary)'),
+        'data' => $this->t('Species') . $this->t(' Name List (Not Primary)'),
       ],
       'species_ids' => [
-        'data' => $this->t('Species ID List (All)'),
+        'data' => $this->t('Species ID') . $this->t(' List (All)'),
       ],
     ];
 
-    // Get current sort from URL parameters.
-    $sort = \Drupal::request()->query->get('sort', 'asc');
-
     // Build the base query.
-    $query = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery()
-      ->condition('type', 'species')
-      ->accessCheck(FALSE);
+    $query = $this->database->select('node_field_data', 'n')
+      ->extend('Drupal\Core\Database\Query\TableSortExtender')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender');
 
-    // Always add the sort for field_number.
-    $query->sort('field_number.value', strtoupper($sort));
+    // Add fields from node_field_data
+    $query->fields('n', ['nid']);
 
-    // Execute the query and load nodes.
-    $nids = $query->execute();
-    $species_nodes = $this->entityTypeManager
-      ->getStorage('node')
-      ->loadMultiple($nids);
+    // Join with field_number
+    $query->leftJoin('node__field_number', 'fn', 'n.nid = fn.entity_id');
+    $query->fields('fn', ['field_number_value']);
 
-    // Build table rows.
+    // Join with names paragraph table
+    $query->leftJoin('node__field_names', 'names', 'n.nid = names.entity_id');
+
+    // Create a subquery to find nodes that have at least one name but no primary names
+    $primary_name_subquery = $this->database->select('node__field_names', 'pn_names')
+      ->fields('pn_names', ['entity_id']);
+    $primary_name_subquery->leftJoin('paragraph__field_primary', 'pn_pri', 
+      'pn_names.field_names_target_id = pn_pri.entity_id');
+    $primary_name_subquery->condition('pn_pri.field_primary_value', 1);
+
+    // Add conditions
+    $query->condition('n.type', 'species')
+      ->condition('n.status', 1)
+      // Has at least one name
+      ->condition('names.field_names_target_id', NULL, 'IS NOT NULL')
+      // Does not have a primary name
+      ->notExists($primary_name_subquery->where('pn_names.entity_id = n.nid'));
+
+    // Add group by to prevent duplicate rows
+    $query->groupBy('n.nid')
+      ->groupBy('fn.field_number_value');
+
+    // Apply the table sorting
+    $query->orderByHeader($header);
+
+    // Add the pager
+    $query->limit($this->itemsPerPage);
+
+    // Execute query
+    $result = $query->execute();
+
+    // Build rows
     $rows = [];
-    foreach ($species_nodes as $species) {
-      if ($this->hasAnyNames($species) && !$this->hasPrimaryName($species)) {
-        $tracking_value = !$species->field_number->isEmpty() ? $species->field_number->value : '';
-        $link = Link::createFromRoute($tracking_value, 'entity.node.canonical', [
-          'node' => $species->id(),
-        ]);
+    foreach ($result as $record) {
+      $species_entity = $this->entityTypeManager->getStorage('node')->load($record->nid);
+      
+      // Create link for tracking number
+      $number = $record->field_number_value ?? '';
+      $number_link = Link::createFromRoute(
+        $number,
+        'entity.node.canonical',
+        ['node' => $record->nid]
+      );
 
-        $rows[] = [
-          'data' => [
-            'tracking_number' => [
-              'data' => $link,
-            ],
-            'species_names' => [
-              'data' => ['#markup' => $this->getNonPrimaryNames($species)],
-            ],
-            'species_ids' => [
-              'data' => ['#markup' => $this->getAllSpeciesIds($species->id())],
-            ],
+      $rows[] = [
+        'data' => [
+          'tracking_number' => [
+            'data' => $number_link,
           ],
-        ];
-      }
+          'species_names' => [
+            'data' => ['#markup' => $this->getNonPrimaryNames($species_entity)],
+          ],
+          'species_ids' => [
+            'data' => ['#markup' => $this->getAllSpeciesIds($record->nid)],
+          ],
+        ],
+      ];
     }
 
     // Build the render array with cache metadata.
-    $build = [
-      '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
-      '#empty' => $this->t('No results found without a primary name.'),
-      '#attributes' => ['class' => ['sortable']],
-      '#attached' => [
-        'library' => [
-          'core/drupal.tablesort',
+    return [
+      'table' => [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#empty' => $this->t('No results found without a primary name.'),
+        '#attributes' => ['class' => ['sortable']],
+        '#attached' => [
+          'library' => [
+            'core/drupal.tablesort',
+          ],
+        ],
+        // Add cache metadata to prevent caching.
+        '#cache' => [
+          'max-age' => 0,
+          'contexts' => [
+            'url.query_args',
+            'user.permissions',
+          ],
+          'tags' => [
+            'node_list:species',
+            'node_list:species_id',
+          ],
         ],
       ],
-      // Add cache metadata to prevent caching.
-      '#cache' => [
-        'max-age' => 0,
-        'contexts' => [
-          'url.query_args',
-          'user.permissions',
-        ],
-        'tags' => [
-          'node_list:species',
-          'node_list:species_id',
-        ],
+      'pager' => [
+        '#type' => 'pager',
       ],
     ];
-
-    return $build;
-  }
-
-  /**
-   * Check if a node has any "names".
-   */
-  private function hasAnyNames(NodeInterface $species_node) {
-    return $species_node->hasField('field_names')
-      && !$species_node->get('field_names')->isEmpty();
-  }
-
-  /**
-   * Check if a node has any "primary" name.
-   */
-  private function hasPrimaryName(NodeInterface $species_node) {
-    if (!$species_node->hasField('field_names')) {
-      return FALSE;
-    }
-    foreach ($species_node->get('field_names')->referencedEntities() as $paragraph) {
-      if (
-        $paragraph->hasField('field_primary') &&
-        !$paragraph->get('field_primary')->isEmpty() &&
-        $paragraph->get('field_primary')->value
-      ) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
    * List all non-primary names as a comma-separated string.
    */
-  private function getNonPrimaryNames(NodeInterface $species_node) {
+  private function getNonPrimaryNames($species_node) {
     $names = [];
     if ($species_node->hasField('field_names')) {
       foreach ($species_node->get('field_names')->referencedEntities() as $paragraph) {
@@ -188,12 +217,11 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
         ->getStorage('node')
         ->loadMultiple($id_nids);
       foreach ($id_nodes as $node) {
-        if (!$node->get('field_species_ref')->isEmpty()) {
-          $ids[] = $node->get('field_species_ref')->value;
+        if (!$node->get('field_species_id')->isEmpty()) {
+          $ids[] = $node->get('field_species_id')->value;
         }
       }
     }
     return implode(', ', $ids);
   }
-
 }
