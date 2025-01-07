@@ -216,22 +216,24 @@ if (!empty($missing_headers)) {
   exit("Names CSV is missing headers: " . implode(', ', $missing_headers));
 }
 
+// Group names by species number
+$names_by_species = [];
 while (($data = fgetcsv($handle)) !== FALSE) {
   $names_count++;
   $row = array_combine($header, $data);
+  $number = trim($row['MLog']);
+  
+  if (!isset($names_by_species[$number])) {
+    $names_by_species[$number] = [];
+  }
+  $names_by_species[$number][] = $row;
+}
+fclose($handle);
 
+// Process names for each species
+foreach ($names_by_species as $number => $names) {
   try {
-    $number = trim($row['MLog']);
-    $name = trim($row['Name']);
-    $primary = trim($row['Primary']);
-
-    // Skip if required fields are empty
-    if (empty($number) || empty($name)) {
-      print("\nSkipping row with missing data");
-      continue;
-    }
-
-    // Get the species node
+    // Skip if species not found
     if (!isset($number_to_nid[$number])) {
       print("\nSpecies not found for MLog: $number");
       continue;
@@ -239,7 +241,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     $node = Node::load($number_to_nid[$number]);
     
-    // Delete existing paragraphs for this node
+    // Delete existing paragraphs once per species
     $existing_paragraphs = [];
     foreach ($node->get('field_names') as $item) {
       $existing_paragraphs[] = $item->target_id;
@@ -253,52 +255,60 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       print("\nDeleted existing names for Manatee $number");
     }
 
-    // Create new name paragraph with base fields
-    $values = [
-      'type' => 'species_name',
-      'field_name' => $name,
-      'field_primary' => filter_var($primary, FILTER_VALIDATE_BOOLEAN),
-      'created' => strtotime($row['CreateDate']),
-    ];
+    // Create all new paragraphs for this species
+    $new_paragraphs = [];
+    foreach ($names as $row) {
+      $name = trim($row['Name']);
+      
+      // Skip if name is empty
+      if (empty($name)) {
+        continue;
+      }
 
-    $paragraph = Paragraph::create($values);
-    $create_user_id = get_user_id($row['CreateBy']);
-    $paragraph->setOwnerId($create_user_id);
-    // Ensure paragraph is properly revisioned
-    $paragraph->setNewRevision(TRUE);
-    $paragraph->isDefaultRevision(TRUE);
-    // Set the parent entity
-    $paragraph->set('parent_type', 'node');
-    $paragraph->set('parent_id', $number_to_nid[$number]);
-    $paragraph->set('parent_field_name', 'field_names');
-    $paragraph->save();
+      // Create new name paragraph
+      $values = [
+        'type' => 'species_name',
+        'field_name' => $name,
+        'field_primary' => filter_var($row['Primary'], FILTER_VALIDATE_BOOLEAN),
+        'created' => strtotime($row['CreateDate']),
+      ];
 
-    // Add paragraph to species node
-    $node->setNewRevision();
-    $node->isDefaultRevision(TRUE);
-    
-    // Add the new paragraph reference
-    $current_names = $node->get('field_names')->getValue();
-    $current_names[] = [
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ];
-    $node->set('field_names', $current_names);
-    $node->setRevisionUserId(get_user_id($row['UpdateBy']));
-    $node->setRevisionCreationTime(strtotime($row['UpdateDate']));
-    $node->setRevisionLogMessage('Added name "' . $name . '" by ' . ($row['UpdateBy'] === 'D' ? 'admin' : $row['UpdateBy']));
-    $node->save();
+      $paragraph = Paragraph::create($values);
+      $create_user_id = get_user_id($row['CreateBy']);
+      $paragraph->setOwnerId($create_user_id);
+      $paragraph->setNewRevision(TRUE);
+      $paragraph->isDefaultRevision(TRUE);
+      $paragraph->set('parent_type', 'node');
+      $paragraph->set('parent_id', $number_to_nid[$number]);
+      $paragraph->set('parent_field_name', 'field_names');
+      $paragraph->save();
+      
+      $new_paragraphs[] = [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ];
+      
+      $names_created++;
+      print("\nAdded name '$name' to Manatee $number");
+    }
 
-    $names_created++;
-    print("\nAdded name '$name' to Manatee $number");
+    // Add all paragraphs to node at once
+    if (!empty($new_paragraphs)) {
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->set('field_names', $new_paragraphs);
+      $node->setRevisionUserId(get_user_id($row['UpdateBy']));
+      $node->setRevisionCreationTime(strtotime($row['UpdateDate']));
+      $node->setRevisionLogMessage('Added ' . count($new_paragraphs) . ' names by ' . 
+        ($row['UpdateBy'] === 'D' ? 'admin' : $row['UpdateBy']));
+      $node->save();
+    }
   }
   catch (Exception $e) {
-    print("\nError adding name for $number: " . $e->getMessage());
+    print("\nError adding names for $number: " . $e->getMessage());
     $error_count++;
   }
 }
-
-fclose($handle);
 
 // Print summary.
 print("\n\nImport completed:");

@@ -91,15 +91,14 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
     $query->leftJoin('node__field_number', 'fn', 'n.nid = fn.entity_id');
     $query->fields('fn', ['field_number_value']);
 
-    // Join with names paragraph tables
+    // Join with names paragraph table
     $query->leftJoin('node__field_names', 'names', 'n.nid = names.entity_id');
-    $query->leftJoin('paragraph__field_primary', 'pri', 'names.field_names_target_id = pri.entity_id');
-    $query->leftJoin('paragraph__field_name', 'p', 'names.field_names_target_id = p.entity_id');
 
     // Create a subquery to find nodes that have at least one name but no primary names
     $primary_name_subquery = $this->database->select('node__field_names', 'pn_names')
       ->fields('pn_names', ['entity_id']);
-    $primary_name_subquery->leftJoin('paragraph__field_primary', 'pn_pri', 'pn_names.field_names_target_id = pn_pri.entity_id');
+    $primary_name_subquery->leftJoin('paragraph__field_primary', 'pn_pri', 
+      'pn_names.field_names_target_id = pn_pri.entity_id');
     $primary_name_subquery->condition('pn_pri.field_primary_value', 1);
 
     // Add conditions
