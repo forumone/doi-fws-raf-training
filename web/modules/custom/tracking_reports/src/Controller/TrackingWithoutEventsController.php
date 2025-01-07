@@ -100,34 +100,6 @@ class TrackingWithoutEventsController extends ControllerBase {
   }
 
   /**
-   * Retrieves the primary name of a species.
-   *
-   * @param int $species_id
-   *   The node ID of the species entity.
-   *
-   * @return string
-   *   The primary name of the species, or an empty string if none exists.
-   */
-  private function getPrimaryName($species_id) {
-    $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
-    if (!$species_node || !$species_node->hasField('field_names')) {
-      return '';
-    }
-
-    // Iterate through the paragraph references.
-    foreach ($species_node->field_names->referencedEntities() as $paragraph) {
-      if ($paragraph->hasField('field_primary')
-          && !$paragraph->field_primary->isEmpty()
-          && $paragraph->field_primary->value == 1
-          && !$paragraph->field_name->isEmpty()) {
-        return $paragraph->field_name->value;
-      }
-    }
-
-    return '';
-  }
-
-  /**
    * Retrieves the sex of a species.
    *
    * @param \Drupal\node\NodeInterface $species_node
@@ -165,6 +137,8 @@ class TrackingWithoutEventsController extends ControllerBase {
       ],
       'primary_name' => [
         'data' => $this->t('Primary Name'),
+        'field' => 'pn.field_name_value',
+        'sort' => 'asc',
       ],
       'species_ids' => [
         'data' => $this->t('Species') . ' ' . $this->t('ID List'),
@@ -211,6 +185,22 @@ class TrackingWithoutEventsController extends ControllerBase {
     $query->fields('fn', ['field_number_value']);
     $query->fields('fs', ['field_sex_target_id']);
 
+    // Join with names paragraph tables using a subquery to get only primary names
+    $primary_names = $this->database->select('node__field_names', 'names')
+      ->fields('names', ['entity_id'])
+      ->fields('p', ['field_name_value']);
+    $primary_names->leftJoin('paragraph__field_primary', 'pri', 'names.field_names_target_id = pri.entity_id');
+    $primary_names->leftJoin('paragraph__field_name', 'p', 'names.field_names_target_id = p.entity_id');
+    $primary_names->condition('pri.field_primary_value', 1);
+    
+    // Left join with the primary names subquery
+    $query->leftJoin(
+      $primary_names,
+      'pn',
+      'n.nid = pn.entity_id'
+    );
+    $query->fields('pn', ['field_name_value']);
+
     // Add subqueries to check for birth and rescue events
     $birth_subquery = $this->database->select('node__field_species_ref', 'birth_ref')
       ->fields('birth_ref', ['field_species_ref_target_id'])
@@ -255,7 +245,7 @@ class TrackingWithoutEventsController extends ControllerBase {
       $rows[] = [
         'data' => [
           ['data' => $number_link],
-          ['data' => $this->getPrimaryName($record->nid)],
+          ['data' => $record->field_name_value ?? ''],
           ['data' => $this->getSpeciesIds($record->nid)],
           ['data' => $this->getSpeciesSex($species_entity)],
           ['data' => $created_user ? $created_user->getAccountName() : ''],
@@ -282,5 +272,4 @@ class TrackingWithoutEventsController extends ControllerBase {
       ],
     ];
   }
-
 }
