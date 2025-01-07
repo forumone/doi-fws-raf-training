@@ -1458,4 +1458,32 @@ class TrackingSearchManager {
     return 'N/A';
   }
 
+  /**
+   * Get primary species ID for a species node.
+   *
+   * @param int $species_node_id
+   *   The species node ID.
+   *
+   * @return string|null
+   *   The primary species ID value, or null if not found.
+   */
+  public function getPrimarySpeciesId($species_node_id) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_id')
+      ->condition('field_species_ref', $species_node_id)
+      ->condition('field_primary_id', 1)
+      ->accessCheck(FALSE)
+      ->range(0, 1)
+      ->execute();
+
+    if (!empty($query)) {
+      $species_id_node = $this->entityTypeManager->getStorage('node')->load(reset($query));
+      if ($species_id_node && !$species_id_node->field_species_id->isEmpty()) {
+        return $species_id_node->field_species_id->value;
+      }
+    }
+
+    return NULL;
+  }
+
 }

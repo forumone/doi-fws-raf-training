@@ -38,9 +38,12 @@
               <td class="col-md-9">{{ content.field_sex is not empty ? content.field_sex : 'N/A' }}</td>
             </tr>
             <tr>
-              <th>Tracking ID</th>
+              <th>{{ 'Tracking Number'|t }}</th>
               <td><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] is not empty ? content.field_number.0['#markup'] : 'N/A' }}</a></td>
             </tr>
+            <tr>
+              <th>{{ 'Species ID'|t }}</th>
+              <td>{{ primary_species_id }}</td>
             <tr>
               <th>Studbook</th>
               <td>{{ content.field_studbook.0['#context'].value ? content.field_studbook : 'N/A' }}</td>
