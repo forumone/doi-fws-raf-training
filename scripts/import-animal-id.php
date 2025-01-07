@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Drush script to import data into species_id content type.
+ * Drush script to import data into species_id content type with revisions.
  *
- * Usage: drush scr scripts/import_species_id.php.
+ * Usage: drush scr scripts/import_species_id.php
  */
 
 use Drupal\Core\Entity\EntityStorageException;
@@ -46,7 +46,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'field_species_id' => $species_id,
       ]);
 
-    // Prepare node data.
+    // Prepare base node data.
     $node_data = [
       'type' => 'species_id',
       'title' => "Species ID $species_id",
@@ -58,29 +58,84 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'target_id' => get_species_node_id($number),
       ],
       'field_primary_id' => $primary_id == '1' ? 1 : 0,
-      'changed' => strtotime($update_date),
       'status' => 1,
     ];
 
     if (!empty($existing_nodes)) {
-      // Update existing node.
-      $node = reset($existing_nodes);
+      // Get existing node
+      $original_node = reset($existing_nodes);
+      $nid = $original_node->id();
+      
+      // Create a fresh node object
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $node = $node_storage->load($nid);
+      
+      // Update base data
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
+      
+      // Force new revision with creation info by temporarily changing title
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionUserId(get_user_id($create_by));
+      $node->setRevisionCreationTime(strtotime($create_date));
+      $node->set('created', strtotime($create_date));
+      $node->set('changed', strtotime($create_date));
+      $node->set('title', $node->getTitle() . ' (temp)');
+      $node->setRevisionLogMessage('Initial revision created by ' . $create_by);
+      $node->enforceIsNew(FALSE);
+      $result = $node->save();
+      
+      // Restore original title but create new revision with update info
+      $node = $node_storage->load($nid);
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->set('title', "Species ID $species_id");
+      $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+      $node->setRevisionUserId($update_user_id);
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->set('changed', strtotime($update_date));
+      $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      $result = $node->save();
+      
       print("\nUpdating existing species_id node: Species ID $species_id");
       $updated_count++;
     }
     else {
-      // Create new node.
+      // Create new node with temporary title
       $node_data['uid'] = get_user_id($create_by);
       $node_data['created'] = strtotime($create_date);
+      $node_data['changed'] = strtotime($create_date);
+      $node_data['title'] = "Species ID $species_id (temp)";
       $node = Node::create($node_data);
+      
+      // Set initial revision information
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionUserId(get_user_id($create_by));
+      $node->setRevisionCreationTime(strtotime($create_date));
+      $node->setRevisionLogMessage('Initial revision created by ' . $create_by);
+      $result = $node->save();
+      
+      // Create update revision with final title
+      $node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($node->id());
+      
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->set('title', "Species ID $species_id");
+      $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+      $node->setRevisionUserId($update_user_id);
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->set('changed', strtotime($update_date));
+      $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      $result = $node->save();
+      
       print("\nCreating new species_id node: Species ID $species_id");
       $created_count++;
     }
-
-    $node->save();
 
   }
   catch (EntityStorageException $e) {
@@ -103,8 +158,8 @@ print("\nUpdated: $updated_count");
 print("\nErrors: $error_count\n");
 
 /**
- * Helper function to get ID Type taxonomy term ID.
- */
+ * Helper functions remain unchanged */
+
 function get_id_type_term_id($id_type) {
   // Handle empty or unknown ID types.
   if (empty($id_type)) {
@@ -123,9 +178,6 @@ function get_id_type_term_id($id_type) {
   }
 }
 
-/**
- * Helper function to get species node ID from MLog.
- */
 function get_species_node_id($number) {
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
@@ -138,14 +190,10 @@ function get_species_node_id($number) {
     return reset($nodes)->id();
   }
 
-  // If the species node doesn't exist, log an error or handle accordingly.
   print("\nError: Manatee node with MLog $number not found.");
   return NULL;
 }
 
-/**
- * Helper function to get user ID from username.
- */
 function get_user_id($username) {
   $users = \Drupal::entityTypeManager()
     ->getStorage('user')
@@ -154,6 +202,5 @@ function get_user_id($username) {
   if (!empty($users)) {
     return reset($users)->id();
   }
-  // Default to user 1 if not found.
   return 1;
 }
