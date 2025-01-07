@@ -129,79 +129,81 @@ class TrackingWithoutPrimaryIdController extends ControllerBase {
    *   A render array for a table, sorted by the numeric "Tracking Number".
    */
   public function content() {
-    // 1) Define a header array. We'll only sort by 'field_number_value'.
-    // That must match the alias used in our custom SQL query below.
     $header = [
       'field_number_value' => [
         'data' => $this->t('Tracking Number'),
-        'field' => 'field_number_value', // Must match the query alias
+        'field' => 'field_number_value',
         'sort' => 'asc',
       ],
       'primary_name' => [
         'data' => $this->t('Primary Name'),
+        'field' => 'primary_name_value',
+        'sort' => 'asc',
       ],
       'non_primary_ids' => [
         'data' => $this->t('Species') . ' ' . $this->t('IDs (Not Primary List)'),
       ],
     ];
 
-    // 2) Build a custom DB query so we can do table sorting on 'field_number_value'.
     $database = \Drupal::database();
     $query = $database->select('node_field_data', 'n');
-    // Extend it so we can use orderByHeader() from TableSortExtender.
     $query = $query->extend(TableSortExtender::class);
 
-    // Join the table for your numeric field "field_number".
-    // Make sure to update 'node__field_number' & 'field_number_value'
-    // to your actual field machine name.
+    // Join with field_number table
     $query->join('node__field_number', 'nf', 'nf.entity_id = n.nid');
-
-    // Grab the node ID and the numeric field "field_number_value" from the
-    // joined table.
+    
+    // Join with paragraphs field tables - using LEFT JOINs to preserve rows without primary names
+    $query->leftJoin('node__field_names', 'names', 'names.entity_id = n.nid');
+    $query->leftJoin(
+      'paragraphs_item_field_data', 
+      'p', 
+      'p.id = names.field_names_target_id'
+    );
+    // Include the primary condition in the JOIN
+    $query->leftJoin(
+      'paragraph__field_primary', 
+      'fp', 
+      "fp.entity_id = p.id AND fp.field_primary_value = '1'"
+    );
+    $query->leftJoin(
+      'paragraph__field_name', 
+      'fn', 
+      'fn.entity_id = p.id'
+    );
+    
     $query->fields('n', ['nid']);
-    // Alias must match what we used in $header['field_number_value']['field'].
     $query->addField('nf', 'field_number_value', 'field_number_value');
+    $query->addField('fn', 'field_name_value', 'primary_name_value');
 
-    // Filter: only load 'species' type.
+    // Filter for species type
     $query->condition('n.type', 'species', '=');
 
-    // Let TableSortExtender handle ordering from $header (by
-    // 'field_number_value').
     $query->orderByHeader($header);
 
-    // 3) Execute and get the node IDs in sorted order.
-    $nids = $query->execute()->fetchCol();
+    // Execute and get results with both nid and primary name
+    $results = $query->execute()->fetchAll();
 
-    // 4) Load the species nodes by these IDs.
-    $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-
-    // 5) Build the table rows.
     $rows = [];
-    foreach ($species_nodes as $node) {
-      // Skip nodes that DO have a primary ID. We only want "no primary ID"
-      // results.
+    foreach ($results as $result) {
+      $node = $this->entityTypeManager->getStorage('node')->load($result->nid);
+      
+      // Skip nodes that DO have a primary ID
       if ($this->hasPrimaryID($node)) {
         continue;
       }
 
-      // Use "field_number" to get the numeric tracking number.
-      // Adjust if your field is different.
       $tracking_number = $node->get('field_number')->value ?? '';
       $tracking_link = Link::createFromRoute($tracking_number, 'entity.node.canonical', ['node' => $node->id()]);
 
-      // Build one row. The key names should match the $header.
       $rows[] = [
         'field_number_value' => [
           'data' => $tracking_link,
         ],
-        'primary_name' => $this->getPrimaryName($node->id()),
+        'primary_name' => $result->primary_name_value ?? '',
         'non_primary_ids' => $this->getNonPrimaryAnimalIds($node->id()),
       ];
     }
 
-    // 6) Return the render array.
-    // #tablesort => TRUE means Drupal will pass the "sort by" parameters
-    // to the TableSortExtender query above.
     return [
       '#type' => 'table',
       '#header' => $header,
