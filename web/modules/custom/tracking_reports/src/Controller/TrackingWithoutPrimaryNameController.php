@@ -46,10 +46,10 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
         'sort' => 'asc',
       ],
       'species_names' => [
-        'data' => $this->t('Species Name List (Not Primary)'),
+        'data' => $this->t('Species') . $this->t(' Name List (Not Primary)'),
       ],
       'species_ids' => [
-        'data' => $this->t('Species ID List (All)'),
+        'data' => $this->t('Species ID') . $this->t(' List (All)'),
       ],
     ];
 
@@ -188,8 +188,8 @@ class TrackingWithoutPrimaryNameController extends ControllerBase {
         ->getStorage('node')
         ->loadMultiple($id_nids);
       foreach ($id_nodes as $node) {
-        if (!$node->get('field_species_ref')->isEmpty()) {
-          $ids[] = $node->get('field_species_ref')->value;
+        if (!$node->get('field_species_id')->isEmpty()) {
+          $ids[] = $node->get('field_species_id')->value;
         }
       }
     }
