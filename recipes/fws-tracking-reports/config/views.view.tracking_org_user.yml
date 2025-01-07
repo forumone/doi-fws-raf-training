@@ -5,7 +5,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: Fl9owXDyakY2Zf_mrbnauDPrFyIAHFd0KdwOXEpwUc8
+  default_config_hash: sF0qr2W0a8gZrzxNUzp2yFtS_poVn8qvJnvXXx6IlUY
 id: tracking_org_user
 label: 'Tracking Org User'
 module: views

@@ -12,7 +12,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: FH5xc8JuMlCTKGEBUsq6dI2xvXBzPGyZKt_bIULAkOo
+  default_config_hash: q8GZEzC_acpLeUjDRJjAxyrApqmNStpL8j3s6212y8Q
 id: tracking_ids
 label: 'Tracking IDs'
 module: views
@@ -438,7 +438,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: 'Changed By'
+          label: 'Updated By'
           exclude: false
           alter:
             alter_text: false
