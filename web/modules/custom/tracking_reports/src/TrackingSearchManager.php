@@ -636,6 +636,24 @@ class TrackingSearchManager {
       $sid = $species_entity->id();
       $latest_event = $this->getLatestEvent($sid, $event_type);
 
+      // Get the event node to fetch details.
+      $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+        ->condition('type', strtolower(str_replace(' ', '_', 'species_' . $latest_event['type'])))
+        ->condition('field_species_ref', $sid)
+        ->sort($event_type['date_field'], 'DESC')
+        ->range(0, 1)
+        ->accessCheck(FALSE);
+
+      $event_results = $event_query->execute();
+      $event_details = 'N/A';
+
+      if (!empty($event_results)) {
+        $event_node = $this->entityTypeManager->getStorage('node')->load(reset($event_results));
+        if ($event_node) {
+          $event_details = $this->getEventDetails($event_node);
+        }
+      }
+
       $data[] = [
         'species_id' => $sid,
         'number' => $this->getNumber($species_entity),
@@ -643,7 +661,8 @@ class TrackingSearchManager {
         'species_id_value' => $this->getSpeciesId($sid),
         'latest_event_type' => $latest_event['type'],
         'latest_event_date' => $latest_event['date'],
-        'latest_event_timestamp' => $latest_event['timestamp'], // Added for sorting
+        'latest_event_details' => $event_details,
+        'latest_event_timestamp' => $latest_event['timestamp'],
       ];
     }
 
@@ -680,10 +699,12 @@ class TrackingSearchManager {
 
     // Identify the event_type from conditions, if present.
     $event_type = NULL;
-    foreach ($conditions as $condition) {
-      if ($condition['field'] === 'type') {
-        $event_type = $condition['value'];
-        break;
+    if (!empty($conditions)) {
+      foreach ($conditions as $condition) {
+        if ($condition['field'] === 'type') {
+          $event_type = $condition['value'];
+          break;
+        }
       }
     }
 
@@ -724,6 +745,41 @@ class TrackingSearchManager {
       $sid = $species_entity->id();
       $latest_event = $this->getLatestEvent($sid, $event_type);
 
+      // Get the event node to fetch details
+      $event_type_bundle = strtolower(str_replace(' ', '_', 'species_' . $latest_event['type']));
+      if ($event_type_bundle !== 'species_n/a') {
+        $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+          ->condition('type', $event_type_bundle)
+          ->condition('field_species_ref', $sid)
+          ->accessCheck(FALSE);
+
+        // Add date field condition based on event type
+        $date_fields = [
+          'species_birth' => 'field_birth_date',
+          'species_rescue' => 'field_rescue_date',
+          'transfer' => 'field_transfer_date',
+          'species_release' => 'field_release_date',
+          'species_death' => 'field_death_date',
+        ];
+
+        if (isset($date_fields[$event_type_bundle])) {
+          $event_query->sort($date_fields[$event_type_bundle], 'DESC');
+        }
+
+        $event_query->range(0, 1);
+        $event_results = $event_query->execute();
+        
+        $event_details = 'N/A';
+        if (!empty($event_results)) {
+          $event_node = $this->entityTypeManager->getStorage('node')->load(reset($event_results));
+          if ($event_node) {
+            $event_details = $this->getEventDetails($event_node);
+          }
+        }
+      } else {
+        $event_details = 'N/A';
+      }
+
       $data[] = [
         'species_id' => $sid,
         'number' => $this->getNumber($species_entity),
@@ -731,6 +787,8 @@ class TrackingSearchManager {
         'species_id_value' => $this->getSpeciesId($sid),
         'latest_event_type' => $latest_event['type'],
         'latest_event_date' => $latest_event['date'],
+        'latest_event_details' => $event_details,
+        'latest_event_timestamp' => $latest_event['timestamp'],
       ];
     }
 
@@ -794,13 +852,19 @@ class TrackingSearchManager {
         ],
       ];
 
+      // Combine date and details for the last event column
+      $event_info = $row['latest_event_date'];
+      if ($row['latest_event_details'] !== 'N/A') {
+        $event_info .= ' - ' . $row['latest_event_details'];
+      }
+
       $rows[] = [
         'data' => [
           'number' => ['data' => $number_link],
           'species_name' => ['data' => $row['species_name']],
           'species_id_value' => ['data' => $row['species_id_value']],
           'latest_event_type' => ['data' => $row['latest_event_type']],
-          'latest_event_date' => ['data' => $row['latest_event_date']],
+          'latest_event_date' => ['data' => $event_info],
           'add_event' => ['data' => $select],
         ],
       ];
