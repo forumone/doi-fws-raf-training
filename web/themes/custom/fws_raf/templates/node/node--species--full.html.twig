@@ -54,7 +54,7 @@
               <td>{{ content.field_names is not empty ? content.field_names : 'N/A' }}</td>
             </tr>
             <tr>
-              <th>Dam</th>
+              <th>Dam's Name(s)</th>
               <td>
               {% if node.field_dam is not empty and node.field_dam.entity.field_names is not empty %}
                 {% for name in node.field_dam.entity.field_names %}
@@ -66,7 +66,7 @@
               </td>
             </tr>
             <tr>
-              <th>Sire</th>
+              <th>Sire's Name(s)</th>
               <td>
               {% if node.field_sire is not empty and node.field_sire.entity.field_names is not empty %}
                 {% for name in node.field_sire.entity.field_names %}
