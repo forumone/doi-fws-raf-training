@@ -8,6 +8,25 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Implements hook_preprocess_node().
+ */
+function fws_raf_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  // Check if the node type is 'species' and it's a full page view.
+  if ($node->getType() === 'species' && $variables['view_mode'] === 'full') {
+    // Get the tracking search manager service.
+    $tracking_manager = \Drupal::service('tracking_reports.search_manager');
+
+    // Get the primary species ID.
+    $primary_species_id = $tracking_manager->getPrimarySpeciesId($node->id());
+
+    // Add it to the variables array.
+    $variables['primary_species_id'] = $primary_species_id;
+  }
+}
+
+/**
  * Implements hook_preprocess_html().
  */
 function fws_raf_preprocess_html(&$variables) {
