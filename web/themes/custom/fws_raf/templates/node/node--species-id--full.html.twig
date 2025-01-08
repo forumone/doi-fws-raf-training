@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <th>ID Type</th>
-                <td>{{ content.field_id_type|default('N/A') }}</td>
+                <td>{{ node.field_id_type.entity.field_type_of_id.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Primary ID</th>
@@ -62,8 +62,23 @@
                 <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
               </tr>
               <tr>
+                <th>Created By</th>
+                <td>
+                  {% if node.getOwner().field_first_name.value is not empty %}
+                    {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+                  {% else %}
+                    {{ node.getOwner().getDisplayName() }}
+                  {% endif %}
+                </td>
+                </tr>
+              </tr>
+              <tr>
                 <th>Last Updated</th>
                 <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Updated By</th>
+                <td>{{ node.getRevisionUser().getDisplayName() }}</td>
               </tr>
             </tbody>
           </table>
