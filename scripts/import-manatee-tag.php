@@ -19,6 +19,7 @@ if (!file_exists($csv_file)) {
 // Initialize counters.
 $row_count = 0;
 $created_count = 0;
+$updated_count = 0;
 $error_count = 0;
 
 // Open CSV file.
@@ -56,15 +57,36 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       throw new Exception("MLog is empty.");
     }
 
+    if (empty($tag_id)) {
+      throw new Exception("TagId is empty for MLog $number.");
+    }
+
+    // Generate a unique title using MLog and Tag ID
+    $unique_title = sprintf(
+      "Manatee Tag Entry MLog %s - Tag %s",
+      $number,
+      $tag_id
+    );
+
+    // Check if node already exists using multiple criteria
+    $existing_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'species_tag',
+        'field_species_ref' => get_species_node_id($number),
+        'field_tag_id' => $tag_id,
+        'field_date_applied' => parse_date_applied($date_applied),
+      ]);
+
     // Prepare node data.
     $node_data = [
       'type' => 'species_tag',
-      'title' => "Manatee Tag Entry MLog $number",
+      'title' => $unique_title,
       'field_species_ref' => get_species_node_id($number),
       'field_tag_type' => [
         'target_id' => get_taxonomy_term_id('tag_type', $tag_type),
       ],
-      'field_date_applied' => parse_datetime($date_applied),
+      'field_date_applied' => parse_date_applied($date_applied),
       'field_tag_id' => $tag_id,
       'field_tag_info' => [
         'value' => $info,
@@ -80,10 +102,21 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'status' => 1,
     ];
 
-    // Create new node.
-    $node = Node::create($node_data);
-    print("\nCreating new species_tag node: MLog $number");
-    $created_count++;
+    if (!empty($existing_nodes)) {
+      // Update existing node
+      $node = reset($existing_nodes);
+      foreach ($node_data as $field => $value) {
+        $node->set($field, $value);
+      }
+      print("\nUpdating existing species_tag node: $unique_title");
+      $updated_count++;
+    }
+    else {
+      // Create new node
+      $node = Node::create($node_data);
+      print("\nCreating new species_tag node: $unique_title");
+      $created_count++;
+    }
 
     $node->save();
 
@@ -104,6 +137,7 @@ fclose($handle);
 print("\nImport completed:");
 print("\nTotal rows processed: $row_count");
 print("\nNewly created: $created_count");
+print("\nUpdated: $updated_count");
 print("\nErrors: $error_count\n");
 
 /**
@@ -119,6 +153,30 @@ function parse_date($date_value) {
     // Use regex to extract the YYYY-mm-dd part from the date_value.
     if (preg_match('/(\d{4}-\d{2}-\d{2})/', $date_value, $matches)) {
       // Return the matched date.
+      return $matches[1];
+    }
+    else {
+      print("\nError parsing date: $date_value");
+      return NULL;
+    }
+  }
+  catch (Exception $e) {
+    print("\nException while parsing date: " . $e->getMessage());
+    return NULL;
+  }
+}
+
+/**
+ * Helper function to parse and format date_applied values (YYYY-MM-DD).
+ */
+function parse_date_applied($date_value) {
+  try {
+    if (empty($date_value)) {
+      return NULL;
+    }
+
+    // Extract just the date portion YYYY-MM-DD
+    if (preg_match('/(\d{4}-\d{2}-\d{2})/', $date_value, $matches)) {
       return $matches[1];
     }
     else {
@@ -211,29 +269,4 @@ function get_species_node_id($number) {
 
   print("\nError: Manatee node with MLog $number not found.");
   return NULL;
-}
-
-/**
- * Helper function to parse and format datetime values (YYYY-MM-DDTHH:MM:SS).
- */
-function parse_datetime($datetime_value) {
-  try {
-    if (empty($datetime_value)) {
-      return NULL;
-    }
-
-    // Use regex to extract the datetime part.
-    if (preg_match('/(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})/', $datetime_value, $matches)) {
-      // Combine date and time with 'T' separator.
-      return $matches[1] . 'T' . $matches[2];
-    }
-    else {
-      print("\nError parsing datetime: $datetime_value");
-      return NULL;
-    }
-  }
-  catch (Exception $e) {
-    print("\nException while parsing datetime: " . $e->getMessage());
-    return NULL;
-  }
 }
