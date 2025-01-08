@@ -263,8 +263,12 @@ function prepare_prerelease_data($data) {
     'field_length_date' => parse_date($l_date),
     'field_comments' => ['value' => $comments, 'format' => 'full_html'],
     'field_org' => ['target_id' => get_taxonomy_term_id('org', $org)],
+    // The “author” should come from CreateBy.
+    'uid' => get_user_id($create_by),
+    // Original creation date and changed date come from the CSV.
     'created' => strtotime($create_date),
     'changed' => strtotime($update_date),
+    // Published or unpublished based on CSV “status”.
     'status' => filter_boolean($status) ? 1 : 0,
   ];
 }
@@ -319,6 +323,7 @@ function prepare_release_data($data) {
     'field_participating_orgs' => ['target_id' => get_taxonomy_term_id('org', $part_org)],
     'field_veterinarian' => get_user_id($vet_id),
     'field_comments' => ['value' => $comments, 'format' => 'full_html'],
+    // Use the create_by as the node author.
     'uid' => get_user_id($create_by),
     'created' => strtotime($create_date),
     'changed' => strtotime($update_date),
@@ -389,6 +394,8 @@ function convert_release_to_prerelease($data) {
     'field_length_date' => parse_date($l_date),
     'field_comments' => ['value' => $comments, 'format' => 'full_html'],
     'field_org' => ['target_id' => get_taxonomy_term_id('org', $org)],
+    // The “author” should come from the release create_by.
+    'uid' => get_user_id($create_by),
     'created' => strtotime($create_date),
     'changed' => strtotime($update_date),
     'status' => 1,
@@ -411,11 +418,19 @@ function save_prerelease_node($node_data, $number) {
   if (!empty($existing_nodes)) {
     // Update existing node
     $node = reset($existing_nodes);
+
+    // Update all fields except the content type (“type”).
     foreach ($node_data as $field => $value) {
-      if ($field != 'type') {
+      if ($field !== 'type') {
         $node->set($field, $value);
       }
     }
+
+    // Make sure “changed” date is updated for the new $update_date.
+    if (!empty($node_data['changed'])) {
+      $node->setChangedTime($node_data['changed']);
+    }
+
     print("\nUpdating existing species_prerelease node: MLog $number");
     $prerelease_updated++;
   }
