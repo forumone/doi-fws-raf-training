@@ -24,7 +24,7 @@
     <!-- Primary Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Primary Information</h3>
+        <h3 class="panel-title">Death Information</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
@@ -39,12 +39,16 @@
                 <td>{{ node.field_death_location is not empty ? node.field_death_location.entity.field_death_location.value : 'N/A' }}</td>
               </tr>
               <tr>
+                <th>Euthanized?</th>
+                <td>{{ node.field_euthanasia ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
                 <th>Death Cause</th>
                 <td>{{ node.field_cause_id is not empty ? node.field_cause_id.entity.field_death_cause.value : 'N/A' }}</td>
               </tr>
               <tr>
-                <th>Euthanized?</th>
-                <td>{{ node.field_euthanasia ? 'Yes' : 'No' }}</td>
+                <th>Other Human-Related</th>
+                <td>{{ content.field_other_text|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -55,7 +59,7 @@
     <!-- Care Provider Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Care Provider Information</h3>
+        <h3 class="panel-title">Other Death Information</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
@@ -71,6 +75,10 @@
                   {{ node.field_veterinarian.entity.field_first_name.value is not empty ? node.field_veterinarian.entity.field_first_name.value ~ ' ' ~ node.field_veterinarian.entity.field_last_name.value : content.field_veterinarian|default('N/A') }}
                 </td>
               </tr>
+              <tr>
+                <th class="col-md-3">Additional Narrative</th>
+                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -80,29 +88,34 @@
     <!-- Additional Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Additional Information</h3>
+        <h3 class="panel-title">Report Information</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th class="col-md-3">Additional Narrative</th>
-                <td class="col-md-9">{{ content.field_comments|default('N/A') }}</td>
+                <th class="col-md-3">Created Date</th>
+                <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
               </tr>
-              {% if node.field_other_text is not empty %}
               <tr>
-                <th>Other Human-Related</th>
-                <td>{{ content.field_other_text|default('N/A') }}</td>
-              </tr>
-              {% endif %}
-              <tr>
-                <th>Created Date</th>
-                <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+                <th>Created By</th>
+                <td>
+                  {% if node.getOwner().field_first_name.value is not empty %}
+                    {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+                  {% else %}
+                    {{ node.getOwner().getDisplayName() }}
+                  {% endif %}
+                </td>
+                </tr>
               </tr>
               <tr>
                 <th>Last Updated</th>
                 <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Updated By</th>
+                <td>{{ node.getRevisionUser().getDisplayName() }}</td>
               </tr>
             </tbody>
           </table>
