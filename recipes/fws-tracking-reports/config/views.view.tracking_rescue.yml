@@ -25,7 +25,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 2z0rahZmHqy5vpEvH4cSvQ1xOLbRdZwMu8Dcm86ZdyM
+  default_config_hash: Wny3wFXvwbCMiOT11YqRN1rbmKRRC0j4H1nvG5e1VAk
 id: tracking_rescue
 label: 'Species Rescue'
 module: views
@@ -410,10 +410,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -600,10 +600,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -664,10 +662,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1788,10 +1784,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1978,10 +1974,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2042,10 +2036,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true

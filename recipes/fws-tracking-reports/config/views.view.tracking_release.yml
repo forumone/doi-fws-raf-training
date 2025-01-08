@@ -26,7 +26,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: hp_GdWW1XPSkzcCIwjduK4gBKAJh9tc4tO6EXSsXHgA
+  default_config_hash: sYLWPwWrDCzMfvPaTpzoI0Sv64S8oKLB4qoKI77s8PU
 id: tracking_release
 label: 'Species Release'
 module: views
@@ -411,10 +411,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -475,10 +475,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -664,10 +664,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -790,10 +788,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2152,10 +2148,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2216,10 +2212,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2405,10 +2401,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2531,10 +2525,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true

@@ -12,7 +12,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: q8GZEzC_acpLeUjDRJjAxyrApqmNStpL8j3s6212y8Q
+  default_config_hash: oNDy-5uYDqJbRUEtIcbPSulbWG6hhAcgEyJkso7wiac
 id: tracking_ids
 label: 'Tracking IDs'
 module: views
