@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Drush script to import data into the species_death content type.
+ * Drush script to import data into the species_death content type with revision support.
  *
  * Usage: drush scr scripts/import_species_death.php.
  */
@@ -37,7 +37,7 @@ if ($header === FALSE) {
   exit("CSV file is empty or invalid.\n");
 }
 
-// Expected headers for validation (optional).
+// Expected headers for validation.
 $expected_headers = [
   'MLog',
   'DeathDate',
@@ -110,9 +110,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       continue;
     }
 
-    // Prepare unique identifier for existing node (e.g., MLog + DeathDate).
-    $unique_key = "$number|$parsed_death_date";
-
     // Check if species_death node already exists.
     $existing_nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
@@ -122,7 +119,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'field_death_date' => $parsed_death_date,
       ]);
 
-    // Prepare node data.
+    // Prepare base node data.
     $node_data = [
       'type' => 'species_death',
       'title' => "Death Record for MLog $number on $parsed_death_date",
@@ -154,31 +151,74 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       'field_veterinarian' => [
         'target_id' => get_user_id($vet_id),
       ],
-      // Timestamps.
-      'created' => strtotime($create_date),
-      'changed' => strtotime($update_date),
       'status' => 1,
     ];
 
     if (!empty($existing_nodes)) {
-      // Update existing node.
-      $node = reset($existing_nodes);
+      // Update existing node with revisions
+      $original_node = reset($existing_nodes);
+      $nid = $original_node->id();
+      
+      // Get a fresh node object
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $node = $node_storage->load($nid);
+      
+      // Update base data
       foreach ($node_data as $field => $value) {
         $node->set($field, $value);
       }
+      
+      // Create a new revision with update information
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+      $node->setRevisionUserId($update_user_id);
+      $node->setRevisionCreationTime(strtotime($update_date));
+      $node->set('changed', strtotime($update_date));
+      $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      
       print("\nUpdating existing species_death node (MLog: $number, DeathDate: $parsed_death_date).\n");
       $updated_count++;
     }
     else {
-      // Create new node.
-      $node_data['uid'] = get_user_id($create_by);
+      // Create new node with initial revision
+      $create_user_id = $create_by === 'D' ? 1 : get_user_id($create_by);
+      $node_data['uid'] = $create_user_id;
+      $node_data['created'] = strtotime($create_date);
+      $node_data['changed'] = strtotime($create_date);
+      
       $node = Node::create($node_data);
+      
+      // Set initial revision information
+      $node->setNewRevision();
+      $node->isDefaultRevision(TRUE);
+      $node->setRevisionUserId($create_user_id);
+      $node->setRevisionCreationTime(strtotime($create_date));
+      $node->setRevisionLogMessage('Initial revision created by ' . ($create_by === 'D' ? 'admin' : $create_by));
+      
+      // Save initial revision
+      $node->save();
+      
+      // Create update revision if update information differs
+      if ($update_by !== $create_by || $update_date !== $create_date) {
+        $node = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->load($node->id());
+        
+        $node->setNewRevision();
+        $node->isDefaultRevision(TRUE);
+        $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
+        $node->setRevisionUserId($update_user_id);
+        $node->setRevisionCreationTime(strtotime($update_date));
+        $node->set('changed', strtotime($update_date));
+        $node->setRevisionLogMessage('Updated by ' . ($update_by === 'D' ? 'admin' : $update_by));
+      }
+      
       print("\nCreating new species_death node (MLog: $number, DeathDate: $parsed_death_date).\n");
       $created_count++;
     }
 
     $node->save();
-
   }
   catch (EntityStorageException $e) {
     print("\nEntityStorageException on row $row_count: " . $e->getMessage() . "\n");
@@ -198,6 +238,8 @@ print("Total rows processed: $row_count\n");
 print("Newly created: $created_count\n");
 print("Updated: $updated_count\n");
 print("Errors: $error_count\n");
+
+// Helper functions remain unchanged...
 
 /**
  * Helper function to parse and format date values (YYYY-MM-DD).
