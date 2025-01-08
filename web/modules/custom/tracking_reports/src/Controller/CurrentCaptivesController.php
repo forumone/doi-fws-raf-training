@@ -315,7 +315,7 @@ class CurrentCaptivesController extends ControllerBase {
       $event_type = ucfirst($event_type);
 
       $date = new DrupalDateTime($event['date']);
-      $formatted_date = $date->format('Y-m-d');
+      $formatted_date = $date->format('m/d/Y');
 
       $name = $primary_names[$sid] ?? '';
       $species_id_val = $species_ids[$sid] ?? '';
