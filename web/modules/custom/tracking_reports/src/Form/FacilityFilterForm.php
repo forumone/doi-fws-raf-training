@@ -24,12 +24,18 @@ class FacilityFilterForm extends FormBase {
     // Read the currently selected facility from ?facility=___ in the URL.
     $selected_facility = \Drupal::request()->query->get('facility', 'all');
 
-    // Build facility options. In your real code, load the taxonomy terms from
-    // 'org'.
+    // Build facility options. Load only active taxonomy terms from 'org'.
     $facility_options = ['all' => $this->t('- All Facilities -')];
 
     $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-    $org_terms = $storage->loadByProperties(['vid' => 'org']);
+
+    // Load all active org terms that have a house species field.
+    $org_terms = $storage->loadByProperties([
+      'vid' => 'org',
+      'field_active' => TRUE,
+      'field_house_species'  => TRUE,
+    ]);
+
     foreach ($org_terms as $term) {
       if ($term->hasField('field_organization') && !$term->field_organization->isEmpty()) {
         $org_val = $term->field_organization->value;
