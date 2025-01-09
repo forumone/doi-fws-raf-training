@@ -9,10 +9,11 @@ dependencies:
     - field.storage.node.field_rescue_date
     - field.storage.node.field_sex
     - field.storage.node.field_species_id
+    - field.storage.node.field_species_ref
     - field.storage.node.field_weight
     - field.storage.paragraph.field_name
     - field.storage.taxonomy_term.field_organization
-    - field.storage.taxonomy_term.field_rescue_cause_detail
+    - field.storage.taxonomy_term.field_rescue_cause
     - field.storage.taxonomy_term.field_rescue_type_text
     - node.type.species_id
     - node.type.species_rescue
@@ -25,7 +26,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: Ti1-ARw6IO3iFkOkUOAo9K9qrfiNz4GX5nVF9YQPl74
+  default_config_hash: xcfyIMDlMR9tLDDHvYSlFbpRBqyfXTePxeLYH3daBB0
 id: tracking_rescue
 label: 'Species Rescue'
 module: views
@@ -42,6 +43,68 @@ display:
     display_options:
       title: 'Species Rescue Report'
       fields:
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Species
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nid:
           id: nid
           table: node_field_data
@@ -310,7 +373,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: '/node/{{ field_number__value }}'
+            path: '/node/{{ field_species_ref }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -487,15 +550,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_rescue_cause_detail:
-          id: field_rescue_cause_detail
-          table: taxonomy_term__field_rescue_cause_detail
-          field: field_rescue_cause_detail
+        field_rescue_cause:
+          id: field_rescue_cause
+          table: taxonomy_term__field_rescue_cause
+          field: field_rescue_cause
           relationship: field_primary_cause
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Cause of Rescue'
+          label: 'Rescue Cause'
           exclude: false
           alter:
             alter_text: false
@@ -929,6 +992,11 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+              content_publisher: '0'
+              contributor: '0'
+              viewer: '0'
+              other_researchers: '0'
+              partner_administrator: '0'
               anonymous: '0'
               content_editor: '0'
               administrator: '0'
@@ -946,13 +1014,15 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           fields:
+            field_species_ref: field_species_ref
+            nid: nid
             field_name_1: field_name_1
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
             field_rescue_date: field_rescue_date
             field_rescue_type_text: field_rescue_type_text
-            field_rescue_cause_detail: field_rescue_cause_detail
+            field_rescue_cause: field_rescue_cause
             field_length: field_length
             field_weight: field_weight
             field_county: field_county
@@ -1278,19 +1348,35 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            field_species_ref: field_species_ref
+            nid: nid
             field_name_1: field_name_1
             field_sex: field_sex
             field_species_id: field_species_id
             field_number: field_number
             field_rescue_date: field_rescue_date
             field_rescue_type_text: field_rescue_type_text
-            field_rescue_cause_detail: field_rescue_cause_detail
+            field_rescue_cause: field_rescue_cause
             field_length: field_length
             field_weight: field_weight
             field_county: field_county
             field_organization: field_organization
           default: field_rescue_date
           info:
+            field_species_ref:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_name_1:
               sortable: true
               default_sort_order: asc
@@ -1333,7 +1419,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_rescue_cause_detail:
+            field_rescue_cause:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1467,10 +1553,11 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
+        - 'config:field.storage.taxonomy_term.field_rescue_cause'
         - 'config:field.storage.taxonomy_term.field_rescue_type_text'
   block_1:
     id: block_1
@@ -1480,6 +1567,68 @@ display:
     display_options:
       title: 'Rescue Information'
       fields:
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Species
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nid:
           id: nid
           table: node_field_data
@@ -1861,15 +2010,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_rescue_cause_detail:
-          id: field_rescue_cause_detail
-          table: taxonomy_term__field_rescue_cause_detail
-          field: field_rescue_cause_detail
+        field_rescue_cause:
+          id: field_rescue_cause
+          table: taxonomy_term__field_rescue_cause
+          field: field_rescue_cause
           relationship: field_primary_cause
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Cause of Rescue'
+          label: 'Rescue Cause'
           exclude: false
           alter:
             alter_text: false
@@ -2403,10 +2552,11 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
+        - 'config:field.storage.taxonomy_term.field_rescue_cause'
         - 'config:field.storage.taxonomy_term.field_rescue_type_text'
   page_1:
     id: page_1
@@ -2441,8 +2591,9 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_organization'
-        - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
+        - 'config:field.storage.taxonomy_term.field_rescue_cause'
         - 'config:field.storage.taxonomy_term.field_rescue_type_text'
