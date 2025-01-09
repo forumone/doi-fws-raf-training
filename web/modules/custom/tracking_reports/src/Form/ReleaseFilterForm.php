@@ -49,7 +49,7 @@ class ReleaseFilterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Attach the tracking_reports library to the form
+    // Attach the tracking_reports library to the form.
     $form['#attached']['library'][] = 'tracking_reports/tracking_reports';
 
     $query_params = \Drupal::request()->query->all();
@@ -58,7 +58,7 @@ class ReleaseFilterForm extends FormBase {
     $current_year = (int) date('Y');
     $prior_year = $current_year - 1;
 
-    // Set default date ranges to the prior year if not provided
+    // Set default date ranges to the prior year if not provided.
     $release_date_from = isset($query_params['release_date_from']) && !empty($query_params['release_date_from']) ? $query_params['release_date_from'] : "$prior_year-01-01";
     $release_date_to = isset($query_params['release_date_to']) && !empty($query_params['release_date_to']) ? $query_params['release_date_to'] : "$prior_year-12-31";
 
@@ -121,7 +121,7 @@ class ReleaseFilterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Validate that 'release_date_from' is not after 'release_date_to'
+    // Validate that 'release_date_from' is not after 'release_date_to'.
     $date_from = $form_state->getValue('release_date_from');
     $date_to = $form_state->getValue('release_date_to');
 
@@ -137,12 +137,12 @@ class ReleaseFilterForm extends FormBase {
     $current_route = \Drupal::routeMatch()->getRouteName();
     $query = [];
 
-    // Extract filter values
+    // Extract filter values.
     $search = $form_state->getValue('search');
     $release_date_from = $form_state->getValue('release_date_from');
     $release_date_to = $form_state->getValue('release_date_to');
 
-    // Only add to query if not empty
+    // Only add to query if not empty.
     if (!empty($search)) {
       $query['search'] = $search;
     }

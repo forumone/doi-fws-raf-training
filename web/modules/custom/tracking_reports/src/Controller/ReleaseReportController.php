@@ -75,7 +75,7 @@ class ReleaseReportController extends ControllerBase {
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
     TrackingSearchManager $tracking_search_manager,
-    PagerManagerInterface $pager_manager
+    PagerManagerInterface $pager_manager,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
@@ -105,12 +105,12 @@ class ReleaseReportController extends ControllerBase {
    *   The sortable string value.
    */
   protected function getSortableValue($cell_data) {
-    // Handle Link objects
+    // Handle Link objects.
     if ($cell_data instanceof Link) {
       return $cell_data->getText();
     }
-    
-    // Handle arrays with Link objects or plain data
+
+    // Handle arrays with Link objects or plain data.
     if (is_array($cell_data)) {
       if (isset($cell_data['data'])) {
         if ($cell_data['data'] instanceof Link) {
@@ -119,8 +119,8 @@ class ReleaseReportController extends ControllerBase {
         return (string) $cell_data['data'];
       }
     }
-    
-    // Handle direct string values
+
+    // Handle direct string values.
     return (string) $cell_data;
   }
 
@@ -157,11 +157,11 @@ class ReleaseReportController extends ControllerBase {
     $column = $column_map[$sort];
 
     usort($rows, function ($a, $b) use ($column, $direction, $sort) {
-      // Get sortable values, handling both Link objects and arrays with 'data' key
+      // Get sortable values, handling both Link objects and arrays with 'data' key.
       $a_value = $this->getSortableValue($a['data'][$column]);
       $b_value = $this->getSortableValue($b['data'][$column]);
 
-      // Special handling for N/A values - always sort them last
+      // Special handling for N/A values - always sort them last.
       if ($a_value === 'N/A' && $b_value === 'N/A') {
         return 0;
       }
@@ -172,11 +172,11 @@ class ReleaseReportController extends ControllerBase {
         return ($direction === 'asc') ? -1 : 1;
       }
 
-      // Date column handling (rescue_date = 4, release_date = 5)
+      // Date column handling (rescue_date = 4, release_date = 5).
       if (in_array($sort, ['rescue_date', 'release_date'])) {
         $a_timestamp = strtotime($a_value);
         $b_timestamp = strtotime($b_value);
-        
+
         if ($a_timestamp === $b_timestamp) {
           return 0;
         }
@@ -185,7 +185,7 @@ class ReleaseReportController extends ControllerBase {
           : ($b_timestamp <=> $a_timestamp);
       }
 
-      // Default string comparison
+      // Default string comparison.
       $comparison = strcasecmp($a_value, $b_value);
       return ($direction === 'asc') ? $comparison : -$comparison;
     });
@@ -281,7 +281,7 @@ class ReleaseReportController extends ControllerBase {
     $current_year = (int) date('Y');
     $prior_year = $current_year - 1;
 
-    // Set default date filters to prior year if not provided
+    // Set default date filters to prior year if not provided.
     $release_date_from = isset($filters['release_date_from']) && !empty($filters['release_date_from']) ? $filters['release_date_from'] : "$prior_year-01-01";
     $release_date_to = isset($filters['release_date_to']) && !empty($filters['release_date_to']) ? $filters['release_date_to'] : "$prior_year-12-31";
 
@@ -289,18 +289,18 @@ class ReleaseReportController extends ControllerBase {
     $sort = isset($filters['sort']) && !empty($filters['sort']) ? $filters['sort'] : 'release_date';
     $direction = isset($filters['direction']) && !empty($filters['direction']) ? $filters['direction'] : 'desc';
 
-    // Build base query
+    // Build base query.
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_release')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
-    // Apply search filters (keeping existing search logic)
+    // Apply search filters (keeping existing search logic).
     if (!empty($filters['search'])) {
       $search_term = $filters['search'];
       $or_group = $query->orConditionGroup();
 
-      // Add existing search conditions
+      // Add existing search conditions.
       $matching_species_id_nids = $this->getMatchingSpeciesIdNodeIds($search_term);
       if (!empty($matching_species_id_nids)) {
         $species_ids = $this->getReferencedSpeciesIds($matching_species_id_nids);
@@ -333,14 +333,14 @@ class ReleaseReportController extends ControllerBase {
       }
     }
 
-    // Apply date range filters (now required)
+    // Apply date range filters (now required).
     $query->condition('field_release_date', $release_date_from, '>=');
     $query->condition('field_release_date', $release_date_to, '<=');
 
-    // Execute query and load nodes
+    // Execute query and load nodes.
     $release_ids = $query->execute();
 
-    // Check for maximum records to prevent performance issues
+    // Check for maximum records to prevent performance issues.
     if (count($release_ids) > $this->maxRecords) {
       $build['table'] = [
         '#markup' => $this->t('Too many records found (@count). Please refine your filters.', ['@count' => count($release_ids)]),
@@ -358,7 +358,7 @@ class ReleaseReportController extends ControllerBase {
     $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_ids);
     $rows = [];
 
-    // Build rows array
+    // Build rows array.
     foreach ($release_nodes as $release) {
       $species_entity = $release->field_species_ref->entity;
       if (!$species_entity) {
@@ -370,22 +370,22 @@ class ReleaseReportController extends ControllerBase {
         continue;
       }
 
-      // Get row data
+      // Get row data.
       $row_data = $this->buildRowData($species_entity, $rescue, $release);
       $rows[] = ['data' => $row_data];
     }
 
-    // Handle sorting for all columns using sortRows()
+    // Handle sorting for all columns using sortRows().
     $rows = $this->sortRows($rows, $sort, $direction);
 
-    // Implement pagination manually after sorting
+    // Implement pagination manually after sorting.
     $total_records = count($rows);
     $pager = $this->pagerManager->createPager($total_records, $this->itemsPerPage);
     $current_page = $pager->getCurrentPage();
     $offset = $current_page * $this->itemsPerPage;
     $paged_rows = array_slice($rows, $offset, $this->itemsPerPage);
 
-    // Build table header with sortable links
+    // Build table header with sortable links.
     $headers = [
       ['data' => $this->buildSortLink('Name', 'name')],
       ['data' => $this->buildSortLink('Sex', 'sex')],
@@ -400,7 +400,7 @@ class ReleaseReportController extends ControllerBase {
       ['data' => $this->buildSortLink('Release County', 'release_county')],
     ];
 
-    // Build table
+    // Build table.
     $build['table'] = [
       '#type' => 'table',
       '#header' => $headers,
@@ -414,10 +414,10 @@ class ReleaseReportController extends ControllerBase {
       ],
     ];
 
-    // Add pager
+    // Add pager.
     $build['pager'] = [
       '#type' => 'pager',
-      '#quantity' => 5, // Number of pager links to display
+      '#quantity' => 5,
     ];
 
     return $build;
@@ -443,25 +443,25 @@ class ReleaseReportController extends ControllerBase {
     $current_direction = isset($filters['direction']) ? $filters['direction'] : 'asc';
 
     if ($current_sort === $field) {
-      // Toggle direction
+      // Toggle direction.
       $new_direction = $current_direction === 'asc' ? 'desc' : 'asc';
       $sort_indicator = $current_direction === 'asc' ? '↑' : '↓';
     }
     else {
-      // Default direction is 'asc'
+      // Default direction is 'asc'.
       $new_direction = 'asc';
       $sort_indicator = '';
     }
 
-    // Build new query params, preserving existing filters except sort and direction
+    // Build new query params, preserving existing filters except sort and direction.
     $new_query = $filters;
     $new_query['sort'] = $field;
     $new_query['direction'] = $new_direction;
 
-    // Build the link
+    // Build the link.
     $url = Url::fromRoute($current_route, [], ['query' => $new_query]);
 
-    // Return a render array for the link
+    // Return a render array for the link.
     return Link::fromTextAndUrl($this->t('@label @indicator', [
       '@label' => $label,
       '@indicator' => $sort_indicator,
@@ -481,8 +481,8 @@ class ReleaseReportController extends ControllerBase {
    * @return array
    *   An array representing the table row data.
    */
-  protected function buildRowData($species_entity, $rescue, $release) {
-    // Get the name from species_name paragraphs
+  protected function buildRowData(NodeInterface $species_entity, NodeInterface $rescue, NodeInterface $release) {
+    // Get the name from species_name paragraphs.
     $name = 'N/A';
     if (!$species_entity->get('field_names')->isEmpty()) {
       $paragraphs = $species_entity->get('field_names')->referencedEntities();
@@ -496,31 +496,31 @@ class ReleaseReportController extends ControllerBase {
       }
     }
 
-    // Build the rest of the row data
+    // Build the rest of the row data.
     return [
-      ['data' => $name], // 0
+      ['data' => $name],
       ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'], // 1
       ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'], // 2
       ['data' => Link::createFromRoute(
         !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A',
         'entity.node.canonical',
         ['node' => $species_entity->id()]
-      )->toRenderable()], // 3
+      )->toRenderable()],
       ['data' => !$rescue->field_rescue_date->isEmpty()
         ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
-        : 'N/A'], // 4
+        : 'N/A'],
       ['data' => !$release->field_release_date->isEmpty()
         ? Link::createFromRoute(
           $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
           'entity.node.canonical',
           ['node' => $release->id()]
         )
-        : 'N/A'], // 5 (Modified)
-      ['data' => $this->getRescueCauseDetail($rescue)], // 6
-      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)], // 7
-      ['data' => $this->getPreReleaseMetrics($species_entity->id())], // 8
-      ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'], // 9
-      ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'], // 10
+        : 'N/A'],
+      ['data' => $this->getRescueCauseDetail($rescue)],
+      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)],
+      ['data' => $this->getPreReleaseMetrics($species_entity->id())],
+      ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'],
+      ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'],
     ];
   }
 
