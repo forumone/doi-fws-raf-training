@@ -153,9 +153,9 @@ class ReleaseFilterForm extends FormBase {
       $query['release_date_to'] = $release_date_to;
     }
 
-    // Preserve existing sort parameters
-    $current_sort = \Drupal::request()->query->get('sort');
-    $current_direction = \Drupal::request()->query->get('direction');
+    // Preserve existing sort parameters or set defaults.
+    $current_sort = \Drupal::request()->query->get('sort', 'release_date');
+    $current_direction = \Drupal::request()->query->get('direction', 'desc');
     if ($current_sort) {
       $query['sort'] = $current_sort;
     }
