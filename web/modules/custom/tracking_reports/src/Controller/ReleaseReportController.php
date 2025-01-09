@@ -9,6 +9,8 @@ use Drupal\Core\Link;
 use Drupal\tracking_reports\TrackingSearchManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Pager\PagerManagerInterface;
+use Drupal\Core\Url;
 
 /**
  * Controller for the species release report.
@@ -37,11 +39,25 @@ class ReleaseReportController extends ControllerBase {
   protected $trackingSearchManager;
 
   /**
+   * The pager manager.
+   *
+   * @var \Drupal\Core\Pager\PagerManagerInterface
+   */
+  protected $pagerManager;
+
+  /**
    * Items to show per page.
    *
    * @var int
    */
   protected $itemsPerPage = 25;
+
+  /**
+   * Maximum records to process to prevent performance issues.
+   *
+   * @var int
+   */
+  protected $maxRecords = 1000;
 
   /**
    * Constructs a ReleaseReportController object.
@@ -52,15 +68,19 @@ class ReleaseReportController extends ControllerBase {
    *   The date formatter service.
    * @param \Drupal\tracking_reports\TrackingSearchManager $tracking_search_manager
    *   The tracking search manager service.
+   * @param \Drupal\Core\Pager\PagerManagerInterface $pager_manager
+   *   The pager manager service.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
-    TrackingSearchManager $tracking_search_manager
+    TrackingSearchManager $tracking_search_manager,
+    PagerManagerInterface $pager_manager
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
     $this->trackingSearchManager = $tracking_search_manager;
+    $this->pagerManager = $pager_manager;
   }
 
   /**
@@ -70,28 +90,52 @@ class ReleaseReportController extends ControllerBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('date.formatter'),
-      $container->get('tracking_reports.search_manager')
+      $container->get('tracking_reports.search_manager'),
+      $container->get('pager.manager')
     );
   }
 
   /**
    * Gets a sortable value from a table cell.
+   *
+   * @param mixed $cell_data
+   *   The cell data, which can be a Link object or a render array.
+   *
+   * @return string
+   *   The sortable string value.
    */
   protected function getSortableValue($cell_data) {
+    // Handle Link objects
     if ($cell_data instanceof Link) {
       return $cell_data->getText();
     }
-    if (is_array($cell_data) && isset($cell_data['data'])) {
-      if ($cell_data['data'] instanceof Link) {
-        return $cell_data['data']->getText();
+    
+    // Handle arrays with Link objects or plain data
+    if (is_array($cell_data)) {
+      if (isset($cell_data['data'])) {
+        if ($cell_data['data'] instanceof Link) {
+          return $cell_data['data']->getText();
+        }
+        return (string) $cell_data['data'];
       }
-      return (string) $cell_data['data'];
     }
+    
+    // Handle direct string values
     return (string) $cell_data;
   }
 
   /**
    * Sorts the rows array by the specified column.
+   *
+   * @param array $rows
+   *   The array of table rows to sort.
+   * @param string $sort
+   *   The column key to sort by.
+   * @param string $direction
+   *   The sort direction, either 'asc' or 'desc'.
+   *
+   * @return array
+   *   The sorted array of table rows.
    */
   protected function sortRows(array $rows, $sort, $direction) {
     $column_map = [
@@ -102,6 +146,8 @@ class ReleaseReportController extends ControllerBase {
       'rescue_date' => 4,
       'release_date' => 5,
       'rescue_cause' => 6,
+      'rescue_metrics' => 7,
+      'release_metrics' => 8,
       'rescue_county' => 9,
       'release_county' => 10,
     ];
@@ -113,24 +159,72 @@ class ReleaseReportController extends ControllerBase {
 
     $column = $column_map[$sort];
 
-    usort($rows, function ($a, $b) use ($column, $direction) {
+    usort($rows, function ($a, $b) use ($column, $direction, $sort) {
+      // Get sortable values, handling both Link objects and arrays with 'data' key
       $a_value = $this->getSortableValue($a['data'][$column]);
       $b_value = $this->getSortableValue($b['data'][$column]);
 
-      // If it's a date column (rescue_date = 4, release_date = 5)
-      // and neither is 'N/A', compare them as timestamps.
-      if (($column === 4 || $column === 5) && $a_value !== 'N/A' && $b_value !== 'N/A') {
-        $a_value = strtotime($a_value);
-        $b_value = strtotime($b_value);
-        return ($direction === 'asc')
-          ? ($a_value - $b_value)
-          : ($b_value - $a_value);
+      // Special handling for N/A values - always sort them last
+      if ($a_value === 'N/A' && $b_value === 'N/A') {
+        return 0;
+      }
+      if ($a_value === 'N/A') {
+        return ($direction === 'asc') ? 1 : -1;
+      }
+      if ($b_value === 'N/A') {
+        return ($direction === 'asc') ? -1 : 1;
       }
 
-      // Otherwise, compare as strings.
-      return ($direction === 'asc')
-        ? strcasecmp((string) $a_value, (string) $b_value)
-        : strcasecmp((string) $b_value, (string) $a_value);
+      // Date column handling (rescue_date = 4, release_date = 5)
+      if (in_array($sort, ['rescue_date', 'release_date'])) {
+        $a_timestamp = strtotime($a_value);
+        $b_timestamp = strtotime($b_value);
+        
+        if ($a_timestamp === $b_timestamp) {
+          return 0;
+        }
+        return ($direction === 'asc') 
+          ? ($a_timestamp <=> $b_timestamp)
+          : ($b_timestamp <=> $a_timestamp);
+      }
+
+      // Numerical comparison (e.g., for 'number' column)
+      if ($sort === 'number') {
+        // Extract numeric part if the value contains non-numeric characters
+        $a_num = preg_replace('/[^0-9.]/', '', $a_value);
+        $b_num = preg_replace('/[^0-9.]/', '', $b_value);
+        
+        $a_num = is_numeric($a_num) ? (float) $a_num : 0;
+        $b_num = is_numeric($b_num) ? (float) $b_num : 0;
+
+        if ($a_num === $b_num) {
+          return 0;
+        }
+        return ($direction === 'asc')
+          ? ($a_num <=> $b_num)
+          : ($b_num <=> $a_num);
+      }
+
+      // Metrics comparison (weight, length columns)
+      if (in_array($sort, ['rescue_metrics', 'release_metrics'])) {
+        // Extract weight value for comparison
+        preg_match('/(\d+(?:\.\d+)?)\s*kg/', $a_value, $a_matches);
+        preg_match('/(\d+(?:\.\d+)?)\s*kg/', $b_value, $b_matches);
+        
+        $a_weight = !empty($a_matches[1]) ? (float) $a_matches[1] : 0;
+        $b_weight = !empty($b_matches[1]) ? (float) $b_matches[1] : 0;
+
+        if ($a_weight === $b_weight) {
+          return 0;
+        }
+        return ($direction === 'asc')
+          ? ($a_weight <=> $b_weight)
+          : ($b_weight <=> $a_weight);
+      }
+
+      // Default string comparison
+      $comparison = strcasecmp($a_value, $b_value);
+      return ($direction === 'asc') ? $comparison : -$comparison;
     });
 
     return $rows;
@@ -138,6 +232,12 @@ class ReleaseReportController extends ControllerBase {
 
   /**
    * Gets the most recent rescue event for a species.
+   *
+   * @param int $species_id
+   *   The species ID.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   The most recent rescue node or NULL if none found.
    */
   protected function getMostRecentRescue($species_id) {
     $rescue_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -157,6 +257,12 @@ class ReleaseReportController extends ControllerBase {
 
   /**
    * Gets rescue cause detail.
+   *
+   * @param \Drupal\node\NodeInterface $rescue_node
+   *   The rescue node.
+   *
+   * @return string
+   *   The rescue cause detail or 'N/A'.
    */
   protected function getRescueCauseDetail($rescue_node) {
     if (!$rescue_node->field_primary_cause->isEmpty()) {
@@ -170,6 +276,14 @@ class ReleaseReportController extends ControllerBase {
 
   /**
    * Gets formatted metrics string for weight/length.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface|null $weight
+   *   The weight field.
+   * @param \Drupal\Core\Field\FieldItemListInterface|null $length
+   *   The length field.
+   *
+   * @return string
+   *   The formatted metrics string.
    */
   protected function getMetricsString($weight, $length) {
     $weight_val = ($weight && !$weight->isEmpty()) ? $weight->value : 'N/A';
@@ -200,60 +314,43 @@ class ReleaseReportController extends ControllerBase {
     // Get and apply filters.
     $filters = $request->query->all();
 
+    // Determine the prior year.
+    $current_year = (int) date('Y');
+    $prior_year = $current_year - 1;
+
+    // Set default date filters to prior year if not provided
+    $release_date_from = isset($filters['release_date_from']) && !empty($filters['release_date_from']) ? $filters['release_date_from'] : "$prior_year-01-01";
+    $release_date_to = isset($filters['release_date_to']) && !empty($filters['release_date_to']) ? $filters['release_date_to'] : "$prior_year-12-31";
+
     // Force default sort params if not specified.
-    if (!$request->query->has('sort')) {
-      $request->query->set('sort', 'name');
-      $request->query->set('direction', 'asc');
-    }
+    $sort = isset($filters['sort']) && !empty($filters['sort']) ? $filters['sort'] : 'release_date';
+    $direction = isset($filters['direction']) && !empty($filters['direction']) ? $filters['direction'] : 'desc';
 
-    $sort = $request->query->get('sort', 'release_date');
-    $direction = $request->query->get('direction', 'desc');
-
-    // Build base query with filters, for species_release nodes.
+    // Build base query
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_release')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
-    // -- Apply SEARCH filter if present --
+    // Apply search filters (keeping existing search logic)
     if (!empty($filters['search'])) {
       $search_term = $filters['search'];
       $or_group = $query->orConditionGroup();
 
-      // 1) 'species_id' nodes that match field_species_id (e.g. "B123")
+      // Add existing search conditions
       $matching_species_id_nids = $this->getMatchingSpeciesIdNodeIds($search_term);
-
       if (!empty($matching_species_id_nids)) {
-        // Get the species nodes that these species_id nodes reference
-        $species_ids = $this->entityTypeManager->getStorage('node')
-          ->getQuery()
-          ->condition('nid', $matching_species_id_nids, 'IN')
-          ->condition('field_species_ref', NULL, 'IS NOT NULL')
-          ->accessCheck(FALSE)
-          ->execute();
-      
+        $species_ids = $this->getReferencedSpeciesIds($matching_species_id_nids);
         if (!empty($species_ids)) {
-          $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_ids);
-          $referenced_species_ids = [];
-          foreach ($species_nodes as $node) {
-            if (!$node->field_species_ref->isEmpty()) {
-              $referenced_species_ids[] = $node->field_species_ref->target_id;
-            }
-          }
-          if (!empty($referenced_species_ids)) {
-            $or_group->condition('field_species_ref', $referenced_species_ids, 'IN');
-          }
+          $or_group->condition('field_species_ref', $species_ids, 'IN');
         }
       }
 
-      // 2) 'species' nodes that match field_name or field_number.
       $matching_species_nids = $this->getMatchingSpeciesNodeIds($search_term);
       if (!empty($matching_species_nids)) {
-        // The release node's field that references 'species' nodes:
         $or_group->condition('field_species_ref', $matching_species_nids, 'IN');
       }
 
-      // 3) If you also want to match counties, etc., you could do that here.
       $county_ids = $this->getMatchingCountyIds($search_term);
       if (!empty($county_ids)) {
         $or_group->condition('field_county', $county_ids, 'IN');
@@ -264,26 +361,33 @@ class ReleaseReportController extends ControllerBase {
         $or_group->condition('field_primary_cause', $cause_ids, 'IN');
       }
 
-      // If we never added any conditions to $or_group, it has zero count.
-      if (!$or_group->count()) {
-        // Return no results:
-        $query->condition('nid', 0);
-      }
-      else {
+      if ($or_group->count() > 0) {
         $query->condition($or_group);
       }
+      else {
+        // If no conditions matched, ensure no results are returned.
+        $query->condition('nid', 0);
+      }
     }
 
-    // Add release date range filters.
-    if (!empty($filters['release_date_from'])) {
-      $query->condition('field_release_date', $filters['release_date_from'], '>=');
-    }
-    if (!empty($filters['release_date_to'])) {
-      $query->condition('field_release_date', $filters['release_date_to'], '<=');
-    }
+    // Apply date range filters (now required)
+    $query->condition('field_release_date', $release_date_from, '>=');
+    $query->condition('field_release_date', $release_date_to, '<=');
 
-    $query->pager($this->itemsPerPage);
+    // Remove pager from query, since we need all results for accurate sorting
+    // Pagination will be handled manually after sorting
+    // $query->pager($this->itemsPerPage); // Removed as per requirement
+
+    // Execute query and load nodes
     $release_ids = $query->execute();
+
+    // Check for maximum records to prevent performance issues
+    if (count($release_ids) > $this->maxRecords) {
+      $build['table'] = [
+        '#markup' => $this->t('Too many records found (@count). Please refine your filters.', ['@count' => count($release_ids)]),
+      ];
+      return $build;
+    }
 
     if (empty($release_ids)) {
       $build['table'] = [
@@ -295,129 +399,57 @@ class ReleaseReportController extends ControllerBase {
     $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_ids);
     $rows = [];
 
+    // Build rows array
     foreach ($release_nodes as $release) {
       $species_entity = $release->field_species_ref->entity;
       if (!$species_entity) {
         continue;
       }
 
-      // Most recent rescue for that "species" node:
       $rescue = $this->getMostRecentRescue($species_entity->id());
       if (!$rescue) {
         continue;
       }
 
-      // -----------------------------------------
-      // Pull the NAME from the 'species_name' Paragraph(s).
-      // -----------------------------------------
-      $name = 'N/A';
-      if (!$species_entity->get('field_names')->isEmpty()) {
-        $paragraphs = $species_entity->get('field_names')->referencedEntities();
-
-        // Loop over each paragraph until we find one with field_primary = TRUE.
-        foreach ($paragraphs as $para) {
-          // Check if field_primary is set and is TRUE.
-          // (For a boolean field, this might be "1" or "true". Adjust as needed.)
-          if (!$para->get('field_primary')->isEmpty() && $para->get('field_primary')->value) {
-            // Now grab the field_name value.
-            if (!$para->get('field_name')->isEmpty()) {
-              $name = $para->get('field_name')->value;
-              break; // Stop if you only need the first "primary" name.
-            }
-          }
-        }
-      }
-
-      // Grab the SEX from the taxonomy reference, if available:
-      $sex = !$species_entity->field_sex->isEmpty()
-        ? $species_entity->field_sex->entity->label()
-        : 'N/A';
-
-      // Keep the existing approach for retrieving a text-based species ID:
-      $species_id = $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id());
-
-      // This is the "number" field on the species node:
-      $number = !$species_entity->field_number->isEmpty()
-        ? $species_entity->field_number->value
-        : 'N/A';
-
-      // Link to the species node using the "number" as the link text.
-      $number_link = Link::createFromRoute($number, 'entity.node.canonical', ['node' => $species_entity->id()]);
-
-      $rescue_date = !$rescue->field_rescue_date->isEmpty()
-        ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
-        : 'N/A';
-
-      $release_date = !$release->field_release_date->isEmpty()
-        ? Link::createFromRoute(
-            $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
-            'entity.node.canonical',
-            ['node' => $release->id()]
-          )
-        : 'N/A';
-
-      $rescue_cause = $this->getRescueCauseDetail($rescue);
-
-      // If the rescue node has weight/length fields:
-      $rescue_metrics = ($rescue->hasField('field_weight') && $rescue->hasField('field_length'))
-        ? $this->getMetricsString($rescue->field_weight, $rescue->field_length)
-        : 'N/A';
-
-      // Get the pre-release metrics if available:
-      $release_metrics = $this->getPreReleaseMetrics($species_entity->id());
-
-      $rescue_county = !$rescue->field_county->isEmpty()
-        ? $rescue->field_county->entity->label()
-        : 'N/A';
-
-      $release_county = !$release->field_county->isEmpty()
-        ? $release->field_county->entity->label()
-        : 'N/A';
-
-      // Assemble table row data.
-      $rows[] = [
-        'data' => [
-          ['data' => $name],
-          ['data' => $sex],
-          ['data' => $species_id ?? 'N/A'],
-          ['data' => $number_link],
-          ['data' => $rescue_date],
-          ['data' => $release_date],
-          ['data' => $rescue_cause],
-          ['data' => $rescue_metrics],
-          ['data' => $release_metrics],
-          ['data' => $rescue_county],
-          ['data' => $release_county],
-        ],
-      ];
+      // Get row data
+      $row_data = $this->buildRowData($species_entity, $rescue, $release);
+      $rows[] = ['data' => $row_data];
     }
 
-    // Sort the rows.
+    // Handle sorting for all columns using sortRows()
     $rows = $this->sortRows($rows, $sort, $direction);
 
-    // Build table header.
+    // Implement pagination manually after sorting
+    $total_records = count($rows);
+    $pager = $this->pagerManager->createPager($total_records, $this->itemsPerPage);
+    $current_page = $pager->getCurrentPage();
+    $offset = $current_page * $this->itemsPerPage;
+    $paged_rows = array_slice($rows, $offset, $this->itemsPerPage);
+
+    // Build table header with sortable links
     $headers = [
-      ['data' => $this->t('Name'), 'field' => 'name'],
-      ['data' => $this->t('Sex'), 'field' => 'sex'],
-      ['data' => $this->t('Species ID'), 'field' => 'species_id'],
-      ['data' => $this->t('Number'), 'field' => 'number'],
-      ['data' => $this->t('Rescue Date'), 'field' => 'rescue_date'],
-      ['data' => $this->t('Release Date'), 'field' => 'release_date', 'sort' => 'asc', 'sorted' => TRUE],
-      ['data' => $this->t('Cause of Rescue'), 'field' => 'rescue_cause'],
-      ['data' => $this->t('Rescue Weight, Length')],
-      ['data' => $this->t('Release Weight, Length')],
-      ['data' => $this->t('Rescue County'), 'field' => 'rescue_county'],
-      ['data' => $this->t('Release County'), 'field' => 'release_county'],
+      ['data' => $this->buildSortLink('Name', 'name')],
+      ['data' => $this->buildSortLink('Sex', 'sex')],
+      ['data' => $this->buildSortLink('Species ID', 'species_id')],
+      ['data' => $this->buildSortLink('Number', 'number')],
+      ['data' => $this->buildSortLink('Rescue Date', 'rescue_date')],
+      ['data' => $this->buildSortLink('Release Date', 'release_date')],
+      ['data' => $this->buildSortLink('Cause of Rescue', 'rescue_cause')],
+      ['data' => $this->buildSortLink('Rescue Weight, Length', 'rescue_metrics')],
+      ['data' => $this->buildSortLink('Release Weight, Length', 'release_metrics')],
+      ['data' => $this->buildSortLink('Rescue County', 'rescue_county')],
+      ['data' => $this->buildSortLink('Release County', 'release_county')],
     ];
 
-    // Attach table.
+    // Build table
     $build['table'] = [
       '#type' => 'table',
       '#header' => $headers,
-      '#rows' => $rows,
+      '#rows' => $paged_rows,
       '#empty' => $this->t('No release records found.'),
       '#attributes' => ['class' => ['tracking-release-report']],
-      '#attached' => ['library' => ['core/drupal.tablesort']],
+      // Removed the tablesort library as sorting is handled in PHP
+      // '#attached' => ['library' => ['core/drupal.tablesort']],
       '#cache' => [
         'max-age' => 0,
         'contexts' => ['url.query_args', 'user.permissions'],
@@ -425,26 +457,124 @@ class ReleaseReportController extends ControllerBase {
       ],
     ];
 
+    // Add pager
     $build['pager'] = [
       '#type' => 'pager',
+      '#quantity' => 5, // Number of pager links to display
     ];
-
-    // Update the table header sort indicators.
-    foreach ($build['table']['#header'] as &$header) {
-      if (!empty($header['field']) && $header['field'] === $sort) {
-        $header['sorted'] = TRUE;
-        $header['sort'] = ($direction === 'asc') ? 'desc' : 'asc';
-      }
-      else {
-        $header['sort'] = 'asc';
-      }
-    }
 
     return $build;
   }
 
   /**
+   * Builds a sortable link for table headers.
+   *
+   * @param string $label
+   *   The label for the header.
+   * @param string $field
+   *   The field key used for sorting.
+   *
+   * @return array
+   *   A render array representing the sortable link.
+   */
+  protected function buildSortLink($label, $field) {
+    $current_route = \Drupal::routeMatch()->getRouteName();
+    $request = \Drupal::request();
+    $filters = $request->query->all();
+
+    $current_sort = isset($filters['sort']) ? $filters['sort'] : '';
+    $current_direction = isset($filters['direction']) ? $filters['direction'] : 'asc';
+
+    if ($current_sort === $field) {
+      // Toggle direction
+      $new_direction = $current_direction === 'asc' ? 'desc' : 'asc';
+      $sort_indicator = $current_direction === 'asc' ? '↑' : '↓';
+    }
+    else {
+      // Default direction is 'asc'
+      $new_direction = 'asc';
+      $sort_indicator = '';
+    }
+
+    // Build new query params, preserving existing filters except sort and direction
+    $new_query = $filters;
+    $new_query['sort'] = $field;
+    $new_query['direction'] = $new_direction;
+
+    // Build the link
+    $url = Url::fromRoute($current_route, [], ['query' => $new_query]);
+
+    // Return a render array for the link
+    return Link::fromTextAndUrl($this->t('@label @indicator', [
+      '@label' => $label,
+      '@indicator' => $sort_indicator,
+    ]), $url)->toRenderable();
+  }
+
+  /**
+   * Helper method to build row data.
+   *
+   * @param \Drupal\node\NodeInterface $species_entity
+   *   The species node entity.
+   * @param \Drupal\node\NodeInterface $rescue
+   *   The rescue node entity.
+   * @param \Drupal\node\NodeInterface $release
+   *   The release node entity.
+   *
+   * @return array
+   *   An array representing the table row data.
+   */
+  protected function buildRowData($species_entity, $rescue, $release) {
+    // Get the name from species_name paragraphs
+    $name = 'N/A';
+    if (!$species_entity->get('field_names')->isEmpty()) {
+      $paragraphs = $species_entity->get('field_names')->referencedEntities();
+      foreach ($paragraphs as $para) {
+        if (!$para->get('field_primary')->isEmpty() && $para->get('field_primary')->value) {
+          if (!$para->get('field_name')->isEmpty()) {
+            $name = $para->get('field_name')->value;
+            break;
+          }
+        }
+      }
+    }
+
+    // Build the rest of the row data
+    return [
+      ['data' => $name],
+      ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'],
+      ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'],
+      ['data' => Link::createFromRoute(
+        !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A',
+        'entity.node.canonical',
+        ['node' => $species_entity->id()]
+      )->toRenderable()],
+      ['data' => !$rescue->field_rescue_date->isEmpty()
+        ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
+        : 'N/A'],
+      ['data' => !$release->field_release_date->isEmpty()
+        ? Link::createFromRoute(
+          $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
+          'entity.node.canonical',
+          ['node' => $release->id()]
+        )->toRenderable()
+        : 'N/A'],
+      ['data' => $this->getRescueCauseDetail($rescue)],
+      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)],
+      ['data' => $this->getPreReleaseMetrics($species_entity->id())],
+      ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'],
+      ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'],
+    ];
+  }
+
+  /**
    * Gets the pre-release metrics if available.
+   *
+   * @param int $species_id
+   *   The species ID.
+   *
+   * @return string
+   *   The formatted pre-release metrics or 'N/A'.
    */
   protected function getPreReleaseMetrics($species_id) {
     $prerelease_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -467,6 +597,12 @@ class ReleaseReportController extends ControllerBase {
    *
    * Searches the 'species_id' node type by its field_species_id text field.
    * Returns an array of node IDs for matching 'species_id' nodes.
+   *
+   * @param string $search_term
+   *   The search term.
+   *
+   * @return array
+   *   An array of species_id node IDs.
    */
   protected function getMatchingSpeciesIdNodeIds($search_term) {
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -478,12 +614,42 @@ class ReleaseReportController extends ControllerBase {
   }
 
   /**
+   * Helper method: getReferencedSpeciesIds().
+   *
+   * Extracts species IDs from the given species_id node IDs.
+   *
+   * @param array $species_id_nids
+   *   An array of species_id node IDs.
+   *
+   * @return array
+   *   An array of species IDs.
+   */
+  protected function getReferencedSpeciesIds(array $species_id_nids) {
+    $species_id_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_id_nids);
+    $species_ids = [];
+
+    foreach ($species_id_nodes as $node) {
+      if (!$node->field_species_id->isEmpty()) {
+        $species_ids[] = $node->field_species_id->value;
+      }
+    }
+
+    return $species_ids;
+  }
+
+  /**
    * Helper method: getMatchingSpeciesNodeIds().
    *
    * Searches the 'species' node type by:
    *   - field_number on the node (CONTAINS $search_term)
    *   - field_name on any referenced 'species_name' paragraphs (CONTAINS $search_term)
    * Returns an array of node IDs for matching 'species' nodes.
+   *
+   * @param string $search_term
+   *   The search term.
+   *
+   * @return array
+   *   An array of species node IDs.
    */
   protected function getMatchingSpeciesNodeIds($search_term) {
     // First, find all paragraphs of type 'species_name' that contain the $search_term in field_name.
@@ -517,9 +683,14 @@ class ReleaseReportController extends ControllerBase {
     return $query->execute();
   }
 
-
   /**
    * Returns taxonomy term IDs for counties whose name matches $search_term.
+   *
+   * @param string $search_term
+   *   The search term.
+   *
+   * @return array
+   *   An array of taxonomy term IDs.
    */
   protected function getMatchingCountyIds($search_term) {
     return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
@@ -531,6 +702,12 @@ class ReleaseReportController extends ControllerBase {
 
   /**
    * Returns taxonomy term IDs for rescue causes whose detail matches $search_term.
+   *
+   * @param string $search_term
+   *   The search term.
+   *
+   * @return array
+   *   An array of taxonomy term IDs.
    */
   protected function getMatchingCauseIds($search_term) {
     return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
