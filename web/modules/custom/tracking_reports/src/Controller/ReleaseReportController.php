@@ -56,7 +56,7 @@ class ReleaseReportController extends ControllerBase {
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
-    TrackingSearchManager $tracking_search_manager,
+    TrackingSearchManager $tracking_search_manager
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
@@ -265,7 +265,6 @@ class ReleaseReportController extends ControllerBase {
       }
 
       // If we never added any conditions to $or_group, it has zero count.
-      // Usually you'd want to restrict results if there's no match.
       if (!$or_group->count()) {
         // Return no results:
         $query->condition('nid', 0);
@@ -302,25 +301,47 @@ class ReleaseReportController extends ControllerBase {
         continue;
       }
 
-      // Most recent rescue for that "species" or "species_id" node:
+      // Most recent rescue for that "species" node:
       $rescue = $this->getMostRecentRescue($species_entity->id());
       if (!$rescue) {
         continue;
       }
 
-      // Build table row data.
-      $name = $this->trackingSearchManager->getPrimaryName($species_entity->id());
+      // -----------------------------------------
+      // Pull the NAME from the 'species_name' Paragraph(s).
+      // -----------------------------------------
+      $name = 'N/A';
+      if (!$species_entity->get('field_names')->isEmpty()) {
+        $paragraphs = $species_entity->get('field_names')->referencedEntities();
+
+        // Loop over each paragraph until we find one with field_primary = TRUE.
+        foreach ($paragraphs as $para) {
+          // Check if field_primary is set and is TRUE.
+          // (For a boolean field, this might be "1" or "true". Adjust as needed.)
+          if (!$para->get('field_primary')->isEmpty() && $para->get('field_primary')->value) {
+            // Now grab the field_name value.
+            if (!$para->get('field_name')->isEmpty()) {
+              $name = $para->get('field_name')->value;
+              break; // Stop if you only need the first "primary" name.
+            }
+          }
+        }
+      }
+
+      // Grab the SEX from the taxonomy reference, if available:
       $sex = !$species_entity->field_sex->isEmpty()
         ? $species_entity->field_sex->entity->label()
         : 'N/A';
 
-      // This is the textual species ID from your search manager, if you store it that way:
+      // Keep the existing approach for retrieving a text-based species ID:
       $species_id = $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id());
 
+      // This is the "number" field on the species node:
       $number = !$species_entity->field_number->isEmpty()
         ? $species_entity->field_number->value
         : 'N/A';
 
+      // Link to the species node using the "number" as the link text.
       $number_link = Link::createFromRoute($number, 'entity.node.canonical', ['node' => $species_entity->id()]);
 
       $rescue_date = !$rescue->field_rescue_date->isEmpty()
@@ -337,10 +358,12 @@ class ReleaseReportController extends ControllerBase {
 
       $rescue_cause = $this->getRescueCauseDetail($rescue);
 
+      // If the rescue node has weight/length fields:
       $rescue_metrics = ($rescue->hasField('field_weight') && $rescue->hasField('field_length'))
         ? $this->getMetricsString($rescue->field_weight, $rescue->field_length)
         : 'N/A';
 
+      // Get the pre-release metrics if available:
       $release_metrics = $this->getPreReleaseMetrics($species_entity->id());
 
       $rescue_county = !$rescue->field_county->isEmpty()
@@ -351,6 +374,7 @@ class ReleaseReportController extends ControllerBase {
         ? $release->field_county->entity->label()
         : 'N/A';
 
+      // Assemble table row data.
       $rows[] = [
         'data' => [
           ['data' => $name],
@@ -456,24 +480,43 @@ class ReleaseReportController extends ControllerBase {
   /**
    * Helper method: getMatchingSpeciesNodeIds().
    *
-   * Searches the 'species' node type by field_name or field_number.
+   * Searches the 'species' node type by:
+   *   - field_number on the node (CONTAINS $search_term)
+   *   - field_name on any referenced 'species_name' paragraphs (CONTAINS $search_term)
    * Returns an array of node IDs for matching 'species' nodes.
    */
   protected function getMatchingSpeciesNodeIds($search_term) {
+    // First, find all paragraphs of type 'species_name' that contain the $search_term in field_name.
+    $paragraph_ids = $this->entityTypeManager->getStorage('paragraph')->getQuery()
+      ->condition('type', 'species_name')
+      ->condition('field_name', $search_term, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    // Now build a query for species nodes.
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species')
-      // If you only want published species, add ->condition('status', 1)
+      // If you only want published species, also add ->condition('status', 1)
       ->accessCheck(FALSE);
 
-    // OR group for field_name OR field_number.
+    // Build an OR group for:
+    //  1) field_number matches $search_term
+    //  2) field_names references any paragraph whose ID is in $paragraph_ids
     $or_group = $query->orConditionGroup()
-      ->condition('field_name', $search_term, 'CONTAINS')
       ->condition('field_number', $search_term, 'CONTAINS');
+
+    if (!empty($paragraph_ids)) {
+      // The 'field_names' is an entity reference revisions field,
+      // but for the query, we treat it as referencing paragraph IDs.
+      $or_group->condition('field_names', $paragraph_ids, 'IN');
+    }
 
     $query->condition($or_group);
 
+    // Execute and return an array of node IDs.
     return $query->execute();
   }
+
 
   /**
    * Returns taxonomy term IDs for counties whose name matches $search_term.
