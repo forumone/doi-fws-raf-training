@@ -67,8 +67,8 @@ class ReleaseFilterForm extends FormBase {
 
     $form['filters']['search'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Keyword Search'),
-      '#description' => $this->t('Search by name, species ID, number, rescue cause, or county'),
+      '#title' => $this->t('Search'),
+      '#description' => '',
       '#size' => 30,
       '#default_value' => isset($query_params['search']) ? $query_params['search'] : '',
     ];
@@ -83,6 +83,10 @@ class ReleaseFilterForm extends FormBase {
       '#title' => $this->t('Release Date (From)'),
       '#default_value' => $release_date_from,
       '#required' => TRUE,
+      '#attributes' => [
+        // When the user changes the select value, auto-submit.
+        'onchange' => 'this.form.submit();',
+      ],
     ];
 
     $form['filters']['date_range']['release_date_to'] = [
@@ -90,6 +94,10 @@ class ReleaseFilterForm extends FormBase {
       '#title' => $this->t('Release Date (To)'),
       '#default_value' => $release_date_to,
       '#required' => TRUE,
+      '#attributes' => [
+        // When the user changes the select value, auto-submit.
+        'onchange' => 'this.form.submit();',
+      ],
     ];
 
     $form['filters']['actions'] = [
@@ -97,6 +105,9 @@ class ReleaseFilterForm extends FormBase {
       'submit' => [
         '#type' => 'submit',
         '#value' => $this->t('Filter'),
+      ],
+      '#attributes' => [
+        'style' => 'display: none;',
       ],
     ];
 

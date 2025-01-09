@@ -18,6 +18,7 @@
   }
 }
 
+#edit-filters--content,
 .views-exposed-form {
   .form-type-select .select-wrapper {
 
@@ -34,12 +35,18 @@
     }
   }
 
+  .form-control {
+    display: inline-block;
+  }
+
   .form-item {
+    float: left;
     margin-right: 20px;
     margin-bottom: 10px;
 
     label {
       margin-right: 10px;
+      display: inline-block;
     }
 
     .form-text {

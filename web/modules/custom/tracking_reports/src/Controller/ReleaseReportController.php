@@ -524,7 +524,6 @@ class ReleaseReportController extends ControllerBase {
     ];
   }
 
-
   /**
    * Gets the pre-release metrics if available.
    *
