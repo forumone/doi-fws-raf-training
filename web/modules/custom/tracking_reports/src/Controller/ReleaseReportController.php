@@ -469,7 +469,7 @@ class ReleaseReportController extends ControllerBase {
   }
 
   /**
-   * Helper method to build row data.
+   * Helper method: buildRowData().
    *
    * @param \Drupal\node\NodeInterface $species_entity
    *   The species node entity.
@@ -498,31 +498,32 @@ class ReleaseReportController extends ControllerBase {
 
     // Build the rest of the row data
     return [
-      ['data' => $name],
-      ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'],
-      ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'],
+      ['data' => $name], // 0
+      ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'], // 1
+      ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'], // 2
       ['data' => Link::createFromRoute(
         !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A',
         'entity.node.canonical',
         ['node' => $species_entity->id()]
-      )->toRenderable()],
+      )->toRenderable()], // 3
       ['data' => !$rescue->field_rescue_date->isEmpty()
         ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
-        : 'N/A'],
+        : 'N/A'], // 4
       ['data' => !$release->field_release_date->isEmpty()
         ? Link::createFromRoute(
           $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
           'entity.node.canonical',
           ['node' => $release->id()]
-        )->toRenderable()
-        : 'N/A'],
-      ['data' => $this->getRescueCauseDetail($rescue)],
-      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)],
-      ['data' => $this->getPreReleaseMetrics($species_entity->id())],
-      ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'],
-      ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'],
+        )
+        : 'N/A'], // 5 (Modified)
+      ['data' => $this->getRescueCauseDetail($rescue)], // 6
+      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)], // 7
+      ['data' => $this->getPreReleaseMetrics($species_entity->id())], // 8
+      ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'], // 9
+      ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'], // 10
     ];
   }
+
 
   /**
    * Gets the pre-release metrics if available.
