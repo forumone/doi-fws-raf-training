@@ -103,6 +103,7 @@ install:
   - charts
   - charts_highcharts
   - charts_highcharts_maps
+  - login_destination
   - paragraphs
   - paragraphs_features
   - paragraphs_ee
@@ -159,6 +160,7 @@ config:
     field_group: '*'
     inline_entity_form: '*'
     linkit: '*'
+    login_destination: '*'
     metatag: '*'
     node_revision_delete: '*'
     pathauto: '*'

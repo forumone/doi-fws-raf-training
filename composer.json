@@ -29,6 +29,7 @@
         "drupal/field_permissions": "^1.4",
         "drupal/inline_entity_form": "^3.0@RC",
         "drupal/linkit": "^6.1",
+        "drupal/login_destination": "^2.0@beta",
         "drupal/login_gov": "^1.1",
         "drupal/metatag": "^2.0",
         "drupal/node_revision_delete": "^2.0@RC",
