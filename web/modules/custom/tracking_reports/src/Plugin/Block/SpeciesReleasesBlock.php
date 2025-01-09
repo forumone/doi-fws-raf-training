@@ -77,7 +77,7 @@ class SpeciesReleasesBlock extends BlockBase implements ContainerFactoryPluginIn
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
     TrackingSearchManager $tracking_search_manager,
-    RouteMatchInterface $route_match
+    RouteMatchInterface $route_match,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;

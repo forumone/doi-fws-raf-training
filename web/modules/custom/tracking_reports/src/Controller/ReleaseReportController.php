@@ -228,7 +228,7 @@ class ReleaseReportController extends ControllerBase {
    * @return string
    *   The rescue cause detail or 'N/A'.
    */
-  protected function getRescueCauseDetail($rescue_node) {
+  protected function getRescueCauseDetail(NodeInterface $rescue_node) {
     if (!$rescue_node->field_primary_cause->isEmpty()) {
       $cause_term = $rescue_node->field_primary_cause->entity;
       if ($cause_term && !$cause_term->field_rescue_cause_detail->isEmpty()) {
