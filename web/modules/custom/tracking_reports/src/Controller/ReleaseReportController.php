@@ -142,12 +142,9 @@ class ReleaseReportController extends ControllerBase {
       'name' => 0,
       'sex' => 1,
       'species_id' => 2,
-      'number' => 3,
       'rescue_date' => 4,
       'release_date' => 5,
       'rescue_cause' => 6,
-      'rescue_metrics' => 7,
-      'release_metrics' => 8,
       'rescue_county' => 9,
       'release_county' => 10,
     ];
@@ -175,10 +172,10 @@ class ReleaseReportController extends ControllerBase {
         return ($direction === 'asc') ? -1 : 1;
       }
 
-      // Release date sorting (handle m/d/Y format)
-      if ($sort === 'release_date') {
-        $a_timestamp = strtotime(str_replace('/', '-', $a_value));
-        $b_timestamp = strtotime(str_replace('/', '-', $b_value));
+      // Date column handling (rescue_date = 4, release_date = 5)
+      if (in_array($sort, ['rescue_date', 'release_date'])) {
+        $a_timestamp = strtotime($a_value);
+        $b_timestamp = strtotime($b_value);
         
         if ($a_timestamp === $b_timestamp) {
           return 0;
@@ -188,7 +185,7 @@ class ReleaseReportController extends ControllerBase {
           : ($b_timestamp <=> $a_timestamp);
       }
 
-      // Default string comparison for all other fields
+      // Default string comparison
       $comparison = strcasecmp($a_value, $b_value);
       return ($direction === 'asc') ? $comparison : -$comparison;
     });
@@ -298,12 +295,12 @@ class ReleaseReportController extends ControllerBase {
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
-    // Apply search filters
+    // Apply search filters (keeping existing search logic)
     if (!empty($filters['search'])) {
       $search_term = $filters['search'];
       $or_group = $query->orConditionGroup();
 
-      // Add search conditions
+      // Add existing search conditions
       $matching_species_id_nids = $this->getMatchingSpeciesIdNodeIds($search_term);
       if (!empty($matching_species_id_nids)) {
         $species_ids = $this->getReferencedSpeciesIds($matching_species_id_nids);
@@ -336,7 +333,7 @@ class ReleaseReportController extends ControllerBase {
       }
     }
 
-    // Apply date range filters
+    // Apply date range filters (now required)
     $query->condition('field_release_date', $release_date_from, '>=');
     $query->condition('field_release_date', $release_date_to, '<=');
 
@@ -378,7 +375,7 @@ class ReleaseReportController extends ControllerBase {
       $rows[] = ['data' => $row_data];
     }
 
-    // Handle sorting
+    // Handle sorting for all columns using sortRows()
     $rows = $this->sortRows($rows, $sort, $direction);
 
     // Implement pagination manually after sorting
@@ -420,7 +417,7 @@ class ReleaseReportController extends ControllerBase {
     // Add pager
     $build['pager'] = [
       '#type' => 'pager',
-      '#quantity' => 5,
+      '#quantity' => 5, // Number of pager links to display
     ];
 
     return $build;
