@@ -147,41 +147,62 @@ header#navbar #navbar-collapse {
   color: #fff;
 }
 
+.release-filter-form .view-content .views-field a,
 .views-element-container .view-content .views-field a {
   white-space: nowrap;
 }
+.release-filter-form .panel-heading a,
+.release-filter-form .panel-title a,
+.views-element-container .panel-heading a,
 .views-element-container .panel-title a {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.release-filter-form .panel-heading a:not(.collapsed) .fa-caret-down,
+.release-filter-form .panel-title a:not(.collapsed) .fa-caret-down,
+.views-element-container .panel-heading a:not(.collapsed) .fa-caret-down,
 .views-element-container .panel-title a:not(.collapsed) .fa-caret-down {
   transform: rotate(180deg);
 }
+.release-filter-form .panel-body,
 .views-element-container .panel-body {
   padding: 20px;
 }
 
+#edit-filters--content .form-type-select .select-wrapper select,
+#edit-filters--content .form-type-select .select-wrapper select option,
 .views-exposed-form .form-type-select .select-wrapper select,
 .views-exposed-form .form-type-select .select-wrapper select option {
   min-width: 85px;
   min-height: 36px;
 }
+#edit-filters--content .form-type-select .select-wrapper:after,
 .views-exposed-form .form-type-select .select-wrapper:after {
   top: 27px;
   right: 0;
   z-index: 10;
 }
+#edit-filters--content .form-control,
+.views-exposed-form .form-control {
+  display: inline-block;
+}
+#edit-filters--content .form-item,
 .views-exposed-form .form-item {
+  float: left;
   margin-right: 20px;
   margin-bottom: 10px;
 }
+#edit-filters--content .form-item label,
 .views-exposed-form .form-item label {
   margin-right: 10px;
+  display: inline-block;
 }
+#edit-filters--content .form-item .form-text,
 .views-exposed-form .form-item .form-text {
   max-width: 150px;
 }
+#edit-filters--content .form-actions,
 .views-exposed-form .form-actions {
   margin-bottom: 10px;
 }

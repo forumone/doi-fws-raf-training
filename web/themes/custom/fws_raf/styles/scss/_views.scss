@@ -1,15 +1,19 @@
+.release-filter-form,
 .views-element-container {
   .view-content .views-field a {
     white-space: nowrap;
   }
 
-  .panel-title a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .panel-heading,
+  .panel-title {
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    &:not(.collapsed) .fa-caret-down {
-      transform: rotate(180deg);
+      &:not(.collapsed) .fa-caret-down {
+        transform: rotate(180deg);
+      }
     }
   }
 
@@ -18,6 +22,7 @@
   }
 }
 
+#edit-filters--content,
 .views-exposed-form {
   .form-type-select .select-wrapper {
 
@@ -34,12 +39,18 @@
     }
   }
 
+  .form-control {
+    display: inline-block;
+  }
+
   .form-item {
+    float: left;
     margin-right: 20px;
     margin-bottom: 10px;
 
     label {
       margin-right: 10px;
+      display: inline-block;
     }
 
     .form-text {
