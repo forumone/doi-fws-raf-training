@@ -10,6 +10,7 @@ dependencies:
     - field.storage.node.field_rescue_date
     - field.storage.node.field_sex
     - field.storage.node.field_species_id
+    - field.storage.node.field_species_ref
     - field.storage.node.field_weight
     - field.storage.paragraph.field_name
     - field.storage.taxonomy_term.field_rescue_cause_detail
@@ -26,7 +27,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: kjJqRla4oLdZCfEjb_CEyr7K8R5QFTTUgE6ByN6ar9M
+  default_config_hash: nbhRDOG3J1CXvMUvzEBCIKv_bYDmkWusq-vTIn4uN-g
 id: tracking_release
 label: 'Species Release'
 module: views
@@ -43,6 +44,68 @@ display:
     display_options:
       title: 'Species Release Report'
       fields:
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Species
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nid:
           id: nid
           table: node_field_data
@@ -311,7 +374,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: '/node/{{ field_number__value }}'
+            path: '/node/{{ field_species_ref }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -1833,6 +1896,7 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
@@ -1844,6 +1908,68 @@ display:
     display_options:
       title: 'Release Information'
       fields:
+        field_species_ref:
+          id: field_species_ref
+          table: node__field_species_ref
+          field: field_species_ref
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Species
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nid:
           id: nid
           table: node_field_data
@@ -2977,6 +3103,7 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'
@@ -3014,6 +3141,7 @@ display:
         - 'config:field.storage.node.field_rescue_date'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_species_ref'
         - 'config:field.storage.node.field_weight'
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.taxonomy_term.field_rescue_cause_detail'

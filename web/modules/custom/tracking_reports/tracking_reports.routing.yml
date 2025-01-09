@@ -93,3 +93,11 @@ tracking_reports.waterway_autocomplete:
     _format: 'json'
   requirements:
     _permission: 'access tracking reports'
+
+tracking_reports.release_report:
+  path: '/tracking/release2'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\ReleaseReportController::content'
+    _title: 'Species Release Report'
+  requirements:
+    _permission: 'access tracking reports'

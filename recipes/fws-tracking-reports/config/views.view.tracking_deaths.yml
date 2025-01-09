@@ -23,7 +23,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: bcK6pZQcJVlGgvqw2hd3FxCIfjnCHSGpdQe7d3OyqHo
+  default_config_hash: EWi0-v9-jDMNa6TRWNasMBuP3TNXpr8rF39chdRDzi0
 id: tracking_deaths
 label: 'Species Deaths'
 module: views
