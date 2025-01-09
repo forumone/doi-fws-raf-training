@@ -17,7 +17,7 @@ use Drupal\Core\Cache\Cache;
  *
  * @Block(
  *   id = "species_releases_block",
- *   admin_label = @Translation("Species Release"),
+ *   admin_label = @Translation("Release Information"),
  *   category = @Translation("Tracking Reports")
  * )
  */
