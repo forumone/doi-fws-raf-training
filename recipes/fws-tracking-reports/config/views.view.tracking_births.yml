@@ -25,7 +25,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: RsbgPb-CR_GLi0DagCXd-Ifo4T-hJ3VxgezM4w8AZPw
+  default_config_hash: AldTGo7I7otJI9hD0chCD32ZaEWw5HFGvPfXXo-_Atk
 id: tracking_births
 label: 'Species Births'
 module: views
