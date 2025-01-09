@@ -175,10 +175,10 @@ class ReleaseReportController extends ControllerBase {
         return ($direction === 'asc') ? -1 : 1;
       }
 
-      // Date column handling (rescue_date = 4, release_date = 5)
-      if (in_array($sort, ['rescue_date', 'release_date'])) {
-        $a_timestamp = strtotime($a_value);
-        $b_timestamp = strtotime($b_value);
+      // Release date sorting (handle m/d/Y format)
+      if ($sort === 'release_date') {
+        $a_timestamp = strtotime(str_replace('/', '-', $a_value));
+        $b_timestamp = strtotime(str_replace('/', '-', $b_value));
         
         if ($a_timestamp === $b_timestamp) {
           return 0;
@@ -188,41 +188,7 @@ class ReleaseReportController extends ControllerBase {
           : ($b_timestamp <=> $a_timestamp);
       }
 
-      // Numerical comparison (e.g., for 'number' column)
-      if ($sort === 'number') {
-        // Extract numeric part if the value contains non-numeric characters
-        $a_num = preg_replace('/[^0-9.]/', '', $a_value);
-        $b_num = preg_replace('/[^0-9.]/', '', $b_value);
-        
-        $a_num = is_numeric($a_num) ? (float) $a_num : 0;
-        $b_num = is_numeric($b_num) ? (float) $b_num : 0;
-
-        if ($a_num === $b_num) {
-          return 0;
-        }
-        return ($direction === 'asc')
-          ? ($a_num <=> $b_num)
-          : ($b_num <=> $a_num);
-      }
-
-      // Metrics comparison (weight, length columns)
-      if (in_array($sort, ['rescue_metrics', 'release_metrics'])) {
-        // Extract weight value for comparison
-        preg_match('/(\d+(?:\.\d+)?)\s*kg/', $a_value, $a_matches);
-        preg_match('/(\d+(?:\.\d+)?)\s*kg/', $b_value, $b_matches);
-        
-        $a_weight = !empty($a_matches[1]) ? (float) $a_matches[1] : 0;
-        $b_weight = !empty($b_matches[1]) ? (float) $b_matches[1] : 0;
-
-        if ($a_weight === $b_weight) {
-          return 0;
-        }
-        return ($direction === 'asc')
-          ? ($a_weight <=> $b_weight)
-          : ($b_weight <=> $a_weight);
-      }
-
-      // Default string comparison
+      // Default string comparison for all other fields
       $comparison = strcasecmp($a_value, $b_value);
       return ($direction === 'asc') ? $comparison : -$comparison;
     });
@@ -332,12 +298,12 @@ class ReleaseReportController extends ControllerBase {
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
-    // Apply search filters (keeping existing search logic)
+    // Apply search filters
     if (!empty($filters['search'])) {
       $search_term = $filters['search'];
       $or_group = $query->orConditionGroup();
 
-      // Add existing search conditions
+      // Add search conditions
       $matching_species_id_nids = $this->getMatchingSpeciesIdNodeIds($search_term);
       if (!empty($matching_species_id_nids)) {
         $species_ids = $this->getReferencedSpeciesIds($matching_species_id_nids);
@@ -370,13 +336,9 @@ class ReleaseReportController extends ControllerBase {
       }
     }
 
-    // Apply date range filters (now required)
+    // Apply date range filters
     $query->condition('field_release_date', $release_date_from, '>=');
     $query->condition('field_release_date', $release_date_to, '<=');
-
-    // Remove pager from query, since we need all results for accurate sorting
-    // Pagination will be handled manually after sorting
-    // $query->pager($this->itemsPerPage); // Removed as per requirement
 
     // Execute query and load nodes
     $release_ids = $query->execute();
@@ -416,7 +378,7 @@ class ReleaseReportController extends ControllerBase {
       $rows[] = ['data' => $row_data];
     }
 
-    // Handle sorting for all columns using sortRows()
+    // Handle sorting
     $rows = $this->sortRows($rows, $sort, $direction);
 
     // Implement pagination manually after sorting
@@ -431,12 +393,12 @@ class ReleaseReportController extends ControllerBase {
       ['data' => $this->buildSortLink('Name', 'name')],
       ['data' => $this->buildSortLink('Sex', 'sex')],
       ['data' => $this->buildSortLink('Species ID', 'species_id')],
-      ['data' => $this->buildSortLink('Number', 'number')],
+      ['data' => 'Number'],
       ['data' => $this->buildSortLink('Rescue Date', 'rescue_date')],
       ['data' => $this->buildSortLink('Release Date', 'release_date')],
       ['data' => $this->buildSortLink('Cause of Rescue', 'rescue_cause')],
-      ['data' => $this->buildSortLink('Rescue Weight, Length', 'rescue_metrics')],
-      ['data' => $this->buildSortLink('Release Weight, Length', 'release_metrics')],
+      ['data' => 'Rescue Weight, Length'],
+      ['data' => 'Release Weight, Length'],
       ['data' => $this->buildSortLink('Rescue County', 'rescue_county')],
       ['data' => $this->buildSortLink('Release County', 'release_county')],
     ];
@@ -448,8 +410,6 @@ class ReleaseReportController extends ControllerBase {
       '#rows' => $paged_rows,
       '#empty' => $this->t('No release records found.'),
       '#attributes' => ['class' => ['tracking-release-report']],
-      // Removed the tablesort library as sorting is handled in PHP
-      // '#attached' => ['library' => ['core/drupal.tablesort']],
       '#cache' => [
         'max-age' => 0,
         'contexts' => ['url.query_args', 'user.permissions'],
@@ -460,7 +420,7 @@ class ReleaseReportController extends ControllerBase {
     // Add pager
     $build['pager'] = [
       '#type' => 'pager',
-      '#quantity' => 5, // Number of pager links to display
+      '#quantity' => 5,
     ];
 
     return $build;
@@ -662,7 +622,6 @@ class ReleaseReportController extends ControllerBase {
     // Now build a query for species nodes.
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species')
-      // If you only want published species, also add ->condition('status', 1)
       ->accessCheck(FALSE);
 
     // Build an OR group for:
@@ -672,14 +631,11 @@ class ReleaseReportController extends ControllerBase {
       ->condition('field_number', $search_term, 'CONTAINS');
 
     if (!empty($paragraph_ids)) {
-      // The 'field_names' is an entity reference revisions field,
-      // but for the query, we treat it as referencing paragraph IDs.
       $or_group->condition('field_names', $paragraph_ids, 'IN');
     }
 
     $query->condition($or_group);
 
-    // Execute and return an array of node IDs.
     return $query->execute();
   }
 

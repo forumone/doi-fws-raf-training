@@ -108,8 +108,8 @@ class ReleaseFilterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     // Validate that 'release_date_from' is not after 'release_date_to'
-    $date_from = $form_state->getValue(['filters', 'date_range', 'release_date_from']);
-    $date_to = $form_state->getValue(['filters', 'date_range', 'release_date_to']);
+    $date_from = $form_state->getValue('release_date_from');
+    $date_to = $form_state->getValue('release_date_to');
 
     if (strtotime($date_from) > strtotime($date_to)) {
       $form_state->setErrorByName('release_date_from', $this->t('The "Release Date From" cannot be later than the "Release Date To".'));
@@ -124,9 +124,9 @@ class ReleaseFilterForm extends FormBase {
     $query = [];
 
     // Extract filter values
-    $search = $form_state->getValue(['filters', 'search']);
-    $release_date_from = $form_state->getValue(['filters', 'date_range', 'release_date_from']);
-    $release_date_to = $form_state->getValue(['filters', 'date_range', 'release_date_to']);
+    $search = $form_state->getValue('search');
+    $release_date_from = $form_state->getValue('release_date_from');
+    $release_date_to = $form_state->getValue('release_date_to');
 
     // Only add to query if not empty
     if (!empty($search)) {
