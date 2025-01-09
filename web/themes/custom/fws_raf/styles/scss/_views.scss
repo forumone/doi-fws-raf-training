@@ -1,15 +1,19 @@
+.release-filter-form,
 .views-element-container {
   .view-content .views-field a {
     white-space: nowrap;
   }
 
-  .panel-title a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .panel-heading,
+  .panel-title {
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    &:not(.collapsed) .fa-caret-down {
-      transform: rotate(180deg);
+      &:not(.collapsed) .fa-caret-down {
+        transform: rotate(180deg);
+      }
     }
   }
 

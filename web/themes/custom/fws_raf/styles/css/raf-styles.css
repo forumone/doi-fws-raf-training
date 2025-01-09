@@ -147,17 +147,25 @@ header#navbar #navbar-collapse {
   color: #fff;
 }
 
+.release-filter-form .view-content .views-field a,
 .views-element-container .view-content .views-field a {
   white-space: nowrap;
 }
+.release-filter-form .panel-heading a,
+.release-filter-form .panel-title a,
+.views-element-container .panel-heading a,
 .views-element-container .panel-title a {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.release-filter-form .panel-heading a:not(.collapsed) .fa-caret-down,
+.release-filter-form .panel-title a:not(.collapsed) .fa-caret-down,
+.views-element-container .panel-heading a:not(.collapsed) .fa-caret-down,
 .views-element-container .panel-title a:not(.collapsed) .fa-caret-down {
   transform: rotate(180deg);
 }
+.release-filter-form .panel-body,
 .views-element-container .panel-body {
   padding: 20px;
 }
