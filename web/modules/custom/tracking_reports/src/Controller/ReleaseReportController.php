@@ -56,7 +56,7 @@ class ReleaseReportController extends ControllerBase {
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     DateFormatterInterface $date_formatter,
-    TrackingSearchManager $tracking_search_manager
+    TrackingSearchManager $tracking_search_manager,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
@@ -169,15 +169,7 @@ class ReleaseReportController extends ControllerBase {
   }
 
   /**
-   * Gets formatted metrics string.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface|null $weight
-   *   The weight field.
-   * @param \Drupal\Core\Field\FieldItemListInterface|null $length
-   *   The length field.
-   *
-   * @return string
-   *   Formatted metrics string.
+   * Gets formatted metrics string for weight/length.
    */
   protected function getMetricsString($weight, $length) {
     $weight_val = ($weight && !$weight->isEmpty()) ? $weight->value : 'N/A';
@@ -186,7 +178,6 @@ class ReleaseReportController extends ControllerBase {
     if ($weight_val === 'N/A' && $length_val === 'N/A') {
       return 'N/A';
     }
-
     return $weight_val . ' kg, ' . $length_val . ' cm';
   }
 
@@ -201,54 +192,82 @@ class ReleaseReportController extends ControllerBase {
    */
   public function content(Request $request) {
     $build = [];
-    
-    // Add filter form
+
+    // Add filter form.
     $form_object = \Drupal::formBuilder()->getForm('Drupal\tracking_reports\Form\ReleaseFilterForm');
     $build['filters'] = $form_object;
-    
-    // Get and apply filters
+
+    // Get and apply filters.
     $filters = $request->query->all();
-    
-    // Force default sort params if not specified
+
+    // Force default sort params if not specified.
     if (!$request->query->has('sort')) {
       $request->query->set('sort', 'name');
       $request->query->set('direction', 'asc');
     }
-    
+
     $sort = $request->query->get('sort', 'release_date');
     $direction = $request->query->get('direction', 'desc');
-    
-    // Build base query with filters
+
+    // Build base query with filters, for species_release nodes.
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_release')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
+    // -- Apply SEARCH filter if present --
     if (!empty($filters['search'])) {
       $search_term = $filters['search'];
       $or_group = $query->orConditionGroup();
+
+      // 1) 'species_id' nodes that match field_species_id (e.g. "B123")
+      $matching_species_id_nids = $this->getMatchingSpeciesIdNodeIds($search_term);
+
+      if (!empty($matching_species_id_nids)) {
+        // Get the species nodes that these species_id nodes reference
+        $species_ids = $this->entityTypeManager->getStorage('node')
+          ->getQuery()
+          ->condition('nid', $matching_species_id_nids, 'IN')
+          ->condition('field_species_ref', NULL, 'IS NOT NULL')
+          ->accessCheck(FALSE)
+          ->execute();
       
-      // Get releases for matching species
-      $species_ids = $this->getMatchingSpeciesIds($search_term);
-      if (!empty($species_ids)) {
-        $or_group->condition('field_species_ref', $species_ids, 'IN');
+        if (!empty($species_ids)) {
+          $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_ids);
+          $referenced_species_ids = [];
+          foreach ($species_nodes as $node) {
+            if (!$node->field_species_ref->isEmpty()) {
+              $referenced_species_ids[] = $node->field_species_ref->target_id;
+            }
+          }
+          if (!empty($referenced_species_ids)) {
+            $or_group->condition('field_species_ref', $referenced_species_ids, 'IN');
+          }
+        }
       }
-      
-      // Get releases with matching counties
-      $county_ids = $this->getMatchingCountyIds($search_term); 
+
+      // 2) 'species' nodes that match field_name or field_number.
+      $matching_species_nids = $this->getMatchingSpeciesNodeIds($search_term);
+      if (!empty($matching_species_nids)) {
+        // The release node's field that references 'species' nodes:
+        $or_group->condition('field_species_ref', $matching_species_nids, 'IN');
+      }
+
+      // 3) If you also want to match counties, etc., you could do that here.
+      $county_ids = $this->getMatchingCountyIds($search_term);
       if (!empty($county_ids)) {
         $or_group->condition('field_county', $county_ids, 'IN');
       }
-      
-      // Get releases with matching causes
+
       $cause_ids = $this->getMatchingCauseIds($search_term);
       if (!empty($cause_ids)) {
         $or_group->condition('field_primary_cause', $cause_ids, 'IN');
       }
-      
-      // Add the OR conditions group if we have any matches
+
+      // If we never added any conditions to $or_group, it has zero count.
+      // Usually you'd want to restrict results if there's no match.
       if (!$or_group->count()) {
-        // Only restrict results if no valid search criteria
+        // Return no results:
         $query->condition('nid', 0);
       }
       else {
@@ -256,7 +275,7 @@ class ReleaseReportController extends ControllerBase {
       }
     }
 
-    // Add release date range filters
+    // Add release date range filters.
     if (!empty($filters['release_date_from'])) {
       $query->condition('field_release_date', $filters['release_date_from'], '>=');
     }
@@ -283,23 +302,54 @@ class ReleaseReportController extends ControllerBase {
         continue;
       }
 
+      // Most recent rescue for that "species" or "species_id" node:
       $rescue = $this->getMostRecentRescue($species_entity->id());
       if (!$rescue) {
         continue;
       }
 
+      // Build table row data.
       $name = $this->trackingSearchManager->getPrimaryName($species_entity->id());
-      $sex = !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A';
+      $sex = !$species_entity->field_sex->isEmpty()
+        ? $species_entity->field_sex->entity->label()
+        : 'N/A';
+
+      // This is the textual species ID from your search manager, if you store it that way:
       $species_id = $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id());
-      $number = !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A';
+
+      $number = !$species_entity->field_number->isEmpty()
+        ? $species_entity->field_number->value
+        : 'N/A';
+
       $number_link = Link::createFromRoute($number, 'entity.node.canonical', ['node' => $species_entity->id()]);
-      $rescue_date = !$rescue->field_rescue_date->isEmpty() ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y') : 'N/A';
-      $release_date = !$release->field_release_date->isEmpty() ? $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y') : 'N/A';
+
+      $rescue_date = !$rescue->field_rescue_date->isEmpty()
+        ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
+        : 'N/A';
+
+      $release_date = !$release->field_release_date->isEmpty()
+        ? Link::createFromRoute(
+            $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
+            'entity.node.canonical',
+            ['node' => $release->id()]
+          )
+        : 'N/A';
+
       $rescue_cause = $this->getRescueCauseDetail($rescue);
-      $rescue_metrics = ($rescue->hasField('field_weight') && $rescue->hasField('field_length')) ? $this->getMetricsString($rescue->field_weight, $rescue->field_length) : 'N/A';
+
+      $rescue_metrics = ($rescue->hasField('field_weight') && $rescue->hasField('field_length'))
+        ? $this->getMetricsString($rescue->field_weight, $rescue->field_length)
+        : 'N/A';
+
       $release_metrics = $this->getPreReleaseMetrics($species_entity->id());
-      $rescue_county = !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A';
-      $release_county = !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A';
+
+      $rescue_county = !$rescue->field_county->isEmpty()
+        ? $rescue->field_county->entity->label()
+        : 'N/A';
+
+      $release_county = !$release->field_county->isEmpty()
+        ? $release->field_county->entity->label()
+        : 'N/A';
 
       $rows[] = [
         'data' => [
@@ -318,8 +368,10 @@ class ReleaseReportController extends ControllerBase {
       ];
     }
 
+    // Sort the rows.
     $rows = $this->sortRows($rows, $sort, $direction);
 
+    // Build table header.
     $headers = [
       ['data' => $this->t('Name'), 'field' => 'name'],
       ['data' => $this->t('Sex'), 'field' => 'sex'],
@@ -334,6 +386,7 @@ class ReleaseReportController extends ControllerBase {
       ['data' => $this->t('Release County'), 'field' => 'release_county'],
     ];
 
+    // Attach table.
     $build['table'] = [
       '#type' => 'table',
       '#header' => $headers,
@@ -352,6 +405,7 @@ class ReleaseReportController extends ControllerBase {
       '#type' => 'pager',
     ];
 
+    // Update the table header sort indicators.
     foreach ($build['table']['#header'] as &$header) {
       if (!empty($header['field']) && $header['field'] === $sort) {
         $header['sorted'] = TRUE;
@@ -365,6 +419,9 @@ class ReleaseReportController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Gets the pre-release metrics if available.
+   */
   protected function getPreReleaseMetrics($species_id) {
     $prerelease_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_prerelease')
@@ -372,7 +429,7 @@ class ReleaseReportController extends ControllerBase {
       ->sort('created', 'DESC')
       ->range(0, 1)
       ->accessCheck(FALSE);
-  
+
     $results = $prerelease_query->execute();
     if (!empty($results)) {
       $prerelease = $this->entityTypeManager->getStorage('node')->load(reset($results));
@@ -382,79 +439,45 @@ class ReleaseReportController extends ControllerBase {
   }
 
   /**
-   * Helper method: getMatchingSpeciesIds().
+   * Helper method: getMatchingSpeciesIdNodeIds().
    *
-   * Returns an array of node IDs (species) that match the search term.
+   * Searches the 'species_id' node type by its field_species_id text field.
+   * Returns an array of node IDs for matching 'species_id' nodes.
    */
-  protected function getMatchingSpeciesIds($search_term) {
-    // 1) Gather any species_id nodes matching the user’s text input:
-    $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+  protected function getMatchingSpeciesIdNodeIds($search_term) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_id', $search_term, 'CONTAINS')
       ->accessCheck(FALSE);
-    $matching_species_ids = $species_id_query->execute();
 
-    // Convert these species_id nodes to an array of IDs so we can use them later.
-    // (If you really do store a reference to these nodes somewhere else.)
-    $species_node_ids = [];
-    if (!empty($matching_species_ids)) {
-      $species_id_nodes = $this->entityTypeManager->getStorage('node')
-        ->loadMultiple($matching_species_ids);
-      $species_node_ids = array_map(function($node) {
-        return $node->id();
-      }, $species_id_nodes);
-    }
-
-    // 2) Build the base species node query.
-    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', 'species')
-      ->condition('status', 1)
-      ->accessCheck(FALSE);
-
-    // 3) Build an OR group matching `field_number` or `field_name`.
-    $or_group = $species_query->orConditionGroup()
-      ->condition('field_number', $search_term, 'CONTAINS')
-      ->condition('field_name', $search_term, 'CONTAINS');
-
-    // 4) If you have references to the `species_id` nodes, add them too:
-    if (!empty($species_node_ids)) {
-      // This assumes your species node has something like field_species_ref
-      // referencing the species_id nodes. Adjust to your field name.
-      $or_group->condition('field_species_ref', $species_node_ids, 'IN');
-    }
-
-    // 5) NEW: Query paragraphs that store a species name in `field_name`.
-    //    Make sure to set the correct paragraph type (e.g. `my_species_paragraph`).
-    $paragraph_ids = $this->entityTypeManager->getStorage('paragraph')->getQuery()
-      ->condition('type', 'species_name')
-      ->condition('field_name', $search_term, 'CONTAINS')
-      ->accessCheck(FALSE)
-      ->execute();
-
-    // 6) If there are any matching paragraphs, find which species nodes reference them.
-    if (!empty($paragraph_ids)) {
-      // Query species nodes that reference these paragraphs.
-      $species_nids_from_paragraphs = $this->entityTypeManager->getStorage('node')
-        ->getQuery()
-        ->condition('type', 'species')
-        ->condition('field_names', $paragraph_ids, 'IN')
-        ->accessCheck(FALSE)
-        ->execute();
-
-      // 7) Add those species node IDs to the OR group if found:
-      if (!empty($species_nids_from_paragraphs)) {
-        $or_group->condition('nid', $species_nids_from_paragraphs, 'IN');
-      }
-    }
-
-    // 8) Attach the OR group to the main species query:
-    $species_query->condition($or_group);
-
-    // 9) Execute and return the final array of matching species node IDs.
-    return $species_query->execute();
+    return $query->execute();
   }
 
-  
+  /**
+   * Helper method: getMatchingSpeciesNodeIds().
+   *
+   * Searches the 'species' node type by field_name or field_number.
+   * Returns an array of node IDs for matching 'species' nodes.
+   */
+  protected function getMatchingSpeciesNodeIds($search_term) {
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species')
+      // If you only want published species, add ->condition('status', 1)
+      ->accessCheck(FALSE);
+
+    // OR group for field_name OR field_number.
+    $or_group = $query->orConditionGroup()
+      ->condition('field_name', $search_term, 'CONTAINS')
+      ->condition('field_number', $search_term, 'CONTAINS');
+
+    $query->condition($or_group);
+
+    return $query->execute();
+  }
+
+  /**
+   * Returns taxonomy term IDs for counties whose name matches $search_term.
+   */
   protected function getMatchingCountyIds($search_term) {
     return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
       ->condition('vid', 'counties')
@@ -462,7 +485,10 @@ class ReleaseReportController extends ControllerBase {
       ->accessCheck(FALSE)
       ->execute();
   }
-  
+
+  /**
+   * Returns taxonomy term IDs for rescue causes whose detail matches $search_term.
+   */
   protected function getMatchingCauseIds($search_term) {
     return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
       ->condition('vid', 'rescue_causes')
