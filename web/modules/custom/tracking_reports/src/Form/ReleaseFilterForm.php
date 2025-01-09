@@ -49,6 +49,9 @@ class ReleaseFilterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // Attach the tracking_reports library to the form
+    $form['#attached']['library'][] = 'tracking_reports/tracking_reports';
+
     $query_params = \Drupal::request()->query->all();
 
     // Determine the prior year.

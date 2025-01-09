@@ -25,4 +25,19 @@
       });
     }
   };
+
+  Drupal.behaviors.searchAutoSubmit = {
+    attach: function (context, settings) {
+      once('search-auto-submit', '[name="search"]', context).forEach(function (element) {
+        let timer;
+        $(element).on('input', function() {
+          clearTimeout(timer);
+          // Add a small delay to prevent too many submissions while typing
+          timer = setTimeout(() => {
+            $(this).closest('form').submit();
+          }, 500);
+        });
+      });
+    }
+  };
 })(jQuery, Drupal, once);
