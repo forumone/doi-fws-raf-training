@@ -224,27 +224,35 @@ class ReleaseReportController extends ControllerBase {
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
 
-    // Apply search filter
     if (!empty($filters['search'])) {
-      $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species')
-        ->condition('status', 1)
-        ->accessCheck(FALSE);
-  
-      $or_group = $species_query->orConditionGroup()
-        ->condition('field_number', '%' . $filters['search'] . '%', 'LIKE')
-        ->condition('field_species_id', '%' . $filters['search'] . '%', 'LIKE')
-        ->condition('field_name', '%' . $filters['search'] . '%', 'LIKE');
+      $search_term = $filters['search'];
+      $or_group = $query->orConditionGroup();
       
-      $species_query->condition($or_group);
-      $species_ids = $species_query->execute();
-      
+      // Get releases for matching species
+      $species_ids = $this->getMatchingSpeciesIds($search_term);
       if (!empty($species_ids)) {
-        $query->condition('field_species_ref', $species_ids, 'IN');
+        $or_group->condition('field_species_ref', $species_ids, 'IN');
+      }
+      
+      // Get releases with matching counties
+      $county_ids = $this->getMatchingCountyIds($search_term); 
+      if (!empty($county_ids)) {
+        $or_group->condition('field_county', $county_ids, 'IN');
+      }
+      
+      // Get releases with matching causes
+      $cause_ids = $this->getMatchingCauseIds($search_term);
+      if (!empty($cause_ids)) {
+        $or_group->condition('field_primary_cause', $cause_ids, 'IN');
+      }
+      
+      // Add the OR conditions group if we have any matches
+      if (!$or_group->count()) {
+        // Only restrict results if no valid search criteria
+        $query->condition('nid', 0);
       }
       else {
-        // If no matching species found, return no results
-        $query->condition('nid', 0);
+        $query->condition($or_group);
       }
     }
 
@@ -372,4 +380,95 @@ class ReleaseReportController extends ControllerBase {
     }
     return 'N/A';
   }
+
+  /**
+   * Helper method: getMatchingSpeciesIds().
+   *
+   * Returns an array of node IDs (species) that match the search term.
+   */
+  protected function getMatchingSpeciesIds($search_term) {
+    // 1) Gather any species_id nodes matching the user’s text input:
+    $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_id')
+      ->condition('field_species_id', $search_term, 'CONTAINS')
+      ->accessCheck(FALSE);
+    $matching_species_ids = $species_id_query->execute();
+
+    // Convert these species_id nodes to an array of IDs so we can use them later.
+    // (If you really do store a reference to these nodes somewhere else.)
+    $species_node_ids = [];
+    if (!empty($matching_species_ids)) {
+      $species_id_nodes = $this->entityTypeManager->getStorage('node')
+        ->loadMultiple($matching_species_ids);
+      $species_node_ids = array_map(function($node) {
+        return $node->id();
+      }, $species_id_nodes);
+    }
+
+    // 2) Build the base species node query.
+    $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species')
+      ->condition('status', 1)
+      ->accessCheck(FALSE);
+
+    // 3) Build an OR group matching `field_number` or `field_name`.
+    $or_group = $species_query->orConditionGroup()
+      ->condition('field_number', $search_term, 'CONTAINS')
+      ->condition('field_name', $search_term, 'CONTAINS');
+
+    // 4) If you have references to the `species_id` nodes, add them too:
+    if (!empty($species_node_ids)) {
+      // This assumes your species node has something like field_species_ref
+      // referencing the species_id nodes. Adjust to your field name.
+      $or_group->condition('field_species_ref', $species_node_ids, 'IN');
+    }
+
+    // 5) NEW: Query paragraphs that store a species name in `field_name`.
+    //    Make sure to set the correct paragraph type (e.g. `my_species_paragraph`).
+    $paragraph_ids = $this->entityTypeManager->getStorage('paragraph')->getQuery()
+      ->condition('type', 'species_name')
+      ->condition('field_name', $search_term, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    // 6) If there are any matching paragraphs, find which species nodes reference them.
+    if (!empty($paragraph_ids)) {
+      // Query species nodes that reference these paragraphs.
+      $species_nids_from_paragraphs = $this->entityTypeManager->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'species')
+        ->condition('field_names', $paragraph_ids, 'IN')
+        ->accessCheck(FALSE)
+        ->execute();
+
+      // 7) Add those species node IDs to the OR group if found:
+      if (!empty($species_nids_from_paragraphs)) {
+        $or_group->condition('nid', $species_nids_from_paragraphs, 'IN');
+      }
+    }
+
+    // 8) Attach the OR group to the main species query:
+    $species_query->condition($or_group);
+
+    // 9) Execute and return the final array of matching species node IDs.
+    return $species_query->execute();
+  }
+
+  
+  protected function getMatchingCountyIds($search_term) {
+    return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
+      ->condition('vid', 'counties')
+      ->condition('name', $search_term, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->execute();
+  }
+  
+  protected function getMatchingCauseIds($search_term) {
+    return $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
+      ->condition('vid', 'rescue_causes')
+      ->condition('field_rescue_cause_detail', $search_term, 'CONTAINS')
+      ->accessCheck(FALSE)
+      ->execute();
+  }
+
 }

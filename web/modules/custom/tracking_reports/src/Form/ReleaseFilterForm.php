@@ -21,7 +21,8 @@ class ReleaseFilterForm extends FormBase {
 
     $form['filters']['search'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Search'),
+      '#title' => $this->t('Keyword Search'),
+      '#description' => $this->t('Search by name, species ID, number, rescue cause, or county'),
       '#size' => 30,
       '#default_value' => $query_params['search'] ?? '',
     ];
@@ -66,5 +67,5 @@ class ReleaseFilterForm extends FormBase {
 
     $form_state->setRedirect($current_route, [], ['query' => $query]);
   }
-  
+
 }
