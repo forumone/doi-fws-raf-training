@@ -47,8 +47,8 @@ class FacilityInventoryController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-    $container->get('entity_type.manager'),
-    $container->get('request_stack')
+      $container->get('entity_type.manager'),
+      $container->get('request_stack')
     );
   }
 
@@ -128,6 +128,10 @@ class FacilityInventoryController extends ControllerBase {
         ],
       ],
     ];
+
+    // -------------------------------------------------------
+    // 1) FETCH & PROCESS ALL RELEVANT DATA (Statuses, Deaths, Releases, IDs, Rescues, etc.)
+    // -------------------------------------------------------
 
     // Get status reports for the species.
     $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -241,7 +245,7 @@ class FacilityInventoryController extends ControllerBase {
           if ($rescue_node->hasField('field_primary_cause') && !$rescue_node->field_primary_cause->isEmpty()) {
             $primary_cause_term = $rescue_node->field_primary_cause->entity;
             if ($primary_cause_term->hasField('field_rescue_cause') &&
-            !$primary_cause_term->field_rescue_cause->isEmpty()) {
+              !$primary_cause_term->field_rescue_cause->isEmpty()) {
               $rescue_cause_detail = $primary_cause_term->field_rescue_cause->value;
             }
           }
@@ -266,6 +270,7 @@ class FacilityInventoryController extends ControllerBase {
             $rescue_cause_details[$species_entity_id] = $rescue_cause_detail;
           }
 
+          // Track type 'B' rescues specifically.
           if ($rescue_type === 'B') {
             if (!isset($type_b_rescue_dates[$species_entity_id]) || $date > $type_b_rescue_dates[$species_entity_id]) {
               $type_b_rescue_dates[$species_entity_id] = $date;
@@ -303,17 +308,7 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    if (!empty($birth_query)) {
-      $birth_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($birth_query);
-      foreach ($birth_nodes as $birth_node) {
-        if ($birth_node->hasField('field_species_ref') && !$birth_node->field_species_ref->isEmpty()) {
-          $species_entity_id = $birth_node->field_species_ref->target_id;
-          $birth_dates[$species_entity_id] = $birth_node->field_birth_date->value;
-        }
-      }
-    }
-
-    // Define event types.
+    // Define event types we care about.
     $event_types = [
       'species_birth' => 'field_birth_date',
       'species_rescue' => 'field_rescue_date',
@@ -321,20 +316,21 @@ class FacilityInventoryController extends ControllerBase {
       'species_release' => 'field_release_date',
     ];
 
-    // Get all species with MLOGs that were active in the specified year.
+    // Get all species that might be active.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species')
-      ->condition('field_number', NULL, 'IS NOT NULL');
+      ->condition('field_number', NULL, 'IS NOT NULL')
+      ->accessCheck(FALSE);
 
-    // Exclude species that died or were released before the specified year.
-    if (!empty($deceased_ids)) {
-      $species_query->condition('nid', $deceased_ids, 'NOT IN');
+    // Exclude species that died or were released within that year.
+    if (!empty($deceased_entity_ids)) {
+      $species_query->condition('nid', $deceased_entity_ids, 'NOT IN');
     }
-    if (!empty($released_ids)) {
-      $species_query->condition('nid', $released_ids, 'NOT IN');
+    if (!empty($released_entity_ids)) {
+      $species_query->condition('nid', $released_entity_ids, 'NOT IN');
     }
 
-    $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
+    $species_entity_ids = $species_query->execute();
 
     // Get primary names from paragraphs.
     $primary_names = [];
@@ -356,7 +352,7 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Get all events.
+    // Collect event data.
     $event_nodes = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -369,7 +365,6 @@ class FacilityInventoryController extends ControllerBase {
         ->accessCheck(FALSE);
 
       $results = $query->execute();
-
       if (!empty($results)) {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
@@ -377,6 +372,7 @@ class FacilityInventoryController extends ControllerBase {
             $species_entity_id = $node->field_species_ref->target_id;
             $date_value = $node->get($date_field)->value;
 
+            // Determine the facility term (e.g., to_facility, org, etc.).
             $facility_term = NULL;
             if ($type === 'transfer' && $node->hasField('field_to_facility') && !$node->field_to_facility->isEmpty()) {
               $facility_term = $node->field_to_facility->entity;
@@ -385,15 +381,12 @@ class FacilityInventoryController extends ControllerBase {
               $facility_term = $node->field_org->entity;
             }
 
-            $weight = 'N/A';
-            $length = 'N/A';
-
-            if ($node->hasField('field_weight') && !$node->field_weight->isEmpty()) {
-              $weight = $node->field_weight->value;
-            }
-            if ($node->hasField('field_length') && !$node->field_length->isEmpty()) {
-              $length = $node->field_length->value;
-            }
+            $weight = $node->hasField('field_weight') && !$node->field_weight->isEmpty()
+              ? $node->field_weight->value
+              : 'N/A';
+            $length = $node->hasField('field_length') && !$node->field_length->isEmpty()
+              ? $node->field_length->value
+              : 'N/A';
 
             $event_nodes[$species_entity_id][] = [
               'nid' => $node->id(),
@@ -409,213 +402,163 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Process events.
+    // Determine most recent event for each species.
     $most_recent_events = [];
-    foreach ($species_entity_ids as $species_entity_id) {
-      if (isset($event_nodes[$species_entity_id])) {
-        usort($event_nodes[$species_entity_id], function ($a, $b) {
-          return strcmp($b['date'], $a['date']);
-        });
-
-        if ($event_nodes[$species_entity_id][0]['type'] !== 'species_release') {
-          $most_recent_events[$species_entity_id] = $event_nodes[$species_entity_id][0];
+    if (!empty($species_entity_ids)) {
+      foreach ($species_entity_ids as $species_entity_id) {
+        if (isset($event_nodes[$species_entity_id])) {
+          usort($event_nodes[$species_entity_id], function ($a, $b) {
+            return strcmp($b['date'], $a['date']);
+          });
+          // Only consider most-recent if it's not a release event
+          // (since we want species still in captivity).
+          if ($event_nodes[$species_entity_id][0]['type'] !== 'species_release') {
+            $most_recent_events[$species_entity_id] = $event_nodes[$species_entity_id][0];
+          }
         }
       }
     }
 
-    // Load species and prepare sortable data.
-    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
+    // -------------------------------------------------------
+    // 2) BUILD $sortable_data ARRAY
+    // -------------------------------------------------------
+    // Always initialize $sortable_data to avoid "null given" errors in usort.
     $sortable_data = [];
 
-    foreach ($species as $species_entity) {
-      if (!isset($most_recent_events[$species_entity->id()])) {
-        continue;
-      }
+    // Load species and prepare data.
+    if (!empty($species_entity_ids)) {
+      $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
 
-      $event = $most_recent_events[$species_entity->id()];
-
-      $number = "N/A";
-      if ($species_entity->hasField('field_number') && !$species_entity->field_number->isEmpty()) {
-        $number_value = $species_entity->get('field_number')->getValue();
-        $number = $number_value[0]['value'] ?? "N/A";
-      }
-
-      $rescue_date = isset($latest_rescue_dates[$species_entity->id()])
-        ? (new DrupalDateTime($latest_rescue_dates[$species_entity->id()]))->format('Y-m-d')
-        : 'N/A';
-
-      $name = $primary_names[$species_entity->id()] ?? '';
-      $species_id = $species_id_values[$species_entity->id()] ?? '';
-      $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
-      $rescue_cause_detail = $rescue_cause_details[$species_entity->id()] ?? 'N/A';
-      $county = $rescue_counties[$species_entity->id()] ?? 'N/A';
-
-      $captivity_date = NULL;
-      if (isset($type_b_rescue_dates[$species_entity->id()])) {
-        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$species_entity->id()]);
-      }
-      elseif (isset($birth_dates[$species_entity->id()])) {
-        $captivity_date = new DrupalDateTime($birth_dates[$species_entity->id()]);
-      }
-
-      $time_in_captivity = 'N/A';
-      if ($captivity_date) {
-        $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
-      }
-
-      $weight_length = 'N/A';
-      if ($event['weight'] !== 'N/A' || $event['length'] !== 'N/A') {
-        $weight_length = '';
-        if ($event['weight'] !== 'N/A') {
-          $weight_length .= $event['weight'] . ' kg';
+      foreach ($species as $species_entity) {
+        // If we have no "most recent event" for this entity, skip.
+        if (!isset($most_recent_events[$species_entity->id()])) {
+          continue;
         }
-        if ($event['length'] !== 'N/A') {
-          if ($weight_length !== '') {
-            $weight_length .= ', ';
+
+        $event = $most_recent_events[$species_entity->id()];
+
+        // Gather fields.
+        $number = 'N/A';
+        if ($species_entity->hasField('field_number') && !$species_entity->field_number->isEmpty()) {
+          $number_value = $species_entity->get('field_number')->getValue();
+          $number = $number_value[0]['value'] ?? 'N/A';
+        }
+
+        $rescue_date = isset($latest_rescue_dates[$species_entity->id()])
+          ? (new DrupalDateTime($latest_rescue_dates[$species_entity->id()]))->format('Y-m-d')
+          : 'N/A';
+
+        $name = $primary_names[$species_entity->id()] ?? '';
+        $species_id = $species_id_values[$species_entity->id()] ?? '';
+        $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
+        $rescue_cause_detail = $rescue_cause_details[$species_entity->id()] ?? 'N/A';
+        $county = $rescue_counties[$species_entity->id()] ?? 'N/A';
+
+        // Determine start of captivity date (type B rescue date or birth date).
+        $captivity_date = NULL;
+        if (isset($type_b_rescue_dates[$species_entity->id()])) {
+          $captivity_date = new DrupalDateTime($type_b_rescue_dates[$species_entity->id()]);
+        }
+        elseif (isset($birth_dates[$species_entity->id()])) {
+          $captivity_date = new DrupalDateTime($birth_dates[$species_entity->id()]);
+        }
+
+        // Calculate time in captivity.
+        $time_in_captivity = 'N/A';
+        if ($captivity_date) {
+          $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
+        }
+
+        // Weight/length display.
+        $weight_length = 'N/A';
+        if ($event['weight'] !== 'N/A' || $event['length'] !== 'N/A') {
+          $weight_pieces = [];
+          if ($event['weight'] !== 'N/A') {
+            $weight_pieces[] = $event['weight'] . ' kg';
           }
-          $weight_length .= $event['length'] . ' cm';
+          if ($event['length'] !== 'N/A') {
+            $weight_pieces[] = $event['length'] . ' cm';
+          }
+          $weight_length = implode(', ', $weight_pieces);
         }
-      }
 
-      $facility_name = 'N/A';
-      if ($event['facility_term'] && $event['facility_term']->hasField('name')) {
-        $facility_name = $event['facility_term']->getName();
-      }
+        // Facility name.
+        $facility_name = 'N/A';
+        if ($event['facility_term'] && $event['facility_term']->hasField('name')) {
+          $facility_name = $event['facility_term']->getName();
+        }
 
-      $medical_status = $species_statuses[$species_entity->id()] ?? 'N/A';
+        // Medical status (from the status_report if any).
+        $medical_status = $species_statuses[$species_entity->id()] ?? 'N/A';
 
-      if ($rescue_type === 'B' || $rescue_type === 'none') {
-        $sortable_data[] = [
-          'facility_name' => $facility_name,
-          'name' => $name,
-          'species_id' => $species_id,
-          'number' => $number,
-          'weight_length' => $weight_length,
-          'county' => $county,
-          'rescue_date' => $rescue_date,
-          'rescue_cause' => $rescue_cause_detail,
-          'time_in_captivity' => $time_in_captivity,
-          'medical_status' => $medical_status,
-          'species_nid' => $species_entity->id(),
-        ];
+        // Add to $sortable_data only if the rescue is Type B or none.
+        if ($rescue_type === 'B' || $rescue_type === 'none') {
+          $sortable_data[] = [
+            'facility_name' => $facility_name,
+            'name' => $name,
+            'species_id' => $species_id,
+            'number' => $number,
+            'weight_length' => $weight_length,
+            'county' => $county,
+            'rescue_date' => $rescue_date,
+            'rescue_cause' => $rescue_cause_detail,
+            'time_in_captivity' => $time_in_captivity,
+            'medical_status' => $medical_status,
+            'species_nid' => $species_entity->id(),
+          ];
+        }
       }
     }
 
+    // -------------------------------------------------------
+    // 3) SORT ONLY BY FACILITY (IF DATA EXISTS)
+    // -------------------------------------------------------
     // Get current sort field and direction.
     $order_by = \Drupal::request()->query->get('order', 'facility_name');
     $sort = \Drupal::request()->query->get('sort', 'asc');
 
-    // Define valid sort fields.
+    // The only valid sort field is 'facility_name'.
     $valid_sort_fields = [
       'facility_name',
-      'name',
-      'species_id',
-      'number',
-      'county',
-      'rescue_date',
-      'rescue_cause',
-      'time_in_captivity',
-      'medical_status',
     ];
 
-    // If order_by is not in valid fields, default to facility_name.
+    // If $order_by is not 'facility_name', default to it.
     if (!in_array($order_by, $valid_sort_fields)) {
       $order_by = 'facility_name';
     }
 
-    // Sort the data.
-    usort($sortable_data, function ($a, $b) use ($order_by, $sort) {
-      // Ensure both arrays have the required key.
-      if (!isset($a[$order_by]) || !isset($b[$order_by])) {
-        return 0;
-      }
-
-      // Special handling for rescue_date.
-      if ($order_by === 'rescue_date') {
-        $date_a = $a[$order_by] === 'N/A' ? '0000-00-00' : $a[$order_by];
-        $date_b = $b[$order_by] === 'N/A' ? '0000-00-00' : $b[$order_by];
-        $result = strcmp($date_a, $date_b);
-      }
-      // Special handling for time_in_captivity.
-      elseif ($order_by === 'time_in_captivity') {
-        // Convert time strings to comparable values.
-        $getValue = function ($str) {
-          if ($str === 'N/A') {
-            return 0;
-          }
-          $months = 0;
-          if (preg_match('/(\d+)\s*yr/', $str, $matches)) {
-            $months += $matches[1] * 12;
-          }
-          if (preg_match('/(\d+)\s*mo/', $str, $matches)) {
-            $months += $matches[1];
-          }
-          return $months;
-        };
-
-        $val_a = $getValue($a[$order_by]);
-        $val_b = $getValue($b[$order_by]);
-        $result = $val_a - $val_b;
-      }
-      else {
+    // Sort only if $sortable_data is not empty.
+    if (!empty($sortable_data)) {
+      usort($sortable_data, function ($a, $b) use ($order_by, $sort) {
+        if (!isset($a[$order_by]) || !isset($b[$order_by])) {
+          return 0;
+        }
         $result = strnatcasecmp($a[$order_by], $b[$order_by]);
-      }
+        return ($sort === 'asc') ? $result : -$result;
+      });
+    }
 
-      return $sort === 'asc' ? $result : -$result;
-    });
-
-    // Prepare table headers with sorting.
+    // -------------------------------------------------------
+    // 4) BUILD TABLE HEADERS & ROWS
+    // -------------------------------------------------------
+    // Only Facility is sortable.
     $header = [
       [
         'data' => $this->t('Facility'),
         'field' => 'facility_name',
         'sort' => 'asc',
       ],
-      [
-        'data' => $this->t('Name'),
-        'field' => 'name',
-        'sort' => 'asc',
-      ],
-      [
-        'data' => $this->t('Species') . ' ' . $this->t('ID'),
-        'field' => 'species_id',
-        'sort' => 'asc',
-      ],
-      [
-        'data' => $this->t('Species') . ' ' . $this->t('Number'),
-        'field' => 'number',
-        'sort' => 'asc',
-      ],
-      // Weight, Length column without sorting.
+      ['data' => $this->t('Name')],
+      ['data' => $this->t('Species') . ' ' . $this->t('ID')],
+      ['data' => $this->t('Species') . ' ' . $this->t('Number')],
       ['data' => $this->t('Weight, Length')],
-      [
-        'data' => $this->t('County'),
-        'field' => 'county',
-        'sort' => 'asc',
-      ],
-      [
-        'data' => $this->t('Rescue Date'),
-        'field' => 'rescue_date',
-        'sort' => 'desc',
-      ],
-      [
-        'data' => $this->t('Cause of Rescue'),
-        'field' => 'rescue_cause',
-        'sort' => 'asc',
-      ],
-      [
-        'data' => $this->t('Time in Captivity'),
-        'field' => 'time_in_captivity',
-        'sort' => 'desc',
-      ],
-      [
-        'data' => $this->t('Medical Status'),
-        'field' => 'medical_status',
-        'sort' => 'asc',
-      ],
+      ['data' => $this->t('County')],
+      ['data' => $this->t('Rescue Date')],
+      ['data' => $this->t('Cause of Rescue')],
+      ['data' => $this->t('Time in Captivity')],
+      ['data' => $this->t('Medical Status')],
     ];
 
-    // Build rows from sorted data.
     $rows = [];
     foreach ($sortable_data as $data) {
       $rows[] = [
@@ -640,20 +583,20 @@ class FacilityInventoryController extends ControllerBase {
       ];
     }
 
-    // Build table.
-    $table = [
-      '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
-      '#empty' => $this->t('No results found'),
-      '#attributes' => ['class' => ['tracking-report-table']],
-    ];
-
+    // -------------------------------------------------------
+    // 5) RETURN RENDER ARRAY
+    // -------------------------------------------------------
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['tracking-report-container']],
       'filters' => $form,
-      'table' => $table,
+      'table' => [
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#empty' => $this->t('No results found'),
+        '#attributes' => ['class' => ['tracking-report-table']],
+      ],
       '#attached' => [
         'library' => [
           'tracking_reports/tracking_reports',
