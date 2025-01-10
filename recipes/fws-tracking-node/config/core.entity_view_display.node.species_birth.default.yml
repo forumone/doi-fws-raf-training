@@ -22,7 +22,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: Ksf663S6WtJRjk_Rmgdf_knFOBNkiY-AXGrL2YQFHsA
+  default_config_hash: gCdfL4-Gq5-1AWIOLNie03TQEiKYb8KIZD8-j3odFWY
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth

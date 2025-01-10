@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_budget
     - node.type.research_project
 _core:
-  default_config_hash: 5ZFDIk9jyCxLb6A84im0LgRjQFN3_MslhEEnvxqWh1Q
+  default_config_hash: Sk41lnFMJX_fTReL5dtS_p_xJx27iFCd4PCDFAb_yLw
 id: node.research_project.field_budget
 field_name: field_budget
 entity_type: node

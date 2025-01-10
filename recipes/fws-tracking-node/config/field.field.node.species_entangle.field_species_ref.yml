@@ -7,7 +7,7 @@ dependencies:
     - node.type.species
     - node.type.species_entangle
 _core:
-  default_config_hash: lR14jIZ13Wbbp8wBRZwDEDs652zFwf8ufd6YnQ6ekng
+  default_config_hash: sSYrlvhIq6W0U4Rb0Ybctx6BD_0YcrfKvt_Eu7LZdTM
 id: node.species_entangle.field_species_ref
 field_name: field_species_ref
 entity_type: node

@@ -26,7 +26,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: llBXwhBIXqHwmUYkNxthutuzabXdd9-7sT020L65A3o
+  default_config_hash: 9nYcN6h8M1dheheFvSkG_sAzRQnal5X5gABp2Uho7Dk
 id: node.research_project.default
 targetEntityType: node
 bundle: research_project

@@ -15,7 +15,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: BqNO6pvw_eoY4GGKyGvwESDVuZH0HNo2156ZZ8hce1I
+  default_config_hash: jbjsNRTlN6Fa08a4kjmW0mcoRyIS4zsAogUQ9-5t1DI
 id: node.species_conditioning.default
 targetEntityType: node
 bundle: species_conditioning
