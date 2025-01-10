@@ -30,7 +30,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 6HJWwTfGmLRcULwWLRmVQU8dh0tZgr_uJMg7IykG75U
+  default_config_hash: riNYg_GExpxBq6lsjanj3Qzgv7_xQOyJOQY1q7XwX74
 id: tracking_status
 label: 'Species Status Report'
 module: views
@@ -553,10 +553,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -617,10 +615,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -870,10 +866,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -997,10 +991,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: number_unformatted
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
