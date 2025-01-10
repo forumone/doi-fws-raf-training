@@ -114,6 +114,7 @@ class FacilityInventoryController extends ControllerBase {
     $year_end = $year . '-12-31';
 
     // Build the year filter form.
+    $base_url = Url::fromRoute('<current>')->toString();
     $form = [
       '#type' => 'container',
       '#attributes' => ['class' => ['tracking-report-filters']],
@@ -121,9 +122,9 @@ class FacilityInventoryController extends ControllerBase {
         '#type' => 'select',
         '#title' => $this->t('Select Year:'),
         '#options' => $year_options,
-        '#default_value' => $year,
+        '#value' => $year,
         '#attributes' => [
-          'onChange' => 'window.location.href = "' . Url::fromRoute('<current>')->toString() . '?year=" + this.value',
+          'onchange' => "window.location.href = '" . $base_url . "' + (this.value ? '?year=' + this.value : '')",
         ],
       ],
     ];
