@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: axmSu866p5s2f9JTJ0sOdhXUanUhnnlRM56H5FAMttk
+  default_config_hash: X_YtP1WvLpHfe1VF_naNu1iHui-cCjiigQet7Ti12Jw
 id: node.field_rescue_per_day
 field_name: field_rescue_per_day
 entity_type: node

@@ -7,7 +7,7 @@ dependencies:
     - node.type.species
     - node.type.transfer
 _core:
-  default_config_hash: rybAkvA5yx60y4jDWiv-ZRS0eMX-ortHQGXebV9JtQI
+  default_config_hash: 6cXbHEqG1WddzMVz57Uf0j1W34o9PXWHIcx6bbLyn6w
 id: node.transfer.field_species_ref
 field_name: field_species_ref
 entity_type: node

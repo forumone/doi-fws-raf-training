@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: 9bqmRYfA5l3QUWBPm74ar_OOYQ2N_C0Nw310kWxrSHs
+  default_config_hash: BB10kbFFo5ryDFLoAWNClw67fE6HmN6_0ZexCjQka-c
 id: node.field_euthanasia
 field_name: field_euthanasia
 entity_type: node

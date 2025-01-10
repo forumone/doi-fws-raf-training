@@ -16,7 +16,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: iSzVM5TGSykoSCy2MAByE_JWY7IPe0q7p65X4VTn6RU
+  default_config_hash: XkO-weBPZ2JBX63irNEnwLUv31tveEm6QdQi72LLQVE
 id: node.species_tag.default
 targetEntityType: node
 bundle: species_tag

@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: Q7ZctWEUbMpDGRKSWvY9pv6pgadQvGazpU0qvjaDI44
+  default_config_hash: 8oD9ymrjxbskpV1lljLRVTh2MukH7hGsTpfVlMK2tsk
 id: node.field_gear_description
 field_name: field_gear_description
 entity_type: node

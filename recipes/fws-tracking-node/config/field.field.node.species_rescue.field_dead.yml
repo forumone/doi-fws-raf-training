@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_dead
     - node.type.species_rescue
 _core:
-  default_config_hash: lGrcLBT8ZgF5CICDVGwjU5TAJgmUEdLWgrZxAH9tTSY
+  default_config_hash: EkY6V3hP0wpI0OSDEG6FXapc3SC-H24Ptddqfy4MgK0
 id: node.species_rescue.field_dead
 field_name: field_dead
 entity_type: node

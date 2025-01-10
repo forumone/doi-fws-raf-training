@@ -7,7 +7,7 @@ dependencies:
     - node.type.rescue_release
     - node.type.species
 _core:
-  default_config_hash: 84_-f093l6yDkPTaLt2UtIpYiSEVIgK444df75wFs6A
+  default_config_hash: TgKHU_SGJGbYIuZZg9yI6cETm_dH1JxW8jUdaclrVVU
 id: node.rescue_release.field_species_ref
 field_name: field_species_ref
 entity_type: node

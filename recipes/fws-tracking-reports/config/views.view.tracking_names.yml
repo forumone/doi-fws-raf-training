@@ -10,7 +10,7 @@ dependencies:
     - node
     - paragraphs
 _core:
-  default_config_hash: gFqv5S-C8omPVqXjeE87lKedAqcVaBeWVLQBSSSO3iY
+  default_config_hash: IQyEHOdOiRqUigoksvgq5zCuxdY0vISonzbpdNpC3fc
 id: tracking_names
 label: 'Species Names'
 module: views

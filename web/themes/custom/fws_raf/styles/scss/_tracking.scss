@@ -1,3 +1,10 @@
+// Hide submit button on view tracking other names view.
+.view-tracking-other-names {
+
+  .form-actions {
+    display: none;
+  }
+}
 
 .tracking-report-container {
   .table-responsive {

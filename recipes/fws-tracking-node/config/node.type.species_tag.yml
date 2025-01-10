@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: sZafzmUY6I7zietBXgcyD-s1o9NmSzd_cREBAAKNI2o
+  default_config_hash: NLRevc5o86LkazvEnt_4kjg8PSV3g1fRPH-W1KPDEjw
 name: 'Species Tag'
 type: species_tag
 description: 'Stores information associated with tags placed on species.'

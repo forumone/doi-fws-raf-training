@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: 7Zyn5FApkYH6LBU7uQa6x3lPwxOz36nZ681K_ZvdPxg
+  default_config_hash: e1juDFevorULtwM5ET0d0uAQkx2WJlsyHcOWwOhh5Wo
 name: 'Research Project'
 type: research_project
 description: 'Scientific research projects involving species'

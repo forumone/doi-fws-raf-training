@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: 2RmgJLx_QkECJQcFagXaCz7aaZMfo9Zy9qcghfhyU9g
+  default_config_hash: HILcYdhdg8x93iQxjmVqOwPD9TgHesk6nWJdoAiDMj0
 id: node.field_budget
 field_name: field_budget
 entity_type: node

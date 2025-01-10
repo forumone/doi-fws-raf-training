@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: Y5JKRc1YEYFWz-4ap-TVa4UXl-vh9cSMgM9lBsqoAcI
+  default_config_hash: uOM-zouxeghF9eNbk-QHk4OHWNZlYVJCFaAkSk07bd4
 id: node.field_pi_address
 field_name: field_pi_address
 entity_type: node

@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: t1nT7Cusi7BbzXH8EHa2xmDuXoMdvx5eejeiL-4x7Po
+  default_config_hash: Z2fSZc2SJOuvsh0Cuc3yEkuuHBoofow3CnFlRHzKjZE
 id: node.field_tracker
 field_name: field_tracker
 entity_type: node
