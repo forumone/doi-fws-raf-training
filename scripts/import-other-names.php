@@ -131,7 +131,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       // 2) Second revision: update info
       $node = Node::load($node->id());
       $node->setNewRevision(TRUE);
-      $node->setRevisionDefault(TRUE); // Changed from isDefaultRevision
+      $node->isDefaultRevision(TRUE); // Fixed: Changed from setRevisionDefault
       $node->set('title', "Other Name: $name (updated)");
       $node->set('changed', $update_timestamp);
       $update_user_id = $update_by === 'D' ? 1 : get_user_id($update_by);
@@ -162,7 +162,7 @@ print("\nNewly created: $created_count");
 print("\nUpdated: $updated_count");
 print("\nErrors: $error_count\n");
 
-// Helper functions remain the same
+// Helper functions
 function get_system_term_id($system) {
   if (empty($system)) {
     return NULL;

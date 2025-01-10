@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: ae6bdb16-b358-4f9c-af11-8c906c0f796f
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Manatee Homepage'
+  created:
+    -
+      value: 1736538710
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Manatee Homepage | FWS: Captive Manatee Database'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: ''
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: ''
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/manatee-homepage'
+  path:
+    -
+      alias: /manatee-homepage
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<img src="/sites/default/files/inline-images/usfws-manatee-mother-and-calf.jpeg" width="100%" alt="Manatee image">'
+      format: full_html
+      summary: ''

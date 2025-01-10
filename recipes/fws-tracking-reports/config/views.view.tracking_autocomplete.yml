@@ -40,7 +40,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: VV2gdORCmZqFjvwHgN7GfITHdsy8y16C983NVtH1p34
+  default_config_hash: y_3YoNdCitirDmoeigT4MF8itEUcT8FLm3yTDcvzlCA
 id: tracking_autocomplete
 label: 'Tracking Autocomplete'
 module: views

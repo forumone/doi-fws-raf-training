@@ -125,3 +125,18 @@ if ($view) {
 else {
   echo "The taxonomy_term view does not exist.\n";
 }
+
+// Copy the image file to the specified location.
+$source = '../recipes/fws-manatee-content/images/usfws-manatee-mother-and-calf.jpeg';
+$destination = './sites/default/files/inline-images/usfws-manatee-mother-and-calf.jpeg';
+
+if (!file_exists(dirname($destination))) {
+  mkdir(dirname($destination), 0777, TRUE);
+}
+
+if (copy($source, $destination)) {
+  echo "Image has been successfully copied to $destination.\n";
+}
+else {
+  echo "Failed to copy the image to $destination.\n";
+}
