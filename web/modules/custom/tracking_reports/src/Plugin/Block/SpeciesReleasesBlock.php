@@ -249,9 +249,7 @@ class SpeciesReleasesBlock extends BlockBase implements ContainerFactoryPluginIn
 
     $release_ids = $query->execute();
     if (empty($release_ids)) {
-      return [
-        '#markup' => $this->t('No release records found.'),
-      ];
+      return [];
     }
 
     $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_ids);
