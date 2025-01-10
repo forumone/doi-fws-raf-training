@@ -57,6 +57,6 @@ default:
       pathauto: 0
   body:
     -
-      value: '<img src="/sites/default/files/inline-images/usfws-manatee-mother-and-calf.jpeg" width="1000" height="777" alt="Manatee image">'
+      value: '<img src="/sites/default/files/inline-images/usfws-manatee-mother-and-calf.jpeg" width="100%" alt="Manatee image">'
       format: full_html
       summary: ''
