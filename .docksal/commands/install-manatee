@@ -5,7 +5,7 @@
 fin composer install
 fin drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --account-name=admin --account-pass=admin
 fin drush recipe ../recipes/fws-core
-fin drush scr ../scripts/install-cleanup.php
+fin drush scr ../scripts/manatee/install-cleanup.php
 fin drush cr
 fin drush cr
 fin drush recipe ../recipes/fws-tracking-taxonomy
