@@ -819,11 +819,12 @@ class TrackingSearchManager {
     // Get event types for select options.
     $event_types = [
       '' => $this->t('- Select event -'),
-      'species_birth' => $this->t('Add Birth'),
       'species_rescue' => $this->t('Add Rescue'),
       'transfer' => $this->t('Add Transfer'),
+      'species_prerelease' => $this->t('Add Pre-release'),
       'species_release' => $this->t('Add Release'),
       'species_death' => $this->t('Add Death'),
+      'status_report' => $this->t('Add Status Report'),
     ];
 
     // Implement pager.

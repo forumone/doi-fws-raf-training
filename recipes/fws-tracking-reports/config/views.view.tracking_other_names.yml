@@ -12,7 +12,7 @@ dependencies:
     - node
     - user
 _core:
-  default_config_hash: eqRMMfD8HwmRlYcY_OtdZnXc8AJW_TtcbYdmXKTe7Sk
+  default_config_hash: Oo2gkScR27BF1cDw_Ta8GSsYMH66_-xbptt9FnzpzGw
 id: tracking_other_names
 label: 'Tracking Other Names'
 module: node
