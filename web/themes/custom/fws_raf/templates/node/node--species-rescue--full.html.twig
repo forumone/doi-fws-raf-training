@@ -97,14 +97,24 @@
                 <th>Waterway</th>
                 <td>{{ content.field_waterway|default('N/A') }}</td>
               </tr>
-              <tr>
+                <tr>
                 <th>Latitude</th>
                 <td>{{ content.field_latitude|default('N/A') }}</td>
-              </tr>
-              <tr>
+                </tr>
+                <tr>
                 <th>Longitude</th>
                 <td>{{ content.field_longitude|default('N/A') }}</td>
-              </tr>
+                </tr>
+                <tr>
+                <th>Map</th>
+                <td>
+                  {% if content.field_latitude and content.field_longitude %}
+                    <a href="https://www.google.com/maps?q={{ content.field_latitude.0['#markup'] }},{{ content.field_longitude.0['#markup'] }}" target="_blank">View on Map</a>
+                  {% else %}
+                  N/A
+                  {% endif %}
+                </td>
+                </tr>
               <tr>
                 <th>Relocated, Where?</th>
                 <td>{{ content.field_where_relocated|default('N/A') }}</td>
