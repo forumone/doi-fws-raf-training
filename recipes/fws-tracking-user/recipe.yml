@@ -18,3 +18,7 @@ config:
           field_first_name: given_name
           field_last_name: family_name
           field_phone: phone_number
+    user.role.authenticated:
+      simple_config_update:
+        permissions:
+          - 'access user profiles'
