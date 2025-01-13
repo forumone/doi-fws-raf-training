@@ -129,10 +129,6 @@ class FacilityInventoryController extends ControllerBase {
       ],
     ];
 
-    // -------------------------------------------------------
-    // 1) FETCH & PROCESS ALL RELEVANT DATA (Statuses, Deaths, Releases, IDs, Rescues, etc.)
-    // -------------------------------------------------------
-
     // Get status reports for the species.
     $status_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'status_report')
@@ -419,10 +415,7 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // -------------------------------------------------------
-    // 2) BUILD $sortable_data ARRAY
-    // -------------------------------------------------------
-    // Always initialize $sortable_data to avoid "null given" errors in usort.
+    // Initialize sortable data array.
     $sortable_data = [];
 
     // Load species and prepare data.
@@ -510,53 +503,65 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // -------------------------------------------------------
-    // 3) SORT ONLY BY FACILITY (IF DATA EXISTS)
-    // -------------------------------------------------------
-    // Get current sort field and direction.
-    $order_by = \Drupal::request()->query->get('order', 'facility_name');
-    $sort = \Drupal::request()->query->get('sort', 'asc');
-
-    // The only valid sort field is 'facility_name'.
-    $valid_sort_fields = [
-      'facility_name',
-    ];
-
-    // If $order_by is not 'facility_name', default to it.
-    if (!in_array($order_by, $valid_sort_fields)) {
-      $order_by = 'facility_name';
-    }
-
-    // Sort only if $sortable_data is not empty.
+    // Default sort by facility name
     if (!empty($sortable_data)) {
-      usort($sortable_data, function ($a, $b) use ($order_by, $sort) {
-        if (!isset($a[$order_by]) || !isset($b[$order_by])) {
-          return 0;
-        }
-        $result = strnatcasecmp($a[$order_by], $b[$order_by]);
-        return ($sort === 'asc') ? $result : -$result;
+      usort($sortable_data, function ($a, $b) {
+        return strnatcasecmp($a['facility_name'], $b['facility_name']);
       });
     }
 
-    // -------------------------------------------------------
-    // 4) BUILD TABLE HEADERS & ROWS
-    // -------------------------------------------------------
-    // Only Facility is sortable.
+    // Build table headers.
     $header = [
       [
         'data' => $this->t('Facility'),
         'field' => 'facility_name',
-        'sort' => 'asc',
+        'class' => ['sortable'],
       ],
-      ['data' => $this->t('Name')],
-      ['data' => $this->t('Species') . ' ' . $this->t('ID')],
-      ['data' => $this->t('Species') . ' ' . $this->t('Number')],
-      ['data' => $this->t('Weight, Length')],
-      ['data' => $this->t('County')],
-      ['data' => $this->t('Rescue Date')],
-      ['data' => $this->t('Cause of Rescue')],
-      ['data' => $this->t('Time in Captivity')],
-      ['data' => $this->t('Medical Status')],
+      [
+        'data' => $this->t('Name'),
+        'field' => 'name',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Species') . ' ' . $this->t('ID'),
+        'field' => 'species_id',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Species') . ' ' . $this->t('Number'),
+        'field' => 'number',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Weight, Length'),
+        'field' => 'weight_length',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('County'),
+        'field' => 'county',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Rescue Date'),
+        'field' => 'rescue_date',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Cause of Rescue'),
+        'field' => 'rescue_cause',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Time in Captivity'),
+        'field' => 'time_in_captivity',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Medical Status'),
+        'field' => 'medical_status',
+        'class' => ['sortable'],
+      ],
     ];
 
     $rows = [];
@@ -583,9 +588,6 @@ class FacilityInventoryController extends ControllerBase {
       ];
     }
 
-    // -------------------------------------------------------
-    // 5) RETURN RENDER ARRAY
-    // -------------------------------------------------------
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['tracking-report-container']],
