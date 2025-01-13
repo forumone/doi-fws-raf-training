@@ -358,6 +358,13 @@ input.form-autocomplete {
   min-height: initial;
 }
 
+.node-confirm-form {
+  margin-bottom: 30px;
+}
+.node-confirm-form .form-actions {
+  margin-top: 20px;
+}
+
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;
