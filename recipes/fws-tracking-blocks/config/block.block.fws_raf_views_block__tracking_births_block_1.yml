@@ -2,12 +2,15 @@ uuid: 72a37154-c2e7-47d4-bdcd-103c4f74b2e3
 langcode: en
 status: true
 dependencies:
+  config:
+    - views.view.tracking_births
   module:
     - node
+    - views
   theme:
     - fws_raf
 _core:
-  default_config_hash: qg2rJv9u7FYLsV1Lfn8dIYpEojRKZbtNxMsdzvCBkKE
+  default_config_hash: su4U4Q2Osr-WqQsbBVOKYGxzmJEVa653tWs8gh_Qh5A
 id: fws_raf_views_block__tracking_births_block_1
 theme: fws_raf
 region: content

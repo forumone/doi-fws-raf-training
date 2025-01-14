@@ -2,10 +2,15 @@ uuid: 80d67ae8-c59e-4bac-b0ff-80c9b1582f25
 langcode: en
 status: true
 dependencies:
+  config:
+    - views.view.tracking_ids
+  module:
+    - node
+    - views
   theme:
     - fws_raf
 _core:
-  default_config_hash: kxQTLu-b2w6lTQQg4bbmBj2tbqUxMPgu1-8waj7KVKk
+  default_config_hash: Pjju2eqnypuywJ-eFR6c4wBhbUu5uCr0HeWwXfGCeNY
 id: fws_raf_views_block__tracking_ids_block_1
 theme: fws_raf
 region: content

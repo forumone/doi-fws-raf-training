@@ -29,7 +29,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Tag Information'
+      title: 'Entanglement Information'
       fields:
         nid:
           id: nid
