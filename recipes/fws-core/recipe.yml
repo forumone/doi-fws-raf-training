@@ -236,6 +236,11 @@ config:
     # Set permissions for content editor role.
     user.role.content_editor:
       ensure_exists:
+        id: authenticated
+      grantPermissions:
+        - 'access content'
+    user.role.content_editor:
+      ensure_exists:
         id: content_editor
       grantPermissions:
         - 'use text format basic_html'

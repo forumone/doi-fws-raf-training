@@ -54,25 +54,29 @@
             <tr>
               <th>Dam's Name(s)</th>
               <td>
-          {% if node.field_dam is not empty %}
+            {% if node.field_dam is not empty %}
             {% if node.field_dam.entity.field_names is not empty %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_dam.entity.id()}) }}">
               {% for name in node.field_dam.entity.field_names %}
-                <a href="{{ url('entity.node.canonical', {'node': node.field_dam.entity.id()}) }}">{{ name.entity.field_name.value }}</a>{% if name.entity.field_primary.value == 1 %}{% endif %}{% if not loop.last %}, {% endif %}
+                {{ name.entity.field_name.value }}{% if not loop.last %}, {% endif %}
               {% endfor %}
+              </a>
             {% else %}
               <a href="{{ url('entity.node.canonical', {'node': node.field_dam.entity.id()}) }}">No name</a>
             {% endif %}
-          {% else %}
+            {% else %}
             N/A
-          {% endif %}
+            {% endif %}
               </td>
               <th>Sire's Name(s)</th>
               <td>
-          {% if node.field_sire is not empty %}
+            {% if node.field_sire is not empty %}
             {% if node.field_sire.entity.field_names is not empty %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_sire.entity.id()}) }}">
               {% for name in node.field_sire.entity.field_names %}
-                <a href="{{ url('entity.node.canonical', {'node': node.field_sire.entity.id()}) }}">{{ name.entity.field_name.value }}</a>{% if name.entity.field_primary.value == 1 %}{% endif %}{% if not loop.last %}, {% endif %}
+                {{ name.entity.field_name.value }}{% if not loop.last %}, {% endif %}
               {% endfor %}
+              </a>
             {% else %}
               <a href="{{ url('entity.node.canonical', {'node': node.field_sire.entity.id()}) }}">No name</a>
             {% endif %}
