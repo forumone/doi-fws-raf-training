@@ -15,7 +15,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 6gLkD4v1sk4fq2KZXPYgyHuSpYR4TC5zSAXn809S150
+  default_config_hash: WvZXyvRvdFOPWNycCvKOeqPYkZ_vRRhDP15WrSeNzw8
 id: tracking_tags
 label: 'Species Tags'
 module: views
