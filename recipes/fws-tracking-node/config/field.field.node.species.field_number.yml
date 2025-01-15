@@ -6,20 +6,20 @@ dependencies:
     - field.storage.node.field_number
     - node.type.species
 _core:
-  default_config_hash: MfkJ_WXAAnWvmg96Wlx9Fla9sZh18yDj-H_9HR18iWY
+  default_config_hash: s4bNtSPD7Mf8JfibQpr_SlfZ-kxmtQ2Mqp8sTKntMvE
 id: node.species.field_number
 field_name: field_number
 entity_type: node
 bundle: species
 label: 'Tracking Number'
-description: "Unique ID number for species in Captive\r\nSpecies Database"
+description: 'Unique ID number in Captive Database'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   min: null
-  max: null
+  max: 100000
   prefix: ''
   suffix: ''
 field_type: integer

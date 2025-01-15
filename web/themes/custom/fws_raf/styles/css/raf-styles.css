@@ -368,6 +368,15 @@ input.form-autocomplete {
   margin-top: 20px;
 }
 
+.dropbutton-wrapper .dropbutton {
+  padding-left: 0;
+  list-style-type: none;
+}
+.dropbutton-wrapper .dropbutton__item {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;
