@@ -6,6 +6,8 @@ dependencies:
     - tracking_reports
   theme:
     - fws_raf
+_core:
+  default_config_hash: cQS1A45E9XRBW2SrShwQLRcdFBO_65VvokagaEto91A
 id: fws_raf_speciesrelease
 theme: fws_raf
 region: content

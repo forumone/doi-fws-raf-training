@@ -163,6 +163,7 @@ config:
     login_destination: '*'
     metatag: '*'
     node_revision_delete: '*'
+    openid_connect: '*'
     pathauto: '*'
     paragraphs: '*'
     paragraphs_ee: '*'
@@ -233,8 +234,8 @@ config:
         tags.abstract: '[node:summary]'
         tags.canonical_url: '[node:url]'
         tags.description: '[node:summary]'
-    # Set permissions for content editor role.
-    user.role.content_editor:
+    # Set permissions for authenticated and content editor roles.
+    user.role.authenticated:
       ensure_exists:
         id: authenticated
       grantPermissions:

@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 6b1259a3-5d91-4835-a7fe-eab4003f7a3f
+  uuid: 6652a377-411f-44cc-a324-faa40650708a
   bundle: menu_link_content
   default_langcode: en
   depends:
@@ -12,13 +12,13 @@ default:
       value: true
   title:
     -
-      value: 'Other Manatee Names'
+      value: Entanglement
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/tracking/other-names'
+      uri: 'internal:/node/add/species_entangle'
       title: ''
       options: {  }
   external:
@@ -29,7 +29,7 @@ default:
       value: true
   weight:
     -
-      value: -41
+      value: -43
   expanded:
     -
       value: false

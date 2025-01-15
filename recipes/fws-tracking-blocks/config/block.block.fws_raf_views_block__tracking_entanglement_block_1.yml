@@ -1,24 +1,22 @@
-uuid: 8ec513aa-cff3-467e-9153-8a170ae12dc1
+uuid: 3e588942-ff0d-4656-923e-983e3dc4ce03
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.tracking_deaths
+    - views.view.tracking_entanglement
   module:
     - node
     - views
   theme:
     - fws_raf
-_core:
-  default_config_hash: sEzJjxnKdV2ifizxoBJYsdgk3OlmMoOIG7TwkxTMpks
-id: fws_raf_views_block__tracking_deaths_block_1
+id: fws_raf_views_block__tracking_entanglement_block_1
 theme: fws_raf
 region: content
-weight: 4
+weight: 8
 provider: null
-plugin: 'views_block:tracking_deaths-block_1'
+plugin: 'views_block:tracking_entanglement-block_1'
 settings:
-  id: 'views_block:tracking_deaths-block_1'
+  id: 'views_block:tracking_entanglement-block_1'
   label: ''
   label_display: visible
   provider: views

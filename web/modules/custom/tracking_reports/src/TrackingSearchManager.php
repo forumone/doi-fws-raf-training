@@ -825,6 +825,7 @@ class TrackingSearchManager {
       'species_release' => $this->t('Add Release'),
       'species_death' => $this->t('Add Death'),
       'status_report' => $this->t('Add Status Report'),
+      'species_entangle' => $this->t('Add Entanglement'),
     ];
 
     // Implement pager.

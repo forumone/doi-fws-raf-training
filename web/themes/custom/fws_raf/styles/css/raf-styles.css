@@ -30,6 +30,9 @@
   width: 100px;
 }
 
+.tracking-search-form .search-results-container {
+  margin-top: 20px;
+}
 .tracking-search-form .form-item {
   display: flex;
   align-items: center;
@@ -374,7 +377,7 @@ input.form-autocomplete {
   margin: 10px;
 }
 .species-search-results .form-type-select .select-wrapper {
-  width: 150px;
+  width: 200px;
 }
 .species-search-results .form-type-select .select-wrapper select {
   cursor: pointer;
