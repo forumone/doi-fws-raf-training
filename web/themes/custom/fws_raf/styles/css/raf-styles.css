@@ -30,6 +30,9 @@
   width: 100px;
 }
 
+.tracking-search-form .search-results-container {
+  margin-top: 20px;
+}
 .tracking-search-form .form-item {
   display: flex;
   align-items: center;
