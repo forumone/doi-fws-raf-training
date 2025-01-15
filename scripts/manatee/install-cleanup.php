@@ -140,3 +140,29 @@ if (copy($source, $destination)) {
 else {
   echo "Failed to copy the image to $destination.\n";
 }
+
+
+// Copy documents to the specified location.
+$source = '../recipes/fws-manatee-content/documents';
+$destination = './sites/default/files/documents';
+
+if (!file_exists($destination)) {
+  mkdir($destination, 0777, TRUE);
+}
+
+$files = scandir($source);
+foreach ($files as $file) {
+  if ($file === '.' || $file === '..') {
+    continue;
+  }
+
+  $sourceFile = $source . '/' . $file;
+  $destinationFile = $destination . '/' . $file;
+
+  if (copy($sourceFile, $destinationFile)) {
+    echo "File '$file' has been successfully copied to $destination.\n";
+  }
+  else {
+    echo "Failed to copy the file '$file' to $destination.\n";
+  }
+}
