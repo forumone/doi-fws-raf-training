@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 0a8bf83d-f034-407d-9d4b-c5ce604b8fee
+  uuid: 5847ac6c-c33a-448f-b978-c58dc7e7b382
   bundle: menu_link_content
   default_langcode: en
 default:
@@ -10,13 +10,13 @@ default:
       value: true
   title:
     -
-      value: Notices
+      value: 'Log in'
   menu_name:
     -
-      value: footer-menu-legal
+      value: utility
   link:
     -
-      uri: 'internal:/'
+      uri: 'internal:/user/login'
       title: ''
       options: {  }
   external:
@@ -27,7 +27,7 @@ default:
       value: true
   weight:
     -
-      value: -48
+      value: 0
   expanded:
     -
       value: false

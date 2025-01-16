@@ -44,4 +44,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://eps.ddev.site/portal-protocol'
+        href: 'https://eps.ddev.site/welcome'
