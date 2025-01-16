@@ -10,6 +10,7 @@ fin composer install
 fin drush -l site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
+  --sites-subdir=eps \
   --verbose \
   --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
 
