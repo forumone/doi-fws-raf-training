@@ -167,6 +167,9 @@
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": "scripts/composer/htaccess"
             }
         },
         "installer-paths": {
