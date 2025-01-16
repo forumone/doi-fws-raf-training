@@ -1,3 +1,9 @@
 name: 'FWS EPS Content'
 description: 'FWS EPS starter content.'
 type: 'Site'
+config:
+  actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.front: /node/3

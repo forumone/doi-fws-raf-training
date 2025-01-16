@@ -405,6 +405,11 @@ input.form-autocomplete {
   margin-bottom: 50px;
 }
 
+.fws-branding__name {
+  width: 350px;
+  line-height: 30px;
+}
+
 .footer {
   margin-top: 50px;
 }
