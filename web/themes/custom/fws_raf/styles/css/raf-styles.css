@@ -313,6 +313,10 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.field--name-field-file {
+  margin-top: 20px;
+}
+
 .page-node-edit .form-type-vertical-tabs,
 .page-node-add .form-type-vertical-tabs {
   padding-top: 20px;

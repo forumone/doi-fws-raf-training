@@ -1,0 +1,59 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c927f0d0-c029-4824-9a4d-9b90bd6be312
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Resource Links about Sandhill Cranes'
+  created:
+    -
+      value: 1737062067
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Resource Links about Sandhill Cranes | FWS: Eastern Population Sandhill Crane Data Entry Portal'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: "For more information on Life history, distribution, management, populations, crane festivals for sandhill cranes,\_and to obtaina copy of the EP sandhill crane Fall Survey Annual Report please visit the following webpages:EP Sandhill Crane Report"
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: "For more information on Life history, distribution, management, populations, crane festivals for sandhill cranes,\_and to obtaina copy of the EP sandhill crane Fall Survey Annual Report please visit the following webpages:EP Sandhill Crane Report"
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://eps.ddev.site/resource-links-about-sandhill-cranes'
+  path:
+    -
+      alias: /resource-links-about-sandhill-cranes
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<p><span><strong>For more information on Life history, distribution, management, populations, crane festivals for sandhill cranes,&nbsp;and to obtain</strong></span></p><p><span><strong>a copy of the EP sandhill crane Fall Survey Annual Report please visit the following webpages:</strong></span></p><p><a href="https://www.fws.gov/library/collections/eastern-population-greater-sandhill-crane-fall-survey-reports">EP Sandhill Crane Report</a></p><p><a href="https://www.fws.gov/species/sandhill-crane-grus-canadensis?aggregated_content_type=%5B%22Document%22%5D&amp;$skip=10">Sandhill Crane, General Information</a>&nbsp;or <a href="https://www.allaboutbirds.org/guide/Sandhill_Crane">The Cornell Lab: All About Birds-Sandhill Crane</a></p>'
+      format: full_html
+      summary: ''
