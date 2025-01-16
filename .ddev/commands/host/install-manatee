@@ -3,7 +3,7 @@
 ## Description: Installs FWS Manatee.
 
 ddev composer install
-ddev drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --account-name=admin --account-pass=admin
+ddev drush site:install minimal --verbose -y --site-name="FWS: Captive Manatee Database" --uri="https://fws-raf.ddev.site/" --account-name=admin --account-pass=admin
 ddev drush recipe ../recipes/fws-core
 ddev drush scr ../scripts/manatee/install-cleanup.php
 ddev drush cr
