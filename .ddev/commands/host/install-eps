@@ -1,15 +1,26 @@
 #!/bin/bash
 
-## Description: Installs FWS Manatee.
+## Description: Install the EPS multisite
+## Usage: install-eps
+## Example: "ddev install-eps"
 
 ddev composer install
-ddev drush site:install minimal --verbose -y --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal" --account-name=admin --account-pass=admin
-ddev drush recipe ../recipes/fws-core
-# ddev drush scr ../scripts/eps/install-cleanup.php
-ddev drush cr
-ddev drush cr
-ddev drush recipe ../recipes/fws-eps-content
 
-# ddev drush webform-libraries-download
+# Ensure we're using the correct site URI
+SITE_URI="eps.ddev.site"
 
-ddev drush uli
+# Run the site installation
+ddev drush -l $SITE_URI site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
+
+# Install recipes
+ddev drush -l $SITE_URI recipe ../recipes/fws-core
+# ddev drush -l $SITE_URI scr ../scripts/eps/install-cleanup.php
+ddev drush -l $SITE_URI cr
+# ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
+
+ddev drush -l $SITE_URI uli
