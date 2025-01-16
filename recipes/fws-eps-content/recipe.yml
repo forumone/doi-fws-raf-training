@@ -6,4 +6,4 @@ config:
     # Set home page
     system.site:
       simple_config_update:
-        page.front: /node/3
+        page.front: /node/5
