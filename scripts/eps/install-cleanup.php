@@ -96,7 +96,7 @@ catch (Exception $e) {
 
 // Copy image files to the specified location.
 $source = '../recipes/fws-eps-content/images/';
-$destination = './sites/default/files/inline-images/';
+$destination = './sites/eps/files/inline-images/';
 
 if (!file_exists($destination)) {
   mkdir($destination, 0777, TRUE);
@@ -112,3 +112,19 @@ foreach ($files as $file) {
 }
 
 echo "Image files have been copied to the specified location.\n";
+
+// Copy PDF file to the specified location.
+$source = '../recipes/fws-eps-content/content/file/Crane Survey Data Form_0.pdf';
+$destination = './sites/eps/files/docs/';
+
+if (!file_exists($destination)) {
+  mkdir($destination, 0777, TRUE);
+}
+
+if (file_exists($source)) {
+  copy($source, $destination . 'Crane Survey Data Form_0.pdf');
+  echo "PDF file has been copied to the specified location.\n";
+}
+else {
+  echo "Warning: Source PDF file not found at: $source\n";
+}
