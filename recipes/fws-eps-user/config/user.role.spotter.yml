@@ -1,0 +1,9 @@
+uuid: 65460b49-3bba-48e8-b840-65e6c2738813
+langcode: en
+status: true
+dependencies: {  }
+id: spotter
+label: Spotter
+weight: 4
+is_admin: null
+permissions: {  }
