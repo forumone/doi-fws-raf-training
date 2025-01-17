@@ -115,7 +115,7 @@ echo "Image files have been copied to the specified location.\n";
 
 // Copy PDF file to the specified location.
 $source = '../recipes/fws-eps-content/content/file/Crane Survey Data Form_0.pdf';
-$destination = './sites/eps/files/docs/';
+$destination = './sites/eps/files/';
 
 if (!file_exists($destination)) {
   mkdir($destination, 0777, TRUE);

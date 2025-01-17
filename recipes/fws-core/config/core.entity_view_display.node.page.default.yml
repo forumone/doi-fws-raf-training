@@ -16,7 +16,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: GRbtKbdjmnuwXRmniVG6iLRnX9dEKbYdV7i6710eU2Y
+  default_config_hash: 7wjZkhFlWSWnJxz_B-Bs2hCRLejjGMXXPg2SHw8Jsxw
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -46,18 +46,9 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_private:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 3
-    region: content
 hidden:
   field_meta_tags: true
+  field_private: true
   field_summary: true
   field_thumbnail: true
   langcode: true

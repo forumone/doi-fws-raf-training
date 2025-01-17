@@ -12,7 +12,7 @@ default:
       value: 'Crane Survey Data Form_0.pdf'
   uri:
     -
-      value: 'public://docs/Crane Survey Data Form_0.pdf'
+      value: 'public://Crane Survey Data Form_0.pdf'
   filemime:
     -
       value: application/pdf
