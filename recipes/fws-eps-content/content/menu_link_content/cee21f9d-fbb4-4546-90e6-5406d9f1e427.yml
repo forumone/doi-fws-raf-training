@@ -1,24 +1,22 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 00b61288-b0a6-450e-b606-8e24d234a4c5
+  uuid: cee21f9d-fbb4-4546-90e6-5406d9f1e427
   bundle: menu_link_content
   default_langcode: en
-  depends:
-    c927f0d0-c029-4824-9a4d-9b90bd6be312: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: Resources
+      value: Reports
   menu_name:
     -
       value: main
   link:
     -
-      target_uuid: c927f0d0-c029-4824-9a4d-9b90bd6be312
+      uri: 'internal:/'
       title: ''
       options: {  }
   external:
@@ -26,10 +24,10 @@ default:
       value: false
   rediscover:
     -
-      value: false
+      value: true
   weight:
     -
-      value: -46
+      value: -49
   expanded:
     -
       value: false

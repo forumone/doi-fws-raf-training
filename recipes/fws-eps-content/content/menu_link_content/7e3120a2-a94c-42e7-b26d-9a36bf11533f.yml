@@ -1,10 +1,11 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 00b61288-b0a6-450e-b606-8e24d234a4c5
+  uuid: 7e3120a2-a94c-42e7-b26d-9a36bf11533f
   bundle: menu_link_content
   default_langcode: en
   depends:
+    00b61288-b0a6-450e-b606-8e24d234a4c5: menu_link_content
     c927f0d0-c029-4824-9a4d-9b90bd6be312: node
 default:
   enabled:
@@ -29,10 +30,13 @@ default:
       value: false
   weight:
     -
-      value: -46
+      value: -50
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:00b61288-b0a6-450e-b606-8e24d234a4c5'
   revision_translation_affected:
     -
       value: true
