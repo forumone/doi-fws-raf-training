@@ -1,24 +1,24 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 00b61288-b0a6-450e-b606-8e24d234a4c5
+  uuid: 57c6f34e-6fcc-40bb-b5b7-5d24d3a97b7e
   bundle: menu_link_content
   default_langcode: en
   depends:
-    c927f0d0-c029-4824-9a4d-9b90bd6be312: node
+    533e9469-be1b-4e83-a90f-1fccb56120ce: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: Resources
+      value: 'My Observations'
   menu_name:
     -
       value: main
   link:
     -
-      target_uuid: c927f0d0-c029-4824-9a4d-9b90bd6be312
+      uri: 'internal:/'
       title: ''
       options: {  }
   external:
@@ -26,13 +26,16 @@ default:
       value: false
   rediscover:
     -
-      value: false
+      value: true
   weight:
     -
-      value: -46
+      value: -50
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:533e9469-be1b-4e83-a90f-1fccb56120ce'
   revision_translation_affected:
     -
       value: true
