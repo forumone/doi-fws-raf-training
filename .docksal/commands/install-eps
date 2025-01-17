@@ -16,9 +16,9 @@ fin drush -l site:install minimal --yes \
 
 # Install recipes
 fin drush -l recipe ../recipes/fws-core
-# fin drush -l scr ../scripts/eps/install-cleanup.php
+fin drush -l scr ../scripts/eps/install-cleanup.php
 fin drush -l cr
-# fin drush -l cr
+fin drush -l cr
 fin drush -l recipe ../recipes/fws-eps-content
 
 fin drush -l uli

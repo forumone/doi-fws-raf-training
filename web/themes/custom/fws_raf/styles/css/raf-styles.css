@@ -313,6 +313,10 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.field--name-field-file {
+  margin-top: 20px;
+}
+
 .page-node-edit .form-type-vertical-tabs,
 .page-node-add .form-type-vertical-tabs {
   padding-top: 20px;
@@ -399,6 +403,16 @@ input.form-autocomplete {
 
 #node-species-edit-form {
   margin-bottom: 50px;
+}
+
+.field--name-body img {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.fws-branding__name {
+  width: 350px;
+  line-height: 30px;
 }
 
 .footer {

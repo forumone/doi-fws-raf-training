@@ -117,3 +117,11 @@ function fws_raf_theme_suggestions_block_alter(array &$suggestions, array $varia
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function fws_raf_preprocess_page(&$variables) {
+  // Get the header_links_auth configuration value from settings.
+  $variables['header_links_auth'] = \Drupal::config('system.site')->get('header_links_auth') ?? FALSE;
+}

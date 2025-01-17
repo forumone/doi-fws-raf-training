@@ -1,0 +1,21 @@
+uuid: 46ac1b2c-bf13-436c-b9f4-0bd38b7c485c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_private
+    - node.type.page
+id: node.page.field_private
+field_name: field_private
+entity_type: node
+bundle: page
+label: 'Private?'
+description: 'Check if you would like this page to only be available to authenticated users.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

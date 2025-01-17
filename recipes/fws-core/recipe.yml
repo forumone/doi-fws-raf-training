@@ -114,6 +114,7 @@ install:
   # Custom
   - fws
   - fws_gov
+  - fws_private_pages
   - fws_raf
 
 config:

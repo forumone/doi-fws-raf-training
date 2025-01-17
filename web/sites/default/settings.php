@@ -918,3 +918,8 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
 }
 
 error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
+
+/**
+ * Show header authentication links.
+ */
+$config['system.site']['header_links_auth'] = TRUE;
