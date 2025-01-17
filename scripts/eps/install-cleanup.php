@@ -96,7 +96,7 @@ catch (Exception $e) {
 
 // Copy image files to the specified location.
 $source = '../recipes/fws-eps-content/images/';
-$destination = './sites/default/files/inline-images/';
+$destination = './sites/eps/files/inline-images/';
 
 if (!file_exists($destination)) {
   mkdir($destination, 0777, TRUE);
