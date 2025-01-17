@@ -1,0 +1,19 @@
+--- web/.htaccess	2025-01-16 10:48:03 -0000
++++ web/.htaccess	2025-01-16 11:01:37 -0000
+@@ -86,6 +86,16 @@
+   # downloaded.
+   RewriteRule "/\.|^\.(?!well-known/)" - [F]
+
++  # Rewrite URLs of the form 'www.example.com/epsandhill/...' to 'www.example.com/...'
++  RewriteCond %{HTTP_HOST} ^(.+\.)?acquia-sites\.com$ [NC]
++  RewriteCond %{REQUEST_URI} ^/epsandhill/(.*)$
++  RewriteCond %{REQUEST_FILENAME} !-f
++  RewriteCond %{REQUEST_FILENAME} !-d
++  RewriteRule ^ %{REQUEST_URI} [L]
++
++  # Set site configuration for /epsandhill paths
++  SetEnvIf Request_URI "^/epsandhill/" SITE=eps
++
+   # If your site can be accessed both with and without the 'www.' prefix, you
+   # can use one of the following settings to redirect users to your preferred
+   # URL, either WITH or WITHOUT the 'www.' prefix. Choose ONLY one option:
