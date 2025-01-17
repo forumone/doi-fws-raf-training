@@ -1,0 +1,24 @@
+#!/bin/bash
+
+## Description: Install the EPS multisite
+## Usage: install-eps
+## Example: "fin install-eps"
+
+fin composer install
+
+# Run the site installation
+fin drush -l site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --sites-subdir=eps \
+  --verbose \
+  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
+
+# Install recipes
+fin drush -l recipe ../recipes/fws-core
+# fin drush -l scr ../scripts/eps/install-cleanup.php
+fin drush -l cr
+# fin drush -l cr
+fin drush -l recipe ../recipes/fws-eps-content
+
+fin drush -l uli
