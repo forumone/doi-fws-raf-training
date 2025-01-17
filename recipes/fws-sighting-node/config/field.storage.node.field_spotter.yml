@@ -1,0 +1,19 @@
+uuid: c22a659c-4815-4470-83f5-0e27b93d7a52
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_token_value
+    - node
+id: node.field_spotter
+field_name: field_spotter
+entity_type: node
+type: field_token_value
+settings: {  }
+module: field_token_value
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
