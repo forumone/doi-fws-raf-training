@@ -19,6 +19,10 @@ fin drush -l recipe ../recipes/fws-core
 fin drush -l scr ../scripts/eps/install-cleanup.php
 fin drush -l cr
 fin drush -l cr
+fin drush -l recipe ../recipes/fws-eps-user
 fin drush -l recipe ../recipes/fws-eps-content
+
+# Import users
+fin drush -l scr ./scripts/eps/import-users.php
 
 fin drush -l uli
