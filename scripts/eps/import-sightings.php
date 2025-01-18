@@ -9,7 +9,7 @@
 
 use Drupal\node\Entity\Node;
 
-$filename = '../scripts/eps/data/sightings_export_2025-01-17_15-34-38.csv';
+$filename = '../scripts/eps/data/sightings_export_2025-01-17_19-07-21.csv';
 
 if (!file_exists($filename)) {
   print("File not found: $filename\n");
@@ -110,12 +110,12 @@ while (($row = fgetcsv($file)) !== FALSE) {
       $node->field_bird_count = ['value' => (int) $data['Number of Cranes']];
     }
 
-    if (!empty($data['Spotter']) && $data['Spotter'] !== '.') {
+    if (!empty($data['Spotter Username']) && $data['Spotter Username'] !== '.') {
       $users = \Drupal::entityTypeManager()
         ->getStorage('user')
-        ->loadByProperties(['name' => $data['Spotter']]);
+        ->loadByProperties(['name' => $data['Spotter Username']]);
       if ($user = reset($users)) {
-        $node->field_spotter = ['target_id' => $user->id()];
+        $node->uid = $user->id();
       }
     }
 
