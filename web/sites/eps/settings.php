@@ -536,7 +536,7 @@ $settings['update_free_access'] = FALSE;
  * must exist and be writable by Drupal. This directory must be relative to
  * the Drupal installation directory and be accessible over the web.
  */
-# $settings['file_public_path'] = 'sites/default/files';
+$settings['file_public_path'] = 'sites/eps/files';
 
 /**
  * Additional public file schemes:
@@ -923,3 +923,19 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
  * Hide header authentication links.
  */
 $config['system.site']['header_links_auth'] = FALSE;
+
+// Configure Acquia database settings for EPS site
+if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+  if ($databases['default']['default']['database'] === 'fws_eps') {
+    $databases['default']['default'] = [
+      'database' => 'fws_eps',
+      'username' => $_ENV['DB_USER'],
+      'password' => $_ENV['DB_PASSWORD'],
+      'host' => $_ENV['DB_HOST'],
+      'port' => $_ENV['DB_PORT'],
+      'driver' => 'mysql',
+      'prefix' => '',
+      'collation' => 'utf8mb4_general_ci',
+    ];
+  }
+}
