@@ -1,9 +1,10 @@
 <?php
 
 /**
+ * @file
  * Installation clean-up and additinoal configuration.
  *
- * @file install-cleanup.php
+ *  Install-cleanup.php.
  */
 
 use Drupal\user\Entity\User;
@@ -22,7 +23,7 @@ $menuConfig = [
       'submenu_config' => [
         'width' => '',
         'class' => '',
-        'type' => ''
+        'type' => '',
       ],
       'item_config' => [
         'level' => 0,
@@ -35,8 +36,8 @@ $menuConfig = [
         'data-icon' => 'home',
         'data-caption' => '',
         'data-alignsub' => '',
-        'data-target' => ''
-      ]
+        'data-target' => '',
+      ],
     ],
     // Additional menu items as per your configuration...
     '0e7dfd71-4a5c-4d64-ad44-24dcf2b3cce1' => [
@@ -58,8 +59,8 @@ $menuConfig = [
         'data-caption' => '',
         'data-alignsub' => '',
         'data-target' => '',
-      ]
-    ]
+      ],
+    ],
   ],
   'block_config' => [
     'style' => 'Default',
@@ -96,53 +97,75 @@ catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
 }
 
-// Create users with specific roles.
+// Create users with specific roles if they don't already exist.
 $users = [
   'contributor' => 'contributor',
   'researcher' => 'other_researchers',
   'partner' => 'partner_administrator',
   'viewer' => 'viewer',
   'sonal' => 'administrator',
+  'Nadia.Lentz@myfwc.com' => 'partner_administrator',
 ];
 
 foreach ($users as $username => $role) {
-  $user = User::create([
-    'name' => $username,
-    'mail' => $username === 'sonal' ? 'sonal@prometsource.com' : $username . '@example.com',
-    'status' => 1,
-    'roles' => [$role],
-  ]);
-  $user->save();
-  echo "User '$username' with role '$role' has been created.\n";
+  // Check if user already exists.
+  $existing_user = \Drupal::entityTypeManager()
+    ->getStorage('user')
+    ->loadByProperties(['name' => $username]);
+
+  if (empty($existing_user)) {
+    $user = User::create([
+      'name' => $username,
+      'mail' => match($username) {
+        'sonal' => 'sonal@prometsource.com',
+        'Nadia.Lentz@myfwc.com' => 'Nadia.Lentz@myfwc.com',
+        default => $username . '@example.com'
+      },
+      'status' => 1,
+      'roles' => [$role],
+    ]);
+    $user->save();
+    echo "User '$username' with role '$role' has been created.\n";
+  }
+  else {
+    echo "User '$username' already exists, skipping creation.\n";
+  }
 }
 
-// Disable the taxonomy_term view.
+// Disable the taxonomy_term view if it exists and is enabled.
 $view = View::load('taxonomy_term');
-if ($view) {
+if ($view && !$view->status()) {
   $view->disable()->save();
   echo "The taxonomy_term view has been disabled.\n";
+}
+elseif ($view) {
+  echo "The taxonomy_term view is already disabled.\n";
 }
 else {
   echo "The taxonomy_term view does not exist.\n";
 }
 
-// Copy the image file to the specified location.
+// Copy the image file to the specified location if it doesn't exist.
 $source = '../recipes/fws-manatee-content/images/usfws-manatee-mother-and-calf.jpeg';
 $destination = './sites/default/files/inline-images/usfws-manatee-mother-and-calf.jpeg';
 
-if (!file_exists(dirname($destination))) {
-  mkdir(dirname($destination), 0777, TRUE);
-}
+if (!file_exists($destination)) {
+  if (!file_exists(dirname($destination))) {
+    mkdir(dirname($destination), 0777, TRUE);
+  }
 
-if (copy($source, $destination)) {
-  echo "Image has been successfully copied to $destination.\n";
+  if (copy($source, $destination)) {
+    echo "Image has been successfully copied to $destination.\n";
+  }
+  else {
+    echo "Failed to copy the image to $destination.\n";
+  }
 }
 else {
-  echo "Failed to copy the image to $destination.\n";
+  echo "Image already exists at $destination, skipping copy.\n";
 }
 
-
-// Copy documents to the specified location.
+// Copy documents to the specified location if they don't exist.
 $source = '../recipes/fws-manatee-content/documents';
 $destination = './sites/default/files/documents';
 
@@ -159,10 +182,15 @@ foreach ($files as $file) {
   $sourceFile = $source . '/' . $file;
   $destinationFile = $destination . '/' . $file;
 
-  if (copy($sourceFile, $destinationFile)) {
-    echo "File '$file' has been successfully copied to $destination.\n";
+  if (!file_exists($destinationFile)) {
+    if (copy($sourceFile, $destinationFile)) {
+      echo "File '$file' has been successfully copied to $destination.\n";
+    }
+    else {
+      echo "Failed to copy the file '$file' to $destination.\n";
+    }
   }
   else {
-    echo "Failed to copy the file '$file' to $destination.\n";
+    echo "File '$file' already exists at $destination, skipping copy.\n";
   }
 }
