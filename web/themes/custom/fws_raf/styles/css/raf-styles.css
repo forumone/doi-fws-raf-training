@@ -397,6 +397,10 @@ input.form-autocomplete {
   margin-left: 10px;
 }
 
+.location-consent-message {
+  margin-bottom: 20px;
+}
+
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;
