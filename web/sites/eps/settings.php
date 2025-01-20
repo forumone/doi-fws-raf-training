@@ -889,22 +889,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-if (file_exists('/var/www/site-php')) {
-  // Workaround for database error.
-  $class_loader->addPsr4('Drupal\\mysql\\', 'core/modules/mysql/src/');
-
-  require_once('/var/www/site-php/doifws/doifws-settings.inc');
-  $projectroot = "/var/www/html/" . $_ENV['AH_SITE_GROUP'] . '.' . $_ENV['AH_SITE_ENVIRONMENT'];
-  $settings['simplesamlphp_dir'] = $projectroot . '/vendor/simplesamlphp/simplesamlphp';
-  // Configure File folders
-  $settings['file_private_path'] = $projectroot . '/acquia-files/files-private/';
-
-  // Memcached settings for Acquia Hosting.
-  if (file_exists($projectroot . '/docroot/sites/default/cloud-memcache-d8+.php')) {
-    require($projectroot . '/docroot/sites/default/cloud-memcache-d8+.php');
-  }
-}
-
 #
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
@@ -925,17 +909,11 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
 $config['system.site']['header_links_auth'] = FALSE;
 
 // Configure Acquia database settings for EPS site
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/doifws/fws_eps-settings.inc';
+}
+
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  if ($databases['default']['default']['database'] === 'fws_eps') {
-    $databases['default']['default'] = [
-      'database' => 'fws_eps',
-      'username' => $_ENV['DB_USER'],
-      'password' => $_ENV['DB_PASSWORD'],
-      'host' => $_ENV['DB_HOST'],
-      'port' => $_ENV['DB_PORT'],
-      'driver' => 'mysql',
-      'prefix' => '',
-      'collation' => 'utf8mb4_general_ci',
-    ];
-  }
+  // Set cookie settings for epsandhill
+  $settings['session.cookie_path'] = '/epsandhill';
 }
