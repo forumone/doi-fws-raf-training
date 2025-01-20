@@ -106,7 +106,7 @@ while (($row = fgetcsv($file)) !== FALSE) {
       ];
     }
 
-    if (!empty($data['Number of Cranes'])) {
+    if (isset($data['Number of Cranes'])) {
       $node->field_bird_count = ['value' => (int) $data['Number of Cranes']];
     }
 
