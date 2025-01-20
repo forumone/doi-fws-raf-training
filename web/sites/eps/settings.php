@@ -913,7 +913,7 @@ if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_eps-settings.inc';
 }
 
-if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  // Set cookie settings for epsandhill
-  $settings['session.cookie_path'] = '/epsandhill';
-}
+$settings['session.cookie_path'] = '/epsandhill';
+$settings['file_public_path'] = "sites/eps/files";
+$settings['file_private_path'] = "sites/eps/files/private";
+$settings['file_temp_path'] = "sites/eps/files/tmp";
