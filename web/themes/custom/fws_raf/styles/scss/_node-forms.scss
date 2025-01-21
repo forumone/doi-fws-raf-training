@@ -1,6 +1,11 @@
 .page-node-edit,
 .page-node-add {
 
+  .geolocation-map-control .form-item label,
+  .geolocation-map-control .form-item .description {
+    display: none;
+  }
+
   .radio input[type="radio"],
   .radio-inline input[type="radio"],
   .checkbox input[type="checkbox"],
