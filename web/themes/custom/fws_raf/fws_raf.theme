@@ -69,6 +69,14 @@ function fws_raf_preprocess_html(&$variables) {
 function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // For all node forms.
   if (strpos($form_id, 'node_') === 0 && strpos($form_id, '_form') !== FALSE) {
+    // Add consent message for sighting forms.
+    if (strpos($form_id, 'node_sighting_') === 0) {
+      $form['location_consent'] = [
+        '#type' => 'markup',
+        '#markup' => '<div class="alert alert-info location-consent-message"><p>Do you consent to sharing your location with fws.gov? USFWS will not permanently store this information, however it will be shared with our mapping provider (Google) in order to provide you with the best mapping experience. Acceptance is optional; if you do not accept, you will have to manually find the location of interest.</p></div>',
+        '#weight' => -100,
+      ];
+    }
 
     if (isset($form['field_species_ref'])) {
       $form['field_species_ref']['widget'][0]['target_id']['#title'] = 'Manatee Reference';

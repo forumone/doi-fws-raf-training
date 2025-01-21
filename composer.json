@@ -27,6 +27,8 @@
         "drupal/features": "^3.14",
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.4",
+        "drupal/field_token_value": "^3.0",
+        "drupal/geolocation": "^3.14",
         "drupal/inline_entity_form": "^3.0@RC",
         "drupal/linkit": "^6.1",
         "drupal/login_destination": "^2.0@beta",
