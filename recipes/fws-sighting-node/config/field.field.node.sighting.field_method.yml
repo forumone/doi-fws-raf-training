@@ -1,0 +1,23 @@
+uuid: 811b468c-a940-4382-95ca-735725ae498b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_method
+    - node.type.sighting
+  module:
+    - options
+id: node.sighting.field_method
+field_name: field_method
+entity_type: node
+bundle: sighting
+label: Method
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Ground count'
+default_value_callback: ''
+settings: {  }
+field_type: list_string
