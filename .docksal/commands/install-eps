@@ -19,10 +19,13 @@ fin drush -l recipe ../recipes/fws-core
 fin drush -l scr ../scripts/eps/install-cleanup.php
 fin drush -l cr
 fin drush -l cr
-fin drush -l recipe ../recipes/fws-eps-user
+fin drush -l recipe ../recipes/fws-sighting-node
+fin drush -l recipe ../recipes/fws-sighting-reports
+fin drush -l recipe ../recipes/fws-sighting-user
 fin drush -l recipe ../recipes/fws-eps-content
+fin drush -l en -y fws_sighting
 
 # Import users
-fin drush -l scr ./scripts/eps/import-users.php
+# fin drush -l scr ./scripts/eps/import-users.php
 
 fin drush -l uli
