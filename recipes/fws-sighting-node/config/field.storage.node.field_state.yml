@@ -10,177 +10,132 @@ entity_type: node
 type: list_string
 settings:
   allowed_values:
-    -
-      value: AL
+    - value: 'AL'
       label: 'Alabama'
-    -
-      value: AK
+    - value: 'AK'
       label: 'Alaska'
-    -
-      value: AS
-      label: 'American Samoa'
-    -
-      value: AZ
+    - value: 'AZ'
       label: 'Arizona'
-    -
-      value: AR
+    - value: 'AR'
       label: 'Arkansas'
-    -
-      value: CA
+    - value: 'CA'
       label: 'California'
-    -
-      value: CO
+    - value: 'CO'
       label: 'Colorado'
-    -
-      value: CT
+    - value: 'CT'
       label: 'Connecticut'
-    -
-      value: DE
+    - value: 'DE'
       label: 'Delaware'
-    -
-      value: DC
-      label: 'District of Columbia'
-    -
-      value: FL
+    - value: 'FL'
       label: 'Florida'
-    -
-      value: GA
+    - value: 'GA'
       label: 'Georgia'
-    -
-      value: GU
-      label: 'Guam'
-    -
-      value: HI
+    - value: 'HI'
       label: 'Hawaii'
-    -
-      value: ID
+    - value: 'ID'
       label: 'Idaho'
-    -
-      value: IL
+    - value: 'IL'
       label: 'Illinois'
-    -
-      value: IN
+    - value: 'IN'
       label: 'Indiana'
-    -
-      value: IA
+    - value: 'IA'
       label: 'Iowa'
-    -
-      value: KS
+    - value: 'KS'
       label: 'Kansas'
-    -
-      value: KY
+    - value: 'KY'
       label: 'Kentucky'
-    -
-      value: LA
+    - value: 'LA'
       label: 'Louisiana'
-    -
-      value: ME
+    - value: 'ME'
       label: 'Maine'
-    -
-      value: MD
+    - value: 'MD'
       label: 'Maryland'
-    -
-      value: MA
+    - value: 'MA'
       label: 'Massachusetts'
-    -
-      value: MI
+    - value: 'MI'
       label: 'Michigan'
-    -
-      value: MN
+    - value: 'MN'
       label: 'Minnesota'
-    -
-      value: MS
+    - value: 'MS'
       label: 'Mississippi'
-    -
-      value: MO
+    - value: 'MO'
       label: 'Missouri'
-    -
-      value: MT
+    - value: 'MT'
       label: 'Montana'
-    -
-      value: NE
+    - value: 'NE'
       label: 'Nebraska'
-    -
-      value: NV
+    - value: 'NV'
       label: 'Nevada'
-    -
-      value: NH
+    - value: 'NH'
       label: 'New Hampshire'
-    -
-      value: NJ
+    - value: 'NJ'
       label: 'New Jersey'
-    -
-      value: NM
+    - value: 'NM'
       label: 'New Mexico'
-    -
-      value: NY
+    - value: 'NY'
       label: 'New York'
-    -
-      value: NC
+    - value: 'NC'
       label: 'North Carolina'
-    -
-      value: ND
+    - value: 'ND'
       label: 'North Dakota'
-    -
-      value: MP
-      label: 'Northern Mariana Islands'
-    -
-      value: OH
+    - value: 'OH'
       label: 'Ohio'
-    -
-      value: OK
+    - value: 'OK'
       label: 'Oklahoma'
-    -
-      value: OR
+    - value: 'OR'
       label: 'Oregon'
-    -
-      value: PA
+    - value: 'PA'
       label: 'Pennsylvania'
-    -
-      value: PR
-      label: 'Puerto Rico'
-    -
-      value: RI
+    - value: 'RI'
       label: 'Rhode Island'
-    -
-      value: SC
+    - value: 'SC'
       label: 'South Carolina'
-    -
-      value: SD
+    - value: 'SD'
       label: 'South Dakota'
-    -
-      value: TN
+    - value: 'TN'
       label: 'Tennessee'
-    -
-      value: TX
+    - value: 'TX'
       label: 'Texas'
-    -
-      value: UM
-      label: 'U.S. Minor Outlying Islands'
-    -
-      value: UT
+    - value: 'UT'
       label: 'Utah'
-    -
-      value: VT
+    - value: 'VT'
       label: 'Vermont'
-    -
-      value: VI
-      label: 'U.S. Virgin Islands'
-    -
-      value: VA
+    - value: 'VA'
       label: 'Virginia'
-    -
-      value: WA
+    - value: 'WA'
       label: 'Washington'
-    -
-      value: WV
+    - value: 'WV'
       label: 'West Virginia'
-    -
-      value: WI
+    - value: 'WI'
       label: 'Wisconsin'
-    -
-      value: WY
+    - value: 'WY'
       label: 'Wyoming'
+    - value: 'AB'
+      label: 'Alberta'
+    - value: 'BC'
+      label: 'British Columbia'
+    - value: 'MB'
+      label: 'Manitoba'
+    - value: 'NB'
+      label: 'New Brunswick'
+    - value: 'NL'
+      label: 'Newfoundland and Labrador'
+    - value: 'NS'
+      label: 'Nova Scotia'
+    - value: 'ON'
+      label: 'Ontario'
+    - value: 'PE'
+      label: 'Prince Edward Island'
+    - value: 'QC'
+      label: 'Quebec'
+    - value: 'SK'
+      label: 'Saskatchewan'
+    - value: 'NT'
+      label: 'Northwest Territories'
+    - value: 'NU'
+      label: 'Nunavut'
+    - value: 'YT'
+      label: 'Yukon'
   allowed_values_function: ''
 module: options
 locked: false
