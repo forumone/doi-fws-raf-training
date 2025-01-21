@@ -9,9 +9,9 @@
 
 use Drupal\user\Entity\User;
 
-// Get all user IDs except the anonymous user (uid 0).
+// Get all user IDs except the anonymous user (uid 0) and admin user (uid 1).
 $query = \Drupal::entityQuery('user')
-  ->condition('uid', 0, '>')
+  ->condition('uid', [0, 1], 'NOT IN')
   // Only active users.
   ->condition('status', 1)
   ->accessCheck(FALSE);
