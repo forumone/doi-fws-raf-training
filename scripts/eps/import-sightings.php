@@ -9,7 +9,7 @@
 
 use Drupal\node\Entity\Node;
 
-$filename = '../scripts/eps/data/sightings_export_2025-01-17_19-07-21.csv';
+$filename = '../scripts/eps/data/sightings_export.csv';
 
 if (!file_exists($filename)) {
   print("File not found: $filename\n");
@@ -101,6 +101,10 @@ try {
             'lng' => (float) $coordinates[1],
           ];
         }
+      }
+
+      if (!empty($data['State'])) {
+        $node->field_state = ['value' => $data['State']];
       }
 
       if (!empty($data['Method'])) {
