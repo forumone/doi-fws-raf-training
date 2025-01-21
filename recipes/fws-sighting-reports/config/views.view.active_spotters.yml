@@ -7,9 +7,12 @@ dependencies:
     - field.storage.user.field_last_name
     - field.storage.user.field_start_date
   module:
+    - better_exposed_filters
     - datetime
     - node
     - user
+_core:
+  default_config_hash: CCtjMUwXEBMo9K2G4tGfwyrhM4wFkFjUoaXIRLb-WLw
 id: active_spotters
 label: 'Active Spotters'
 module: views
@@ -489,7 +492,7 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
           pagination_heading_level: h4
@@ -499,16 +502,19 @@ display:
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
-            items_per_page: false
+            items_per_page: true
             items_per_page_label: 'Items per page'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
           reset_button: false
@@ -517,6 +523,25 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: null
+          bef:
+            general:
+              autosubmit: true
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_textfield_minimum_length: 3
+              autosubmit_hide: true
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            sort:
+              plugin_id: default
+            filter:
+              combine:
+                plugin_id: default
       access:
         type: perm
         options:
@@ -538,7 +563,22 @@ display:
             value: '<p>No active spotters to show.</p>'
             format: basic_html
           tokenize: false
-      sorts: {  }
+      sorts:
+        mail:
+          id: mail
+          table: users_field_data
+          field: mail
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: mail
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments: {  }
       filters:
         status:
@@ -641,6 +681,54 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        combine:
+          id: combine
+          table: views
+          field: combine
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: combine
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: combine_op
+            label: Search
+            description: ''
+            use_operator: false
+            operator: combine_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: combine
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          fields:
+            mail: mail
+            field_first_name: field_first_name
+            field_last_name: field_last_name
       style:
         type: table
         options:
@@ -655,7 +743,7 @@ display:
             field_start_date: field_start_date
             field_bird_count: field_bird_count
             access: access
-          default: '-1'
+          default: mail
           info:
             uid:
               sortable: false
@@ -700,7 +788,7 @@ display:
               empty_column: false
               responsive: ''
             access:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -738,6 +826,7 @@ display:
           subquery_regenerate: false
           subquery_view: ''
           subquery_namespace: ''
+      use_ajax: true
       group_by: true
       header: {  }
       footer: {  }
@@ -747,6 +836,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags:
@@ -775,6 +865,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags:
