@@ -42,6 +42,7 @@ install:
   - path
   - shortcut
   - taxonomy
+  - telephone
   - text
   - views
   - views_ui

@@ -22,6 +22,10 @@ $headers = [
   'User ID',
   'Username',
   'Email',
+  'First Name',
+  'Last Name',
+  'Phone Number',
+  'Start Date',
   'Status',
   'Roles',
   'Created Date',
@@ -51,11 +55,24 @@ foreach ($uids as $uid) {
     $access = $user->getLastAccessedTime() ? date('Y-m-d H:i:s', $user->getLastAccessedTime()) : '';
     $login = $user->getLastLoginTime() ? date('Y-m-d H:i:s', $user->getLastLoginTime()) : '';
 
+    // Get additional fields.
+    $first_name = $user->get('field_first_name')->value ?? '';
+    $last_name = $user->get('field_last_name')->value ?? '';
+    $phone = $user->get('field_phone')->value ?? '';
+    $start_date = $user->get('field_start_date')->value ?? '';
+    if ($start_date) {
+      $start_date = date('Y-m-d H:i:s', strtotime($start_date));
+    }
+
     // Prepare row data.
     $row = [
       $user->id(),
       $user->getAccountName(),
       $user->getEmail(),
+      $first_name,
+      $last_name,
+      $phone,
+      $start_date,
       $user->isActive() ? 'Active' : 'Blocked',
       $roles_string,
       $created,
