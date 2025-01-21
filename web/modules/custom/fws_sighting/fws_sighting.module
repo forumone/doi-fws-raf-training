@@ -17,9 +17,15 @@ function fws_sighting_node_presave(NodeInterface $node) {
     return;
   }
 
+  // Check if auto state lookup is enabled.
+  $config = \Drupal::config('fws_sighting.settings');
+  if (!$config->get('auto_state_lookup')) {
+    return;
+  }
+
   // Only proceed if we have location data.
   if ($node->field_location->isEmpty()) {
-    $node->field_state = '';
+    $node->field_state = NULL;
     return;
   }
 
@@ -38,11 +44,11 @@ function fws_sighting_node_presave(NodeInterface $node) {
       $node->field_state = $data['result']['geographies']['States'][0]['STUSAB'];
     }
     else {
-      $node->field_state = '';
+      $node->field_state = NULL;
     }
   }
   catch (GuzzleException $e) {
     \Drupal::logger('fws_sighting')->error('Error fetching state from coordinates: @error', ['@error' => $e->getMessage()]);
-    $node->field_state = '';
+    $node->field_state = NULL;
   }
 }
