@@ -10,6 +10,7 @@ dependencies:
     - field.storage.node.field_method
     - field.storage.node.field_notes
     - field.storage.node.field_spotter
+    - field.storage.node.field_state
     - node.type.sighting
   module:
     - better_exposed_filters
@@ -23,6 +24,8 @@ dependencies:
     - serialization
     - user
     - views_data_export
+_core:
+  default_config_hash: SXF9IGaAtM9Dxrw4mFm2KMj07Z1bOBNIkgiBySaH7iQ
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -220,15 +223,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location:
-          id: field_location
-          table: node__field_location
-          field: field_location
+        field_state:
+          id: field_state
+          table: node__field_state
+          field: field_state
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: geolocation_field
-          label: Location
+          plugin_id: field
+          label: State
           exclude: false
           alter:
             alter_text: false
@@ -269,10 +272,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: ''
-          type: geolocation_latlng
+          click_sort_column: value
+          type: list_default
           settings: {  }
-          group_column: ''
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -727,6 +730,51 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_state_value:
+          id: field_state_value
+          table: node__field_state
+          field: field_state_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_state_value_op
+            label: State
+            description: ''
+            use_operator: false
+            operator: field_state_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_state_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: true
       filter_groups:
         operator: AND
         groups:
@@ -741,7 +789,7 @@ display:
             view_node: view_node
             field_date_time: field_date_time
             field_bird_count: field_bird_count
-            field_location: field_location
+            field_state: field_state
             field_spotter: field_spotter
           default: field_date_time
           info:
@@ -766,7 +814,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_location:
+            field_state:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -811,8 +861,8 @@ display:
       tags:
         - 'config:field.storage.node.field_bird_count'
         - 'config:field.storage.node.field_date_time'
-        - 'config:field.storage.node.field_location'
         - 'config:field.storage.node.field_spotter'
+        - 'config:field.storage.node.field_state'
   data_export_1:
     id: data_export_1
     display_title: 'Data export'
@@ -1343,5 +1393,5 @@ display:
       tags:
         - 'config:field.storage.node.field_bird_count'
         - 'config:field.storage.node.field_date_time'
-        - 'config:field.storage.node.field_location'
         - 'config:field.storage.node.field_spotter'
+        - 'config:field.storage.node.field_state'
