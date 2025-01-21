@@ -9,6 +9,7 @@
 
 use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
+use GuzzleHttp\Exception\GuzzleException;
 
 // Get all sighting node IDs.
 $query = \Drupal::entityQuery('node')
@@ -25,6 +26,7 @@ $headers = [
   'Date & Time',
   'Habitat',
   'Location',
+  'State',
   'Method',
   'Notes',
   'Number of Cranes',
@@ -33,11 +35,14 @@ $headers = [
 ];
 
 // Create CSV file.
-$filename = '../scripts/sightings_export_' . date('Y-m-d_H-i-s') . '.csv';
+$filename = '../scripts/data/sightings_export_' . date('Y-m-d_H-i-s') . '.csv';
 $file = fopen($filename, 'w');
 
 // Write headers.
 fputcsv($file, $headers);
+
+// Initialize HTTP client for geocoding.
+$client = \Drupal::httpClient();
 
 // Load and write sighting data.
 foreach ($nids as $nid) {
@@ -53,12 +58,27 @@ foreach ($nids as $nid) {
     // For list fields, get the selected value.
     $habitat = $node->field_habitat->value ?? '';
 
-    // For geolocation field, combine lat/long.
+    // For geolocation field, combine lat/long and get state.
     $location = '';
+    $state = '';
     if ($node->field_location && !$node->field_location->isEmpty()) {
       $lat = $node->field_location->lat;
       $lng = $node->field_location->lng;
       $location = "$lat, $lng";
+
+      // Try to get state from geocoding API.
+      try {
+        $url = "https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x={$lng}&y={$lat}&benchmark=Public_AR_Current&vintage=Current_Current&format=json";
+        $response = $client->get($url);
+        $data = json_decode($response->getBody(), TRUE);
+
+        if (!empty($data['result']['geographies']['States'][0]['STUSAB'])) {
+          $state = $data['result']['geographies']['States'][0]['STUSAB'];
+        }
+      }
+      catch (GuzzleException $e) {
+        print("Error fetching state for node {$nid}: " . $e->getMessage() . "\n");
+      }
     }
 
     $method = $node->field_method->value ?? '';
@@ -84,6 +104,7 @@ foreach ($nids as $nid) {
       $date_time,
       $habitat,
       $location,
+      $state,
       $method,
       $notes,
       $bird_count,
@@ -99,8 +120,7 @@ foreach ($nids as $nid) {
 // Close file.
 fclose($file);
 
-// Output success message.
-print("Sightings exported successfully to $filename\n");
+print("\nExport completed to: $filename\n");
 
 // Display total number of sightings exported.
 print('Total sightings exported: ' . count($nids));
