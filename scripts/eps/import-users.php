@@ -141,6 +141,22 @@ while (($row = fgetcsv($file)) !== FALSE) {
       }
     }
 
+    // Set last access time if provided.
+    if (!empty($data['Last Access'])) {
+      $access_timestamp = strtotime($data['Last Access']);
+      if ($access_timestamp) {
+        $user->set('access', $access_timestamp);
+      }
+    }
+
+    // Set last login time if provided.
+    if (!empty($data['Last Login'])) {
+      $login_timestamp = strtotime($data['Last Login']);
+      if ($login_timestamp) {
+        $user->set('login', $login_timestamp);
+      }
+    }
+
     // Save the user.
     $user->save();
 
