@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS Sighting module.
+ */
+
+use Drupal\node\NodeInterface;
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function fws_sighting_node_presave(NodeInterface $node) {
+  // Only act on sighting nodes.
+  if ($node->bundle() !== 'sighting') {
+    return;
+  }
+
+  // Only proceed if we have location data.
+  if ($node->field_location->isEmpty()) {
+    $node->field_state = '';
+    return;
+  }
+
+  try {
+    $lat = $node->field_location->lat;
+    $lng = $node->field_location->lng;
+
+    // Call Census Geocoding API.
+    $client = \Drupal::httpClient();
+    $url = "https://geocoding.geo.census.gov/geocoder/geographies/coordinates?x={$lng}&y={$lat}&benchmark=Public_AR_Current&vintage=Current_Current&format=json";
+    $response = $client->get($url);
+    $data = json_decode($response->getBody(), TRUE);
+
+    // Extract state from response.
+    if (!empty($data['result']['geographies']['States'][0]['STUSAB'])) {
+      $node->field_state = $data['result']['geographies']['States'][0]['STUSAB'];
+    }
+    else {
+      $node->field_state = '';
+    }
+  }
+  catch (GuzzleException $e) {
+    \Drupal::logger('fws_sighting')->error('Error fetching state from coordinates: @error', ['@error' => $e->getMessage()]);
+    $node->field_state = '';
+  }
+}

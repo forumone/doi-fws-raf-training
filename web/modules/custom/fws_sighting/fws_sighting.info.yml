@@ -1,0 +1,7 @@
+name: FWS Sighting
+type: module
+description: 'Custom functionality for sighting nodes'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  - drupal:node
