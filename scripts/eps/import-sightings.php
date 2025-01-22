@@ -8,6 +8,7 @@
  */
 
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 
 $filename = '../scripts/eps/data/sightings_export.csv';
 
@@ -86,6 +87,28 @@ try {
         $node->field_date_time = [
           'value' => date('Y-m-d\TH:i:s', strtotime($data['Date & Time'])),
         ];
+
+        // Set the year taxonomy reference.
+        $year = date('Y', strtotime($data['Date & Time']));
+        $term_id = \Drupal::entityQuery('taxonomy_term')
+          ->condition('vid', 'year')
+          ->condition('name', $year)
+          ->accessCheck(FALSE)
+          ->execute();
+
+        if (empty($term_id)) {
+          $term = Term::create([
+            'name' => $year,
+            'vid' => 'year',
+          ]);
+          $term->save();
+          $term_id = $term->id();
+        }
+        else {
+          $term_id = reset($term_id);
+        }
+
+        $node->set('field_year', ['target_id' => $term_id]);
       }
 
       if (!empty($data['Habitat'])) {
