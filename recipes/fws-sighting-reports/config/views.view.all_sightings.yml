@@ -12,6 +12,7 @@ dependencies:
     - field.storage.node.field_spotter
     - field.storage.node.field_state
     - node.type.sighting
+    - taxonomy.vocabulary.year
   module:
     - better_exposed_filters
     - csv_serialization
@@ -22,10 +23,11 @@ dependencies:
     - options
     - rest
     - serialization
+    - taxonomy
     - user
     - views_data_export
 _core:
-  default_config_hash: y9p3hA0y4sG3XwQxBFCnVQlG-PbNXl1E3KErjKrY288
+  default_config_hash: 84d-DFCuOsgV1kzifLJuvUZCZ1J-y7m21jKHz3OkUig
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -532,6 +534,56 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_year_target_id:
+          id: field_year_target_id
+          table: node__field_year
+          field: field_year_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_year_target_id_op
+            label: Year
+            description: ''
+            use_operator: false
+            operator: field_year_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_year_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: year
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         field_date_time_value_1:
           id: field_date_time_value_1
           table: node__field_date_time
@@ -1463,6 +1515,56 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_year_target_id:
+          id: field_year_target_id
+          table: node__field_year
+          field: field_year_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_year_target_id_op
+            label: Year
+            description: ''
+            use_operator: false
+            operator: field_year_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_year_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: year
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         field_date_time_value_1:
           id: field_date_time_value_1
           table: node__field_date_time
