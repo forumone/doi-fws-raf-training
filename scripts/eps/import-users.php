@@ -56,6 +56,13 @@ while (($row = fgetcsv($file)) !== FALSE) {
   $data = array_combine($headers, $row);
 
   try {
+    // Skip if this is the admin user (uid 1)
+    if ($data['User ID'] == 1) {
+      print("Skipping admin user: " . $data['Email'] . "\n");
+      $stats['skipped']++;
+      continue;
+    }
+
     // Validate required fields.
     if (empty($data['Email']) || empty($data['Username'])) {
       throw new \Exception('Email and Username are required fields');
@@ -134,6 +141,22 @@ while (($row = fgetcsv($file)) !== FALSE) {
       }
     }
 
+    // Set last access time if provided.
+    if (!empty($data['Last Access'])) {
+      $access_timestamp = strtotime($data['Last Access']);
+      if ($access_timestamp) {
+        $user->set('access', $access_timestamp);
+      }
+    }
+
+    // Set last login time if provided.
+    if (!empty($data['Last Login'])) {
+      $login_timestamp = strtotime($data['Last Login']);
+      if ($login_timestamp) {
+        $user->set('login', $login_timestamp);
+      }
+    }
+
     // Save the user.
     $user->save();
 
@@ -155,6 +178,7 @@ print("-------------\n");
 print("Total rows processed: " . $stats['processed'] . "\n");
 print("Users created: " . $stats['created'] . "\n");
 print("Users updated: " . $stats['updated'] . "\n");
+print("Users skipped: " . $stats['skipped'] . "\n");
 print("Errors encountered: " . $stats['errors'] . "\n");
 
 // Clear caches if needed.
