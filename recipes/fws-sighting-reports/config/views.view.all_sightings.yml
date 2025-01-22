@@ -25,7 +25,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: SXF9IGaAtM9Dxrw4mFm2KMj07Z1bOBNIkgiBySaH7iQ
+  default_config_hash: y9p3hA0y4sG3XwQxBFCnVQlG-PbNXl1E3KErjKrY288
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -1366,10 +1366,11 @@ display:
         - 'config:field.storage.node.field_spotter'
   page_1:
     id: page_1
-    display_title: Page
+    display_title: 'All Observations Page'
     display_plugin: page
     position: 1
     display_options:
+      display_description: ''
       display_extenders: {  }
       path: all-observations
       menu:
@@ -1388,6 +1389,394 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_bird_count'
+        - 'config:field.storage.node.field_date_time'
+        - 'config:field.storage.node.field_spotter'
+        - 'config:field.storage.node.field_state'
+  page_2:
+    id: page_2
+    display_title: 'My Observations Page'
+    display_plugin: page
+    position: 3
+    display_options:
+      title: 'My Observations'
+      filters:
+        combine:
+          id: combine
+          table: views
+          field: combine
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: combine
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: combine_op
+            label: Search
+            description: ''
+            use_operator: false
+            operator: combine_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: combine
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          fields:
+            field_spotter: field_spotter
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            sighting: sighting
+          group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_date_time_value_1:
+          id: field_date_time_value_1
+          table: node__field_date_time
+          field: field_date_time_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_time_value_1_op
+            label: 'Date (From)'
+            description: ''
+            use_operator: false
+            operator: field_date_time_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_time_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_date_time_value:
+          id: field_date_time_value
+          table: node__field_date_time
+          field: field_date_time_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_date_time_value_op
+            label: 'Date (To)'
+            description: ''
+            use_operator: false
+            operator: field_date_time_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_date_time_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_bird_count_value_1:
+          id: field_bird_count_value_1
+          table: node__field_bird_count
+          field: field_bird_count_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_bird_count_value_1_op
+            label: 'Max Crane #'
+            description: ''
+            use_operator: false
+            operator: field_bird_count_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_bird_count_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_bird_count_value:
+          id: field_bird_count_value
+          table: node__field_bird_count
+          field: field_bird_count_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_bird_count_value_op
+            label: 'Min Crane #'
+            description: ''
+            use_operator: false
+            operator: field_bird_count_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_bird_count_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_state_value:
+          id: field_state_value
+          table: node__field_state
+          field: field_state_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_state_value_op
+            label: State
+            description: ''
+            use_operator: false
+            operator: field_state_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_state_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              spotter: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: true
+        uid_current:
+          id: uid_current
+          table: users
+          field: uid_current
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          plugin_id: user_current
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        title: false
+        relationships: false
+        filters: false
+        filter_groups: false
+      relationships:
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: User
+          entity_type: node
+          entity_field: uid
+          plugin_id: standard
+          required: false
+      display_description: ''
+      display_extenders: {  }
+      path: my-observations
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:

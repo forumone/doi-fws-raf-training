@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/'
+      uri: 'internal:/my-observations'
       title: ''
       options: {  }
   external:

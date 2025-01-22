@@ -237,11 +237,20 @@ foreach ($nids as $nid) {
     // Get node owner username.
     $spotter_username = '';
     $owner_id = $node->getOwnerId();
+    print("Node {$node->id()} owner ID: $owner_id\n");
+
     if ($owner_id) {
       $owner = User::load($owner_id);
       if ($owner) {
         $spotter_username = $owner->getAccountName();
+        print("  Found username: $spotter_username\n");
       }
+      else {
+        print("  WARNING: Could not load user for ID: $owner_id\n");
+      }
+    }
+    else {
+      print("  WARNING: No owner ID found for node {$node->id()}\n");
     }
 
     $created = $node->getCreatedTime() ? date('Y-m-d H:i:s', $node->getCreatedTime()) : '';
