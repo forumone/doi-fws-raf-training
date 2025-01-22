@@ -16,7 +16,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: GrXTbzzl_pchNLtY8_yeZKxsS6_NOT800QPdyawOhho
+  default_config_hash: w21-QKLKWtgoX4t2KWI0Vy5rkW_jwVQrpuHrbk1j4RA
 id: sightings_map
 label: 'Observations Map'
 module: views
@@ -520,7 +520,7 @@ display:
           even_empty: 0
           centre:
             client_location:
-              enable: true
+              enable: false
               weight: 0
               map_center_id: client_location
             fit_bounds:
