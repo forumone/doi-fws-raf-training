@@ -318,6 +318,10 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.path-user .main-container {
+  max-width: 900px;
+}
+
 .field--name-field-file {
   margin-top: 20px;
 }

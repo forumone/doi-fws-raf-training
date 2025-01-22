@@ -1,3 +1,27 @@
 name: 'FWS Sighting User'
 description: 'FWS Sighting user fields, roles and permissions.'
 type: 'Site'
+
+install:
+  - fws_user
+
+config:
+  actions:
+    openid_connect.settings:
+      simple_config_update:
+        always_save_userinfo: true
+        connect_existing_users: true
+        override_registration_settings: false
+        end_session_enabled: false
+        user_login_display: above
+        redirect_login: user
+        redirect_logout: ''
+        userinfo_mappings:
+          timezone: zoneinfo
+          field_first_name: given_name
+          field_last_name: family_name
+          field_phone: phone_number
+    user.role.authenticated:
+      simple_config_update:
+        permissions:
+          - 'access user profiles'

@@ -5,6 +5,7 @@
 @forward 'views';
 @forward 'form-components'; // includes select2 and field groups
 @forward 'autocomplete'; // UI widget overrides
+@forward 'user';
 @forward 'node';
 @forward 'node-forms';
 @forward 'species';
