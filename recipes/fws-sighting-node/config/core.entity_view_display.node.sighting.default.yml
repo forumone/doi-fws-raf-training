@@ -102,6 +102,13 @@ content:
     third_party_settings: {  }
     type: field_token_value_text
     region: content
+  field_state:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
   links:
     weight: 0
     region: content

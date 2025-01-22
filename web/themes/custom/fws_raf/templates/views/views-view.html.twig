@@ -72,6 +72,11 @@
       </div>
     </div>
   {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
   {% if attachment_before %}
     <div class="attachment attachment-before">
       {{ attachment_before }}
@@ -102,11 +107,6 @@
   {% if footer %}
     <div class="view-footer">
       {{ footer }}
-    </div>
-  {% endif %}
-  {% if feed_icons %}
-    <div class="feed-icons">
-      {{ feed_icons }}
     </div>
   {% endif %}
 </div>

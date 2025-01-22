@@ -1,3 +1,8 @@
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value .form-text,
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value-1 .form-text {
+  max-width: 50px;
+}
+
 .view-tracking-other-names .form-actions {
   display: none;
 }

@@ -1,0 +1,7 @@
+fws_sighting.settings:
+  type: config_object
+  label: 'FWS Sighting settings'
+  mapping:
+    auto_state_lookup:
+      type: boolean
+      label: 'Automatically lookup state from coordinates'

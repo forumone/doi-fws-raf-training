@@ -1,4 +1,5 @@
 @forward 'variables';
+@forward 'sightings';
 @forward 'tracking'; // includes tracking report and search forms
 @forward 'navigation'; // includes header and nav
 @forward 'views';

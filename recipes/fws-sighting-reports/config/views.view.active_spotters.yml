@@ -2,17 +2,12 @@ uuid: c59d3afd-3d08-437f-8c64-a0f0e3d58500
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.user.field_first_name
-    - field.storage.user.field_last_name
-    - field.storage.user.field_start_date
   module:
     - better_exposed_filters
-    - datetime
     - node
     - user
 _core:
-  default_config_hash: CCtjMUwXEBMo9K2G4tGfwyrhM4wFkFjUoaXIRLb-WLw
+  default_config_hash: fvI3kKhgX0A4KzH1Y-dHD5FnNuMM9RvG6oesMgndM5E
 id: active_spotters
 label: 'Active Spotters'
 module: views

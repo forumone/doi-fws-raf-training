@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.sighting.field_method
     - field.field.node.sighting.field_notes
     - field.field.node.sighting.field_spotter
+    - field.field.node.sighting.field_state
     - node.type.sighting
   module:
     - datetime
@@ -17,7 +18,7 @@ dependencies:
     - geolocation_google_maps
     - path
 _core:
-  default_config_hash: hpqNfPM-ei-5zhT5lRvFQB_ZmG_XqLr4m6f156BrI6I
+  default_config_hash: THEL_QPI-I6KEyhfU1dQ0xOKitCSqDsD3owQKWI_3nY
 id: node.sighting.default
 targetEntityType: node
 bundle: sighting
@@ -25,20 +26,20 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_bird_count:
     type: number
-    weight: 8
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_date_time:
     type: datetime_default
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -50,7 +51,7 @@ content:
     third_party_settings: {  }
   field_location:
     type: geolocation_googlegeocoder
-    weight: 6
+    weight: 7
     region: content
     settings:
       auto_client_location: ''
@@ -383,20 +384,20 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -420,9 +421,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_state: true
   status: true
