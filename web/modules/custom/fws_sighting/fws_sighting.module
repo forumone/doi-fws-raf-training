@@ -7,6 +7,7 @@
 
 use Drupal\node\NodeInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Get state/province from coordinates using Nominatim API.
@@ -154,4 +155,35 @@ function fws_sighting_node_presave(NodeInterface $node) {
   // Get state from coordinates.
   $state = _fws_sighting_get_state_from_coordinates($lat, $lng);
   $node->field_state = $state ?: NULL;
+
+  // Update field_year based on field_date_time.
+  if (!$node->field_date_time->isEmpty()) {
+    $date_value = $node->field_date_time->value;
+    $year = date('Y', strtotime($date_value));
+
+    // Look for existing taxonomy term for this year.
+    $term_id = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'year')
+      ->condition('name', $year)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    if (empty($term_id)) {
+      // Create new term if it doesn't exist.
+      $term = Term::create([
+        'name' => $year,
+        'vid' => 'year',
+      ]);
+      $term->save();
+      $term_id = $term->id();
+    }
+    else {
+      $term_id = reset($term_id);
+    }
+
+    $node->set('field_year', ['target_id' => $term_id]);
+  }
+  else {
+    $node->field_year = NULL;
+  }
 }

@@ -5,3 +5,10 @@ fws_sighting.settings:
     _title: 'FWS Sighting Settings'
   requirements:
     _permission: 'administer site configuration'
+
+fws_sighting.observations_map_redirect:
+  path: '/observations-map-redirect'
+  defaults:
+    _controller: '\Drupal\fws_sighting\Controller\ObservationsMapController::redirectToLatestYear'
+  requirements:
+    _permission: 'access content'
