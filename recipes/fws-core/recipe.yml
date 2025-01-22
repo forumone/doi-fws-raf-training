@@ -65,6 +65,7 @@ install:
   - field_permissions
   - field_token_value
   - geolocation
+  - geolocation_google_maps
   - inline_entity_form
   - jquery_ui_draggable
   - jquery_ui_resizable
