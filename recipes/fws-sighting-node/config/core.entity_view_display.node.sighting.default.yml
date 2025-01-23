@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.sighting.field_method
     - field.field.node.sighting.field_notes
     - field.field.node.sighting.field_spotter
+    - field.field.node.sighting.field_state
+    - field.field.node.sighting.field_year
     - node.type.sighting
   module:
     - datetime
@@ -17,101 +19,98 @@ dependencies:
     - geolocation
     - options
     - user
+_core:
+  default_config_hash: vyRiDTfTwll0E7pVPVtigX7hvta7Xh-RzHHGnTHWj_Q
 id: node.sighting.default
 targetEntityType: node
 bundle: sighting
 mode: default
 content:
   field_bird_count:
-    weight: 3
-    label: above
+    type: number_integer
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 3
     region: content
   field_date_time:
-    weight: 2
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
     type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_habitat:
-    weight: 6
-    label: above
+    type: list_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 5
     region: content
   field_location:
-    weight: 1
-    label: above
+    type: geolocation_map
+    label: hidden
     settings:
-      set_marker: '1'
+      set_marker: true
+      show_label: false
+      common_map: false
+      show_delta_label: false
+      use_overridden_map_settings: true
       title: ''
       info_text: ''
-      google_map_settings:
-        height: 400px
-        width: 100%
-        type: ROADMAP
-        zoom: '5'
-        maxZoom: 18
-        minZoom: 2
-        mapTypeControl: 1
-        zoomControl: 1
-        scrollwheel: 1
-        gestureHandling: auto
-        style: ''
-        marker_icon_path: ''
-        disableAutoPan: 1
-        streetViewControl: 0
-        rotateControl: 0
-        fullscreenControl: 0
-        draggable: 0
-        preferScrollingToZooming: 0
-        disableDoubleClickZoom: 0
-        info_auto_display: 0
-      use_overridden_map_settings: 1
-      common_map: ''
+      centre:
+        fit_bounds:
+          enable: true
+          weight: -101
+          settings:
+            reset_zoom: true
+          map_center_id: fit_bounds
+      map_provider_id: google_maps
+      map_provider_settings: {  }
+      data_provider_settings: {  }
     third_party_settings: {  }
-    type: geolocation_map
+    weight: 1
     region: content
   field_method:
-    weight: 5
-    label: above
+    type: list_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 4
     region: content
   field_notes:
-    weight: 7
-    label: above
+    type: basic_string
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 6
     region: content
   field_spotter:
-    weight: 8
-    label: above
+    type: field_token_value_text
+    label: hidden
     settings:
       wrapper: ''
+      link: false
     third_party_settings: {  }
-    type: field_token_value_text
+    weight: 7
     region: content
   field_state:
     type: list_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 8
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    weight: 0
+    region: content
+hidden:
+  field_year: true
+  langcode: true
+  search_api_excerpt: true
