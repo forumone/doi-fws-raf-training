@@ -9,6 +9,4 @@ fin drush recipe ../recipes/fws-core
 # fin drush webform-libraries-download
 fin drush cr
 
-fin drush scr ../scripts/install-cleanup.php
-fin drush cr
 fin drush uli
