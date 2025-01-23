@@ -98,6 +98,7 @@ install:
   - externalauth
   - key_asymmetric
   - key
+  - views_aggregator
   - views_bulk_operations
   - views_data_export
   - views_year_filter

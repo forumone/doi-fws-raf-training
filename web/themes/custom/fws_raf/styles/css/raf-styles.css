@@ -3,6 +3,36 @@
   max-width: 50px;
 }
 
+.gm-style-iw-d .views-field {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.gm-style-iw-d .views-field:last-child {
+  margin-bottom: 0;
+}
+.gm-style-iw-d .views-field.views-field-view-node .field-content a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.gm-style-iw-d .views-field.views-field-view-node .field-content a:hover {
+  text-decoration: underline;
+}
+.gm-style-iw-d .views-field.views-field-field-location .geolocation-latlng {
+  font-family: monospace;
+  color: #666;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count .views-label {
+  font-weight: bold;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count .field-content {
+  color: #333;
+}
+
 .view-tracking-other-names .form-actions {
   display: none;
 }
