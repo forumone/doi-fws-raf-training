@@ -1,0 +1,106 @@
+{#
+/**
+ * @file
+ * Theme override to display Sighting information using Bootstrap 3 classes.
+ */
+#}
+
+{%
+  set classes = [
+    'sighting-record',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+    <!-- Sighting Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sighting Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Date & Time</th>
+                <td class="col-md-9">{{ content.field_date_time|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>{{ content.field_location|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Habitat</th>
+                <td>{{ content.field_habitat|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Method</th>
+                <td>{{ content.field_method|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Number of Cranes</th>
+                <td>{{ content.field_bird_count|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>State</th>
+                <td>{{ content.field_state|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Notes</th>
+                <td class="col-md-9">{{ content.field_notes|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Spotter</th>
+                <td>{{ content.field_spotter|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Created Date</th>
+                <td>{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Created By</th>
+                <td>
+                  {% if node.getOwner().field_first_name.value is not empty %}
+                    {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+                  {% else %}
+                    {{ node.getOwner().getDisplayName() }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Updated By</th>
+                <td>{{ node.getRevisionUser().getDisplayName() }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

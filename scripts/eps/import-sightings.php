@@ -8,6 +8,7 @@
  */
 
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 
 $filename = '../scripts/eps/data/sightings_export.csv';
 
@@ -86,6 +87,28 @@ try {
         $node->field_date_time = [
           'value' => date('Y-m-d\TH:i:s', strtotime($data['Date & Time'])),
         ];
+
+        // Set the year taxonomy reference.
+        $year = date('Y', strtotime($data['Date & Time']));
+        $term_id = \Drupal::entityQuery('taxonomy_term')
+          ->condition('vid', 'year')
+          ->condition('name', $year)
+          ->accessCheck(FALSE)
+          ->execute();
+
+        if (empty($term_id)) {
+          $term = Term::create([
+            'name' => $year,
+            'vid' => 'year',
+          ]);
+          $term->save();
+          $term_id = $term->id();
+        }
+        else {
+          $term_id = reset($term_id);
+        }
+
+        $node->set('field_year', ['target_id' => $term_id]);
       }
 
       if (!empty($data['Habitat'])) {
@@ -167,4 +190,35 @@ finally {
   print("Created: $created\n");
   print("Updated: $updated\n");
   print("Errors: $errors\n");
+}
+
+// Update weights in the 'year' vocabulary to sort by year descending.
+try {
+  $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('year');
+  if ($vocabulary) {
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('year', 0, NULL, TRUE);
+
+    if ($terms) {
+      foreach ($terms as $term) {
+        // Extract year from term name and calculate weight
+        // Most recent year should have lowest weight to appear first.
+        $year = (int) $term->getName();
+        // Makes recent years have lower weights.
+        $weight = -1 * $year;
+
+        $term->setWeight($weight);
+        $term->save();
+      }
+      echo "Successfully updated weights in 'year' vocabulary for descending sort order.\n";
+    }
+    else {
+      echo "No terms found in 'year' vocabulary.\n";
+    }
+  }
+  else {
+    echo "Year vocabulary not found.\n";
+  }
+}
+catch (Exception $e) {
+  echo "Error updating year vocabulary weights: " . $e->getMessage() . "\n";
 }

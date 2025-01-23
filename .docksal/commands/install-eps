@@ -19,6 +19,7 @@ fin drush -l recipe ../recipes/fws-core
 fin drush -l scr ../scripts/eps/install-cleanup.php
 fin drush -l cr
 fin drush -l cr
+fin drush -l recipe ../recipes/fws-sighting-taxonomy
 fin drush -l recipe ../recipes/fws-sighting-node
 fin drush -l recipe ../recipes/fws-sighting-reports
 fin drush -l recipe ../recipes/fws-sighting-user
