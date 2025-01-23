@@ -348,6 +348,13 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.path-user .main-container {
+  max-width: 900px;
+}
+.path-user .main-container .field {
+  margin-bottom: 1rem;
+}
+
 .field--name-field-file {
   margin-top: 20px;
 }
