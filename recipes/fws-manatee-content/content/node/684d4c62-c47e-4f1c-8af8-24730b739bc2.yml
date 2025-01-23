@@ -26,6 +26,9 @@ default:
   sticky:
     -
       value: false
+  revision_translation_affected:
+    -
+      value: true
   metatag:
     -
       tag: meta
@@ -36,12 +39,12 @@ default:
       tag: meta
       attributes:
         name: description
-        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Dow'
+        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Download'
     -
       tag: meta
       attributes:
         name: abstract
-        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Dow'
+        content: 'CategoryDocument NameDownloadGeneticsFWS Sirenian Tissue DNA Collection Protocol 2007FWS Sirenian Blood DNA Collection Protocol 2008Download'
     -
       tag: link
       attributes:
