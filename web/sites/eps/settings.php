@@ -913,7 +913,14 @@ if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_eps-settings.inc';
 }
 
-if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  // Set cookie settings for epsandhill
-  $settings['session.cookie_path'] = '/epsandhill';
-}
+# in production this will be over-ridden by platform-settings.php
+$settings['trusted_host_patterns'] = [
+  '^localhost$',
+  '^doi.+\.prod\.acquia-sites\.com$',
+  '^fws-raf\.ddev\.site$',
+];
+
+$settings['session.cookie_path'] = '/epsandhill';
+$settings['file_public_path'] = "sites/eps/files";
+$settings['file_private_path'] = "sites/eps/files/private";
+$settings['file_temp_path'] = "/tmp";
