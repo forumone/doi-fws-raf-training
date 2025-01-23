@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/'
+      uri: 'internal:/active-spotters'
       title: ''
       options: {  }
   external:

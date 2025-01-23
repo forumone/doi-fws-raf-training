@@ -1,3 +1,8 @@
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value .form-text,
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value-1 .form-text {
+  max-width: 50px;
+}
+
 .view-tracking-other-names .form-actions {
   display: none;
 }
@@ -317,6 +322,28 @@ input.form-autocomplete {
   margin-top: 20px;
 }
 
+.page-node-edit .geolocation-map-control .form-item label,
+.page-node-edit .geolocation-map-control .form-item .description,
+.page-node-add .geolocation-map-control .form-item label,
+.page-node-add .geolocation-map-control .form-item .description {
+  display: none;
+}
+.page-node-edit .radio input[type=radio],
+.page-node-edit .radio-inline input[type=radio],
+.page-node-edit .checkbox input[type=checkbox],
+.page-node-edit .checkbox-inline input[type=checkbox],
+.page-node-add .radio input[type=radio],
+.page-node-add .radio-inline input[type=radio],
+.page-node-add .checkbox input[type=checkbox],
+.page-node-add .checkbox-inline input[type=checkbox] {
+  margin-left: 0;
+}
+.page-node-edit .radio label,
+.page-node-edit .checkbox label,
+.page-node-add .radio label,
+.page-node-add .checkbox label {
+  margin-left: 5px;
+}
 .page-node-edit .form-type-vertical-tabs,
 .page-node-add .form-type-vertical-tabs {
   padding-top: 20px;
@@ -379,6 +406,10 @@ input.form-autocomplete {
 .dropbutton-wrapper .dropbutton__item {
   display: inline-block;
   margin-left: 10px;
+}
+
+.location-consent-message {
+  margin-bottom: 20px;
 }
 
 .page-node-type-species .main-container {

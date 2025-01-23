@@ -1,0 +1,117 @@
+uuid: a23d3555-0bb6-4b28-a9ef-a0f1dde6607f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.sighting.field_bird_count
+    - field.field.node.sighting.field_date_time
+    - field.field.node.sighting.field_habitat
+    - field.field.node.sighting.field_location
+    - field.field.node.sighting.field_method
+    - field.field.node.sighting.field_notes
+    - field.field.node.sighting.field_spotter
+    - node.type.sighting
+  module:
+    - datetime
+    - field_token_value
+    - geolocation
+    - options
+    - user
+id: node.sighting.default
+targetEntityType: node
+bundle: sighting
+mode: default
+content:
+  field_bird_count:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_date_time:
+    weight: 2
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_habitat:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_location:
+    weight: 1
+    label: above
+    settings:
+      set_marker: '1'
+      title: ''
+      info_text: ''
+      google_map_settings:
+        height: 400px
+        width: 100%
+        type: ROADMAP
+        zoom: '5'
+        maxZoom: 18
+        minZoom: 2
+        mapTypeControl: 1
+        zoomControl: 1
+        scrollwheel: 1
+        gestureHandling: auto
+        style: ''
+        marker_icon_path: ''
+        disableAutoPan: 1
+        streetViewControl: 0
+        rotateControl: 0
+        fullscreenControl: 0
+        draggable: 0
+        preferScrollingToZooming: 0
+        disableDoubleClickZoom: 0
+        info_auto_display: 0
+      use_overridden_map_settings: 1
+      common_map: ''
+    third_party_settings: {  }
+    type: geolocation_map
+    region: content
+  field_method:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_notes:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_spotter:
+    weight: 8
+    label: above
+    settings:
+      wrapper: ''
+    third_party_settings: {  }
+    type: field_token_value_text
+    region: content
+  field_state:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
