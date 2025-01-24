@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Theme override for a details wrapper.
+ *
+ * Available variables
+ * - children: Contains the child elements of the details.
+ * - attributes: HTML attributes for the containing element.
+ */
+#}
+{%
+  set classes = [
+    'details-wrapper',
+    attributes.hasClass('vertical-tabs__item') ? 'js-vertical-tabs-pane',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}
+  {% if attributes.hasClass('vertical-tabs__item') %}
+    role="tabpanel"
+    aria-labelledby="{{ attributes.id }}-tab"
+    tabindex="0"
+  {% endif %}>
+  {{ children }}
+</div>
