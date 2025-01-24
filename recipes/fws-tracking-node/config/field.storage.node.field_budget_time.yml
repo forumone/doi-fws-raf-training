@@ -6,7 +6,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: Oh5kbgGwD7vLJxu1YYUW4-rDTLewFzNhrLrh-toCZ6Y
+  default_config_hash: lZSQULnf3qchCZSnHjybgp_65Cikh9X2Wi4GG9fCz7I
 id: node.field_budget_time
 field_name: field_budget_time
 entity_type: node

@@ -4,6 +4,8 @@ _meta:
   uuid: 62046ff6-1046-4519-b669-20988b3025d6
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    684d4c62-c47e-4f1c-8af8-24730b739bc2: node
 default:
   enabled:
     -
@@ -16,7 +18,7 @@ default:
       value: utility
   link:
     -
-      uri: 'internal:/admin'
+      target_uuid: 684d4c62-c47e-4f1c-8af8-24730b739bc2
       title: ''
       options: {  }
   external:
@@ -24,7 +26,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -50

@@ -1,5 +1,23 @@
 .page-node-edit,
 .page-node-add {
+
+  .geolocation-map-control .form-item label,
+  .geolocation-map-control .form-item .description {
+    display: none;
+  }
+
+  .radio input[type="radio"],
+  .radio-inline input[type="radio"],
+  .checkbox input[type="checkbox"],
+  .checkbox-inline input[type="checkbox"] {
+    margin-left: 0;
+  }
+
+  .radio label,
+  .checkbox label {
+    margin-left: 5px;
+  }
+
   .form-type-vertical-tabs {
     padding-top: 20px;
   }
@@ -52,4 +70,29 @@
       min-height: initial;
     }
   }
+}
+
+.node-confirm-form {
+  margin-bottom: 30px;
+
+  .form-actions {
+    margin-top: 20px;
+  }
+}
+
+.dropbutton-wrapper {
+
+  .dropbutton {
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  .dropbutton__item {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.location-consent-message {
+  margin-bottom: 20px;
 }

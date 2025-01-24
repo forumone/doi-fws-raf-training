@@ -6,14 +6,14 @@ dependencies:
     - field.storage.paragraph.field_primary
     - paragraphs.paragraphs_type.species_name
 _core:
-  default_config_hash: lFftLPrUYGwWHz9MXuCkLvBH6-Zy-RTOwSj9g2xvRa0
+  default_config_hash: 8CzR83M0V2piyGz6impUO3S5B6hsbYmRR473J_4_zNc
 id: paragraph.species_name.field_primary
 field_name: field_primary
 entity_type: paragraph
 bundle: species_name
 label: 'Primary Name'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

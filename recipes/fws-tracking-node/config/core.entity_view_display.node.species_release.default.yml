@@ -20,7 +20,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: FnEsk4dunOmxDo1r0myM7aY_CdwzM3K6QMSq2B5yJeg
+  default_config_hash: Qi1qweTtocs6LI7XAnMmWJqpu6JkcvucetP7RddyKUk
 id: node.species_release.default
 targetEntityType: node
 bundle: species_release

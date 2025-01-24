@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Contains fws_private_pages.module.
+ */
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Implements hook_node_access().
+ */
+function fws_private_pages_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Only check view access for page content type.
+  if ($op !== 'view' || $node->getType() !== 'page') {
+    return AccessResult::neutral();
+  }
+
+  // If the node has field_private and it's set to TRUE.
+  if ($node->hasField('field_private') && $node->get('field_private')->value == TRUE) {
+    // Deny access if user is not authenticated.
+    return AccessResult::forbiddenIf(!$account->isAuthenticated())
+      ->addCacheableDependency($node)
+      ->addCacheContexts(['user.roles']);
+  }
+
+  // No opinion for other cases.
+  return AccessResult::neutral();
+}

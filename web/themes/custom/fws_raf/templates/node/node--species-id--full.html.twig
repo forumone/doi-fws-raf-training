@@ -24,19 +24,19 @@
     <!-- Species Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Species ID Information</h3>
+        <h3 class="panel-title">{{ 'Species ID'|t }} Information</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th>Species ID</th>
+                <th>{{ 'Species ID'|t }}</th>
                 <td>{{ content.field_species_id|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>ID Type</th>
-                <td>{{ content.field_id_type|default('N/A') }}</td>
+                <td>{{ node.field_id_type.entity.field_type_of_id.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Primary ID</th>
@@ -62,8 +62,23 @@
                 <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
               </tr>
               <tr>
+                <th>Created By</th>
+                <td>
+                  {% if node.getOwner().field_first_name.value is not empty %}
+                    {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+                  {% else %}
+                    {{ node.getOwner().getDisplayName() }}
+                  {% endif %}
+                </td>
+                </tr>
+              </tr>
+              <tr>
                 <th>Last Updated</th>
                 <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Updated By</th>
+                <td>{{ node.getRevisionUser().getDisplayName() }}</td>
               </tr>
             </tbody>
           </table>

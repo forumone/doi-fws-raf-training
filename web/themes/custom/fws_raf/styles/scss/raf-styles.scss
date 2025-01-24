@@ -1,8 +1,12 @@
 @forward 'variables';
+@forward 'sightings';
 @forward 'tracking'; // includes tracking report and search forms
 @forward 'navigation'; // includes header and nav
 @forward 'views';
 @forward 'form-components'; // includes select2 and field groups
 @forward 'autocomplete'; // UI widget overrides
+@forward 'user';
+@forward 'node';
 @forward 'node-forms';
 @forward 'species';
+@forward 'layout';

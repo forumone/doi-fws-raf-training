@@ -1,0 +1,551 @@
+"MLog","RescueDate","RescuePerDay","Gear","GearDesc","EntLoc","CreateBy","CreateDate","UpdateBy","UpdateDate"
+11,1999-05-09 00:00:00.000,1,Crab,,Unknown,jhackshaw,1999-05-09 00:00:00.000,D,2009-07-09 10:09:34.327
+16,1998-12-04 00:00:00.000,1,Mono,,Unknown,unk,1999-01-29 00:00:00.000,D,2009-07-09 10:09:34.327
+17,1995-01-24 00:00:00.000,1,FH,,Unknown,unk,1995-01-24 00:00:00.000,D,2009-07-09 10:09:34.327
+18,1995-10-18 00:00:00.000,1,Crab,,Unknown,swright,1995-10-19 00:00:00.000,D,2009-07-09 10:09:34.327
+34,1985-05-25 00:00:00.000,1,Crab,,Unknown,unk,1985-05-25 00:00:00.000,D,2009-07-09 10:09:34.327
+37,1982-02-12 00:00:00.000,1,Oth,Unknown,Unknown,unk,1982-02-12 00:00:00.000,D,2009-07-09 10:09:34.327
+38,1998-05-28 00:00:00.000,1,Crab,,Unknown,aspellman,1998-05-28 00:00:00.000,D,2009-07-09 10:09:34.327
+52,1993-07-13 00:00:00.000,1,Crab,,Unknown,bbrooks,1993-07-14 00:00:00.000,D,2009-07-09 10:09:34.327
+59,1996-02-07 00:00:00.000,1,Oth,plastic strip,around body behind pectoral flippers,unk,1996-02-07 00:00:00.000,dszemer,2010-11-19 11:53:13.937
+62,1997-03-13 00:00:00.000,1,Oth,Unknown,Unknown,boucher,1997-03-14 00:00:00.000,D,2009-07-09 10:09:34.327
+64,1997-07-07 00:00:00.000,1,Mono,,Unknown,aperry,1997-07-10 00:00:00.000,D,2009-07-09 10:09:34.327
+64,1999-05-22 00:00:00.000,1,Mono,,Unknown,aperry,1999-07-26 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2002-05-18 00:00:00.000,1,Mono,,Left pectoral flipper,unk,2002-05-18 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2004-08-23 00:00:00.000,1,Mono,,both flippers,unk,2004-08-23 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2004-08-23 00:00:00.000,1,Oth,Chum bag,both flippers,chudak,2004-08-24 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2004-11-09 00:00:00.000,1,Mono,,on both flippers and around tag,unk,2004-11-09 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2005-08-10 00:00:00.000,1,Mono,,Both flippers,unk,2005-08-10 00:00:00.000,D,2009-07-09 10:09:34.327
+64,2016-03-07 00:00:00.000,1,Rope,"15ft black rope with monofilament and hooks wrapped around it.",peduncle,ahowell,2016-03-25 07:53:14.400,D,2016-03-25 07:53:14.400
+64,2018-02-25 00:00:00.000,1,Mono,Monofilament was across the dorsum connecting both flippers.  line was left on both flippers.,across dorsum,ahowell,2018-05-15 09:58:12.440,D,2018-05-15 09:58:12.440
+64,2019-03-16 00:00:00.000,1,Mono,"Monofilament was deeply embedded around both flippers and formed a 2-inch-wide mass of line that “handcuffed” the manatee.  The entanglements were associated with swollen, white scar tissue at the proximal third of both flippers.",Pectoral flippers,ngordon,2020-04-20 11:18:27.797,D,2020-04-20 11:18:27.797
+64,2019-04-07 00:00:00.000,1,Mono,dual flipper entanglements with yellow to green monofilament line wrapped around the body at the head and attached at each flipper,pectoral flippers and head/body,ngordon,2020-04-20 12:37:26.890,D,2020-04-20 12:37:26.890
+64,2020-04-21 00:00:00.000,1,Mono,"monofilament, hook, sinker, net, tan cable",gear cut into and connected both flippers and led to a loose wrap around the tail ,aperna,2020-10-18 10:04:27.240,D,2020-10-18 10:04:27.240
+67,2000-05-28 00:00:00.000,1,Mono,,Unknown,rrose,2000-06-06 00:00:00.000,D,2009-07-09 10:09:34.327
+69,1996-01-05 00:00:00.000,1,Oth,rope with monofilament netting wrapped around body behind pectoral flippers,around body behind pectoral flippers,pcook,1996-01-05 00:00:00.000,dszemer,2010-11-19 11:03:46.023
+76,1999-10-13 00:00:00.000,1,Mono,,Unknown,rrose,1999-10-22 00:00:00.000,D,2009-07-09 10:09:34.327
+95,2000-04-17 00:00:00.000,1,Net,,Unknown,aspellman,2000-04-19 00:00:00.000,D,2009-07-09 10:09:34.327
+96,2000-11-19 00:00:00.000,1,Crab,,Unknown,unk,2000-11-19 00:00:00.000,D,2009-07-09 10:09:34.327
+98,1998-11-15 00:00:00.000,1,Crab,,Unknown,aspellman,1998-11-18 00:00:00.000,D,2009-07-09 10:09:34.327
+99,1998-12-10 00:00:00.000,1,Net,,Unknown,aspellman,1998-12-10 00:00:00.000,D,2009-07-09 10:09:34.327
+100,1999-04-11 00:00:00.000,1,Crab,,Unknown,jsmith,1999-04-18 00:00:00.000,D,2009-07-09 10:09:34.327
+101,1994-05-03 00:00:00.000,1,Crab,,Unknown,aspellman,1994-05-09 00:00:00.000,D,2009-07-09 10:09:34.327
+103,1995-07-06 00:00:00.000,1,Crab,,Unknown,unk,1995-07-06 00:00:00.000,D,2009-07-09 10:09:34.327
+106,1996-05-22 00:00:00.000,1,Crab,,Unknown,bwagoner,1996-05-22 00:00:00.000,D,2009-07-09 10:09:34.327
+107,1996-09-16 00:00:00.000,1,Crab,,Unknown,unk,1996-09-16 00:00:00.000,D,2009-07-09 10:09:34.327
+109,1996-10-26 00:00:00.000,1,Crab,,Unknown,aspellman,1996-11-01 00:00:00.000,D,2009-07-09 10:09:34.327
+111,1997-07-19 00:00:00.000,1,Net,,Unknown,jsmith,1997-07-19 00:00:00.000,D,2009-07-09 10:09:34.327
+112,1995-06-20 00:00:00.000,1,Crab,,Unknown,unk,1995-06-20 00:00:00.000,D,2009-07-09 10:09:34.327
+113,1997-06-12 00:00:00.000,1,Crab,,Unknown,bbrooks,1997-06-12 00:00:00.000,D,2009-07-09 10:09:34.327
+117,1996-06-05 00:00:00.000,1,Crab,,Unknown,unk,1996-06-05 00:00:00.000,D,2009-07-09 10:09:34.327
+118,1996-12-04 00:00:00.000,1,Crab,,Unknown,mross,1997-02-06 00:00:00.000,D,2009-07-09 10:09:34.327
+119,1998-04-15 00:00:00.000,1,Crab,,Unknown,tpitchford,1998-04-15 00:00:00.000,D,2009-07-09 10:09:34.327
+120,2000-05-15 00:00:00.000,1,Oth,"triple, treble hook lure",upper and lower lips,unk,2000-05-15 00:00:00.000,dszemer,2010-12-02 09:30:42.537
+121,2000-06-25 00:00:00.000,1,Rope,,Unknown,pcook,2000-06-25 00:00:00.000,D,2009-07-09 10:09:34.327
+136,2000-06-08 00:00:00.000,1,Crab,,Unknown,lkeith,2000-06-10 00:00:00.000,D,2009-07-09 10:09:34.327
+140,1995-06-14 00:00:00.000,1,Crab,,Unknown,tpitchford,1995-06-14 00:00:00.000,D,2009-07-09 10:09:34.327
+141,1995-10-28 00:00:00.000,1,Crab,,Unknown,unk,1995-10-28 00:00:00.000,D,2009-07-09 10:09:34.327
+143,1996-05-12 00:00:00.000,1,Crab,,Unknown,jhoffman,1996-05-12 00:00:00.000,D,2009-07-09 10:09:34.327
+145,1997-04-01 00:00:00.000,1,Crab,,Unknown,tpitchford,1997-04-02 00:00:00.000,D,2009-07-09 10:09:34.327
+147,1997-06-02 00:00:00.000,1,Crab,,Unknown,tpitchford,1997-06-03 00:00:00.000,D,2009-07-09 10:09:34.327
+150,1998-02-22 00:00:00.000,1,Crab,,Unknown,tpitchford,1998-03-07 00:00:00.000,D,2009-07-09 10:09:34.327
+153,1998-06-03 00:00:00.000,1,FH,,Ingestion,swinslow,1998-06-08 00:00:00.000,dszemer,2010-12-08 11:49:01.527
+154,1998-11-30 00:00:00.000,1,Crab,,Unknown,lkeith,1998-12-02 00:00:00.000,D,2009-07-09 10:09:34.327
+155,1999-01-30 00:00:00.000,1,Crab,,Unknown,unk,1999-01-30 00:00:00.000,D,2009-07-09 10:09:34.327
+159,1986-05-11 00:00:00.000,1,Crab,,Unknown,unk,1986-05-11 00:00:00.000,D,2009-07-09 10:09:34.327
+161,1986-07-09 00:00:00.000,1,Crab,,Unknown,dbuesse,1986-07-09 00:00:00.000,D,2009-07-09 10:09:34.327
+161,1996-04-27 00:00:00.000,1,Ing,fish hook found in intestines at necropsy,ingested-intestine,dszemer,2014-04-04 09:07:27.237,D,2014-04-04 09:07:27.237
+164,1986-11-16 00:00:00.000,1,Crab,,Unknown,unk,1986-11-16 00:00:00.000,D,2009-07-09 10:09:34.327
+172,1987-10-30 00:00:00.000,1,Crab,,Unknown,bwagoner,1987-10-30 00:00:00.000,D,2009-07-09 10:09:34.327
+177,1988-02-04 00:00:00.000,1,Oth,Unknown,Unknown,bwagoner,1988-02-04 00:00:00.000,D,2009-07-09 10:09:34.327
+180,1988-07-04 00:00:00.000,1,Crab,,Unknown,jpearson,1988-07-04 00:00:00.000,D,2009-07-09 10:09:34.327
+189,1982-04-12 00:00:00.000,1,Crab,,Unknown,bwagoner,1982-04-12 00:00:00.000,D,2009-07-09 10:09:34.327
+191,1982-05-19 00:00:00.000,1,Crab,,Unknown,bwagoner,1982-05-19 00:00:00.000,D,2009-07-09 10:09:34.327
+193,1983-06-28 00:00:00.000,1,Crab,,Unknown,bwagoner,1983-06-28 00:00:00.000,D,2009-07-09 10:09:34.327
+194,1983-08-19 00:00:00.000,1,Crab,,Unknown,bwagoner,1983-08-19 00:00:00.000,D,2009-07-09 10:09:34.327
+195,1983-11-13 00:00:00.000,1,Crab,,Unknown,bwagoner,1983-11-13 00:00:00.000,D,2009-07-09 10:09:34.327
+197,1984-05-13 00:00:00.000,1,Crab,,Unknown,bbonde,1990-09-03 00:00:00.000,D,2009-07-09 10:09:34.340
+199,1989-07-20 00:00:00.000,1,Crab,,Unknown,jpearson,1989-07-20 00:00:00.000,D,2009-07-09 10:09:34.340
+199,1997-01-27 00:00:00.000,1,Crab,,Unknown,mross,1997-02-06 00:00:00.000,D,2009-07-09 10:09:34.340
+248,1991-01-06 00:00:00.000,1,Crab,,Unknown,cshaw,1991-11-06 00:00:00.000,D,2009-07-09 10:09:34.340
+254,1992-02-21 00:00:00.000,1,Mono,,Unknown,bwagoner,1992-02-24 00:00:00.000,D,2009-07-09 10:09:34.340
+258,2008-05-20 00:00:00.000,1,Oth, trotline wrapped in tag,telemetry gear,aspellman,2008-05-10 00:00:00.000,D,2009-07-09 10:09:34.340
+259,1992-04-18 00:00:00.000,1,Crab,,Unknown,lsalisbury,1992-04-20 00:00:00.000,D,2009-07-09 10:09:34.340
+262,1992-05-12 00:00:00.000,1,Crab,,Unknown,rrunnells,1992-05-13 00:00:00.000,D,2009-07-09 10:09:34.340
+266,1980-06-27 00:00:00.000,1,Crab,,Unknown,bwagoner,1980-06-27 00:00:00.000,D,2009-07-09 10:09:34.340
+271,1992-07-10 00:00:00.000,1,Crab,,Unknown,jhoyo,1992-07-12 00:00:00.000,D,2009-07-09 10:09:34.340
+273,1992-08-06 00:00:00.000,1,Mono,,Unknown,bwagoner,1992-08-10 00:00:00.000,D,2009-07-09 10:09:34.340
+289,1993-01-06 00:00:00.000,1,Crab,,Unknown,lsalisbury,1993-01-08 00:00:00.000,D,2009-07-09 10:09:34.340
+297,1993-07-05 00:00:00.000,1,Mono,,Unknown,aspellman,1993-07-07 00:00:00.000,D,2009-07-09 10:09:34.340
+297,2005-06-07 00:00:00.000,1,Rope,,Left pect,bwagoner,2005-06-30 00:00:00.000,D,2009-07-09 10:09:34.340
+299,1993-08-07 00:00:00.000,1,FH,,Unknown,bwagoner,1993-08-09 00:00:00.000,D,2009-07-09 10:09:34.340
+310,1993-07-01 00:00:00.000,1,Crab,,Unknown,unk,1993-07-01 00:00:00.000,D,2009-07-09 10:09:34.340
+312,1994-03-06 00:00:00.000,1,Mono,monofilament and anchor line ,left flipper & around body,bwagoner,1994-03-07 00:00:00.000,dszemer,2014-03-20 08:48:39.310
+312,1994-03-06 00:00:00.000,1,Oth,anchor line,left flipper & around body,dszemer,2014-03-20 08:50:44.590,D,2014-03-20 08:50:44.590
+312,2001-04-10 00:00:00.000,1,Mono,,"Left pectoral Flipper, embedded deeply",pcook,2001-04-12 00:00:00.000,D,2009-07-09 10:09:34.340
+312,2009-10-24 00:00:00.000,1,Mono,Medium weight green monofilament,tip of left flipper,chudak,2009-10-30 15:30:22.893,D,2009-10-30 15:30:22.893
+312,2012-02-21 00:00:00.000,1,Mono,"",left flipper,dszemer,2015-09-24 13:01:54.690,D,2015-09-24 13:01:54.690
+312,2013-03-06 00:00:00.000,1,Mono,Embedded monofilament line,left flipper,lconnor,2014-01-22 10:50:08.357,dszemer,2015-09-24 12:36:38.853
+312,2013-04-09 00:00:00.000,1,Mono,Embedded monofilament line,left flipper,lconnor,2014-01-23 14:23:05.637,dszemer,2015-09-24 13:12:09.853
+312,2014-08-31 00:00:00.000,1,Mono,"monofilament, metal line, chum bag",left flipper,dszemer,2016-01-15 11:58:39.850,D,2016-01-15 11:58:39.850
+312,2020-02-04 00:00:00.000,1,Mono,"",Left and right flippers each have monofilament embedded deeply,jheyde,2020-02-10 15:00:46.520,D,2020-02-10 15:00:46.520
+315,2002-05-13 00:00:00.000,1,Mono,,Head and mouth area,rrunnells,2002-05-15 00:00:00.000,D,2009-07-09 10:09:34.340
+321,2006-09-27 00:00:00.000,1,Rope,,Unknown,dszemer,2006-09-27 00:00:00.000,D,2009-07-09 10:09:34.340
+333,2000-06-25 00:00:00.000,1,Oth,Unknown,Unknown,amusante,2000-06-30 00:00:00.000,D,2009-07-09 10:09:34.340
+340,1995-03-29 00:00:00.000,1,FH,,Unknown,aspellman,1995-03-30 00:00:00.000,D,2009-07-09 10:09:34.340
+342,1995-04-04 00:00:00.000,1,Oth,Unknown,Unknown,swright,1995-04-13 00:00:00.000,D,2009-07-09 10:09:34.340
+347,1995-04-25 00:00:00.000,1,Crab,,Unknown,rrunnells,1995-04-26 00:00:00.000,D,2009-07-09 10:09:34.340
+357,1995-06-05 00:00:00.000,1,Crab,,Unknown,swinslow,1995-06-05 00:00:00.000,D,2009-07-09 10:09:34.340
+358,1995-06-16 00:00:00.000,1,Crab,,Unknown,rrunnells,1995-06-17 00:00:00.000,D,2009-07-09 10:09:34.340
+361,1995-07-04 00:00:00.000,1,Crab,,Unknown,aspellman,1995-07-06 00:00:00.000,D,2009-07-09 10:09:34.340
+362,1995-07-21 00:00:00.000,1,Mono,,Unknown,boucher,1995-07-21 00:00:00.000,D,2009-07-09 10:09:34.340
+372,2012-07-04 00:00:00.000,1,Net,Cast net,"unclear if it was around the whole body, or just the transmitter",crush,2012-08-03 15:26:52.627,D,2012-08-03 15:26:52.627
+380,1996-02-08 00:00:00.000,1,Mono,,Unknown,bwagoner,1996-02-08 00:00:00.000,D,2009-07-09 10:09:34.340
+406,1996-12-21 00:00:00.000,1,Crab,,Unknown,tpitchford,1996-12-23 00:00:00.000,D,2009-07-09 10:09:34.340
+411,1998-12-13 00:00:00.000,1,Mono,,Unknown,bwagoner,1998-12-20 00:00:00.000,D,2009-07-09 10:09:34.340
+415,1996-01-18 00:00:00.000,1,Mono,,Unknown,bwagoner,1996-02-08 00:00:00.000,D,2009-07-09 10:09:34.340
+415,1996-02-07 00:00:00.000,1,Mono,,Unknown,bwagoner,1996-02-08 00:00:00.000,D,2009-07-09 10:09:34.340
+430,1999-04-06 00:00:00.000,1,Mono,,both left & right pectorals,rrose,1999-04-07 00:00:00.000,dszemer,2010-12-02 10:13:21.360
+430,2000-05-30 00:00:00.000,1,Mono,,right pectoral flipper,rrose,2000-06-01 00:00:00.000,dszemer,2010-12-02 10:09:00.270
+430,2001-12-03 00:00:00.000,1,Mono,,Right pectoral,pcook,2001-12-04 00:00:00.000,D,2009-07-09 10:09:34.340
+430,2003-03-24 00:00:00.000,1,Mono,,Right pec,mrodriguez,2003-03-24 00:00:00.000,D,2009-07-09 10:09:34.340
+430,2003-11-13 00:00:00.000,1,Mono,,left flipper,chudak,2003-11-14 00:00:00.000,D,2009-07-09 10:09:34.340
+430,2006-07-24 00:00:00.000,1,Mono,,on both flippers,chudak,2006-07-27 00:00:00.000,D,2009-07-09 10:09:34.340
+430,2008-04-07 00:00:00.000,1,Mono,,both flippers,chudak,2008-04-09 00:00:00.000,D,2009-07-09 10:09:34.340
+430,2011-05-13 00:00:00.000,1,Mono,"",both flippers,dszemer,2012-02-02 09:56:59.933,D,2012-02-02 09:56:59.933
+430,2014-03-01 00:00:00.000,1,Mono,Monofilament line wrapped around left pectoral flippers. (Left flipper also reported to have had a buoy and trap line trailing behind.--unconfirmed),left flipper,lconnor,2014-03-12 14:18:00.100,dszemer,2014-08-27 09:55:06.120
+443,1998-08-08 00:00:00.000,1,Mono,,Unknown,bwagoner,1998-08-11 00:00:00.000,D,2009-07-09 10:09:34.340
+443,2004-04-26 00:00:00.000,1,Mono,,Right pect,bwagoner,2004-04-27 00:00:00.000,D,2009-07-09 10:09:34.340
+446,2008-12-18 00:00:00.000,1,Mono,,Both pectoral flippers,bwagoner,2008-12-18 00:00:00.000,D,2009-07-09 10:09:34.340
+447,1999-02-15 00:00:00.000,1,Mono,,Unknown,aspellman,1999-02-19 00:00:00.000,D,2009-07-09 10:09:34.340
+447,2012-01-10 00:00:00.000,1,Mono,embedded and a nest of mono trailing,Right flipper,crush,2012-03-29 13:21:22.653,nadimey,2013-02-11 11:18:26.700
+461,2013-12-01 00:00:00.000,1,Oth,Blue line and orange PFD,Tag,rcimino,2014-01-28 07:55:26.767,D,2014-01-28 07:55:26.767
+468,1976-04-16 00:00:00.000,1,Oth,Unknown,Unknown,bwagoner,1976-04-16 00:00:00.000,D,2009-07-09 10:09:34.340
+481,1979-09-21 00:00:00.000,1,Crab,,Unknown,bwagoner,1979-09-21 00:00:00.000,D,2009-07-09 10:09:34.340
+492,1985-06-13 00:00:00.000,1,Crab,,Unknown,bwagoner,1985-06-13 00:00:00.000,D,2009-07-09 10:09:34.340
+504,2000-08-24 00:00:00.000,1,Mono,,Unknown,bwagoner,2000-09-05 00:00:00.000,D,2009-07-09 10:09:34.340
+508,1992-08-15 00:00:00.000,1,Crab,,Unknown,bwagoner,1992-08-17 00:00:00.000,D,2009-07-09 10:09:34.340
+509,1993-05-18 00:00:00.000,1,Mono,,Unknown,rrunnells,1993-05-19 00:00:00.000,D,2009-07-09 10:09:34.340
+512,1995-05-29 00:00:00.000,1,Crab,,Unknown,aspellman,1995-05-30 00:00:00.000,D,2009-07-09 10:09:34.340
+517,1997-05-18 00:00:00.000,1,Mono,,Unknown,bwagoner,1997-05-21 00:00:00.000,D,2009-07-09 10:09:34.340
+521,1998-07-31 00:00:00.000,1,Crab,,Unknown,rrunnells,1998-08-01 00:00:00.000,D,2009-07-09 10:09:34.340
+522,1998-12-07 00:00:00.000,1,Crab,,Unknown,bwagoner,1998-12-09 00:00:00.000,D,2009-07-09 10:09:34.340
+524,1999-05-16 00:00:00.000,1,Crab,,Unknown,bwagoner,1999-05-29 00:00:00.000,D,2009-07-09 10:09:34.340
+528,1979-01-01 00:00:00.000,1,Crab,,Unknown,unk,1979-01-01 00:00:00.000,D,2009-07-09 10:09:34.340
+531,1994-07-23 00:00:00.000,1,Crab,,Unknown,unk,1994-07-23 00:00:00.000,D,2009-07-09 10:09:34.340
+532,1980-08-08 00:00:00.000,1,Crab,,Unknown,unk,1980-08-08 00:00:00.000,D,2009-07-09 10:09:34.340
+542,2004-01-23 00:00:00.000,1,FH,Reported to not be removed,unknown,nadimey,2011-09-27 11:14:32.430,D,2011-09-27 11:14:32.430
+542,2004-01-23 00:00:00.000,1,Mono,,Unknown,jklee,2004-12-31 00:00:00.000,nadimey,2011-09-27 11:13:33.793
+543,2006-10-02 00:00:00.000,1,Fl,"",around flipper,nadimey,2011-09-27 11:30:11.120,D,2011-09-27 11:30:11.120
+543,2006-10-02 00:00:00.000,1,Rope,,wrapped around belly ,nadimey,2006-10-02 00:00:00.000,nadimey,2011-09-27 11:29:30.580
+544,2001-01-11 00:00:00.000,1,Oth,Unknown,"right anterior margin of the tail, slanted forward",bbonde,2001-01-19 00:00:00.000,D,2009-07-09 10:09:34.340
+546,2005-05-28 00:00:00.000,1,Oth,Unknown,peduncle,csurrey,2005-05-28 00:00:00.000,D,2009-07-09 10:09:34.340
+547,2005-06-08 00:00:00.000,1,CrFl,,around torso at pectorals,unk,2005-06-08 00:00:00.000,D,2009-07-09 10:09:34.340
+548,2005-07-08 00:00:00.000,1,CrFl,,around midsection,csurrey,2005-07-08 00:00:00.000,nadimey,2011-09-27 11:25:11.813
+548,2005-07-08 00:00:00.000,1,Oth,crab trap buoy & line ,around midsection,nadimey,2011-09-27 11:24:20.960,D,2011-09-27 11:24:20.960
+549,2006-09-28 00:00:00.000,1,Net,,entire body,unk,2006-09-28 00:00:00.000,D,2009-07-09 10:09:34.340
+572,2005-06-03 00:00:00.000,1,CrFl,,Unknown,mgood,2005-06-03 00:00:00.000,D,2009-07-09 10:09:34.340
+580,2001-08-09 00:00:00.000,1,Fl,,line wrapped around right pect and head,bwagoner,2001-08-23 00:00:00.000,D,2009-07-09 10:09:34.340
+583,2001-12-15 00:00:00.000,1,Rope,,across left shoulder and under right pec,unk,2001-12-15 00:00:00.000,D,2009-07-09 10:09:34.340
+584,2002-03-29 00:00:00.000,1,Rope,,Rt Pectoral Flipper,vmarsich,2002-04-05 00:00:00.000,D,2009-07-09 10:09:34.340
+593,2003-04-04 00:00:00.000,1,CrFl,,Rt Pectoral Flipper,rrunnells,2003-04-08 00:00:00.000,D,2009-07-09 10:09:34.340
+595,2003-05-21 00:00:00.000,1,Mono,,wrapped around left flipper,rrunnells,2003-06-01 00:00:00.000,D,2009-07-09 10:09:34.340
+602,2003-11-01 00:00:00.000,1,Rope,,Left  Pectoral flipper,rrunnells,2003-11-08 00:00:00.000,D,2009-07-09 10:09:34.340
+604,2004-04-28 00:00:00.000,1,Mono,,Around right and left pect.,bwagoner,2004-04-29 00:00:00.000,D,2009-07-09 10:09:34.340
+604,2007-08-10 00:00:00.000,1,CrFl,,right pectoral flipper,aspellman,2007-08-09 00:00:00.000,D,2009-07-09 10:09:34.340
+605,2004-04-30 00:00:00.000,1,Crab,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+608,2004-06-03 00:00:00.000,1,Crab,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+614,2005-07-02 00:00:00.000,1,Mono,,"Monofilament embedded left pect, rope on right pec",bwagoner,2005-07-11 00:00:00.000,D,2009-07-09 10:09:34.340
+615,2005-07-26 00:00:00.000,1,CrFl,,Wrapped around head and left pect,bwagoner,2005-08-03 00:00:00.000,nadimey,2011-09-27 11:28:14.670
+624,2006-07-06 00:00:00.000,1,Fl,,right pectoral flipper,bwagoner,2006-07-06 00:00:00.000,D,2009-07-09 10:09:34.340
+625,2006-09-14 00:00:00.000,1,Rope,,Unknown,chudak,2006-09-14 00:00:00.000,D,2009-07-09 10:09:34.340
+626,2006-09-17 00:00:00.000,1,Rope,,Around right pectoral flipper,bwagoner,2006-10-21 00:00:00.000,D,2009-07-09 10:09:34.340
+637,2003-05-11 00:00:00.000,1,Rope,,Unknown,jsmith,2003-05-11 00:00:00.000,D,2009-07-09 10:09:34.340
+642,2003-10-29 00:00:00.000,1,CrFl,,Right Pectoral flipper,jsmith,2003-10-29 00:00:00.000,nadimey,2011-09-27 11:07:38.010
+642,2003-10-29 00:00:00.000,1,Oth,Float attached to float line,Around Right and left pecs,nadimey,2011-09-27 11:10:38.010,D,2011-09-27 11:10:38.010
+642,2003-11-11 00:00:00.000,1,Fl,,Around right and left pects.,bwagoner,2003-11-19 00:00:00.000,nadimey,2011-09-27 11:08:06.597
+642,2003-11-11 00:00:00.000,1,Oth,"",Float attached to pecs,nadimey,2011-09-27 11:11:52.663,D,2011-09-27 11:11:52.663
+653,2000-06-16 00:00:00.000,1,Crab,,Unknown,unk,2000-06-16 00:00:00.000,D,2009-07-09 10:09:34.340
+658,2001-03-02 00:00:00.000,1,CrFl,,around tail,tpitchford,2001-04-04 00:00:00.000,D,2009-07-09 10:09:34.340
+658,2007-05-30 00:00:00.000,1,Fl,,Tail,ccarpenter,2007-05-30 00:00:00.000,D,2009-07-09 10:09:34.340
+664,2002-07-31 00:00:00.000,1,Crab,,"flipper, right",dmurphy,2003-01-27 00:00:00.000,D,2009-07-09 10:09:34.340
+664,2002-07-31 00:00:00.000,1,Rope,,"Flipper, right",dmurphy,2003-01-27 00:00:00.000,D,2009-07-09 10:09:34.340
+665,2002-11-22 00:00:00.000,1,Ing,FISH HOOK AND MONOFILAMNENT,Unknown,dmurphy,2003-01-27 00:00:00.000,nadimey,2011-09-27 10:53:41.027
+671,2003-03-07 00:00:00.000,1,Fl,,Right Pectoral Flipper (amputated),rrunnells,2003-03-11 00:00:00.000,D,2009-07-09 10:09:34.340
+672,2003-09-13 00:00:00.000,1,Fl,,around fluke,dszemer,2004-01-23 00:00:00.000,D,2009-07-09 10:09:34.340
+673,2003-10-29 00:00:00.000,1,CrFl,,"V3993 wrapped around peduncle, V963 around V3993",dszemer,2004-01-23 00:00:00.000,D,2009-07-09 10:09:34.340
+674,2004-05-06 00:00:00.000,1,Mono,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+675,2004-06-29 00:00:00.000,1,Fl,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+679,2005-02-22 00:00:00.000,1,Rope,,left flipper,unk,2005-02-22 00:00:00.000,D,2009-07-09 10:09:34.340
+681,2005-09-09 00:00:00.000,1,Crab,,flipper,unk,2005-09-09 00:00:00.000,D,2009-07-09 10:09:34.340
+685,2006-04-23 00:00:00.000,1,Crab,,peduncle,dszemer,2006-04-23 00:00:00.000,D,2009-07-09 10:09:34.340
+686,2006-06-30 00:00:00.000,1,Crab,,right flipper,dszemer,2006-06-30 00:00:00.000,D,2009-07-09 10:09:34.340
+688,2006-09-18 00:00:00.000,1,Oth,Unknown,Unknown,dszemer,2006-09-18 00:00:00.000,D,2009-07-09 10:09:34.340
+689,2006-10-05 00:00:00.000,1,Rope,,left flipper,dszemer,2006-10-27 00:00:00.000,D,2009-07-09 10:09:34.340
+692,2001-03-03 00:00:00.000,1,Rope,,Right pectoral fin,pcook,2001-03-06 00:00:00.000,D,2009-07-09 10:09:34.340
+697,2001-03-30 00:00:00.000,1,Mono,,"Embedded on right flipper, ~5cm",pcook,2001-04-05 00:00:00.000,D,2009-07-09 10:09:34.340
+699,2001-08-24 00:00:00.000,1,Mono,,Left Pectoral Fin embedded with mono,pcook,2001-08-25 00:00:00.000,D,2009-07-09 10:09:34.340
+699,2003-03-04 00:00:00.000,1,Mono,,left flipper,unk,2003-03-04 00:00:00.000,D,2009-07-09 10:09:34.340
+702,2001-11-30 00:00:00.000,1,Mono,,"right flipper, superficial",unk,2001-11-30 00:00:00.000,D,2009-07-09 10:09:34.340
+702,2007-08-08 00:00:00.000,1,Mono,,Left flipper,chudak,2007-08-08 00:00:00.000,dszemer,2010-12-07 11:19:46.573
+707,2003-02-03 00:00:00.000,1,Rope,,Unknown,unk,2003-02-03 00:00:00.000,D,2009-07-09 10:09:34.340
+729,2005-07-13 00:00:00.000,1,Mono,,right flipper,chudak,2005-07-15 00:00:00.000,dszemer,2011-09-27 14:30:57.730
+730,2005-10-28 00:00:00.000,1,Mono,,left flipper,unk,2005-10-28 00:00:00.000,D,2009-07-09 10:09:34.340
+732,2006-01-20 00:00:00.000,1,Rope,,Line wrapped around right flipper,bwagoner,2006-02-05 00:00:00.000,D,2009-07-09 10:09:34.340
+734,2006-04-06 00:00:00.000,1,Mono,,Calf's left flipper,bwagoner,2006-04-12 00:00:00.000,D,2009-07-09 10:09:34.340
+735,2006-04-19 00:00:00.000,1,Mono,,Left flipper approximately 5cm from the body.,wgodwin,2006-10-23 00:00:00.000,D,2009-07-09 10:09:34.340
+743,2001-01-29 00:00:00.000,1,Fl,,wrapped around manatee tag twice ,mbarlas,2001-02-04 00:00:00.000,D,2009-07-09 10:09:34.340
+751,2001-05-31 00:00:00.000,1,Oth,Canal Marker,unknown,lkeith,2001-06-02 00:00:00.000,D,2009-07-09 10:09:34.340
+752,2001-09-30 00:00:00.000,1,Oth,silt construction fencing,"around fluke and body, nylon rope  around peduncl",lkeith,2001-09-30 00:00:00.000,D,2009-07-09 10:09:34.340
+752,2001-09-30 00:00:00.000,1,Rope,,"around fluke and body, nylon rope  around peduncl",lkeith,2001-09-30 00:00:00.000,D,2009-07-09 10:09:34.340
+757,2001-11-14 00:00:00.000,1,Oth,Unknown,right flipper,dmurphy,2001-11-14 00:00:00.000,D,2009-07-09 10:09:34.340
+763,2002-03-31 00:00:00.000,1,Rope,,Unknown,dmurphy,2002-03-31 00:00:00.000,D,2009-07-09 10:09:34.340
+766,2002-11-24 00:00:00.000,1,CrFl,,"Ant. body behind head, proximal left flipper",mfoley,2002-11-21 00:00:00.000,nadimey,2011-09-27 11:00:31.140
+785,2003-07-17 00:00:00.000,1,CrFl,,"around dorsum, behind left pec, around right pec ",mbarlas,2003-07-17 00:00:00.000,nadimey,2011-09-27 11:01:20.027
+786,2003-09-11 00:00:00.000,1,Fl,,"right and left pec, across dorsal side",vedmonds,2003-09-25 00:00:00.000,nadimey,2011-09-27 11:04:11.337
+788,2003-09-25 00:00:00.000,1,CrFl,,twice around left flipper,unk,2003-09-25 00:00:00.000,nadimey,2011-09-27 11:04:55.727
+798,2004-07-13 00:00:00.000,1,CrFl,,left pectoral flipper,vedmonds,2004-08-08 00:00:00.000,D,2009-07-09 10:09:34.340
+800,2004-08-30 00:00:00.000,1,Crab,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+802,2004-10-22 00:00:00.000,1,Crab,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+814,2005-06-25 00:00:00.000,1,CrFl,,Mid-right flipper,mgood,2005-06-25 00:00:00.000,nadimey,2011-09-27 11:21:28.500
+816,2005-08-12 00:00:00.000,1,Rope,,Left flipper near axilla,dgrant,2005-08-11 00:00:00.000,D,2009-07-09 10:09:34.340
+825,2006-04-04 00:00:00.000,1,Rope,,Peduncle,mgood,2006-04-04 00:00:00.000,D,2009-07-09 10:09:34.340
+833,2004-05-07 00:00:00.000,1,Crab,,Left pectoral,slehr,2004-05-13 00:00:00.000,D,2009-07-09 10:09:34.340
+834,2004-11-30 00:00:00.000,1,Crab,,Unknown,nadimey,2004-12-31 00:00:00.000,D,2009-07-09 10:09:34.340
+835,2007-09-12 00:00:00.000,1,Oth,braided nylon,Tracking transmitter and tether,aspellman,2007-09-11 00:00:00.000,dszemer,2011-09-27 14:26:35.407
+835,2008-02-01 00:00:00.000,1,Oth,Telemety gear entangled in vegetation barrier at entrance to Blue Springs State Park ,belt/tether/peduncle,aspellman,2008-02-01 00:00:00.000,dszemer,2011-09-27 14:27:54.447
+835,2016-11-17 00:00:00.000,1,Mono,"",both flippers,dszemer,2016-11-29 11:20:41.160,D,2016-11-29 11:20:41.160
+835,2019-12-16 00:00:00.000,1,Mono,mass of various monofilament types and sinkers,Left pectoral flipper,ngordon,2020-04-20 15:00:12.827,D,2020-04-20 15:00:12.827
+835,2020-02-24 00:00:00.000,1,Mono,multiple different lines of monofilament,pectoral flippers,lbraso,2020-02-25 07:30:22.907,D,2020-02-25 07:30:22.907
+850,2005-07-30 00:00:00.000,1,Rope,,Wrapped around right pect,bwagoner,2005-08-04 00:00:00.000,D,2009-07-09 10:09:34.340
+889,2004-05-22 00:00:00.000,1,Fl,,left flipper,bwagoner,2004-12-31 00:00:00.000,nadimey,2011-09-27 15:30:50.077
+889,2004-05-22 00:00:00.000,1,Mono,"",right flipper,nadimey,2011-09-27 15:29:59.067,D,2011-09-27 15:29:59.067
+891,2008-07-30 00:00:00.000,1,CrFl,,both pectoral flippers and twice around body,dszemer,2008-08-20 00:00:00.000,D,2009-07-09 10:09:34.340
+893,2007-04-06 00:00:00.000,1,Rope,,Right Pectoral flipper,aspellman,2007-04-30 00:00:00.000,D,2009-07-09 10:09:34.340
+895,2007-06-16 00:00:00.000,1,CrFl,,left flipper,aspellman,2007-05-18 00:00:00.000,D,2009-07-09 10:09:34.340
+899,2007-05-18 00:00:00.000,1,Crab,,Unknown,dgrant,2007-05-18 00:00:00.000,D,2009-07-09 10:09:34.340
+900,2007-07-18 00:00:00.000,1,Mono,,Unable to determine,aspellman,2007-07-18 00:00:00.000,D,2009-07-09 10:09:34.340
+900,2007-07-18 00:00:00.000,1,Net,,Unable to determine,aspellman,2007-07-18 00:00:00.000,D,2009-07-09 10:09:34.340
+902,2008-01-17 00:00:00.000,1,Mono,,flippers and body,chudak,2008-01-24 00:00:00.000,D,2009-07-09 10:09:34.340
+903,2007-06-06 00:00:00.000,1,Oth,anchor line/mooring line,peduncle,aspellman,2007-06-06 00:00:00.000,D,2009-07-09 10:09:34.340
+912,2007-02-08 00:00:00.000,1,Rope,"yellow, braided, nylon rope",right flipper,chudak,2007-02-08 00:00:00.000,nadimey,2012-02-01 13:52:51.437
+913,2007-02-10 00:00:00.000,1,Mono,,right flipper,chudak,2007-02-12 00:00:00.000,D,2009-07-09 10:09:34.340
+914,2007-07-18 00:00:00.000,1,CrFl,,Left flipper,ccarpenter,2007-07-18 00:00:00.000,D,2009-07-09 10:09:34.340
+919,2007-04-29 00:00:00.000,1,Crab,,Unknown,dszemer,2007-04-29 00:00:00.000,D,2009-07-09 10:09:34.340
+921,2007-05-18 00:00:00.000,1,CrFl,,Left Flipper,aspellman,2007-05-18 00:00:00.000,D,2009-07-09 10:09:34.340
+922,2007-05-24 00:00:00.000,1,Rope,,Right flipper,aspellman,2007-05-24 00:00:00.000,D,2009-07-09 10:09:34.340
+931,2007-09-12 00:00:00.000,1,CrFl,,right flipper/eventually body and both flippers,dszemer,2007-09-21 00:00:00.000,D,2009-07-09 10:09:34.340
+939,2007-07-05 00:00:00.000,1,CrFl,,right flipper & body-cranial to flippers.,dszemer,2007-11-01 00:00:00.000,D,2009-07-09 10:09:34.340
+940,2007-11-08 00:00:00.000,1,Oth,Plastic packing straps wi,Mid-dorsal region,chudak,2007-11-15 00:00:00.000,D,2009-07-09 10:09:34.340
+950,2007-07-15 00:00:00.000,1,CrFl,,right flipper,dszemer,2007-12-14 00:00:00.000,D,2009-07-09 10:09:34.340
+952,2008-02-01 00:00:00.000,1,Rope,,Tail and flipper,jcassady,2008-02-11 00:00:00.000,D,2009-07-09 10:09:34.340
+958,2008-04-30 00:00:00.000,1,Crab,,Right flipper,rberger,2008-04-29 00:00:00.000,D,2009-07-09 10:09:34.340
+959,2008-05-11 00:00:00.000,1,CrFl,,around peduncle,dszemer,2008-05-21 00:00:00.000,D,2009-07-09 10:09:34.340
+960,2008-05-11 00:00:00.000,1,Fl,,left flipper,dszemer,2008-05-21 00:00:00.000,D,2009-07-09 10:09:34.340
+961,2008-04-22 00:00:00.000,1,Oth,Turtle research net,around body,aspellman,2008-04-22 00:00:00.000,nadimey,2012-02-01 13:52:01.613
+963,2007-10-26 00:00:00.000,1,Fl,,both pecs and across back,vedmonds,2007-01-13 00:00:00.000,D,2009-07-09 10:09:34.340
+971,2008-02-25 00:00:00.000,1,Mono,,Both flippers,chudak,2008-02-28 00:00:00.000,D,2009-07-09 10:09:34.340
+979,2008-05-09 00:00:00.000,1,Fl,,through tail,aspellman,2008-05-09 00:00:00.000,D,2009-07-09 10:09:34.340
+982,2008-05-20 00:00:00.000,1,Crab,,Around right flipper,rberger,2008-05-20 00:00:00.000,D,2009-07-09 10:09:34.340
+983,2008-04-22 00:00:00.000,1,Crab,,peduncle,nadimey,2008-04-22 00:00:00.000,D,2009-07-09 10:09:34.340
+984,2008-01-22 00:00:00.000,1,Rope,,wrapped around pec,nadimey,2008-01-22 00:00:00.000,D,2009-07-09 10:09:34.340
+985,2008-02-01 00:00:00.000,1,Crab,,wrapped around pec,nadimey,2008-02-01 00:00:00.000,D,2009-07-09 10:09:34.340
+987,2009-03-11 00:00:00.000,1,Oth,Turtle research net,around body,nadimey,2009-03-11 00:00:00.000,nadimey,2012-02-01 13:51:15.463
+988,2009-03-11 00:00:00.000,1,Oth,Turtle research net,around flipper,nadimey,2009-03-11 00:00:00.000,nadimey,2012-02-01 13:41:47.410
+992,2008-08-08 00:00:00.000,1,CrFl,,left pectoral flipper,vedmonds,2008-11-05 00:00:00.000,dszemer,2013-09-25 11:05:57.680
+1007,2008-06-05 00:00:00.000,1,CrFl,,axillae region and left and right flippers,vedmonds,2008-06-18 00:00:00.000,D,2009-07-09 10:09:34.340
+1013,2008-06-15 00:00:00.000,1,Fl,,peduncle,dszemer,2008-06-19 00:00:00.000,D,2009-07-09 10:09:34.340
+1017,2008-06-26 00:00:00.000,1,CrFl,,Wrapped twice around the animal's left flipper,rberger,2008-06-26 00:00:00.000,D,2009-07-09 10:09:34.340
+1021,2008-05-14 00:00:00.000,1,CrFl,,peduncle,dboyd,2008-05-14 00:00:00.000,D,2009-07-09 10:09:34.340
+1022,2008-05-03 00:00:00.000,1,Net,Tangle net,head and one flipper,dboyd,2008-05-15 00:00:00.000,nadimey,2012-02-01 13:50:43.463
+1061,2009-06-17 00:00:00.000,1,Mono,"",right flipper,csandersre,2009-08-11 16:49:20.233,D,2009-08-11 16:49:20.233
+1061,2009-06-18 00:00:00.000,1,Mono,single strand of fishing line wrapped around the flipper,right flipper,chudak,2009-08-27 15:15:02.933,D,2009-08-27 15:15:02.933
+1061,2009-07-31 00:00:00.000,1,Mono,single strand fishing line,right flipper,chudak,2009-08-27 15:06:46.333,D,2009-08-27 15:06:46.333
+1062,2009-06-04 00:00:00.000,1,Crab,"",left flipper,csandersre,2009-08-11 18:45:01.263,D,2009-08-11 18:45:01.263
+1064,2009-05-08 00:00:00.000,1,Mono,"",right flipper,csandersre,2009-08-11 18:54:11.733,D,2009-08-11 18:54:11.733
+1066,2009-04-29 00:00:00.000,1,Mono,"",left flipper,csandersre,2009-08-11 19:24:36.937,D,2009-08-11 19:24:36.937
+1070,2009-03-04 00:00:00.000,1,FH,"",upper right lip,csandersre,2009-08-14 10:49:34.550,D,2009-08-14 10:49:34.550
+1070,2009-03-04 00:00:00.000,1,Mono,"",upper right lip,csandersre,2009-08-12 15:52:19.680,D,2009-08-12 15:52:19.680
+1073,2009-03-20 00:00:00.000,1,CrFl,test,Left pectoral and around body,jkleen,2010-01-27 14:17:46.547,dszemer,2010-01-30 10:54:59.263
+1073,2009-03-20 00:00:00.000,2,CrFl,V-2822 Pink,Left flipper,csandersre,2009-08-12 16:22:55.553,D,2009-08-12 16:22:55.553
+1079,2003-12-11 00:00:00.000,1,CrFl,two bouys and metal square of crab trap,Right flipper,dszemer,2009-08-27 10:55:44.820,D,2009-08-27 10:55:44.820
+1080,2009-08-02 00:00:00.000,1,Fl,polyprop/Nylon line,Left Pectoral Flipper,slehr,2009-08-27 14:54:08.650,D,2009-08-27 14:54:08.650
+1084,2009-06-26 00:00:00.000,1,Mono, Monofilament ,"On left pectoral flipper, mid humerus, not embedded",nadimey,2012-10-31 10:44:08.090,D,2012-10-31 10:44:08.090
+1085,2009-07-12 00:00:00.000,1,FH,"",tail,nadimey,2009-08-27 15:30:27.930,D,2009-08-27 15:30:27.930
+1085,2009-07-12 00:00:00.000,1,Mono,"nest of monofilament, superfically around tail",tail,nadimey,2009-08-27 15:30:06.130,D,2009-08-27 15:30:06.130
+1086,2009-08-11 00:00:00.000,1,Oth,"Trot line, nylon braided line",Over the dorsum and wrapped around a flipper,jcassady,2009-08-27 15:49:47.240,D,2009-08-27 15:49:47.240
+1090,2009-05-11 00:00:00.000,1,CrFl,two bouys and two crab pots,around the peduncle,dszemer,2009-08-28 14:00:22.387,D,2009-08-28 14:00:22.387
+1097,2009-08-03 00:00:00.000,1,Net,independent fih monitoring study,around animal,nadimey,2010-06-15 14:40:57.200,D,2010-06-15 14:40:57.200
+1100,2009-09-17 00:00:00.000,1,Fl,"5' 3/8 inch float line with whit bouy attached",both flippers and across back,slehr,2009-09-20 15:13:31.410,D,2009-09-20 15:13:31.410
+1102,2009-09-11 00:00:00.000,1,Net,FIM 600ft seine net,Unclear whether animal was actually entangled but crew lifted net to let it out,aspellman,2009-09-23 16:17:15.437,D,2009-09-23 16:17:15.437
+1111,2009-11-02 00:00:00.000,1,Net,Monofilament cast net.,"Head, neck and back",jcassady,2009-11-07 14:05:32.910,D,2009-11-07 14:05:32.910
+1114,2009-10-28 00:00:00.000,1,Oth,"20"" bike tire around body of animal",around body of animal,nadimey,2010-06-15 13:47:32.483,D,2010-06-15 13:47:32.483
+1117,2009-12-15 00:00:00.000,1,CrFl," 
+Pot Status:  Active
+Pot was active but crushed
+Gear Description:  Line was black polypropylene",Left pectoral flipper,jlinvill,2009-12-17 10:55:32.723,nadimey,2010-01-04 16:37:44.777
+1118,2009-12-15 00:00:00.000,1,Mono,"","Left pectoral flipper, mid pec.",crush,2009-12-18 09:46:50.090,D,2009-12-18 09:46:50.090
+1119,2009-12-15 00:00:00.000,1,Mono,"Embedded 3 to 4 cm, multiple loops of monofilament deeply embedded with a nest of monofilament clumped behind the flipper.","Right pectoral flipper, mid pec",crush,2009-12-18 10:27:43.573,D,2009-12-18 10:27:43.573
+1120,2009-11-13 00:00:00.000,1,Rope,dock line,pectoral,ktherriaul,2009-12-30 12:38:57.530,D,2009-12-30 12:38:57.530
+1125,2009-12-30 00:00:00.000,1,Mono,"possibly one strand of line wrapped several times around right flipper, embedded and tissue healed over",right flipper,chudak,2010-01-08 12:29:20.923,D,2010-01-08 12:29:20.923
+1127,2009-12-15 00:00:00.000,1,Net,FIM seine net,whole body,dszemer,2010-01-13 13:35:41.537,dszemer,2010-01-13 14:10:28.667
+1134,2009-11-09 00:00:00.000,1,FH,"",in snout,dszemer,2010-02-04 11:05:23.343,D,2010-02-04 11:05:23.343
+1150,2010-02-15 00:00:00.000,1,Rope,Black rope and monofilament,Left flipper,jcassady,2010-02-24 17:52:18.577,D,2010-02-24 17:52:18.577
+1179,2010-05-05 00:00:00.000,1,Mono,Bobber with ~50 feet of monofilament line attached.,Believed to be on one of the flippers,rberger,2010-05-05 13:07:28.290,D,2010-05-05 13:07:28.290
+1184,2010-06-04 00:00:00.000,1,Fl,Two lines twisted together forming a loose wrap around the manatee behind the head with the float at the shoulder region.  Loose trailing line disapperared behind the manatee.,"around body, behind head",dszemer,2010-06-08 09:26:43.600,D,2010-06-08 09:26:43.600
+1186,2010-06-16 00:00:00.000,1,CrFl,white crab trap float trailing behind animal.  Attached to the buoy was an ~6 feet of frayed nylon rope trailing from the animal.,around peduncle,dszemer,2010-06-21 12:00:04.200,nadimey,2012-02-01 13:43:09.423
+1186,2010-06-16 00:00:00.000,1,Rope,Buoy & nylon rope training from animal,around peduncle,nadimey,2011-02-01 14:35:10.707,nadimey,2012-02-01 13:43:31.777
+1189,2010-06-18 00:00:00.000,1,Rope,"Black Polypropylene rope with float, Float #V6620
+Float was gold on top with a yellow band in middle and white on bottom.",Around left pectoral flipper,bwagoner,2010-06-28 04:37:31.893,D,2010-06-28 04:37:31.893
+1195,2010-06-07 00:00:00.000,1,CrFl,"double float- one was a typical round white pot float, other was a green cylinder on top  VH18477, tied with nylon line.  Gear was fouled with monofilament and hooks. Line was twisted.",right flipper,aspellman,2010-06-30 09:15:45.263,D,2010-06-30 09:15:45.263
+1203,2010-07-10 00:00:00.000,1,Mono,"A nest of 15-20 lb clear, monofilament test line with a lead weight and incidental debris (carpet fibers) and a hook.",right flipper,crush,2010-08-02 14:22:05.787,D,2010-08-02 14:22:05.787
+1204,2010-07-29 00:00:00.000,1,CrFl,White and red float (#V1986) with trap.,mid body,bbassett,2010-08-03 10:03:12.870,D,2010-08-03 10:03:12.870
+1205,2010-07-22 00:00:00.000,1,CrFl,"Green float (no number), nylon rope, crab trap ",Left flipper,bbassett,2010-08-03 10:09:57.323,D,2010-08-03 10:09:57.323
+1207,2010-05-30 00:00:00.000,1,Mono,"",both flippers,dszemer,2011-02-14 09:21:47.070,D,2011-02-14 09:21:47.070
+1207,2010-08-09 00:00:00.000,1,Mono,about 8-10 inches of braided monofilament line  ,left flipper,vedmonds,2010-08-23 09:59:49.347,D,2010-08-23 09:59:49.347
+1208,2010-08-20 00:00:00.000,1,CrFl,"white and red float: V3750.  The trap was not attached, only a piece of the frame.",twice around body one in front of the flippers and one behind. ,dszemer,2010-08-27 12:23:26.657,dszemer,2010-08-27 12:28:34.177
+1224,2010-11-03 00:00:00.000,1,CrFl,"Float #: V9140, White and Blue, Nylon rope",two wraps around left flipper,dszemer,2010-11-09 11:28:10.643,D,2010-11-09 11:28:10.643
+1240,2011-01-06 00:00:00.000,1,FH,in fluke with mono attached,fluke,nadimey,2012-01-30 14:51:52.863,D,2012-01-30 14:51:52.863
+1240,2011-01-06 00:00:00.000,1,Mono,"in lure
+",fluke,nadimey,2012-01-30 14:52:36.303,D,2012-01-30 14:52:36.303
+1243,2010-05-03 00:00:00.000,1,Fl,"",Around the tail.,jkleen,2011-01-13 13:33:57.000,D,2011-01-13 13:33:57.000
+1275,2011-02-02 00:00:00.000,1,Mono,piece of line embedded in right pectoral flipper. Additional line cut before arrival at facility. Noted that it might have been a year old entanglement ,right pectoral flipper,vedmonds,2011-03-07 09:36:10.017,D,2011-03-07 09:36:10.017
+1283,2011-03-15 00:00:00.000,1,CrFl,"2 buoys plus the trap-white and orange buoy.  FWC has remanants of trap.",Right pectoral flipper,vedmonds,2011-03-17 17:24:53.893,D,2011-03-17 17:24:53.893
+1285,2011-02-27 00:00:00.000,1,Mono,Monofilament fishing line,Right flipper,jcassady,2011-03-30 16:13:06.117,D,2011-03-30 16:13:06.117
+1285,2011-04-13 00:00:00.000,1,Mono,"",right flipper,dszemer,2012-01-30 10:20:14.767,D,2012-01-30 10:20:14.767
+1287,2011-04-02 00:00:00.000,1,CrFl,"purple buoy, no ID",Right flipper,dboyd,2011-04-06 14:56:31.940,D,2011-04-06 14:56:31.940
+1292,2011-01-12 00:00:00.000,1,Fl,"Float line was not in association with a crab trap, but was along a sea wall at a private residence.  ",Around flipper and neck,jkleen,2011-04-28 13:18:38.943,nadimey,2012-01-30 14:57:52.683
+1292,2011-01-12 00:00:00.000,1,Oth,buoy attached to float line-not associated with crab trap...marker for water,around neck and flipper,nadimey,2012-01-30 15:00:08.030,D,2012-01-30 15:00:08.030
+1296,2011-03-11 00:00:00.000,1,FH,in left side of mouth,left side of mouth,nadimey,2012-01-30 15:29:51.800,D,2012-01-30 15:29:51.800
+1299,2011-05-17 00:00:00.000,1,Mono,"",right flipper and entire body,crush,2011-05-19 11:42:25.370,D,2011-05-19 11:42:25.370
+1306,2011-03-25 00:00:00.000,1,CrFl,"Float line had a new float, but the trap itself was flattened.",Right flipper,jkleen,2011-06-27 12:45:48.147,dszemer,2011-08-05 13:50:10.570
+1307,2011-04-29 00:00:00.000,1,Ing,Ingestion of rope in mouth,in mouth,nadimey,2012-02-01 13:45:26.190,D,2012-02-01 13:45:26.190
+1308,2011-06-07 00:00:00.000,1,Fl,"",right flipper,aspellman,2011-07-05 15:23:41.337,D,2011-07-05 15:23:41.337
+1309,2011-06-05 00:00:00.000,1,Net,It was a cast net.  The lead line and net was defintiely removed.,around the head,crush,2011-07-06 09:16:19.090,D,2011-07-06 09:16:19.090
+1310,2011-06-13 00:00:00.000,1,Oth,"3 gallon plastic bucket with plastic handle.",over the head,crush,2011-07-09 11:09:02.897,D,2011-07-09 11:09:02.897
+1315,2011-07-16 00:00:00.000,1,Fl,It was a white buoy (float #VH3422)with nylon line. All gear retained by FWC,Around mid section of right pectoral flipper,bwagoner,2011-08-04 17:01:46.440,D,2011-08-04 17:01:46.440
+1319,2011-08-06 00:00:00.000,1,Oth,Plastic L-shaped hoop,Around the girth of the animal,bwagoner,2011-08-14 15:54:48.600,D,2011-08-14 15:54:48.600
+1323,2011-08-16 00:00:00.000,1,FH,Fish hook with a piece of fish was attached to monofilament.,Around the head,crush,2011-08-18 10:46:15.870,D,2011-08-18 10:46:15.870
+1323,2011-08-16 00:00:00.000,1,Mono,"",Around the head,crush,2011-08-18 10:45:44.617,D,2011-08-18 10:45:44.617
+1334,2011-09-14 00:00:00.000,1,CrFl,"The crab trap line was tightly wrapped twice around the left flipper while the actual trap was dragging below, and a red and white buoy attached to the line floating above. ",left flipper,arhoads,2011-10-07 10:39:02.340,D,2011-10-07 10:39:02.340
+1336,2011-10-15 00:00:00.000,1,Rope,rope attached to board caught in notch of fluke,Notch in fluke,dszemer,2011-10-25 10:50:53.290,D,2011-10-25 10:50:53.290
+1354,2011-02-17 00:00:00.000,1,Mono,"",in tail mutilation,dszemer,2012-02-01 13:48:22.130,D,2012-02-01 13:48:22.130
+1358,2011-10-02 00:00:00.000,1,CrFl,non-commercial trap,right flipper,dszemer,2012-02-02 10:11:49.053,D,2012-02-02 10:11:49.053
+1359,2011-12-30 00:00:00.000,1,CrFl,"",right flipper,dszemer,2012-02-02 10:29:13.277,D,2012-02-02 10:29:13.277
+1372,2012-03-01 00:00:00.000,1,CrFl,White styrofoam float with white and blue cotton braided rope attached.  Piece of rebar (reinforcing bar) also attached.,"right and left pectoral flipper, running over the dorsal side ",vedmonds,2012-03-01 19:24:20.743,dszemer,2013-04-12 12:29:23.703
+1373,2012-01-30 00:00:00.000,1,CrFl,Active crab trap with float line.,Wrapped around his body,jkleen,2012-03-02 09:10:40.520,D,2012-03-02 09:10:40.520
+1380,2012-03-06 00:00:00.000,1,CrFl,"It was a green crab trap and a white float ball, with no markings on it.",Right flipper,crush,2012-03-12 10:28:29.360,D,2012-03-12 10:28:29.360
+1381,2012-01-24 00:00:00.000,1,Rope,Dock line that was attached to the dock.,flipper,jcassady,2012-03-13 16:40:51.307,D,2012-03-13 16:40:51.307
+1387,2012-02-06 00:00:00.000,1,Fl,"Float attached to a long rope, no trap sighted, but not verified if present or not.  Based on mobility and length of rope, assumed there was not a trap.",Unknown-poss. left flipper,dszemer,2012-03-30 10:18:44.210,D,2012-03-30 10:18:44.210
+1389,2012-04-16 00:00:00.000,1,CrFl,"Line wrapped 3 times around flipper.
+VHI-1862A  Tag #142  FWCC 2011-2012; Float#:V3750; Color: Red/White;	Line Type: braided polypropylene
+",right flipper,dszemer,2012-04-19 09:53:46.630,D,2012-04-19 09:53:46.630
+1403,2012-05-29 00:00:00.000,1,Oth,cast net,around whole body,dszemer,2012-06-12 11:36:03.813,D,2012-06-12 11:36:03.813
+1404,2012-06-08 00:00:00.000,1,Fl,White braided rope with a piece of poly rope attached to white square float (no numbers. Also had some monofilament ,"Rope & monfilament wrapped around right pect, rope around left pect also",bwagoner,2012-06-19 10:00:32.687,D,2012-06-19 10:00:32.687
+1404,2012-06-08 00:00:00.000,1,Mono,Steel leader monofilament,Wrapped around right pect,bwagoner,2012-06-19 10:02:09.923,D,2012-06-19 10:02:09.923
+1405,2012-06-14 00:00:00.000,1,Rope,Anchor line,right flipper,dszemer,2012-06-21 10:48:20.403,D,2012-06-21 10:48:20.403
+1406,2012-06-10 00:00:00.000,1,Rope,light brown nylon rope,around body behind flippers,aspellman,2012-06-26 16:05:08.780,D,2012-06-26 16:05:08.780
+1407,2012-05-22 00:00:00.000,1,Rope,"",right flipper,aspellman,2012-06-27 14:43:58.523,D,2012-06-27 14:43:58.523
+1422,2012-09-21 00:00:00.000,1,CrFl,"Four tight wraps around flipper.
+License #: VHI -8912, Tag# 050  2012-2013, Float#:  V8912",right flipper,dszemer,2012-11-05 09:06:59.830,D,2012-11-05 09:06:59.830
+1426,2012-11-07 00:00:00.000,1,CrFl,standard trap with blue and white float VH-7473,left flipper,aspellman,2012-11-20 10:25:10.410,D,2012-11-20 10:25:10.410
+1428,2012-09-09 00:00:00.000,1,Oth,tomato cage,around body,aspellman,2012-11-20 10:30:39.990,D,2012-11-20 10:30:39.990
+1430,2012-08-12 00:00:00.000,1,Fl,black polyprop line,right flipper,aspellman,2012-11-20 10:39:25.583,D,2012-11-20 10:39:25.583
+1431,2012-06-12 00:00:00.000,1,Mono,"",left flipper,aspellman,2012-11-20 10:45:01.217,D,2012-11-20 10:45:01.217
+1438,2012-11-02 00:00:00.000,1,CrFl,"flipper surface was red and raw, line was embedded in skin.",left flipper,dszemer,2013-02-05 09:39:02.327,dszemer,2013-02-05 09:43:41.300
+1438,2012-11-13 00:00:00.000,1,Fl,left flipper amputated with the humerus exposed; biceps necrotic but still attached; shoulder joint visible,left flipper,dszemer,2013-02-05 10:03:03.360,nadimey,2013-02-13 09:50:19.787
+1444,2013-01-09 00:00:00.000,1,Mono,birds nest of monofilament,healed notch in tail,crush,2013-01-29 10:42:43.223,dszemer,2013-05-13 12:54:22.047
+1453,2012-08-08 00:00:00.000,1,Mono,Three strands of monofilament wrapped around right flipper. The line had not penetrated the surface of the skin. ,Right flipper,dszemer,2013-02-14 11:49:43.480,D,2013-02-14 11:49:43.480
+1454,2012-09-29 00:00:00.000,1,Mono,"mass of monofilament line with an attached bobber, slightly embedded ",right flipper,dszemer,2013-02-14 11:59:18.377,D,2013-02-14 11:59:18.377
+1455,2012-10-08 00:00:00.000,1,CrFl,Float # X-26422; two complete loose wraps just cranial to the pectorals and one wrap around left pectoral.,around body and left flipper,dszemer,2013-02-14 12:16:58.987,D,2013-02-14 12:16:58.987
+1463,2012-12-01 00:00:00.000,1,Rope,"One-half inch, three strand twisted yellow nylon line looped once around the left pectoral  against the flipper insertion",left flipper,dszemer,2013-02-19 11:40:07.943,D,2013-02-19 11:40:07.943
+1483,2013-04-13 00:00:00.000,1,CrFl,"Float#:  V2822, Color:  Red with Yellow Stripe",right flipper,dszemer,2013-04-16 09:52:36.843,D,2013-04-16 09:52:36.843
+1484,2013-04-15 00:00:00.000,1,CrFl,"Float#: none, Color: White with black stripe, Line Type: Polypropylene",left flipper and around head,dszemer,2013-04-16 10:00:29.233,D,2013-04-16 10:00:29.233
+1487,2013-04-28 00:00:00.000,1,CrFl,"Float was blue and pink, No number (name and address), nylon rope",loosely wrapped around right flipper,dszemer,2013-05-08 10:38:59.010,D,2013-05-08 10:38:59.010
+1506,2013-09-07 00:00:00.000,1,Mono,monofilament entanglement appeared to be embedded in both flippers and connected around the back of the head,Both flippers and across the head,dszemer,2014-01-27 12:28:25.257,D,2014-01-27 12:28:25.257
+1527,2013-08-07 00:00:00.000,1,CrFl,"Float #: VH1-122, blue and red float.",left flipper,dszemer,2014-01-22 12:58:17.877,D,2014-01-22 12:58:17.877
+1537,2013-04-28 00:00:00.000,1,Crab,"white, unmarkded, approsimately 8"" buoy with several feet of white twisted nylon rope tightly wrapped twice around flipper",left flipper,dszemer,2014-01-24 14:13:02.433,D,2014-01-24 14:13:02.433
+1538,2013-05-12 00:00:00.000,1,Fl,grey to black 1 inch line,left pectoral flipper,dszemer,2014-01-27 09:22:24.097,D,2014-01-27 09:22:24.097
+1540,2013-10-24 00:00:00.000,1,Fl,"Peach colored float, VHI 579, black 0.5cm diameter polypro line. (second float and line attached to first entanglement-faded peach colored, V579)
+",mid body,dszemer,2014-01-27 10:45:33.733,D,2014-01-27 10:45:33.733
+1545,2013-07-23 00:00:00.000,1,Rope,Polyprop/ Nylon line,"Citizen rescue, location unknown.",rcimino,2014-01-28 07:39:32.550,jvalade,2014-02-28 06:59:11.427
+1546,2013-08-03 00:00:00.000,1,Net,red and white net/ monofilament ,wrapped around right or left pectoral flipper,rcimino,2014-01-28 07:45:06.810,D,2014-01-28 07:45:06.810
+1547,2013-10-28 00:00:00.000,1,CrFl,"Float # V8312
+Color: Orange, blue, white
+Line Type: White double-braided syntheic sinking rope #8 Osprey (1/4"")",Looped once around the left pectoral flipper,rcimino,2014-01-28 07:49:35.020,D,2014-01-28 07:49:35.020
+1554,2013-12-27 00:00:00.000,1,CrFl,"",left pectoral flipper,vedmonds,2014-01-30 15:25:35.507,D,2014-01-30 15:25:35.507
+1560,2014-02-03 00:00:00.000,1,Rope,yellow dock rope with large branch entangled into it,left flipper,lconnor,2014-02-13 13:37:37.810,D,2014-02-13 13:37:37.810
+1562,2014-02-04 00:00:00.000,1,CrFl,"",right pectoral flipper,vedmonds,2014-02-14 08:32:14.757,D,2014-02-14 08:32:14.757
+1568,2013-01-11 00:00:00.000,1,FH,"Hook with 12"" of fishinf linw",Left side close to tail,jvalade,2014-02-27 10:13:36.757,D,2014-02-27 10:13:36.757
+1569,2013-03-11 00:00:00.000,1,FH,Green lure,Stuck in side of mouth,jvalade,2014-02-27 12:00:03.860,D,2014-02-27 12:00:03.860
+1571,2013-03-31 00:00:00.000,1,FH,"Partial fish hook, weights, line, and swivel.",Mouth.,jvalade,2014-02-27 13:37:56.260,D,2014-02-27 13:37:56.260
+1576,2013-12-13 00:00:00.000,1,Mono,Spider Pro monofilament.,In mouth and around left flipper.,jvalade,2014-02-28 08:55:50.560,D,2014-02-28 08:55:50.560
+1581,2014-02-09 00:00:00.000,1,FH,fishing lure with three trebel hooks with bundle of fishing line,right side mouth,dszemer,2014-03-17 09:03:42.120,dszemer,2014-03-17 09:04:36.670
+1584,2014-03-03 00:00:00.000,1,Mono,Thin monofilament on both pectoral flippers,Both pectoral flippers,lconnor,2014-03-12 14:21:58.950,D,2014-03-12 14:21:58.950
+1587,1995-01-25 00:00:00.000,1,FH,fish hook embedded in manatee tail,tail,dszemer,2014-04-04 09:27:35.903,D,2014-04-04 09:27:35.903
+1600,2014-08-26 00:00:00.000,1,Fl,Red and white buoy with the number V95 and a heart shape,left and right pectoral flipper,vedmonds,2014-09-24 08:54:59.703,D,2014-09-24 08:54:59.703
+1666,2023-03-24 00:00:00.000,1,CrFl,"",Left pec,cmiller,2023-03-27 06:45:55.433,D,2023-03-27 06:45:55.433
+1686,2014-03-07 00:00:00.000,1,CrFl,"monofilament also entangled around pot line, trap, and around flippers",both flippers and around body,dszemer,2015-10-08 08:47:08.743,dszemer,2015-10-09 07:32:03.637
+1690,2014-04-05 00:00:00.000,1,CrFl,"",one wrap around body and two around left flipper,dszemer,2015-10-09 08:19:49.720,D,2015-10-09 08:19:49.720
+1692,2014-05-07 00:00:00.000,1,Rope,"",mid-body,dszemer,2015-10-09 11:29:17.543,D,2015-10-09 11:29:17.543
+1697,2014-06-28 00:00:00.000,1,CrFl,braided rope,left flipper,dszemer,2015-12-10 09:29:32.677,D,2015-12-10 09:29:32.677
+1702,2015-12-19 00:00:00.000,1,CrFl,Unmarked white float. Wooded slat trap with a round opening on the top.,left flipper,aspellman,2015-12-29 08:15:57.467,D,2015-12-29 08:15:57.467
+1704,2015-02-01 00:00:00.000,1,FH,and monofilament,"""Dragging behind manatee""",jkleen,2016-01-08 15:04:53.460,D,2016-01-08 15:04:53.460
+1713,2014-11-10 00:00:00.000,1,CrFl,"white float, #V-4693?(can't read), nylon rope",right flipper,dszemer,2016-01-29 09:13:51.763,D,2016-01-29 09:13:51.763
+1714,2014-12-01 00:00:00.000,1,CrFl,"white & orange, #V2868, twisted 0.25"" rope, single wrap
+",peduncle,dszemer,2016-01-29 09:54:50.743,D,2016-01-29 09:54:50.743
+1731,2015-01-13 00:00:00.000,1,Mono,yellow braided line with green bobber,undetermined,dszemer,2016-03-17 12:54:12.297,D,2016-03-17 12:54:12.297
+1732,2015-03-09 00:00:00.000,1,Oth,"crab trap float, line, & rebar; nylon ropes; mono & wire leaders, lead egg sinkers & swivels, braded fishing line, broken hook,unwound, women's ribbon hat.",right flipper through radius/ulna,dszemer,2016-03-17 13:35:10.350,dszemer,2016-03-17 13:35:56.320
+1733,2015-03-18 00:00:00.000,1,CrFl,orange/white pot with nylon rope,right flipper,dszemer,2016-03-17 13:52:38.853,D,2016-03-17 13:52:38.853
+1734,2015-04-11 00:00:00.000,1,Mono,monofilament was embedded in both flippers & tied them together,both flippers ,dszemer,2016-03-17 14:00:57.473,D,2016-03-17 14:00:57.473
+1734,2016-05-09 00:00:00.000,1,Mono,"",around both pectoral flippers,dszemer,2016-05-23 12:21:49.863,D,2016-05-23 12:21:49.863
+1736,2015-05-09 00:00:00.000,1,CrFl,"White & red polypropylene line deeply embedded in flipper.
+Right flipper missing.",left flipper,dszemer,2016-03-17 14:14:26.480,D,2016-03-17 14:14:26.480
+1742,2015-10-28 00:00:00.000,1,CrFl,"Buoy: white with brown specks, V9582, nylon rope","twice around left flipper, across chest, & under right axilla",dszemer,2016-03-18 08:18:16.427,D,2016-03-18 08:18:16.427
+1746,2015-01-20 00:00:00.000,1,Fl,"white float, 1/4 inch white, braided nylon ",left flipper,dszemer,2016-03-18 10:06:13.297,D,2016-03-18 10:06:13.297
+1748,2015-04-24 00:00:00.000,1,CrFl,"Red float, VH1-6023, 1/4"" 3 strand poly-nylon rope",right flipper & around body,dszemer,2016-03-18 10:46:51.820,D,2016-03-18 10:46:51.820
+1749,2015-12-28 00:00:00.000,1,Rope,red dock line,"unverified, left flipper",dszemer,2016-03-18 14:14:03.323,D,2016-03-18 14:14:03.323
+1756,2015-10-14 00:00:00.000,1,CrFl,"White float, VH1 4321, white cotton line
+Multiple crab trap lines involved
+Yellow buoy, V497 entangled around above lines, removed on scene by complainant on 12 October",left flipper,dszemer,2016-03-22 07:20:44.337,D,2016-03-22 07:20:44.337
+1764,2015-12-25 00:00:00.000,1,CrFl,"recreational, tan pot, 0.5 inch black nylon rope",around head & left flipper,dszemer,2016-04-06 11:30:34.463,D,2016-04-06 11:30:34.463
+1767,2016-01-30 00:00:00.000,1,Ing,fish hook removed from throat,throat,dszemer,2016-04-18 08:53:37.727,D,2016-04-18 08:53:37.727
+1780,2016-01-07 00:00:00.000,1,Ing,"14 cm of monofilament line trailing from right side of mouth",mouth,dszemer,2016-05-18 09:20:57.383,D,2016-05-18 09:20:57.383
+1782,2016-05-18 00:00:00.000,1,CrFl,"",Right Pectoral flipper,bgreer,2016-05-19 07:36:23.903,D,2016-05-19 07:36:23.903
+1784,2016-03-14 00:00:00.000,1,Rope,yellow nylon rope attached to something underwater,peduncle,dszemer,2016-05-20 08:06:23.820,D,2016-05-20 08:06:23.820
+1786,2016-04-04 00:00:00.000,1,CrFl,"Float white and black, V1246, black polypropylene rope",right flipper,dszemer,2016-05-20 12:02:49.317,D,2016-05-20 12:02:49.317
+1788,2016-04-22 00:00:00.000,1,CrFl,"Red & White float, V9, 1/4 inch line. Believed to be double line wrap around tail with ~3 ft of twisted line. ",tail,dszemer,2016-05-23 10:03:27.253,D,2016-05-23 10:03:27.253
+1789,2016-05-06 00:00:00.000,1,CrFl,"Black float, polypropylene line, ""pinfish"" trap, line wrapped twice around flipper",right flipper,dszemer,2016-05-23 12:09:09.343,D,2016-05-23 12:09:09.343
+1793,2016-04-17 00:00:00.000,1,CrFl,"white float, V3821, 0.25 inch black nylon rope with monofilament entanglement on trap",left flipper,dszemer,2016-05-24 10:59:19.527,D,2016-05-24 10:59:19.527
+1805,2018-09-26 00:00:00.000,1,Ing,"monofilament, plastic, sponges in colon",colon,dszemer,2019-07-29 13:15:08.730,D,2019-07-29 13:15:08.730
+1810,2016-06-22 00:00:00.000,1,CrFl,Homemade crab trap and line that was tied to mangrove roots. ,Mid body,bgreer,2016-07-28 09:18:15.167,D,2016-07-28 09:18:15.167
+1815,2016-06-09 00:00:00.000,1,CrFl,"Two crab traps were involved: line from one trap wrapped once around flipper, second trap line entangled around first trap line",left flipper,dszemer,2016-08-29 06:56:38.500,D,2016-08-29 06:56:38.500
+1819,2016-08-08 00:00:00.000,1,Fl,line wrapped around manatee and appeared to be snagged on pier,right flipper and neck,dszemer,2016-08-29 07:43:48.003,D,2016-08-29 07:43:48.003
+1836,2016-08-25 00:00:00.000,1,CrFl,"Float, line, and rebar were recovered.  The manatee was not dragging the crab pot. ",Around left pectoral flipper,dboyd,2016-10-06 09:08:07.320,D,2016-10-06 09:08:07.320
+1844,2016-07-18 00:00:00.000,1,Rope,"two loops of black braided line around fluke, which was connected to several loops around the left flipper",fluke & left flipper,dszemer,2016-11-02 07:55:13.193,D,2016-11-02 07:55:13.193
+1863,2017-01-05 00:00:00.000,1,CrFl,Blue crab trap with nylon line and a blue/cream buoy.,Left pectoral flipper,dboyd,2017-01-06 09:56:35.267,D,2017-01-06 09:56:35.267
+1881,2017-02-18 00:00:00.000,1,CrFl,"chronic entanglement of nylon line, floats, several pieces of monofilament line with metal hooks, weights, plastic floats, string, cable ties, & blue sponge-like material beneath blue crab trap line.",left flipper,dszemer,2017-07-28 13:57:23.163,D,2017-07-28 13:57:23.163
+1882,2017-02-12 00:00:00.000,1,CrFl,"Dependent manatee calf with double line wrap from commercial blue crab trap wrapped around left pectoral flipper. The float # was VHI8995 and it was white. The line type was 1/4"" poly/cotton line white with red strand and black core. ",Left pectoral flipper ,dboyd,2017-02-26 08:07:08.260,D,2017-02-26 08:07:08.260
+1898,2017-02-26 00:00:00.000,1,Mono,"around both flippers and connecting the two together (""hog tied"")",both flippers,ahowell,2017-03-13 12:16:34.300,D,2017-03-13 12:16:34.300
+1899,2016-10-06 00:00:00.000,1,Net,cast net attached to the end of the 11ft green rope,right flipper,ahowell,2017-03-13 12:22:31.527,D,2017-03-13 12:22:31.527
+1899,2016-10-06 00:00:00.000,1,Rope,"11ft green rope secured to dock and around manatee's right flipper",right flipper,ahowell,2017-03-13 12:22:10.303,D,2017-03-13 12:22:10.303
+1900,2016-12-14 00:00:00.000,1,Mono,monofilament line embedded in right flipper with 1 foot of trailing line,right flipper,ahowell,2017-03-13 12:26:01.167,dszemer,2017-07-05 12:36:59.880
+1906,2017-04-06 00:00:00.000,1,Rope,"Dependent manatee calf with double line wrap of 3/8” blue braided nylon around left pectoral flipper. Only part of the gear was collected. Unknown if the nylon was attached to a pot or other fishing gear, since it was not recovered. ",Left Pectoral Flipper,dboyd,2017-04-09 08:25:03.093,D,2017-04-09 08:25:03.093
+1912,2017-04-20 00:00:00.000,1,CrFl,"Green blue crab pot, with white with black fleck nylon line, and a pink bouy",Around raised fluke mutilation ,dboyd,2017-04-26 13:55:09.543,D,2017-04-26 13:55:09.543
+1914,2017-04-22 00:00:00.000,1,CrFl,"Active crab trap, line and buoy. Buoy marked ""V675"". Trap Id : FWC0329.",Right flipper,bgreer,2017-05-01 06:41:35.987,D,2017-05-01 06:41:35.987
+1918,2017-05-18 00:00:00.000,1,Rope,Anchor line,Right flipper and body,bgreer,2017-05-19 06:57:33.393,D,2017-05-19 06:57:33.393
+1927,2017-06-01 00:00:00.000,1,CrFl,"Pot weighed 5.34 lbs., line was polypropylene and one buoy was present. Per crabber, gear had been set in location where manatee was rescued. ",right pectoral flipper ,ngordon,2017-06-20 09:45:17.427,D,2017-06-20 09:45:17.427
+1934,2017-01-31 00:00:00.000,1,FH,"hook w/green rubber worm lure partially embedded in manatee’s skin, small raised and erupted skin lesion about 2 cm diameter and 1 cm height where the hook entered the skin. Hook removed with pliers.",right of mid-line on dorsal posterior trunk,dszemer,2017-07-24 14:17:25.937,D,2017-07-24 14:17:25.937
+1942,2017-08-12 00:00:00.000,1,Rope,Crab trap buoy and line; unknown if carb trap attached.,Left flipper,bgreer,2017-08-21 07:08:22.413,D,2017-08-21 07:08:22.413
+1963,2017-11-09 00:00:00.000,1,CrFl,"line wrapped twice around body, cutting into dermis (primary)",twice around body,jpeterson,2017-11-16 10:23:23.663,dszemer,2017-12-29 13:39:38.480
+1963,2017-11-09 00:00:00.000,1,Mono,one wrap of monofilament around base of right flipper (secondary),base of right flipper,dszemer,2017-12-29 13:38:41.033,dszemer,2017-12-29 13:39:47.843
+1979,2017-12-12 00:00:00.000,1,Oth,Poly rope attached to a bait bucket,Right flipper,bgreer,2017-12-13 11:38:45.433,D,2017-12-13 11:38:45.433
+1989,2018-01-08 00:00:00.000,1,Oth,"two tight wraps & one loose wrap of line, deeply penetrating causing necrotic wounds around circumference of peduncle; line attached to a floating Christmas display and anchored to bottom",around peduncle,dszemer,2018-10-29 12:28:15.953,dszemer,2019-04-15 12:36:21.343
+2005,2017-05-03 00:00:00.000,1,Rope,"Frayed line dangling from a dock, manatee began playing with it and became entangled (two loops), photoID personnel observed and tugged on line, breaking frayed end free of manatee",right flipper,dszemer,2018-03-08 13:10:00.650,D,2018-03-08 13:10:00.650
+2028,2018-04-20 00:00:00.000,1,CrFl,One crab trap with yellow float was wrapped around right pectoral flipper. An additional crab trap and stone crab trap were wrapped in the initial crab trap but not wrapped on the manatee.,Right pectoral flipper,bgreer,2018-04-24 08:02:02.083,D,2018-04-24 08:02:02.083
+2029,2018-04-25 00:00:00.000,1,CrFl,"Float, polyprop line with a small line weight and blue crap trap.",Right pectoral flipper,bgreer,2018-05-03 14:49:36.997,D,2018-05-03 14:49:36.997
+2036,2018-01-24 00:00:00.000,1,Oth,orange life jacket,"mid torso, was clipped on around the body",ahowell,2018-05-15 09:46:42.833,D,2018-05-15 09:46:42.833
+2038,2018-04-10 00:00:00.000,1,FH,large fish hook - also had monofilament trailing from the hook which was cut off.,lower right lip,ahowell,2018-05-15 10:01:43.533,D,2018-05-15 10:01:43.533
+2043,2018-05-24 00:00:00.000,1,Oth,Float line with a tan float and a blue and tan bouy. ,lodged between two tail mutilations,dboyd,2018-05-24 07:41:13.287,D,2018-05-24 07:41:13.287
+2045,2018-06-04 00:00:00.000,1,Net,Cast net,Right flipper,bgreer,2018-06-04 11:12:06.537,D,2018-06-04 11:12:06.537
+2047,2018-06-06 00:00:00.000,1,Mono,"Right flipper had deep cuts from monofilament in multiple spots and was swollen, the left flipper was entangled in one spot and had slight abrasions.  Both flippers were connected by a strand of monofilament.",both flippers,ahowell,2018-06-08 06:54:41.000,D,2018-06-08 06:54:41.000
+2047,2020-02-26 00:00:00.000,1,Mono,"monofilament line, hook, sinker, brown cloth-like material",around both flippers,aperna,2020-10-18 10:15:15.400,D,2020-10-18 10:15:15.400
+2047,2021-09-01 00:00:00.000,1,Mono,Monofilament ,Both pectoral flippers,ngordon,2022-10-21 16:24:37.757,D,2022-10-21 16:24:37.757
+2051,2018-07-06 00:00:00.000,1,Mono,"Monofilament wrapped around both flippers, and hog tied across the ventrum. Right flipper was deeper than the left.",both flippers,ahowell,2018-07-10 09:08:54.550,D,2018-07-10 09:08:54.550
+2051,2020-04-13 00:00:00.000,1,Mono,"","monofilament line loosely wrapped around proximal one-third of both flippers, with line connecting t",aperna,2020-10-18 09:47:47.953,D,2020-10-18 09:47:47.953
+2053,2018-06-24 00:00:00.000,1,Oth,"13 cm x 8.5 cm white buoy with lettering “BAO LONG BL made in Taiwan”
+12 cm x 7.5 cm white and blue buoy with no lettering. Both were tied together side by side with a black line tied in a complete loop and 144 cm of trailing line. 
+",left pectoral flipper,ngordon,2018-07-14 05:41:33.063,D,2018-07-14 05:41:33.063
+2061,2018-08-04 00:00:00.000,1,CrFl,Blue crab pot with line and buoy. There was a large loop of rope in line that was the location of the entanglement in the gear. ,Left pectoral flipper,bgreer,2018-08-17 08:17:09.370,D,2018-08-17 08:17:09.370
+2069,2018-08-30 00:00:00.000,1,CrFl,"Buoy, line and crab trap. All gear was given back to owner before all info could be collected.",Left pectoral flipper,bgreer,2018-09-13 07:10:33.960,D,2018-09-13 07:10:33.960
+2077,2018-08-18 00:00:00.000,1,CrFl,"Nylon braided white with blue flecks, White float, attached to rebar 
+",right pectoral flipper,dboyd,2018-10-02 14:18:14.993,D,2018-10-02 14:18:14.993
+2084,2018-09-22 00:00:00.000,1,CrFl,"Crab trap, line and buoy",Left flipper,bgreer,2018-10-22 07:11:04.747,D,2018-10-22 07:11:04.747
+2084,2018-10-24 00:00:00.000,1,CrFl,"Yellow float, V8807, breaking skin surface.",left flipper,dszemer,2018-10-31 14:04:20.050,D,2018-10-31 14:04:20.050
+2094,1995-11-10 00:00:00.000,1,CrFl,# V580,left flipper,dszemer,2018-11-21 14:18:15.600,D,2018-11-21 14:18:15.600
+2095,2017-10-02 00:00:00.000,1,CrFl,"V912, Orange, with 1/4 in black poly w/blue thread & 12/ in white nylon w/blue thread","right flipper, mid humerus",dszemer,2018-11-29 14:17:30.020,D,2018-11-29 14:17:30.020
+2096,2017-11-07 00:00:00.000,1,Oth,plastic packing strap,"around neck, behind right flipper but in front of left",dszemer,2018-11-29 14:54:57.937,D,2018-11-29 14:54:57.937
+2104,2017-11-01 00:00:00.000,1,CrFl,"Pink float, VH9392, with white w/black flecks colored line.  Gear was also ensnared on adjacent floating dock.",left flipper,dszemer,2018-12-28 13:59:50.557,D,2018-12-28 13:59:50.557
+2114,2019-03-02 00:00:00.000,1,CrFl,"",Peduncle,dboyd,2019-03-05 10:56:00.930,D,2019-03-05 10:56:00.930
+2128,2018-02-12 00:00:00.000,1,Oth,FWC Fish Independent Monitoring research net,whole animal,dszemer,2019-04-29 11:09:18.223,D,2019-04-29 11:09:18.223
+2129,2018-02-28 00:00:00.000,1,Fl,"four wraps; small, superficial abrasions and slight indentations in the epidermis at the leading and trailing edges of the proximal third of right flipper",right flipper,dszemer,2019-04-29 12:28:34.917,D,2019-04-29 12:28:34.917
+2130,2019-04-27 00:00:00.000,1,CrFl,"",Double wrap around the body at the axilla,dboyd,2019-04-30 13:58:44.173,D,2019-04-30 13:58:44.173
+2134,2019-05-05 00:00:00.000,1,Rope,All that was recovered was rope and buoy. Unknown is more line and trap were attached. ,Unknown ,bgreer,2019-05-13 13:03:27.373,D,2019-05-13 13:03:27.373
+2135,2018-05-03 00:00:00.000,1,CrFl,"Red-brown float, nylon line (white with blue specks), and crab trap.",Cranial body and both flippers.,glonati,2019-05-13 13:19:28.860,D,2019-05-13 13:19:28.860
+2136,2018-05-04 00:00:00.000,1,CrFl,"Green buoy, nylon line (white with blue specks), crab trap",Cranial body and left flipper.,glonati,2019-05-13 13:23:47.767,D,2019-05-13 13:23:47.767
+2142,2018-10-23 00:00:00.000,1,Fl,Red and white buoy and nylon line (white with blue specks).,Cranial body and right flipper.,glonati,2019-05-13 14:29:29.890,D,2019-05-13 14:29:29.890
+2144,2019-04-06 00:00:00.000,1,Rope,Bait bucket rope.,Left flipper.,glonati,2019-05-13 14:37:22.470,D,2019-05-13 14:37:22.470
+2149,2018-03-03 00:00:00.000,1,Mono,trailing line from manatee's mouth,trailing from mouth,dszemer,2019-05-17 10:30:26.063,D,2019-05-17 10:30:26.063
+2150,2018-10-03 00:00:00.000,1,CrFl,Entangled in two crab traps and anchored in place (three tight wraps). Anchoring line cut and manatee swam off with two buoys and possibly one trap.,"around head, cranial to flippers",dszemer,2019-05-17 10:42:14.427,D,2019-05-17 10:42:14.427
+2152,2018-03-19 00:00:00.000,1,Mono,line wrapped around manatee,unknown-see USFWS,dszemer,2019-05-22 14:07:14.053,D,2019-05-22 14:07:14.053
+2161,2019-07-03 00:00:00.000,1,CrFl,"",Left and right flippers,dboyd,2019-07-05 09:19:17.280,D,2019-07-05 09:19:17.280
+3183,2019-10-11 00:00:00.000,1,CrFl,trap & buoy cut off by Pasco Co. SO.  Not retained.,around head & ?,dszemer,2019-10-21 14:31:49.887,D,2019-10-21 14:31:49.887
+3231,2020-01-22 00:00:00.000,1,Oth,Life Ring and rope,Right flipper,bgreer,2020-01-22 11:27:04.670,D,2020-01-22 11:27:04.670
+3242,2019-11-05 00:00:00.000,1,Net,green net,right pectoral flipper,ngordon,2020-04-20 14:07:10.190,D,2020-04-20 14:07:10.190
+3242,2020-02-26 00:00:00.000,1,Mono,embedded,right flipper,dszemer,2020-04-23 13:41:45.070,D,2020-04-23 13:41:45.070
+3242,2020-02-26 00:00:00.000,1,Net,thick net embedded in both flippers,both flippers,dszemer,2020-04-23 13:41:30.537,D,2020-04-23 13:41:30.537
+3243,2019-07-27 00:00:00.000,1,Oth,"the manatee had a right flipper entanglement consisting of white string, green nylon netting, and a plastic water bottle",right pectoral flipper,ngordon,2020-04-20 14:42:41.430,D,2020-04-20 14:42:41.430
+3270,2019-07-02 00:00:00.000,1,CrFl,The manatee was entangled in a primary active blue crab trap and secondary derelict blue crab trap.,Peduncle,bbarbeau,2020-03-19 12:49:59.537,D,2020-03-19 12:49:59.537
+3280,2020-04-01 00:00:00.000,1,CrFl,Active commercial blue crab trap.,Peduncle,bgreer,2020-04-02 09:22:01.687,D,2020-04-02 09:22:01.687
+3280,2020-04-01 00:00:00.000,1,Rope,Anchor line from docked boat. Crab trap line became wrapped around the anchor line and manatee was unable to freely swim. Anchor line was not directly touching manatee.,On crab trap ,bgreer,2020-04-02 09:23:13.887,D,2020-04-02 09:23:13.887
+3283,2019-07-05 00:00:00.000,1,CrFl,"Citizen reported that the manatee had thick white rope wrapped around the body, a square orange buoy visible above the water, and a crab trap that was being dragged. ",body and pectoral flippers (presumed),ngordon,2020-04-20 13:02:26.717,D,2020-04-20 13:02:26.717
+3287,2020-04-28 00:00:00.000,1,CrFl,"Active crab trap, line and buoy",Peduncle,bgreer,2020-05-11 07:54:51.073,D,2020-05-11 07:54:51.073
+3290,2020-05-22 00:00:00.000,1,CrFl,"Unmarked buoy, line and collapsed trap",Right flipper,bgreer,2020-05-26 07:44:57.940,D,2020-05-26 07:44:57.940
+3321,2020-09-01 00:00:00.000,1,Mono,fishing line around both pecs. left pec mono was removed in field rt pec removal in rehab,left pec and right pec,lbraso,2020-09-02 13:59:11.317,D,2020-09-02 13:59:11.317
+3351,2020-12-11 00:00:00.000,1,Rope,blueish green rope also dragging possible fish cleaning table,left pectoral flipper,lbraso,2020-12-14 07:58:07.530,D,2020-12-14 07:58:07.530
+5384,2021-01-29 00:00:00.000,1,Mono,"","Around body, behind flippers",mlippincot,2021-01-31 11:31:06.740,D,2021-01-31 11:31:06.740
+6397,2021-02-23 00:00:00.000,1,Mono,red fishing line,right pectoral flipper,lbraso,2021-02-24 10:21:40.590,D,2021-02-24 10:21:40.590
+7446,2020-05-24 00:00:00.000,1,CrFl,"White-green stripe bullet float#V2831. White line wrapped around fluke insertion and penetrating ~5-10 cm. A citizen cut the line between the manatee and the entangling trap, and it was last seen free swimming with buoy and line attached. ",Fluke insertion and penetrating approximately 5-10 cm. ,dboyd,2021-06-23 14:35:40.453,D,2021-06-23 14:35:40.453
+7448,2021-07-08 00:00:00.000,1,CrFl,Black blue crab trap with white nylon line and a white bullet-shaped buoy,Left flipper,dboyd,2021-07-20 13:07:13.520,D,2021-07-20 13:07:13.520
+7466,2021-08-23 00:00:00.000,1,CrFl,"Two commercial blue crab pot traps, 3 rebar bases and various buoys. Three crabbers involved, one inactive. ",right pectoral flipper,ngordon,2021-08-25 12:59:39.650,D,2021-08-25 12:59:39.650
+7490,2021-07-19 00:00:00.000,1,Mono,"black plastic, metal swivel, green braided line",right pectoral flipper,BGoodrum,2021-10-08 12:31:52.520,D,2021-10-08 12:31:52.520
+7491,2021-01-27 00:00:00.000,1,Mono,"6ft blue monofilament line",monofilament trailing from manatee's mouth,BGoodrum,2021-10-08 12:45:07.947,D,2021-10-08 12:45:07.947
+9600,2022-07-28 00:00:00.000,1,CrFl,Commercial blue crab trap gear.,Right flipper,APajor,2022-09-07 12:28:54.880,D,2022-09-07 12:28:54.880
+9607,2022-02-17 00:00:00.000,1,Rope,Chum bag,Wrapped around tail mutilation,KBouchard,2022-09-24 14:42:06.610,D,2022-09-24 14:42:06.610
+9608,2022-04-13 00:00:00.000,1,Mono,Fishing hook with lure and trailing monofilament line,Lure through the upper lip,KBouchard,2022-09-24 14:48:29.847,D,2022-09-24 14:48:29.847
+9615,2021-10-28 00:00:00.000,1,Mono,clear,tail notch mutilation ,ngordon,2022-10-17 10:36:33.727,D,2022-10-17 10:36:33.727
+9615,2021-10-28 00:00:00.000,1,Oth,"Monofilament, metal wire, fish leaders, and a plastic water bottle",Tail notch mutilation ,ngordon,2022-10-17 10:36:04.790,D,2022-10-17 10:36:04.790
+9632,2022-10-28 00:00:00.000,1,Oth,Black strap with string and vegetation wrapped tightly around it.,Wrapped around tail mutilation,KBouchard,2022-11-04 13:16:31.060,D,2022-11-04 13:16:31.060
+9672,2023-02-08 00:00:00.000,1,Fl,Rope and buoy plus rebar ,Left pec and Right flipper and around body ,mlippincot,2023-02-10 07:02:33.313,D,2023-02-10 07:02:33.313
+9684,2023-02-14 00:00:00.000,1,Fl,Float line associated with manatee sanctuary. ,right pectoral flipper,ngordon,2023-03-14 14:25:29.903,D,2023-03-14 14:25:29.903
+9691,2023-03-01 00:00:00.000,1,Rope,Boat line dangling in water,Tail fluke mutilation,KBouchard,2023-03-16 07:12:16.580,D,2023-03-16 07:12:16.580
+9692,2023-03-02 00:00:00.000,1,Mono,Clear and blue monofilament line and tan twine.,Right flipper,KBouchard,2023-03-16 07:22:58.020,D,2023-03-16 07:22:58.020
+10696,2020-01-06 00:00:00.000,1,CrFl,Crab pot with white buoy and thick braided line,Right flipper,KBouchard,2023-03-24 09:39:56.163,D,2023-03-24 09:39:56.163
+11705,2023-05-01 00:00:00.000,1,CrFl,"Active crab trap, line and buoy",left pectoral flipper,bgreer,2023-05-16 09:46:33.423,D,2023-05-16 09:46:33.423
+11706,2023-05-11 00:00:00.000,1,Fl,Crab trap float and line,Peduncle,bgreer,2023-05-16 09:51:02.650,D,2023-05-16 09:51:02.650
+11725,2023-07-26 00:00:00.000,1,Fl,FLOAT LINE AND BUOY,RT PEC,lbraso,2023-07-30 07:46:19.663,D,2023-07-30 07:46:19.663
+11729,2023-04-15 00:00:00.000,1,CrFl,"Float#: V5982
+Red Buoy.
+0.25"" white cotton braided line around a polyprop core.","Neck, body, and left flipper",APajor,2023-08-03 14:31:56.413,D,2023-08-03 14:31:56.413
+11739,2022-03-31 00:00:00.000,1,Oth,Polyprop/nylon line with an anchor chain and anchor attached. ,"2 wraps around torso",KBouchard,2023-08-18 11:51:10.880,D,2023-08-18 11:51:10.880
+11745,2023-08-25 00:00:00.000,1,CrFl,Float#: VHI4293B 	Color: White/Blue 	Line Type: 3/8” braided white nylon. ,Circumferential body wrap around the axilla area cadual to the pectoral flippers.,dboyd,2023-08-26 12:02:46.607,D,2023-08-26 12:02:46.607
+11762,2023-11-02 00:00:00.000,1,Mono,Chronic entanglement,Left Pectoral Flipper,mlippincot,2023-11-06 11:42:24.380,D,2023-11-06 11:42:24.380
+11767,2023-11-21 00:00:00.000,1,Mono,"",RT PEC,lbraso,2023-11-27 08:01:08.173,D,2023-11-27 08:01:08.173
+11807,2024-02-05 00:00:00.000,1,Oth,"Piece of green, hinged, and plastic debris that had a handle with line attached to it ",Left flipper,dboyd,2024-02-20 08:45:26.580,D,2024-02-20 08:45:26.580
+11815,2024-02-13 00:00:00.000,1,FH,Single j-hook trailing several feet of monofilament.,Fluke margin,APajor,2024-02-28 07:46:14.257,D,2024-02-28 07:46:14.257
+11833,2024-04-24 00:00:00.000,1,CrFl,Commerical blue crab trap,Left pectoral flipper,bgreer,2024-05-03 08:07:42.940,D,2024-05-03 08:07:42.940
+11834,2024-04-29 00:00:00.000,1,CrFl,"Commerical blue crab trap, line and buoy.",Left pectoral flipper,bgreer,2024-05-07 14:05:54.387,D,2024-05-07 14:05:54.387
+11837,2024-04-26 00:00:00.000,1,Mono,"",LF PEC,lbraso,2024-05-12 06:58:00.430,D,2024-05-12 06:58:00.430
+11841,2024-04-27 00:00:00.000,1,Mono,"clear monofilament, blue braided line, leader line deeply embedded.",left flipper,ahowell,2024-05-15 09:43:01.620,D,2024-05-15 09:43:01.620
+11843,2024-02-21 00:00:00.000,1,Rope,Black dock line attached to the dock,left flipper,ahowell,2024-05-15 10:19:03.327,D,2024-05-15 10:19:03.327
+11851,2024-06-12 00:00:00.000,1,CrFl,Red buoy with line attached to a square piece of rebar. Likely remnants of a blue crab trap.,Right flipper.,APajor,2024-06-12 14:50:25.690,D,2024-06-12 14:50:25.690
+11863,2023-12-26 00:00:00.000,1,Rope,"16 feet of green paracord rope",Right flipper,ahowell,2024-06-18 13:42:09.197,D,2024-06-18 13:42:09.197
+11866,2023-01-05 00:00:00.000,1,FH,"",Left flipper,ahowell,2024-06-19 08:45:09.000,D,2024-06-19 08:45:09.000
+11866,2023-01-05 00:00:00.000,1,Mono,Monofilament trailed from a braided line,Left flipper,ahowell,2024-06-19 08:44:18.913,D,2024-06-19 08:44:18.913
+11866,2023-01-05 00:00:00.000,1,Oth,Braided nylon line trailing from fishing hook,Left flipper,ahowell,2024-06-19 08:44:55.007,D,2024-06-19 08:44:55.007
+11867,2023-01-29 00:00:00.000,1,Mono,"33 inches of trailing monofilament and more line embedded in the flipper.",Right flipper,ahowell,2024-06-19 08:56:14.307,D,2024-06-19 08:56:14.307
+11868,2023-03-14 00:00:00.000,1,Mono,"60 cm of trailing monofilament and twine which included a 6 cm diameter mass of knotted line",Left flipper,ahowell,2024-06-19 08:59:48.290,D,2024-06-19 08:59:48.290
+11868,2023-03-14 00:00:00.000,1,Oth,"60 cm of trailing monofilament and black twine which included a 6 cm diameter mass of knotted line",Left flipper,ahowell,2024-06-19 09:00:04.100,D,2024-06-19 09:00:04.100
+11869,2023-03-25 00:00:00.000,1,Rope,Yellow rope,Left flipper,ahowell,2024-06-19 09:03:52.993,D,2024-06-19 09:03:52.993
+11871,2023-09-11 00:00:00.000,1,CrFl,"3-4 ft of black rope wrapped around flipper with white buoy and orange crab trap attached. Crab Pot: Float #: 8493E, Color: White, Line Type: polyprop/nylon line",Right flipper,ahowell,2024-06-19 09:42:23.003,D,2024-06-19 09:42:23.003
+11875,2024-05-27 00:00:00.000,1,Rope,Rope attached to a chum bag,Around the body behind the axillae,ahowell,2024-07-02 07:24:01.260,D,2024-07-02 07:24:01.260
+11877,2024-02-27 00:00:00.000,1,CrFl,Pink buoy with 15' trailing polyprop/nylon line. ,Hooked onto a tail notch on the left aspect of the tail,ahowell,2024-07-15 10:47:48.690,D,2024-07-15 10:47:48.690
+11879,2024-03-15 00:00:00.000,1,Mono,Monofilament embedded around flipper,Left flipper,ahowell,2024-07-15 09:15:24.613,D,2024-07-15 09:15:24.613
+11879,2024-03-15 00:00:00.000,1,Oth,Chum bag - removed by citizen,Left flipper,ahowell,2024-07-15 09:15:04.290,D,2024-07-15 09:15:04.290
+11884,2024-04-29 00:00:00.000,1,Oth,White buoy with no visible numbers and a portion of white nylon line,citizen reported left pectoral flipper,KBouchard,2024-08-20 07:48:16.233,D,2024-08-20 07:48:16.233
+11887,2024-08-10 00:00:00.000,1,CrFl,Blue crab trap with white line and red buoy. Buoy appeared to be degraded.,Cranial portion of the body,APajor,2024-08-20 12:44:31.930,D,2024-08-20 12:44:31.930
+11889,2024-08-20 00:00:00.000,1,Mono,"3 bands wrapped around left flipper, 1 band wrapped loosely around right flipper",Both flippers,ahowell,2024-08-25 12:13:10.870,D,2024-08-25 12:13:10.870
+11889,2024-08-20 00:00:00.000,1,Oth,Metal trailing from rope in citizen video. Not seen by rescue staff once on site so suspected to have fallen off before disentanglement. ,Flipper,ahowell,2024-08-25 12:14:21.540,D,2024-08-25 12:14:21.540
+11889,2024-08-20 00:00:00.000,1,Rope,Trailing from monofilament in citizen video. Not seen by rescue staff once on site so suspected to have fallen off before disentanglement. ,Flipper,ahowell,2024-08-25 12:14:02.673,D,2024-08-25 12:14:02.673
+11892,2024-08-30 00:00:00.000,1,Mono,"",LF PEC,lbraso,2024-09-03 03:41:29.840,D,2024-09-03 03:41:29.840
+11932,2024-11-30 00:00:00.000,1,Oth,Orange plastic safety fencing,left flipper,ahowell,2025-01-02 08:54:24.087,D,2025-01-02 08:54:24.087

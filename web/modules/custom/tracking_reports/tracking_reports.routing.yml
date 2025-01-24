@@ -7,7 +7,7 @@ tracking_reports.current_captives:
     _permission: 'access tracking reports'
 
 tracking_reports.facility_inventory:
-  path: 'facility-inventory'
+  path: '/facility-inventory'
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\FacilityInventoryController::content'
     _title: 'Facility Inventory Report'
@@ -34,7 +34,7 @@ tracking_reports.tracking_without_events:
   path: '/tracking/without-events'
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutEventsController::content'
-    _title: 'Report of species without event (Birth, or Rescue)'
+    _title: 'Report of Species without event (Birth, or Rescue)'
   requirements:
     _permission: 'access tracking reports'
 
@@ -42,7 +42,7 @@ tracking_reports.tracking_without_primary_id:
   path: '/tracking/without-primary-id'
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutPrimaryIdController::content'
-    _title: 'Report of species without a Primary Species ID'
+    _title: 'Report of Species without a Primary Species ID'
   requirements:
     _permission: 'access tracking reports'
 
@@ -50,7 +50,7 @@ tracking_reports.without_primary_name:
   path: '/tracking/without-primary-name'
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\TrackingWithoutPrimaryNameController::content'
-    _title: 'Report of species without a Primary Name'
+    _title: 'Report of Species without a Primary Name'
   requirements:
     _permission: 'access tracking reports'
 
@@ -91,5 +91,13 @@ tracking_reports.waterway_autocomplete:
   defaults:
     _controller: '\Drupal\tracking_reports\Controller\TrackingAutocompleteController::handleWaterwayAutocomplete'
     _format: 'json'
+  requirements:
+    _permission: 'access tracking reports'
+
+tracking_reports.release_report:
+  path: '/tracking/release'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\ReleaseReportController::content'
+    _title: 'Species Release Report'
   requirements:
     _permission: 'access tracking reports'

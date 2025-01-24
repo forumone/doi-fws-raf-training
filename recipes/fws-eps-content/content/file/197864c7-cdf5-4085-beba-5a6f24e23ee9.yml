@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 197864c7-cdf5-4085-beba-5a6f24e23ee9
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'Crane Survey Data Form_0.pdf'
+  uri:
+    -
+      value: 'public://Crane Survey Data Form_0.pdf'
+  filemime:
+    -
+      value: application/pdf
+  filesize:
+    -
+      value: 6767
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1737061393

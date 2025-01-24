@@ -1,0 +1,7 @@
+name: FWS Private Pages
+type: module
+description: 'Provides access control for private pages'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node

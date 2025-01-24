@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/node/add/other_names'
+      uri: 'internal:/tracking/other-names'
       title: ''
       options: {  }
   external:
@@ -29,7 +29,7 @@ default:
       value: true
   weight:
     -
-      value: -42
+      value: -41
   expanded:
     -
       value: false

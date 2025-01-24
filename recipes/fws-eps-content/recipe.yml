@@ -1,0 +1,16 @@
+name: 'FWS EPS Content'
+description: 'FWS EPS starter content.'
+type: 'Site'
+config:
+  actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.front: /node/5
+    # Set main navigation block visibility
+    block.block.fws_raf_mainnavigation:
+      simple_config_update:
+        visibility: { }
+    block.block.fws_raf_mainnavigation_2:
+      simple_config_update:
+        visibility: { }

@@ -77,7 +77,7 @@ third_party_settings:
         open: false
         required_fields: true
 _core:
-  default_config_hash: qvxhCOBChHPZL9tKuRBl2prE2wdKH0rOIHoBJgk8IhY
+  default_config_hash: KYxticoW5vSDrplvdjkfPGJMeM5A_GahVZiNLMDQPLM
 id: node.transfer.default
 targetEntityType: node
 bundle: transfer

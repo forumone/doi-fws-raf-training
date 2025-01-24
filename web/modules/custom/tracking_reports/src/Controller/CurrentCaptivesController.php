@@ -9,6 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Utility\TableSort;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\tracking_reports\Form\FacilityFilterForm;
 
 /**
  * Controller for displaying current captive species by facility.
@@ -56,38 +57,22 @@ class CurrentCaptivesController extends ControllerBase {
    * Returns the page content.
    *
    * @return array
-   *   Render array for the page.
+   *   A render array for the page.
    */
   public function content() {
-    // Get facility terms.
-    $facility_terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
-      'vid' => 'org',
-    ]);
+    // 1) Get the currently selected facility from the URL (?facility=___).
+    $request = $this->requestStack->getCurrentRequest();
+    $selected_facility = $request->query->get('facility', 'all');
 
-    // Build facility options.
-    $facility_options = ['all' => $this->t('- All Facilities -')];
-    foreach ($facility_terms as $term) {
-      if ($term->hasField('field_organization') && !$term->field_organization->isEmpty()) {
-        $facility_options[$term->field_organization->value] = $term->get('field_organization')->value;
-      }
-    }
+    // 2) Build our facility filter form (the real form), which uses GET
+    // submission. The form's submit handler will set ?facility=___ and redirect
+    // to the same path.
+    $facility_filter_form = \Drupal::formBuilder()->getForm(FacilityFilterForm::class);
 
-    // Build the filter form.
-    $form = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['tracking-filter-form']],
-      'facility' => [
-        '#type' => 'select',
-        '#title' => $this->t('Filter by Facility:'),
-        '#options' => $facility_options,
-        '#default_value' => 'all',
-        '#attributes' => [
-          'class' => ['facility-filter'],
-        ],
-      ],
-    ];
-
-    // Get deceased species IDs.
+    // 3) Gather data about deceased species, species IDs, rescue info, births,
+    // etc. This is basically the same logic from your original code, with
+    // slight modifications to skip the old "manual" filter container.
+    // Get all species_death nodes to exclude deceased species.
     $death_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_death')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
@@ -104,7 +89,7 @@ class CurrentCaptivesController extends ControllerBase {
       }
     }
 
-    // Get species IDs.
+    // Get species_id nodes.
     $species_id_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_id')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
@@ -160,6 +145,7 @@ class CurrentCaptivesController extends ControllerBase {
         }
       }
 
+      // Most recent rescue type for each species.
       foreach ($species_rescues as $species_ref_id => $rescues) {
         usort($rescues, function ($a, $b) {
           return strcmp($b['date'], $a['date']);
@@ -187,7 +173,7 @@ class CurrentCaptivesController extends ControllerBase {
       }
     }
 
-    // Define event types.
+    // Define event types to gather.
     $event_types = [
       'species_birth' => 'field_birth_date',
       'species_rescue' => 'field_rescue_date',
@@ -195,7 +181,7 @@ class CurrentCaptivesController extends ControllerBase {
       'species_release' => 'field_release_date',
     ];
 
-    // Get all species with MLOGs that aren't deceased.
+    // Query for all species that aren't deceased.
     $species_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species')
       ->condition('field_number', NULL, 'IS NOT NULL');
@@ -206,38 +192,37 @@ class CurrentCaptivesController extends ControllerBase {
 
     $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
 
-    // Get primary names.
+    // Gather each species's primary name.
     $primary_names = [];
-    foreach ($species_entity_ids as $species_id) {
-      $species_node = $this->entityTypeManager->getStorage('node')->load($species_id);
-      if ($species_node && $species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
-        $names_paragraphs = $species_node->field_names->referencedEntities();
-        foreach ($names_paragraphs as $paragraph) {
-          if ($paragraph->hasField('field_primary') &&
-              !$paragraph->field_primary->isEmpty() &&
-              $paragraph->field_primary->value == 1 &&
-              $paragraph->hasField('field_name') &&
-              !$paragraph->field_name->isEmpty()) {
-            $primary_names[$species_id] = $paragraph->field_name->value;
-            // We found the primary name, no need to continue checking.
-            break;
+    if (!empty($species_entity_ids)) {
+      $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
+      foreach ($species_nodes as $s_id => $species_node) {
+        if ($species_node->hasField('field_names') && !$species_node->field_names->isEmpty()) {
+          $names_paragraphs = $species_node->field_names->referencedEntities();
+          foreach ($names_paragraphs as $paragraph) {
+            if ($paragraph->hasField('field_primary') &&
+                !$paragraph->field_primary->isEmpty() &&
+                $paragraph->field_primary->value == 1 &&
+                $paragraph->hasField('field_name') &&
+                !$paragraph->field_name->isEmpty()) {
+              $primary_names[$s_id] = $paragraph->field_name->value;
+              break;
+            }
           }
         }
       }
     }
 
-    // Get all events.
+    // Collect events for each species.
     $event_nodes = [];
     foreach ($event_types as $type => $date_field) {
       $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('type', $type)
         ->condition('field_species_ref', $species_entity_ids, 'IN')
-        ->condition('field_species_ref', NULL, 'IS NOT NULL')
         ->condition($date_field, NULL, 'IS NOT NULL')
         ->accessCheck(FALSE);
 
       $results = $query->execute();
-
       if (!empty($results)) {
         $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($results);
         foreach ($nodes as $node) {
@@ -246,6 +231,7 @@ class CurrentCaptivesController extends ControllerBase {
             $date_value = $node->get($date_field)->value;
 
             $organization = '';
+            // Transfers store facility in field_to_facility, others in field_org.
             if ($type === 'transfer' && $node->hasField('field_to_facility') && !$node->field_to_facility->isEmpty()) {
               $facility_term = $node->field_to_facility->entity;
               if ($facility_term && $facility_term->hasField('field_organization')) {
@@ -271,151 +257,152 @@ class CurrentCaptivesController extends ControllerBase {
       }
     }
 
-    // Process events.
+    // Figure out the most recent event for each species (if not a
+    // species_release).
     $most_recent_events = [];
-    foreach ($species_entity_ids as $species_entity_id) {
-      if (isset($event_nodes[$species_entity_id])) {
-        usort($event_nodes[$species_entity_id], function ($a, $b) {
+    foreach ($species_entity_ids as $species_id) {
+      if (isset($event_nodes[$species_id])) {
+        usort($event_nodes[$species_id], function ($a, $b) {
           return strcmp($b['date'], $a['date']);
         });
-
-        if ($event_nodes[$species_entity_id][0]['type'] !== 'species_release') {
-          $most_recent_events[$species_entity_id] = $event_nodes[$species_entity_id][0];
+        if ($event_nodes[$species_id][0]['type'] !== 'species_release') {
+          $most_recent_events[$species_id] = $event_nodes[$species_id][0];
         }
       }
     }
 
-    // Load species.
-    $species = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
+    // Load all species nodes fully.
+    $species_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($species_entity_ids);
     $current_date = new DrupalDateTime();
 
-    // Prepare rows.
+    // Build table rows.
     $rows = [];
-    foreach ($species as $species_entity) {
-      if (!isset($most_recent_events[$species_entity->id()])) {
+    foreach ($species_nodes as $species_node) {
+      $sid = $species_node->id();
+      if (!isset($most_recent_events[$sid])) {
+        // Probably means the most recent event is species_release or none
+        // found.
         continue;
       }
 
-      $event = $most_recent_events[$species_entity->id()];
+      $event = $most_recent_events[$sid];
 
-      $number = "N/A";
+      // Filter by facility if needed.
+      if ($selected_facility !== 'all' && $event['organization'] !== $selected_facility) {
+        continue;
+      }
+
+      // Tracking number # (field_number).
+      $number_str = 'N/A';
       $number_num = PHP_INT_MAX;
-      if ($species_entity->hasField('field_number') && !$species_entity->field_number->isEmpty()) {
-        $number_value = $species_entity->get('field_number')->getValue();
-        $number = $number_value[0]['value'] ?? "N/A";
-        if (preg_match('/(\d+)/', $number, $matches)) {
+      if ($species_node->hasField('field_number') && !$species_node->field_number->isEmpty()) {
+        $number_str = $species_node->field_number->value;
+        if (preg_match('/(\d+)/', $number_str, $matches)) {
           $number_num = intval($matches[0]);
         }
       }
 
-      // Create a link for the MLOG value.
+      // Create a link to the species node.
       $number_link = Link::createFromRoute(
-        $number,
+        $number_str,
         'entity.node.canonical',
-        ['node' => $species_entity->id()]
+        ['node' => $sid]
       );
 
+      // Format the event type + date.
       $event_type = str_replace('species_', '', $event['type']);
       $event_type = str_replace('_', ' ', $event_type);
       $event_type = ucfirst($event_type);
 
       $date = new DrupalDateTime($event['date']);
-      $formatted_date = $date->format('Y-m-d');
+      $formatted_date = $date->format('m/d/Y');
 
-      $name = $primary_names[$species_entity->id()] ?? '';
-      $species_id = $species_ids[$species_entity->id()] ?? '';
-      $rescue_type = $rescue_types[$species_entity->id()] ?? 'none';
+      $name = $primary_names[$sid] ?? '';
+      $species_id_val = $species_ids[$sid] ?? '';
+      $rescue_type = $rescue_types[$sid] ?? 'none';
 
+      // Figure out # of days in captivity if rescue type is B or none.
       $captivity_date = NULL;
-      if (isset($type_b_rescue_dates[$species_entity->id()])) {
-        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$species_entity->id()]);
+      if (isset($type_b_rescue_dates[$sid])) {
+        $captivity_date = new DrupalDateTime($type_b_rescue_dates[$sid]);
       }
-      elseif (isset($birth_dates[$species_entity->id()])) {
-        $captivity_date = new DrupalDateTime($birth_dates[$species_entity->id()]);
+      elseif (isset($birth_dates[$sid])) {
+        $captivity_date = new DrupalDateTime($birth_dates[$sid]);
       }
 
-      $days_in_captivity = NULL;
+      $days_in_captivity = 'N/A';
       if ($captivity_date) {
         $interval = $current_date->diff($captivity_date);
         $days_in_captivity = $interval->days;
       }
 
+      // Only show rows if rescue_type is B or 'none' (from your original
+      // logic).
       if ($rescue_type === 'B' || $rescue_type === 'none') {
         $rows[] = [
           'data' => [
             ['data' => $number_link],
             ['data' => $name],
-            ['data' => $species_id],
+            ['data' => $species_id_val],
             ['data' => $event_type],
             ['data' => $formatted_date],
-            ['data' => $days_in_captivity ?? 'N/A'],
+            ['data' => $days_in_captivity],
             ['data' => $event['organization']],
           ],
           'data-facility' => $event['organization'],
-          'number_num' => $number_num,
+          'number_num' => $number_num, // used for sorting by 'Tracking Number'.
         ];
       }
     }
 
-    // Prepare table headers with sorting.
+    // Table headers (including TableSort).
     $header = [
       'number' => [
         'data' => $this->t('Tracking Number'),
         'field' => 'number',
         'sort' => 'asc',
-        'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
       'name' => [
         'data' => $this->t('Name'),
         'field' => 'name',
-        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'species_id' => [
-        'data' => $this->t('Species') . ' ' . $this->t('ID'),
+        'data' => $this->t('Species ID'),
         'field' => 'species_id',
-        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'event' => [
         'data' => $this->t('Event'),
         'field' => 'event',
-        'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'event_date' => [
         'data' => $this->t('Event Date'),
         'field' => 'event_date',
-        'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
       'days_captive' => [
         'data' => $this->t('# Days in Captivity'),
         'field' => 'days_captive',
-        'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
       'facility' => [
         'data' => $this->t('Facility'),
         'field' => 'facility',
-        'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
     ];
 
-    // Get current request for table sort.
-    $request = $this->requestStack->getCurrentRequest();
-
-    // Get the sort parameters using TableSort.
+    // Use TableSort to determine which column is sorted and how.
     $order = TableSort::getOrder($header, $request);
     $sort = TableSort::getSort($header, $request);
     $dir = ($sort == 'desc') ? SORT_DESC : SORT_ASC;
 
-    // Sort rows based on the selected column.
+    // Perform a manual sort on the $rows array.
     if (isset($order['sql'])) {
       $field = $order['sql'];
-
-      // Create a comparison function based on the selected field.
       $compare = function ($a, $b) use ($field, $dir) {
         $a_val = '';
         $b_val = '';
 
         switch ($field) {
           case 'number':
+            // We sort by the numeric portion of the MLOG (number_num).
             $a_val = $a['number_num'];
             $b_val = $b['number_num'];
             break;
@@ -454,31 +441,46 @@ class CurrentCaptivesController extends ControllerBase {
         if ($a_val == $b_val) {
           return 0;
         }
-        return ($dir == SORT_ASC ? 1 : -1) * ($a_val < $b_val ? -1 : 1);
+        return ($dir === SORT_ASC ? 1 : -1) * (($a_val < $b_val) ? -1 : 1);
       };
-
       usort($rows, $compare);
     }
 
-    // Build table with sorting enabled.
+    // Pager setup. We have array data, so chunk manually.
+    $limit = 25; // Items per page
+    $total = count($rows);
+    $pager_manager = \Drupal::service('pager.manager');
+    $pager = $pager_manager->createPager($total, $limit);
+    $current_page = $pager->getCurrentPage();
+
+    // Chunk the rows by $limit.
+    $chunks = array_chunk($rows, $limit);
+    $rows_for_current_page = isset($chunks[$current_page]) ? $chunks[$current_page] : [];
+
+    // Build the table.
     $table = [
       '#type' => 'table',
       '#header' => $header,
       '#rows' => array_map(function ($row) {
+        // We only need 'data' for the table; no need to keep the extra keys.
         return [
           'data' => $row['data'],
           'data-facility' => $row['data-facility'],
         ];
-      }, $rows),
+      }, $rows_for_current_page),
       '#empty' => $this->t('No results found'),
-      '#attributes' => ['class' => ['tracking-report-table']],
+      '#attributes' => [
+        'class' => ['tracking-report-table'],
+      ],
     ];
 
+    // 4) Return a render array: the facility filter form, table, and pager.
     return [
       '#type' => 'container',
       '#attributes' => ['class' => ['tracking-report-container']],
-      'filters' => $form,
+      'facility_filter_form' => $facility_filter_form,
       'table' => $table,
+      'pager' => ['#type' => 'pager'],
       '#attached' => [
         'library' => [
           'tracking_reports/tracking_reports',

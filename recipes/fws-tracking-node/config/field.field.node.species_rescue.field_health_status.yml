@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_health_status
     - node.type.species_rescue
 _core:
-  default_config_hash: 5fVoiHg8hmFHz-8X91QYNJvGCx5LJn15-g7v-M-4V0U
+  default_config_hash: z6PuYdZxSi3NBZa3PNZ-MgwDyXGjNnr84Y7fWC0ls6w
 id: node.species_rescue.field_health_status
 field_name: field_health_status
 entity_type: node

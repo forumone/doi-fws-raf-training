@@ -1,0 +1,53 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 033c87c2-39e3-430a-bb95-704aa626cd1f
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    00b61288-b0a6-450e-b606-8e24d234a4c5: menu_link_content
+    317d459d-4e18-49b8-b718-c7795a57d0d3: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Portal Protocol'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 317d459d-4e18-49b8-b718-c7795a57d0d3
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -49
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:00b61288-b0a6-450e-b606-8e24d234a4c5'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Eastern Population Sandhill Crane Data Entry Portal'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://eps.ddev.site/welcome'

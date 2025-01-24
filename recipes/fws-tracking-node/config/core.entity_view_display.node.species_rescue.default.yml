@@ -41,7 +41,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: W_VVPAOYkR1Y2SdMPZx8zyqjScr10pA-vAPjwgARuzs
+  default_config_hash: 5UZh6bPl4_weAqC9aP_m9w4z92555N4TmTGvqqDfItM
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue
@@ -103,7 +103,7 @@ content:
       thousand_separator: ''
       decimal_separator: .
       scale: 2
-      prefix_suffix: true
+      prefix_suffix: false
     third_party_settings: {  }
     weight: 10
     region: content
@@ -142,7 +142,7 @@ content:
       thousand_separator: ''
       decimal_separator: .
       scale: 2
-      prefix_suffix: true
+      prefix_suffix: false
     third_party_settings: {  }
     weight: 10
     region: content

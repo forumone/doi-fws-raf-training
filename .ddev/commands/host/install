@@ -9,6 +9,4 @@ ddev drush recipe ../recipes/fws-core
 # ddev drush webform-libraries-download
 ddev drush cr
 
-ddev drush scr ../scripts/install-cleanup.php
-ddev drush cr
 ddev drush uli

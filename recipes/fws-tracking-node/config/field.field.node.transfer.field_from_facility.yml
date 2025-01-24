@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_from_facility
     - node.type.transfer
 _core:
-  default_config_hash: Na1LshTuSU7Yyfx33O3iK3-rsghrfhfB_AmqeGiTBz4
+  default_config_hash: _uox5YTfP03l_SZALqTQRPQE00LZ59PRE1Hxnr2bYwE
 id: node.transfer.field_from_facility
 field_name: field_from_facility
 entity_type: node

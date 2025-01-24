@@ -12,7 +12,7 @@ dependencies:
     - datetime
     - user
 _core:
-  default_config_hash: FqX8bvWujpx_CA2-SC7wzIfHYKoJyFnCzumS4OztQTU
+  default_config_hash: YU0axHGlgqf8AjoL_76MQ_UOMWW7HKgRpfUoDx7BDmo
 id: node.rescue_release.default
 targetEntityType: node
 bundle: rescue_release

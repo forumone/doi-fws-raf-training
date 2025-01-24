@@ -6,7 +6,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller for the pre-release without release report.
@@ -62,7 +64,7 @@ class PreReleaseReportController extends ControllerBase {
    * @return string
    *   The primary name or 'N/A' if not found.
    */
-  protected function getPrimaryName($species) {
+  protected function getPrimaryName(NodeInterface $species) {
     if ($species->hasField('field_names') && !$species->field_names->isEmpty()) {
       foreach ($species->field_names->referencedEntities() as $paragraph) {
         if ($paragraph->hasField('field_primary')
@@ -77,17 +79,120 @@ class PreReleaseReportController extends ControllerBase {
   }
 
   /**
+   * Gets a sortable value from a table cell.
+   *
+   * @param mixed $cell_data
+   *   The cell data to process.
+   *
+   * @return string
+   *   A string value suitable for sorting.
+   */
+  protected function getSortableValue($cell_data) {
+    if ($cell_data instanceof Link) {
+      return $cell_data->getText();
+    }
+    
+    if (is_array($cell_data) && isset($cell_data['data'])) {
+      if ($cell_data['data'] instanceof Link) {
+        return $cell_data['data']->getText();
+      }
+      return (string) $cell_data['data'];
+    }
+    
+    return (string) $cell_data;
+  }
+
+  /**
+   * Sorts the rows array by the specified column.
+   *
+   * @param array $rows
+   *   The rows to sort.
+   * @param string $sort
+   *   The column to sort by.
+   * @param string $direction
+   *   The sort direction ('asc' or 'desc').
+   *
+   * @return array
+   *   The sorted rows.
+   */
+  protected function sortRows(array $rows, $sort, $direction) {
+    $column_map = [
+      'number' => 0,
+      'name' => 1,
+      'facility' => 2,
+      'release_date' => 3,
+      'entered_by' => 4,
+      'email' => 5,
+      'phone' => 6,
+    ];
+
+    if (!isset($column_map[$sort])) {
+      return $rows;
+    }
+
+    $column = $column_map[$sort];
+
+    usort($rows, function ($a, $b) use ($column, $direction) {
+      $a_value = $this->getSortableValue($a['data'][$column]);
+      $b_value = $this->getSortableValue($b['data'][$column]);
+
+      // Special handling for dates
+      if ($column === 3 && $a_value !== 'N/A' && $b_value !== 'N/A') {
+        $a_value = strtotime($a_value);
+        $b_value = strtotime($b_value);
+      }
+
+      if ($direction === 'asc') {
+        return strcasecmp((string) $a_value, (string) $b_value);
+      }
+      return strcasecmp((string) $b_value, (string) $a_value);
+    });
+
+    return $rows;
+  }
+
+  /**
    * Builds the report page.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
    *
    * @return array
    *   A render array representing the report page.
    */
-  public function content() {
-    // Get all pre-release records.
+  public function content(Request $request) {
+    // Get sorting parameters from the request.
+    $sort = $request->query->get('sort', 'number');
+    $direction = $request->query->get('direction', 'asc');
+
+    // First, get all species references that have a release record
+    $release_query = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'species_release')
+      ->condition('field_species_ref', NULL, 'IS NOT NULL')
+      ->accessCheck(FALSE);
+    $release_refs = $release_query->execute();
+
+    // Get the species references from the release nodes.
+    $released_species_ids = [];
+    if (!empty($release_refs)) {
+      $release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($release_refs);
+      foreach ($release_nodes as $release) {
+        if (!$release->field_species_ref->isEmpty()) {
+          $released_species_ids[] = $release->field_species_ref->target_id;
+        }
+      }
+    }
+
+    // Get pre-release records that don't have a corresponding release.
     $pre_release_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'species_prerelease')
       ->condition('field_species_ref', NULL, 'IS NOT NULL')
       ->accessCheck(FALSE);
+
+    // If we found any released species, exclude them.
+    if (!empty($released_species_ids)) {
+      $pre_release_query->condition('field_species_ref', $released_species_ids, 'NOT IN');
+    }
 
     $pre_release_ids = $pre_release_query->execute();
 
@@ -101,20 +206,11 @@ class PreReleaseReportController extends ControllerBase {
     $pre_release_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($pre_release_ids);
 
     foreach ($pre_release_nodes as $pre_release) {
-      // Check if there's a matching release record.
-      $release_query = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type', 'species_release')
-        ->condition('field_species_ref', $pre_release->field_species_ref->target_id)
-        ->accessCheck(FALSE);
-
-      $release_exists = !empty($release_query->execute());
-
-      // Skip if there's a matching release record.
-      if ($release_exists) {
+      // Load the associated species entity.
+      if ($pre_release->field_species_ref->isEmpty()) {
         continue;
       }
 
-      // Load the associated species entity.
       $species_entity = $this->entityTypeManager->getStorage('node')->load($pre_release->field_species_ref->target_id);
       if (!$species_entity) {
         continue;
@@ -130,7 +226,7 @@ class PreReleaseReportController extends ControllerBase {
         ['node' => $species_entity->id()]
       );
 
-      // Get the primary name using the new method.
+      // Get the primary name.
       $name = $this->getPrimaryName($species_entity);
 
       // Build the row.
@@ -149,22 +245,39 @@ class PreReleaseReportController extends ControllerBase {
       $rows[] = $row;
     }
 
+    // Sort the rows.
+    $rows = $this->sortRows($rows, $sort, $direction);
+
+    // Create sortable headers.
+    $headers = [
+      ['data' => $this->t('Tracking Number'), 'field' => 'number'],
+      ['data' => $this->t('Name'), 'field' => 'name'],
+      ['data' => $this->t('Facility'), 'field' => 'facility'],
+      ['data' => $this->t('Expected Release'), 'field' => 'release_date'],
+      ['data' => $this->t('Entered by'), 'field' => 'entered_by'],
+      ['data' => $this->t('EMail'), 'field' => 'email'],
+      ['data' => $this->t('Phone'), 'field' => 'phone'],
+    ];
+
     // Build the table.
     $build['table'] = [
       '#type' => 'table',
-      '#header' => [
-        $this->t('Tracking Number'),
-        $this->t('Name'),
-        $this->t('Facility'),
-        $this->t('Expected Release'),
-        $this->t('Entered by'),
-        $this->t('EMail'),
-        $this->t('Phone'),
-      ],
+      '#header' => $headers,
       '#rows' => $rows,
       '#empty' => $this->t('No pre-release records without matching release records found.'),
       '#attributes' => ['class' => ['tracking-prerelease-report']],
     ];
+
+    // Add table sort functionality.
+    foreach ($headers as &$header) {
+      if (isset($header['field'])) {
+        $header['sort'] = 'asc';
+        if ($sort == $header['field']) {
+          $header['sort'] = $direction == 'asc' ? 'desc' : 'asc';
+          $header['sorted'] = TRUE;
+        }
+      }
+    }
 
     return $build;
   }

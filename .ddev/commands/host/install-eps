@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## Description: Install the EPS multisite
+## Usage: install-eps
+## Example: "ddev install-eps"
+
+ddev composer install
+
+# Ensure we're using the correct site URI
+SITE_URI="eps.ddev.site"
+
+# Run the site installation
+ddev drush -l $SITE_URI site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
+
+# Install recipes
+ddev drush -l $SITE_URI recipe ../recipes/fws-core
+ddev drush -l $SITE_URI scr ../scripts/eps/install-cleanup.php
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-taxonomy
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-node
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-reports
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-user
+ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
+ddev drush -l $SITE_URI en -y fws_sighting
+
+# Import users
+# ddev drush -l $SITE_URI scr ./scripts/eps/import-users.php
+
+ddev drush -l $SITE_URI uli

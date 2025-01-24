@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_transporter
     - node.type.species_rescue
 _core:
-  default_config_hash: LuK2CYlHAgTon0FjfJWgg2kpjLBNiZ2wBlWrU7cZLjA
+  default_config_hash: 52Oi6dPJk8eJekW019vQJ-z6SxKV5pl469jAPlC1n1c
 id: node.species_rescue.field_transporter
 field_name: field_transporter
 entity_type: node

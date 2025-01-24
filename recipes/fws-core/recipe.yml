@@ -42,6 +42,7 @@ install:
   - path
   - shortcut
   - taxonomy
+  - telephone
   - text
   - views
   - views_ui
@@ -62,6 +63,9 @@ install:
   - default_content
   - field_group
   - field_permissions
+  - field_token_value
+  - geolocation
+  - geolocation_google_maps
   - inline_entity_form
   - jquery_ui_draggable
   - jquery_ui_resizable
@@ -94,6 +98,7 @@ install:
   - externalauth
   - key_asymmetric
   - key
+  - views_aggregator
   - views_bulk_operations
   - views_data_export
   - views_year_filter
@@ -103,6 +108,7 @@ install:
   - charts
   - charts_highcharts
   - charts_highcharts_maps
+  - login_destination
   - paragraphs
   - paragraphs_features
   - paragraphs_ee
@@ -115,6 +121,7 @@ install:
   - doi_login
   - fws
   - fws_gov
+  - fws_private_pages
   - fws_raf
 
 config:
@@ -159,10 +166,14 @@ config:
     auto_entitylabel: '*'
     bootstrap: '*'
     field_group: '*'
+    field_token_value: '*'
+    geolocation: '*'
     inline_entity_form: '*'
     linkit: '*'
+    login_destination: '*'
     metatag: '*'
     node_revision_delete: '*'
+    openid_connect: '*'
     pathauto: '*'
     paragraphs: '*'
     paragraphs_ee: '*'
@@ -233,7 +244,12 @@ config:
         tags.abstract: '[node:summary]'
         tags.canonical_url: '[node:url]'
         tags.description: '[node:summary]'
-    # Set permissions for content editor role.
+    # Set permissions for authenticated and content editor roles.
+    user.role.authenticated:
+      ensure_exists:
+        id: authenticated
+      grantPermissions:
+        - 'access content'
     user.role.content_editor:
       ensure_exists:
         id: content_editor

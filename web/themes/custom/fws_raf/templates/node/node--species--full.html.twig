@@ -34,32 +34,74 @@
         <table class="table table-bordered table-striped">
           <tbody>
             <tr>
-              <th class="col-md-3">Sex</th>
-              <td class="col-md-9">{{ content.field_sex is not empty ? content.field_sex : 'N/A' }}</td>
+              <th class="col-md-2">Sex</th>
+              <td class="col-md-4">{{ content.field_sex is not empty ? content.field_sex : 'N/A' }}</td>
+              <th class="col-md-2">{{ 'Tracking Number'|t }}</th>
+              <td class="col-md-4"><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] is not empty ? content.field_number.0['#markup'] : 'N/A' }}</a></td>
             </tr>
             <tr>
-              <th>Tracking ID</th>
-              <td><a href="{{ url('entity.node.canonical', {'node': node.id()}) }}">{{ content.field_number.0['#markup'] is not empty ? content.field_number.0['#markup'] : 'N/A' }}</a></td>
-            </tr>
-            <tr>
+              <th>{{ 'Species ID'|t }}</th>
+              <td>{{ primary_species_id }}</td>
               <th>Studbook</th>
               <td>{{ content.field_studbook.0['#context'].value ? content.field_studbook : 'N/A' }}</td>
             </tr>
             <tr>
               <th>Rearing</th>
               <td>{{ node.field_rearing is not empty ? node.field_rearing.entity.field_rearing_type.value : 'N/A' }}</td>
-            </tr>
-            <tr>
               <th>Names</th>
               <td>{{ content.field_names is not empty ? content.field_names : 'N/A' }}</td>
             </tr>
             <tr>
-              <th>Dam</th>
-              <td>{{ content.field_dam.0['#title'] ? content.field_dam : 'N/A' }}</td>
+              <th>Dam's Name(s)</th>
+              <td>
+            {% if node.field_dam is not empty %}
+            {% if node.field_dam.entity.field_names is not empty %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_dam.entity.id()}) }}">
+              {% for name in node.field_dam.entity.field_names %}
+                {{ name.entity.field_name.value }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+              </a>
+            {% else %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_dam.entity.id()}) }}">No name</a>
+            {% endif %}
+            {% else %}
+            N/A
+            {% endif %}
+              </td>
+              <th>Sire's Name(s)</th>
+              <td>
+            {% if node.field_sire is not empty %}
+            {% if node.field_sire.entity.field_names is not empty %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_sire.entity.id()}) }}">
+              {% for name in node.field_sire.entity.field_names %}
+                {{ name.entity.field_name.value }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+              </a>
+            {% else %}
+              <a href="{{ url('entity.node.canonical', {'node': node.field_sire.entity.id()}) }}">No name</a>
+            {% endif %}
+          {% else %}
+            N/A
+          {% endif %}
+              </td>
             </tr>
             <tr>
-              <th>Sire</th>
-              <td>{{ content.field_sire.0['#title'] ? content.field_sire : 'N/A' }}</td>
+              <th class="col-md-2">Created Date</th>
+              <td class="col-md-4">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              <th class="col-md-2">Created By</th>
+              <td class="col-md-4">
+          {% if node.getOwner().field_first_name.value is not empty %}
+            {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+          {% else %}
+            {{ node.getOwner().getDisplayName() }}
+          {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th>Last Updated</th>
+              <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              <th>Updated By</th>
+              <td>{{ node.getRevisionUser().getDisplayName() }}</td>
             </tr>
           </tbody>
         </table>

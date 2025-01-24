@@ -21,7 +21,7 @@
   <div class="container-fluid">
     <div style="margin-bottom: 22px;">{{ content.field_species_ref }}</div>
 
-    <!-- Basic Rescue Information Section -->
+    <!-- Rescue Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Rescue Information</h3>
@@ -36,19 +36,35 @@
               </tr>
               <tr>
                 <th>Rescue Type</th>
-                <td>{{ content.field_rescue_type|default('N/A') }}</td>
+                <td>{{ node.field_rescue_type.entity.field_rescue_type_text.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Rescue Per Day</th>
                 <td>{{ content.field_rescue_per_day|default('N/A') }}</td>
               </tr>
               <tr>
-                <th>Waterway</th>
-                <td>{{ content.field_waterway|default('N/A') }}</td>
+                <th>Primary Cause</th>
+                <td>{{ node.field_primary_cause.entity.field_rescue_cause.value|default('N/A') }}</td>
               </tr>
               <tr>
-                <th>Flood Gate Number</th>
-                <td>{{ content.field_flood_gate|default('N/A') }}</td>
+                <th>Primary Cause Detail</th>
+                <td>{{ content.field_primary_cause_detail|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Secondary Cause</th>
+                <td>{{ node.field_secondary_cause.entity.field_rescue_cause.value|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Secondary Cause Detail</th>
+                <td>{{ content.field_secondary_cause_detail|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Health Status</th>
+                <td>{{ node.field_health_status.entity.field_health_status.value|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Suspected Pregnant</th>
+                <td>{{ node.field_pregnant.entity.description.value|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -59,31 +75,49 @@
     <!-- Location Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Location Details</h3>
+        <h3 class="panel-title">Rescue Location Information</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th class="col-md-3">City</th>
-                <td class="col-md-9">{{ content.field_city|default('N/A') }}</td>
+                <th class="col-md-3">State</th>
+                <td class="col-md-9">{{ node.field_state.entity.field_state_name.value|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>County</th>
                 <td>{{ content.field_county|default('N/A') }}</td>
               </tr>
               <tr>
-                <th>State</th>
-                <td>{{ content.field_state|default('N/A') }}</td>
+                <th>City</th>
+                <td>{{ content.field_city|default('N/A') }}</td>
               </tr>
               <tr>
+                <th>Waterway</th>
+                <td>{{ content.field_waterway|default('N/A') }}</td>
+              </tr>
+                <tr>
                 <th>Latitude</th>
                 <td>{{ content.field_latitude|default('N/A') }}</td>
-              </tr>
-              <tr>
+                </tr>
+                <tr>
                 <th>Longitude</th>
                 <td>{{ content.field_longitude|default('N/A') }}</td>
+                </tr>
+                <tr>
+                <th>Map</th>
+                <td>
+                  {% if content.field_latitude and content.field_longitude %}
+                    <a href="https://www.google.com/maps?q={{ content.field_latitude.0['#markup'] }},{{ content.field_longitude.0['#markup'] }}" target="_blank">View on Map</a>
+                  {% else %}
+                  N/A
+                  {% endif %}
+                </td>
+                </tr>
+              <tr>
+                <th>Relocated, Where?</th>
+                <td>{{ content.field_where_relocated|default('N/A') }}</td>
               </tr>
             </tbody>
           </table>
@@ -91,143 +125,138 @@
       </div>
     </div>
 
-    <!-- Health & Measurements Section -->
+    <!-- Measurement Information Section -->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Health & Measurements</h3>
+        <h3 class="panel-title">Measurement</h3>
       </div>
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <th class="col-md-3">Health Status</th>
-                <td class="col-md-9">{{ content.field_health_status|default('N/A') }}</td>
+                <th class="col-md-3">Weight (kg)</th>
+                <td class="col-md-9">{{ content.field_weight|default('N/A') }}</td>
               </tr>
               <tr>
-                <th>Length</th>
-                <td>{{ content.field_length|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Weight</th>
-                <td>{{ content.field_weight|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Estimated Length</th>
-                <td>{{ content.field_length_estimated ? 'Yes' : 'No' }}</td>
-              </tr>
-              <tr>
-                <th>Estimated Weight</th>
+                <th>Estimated Weight?</th>
                 <td>{{ content.field_weight_estimated ? 'Yes' : 'No' }}</td>
-              </tr>
-              <tr>
-                <th>Date Measured</th>
-                <td>{{ content.field_length_date|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Date Weighed</th>
                 <td>{{ content.field_weight_date|default('N/A') }}</td>
               </tr>
               <tr>
-                <th>Suspected Pregnant</th>
-                <td>{{ content.field_pregnant|default('N/A') }}</td>
+                <th>Length (cm)</th>
+                <td>{{ content.field_length|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Estimated Length?</th>
+                <td>{{ content.field_length_estimated ? 'Yes' : 'No' }}</td>
+              </tr>
+              <tr>
+                <th>Date Measured</th>
+                <td>{{ content.field_length_date|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Rescue Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Other Rescue Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Tracker</th>
+                <td class="col-md-9">{{ content.field_tracker|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Transporter</th>
+                <td>{{ node.field_transporter.entity.field_organization.value|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Facility transported to</th>
+                <td>{{ node.field_org.entity.field_organization.value|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Veterinarian</th>
+                <td>
+                  {% if node.field_veterinarian.entity.field_first_name.value %}
+                    {{ node.field_veterinarian.entity.field_first_name.value|default(content.field_veterinarian) }} 
+                    {{ node.field_veterinarian.entity.field_last_name.value|default('') }}
+                  {% else %}
+                    {{ content.field_veterinarian|default('N/A') }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Organization</th>
+                <td>{{ node.field_org is not empty ? node.field_org.entity.field_organization.value : 'N/A' }}</td>
+              </tr>
+              <tr>
+                <th>Participating Org</th>
+                <td>{{ content.field_participating_orgs|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Flood Gate</th>
+                <td>{{ content.field_flood_gate|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>POT Status</th>
+                <td>{{ content.field_pot_status|default('N/A') }}</td>
               </tr>
               <tr>
                 <th>Did animal die during rescue or transport?</th>
                 <td>{{ content.field_dead ? 'Yes' : 'No' }}</td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cause Information Section -->
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Cause Information</h3>
-      </div>
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <th class="col-md-3">Primary Cause</th>
-                <td class="col-md-9">{{ content.field_primary_cause|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Primary Cause Detail</th>
-                <td>{{ content.field_primary_cause_detail|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Secondary Cause</th>
-                <td>{{ content.field_secondary_cause|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Secondary Cause Detail</th>
-                <td>{{ content.field_secondary_cause_detail|default('N/A') }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Personnel & Organization Section -->
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Personnel & Organization</h3>
-      </div>
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <th class="col-md-3">Organization</th>
-                <td class="col-md-9">{{ content.field_org|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Participating Organizations</th>
-                <td>{{ content.field_participating_orgs|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Veterinarian</th>
-                <td>{{ content.field_veterinarian|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Transporter</th>
-                <td>{{ content.field_transporter|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Tracker</th>
-                <td>{{ content.field_tracker|default('N/A') }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional Information Section -->
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Additional Information</h3>
-      </div>
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <th class="col-md-3">POT Status</th>
-                <td class="col-md-9">{{ content.field_pot_status|default('N/A') }}</td>
-              </tr>
-              <tr>
-                <th>Relocated, Where?</th>
-                <td>{{ content.field_where_relocated|default('N/A') }}</td>
-              </tr>
               <tr>
                 <th>Additional Narrative</th>
                 <td>{{ content.field_comments|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Information Section -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Report Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Created Date</th>
+                <td class="col-md-9">{{ node.getCreatedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Created By</th>
+                <td>
+                  {% if node.getOwner().field_first_name.value is not empty %}
+                    {{ node.getOwner().field_first_name.value }} {{ node.getOwner().field_last_name.value }}
+                  {% else %}
+                    {{ node.getOwner().getDisplayName() }}
+                  {% endif %}
+                </td>
+                </tr>
+              </tr>
+              <tr>
+                <th>Last Updated</th>
+                <td>{{ node.getChangedTime()|date('m/d/Y') }}</td>
+              </tr>
+              <tr>
+                <th>Updated By</th>
+                <td>{{ node.getRevisionUser().getDisplayName() }}</td>
               </tr>
             </tbody>
           </table>

@@ -27,8 +27,11 @@
         "drupal/features": "^3.14",
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.4",
+        "drupal/field_token_value": "^3.0",
+        "drupal/geolocation": "^3.14",
         "drupal/inline_entity_form": "^3.0@RC",
         "drupal/linkit": "^6.1",
+        "drupal/login_destination": "^2.0@beta",
         "drupal/login_gov": "^1.1",
         "drupal/metatag": "^2.0",
         "drupal/node_revision_delete": "^2.0@RC",
@@ -50,6 +53,7 @@
         "drupal/twig_field_value": "^2.0",
         "drupal/twig_tweak": "^3.3",
         "drupal/viewfield": "^3.0@beta",
+        "drupal/views_aggregator": "^2.1",
         "drupal/views_year_filter": "^2.1",
         "drupal/visualization_charts": "^1.3",
         "drupal/we_megamenu": "^1.16",
@@ -167,6 +171,9 @@
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": "scripts/composer/htaccess"
             }
         },
         "installer-paths": {

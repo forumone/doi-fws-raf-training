@@ -1,6 +1,48 @@
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value .form-text,
+#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value-1 .form-text {
+  max-width: 50px;
+}
+
+.gm-style-iw-d .views-field {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.gm-style-iw-d .views-field:last-child {
+  margin-bottom: 0;
+}
+.gm-style-iw-d .views-field.views-field-view-node .field-content a {
+  color: #0066cc;
+  text-decoration: none;
+}
+.gm-style-iw-d .views-field.views-field-view-node .field-content a:hover {
+  text-decoration: underline;
+}
+.gm-style-iw-d .views-field.views-field-field-location .geolocation-latlng {
+  font-family: monospace;
+  color: #666;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count .views-label {
+  font-weight: bold;
+}
+.gm-style-iw-d .views-field.views-field-field-bird-count .field-content {
+  color: #333;
+}
+
+.view-tracking-other-names .form-actions {
+  display: none;
+}
+
 .tracking-report-container .table-responsive {
   position: relative;
   z-index: 0;
+}
+.tracking-report-container .facility-filter-form .select-wrapper {
+  width: 350px;
 }
 .tracking-report-container .select-wrapper {
   width: 300px;
@@ -23,6 +65,9 @@
   width: 100px;
 }
 
+.tracking-search-form .search-results-container {
+  margin-top: 20px;
+}
 .tracking-search-form .form-item {
   display: flex;
   align-items: center;
@@ -144,41 +189,62 @@ header#navbar #navbar-collapse {
   color: #fff;
 }
 
+.release-filter-form .view-content .views-field a,
 .views-element-container .view-content .views-field a {
   white-space: nowrap;
 }
+.release-filter-form .panel-heading a,
+.release-filter-form .panel-title a,
+.views-element-container .panel-heading a,
 .views-element-container .panel-title a {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.release-filter-form .panel-heading a:not(.collapsed) .fa-caret-down,
+.release-filter-form .panel-title a:not(.collapsed) .fa-caret-down,
+.views-element-container .panel-heading a:not(.collapsed) .fa-caret-down,
 .views-element-container .panel-title a:not(.collapsed) .fa-caret-down {
   transform: rotate(180deg);
 }
+.release-filter-form .panel-body,
 .views-element-container .panel-body {
   padding: 20px;
 }
 
+#edit-filters--content .form-type-select .select-wrapper select,
+#edit-filters--content .form-type-select .select-wrapper select option,
 .views-exposed-form .form-type-select .select-wrapper select,
 .views-exposed-form .form-type-select .select-wrapper select option {
   min-width: 85px;
   min-height: 36px;
 }
+#edit-filters--content .form-type-select .select-wrapper:after,
 .views-exposed-form .form-type-select .select-wrapper:after {
   top: 27px;
   right: 0;
   z-index: 10;
 }
+#edit-filters--content .form-control,
+.views-exposed-form .form-control {
+  display: inline-block;
+}
+#edit-filters--content .form-item,
 .views-exposed-form .form-item {
+  float: left;
   margin-right: 20px;
   margin-bottom: 10px;
 }
+#edit-filters--content .form-item label,
 .views-exposed-form .form-item label {
   margin-right: 10px;
+  display: inline-block;
 }
+#edit-filters--content .form-item .form-text,
 .views-exposed-form .form-item .form-text {
   max-width: 150px;
 }
+#edit-filters--content .form-actions,
 .views-exposed-form .form-actions {
   margin-bottom: 10px;
 }
@@ -282,6 +348,39 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+.path-user .main-container {
+  max-width: 900px;
+}
+.path-user .main-container .field {
+  margin-bottom: 1rem;
+}
+
+.field--name-field-file {
+  margin-top: 20px;
+}
+
+.page-node-edit .geolocation-map-control .form-item label,
+.page-node-edit .geolocation-map-control .form-item .description,
+.page-node-add .geolocation-map-control .form-item label,
+.page-node-add .geolocation-map-control .form-item .description {
+  display: none;
+}
+.page-node-edit .radio input[type=radio],
+.page-node-edit .radio-inline input[type=radio],
+.page-node-edit .checkbox input[type=checkbox],
+.page-node-edit .checkbox-inline input[type=checkbox],
+.page-node-add .radio input[type=radio],
+.page-node-add .radio-inline input[type=radio],
+.page-node-add .checkbox input[type=checkbox],
+.page-node-add .checkbox-inline input[type=checkbox] {
+  margin-left: 0;
+}
+.page-node-edit .radio label,
+.page-node-edit .checkbox label,
+.page-node-add .radio label,
+.page-node-add .checkbox label {
+  margin-left: 5px;
+}
 .page-node-edit .form-type-vertical-tabs,
 .page-node-add .form-type-vertical-tabs {
   padding-top: 20px;
@@ -330,6 +429,26 @@ input.form-autocomplete {
   min-height: initial;
 }
 
+.node-confirm-form {
+  margin-bottom: 30px;
+}
+.node-confirm-form .form-actions {
+  margin-top: 20px;
+}
+
+.dropbutton-wrapper .dropbutton {
+  padding-left: 0;
+  list-style-type: none;
+}
+.dropbutton-wrapper .dropbutton__item {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.location-consent-message {
+  margin-bottom: 20px;
+}
+
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;
@@ -339,7 +458,7 @@ input.form-autocomplete {
   margin: 10px;
 }
 .species-search-results .form-type-select .select-wrapper {
-  width: 150px;
+  width: 200px;
 }
 .species-search-results .form-type-select .select-wrapper select {
   cursor: pointer;
@@ -348,5 +467,23 @@ input.form-autocomplete {
   top: 31px;
   right: 3px;
   z-index: 10;
+}
+
+#node-species-edit-form {
+  margin-bottom: 50px;
+}
+
+.field--name-body img {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.fws-branding__name {
+  width: 350px;
+  line-height: 30px;
+}
+
+.footer {
+  margin-top: 50px;
 }
 /*# sourceMappingURL=maps/raf-styles.css.map */

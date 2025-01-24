@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: Ud2ZfkB5VjX4ffGm64JHvgVXUJ5cm6Lwfni_fqqRNhc
+  default_config_hash: K8ScOyY47cSuyHv-dzlC_koeKc0EoAHHQ4hSjLjTcIM
 id: node.field_exp_water
 field_name: field_exp_water
 entity_type: node

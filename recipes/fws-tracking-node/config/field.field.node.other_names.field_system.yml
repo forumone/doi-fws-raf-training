@@ -5,9 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_system
     - node.type.other_names
-    - taxonomy.vocabulary.system
 _core:
-  default_config_hash: fIF2II05heE1Orta-3RvCyXks1J0f_eGiNypQt-mvWE
+  default_config_hash: '-BngcZ6jyzEixzrzWLG2wiYau8lJ-6r8X7cmwyc9Slo'
 id: node.other_names.field_system
 field_name: field_system
 entity_type: node
@@ -19,13 +18,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      system: system
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_16
+      arguments: {  }
 field_type: entity_reference

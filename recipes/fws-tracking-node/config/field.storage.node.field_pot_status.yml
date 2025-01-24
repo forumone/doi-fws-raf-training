@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 _core:
-  default_config_hash: A2ulJOdiFeq-QXQCyg8CYNR1lZOfgxhkahq40i0Jp5A
+  default_config_hash: pOYQHNv2wc6mZGvyMfAZ72UIv7ZJ_xDaCbyIWYT3e7U
 id: node.field_pot_status
 field_name: field_pot_status
 entity_type: node

@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_waterway
     - node.type.species_rescue
 _core:
-  default_config_hash: qRNfBosLoK5JQMWrqGbeu1xIcFJ9jQ1n5laCVlt4iys
+  default_config_hash: xQjLIWqQSCRG_z4svKF_7uVaN_N9BiEF0Df7_iwpEhw
 id: node.species_rescue.field_waterway
 field_name: field_waterway
 entity_type: node

@@ -1,0 +1,53 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: e233213f-d5fa-4a1f-b1b1-23dc3574bd1d
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    2ef266ab-4177-4372-a6af-19206fb1a5fb: menu_link_content
+    0d6365f0-1615-460b-bb81-79ea06a11af8: node
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Field Definitions'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      target_uuid: 0d6365f0-1615-460b-bb81-79ea06a11af8
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: false
+  weight:
+    -
+      value: -48
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:2ef266ab-4177-4372-a6af-19206fb1a5fb'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Captive Manatee Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://fws-raf.ddev.site/user'

@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: CeYjmBePt9prvkX_9mZf9jZymAn4ylg9adhfdXt3Tm4
+  default_config_hash: 1B1XuZYUKQFoO-2o8m6DZiEQWi8u143C_YMBGKyBtTs
 id: species_name
-label: 'Species Name'
+label: 'Name'
 icon_uuid: null
 icon_default: null
 description: 'Associated given names of a species.'

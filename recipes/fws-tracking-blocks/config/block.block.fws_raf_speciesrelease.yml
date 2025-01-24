@@ -1,0 +1,22 @@
+uuid: 32d9153e-ab88-483a-b47f-5c06fe6773f0
+langcode: en
+status: true
+dependencies:
+  module:
+    - tracking_reports
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: cQS1A45E9XRBW2SrShwQLRcdFBO_65VvokagaEto91A
+id: fws_raf_speciesrelease
+theme: fws_raf
+region: content
+weight: 6
+provider: null
+plugin: species_releases_block
+settings:
+  id: species_releases_block
+  label: 'Release Information'
+  label_display: visible
+  provider: tracking_reports
+visibility: {  }

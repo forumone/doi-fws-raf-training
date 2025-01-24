@@ -1,0 +1,58 @@
+#views-exposed-form-all-sightings-page-1 {
+
+  .form-item-field-bird-count-value,
+  .form-item-field-bird-count-value-1 {
+    .form-text {
+      max-width: 50px;
+    }
+  }
+}
+
+// Style google map info window
+.gm-style-iw-d {
+
+  // Content container
+  .views-field {
+    margin-bottom: .5rem;
+    padding: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    // View link styling
+    &.views-field-view-node {
+      .field-content a {
+        color: #0066cc;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Location styling
+    &.views-field-field-location {
+      .geolocation-latlng {
+        font-family: monospace;
+        color: #666;
+      }
+    }
+
+    // Bird count styling
+    &.views-field-field-bird-count {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .views-label {
+        font-weight: bold;
+      }
+
+      .field-content {
+        color: #333;
+      }
+    }
+  }
+}
