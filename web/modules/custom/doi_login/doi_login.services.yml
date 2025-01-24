@@ -1,0 +1,5 @@
+services:
+  doi_login.route_subscriber:
+    class: Drupal\doi_login\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
