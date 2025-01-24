@@ -1,26 +1,55 @@
 <?php
 
+/**
+ * @file
+ * DOI Login module implementation file.
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
  * Implements hook_form_alter().
  *
- * The purpose of this form alter is to find the user_login_form and unset the name an password and submit
- * buttons so that the only thing left will be the "Login with DOI credentials" for Single Sign on.
+ * Alters the user login form based on configuration to either hide the standard login
+ * form or keep it alongside the DOI SSO option.
  */
 function doi_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if($form_id == 'user_login_block' || $form_id == 'user_login_form') {
+  if ($form_id == 'user_login_block' || $form_id == 'user_login_form') {
+    $config = \Drupal::config('doi_login.settings_form');
+    $hide_standard_login = $config->get('hide_standard_login');
 
-    //remove the standard login elements
-    unset($form['name']);
-    unset($form['pass']);
-    unset($form['actions']);
-
-    //add the custom library that will toggle the login based on the checked state of the checkbox
+    // Add the custom library that will toggle the login based on the checked state of the checkbox.
     $form['#attached']['library'][] = 'doi_login/doi_login';
 
-    //this is all the terms and condition language
+    if ($hide_standard_login) {
+      // Remove the standard login elements if configured to hide them.
+      unset($form['name']);
+      unset($form['pass']);
+      unset($form['actions']);
+    }
+    else {
+      // When showing standard login, wrap standard fields in a fieldset.
+      $standard_login = [
+        '#type' => 'fieldset',
+        '#title' => t('Login with username and password'),
+        '#weight' => 0,
+      ];
+
+      // Move the standard login fields into the fieldset.
+      $standard_login['name'] = $form['name'];
+      $standard_login['pass'] = $form['pass'];
+      $standard_login['actions'] = $form['actions'];
+      $standard_login['actions']['#weight'] = 2;
+
+      // Remove the original fields and add our fieldset.
+      unset($form['name']);
+      unset($form['pass']);
+      unset($form['actions']);
+      $form['standard_login'] = $standard_login;
+    }
+
+    // This is all the terms and condition language.
     $form['fws_message'] = [
       '#markup' => '<div class="fws-terms-conditions-message"><p><strong>Warning to users of this system. This is a notice of monitoring of the Department of The Interior (DOI) Information Systems.</strong><p>
       <p>This computer system, including all related equipment, networks, and network devices (including Internet access), is provided by the Department of the Interior (DOI) in accordance with the agency policy for official use and limited personal use.</p>
@@ -28,31 +57,28 @@ function doi_login_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       Any information on this computer system may be examined, recorded, copied and used for authorized purposes at any time.</p>
       <p>All information, including personal information, placed or sent over this system may be monitored, and users of this system are reminded that such monitoring does occur. Therefore, there should be no expectation of privacy with respect to use of this system.</p>
       <p>By logging into this agency computer system, you acknowledge and consent to the monitoring of this system. Evidence of your use, authorized or unauthorized, collected during monitoring may be used for civil, criminal, administrative, or other adverse action. Unauthorized or illegal use may subject you to prosecution.</p></div>',
+      '#weight' => 10,
     ];
 
-    //this is the actual checkbox that must be checked to login
-    // the actual login link is created by the Saml module
+    // This is the actual checkbox that must be checked to login
+    // the actual login link is created by the Saml module.
     $form['fws_terms_conditions'] = [
       '#title' => "I accept these terms and conditions as outlined above",
       '#type' => 'checkbox',
       '#attributes' => [
         'class' => ['fws-terms-conditions-checkbox'],
       ],
-    ];
-
-    $form['saml_login'] = [
-
+      '#weight' => 11,
     ];
 
     $form['saml_login'] = [
       '#type' => 'link',
       '#title' => t('Login with DOI credentials'),
-      // Example of a Url object from a route. See the documentation
-      // for more methods that may help generate a Url object.
       '#url' => Url::fromRoute('samlauth.saml_controller_login'),
       '#attributes' => [
         'class' => ['btn', 'btn-primary', 'saml-login-button'],
       ],
+      '#weight' => 12,
     ];
   }
 }
