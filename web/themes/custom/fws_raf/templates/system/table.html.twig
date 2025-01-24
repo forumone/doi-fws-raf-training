@@ -1,0 +1,109 @@
+{#
+/**
+ * @file
+ * Theme override to display a table.
+ *
+ * Available variables:
+ * - attributes: HTML attributes to apply to the <table> tag.
+ * - caption: A localized string for the <caption> tag.
+ * - colgroups: Column groups.
+ * - header: Table header cells.
+ * - rows: Table rows.
+ * - footer: Table footer rows.
+ * - empty: The message to display in an extra row if table does not have any rows.
+ * - header_columns: The number of columns in the header.
+ * - sticky: A flag indicating whether to use a "sticky" table header.
+ * - responsive: Flag indicating whether table should be responsive.
+ */
+#}
+{% if responsive %}
+  <div class="table-responsive">
+{% endif %}
+{%
+  set classes = [
+    'table',
+    bordered ? 'table-bordered',
+    condensed ? 'table-condensed',
+    hover ? 'table-hover',
+    striped ? 'table-striped',
+    sticky ? 'sticky-header',
+  ]
+%}
+<table{{ attributes.addClass(classes) }}>
+  {% if caption %}
+    <caption>{{ caption }}</caption>
+  {% endif %}
+
+  {% for colgroup in colgroups %}
+    {% if colgroup.cols %}
+      <colgroup{{ colgroup.attributes }}>
+        {% for col in colgroup.cols %}
+          <col{{ col.attributes }} />
+        {% endfor %}
+      </colgroup>
+    {% else %}
+      <colgroup{{ colgroup.attributes }} />
+    {% endif %}
+  {% endfor %}
+
+  {% if header %}
+    <thead>
+      <tr>
+        {% for cell in header %}
+          {%
+            set cell_classes = [
+              cell.active_table_sort ? 'active',
+            ]
+          %}
+          {% set is_sortable = cell.attributes.hasClass('sortable') %}
+          <{{ cell.tag }}{{ cell.attributes.addClass(cell_classes) }}>
+            {% if is_sortable and cell.content['#type'] == 'link' %}
+              {% set link_attributes = cell.content['#attributes']|default(create_attribute()) %}
+              {% set link_attributes = link_attributes.setAttribute('role', 'button') %}
+              <a{{ link_attributes }}>{{ cell.content['#title'] }}{{ cell.content['#tablesort_indicator'] }}</a>
+            {% else %}
+              {{- cell.content -}}
+            {% endif %}
+          </{{ cell.tag }}>
+        {% endfor %}
+      </tr>
+    </thead>
+  {% endif %}
+
+  {% if rows %}
+    <tbody>
+      {% for row in rows %}
+        {% set row_classes = [cycle(['odd', 'even'], loop.index0)] %}
+        <tr{{ row.attributes.addClass(row_classes) }}>
+          {% for cell in row.cells %}
+            <{{ cell.tag }}{{ cell.attributes }}>
+              {{- cell.content -}}
+            </{{ cell.tag }}>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  {% elseif empty %}
+    <tbody>
+      <tr class="odd">
+        <td colspan="{{ header_columns }}" class="empty message">{{ empty }}</td>
+      </tr>
+    </tbody>
+  {% endif %}
+  {% if footer %}
+    <tfoot>
+      {% for row in footer %}
+        <tr{{ row.attributes }}>
+          {% for cell in row.cells %}
+            <{{ cell.tag }}{{ cell.attributes }}>
+              {{- cell.content -}}
+            </{{ cell.tag }}>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tfoot>
+  {% endif %}
+</table>
+{% if responsive %}
+  </div>
+{% endif %}
