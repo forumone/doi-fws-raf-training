@@ -5,7 +5,7 @@
       menu_level == 0 ? 'nav navbar-nav',
       menu_level > 0 ? 'dropdown-menu',
     ] %}
-    <ul{{ attributes.addClass(classes) }}>
+    <ul{{ attributes.addClass(classes) }}{% if menu_level > 0 %} id="{{ submenu_id }}"{% endif %}>
       {% for item in items %}
         {%
           set item_classes = [
@@ -15,7 +15,13 @@
         %}
         <li{{ item.attributes.addClass(item_classes) }}>
           {% if menu_level == 0 and item.below %}
-            <a href="{{ item.url }}" class="dropdown-toggle" data-toggle="dropdown">
+            {% set submenu_id = 'submenu-' ~ item.title|clean_id %}
+            <a href="{{ item.url }}"
+               class="dropdown-toggle"
+               data-toggle="dropdown"
+               role="button"
+               aria-controls="{{ submenu_id }}"
+               aria-expanded="false">
               {{ item.title }} <span class="caret"></span>
             </a>
             {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1) }}
