@@ -110,44 +110,42 @@
               $status.text(`${optionCount} options available`);
             }, 100);
           });
-        }
 
-        // Add necessary ARIA attributes when dropdown opens
-        $select.on('select2:open', function () {
-          const $container = $(this).next('.select2-container');
-          const $dropdown = $('.select2-dropdown');
-          const $results = $dropdown.find('.select2-results__options');
-          const $search = $('.select2-search__field');
+          // Add necessary ARIA attributes when dropdown opens
+          $select.on('select2:open', function () {
+            const $container = $(this).next('.select2-container');
+            const $dropdown = $('.select2-dropdown');
+            const $results = $dropdown.find('.select2-results__options');
+            const $search = $('.select2-search__field');
 
-          // Set ID and role on results list
-          $results
-            .attr('id', resultsId)
-            .attr('role', 'listbox')
-            .attr('aria-multiselectable', $select.attr('multiple') === 'multiple');
+            // Set ID and required ARIA attributes on results list
+            $results
+              .attr('id', resultsId)
+              .attr('role', 'listbox')
+              .attr('aria-label', 'Search results');
 
-          // Add ARIA attributes to the search input if it exists
-          if ($search.length) {
-            $search
-              .attr('role', 'searchbox')
-              .attr('aria-expanded', 'true')
-              .attr('aria-controls', resultsId)
-              .attr('aria-autocomplete', 'list')
-              .attr('aria-activedescendant', ''); // Will be updated by Select2 when navigating
-
-            // If there's a label, associate it with the search field too
-            if ($label.length) {
-              $search.attr('aria-labelledby', $label.attr('id'));
+            // Add ARIA attributes to the search input if it exists
+            if ($search.length) {
+              $search
+                .attr('aria-expanded', 'true')
+                .attr('aria-controls', resultsId);
             }
-          }
 
-          // Add ARIA attributes to each option
-          $results.find('li[role="option"]').each(function () {
-            const $option = $(this);
-            $option
-              .attr('aria-selected', $option.hasClass('select2-results__option--selected'))
-              .attr('aria-disabled', $option.hasClass('select2-results__option--disabled'));
+            // Add ARIA attributes to each option
+            $results.find('li[role="option"]').each(function () {
+              const $option = $(this);
+              $option.attr('aria-selected', $option.hasClass('select2-results__option--selected'));
+            });
           });
-        });
+
+          // Update aria-expanded when dropdown closes
+          $select.on('select2:close', function () {
+            const $search = $('.select2-search__field');
+            if ($search.length) {
+              $search.attr('aria-expanded', 'false');
+            }
+          });
+        }
       });
     }
   };
