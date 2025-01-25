@@ -5,7 +5,9 @@ global-styling:
       styles/css/raf-styles.css: {}
   js:
     js/script-raf.js: { weight: -1 }
+    js/select2-a11y.js: {}
   dependencies:
     - core/jquery
     - core/drupal
     - core/once
+    - select2/select2
