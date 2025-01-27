@@ -322,6 +322,21 @@ header#navbar #navbar-collapse {
   margin-bottom: 40px;
 }
 
+.radio input[type=radio],
+.radio-inline input[type=radio],
+.checkbox input[type=checkbox],
+.checkbox-inline input[type=checkbox] {
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+input[type=file]:focus,
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  outline-offset: 5px;
+}
+
 .input-group .input-group-addon {
   display: none;
 }

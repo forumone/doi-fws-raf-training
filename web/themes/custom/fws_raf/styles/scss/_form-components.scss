@@ -79,3 +79,19 @@
 .openid-connect-login-form {
   margin-bottom: 40px;
 }
+
+// Position styles for radio and checkbox inputs
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  outline-offset: 5px;
+}
