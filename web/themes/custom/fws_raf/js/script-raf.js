@@ -88,4 +88,56 @@
     }
   };
 
+  Drupal.behaviors.viewsExposedFormFocus = {
+    attach: function (context, settings) {
+      // Store the focused element globally to persist through AJAX
+      if (!Drupal.viewsExposedFormFocus) {
+        Drupal.viewsExposedFormFocus = {
+          focusedElement: null
+        };
+      }
+
+      once('views-exposed-form-focus', 'form.views-exposed-form', context).forEach(function (element) {
+        const $form = $(element);
+
+        // Store focused element for any input change in the form
+        $form.find('input, select').on('change input', function (e) {
+          console.log('change input', this.name);
+          Drupal.viewsExposedFormFocus.focusedElement = {
+            name: this.name,
+            id: this.id,
+            selectionStart: this.selectionStart,
+            selectionEnd: this.selectionEnd
+          };
+        });
+      });
+
+      // Only attach the ajaxComplete handler once
+      once('views-exposed-form-ajax', 'body', context).forEach(function (element) {
+        $(document).on('ajaxComplete', function (event, xhr, settings) {
+          console.log('ajaxComplete');
+          const focusedElement = Drupal.viewsExposedFormFocus.focusedElement;
+          if (focusedElement) {
+            console.log('focusedElement', focusedElement.name);
+            // Find the same element in the updated DOM
+            const elementSelector = focusedElement.name ?
+              `[name="${focusedElement.name}"]` :
+              `#${focusedElement.id}`;
+            const $newElement = $(elementSelector);
+            if ($newElement.length) {
+              $newElement.focus();
+              // Restore cursor position if it's a text input or date input
+              if ($newElement.is('input[type="text"]')) {
+                $newElement[0].setSelectionRange(
+                  focusedElement.selectionStart,
+                  focusedElement.selectionEnd
+                );
+              }
+            }
+          }
+        });
+      });
+    }
+  };
+
 })(jQuery, Drupal, once);
