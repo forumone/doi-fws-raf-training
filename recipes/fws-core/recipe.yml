@@ -113,10 +113,12 @@ install:
   - paragraphs_features
   - paragraphs_ee
   - publishcontent
+  - samlauth
   - select2
   - viewfield
 
   # Custom
+  - doi_login
   - fws
   - fws_gov
   - fws_private_pages

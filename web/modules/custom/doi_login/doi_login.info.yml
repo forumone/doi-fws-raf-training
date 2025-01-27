@@ -1,0 +1,8 @@
+name: DOI Login
+type: module
+description: Alters the standard Drupal login form to force logins to occur using the SimpleSAML Single Sign on
+package: Department of Interior
+configure: doi_login.settings_form
+core_version_requirement: ^9 || ^10
+dependencies:
+  - samlauth:samlauth

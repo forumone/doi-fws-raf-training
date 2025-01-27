@@ -1,0 +1,17 @@
+doi_login.login:
+  path: '/user/doi/login'
+  defaults:
+    _form: '\Drupal\doi_login\Form\DOILoginForm'
+    _title: 'Log in'
+  requirements:
+    _user_is_logged_in: 'FALSE'
+  options:
+    _maintenance_access: TRUE
+
+doi_login.settings_form:
+  path: '/admin/config/people/doi_login'
+  defaults:
+    _form: '\Drupal\doi_login\Form\DOILoginSettingsForm'
+    _title: 'DOI Login Manage Password Requests'
+  requirements:
+    _permission: 'administer doi_login'

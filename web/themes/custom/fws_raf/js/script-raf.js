@@ -79,4 +79,13 @@
     }
   };
 
+  Drupal.behaviors.tableSortAccessibility = {
+    attach: function (context, settings) {
+      // Target all links in table headers that have sort functionality
+      once('table-sort-accessibility', 'th a[href*="sort="]', context).forEach(function (link) {
+        $(link).attr('role', 'button');
+      });
+    }
+  };
+
 })(jQuery, Drupal, once);
