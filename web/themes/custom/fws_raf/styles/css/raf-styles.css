@@ -337,6 +337,22 @@ input[type=checkbox]:focus {
   outline-offset: 5px;
 }
 
+.btn-success {
+  background-color: #2E7D32;
+}
+
+.btn-danger {
+  background-color: #C41E3A;
+}
+
+.btn-info {
+  background-color: #0277BD;
+}
+
+.panel-title {
+  color: #595959;
+}
+
 .input-group .input-group-addon {
   display: none;
 }
