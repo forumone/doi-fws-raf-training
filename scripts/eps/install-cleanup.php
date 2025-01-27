@@ -2,6 +2,12 @@
 
 /**
  * @file
+ */
+
+use Drupal\user\Entity\User;
+
+/**
+ * @file
  * Installation clean-up and additinoal configuration.
  *
  *  Install-cleanup.php.
@@ -127,4 +133,33 @@ if (file_exists($source)) {
 }
 else {
   echo "Warning: Source PDF file not found at: $source\n";
+}
+
+// Create users with specific roles if they don't already exist.
+$users = [
+  'daniel@prometsource.com' => 'administrator',
+];
+
+foreach ($users as $username => $role) {
+  // Check if user already exists.
+  $existing_user = \Drupal::entityTypeManager()
+    ->getStorage('user')
+    ->loadByProperties(['name' => $username]);
+
+  if (empty($existing_user)) {
+    $user = User::create([
+      'name' => $username,
+      'mail' => match($username) {
+        'daniel@prometsource.com' => 'daniel@prometsource.com',
+        default => $username . '@example.com'
+      },
+      'status' => 1,
+      'roles' => [$role],
+    ]);
+    $user->save();
+    echo "User '$username' with role '$role' has been created.\n";
+  }
+  else {
+    echo "User '$username' already exists, skipping creation.\n";
+  }
 }
