@@ -6,17 +6,21 @@
 
   Drupal.behaviors.bootstrapDropdowns = {
     attach: function (context, settings) {
-      // Enable dropdown menus with hover functionality
+      // Enable dropdown menus with hover and keyboard functionality
       once('bootstrap-hover', '.dropdown', context).forEach(function (element) {
         const $dropdown = $(element);
+        const $toggle = $dropdown.find('.dropdown-toggle');
+        const $menu = $dropdown.find('.dropdown-menu');
 
+        // Hover functionality
         $dropdown.hover(
           function () {
             const $this = $(this);
             // Add a small delay to prevent accidental triggers
             $this.data('timeout', setTimeout(function () {
               $this.addClass('show');
-              $this.find('.dropdown-menu').addClass('show');
+              $menu.addClass('show');
+              $toggle.attr('aria-expanded', 'true');
             }, 200));
           },
           function () {
@@ -24,9 +28,80 @@
             // Clear timeout if it exists
             clearTimeout($this.data('timeout'));
             $this.removeClass('show');
-            $this.find('.dropdown-menu').removeClass('show');
+            $menu.removeClass('show');
+            $toggle.attr('aria-expanded', 'false');
           }
         );
+
+        // Keyboard functionality for dropdown toggle
+        $toggle.on('keydown', function (e) {
+          // Enter or Space to open/close dropdown
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const isExpanded = $toggle.attr('aria-expanded') === 'true';
+
+            if (!isExpanded) {
+              $dropdown.addClass('show');
+              $menu.addClass('show');
+              $toggle.attr('aria-expanded', 'true');
+              // Focus first menu item
+              $menu.find('a').first().focus();
+            } else {
+              $dropdown.removeClass('show');
+              $menu.removeClass('show');
+              $toggle.attr('aria-expanded', 'false');
+            }
+          }
+        });
+
+        // Keyboard navigation within dropdown menu
+        $menu.find('a').on('keydown', function (e) {
+          const $current = $(this);
+          const $items = $menu.find('a');
+          const $firstItem = $items.first();
+          const $lastItem = $items.last();
+
+          switch (e.key) {
+            case 'ArrowDown':
+              e.preventDefault();
+              const $next = $current.parent().next().find('a');
+              if ($next.length) {
+                $next.focus();
+              } else {
+                $firstItem.focus();
+              }
+              break;
+
+            case 'ArrowUp':
+              e.preventDefault();
+              const $prev = $current.parent().prev().find('a');
+              if ($prev.length) {
+                $prev.focus();
+              } else {
+                $lastItem.focus();
+              }
+              break;
+
+            case 'Escape':
+              e.preventDefault();
+              $dropdown.removeClass('show');
+              $menu.removeClass('show');
+              $toggle.attr('aria-expanded', 'false');
+              $toggle.focus();
+              break;
+
+            case 'Tab':
+              // Close dropdown when tabbing out
+              setTimeout(() => {
+                if (!$dropdown.find(':focus').length) {
+                  $dropdown.removeClass('show');
+                  $menu.removeClass('show');
+                  $toggle.attr('aria-expanded', 'false');
+                }
+              }, 0);
+              break;
+          }
+        });
       });
 
       // Prevent the dropdown from closing when clicking inside it

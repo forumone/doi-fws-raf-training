@@ -5,7 +5,7 @@
       menu_level == 0 ? 'nav navbar-nav',
       menu_level > 0 ? 'dropdown-menu',
     ] %}
-    <ul{{ attributes.addClass(classes) }}{% if menu_level > 0 %} id="{{ submenu_id }}"{% endif %}>
+    <ul{{ attributes.addClass(classes) }}{% if menu_level > 0 %} id="{{ submenu_id }}" role="menu"{% endif %}>
       {% for item in items %}
         {%
           set item_classes = [
@@ -13,7 +13,7 @@
             item.in_active_trail ? 'active',
           ]
         %}
-        <li{{ item.attributes.addClass(item_classes) }}>
+        <li{{ item.attributes.addClass(item_classes) }} {% if menu_level > 0 %}role="none"{% endif %}>
           {% if menu_level == 0 and item.below %}
             {% set submenu_id = 'submenu-' ~ item.title|clean_id %}
             <a href="{{ item.url }}"
@@ -21,12 +21,14 @@
                data-toggle="dropdown"
                role="button"
                aria-controls="{{ submenu_id }}"
-               aria-expanded="false">
-              {{ item.title }} <span class="caret"></span>
+               aria-expanded="false"
+               aria-haspopup="true"
+               tabindex="0">
+              {{ item.title }} <span class="caret" aria-hidden="true"></span>
             </a>
             {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1) }}
           {% else %}
-            <a href="{{ item.url }}">{{ item.title }}</a>
+            <a href="{{ item.url }}" {% if menu_level > 0 %}role="menuitem" tabindex="-1"{% else %}tabindex="0"{% endif %}>{{ item.title }}</a>
           {% endif %}
         </li>
       {% endfor %}
