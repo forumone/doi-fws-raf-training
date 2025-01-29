@@ -54,7 +54,7 @@ default:
         href: 'https://eps.ddev.site/portal-protocol'
   path:
     -
-      alias: /portal-protocol
+      alias: /protocol
       langcode: en
       pathauto: 0
   body:
