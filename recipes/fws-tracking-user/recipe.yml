@@ -2,6 +2,9 @@ name: 'FWS Tracking User'
 description: 'FWS tracking user fields, roles and permissions.'
 type: 'Site'
 
+install:
+  - fws_user
+
 config:
   actions:
     openid_connect.settings:
