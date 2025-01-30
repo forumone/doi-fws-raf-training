@@ -21,8 +21,8 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-core
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/eps/install-cleanup.php
 ddev drush -l $SITE_URI cr
-ddev drush -l $SITE_URI recipe ../recipes/fws-tracking-taxonomy
-ddev drush -l $SITE_URI recipe ../recipes/fws-tracking-node
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-taxonomy
+ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-node
 ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-reports
 ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
