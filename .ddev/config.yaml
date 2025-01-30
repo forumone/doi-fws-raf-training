@@ -2,7 +2,7 @@ name: fws-raf
 type: drupal11
 docroot: web
 php_version: "8.3"
-webserver_type: apache-fpm
+webserver_type: nginx-fpm
 xdebug_enabled: false
 additional_hostnames:
   - eps

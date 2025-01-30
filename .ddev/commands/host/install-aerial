@@ -21,5 +21,6 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-core
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/aerial/install-cleanup.php
 ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
 
 ddev drush -l $SITE_URI uli
