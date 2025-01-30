@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Description: Install the Aerial multisite
+## Usage: install-aerial
+## Example: "fin install-aerial"
+
+fin composer install
+
+# Run the site installation
+fin drush -l site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Aerial Observer Training and Testing Resources"
+
+# Install recipes
+fin drush -l recipe ../recipes/fws-core
+fin drush -l cr
+fin drush -l scr ../scripts/aerial/install-cleanup.php
+fin drush -l cr
+
+fin drush -l uli
