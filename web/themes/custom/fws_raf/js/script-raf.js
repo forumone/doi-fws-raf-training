@@ -177,7 +177,6 @@
 
         // Store focused element for any input change in the form
         $form.find('input, select').on('change input', function (e) {
-          console.log('change input', this.name);
           Drupal.viewsExposedFormFocus.focusedElement = {
             name: this.name,
             id: this.id,
@@ -190,10 +189,8 @@
       // Only attach the ajaxComplete handler once
       once('views-exposed-form-ajax', 'body', context).forEach(function (element) {
         $(document).on('ajaxComplete', function (event, xhr, settings) {
-          console.log('ajaxComplete');
           const focusedElement = Drupal.viewsExposedFormFocus.focusedElement;
           if (focusedElement) {
-            console.log('focusedElement', focusedElement.name);
             // Find the same element in the updated DOM
             const elementSelector = focusedElement.name ?
               `[name="${focusedElement.name}"]` :
