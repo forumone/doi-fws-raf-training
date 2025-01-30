@@ -42,9 +42,9 @@ default:
       tag: meta
       attributes:
         name: title
-        content: '| FWS: Eastern Population Sandhill Crane Data Entry Portal'
+        content: '| FWS: Aerial Observer Training and Testing Resources'
     -
       tag: link
       attributes:
         rel: canonical
-        href: 'https://eps.ddev.site/welcome'
+        href: 'https://aerial.ddev.site/user'

@@ -1,19 +1,21 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 1cf9006a-79dc-4950-87e6-f72320fb1f12
+  uuid: b2848fb2-ae52-488d-800a-ab14f1ebcc52
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    a1957ac7-41b8-4fd3-ad7c-81d63116e957: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: 'Contact FWS'
+      value: "Aerial Observer's Guide"
   menu_name:
     -
-      value: footer-menu-site-links
+      value: main
   link:
     -
       uri: 'internal:/'
@@ -27,10 +29,13 @@ default:
       value: true
   weight:
     -
-      value: -47
+      value: -50
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:a1957ac7-41b8-4fd3-ad7c-81d63116e957'
   revision_translation_affected:
     -
       value: true
