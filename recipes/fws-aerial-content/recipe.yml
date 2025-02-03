@@ -1,0 +1,12 @@
+name: 'FWS Aerial Content'
+description: 'FWS aerial observer sample content.'
+type: 'Site'
+config:
+  actions:
+    # Set main navigation block visibility
+    block.block.fws_raf_mainnavigation:
+      simple_config_update:
+        visibility: { }
+    block.block.fws_raf_mainnavigation_2:
+      simple_config_update:
+        visibility: { }

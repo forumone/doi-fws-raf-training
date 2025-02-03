@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Description: Install the Aerial multisite
+## Usage: install-aerial
+## Example: "ddev install-aerial"
+
+ddev composer install
+
+# Ensure we're using the correct site URI
+SITE_URI="aerial.ddev.site"
+
+# Run the site installation
+ddev drush -l $SITE_URI site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Aerial Observer Training and Testing Resources"
+
+# Install recipes
+ddev drush -l $SITE_URI recipe ../recipes/fws-core
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI scr ../scripts/aerial/install-cleanup.php
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
+
+ddev drush -l $SITE_URI uli
