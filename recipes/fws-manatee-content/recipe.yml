@@ -1,3 +1,10 @@
 name: 'FWS Manatee Content'
 description: 'FWS manatee sample content.'
 type: 'Site'
+config:
+  actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.403: /node/8
+        page.404: /node/6

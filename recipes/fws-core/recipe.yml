@@ -196,8 +196,6 @@ config:
     system.site:
       simple_config_update:
         page.front: /user
-        page.403: /node/2
-        page.404: /node/1
     # Set and unset Claro blocks.
     block.block.claro_admin:
       simple_config_update:
