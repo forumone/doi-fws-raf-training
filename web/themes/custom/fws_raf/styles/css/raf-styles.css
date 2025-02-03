@@ -390,6 +390,10 @@ input.form-autocomplete {
   margin-top: 20px;
 }
 
+.panel-title {
+  color: #fff;
+}
+
 .page-node-edit .geolocation-map-control .form-item label,
 .page-node-edit .geolocation-map-control .form-item .description,
 .page-node-add .geolocation-map-control .form-item label,
