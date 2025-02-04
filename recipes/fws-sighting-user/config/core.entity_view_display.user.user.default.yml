@@ -7,60 +7,58 @@ dependencies:
     - field.field.user.user.field_last_name
     - field.field.user.user.field_phone
     - field.field.user.user.field_start_date
-    - field.field.user.user.user_picture
-    - image.style.thumbnail
   module:
     - datetime
-    - image
-    - telephone
+    - fws_core
     - user
 _core:
-  default_config_hash: V51QPCKkgNREKtSmB9Iu2wmAMEpktVpnzklWaZV8UYo
+  default_config_hash: qfMlQNB5YLCy0GvJ8d3OtFU0tDSFDcP-L-MYuKRG8Mo
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
   field_first_name:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   field_last_name:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_phone:
-    weight: 3
+    type: phone_number_formatter
     label: above
-    settings:
-      title: ''
+    settings: {  }
     third_party_settings: {  }
-    type: telephone_link
+    weight: 3
     region: content
   field_start_date:
-    weight: 4
+    type: datetime_plain
     label: above
     settings:
       timezone_override: ''
     third_party_settings: {  }
-    type: datetime_plain
+    weight: 4
     region: content
   user_picture:
     type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: thumbnail
+    third_party_settings: {  }
     weight: 0
     region: content
-    settings:
-      image_style: thumbnail
-      image_link: content
-    third_party_settings: {  }
-    label: hidden
 hidden:
+  langcode: true
   member_for: true
+  search_api_excerpt: true

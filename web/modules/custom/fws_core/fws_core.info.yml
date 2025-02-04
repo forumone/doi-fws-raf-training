@@ -1,0 +1,6 @@
+name: FWS Core
+type: module
+description: 'Provides core functionality for FWS.'
+core_version_requirement: ^8 || ^9 || ^10
+package: Custom
+version: 1.0
