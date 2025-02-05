@@ -394,6 +394,17 @@ input.form-autocomplete {
   color: #fff;
 }
 
+.field--name-body .book-covers img {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  max-height: 300px;
+}
+
+.field--name-body .sample-pages img {
+  max-height: 250px;
+  margin-bottom: 10px;
+}
+
 .page-node-edit .geolocation-map-control .form-item label,
 .page-node-edit .geolocation-map-control .form-item .description,
 .page-node-add .geolocation-map-control .form-item label,

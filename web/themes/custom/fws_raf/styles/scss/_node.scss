@@ -9,3 +9,21 @@
     color: #fff;
   }
 }
+
+.field--name-body {
+  .book-covers {
+    img {
+      max-width: fit-content;
+      max-height: 300px;
+    }
+  }
+}
+
+.field--name-body {
+  .sample-pages {
+    img {
+      max-height: 250px;
+      margin-bottom: 10px;
+    }
+  }
+}

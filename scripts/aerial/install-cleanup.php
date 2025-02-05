@@ -97,3 +97,22 @@ try {
 catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
 }
+
+// Copy image files to the specified location.
+$source = '../recipes/fws-aerial-content/images/';
+$destination = './sites/aerial/files/inline-images/';
+
+if (!file_exists($destination)) {
+  mkdir($destination, 0777, TRUE);
+}
+
+$files = scandir($source);
+foreach ($files as $file) {
+  if (in_array($file, ['.', '..'])) {
+    continue;
+  }
+
+  copy($source . $file, $destination . $file);
+}
+
+echo "Image files have been copied to the specified location.\n";
