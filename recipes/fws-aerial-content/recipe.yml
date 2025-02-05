@@ -3,6 +3,12 @@ description: 'FWS aerial observer sample content.'
 type: 'Site'
 config:
   actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.front: /node/3
+        page.403: /node/2
+        page.404: /node/1
     # Set main navigation block visibility
     block.block.fws_raf_mainnavigation:
       simple_config_update:
