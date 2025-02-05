@@ -18,5 +18,6 @@ fws_sighting.count_api:
   defaults:
     _controller: '\Drupal\fws_sighting\Controller\SightingCountController::getCount'
     _title: 'Get Sighting Count'
+    year: null
   requirements:
     _permission: 'access content'

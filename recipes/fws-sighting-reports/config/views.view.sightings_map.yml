@@ -15,7 +15,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: KLegt4lPM-luINv160JKGsfIRxDKRuZwqvydJZRG54I
+  default_config_hash: wZxgOTg9tBbWn4sbn-UmBv1BhxGCH_V-_tex8mU-PBI
 id: sightings_map
 label: 'Observations Map'
 module: views
