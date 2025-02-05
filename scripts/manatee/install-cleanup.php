@@ -104,6 +104,7 @@ $users = [
   'partner' => 'partner_administrator',
   'viewer' => 'viewer',
   'sonal' => 'administrator',
+  'keith_setliff@fws.gov' => 'administrator',
   'Nadia.Lentz@myfwc.com' => 'partner_administrator',
 ];
 
