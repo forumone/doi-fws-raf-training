@@ -187,3 +187,30 @@ function fws_sighting_node_presave(NodeInterface $node) {
     $node->field_year = NULL;
   }
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function fws_sighting_page_attachments(array &$attachments) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+
+  // Check both the system path and the alias.
+  if ($current_path === '/observations-map' || $path_alias === '/observations-map' ||
+      strpos($current_path, '/observations-map') === 0 || strpos($path_alias, '/observations-map') === 0) {
+    \Drupal::logger('fws_sighting')->notice('Attaching sighting-count library on path: @path', ['@path' => $current_path]);
+    $attachments['#attached']['library'][] = 'fws_sighting/sighting-count';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fws_sighting_theme() {
+  return [
+    'fws_sighting_count' => [
+      'template' => 'fws-sighting-count',
+      'variables' => [],
+    ],
+  ];
+}

@@ -22,6 +22,7 @@ fin drush -l cr
 fin drush -l recipe ../recipes/fws-sighting-taxonomy
 fin drush -l recipe ../recipes/fws-sighting-node
 fin drush -l recipe ../recipes/fws-sighting-reports
+fin drush -l recipe ../recipes/fws-sighting-blocks
 fin drush -l recipe ../recipes/fws-sighting-user
 fin drush -l recipe ../recipes/fws-eps-content
 fin drush -l en -y fws_sighting
