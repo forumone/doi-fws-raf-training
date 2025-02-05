@@ -120,6 +120,7 @@ install:
   # Custom
   - doi_login
   - fws
+  - fws_core
   - fws_gov
   - fws_private_pages
   - fws_raf
