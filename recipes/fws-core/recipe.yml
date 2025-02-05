@@ -100,9 +100,7 @@ install:
   - key
   - views_aggregator
   - views_bulk_operations
-  - views_data_export
   - views_year_filter
-  - csv_serialization
   - visualization_charts
   - datatables
   - charts
@@ -181,6 +179,7 @@ config:
     paragraphs_features: '*'
     prepopulate: '*'
     publishcontent: '*'
+    quiz: '*'
     redirect: '*'
     responsive_image: '*'
     select2: '*'

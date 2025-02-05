@@ -41,7 +41,7 @@
         "drupal/pathauto": "^1.12",
         "drupal/prepopulate": "^2.5",
         "drupal/publishcontent": "^1.7",
-        "drupal/quiz": "^6.0@alpha",
+        "drupal/quiz": "^7.0",
         "drupal/redirect": "^1.9",
         "drupal/rules": "^4.0",
         "drupal/samlauth": "^3.10",
