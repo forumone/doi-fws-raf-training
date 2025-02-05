@@ -394,6 +394,9 @@ input.form-autocomplete {
   color: #fff;
 }
 
+.field--name-body a {
+  font-size: inherit;
+}
 .field--name-body .book-covers img {
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -407,6 +410,10 @@ input.form-autocomplete {
   max-height: 210px;
   max-width: -moz-fit-content;
   max-width: fit-content;
+  margin-bottom: 10px;
+}
+.field--name-body .estimate-flock img {
+  max-height: 180px;
   margin-bottom: 10px;
 }
 

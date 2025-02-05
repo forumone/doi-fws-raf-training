@@ -116,3 +116,15 @@ foreach ($files as $file) {
 }
 
 echo "Image files have been copied to the specified location.\n";
+
+$video_source = 'https://systems.fws.gov/waterfowlsurveys/videos/newvideos/';
+$video_destination = './sites/aerial/files/videos/';
+
+if (!file_exists($video_destination)) {
+  mkdir($video_destination, 0777, TRUE);
+}
+
+copy($video_source . 'Counting_Techniques_2030kbps.mp4', $video_destination . 'Counting_Techniques_2030kbps.mp4');
+copy($video_source . 'Counting_Techniques_590kbps.mp4', $video_destination . 'Counting_Techniques_590kbps.mp4');
+
+echo "Video files have been copied to the specified location.\n";

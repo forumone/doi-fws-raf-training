@@ -11,6 +11,10 @@
 }
 
 .field--name-body {
+  a {
+    font-size: inherit;
+  }
+
   .book-covers {
     img {
       max-width: fit-content;
@@ -29,6 +33,13 @@
     img {
       max-height: 210px;
       max-width: fit-content;
+      margin-bottom: 10px;
+    }
+  }
+
+  .estimate-flock {
+    img {
+      max-height: 180px;
       margin-bottom: 10px;
     }
   }
