@@ -5,7 +5,7 @@ _meta:
   bundle: menu_link_content
   default_langcode: en
   depends:
-    22f71f15-059e-4ee6-9087-d8b6cff5a8e8: node
+    4fdf9a94-947b-434b-ba55-eeba9cfffc05: node
 default:
   enabled:
     -
@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 4fdf9a94-947b-434b-ba55-eeba9cfffc05
       title: ''
       options: {  }
   external:
@@ -46,4 +46,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/user'
+        href: 'https://aerial.ddev.site/access-denied'

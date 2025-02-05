@@ -44,4 +44,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/user'
+        href: 'https://aerial.ddev.site/access-denied'
