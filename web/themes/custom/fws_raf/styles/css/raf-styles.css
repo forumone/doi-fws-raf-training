@@ -399,9 +399,14 @@ input.form-autocomplete {
   max-width: fit-content;
   max-height: 300px;
 }
-
 .field--name-body .sample-pages img {
   max-height: 250px;
+  margin-bottom: 10px;
+}
+.field--name-body .survey-techniques img {
+  max-height: 210px;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
   margin-bottom: 10px;
 }
 

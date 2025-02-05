@@ -17,12 +17,18 @@
       max-height: 300px;
     }
   }
-}
 
-.field--name-body {
   .sample-pages {
     img {
       max-height: 250px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .survey-techniques {
+    img {
+      max-height: 210px;
+      max-width: fit-content;
       margin-bottom: 10px;
     }
   }

@@ -6,6 +6,7 @@ _meta:
   default_langcode: en
   depends:
     a1957ac7-41b8-4fd3-ad7c-81d63116e957: menu_link_content
+    36450d34-dbb4-4c97-a729-dd7bfac26b3e: node
 default:
   enabled:
     -
@@ -18,7 +19,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 36450d34-dbb4-4c97-a729-dd7bfac26b3e
       title: ''
       options: {  }
   external:
@@ -26,7 +27,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -47
@@ -49,4 +50,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/page/about-aerial-observer-training'
+        href: 'https://aerial.ddev.site/page/aerial-observers-guide-north-american-waterfowl'
