@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/page/survey-techniques-and-protocols'
+        href: 'https://aerial.ddev.site/page/survey-techniques-and-protocols'
   path:
     -
       alias: /page/survey-techniques-and-protocols

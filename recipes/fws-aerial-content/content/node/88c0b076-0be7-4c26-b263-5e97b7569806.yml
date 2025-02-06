@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/page/estimating-flock-size'
+        href: 'https://aerial.ddev.site/page/estimating-flock-size'
   path:
     -
       alias: /page/estimating-flock-size
