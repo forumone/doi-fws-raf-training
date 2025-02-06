@@ -12,3 +12,12 @@ fws_sighting.observations_map_redirect:
     _controller: '\Drupal\fws_sighting\Controller\ObservationsMapController::redirectToLatestYear'
   requirements:
     _permission: 'access content'
+
+fws_sighting.count_api:
+  path: '/api/sighting-count/{year}'
+  defaults:
+    _controller: '\Drupal\fws_sighting\Controller\SightingCountController::getCount'
+    _title: 'Get Sighting Count'
+    year: null
+  requirements:
+    _permission: 'access content'

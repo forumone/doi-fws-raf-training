@@ -1,0 +1,12 @@
+sighting-count:
+  version: 1.x
+  js:
+    js/sighting-count.js: { minified: false }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+  css:
+    theme:
+      css/sighting-count.css: {}

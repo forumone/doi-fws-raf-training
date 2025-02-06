@@ -7,7 +7,6 @@ dependencies:
     - field.storage.node.field_location
     - node.type.sighting
     - taxonomy.vocabulary.year
-    - views.view.bird_count
   module:
     - better_exposed_filters
     - datetime
@@ -16,7 +15,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: w21-QKLKWtgoX4t2KWI0Vy5rkW_jwVQrpuHrbk1j4RA
+  default_config_hash: wZxgOTg9tBbWn4sbn-UmBv1BhxGCH_V-_tex8mU-PBI
 id: sightings_map
 label: 'Observations Map'
 module: views
@@ -841,18 +840,7 @@ display:
       use_more: false
       use_more_always: true
       use_more_text: more
-      header:
-        view:
-          id: view
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: view
-          empty: false
-          view_to_insert: 'bird_count:default'
-          inherit_arguments: true
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -871,6 +859,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      exposed_block: true
       display_extenders: {  }
       path: observations-map
       menu:
