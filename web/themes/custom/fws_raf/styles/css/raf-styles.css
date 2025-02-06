@@ -544,4 +544,12 @@ input.form-autocomplete {
 .footer {
   margin-top: 50px;
 }
+
+.block-aerial-species-block {
+  margin-bottom: 20px;
+}
+.block-aerial-species-block .select-wrapper {
+  margin-left: 10px;
+  width: 300px;
+}
 /*# sourceMappingURL=maps/raf-styles.css.map */

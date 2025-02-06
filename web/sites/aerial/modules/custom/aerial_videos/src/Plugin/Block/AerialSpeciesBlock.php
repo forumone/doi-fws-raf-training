@@ -83,9 +83,31 @@ class AerialSpeciesBlock extends BlockBase {
 
     $form = [
       '#type' => 'form',
+      'group_select' => [
+        '#type' => 'select2',
+        '#title' => $this->t('Species Group'),
+        '#empty_option' => '',
+        '#attributes' => [
+          'class' => ['dropdown'],
+          'id' => 'selectedGroup',
+          'name' => 'selectedGroup',
+          'onchange' => 'selectSpecies()',
+          'title' => 'Species Group',
+        ],
+        '#options' => [
+          '1' => $this->t('Geese, Swans and Cranes'),
+          '2' => $this->t('Dabbling Ducks'),
+          '3' => $this->t('Diving Ducks'),
+          '4' => $this->t('Sea Ducks'),
+          '5' => $this->t('Whistling Ducks'),
+          '6' => $this->t('Loons (video only; not narrated)'),
+          '7' => $this->t('Other Non-waterfowl (video only; not narrated)'),
+          '99' => $this->t('ALL species'),
+        ],
+      ],
       'species_select' => [
-        '#type' => 'select',
-        '#title' => $this->t('Species'),
+        '#type' => 'select2',
+        '#title' => $this->t('Select Species'),
         '#options' => $species_options,
         '#empty_option' => '',
         '#attributes' => [
