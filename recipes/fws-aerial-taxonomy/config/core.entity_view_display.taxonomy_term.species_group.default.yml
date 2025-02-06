@@ -1,0 +1,33 @@
+uuid: 1b6189f5-30e6-4b8a-bbc3-811126b7177f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.species_group.field_species_group_id
+    - taxonomy.vocabulary.species_group
+  module:
+    - text
+id: taxonomy_term.species_group.default
+targetEntityType: taxonomy_term
+bundle: species_group
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_species_group_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

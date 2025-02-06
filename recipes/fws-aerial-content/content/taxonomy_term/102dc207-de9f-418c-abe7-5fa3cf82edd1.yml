@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 102dc207-de9f-418c-abe7-5fa3cf82edd1
+  bundle: species_group
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'ALL species'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'ALL species | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/8'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_group_id:
+    -
+      value: 99

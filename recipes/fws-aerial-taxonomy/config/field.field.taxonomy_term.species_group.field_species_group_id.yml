@@ -1,0 +1,23 @@
+uuid: 977abd33-8782-4c20-b7d5-0430550900b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_species_group_id
+    - taxonomy.vocabulary.species_group
+id: taxonomy_term.species_group.field_species_group_id
+field_name: field_species_group_id
+entity_type: taxonomy_term
+bundle: species_group
+label: 'Species Group ID'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
