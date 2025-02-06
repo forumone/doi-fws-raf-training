@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://eps.ddev.site/resources1'
+        href: '/resources1'
   path:
     -
       alias: /resources1

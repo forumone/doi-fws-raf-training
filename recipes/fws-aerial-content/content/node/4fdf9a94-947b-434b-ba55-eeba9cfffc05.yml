@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/page/about-aerial-observer-training'
+        href: '/page/about-aerial-observer-training'
   path:
     -
       alias: /page/about-aerial-observer-training

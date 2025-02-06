@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://fws-raf.ddev.site/resources'
+        href: '/resources'
   path:
     -
       alias: /resources
