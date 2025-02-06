@@ -9,3 +9,38 @@
     color: #fff;
   }
 }
+
+.field--name-body {
+  a {
+    font-size: inherit;
+  }
+
+  .book-covers {
+    img {
+      max-width: fit-content;
+      max-height: 300px;
+    }
+  }
+
+  .sample-pages {
+    img {
+      max-height: 250px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .survey-techniques {
+    img {
+      max-height: 210px;
+      max-width: fit-content;
+      margin-bottom: 10px;
+    }
+  }
+
+  .estimate-flock {
+    img {
+      max-height: 180px;
+      margin-bottom: 10px;
+    }
+  }
+}

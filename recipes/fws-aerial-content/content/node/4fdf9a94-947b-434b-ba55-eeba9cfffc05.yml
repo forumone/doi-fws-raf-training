@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 4fdf9a94-947b-434b-ba55-eeba9cfffc05
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'About the Aerial Observer Training'
+  created:
+    -
+      value: 1738785127
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'About the Aerial Observer Training | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species and estimating numbers of birds in flocks during these low-level flights is extremely challenging and requires adequate training and experience.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species and estimating numbers of birds in flocks during these low-level flights is extremely challenging and requires adequate training and experience.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: '/page/about-aerial-observer-training'
+  path:
+    -
+      alias: /page/about-aerial-observer-training
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species and estimating numbers of birds in flocks during these low-level flights is extremely challenging and requires adequate training and experience.</p><p>USFWS has developed this web site and training materials to help standardize and improve the accuracy of waterfowl identification and flock counts during aerial surveys. The materials provided here focus specifically on aerial surveys with a "top-down" perspective of birds. The site provides background on how aerial surveys of waterfowl have evolved over time and how information from those surveys is used, as well as illustrated protocols for recording observations during aerial waterfowl surveys, and species-by-species descriptions for identification. Also included are video and photo-based interactive testing features for species identification and for estimating flock size.</p><p>The primary audience for this training includes professional wildlife biologists, pilot-biologists, technicians, and volunteers who participate in aerial surveys of waterfowl. However, private pilots, naturalists, birders, and even waterfowl hunters may also find this web site interesting.</p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

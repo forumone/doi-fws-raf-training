@@ -4,6 +4,8 @@ _meta:
   uuid: 049e178c-2ffc-4530-a192-7969dfbd096a
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    4fdf9a94-947b-434b-ba55-eeba9cfffc05: node
 default:
   enabled:
     -
@@ -16,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 4fdf9a94-947b-434b-ba55-eeba9cfffc05
       title: ''
       options: {  }
   external:
@@ -24,7 +26,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -50
@@ -44,4 +46,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/user'
+        href: '/page/about-aerial-observer-training'

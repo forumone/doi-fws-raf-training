@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://fws-raf.ddev.site/captive-manatee-database-data-entry-field-descriptions'
+        href: '/captive-manatee-database-data-entry-field-descriptions'
   path:
     -
       alias: /captive-manatee-database-data-entry-field-descriptions

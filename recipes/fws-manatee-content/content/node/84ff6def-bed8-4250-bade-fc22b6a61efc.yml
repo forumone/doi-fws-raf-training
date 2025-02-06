@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://fws-raf.ddev.site/definitions-manatee-rescue-rehabilitation-and-release-program-database'
+        href: '/definitions-manatee-rescue-rehabilitation-and-release-program-database'
   path:
     -
       alias: /definitions-manatee-rescue-rehabilitation-and-release-program-database

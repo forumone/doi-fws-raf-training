@@ -97,3 +97,34 @@ try {
 catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
 }
+
+// Copy image files to the specified location.
+$source = '../recipes/fws-aerial-content/images/';
+$destination = './sites/aerial/files/inline-images/';
+
+if (!file_exists($destination)) {
+  mkdir($destination, 0777, TRUE);
+}
+
+$files = scandir($source);
+foreach ($files as $file) {
+  if (in_array($file, ['.', '..'])) {
+    continue;
+  }
+
+  copy($source . $file, $destination . $file);
+}
+
+echo "Image files have been copied to the specified location.\n";
+
+$video_source = 'https://systems.fws.gov/waterfowlsurveys/videos/newvideos/';
+$video_destination = './sites/aerial/files/videos/';
+
+if (!file_exists($video_destination)) {
+  mkdir($video_destination, 0777, TRUE);
+}
+
+copy($video_source . 'Counting_Techniques_2030kbps.mp4', $video_destination . 'Counting_Techniques_2030kbps.mp4');
+copy($video_source . 'Counting_Techniques_590kbps.mp4', $video_destination . 'Counting_Techniques_590kbps.mp4');
+
+echo "Video files have been copied to the specified location.\n";

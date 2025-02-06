@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://fws-raf.ddev.site/manatee-homepage'
+        href: '/manatee-homepage'
   path:
     -
       alias: /manatee-homepage

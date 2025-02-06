@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 36450d34-dbb4-4c97-a729-dd7bfac26b3e
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Survey Techniques and Protocols'
+  created:
+    -
+      value: 1738792564
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Survey Techniques and Protocols | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'This guide highlights survey techniques and protocols applicable mainly to breeding waterfowl population surveys, but some aspects would apply to other surveys as well. These standard protocols were developed to maximize the comparability of survey results over time.Aerial surveys during the breeding season are typically flown between 100-200 feet above ground level, depending on the survey design, type of aircraft, type of habitat, time of day, and visibility. The low altitude is necessary to identify birds to species.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'This guide highlights survey techniques and protocols applicable mainly to breeding waterfowl population surveys, but some aspects would apply to other surveys as well. These standard protocols were developed to maximize the comparability of survey results over time.Aerial surveys during the breeding season are typically flown between 100-200 feet above ground level, depending on the survey design, type of aircraft, type of habitat, time of day, and visibility. The low altitude is necessary to identify birds to species.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: '/page/survey-techniques-and-protocols'
+  path:
+    -
+      alias: /page/survey-techniques-and-protocols
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>This guide highlights survey techniques and protocols applicable mainly to breeding waterfowl population surveys, but some aspects would apply to other surveys as well. These standard protocols were developed to maximize the comparability of survey results over time.</p><p>Aerial surveys during the breeding season are typically flown between 100-200 feet above ground level, depending on the survey design, type of aircraft, type of habitat, time of day, and visibility. The low altitude is necessary to identify birds to species.</p><p>On breeding population transect surveys, each observer counts outward to a predefined width (e.g., 200 meters) on their side of the aircraft. Birds beyond that distance are not counted, and for flocks that transcend the outer boundary of the transect, only those birds inside the boundary are recorded.</p><p style="text-align:center;"><a href="/sites/aerial/files/inline-images/Aerial_Strip_Width_illustration.jpg"><img style="border-style:solid;border-width:2px;" src="/sites/aerial/files/inline-images/Aerial_Strip_Width_illustration.jpg" alt="Aerial Strip Width Illustration" width="700" height="452">&nbsp;</a></p><p>The transect width can be gauged using a clinometer and/or by marking the wing strut and window with small pieces of tape that can be used as reference points in level flight at standard altitude. Ground reference marks or landmarks at known distances from a runway or transect centerline may also be used to gauge the position of the outer boundary in flight at survey altitude. In recent years, radar altimeters have been used to maintain proper altitude above ground.</p><p>Methods for data collection have evolved greatly over time. Early surveys relied on relatively crude maps and landscape features for navigation, with observations recorded on paper, and later on audio recorders. Nowadays, GPS is used for navigation and to maintain transect position, and observations are typically recorded directly to a computer or tablet device and geo-referenced using an onboard GPS and customized computer programs.</p><p>Breeding population surveys usually provide an index to the number of indicated pairs plus grouped birds, some of which are undoubtedly non-breeders and transient birds. During breeding population surveys, the detection and species identification of ducks is focused mostly on males (drakes). Females (hens) are difficult to identify due to their drab plumage, and many are sitting on nests and not available to be counted. For most duck (and goose) species, computations of indicated pairs account for undetected hens by doubling the observed numbers of drakes (unless drakes are observed in flocks of five or more, as they are then considered to be unpaired). Exceptions to this include some diving ducks (redhead, scaups, ring-necked duck, and ruddy duck) where drakes are not doubled to estimate total indicated birds - these species are known to be late nesters and have significant disproportionately male-biased sex ratios.</p><div class="survey-techniques"><p>Within transect boundaries, each observer counts all ducks except lone hens. The following standard definitions for social groups are used in the Breeding Waterfowl Population and Habitat Survey:</p><ol><li><p><strong>Lone Drake:</strong> a single isolated drake without a visibly associated hen.</p><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/NOPI_lone%20drake_TDB_8166.jpg" alt="Pintail, drake" width="330" height="210"><figcaption>Pintail, drake</figcaption></figure><figure style="display:inline-block;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/RNDU_single%20drake_GEM.jpg" alt="Ring-neck, drake" width="330" height="232"><figcaption>Ring-neck, drake</figcaption></figure></div></li><li><p><strong>Flocked Drakes:</strong> two or more drakes in close association, but without a hen.</p><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/NOPI_4%20drakes_TDB.jpg" alt="Pintail, 4 drakes" width="330" height="238"><figcaption>Pintail, 4 drakes</figcaption></figure><figure style="display:inline-block;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/WWSC_flk_of_8_drakes_TDB.jpg" alt="White-winged scoter, 8 drakes" width="330" height="237"><figcaption>White-winged scoter, 8 drakes</figcaption></figure></div></li><li><p><strong>Pair:</strong> a male and female in close association.</p><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/wodu_pair.jpg" alt="Wood duck, pair" width="330" height="251"><figcaption>Wood duck, pair</figcaption></figure><figure style="display:inline-block;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/buff_pair.jpg" alt="Bufflehead, pair" width="330" height="228"><figcaption>Bufflehead, pair</figcaption></figure></div></li><li><p><strong>Group:</strong> three or more of a <strong>mixed</strong>-sex grouping of the same species in close association that cannot be separated into singles and pairs (note: a hen and 2 drakes is recorded as a Pair and a Lone Drake - aka "a pair and a spare").</p><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/abdu_7.jpg" alt="Black duck, group of 7" width="330" height="228"><figcaption>Black duck, group of 7</figcaption></figure><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/nopi_pr_spare.jpg" alt="Pintail, pair and a spare" width="330" height="228"><figcaption>Pintail, pair and a spare</figcaption></figure></div><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/blsc_5.jpg" alt="Black scoter, group of 5" width="330" height="228"><figcaption>Black scoter, group of 5</figcaption></figure><figure style="display:inline-block;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/gadwall_10.jpg" alt="Gadwall, group of 10" width="330" height="228"><figcaption>Gadwall, group of 10</figcaption></figure></div></li></ol><p>Lone hens are not recorded, nor are ducks that cannot be identified to species or genus (e.g., scaup, scoter, merganser).</p><div style="display:inline-block;"><figure style="display:inline-block;margin-right:10px;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/lone_hen.jpg" alt="Lone hen - don&apos;t count" width="330" height="228"><figcaption>Lone hen - don''t count</figcaption></figure><figure style="display:inline-block;"><img style="border-style:solid;border-width:1px;" src="/sites/aerial/files/inline-images/dont_count.jpg" alt="Can&apos;t identify - don&apos;t count" width="330" height="228"><figcaption>Can''t identify - don''t count</figcaption></figure></div><p>Distinguishing pairs among small groups of ducks is subjective. The observers must use their best judgement, based on the proximity of males and females, or whether they break into pairs when they take flight. Strive to split groups into distinct pairs and drakes when reasonably possible to do so.</p><p>For monomorphic birds such as geese, swans, cranes, coots, grebes, and loons, sexes are indistinguishable so it''s more difficult to identify pairs. These birds are typically recorded as singles, pairs, or the total number of birds in the group. Generally, if two birds are together, call them a pair. If there are more than two birds, record as a group.</p><p>Large flocks are usually not encountered during breeding surveys, but they are common in surveys during the non-breeding season. Accurately estimating flock size is difficult. The tendency is to underestimate numbers of birds in flocks; this bias often increases with increasing flock size. The <a href="https://systems.fws.gov/waterfowlsurveys/forms/counting.jsp?menu=counting"><strong>Estimating Flock Size</strong></a> section of this guide provides tips on how to count birds in flocks, as well as a set of flock photos with known numbers of birds that can be used for comparative purposes while in flight.</p></div>'
+      format: full_html
+      summary: ''
+  field_private:
+    -
+      value: false
