@@ -120,6 +120,7 @@ foreach ($users as $username => $role) {
       'mail' => match($username) {
         'sonal' => 'sonal@prometsource.com',
         'Nadia.Lentz@myfwc.com' => 'Nadia.Lentz@myfwc.com',
+        'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
         default => $username . '@example.com'
       },
       'status' => 1,
