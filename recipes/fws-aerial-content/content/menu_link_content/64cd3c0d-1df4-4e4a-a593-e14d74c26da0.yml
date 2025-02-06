@@ -44,4 +44,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/page/about-aerial-observer-training'
+        href: 'https://aerial.ddev.site/page/aerial-observers-guide-north-american-waterfowl'
