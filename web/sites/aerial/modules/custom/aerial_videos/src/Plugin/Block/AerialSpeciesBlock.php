@@ -59,8 +59,8 @@ class AerialSpeciesBlock extends BlockBase {
       }
     }
 
-    // Add JavaScript to handle dynamic filtering.
-    $form['#attached']['library'][] = 'aerial_videos/species-selection';
+    // Get the base URL for files directory.
+    $base_url = \Drupal::request()->getSchemeAndHttpHost();
 
     $form = [
       '#type' => 'form',
@@ -69,6 +69,7 @@ class AerialSpeciesBlock extends BlockBase {
         'drupalSettings' => [
           'aerialVideos' => [
             'speciesByGroup' => $this->getSpeciesByGroup($species_terms),
+            'baseUrl' => $base_url,
           ],
         ],
       ],
@@ -80,7 +81,6 @@ class AerialSpeciesBlock extends BlockBase {
           'class' => ['dropdown'],
           'id' => 'selectedGroup',
           'name' => 'selectedGroup',
-          'onchange' => 'Drupal.behaviors.aerialVideos.filterSpecies()',
           'title' => 'Species Group',
         ],
         '#options' => $group_options,
@@ -119,10 +119,20 @@ class AerialSpeciesBlock extends BlockBase {
       $species_group = $term->get('field_species_group')->entity;
       if ($species_group) {
         $group_id = $species_group->get('field_species_group_id')->value;
+
+        // Get the video file URL if available.
+        $video_url = '';
+        if ($term->hasField('field_species_video') && !$term->get('field_species_video')->isEmpty()) {
+          $file = $term->get('field_species_video')->entity;
+          if ($file) {
+            $video_url = $file->createFileUrl();
+          }
+        }
+
         $species_by_group[$group_id][$species_id] = [
           'id' => $species_id,
           'name' => $term->label(),
-          'code' => $term->get('field_species_code')->value,
+          'videoUrl' => $video_url,
         ];
       }
     }

@@ -2,13 +2,17 @@
 
 /**
  * @file
+ * Prepares file_managed entries for species videos before content import.
+ *
+ * This script reads the species data from the content recipe and VIDEO_TRAINING.csv,
+ * then creates the necessary file_managed entries with correct UUIDs.
  */
 
 /**
  * @file
- * Installation clean-up and additinoal configuration.
+ * Installation clean-up and additional configuration.
  *
- *  Install-cleanup.php.
+ * Handles menu configuration and image file copying.
  */
 
 // Small cleanup to delete erroneous folder.
@@ -40,7 +44,6 @@ $menuConfig = [
         'data-target' => '',
       ],
     ],
-    // Additional menu items as per your configuration...
     '0e7dfd71-4a5c-4d64-ad44-24dcf2b3cce1' => [
       'rows_content' => [],
       'submenu_config' => [
@@ -119,8 +122,9 @@ foreach ($files as $file) {
 
 echo "Image files have been copied to the specified location.\n";
 
+// Copy technique video files.
 $video_source = 'https://systems.fws.gov/waterfowlsurveys/videos/newvideos/';
-$video_destination = './sites/aerial/files/videos/';
+$video_destination = './web/sites/aerial/files/videos/';
 
 if (!file_exists($video_destination)) {
   mkdir($video_destination, 0777, TRUE);
@@ -138,17 +142,3 @@ foreach ($counting_videos as $video) {
 }
 
 echo "Technique Video files have been copied to the specified location.\n";
-
-$video_source = 'https://fws.gov/waterfowlsurveys/videos/HIGH/';
-
-// Loop through the 'species' taxonomy to get the field_species_code value.
-$species = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'species']);
-foreach ($species as $term) {
-  $field_species_code = $term->get('field_species_code')->value;
-  $video_file = $field_species_code . '_2030kbps.mp4';
-  if (!file_exists($video_destination . $video_file)) {
-    copy($video_source . $video_file, $video_destination . $video_file);
-  }
-}
-
-echo "Species Video files have been copied to the specified location.\n";

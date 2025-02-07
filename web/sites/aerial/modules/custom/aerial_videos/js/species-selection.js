@@ -3,53 +3,83 @@
  * JavaScript behaviors for species selection.
  */
 
-(function ($, Drupal, drupalSettings) {
+(function ($, Drupal, once) {
   'use strict';
 
   Drupal.behaviors.aerialVideos = {
     attach: function (context, settings) {
-      // Initialize the species dropdown based on the selected group.
-      this.filterSpecies = function () {
+      // Function to populate species dropdown
+      this.populateSpecies = function (filteredByGroup = false) {
         const selectedGroup = $('#selectedGroup').val();
         const $speciesSelect = $('#selectedSpecies');
         const speciesByGroup = drupalSettings.aerialVideos.speciesByGroup;
+        let allSpecies = [];
 
-        // Clear current options.
+        // Clear current options
         $speciesSelect.empty();
         $speciesSelect.append($('<option>', {
           value: '',
           text: '- Select -'
         }));
 
-        // If a group is selected, add its species.
-        if (selectedGroup && speciesByGroup[selectedGroup]) {
-          const species = speciesByGroup[selectedGroup];
-          // Convert to array and sort alphabetically by name
-          const sortedSpecies = Object.values(species).sort((a, b) =>
-            a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
-          );
-
-          // Add sorted species to dropdown
-          sortedSpecies.forEach(function (item) {
-            $speciesSelect.append($('<option>', {
-              value: item.id,
-              text: item.name
-            }));
+        // If filtering by group, only get species from that group
+        if (filteredByGroup && selectedGroup && speciesByGroup[selectedGroup]) {
+          allSpecies = Object.values(speciesByGroup[selectedGroup]);
+        } else {
+          // Get all species from all groups
+          Object.values(speciesByGroup).forEach(group => {
+            allSpecies = allSpecies.concat(Object.values(group));
           });
         }
 
-        // Reset the species selection.
+        // Sort alphabetically by name
+        allSpecies.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
+        // Add species to dropdown
+        allSpecies.forEach(function (item) {
+          $speciesSelect.append($('<option>', {
+            value: item.id,
+            text: item.name,
+            'data-video-url': item.videoUrl
+          }));
+        });
+
+        // Reset the species selection
         $speciesSelect.val('');
         if ($speciesSelect.hasClass('select2-hidden-accessible')) {
           $speciesSelect.trigger('change');
         }
       };
 
-      // Attach the change handler to the group select.
-      $('#selectedGroup', context).once('aerial-videos').on('change', function () {
-        Drupal.behaviors.aerialVideos.filterSpecies();
+      // Handle video playback when a species is selected
+      this.playVideo = function () {
+        const $selectedOption = $('#selectedSpecies option:selected');
+        if ($selectedOption.length && $selectedOption.attr('data-video-url')) {
+          const videoUrl = $selectedOption.attr('data-video-url');
+          // Open video in new tab
+          window.open(videoUrl, '_blank');
+        }
+      };
+
+      // Initial population of species dropdown
+      once('aerial-videos-init', 'body', context).forEach(() => {
+        this.populateSpecies(false);
+      });
+
+      // Attach the change handler to the group select
+      once('aerial-videos', '#selectedGroup', context).forEach(function (element) {
+        $(element).on('change', function () {
+          Drupal.behaviors.aerialVideos.populateSpecies(true);
+        });
+      });
+
+      // Attach the change handler to the species select
+      once('aerial-videos-species', '#selectedSpecies', context).forEach(function (element) {
+        $(element).on('change', function () {
+          Drupal.behaviors.aerialVideos.playVideo();
+        });
       });
     }
   };
 
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, once);

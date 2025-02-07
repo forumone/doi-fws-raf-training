@@ -1,0 +1,27 @@
+uuid: f86b1697-7eae-407b-8c7f-65613177fcb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_species_video
+    - taxonomy.vocabulary.species
+  module:
+    - file
+id: taxonomy_term.species.field_species_video
+field_name: field_species_video
+entity_type: taxonomy_term
+bundle: species
+label: 'Species Video'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: mp4
+  max_filesize: ''
+  description_field: false
+field_type: file
