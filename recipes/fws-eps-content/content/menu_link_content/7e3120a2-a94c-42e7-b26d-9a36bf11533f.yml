@@ -50,4 +50,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/
+        href: '/'
