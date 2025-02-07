@@ -22,8 +22,8 @@
         // Get current date filter values
         const filters = getFilterValues();
 
-        // Build the URL with query parameters
-        let url = '/api/sighting-count/' + yearId;
+        // Build the URL with query parameters using Drupal.url()
+        let url = Drupal.url('api/sighting-count/' + yearId);
         const params = [];
         if (filters.startDate) {
           params.push('start_date=' + encodeURIComponent(filters.startDate));
