@@ -124,7 +124,7 @@ echo "Image files have been copied to the specified location.\n";
 
 // Copy technique video files.
 $video_source = 'https://systems.fws.gov/waterfowlsurveys/videos/newvideos/';
-$video_destination = './web/sites/aerial/files/videos/';
+$video_destination = './sites/aerial/files/videos/';
 
 if (!file_exists($video_destination)) {
   mkdir($video_destination, 0777, TRUE);

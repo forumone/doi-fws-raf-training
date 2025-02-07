@@ -15,9 +15,13 @@ fin drush -l site:install minimal --yes \
 
 # Install recipes
 fin drush -l recipe ../recipes/fws-core
+fin drush -l cr
 fin drush -l scr ../scripts/aerial/install-cleanup.php
+fin drush -l cr
+fin drush -l recipe ../recipes/fws-aerial-taxonomy
 fin drush -l en -y aerial_videos
 fin drush -l recipe ../recipes/fws-aerial-content
+fin drush -l scr ../scripts/aerial/import-terms.php
 fin drush -l cr
 
 fin drush -l uli
