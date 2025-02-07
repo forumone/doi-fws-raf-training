@@ -1,0 +1,24 @@
+SPECIES,SPECIES_CODE,SPECIES_GROUP,DESCRIPTION
+101,SNGO,1,White Geese
+102,CAGO,1,Canada and Cackling Geese
+103,WFGO,1,White-fronted Goose
+104,BRAN,1,Brant
+105,EMGO,1,Emperor Goose
+106,SWAN,1,Swans
+110,SACR,1,Cranes
+201,MALL,2,Mallard
+202,MODU,2,Mottled Duck
+203,ABDU,2,American Black Duck
+204,NOPI,2,Northern Pintail
+205,AGWT,2,American Green-winged Teal
+206,BWTE,2,Blue-winged Teal
+207,CITE,2,Cinnamon Teal
+209,NSHO,2,Northern Shoveler
+210,GADW,2,Gadwall
+211,AMWI,2,American Wigeon
+212,WODU,2,Wood Duck
+303,SCAU,3,Scaup
+304,RNDU,3,Ring-necked Duck
+305,REDH,3,Redhead
+306,CANV,3,Canvasback
+307,RUDU,3,Ruddy Duck

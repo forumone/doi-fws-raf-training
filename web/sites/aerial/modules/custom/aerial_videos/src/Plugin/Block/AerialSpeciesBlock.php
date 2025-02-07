@@ -19,70 +19,59 @@ class AerialSpeciesBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $species_options = [
-      '' => $this->t('- Select -'),
-      '708' => $this->t('American Bittern'),
-      '203' => $this->t('American Black Duck'),
-      '701' => $this->t('American Coot'),
-      '205' => $this->t('American Green-winged Teal'),
-      '713' => $this->t('American White Pelican'),
-      '211' => $this->t('American Wigeon'),
-      '417' => $this->t('Barrow\'s Goldeneye'),
-      '406' => $this->t('Black Scoter'),
-      '501' => $this->t('Black-bellied Whistling Duck'),
-      '206' => $this->t('Blue-winged Teal'),
-      '104' => $this->t('Brant'),
-      '419' => $this->t('Bufflehead'),
-      '102' => $this->t('Canada and Cackling Geese'),
-      '306' => $this->t('Canvasback'),
-      '207' => $this->t('Cinnamon Teal'),
-      '601' => $this->t('Common and Yellow-billed Loons'),
-      '401' => $this->t('Common Eider'),
-      '416' => $this->t('Common Goldeneye'),
-      '412' => $this->t('Common Merganser'),
-      '712' => $this->t('Cormorants'),
-      '110' => $this->t('Cranes'),
-      '705' => $this->t('Eared Grebe'),
-      '105' => $this->t('Emperor Goose'),
-      '502' => $this->t('Fulvous Whistling Duck'),
-      '210' => $this->t('Gadwall'),
-      '714' => $this->t('Great Blue Heron'),
-      '710' => $this->t('Guillemots'),
-      '411' => $this->t('Harlequin Duck'),
-      '414' => $this->t('Hooded Merganser'),
-      '703' => $this->t('Horned Grebe'),
-      '402' => $this->t('King Eider'),
-      '410' => $this->t('Long-tailed Duck'),
-      '201' => $this->t('Mallard'),
-      '202' => $this->t('Mottled Duck'),
-      '711' => $this->t('Murres'),
-      '204' => $this->t('Northern Pintail'),
-      '209' => $this->t('Northern Shoveler'),
-      '603' => $this->t('Pacific Loon'),
-      '702' => $this->t('Pied-billed Grebe'),
-      '709' => $this->t('Pigeon Guillemot'),
-      '413' => $this->t('Red-breasted Merganser'),
-      '305' => $this->t('Redhead'),
-      '704' => $this->t('Red-necked Grebe'),
-      '602' => $this->t('Red-throated Loon'),
-      '304' => $this->t('Ring-necked Duck'),
-      '307' => $this->t('Ruddy Duck'),
-      '303' => $this->t('Scaup'),
-      '409' => $this->t('Scoter comparisons'),
-      '403' => $this->t('Spectacled Eider'),
-      '404' => $this->t('Steller\'s Eider'),
-      '408' => $this->t('Surf Scoter'),
-      '106' => $this->t('Swans'),
-      '706' => $this->t('Western Grebe'),
-      '101' => $this->t('White Geese'),
-      '103' => $this->t('White-fronted Goose'),
-      '407' => $this->t('White-winged Scoter'),
-      '715' => $this->t('Williow Ptarmigan'),
-      '212' => $this->t('Wood Duck'),
-    ];
+    // Load all species group terms.
+    $species_groups = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'species_group']);
+
+    // Sort terms by their Species Group ID.
+    usort($species_groups, function ($a, $b) {
+      $a_id = $a->get('field_species_group_id')->value;
+      $b_id = $b->get('field_species_group_id')->value;
+      return $a_id <=> $b_id;
+    });
+
+    // Build the species group options.
+    $group_options = ['' => $this->t('- Select -')];
+    foreach ($species_groups as $term) {
+      $group_id = $term->get('field_species_group_id')->value;
+      $group_options[$group_id] = $term->label();
+    }
+
+    // Load all species terms.
+    $species_terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'species']);
+
+    // Sort species terms alphabetically by name.
+    usort($species_terms, function ($a, $b) {
+      return strcasecmp($a->label(), $b->label());
+    });
+
+    // Build the species options, grouped by species group.
+    $species_options = ['' => $this->t('- Select -')];
+    foreach ($species_terms as $term) {
+      $species_id = $term->get('field_species_id')->value;
+      $species_group = $term->get('field_species_group')->entity;
+      if ($species_group) {
+        $group_id = $species_group->get('field_species_group_id')->value;
+        $species_options[$species_id] = $term->label();
+      }
+    }
+
+    // Add JavaScript to handle dynamic filtering.
+    $form['#attached']['library'][] = 'aerial_videos/species-selection';
 
     $form = [
       '#type' => 'form',
+      '#attached' => [
+        'library' => ['aerial_videos/species-selection'],
+        'drupalSettings' => [
+          'aerialVideos' => [
+            'speciesByGroup' => $this->getSpeciesByGroup($species_terms),
+          ],
+        ],
+      ],
       'group_select' => [
         '#type' => 'select2',
         '#title' => $this->t('Species Group'),
@@ -91,19 +80,10 @@ class AerialSpeciesBlock extends BlockBase {
           'class' => ['dropdown'],
           'id' => 'selectedGroup',
           'name' => 'selectedGroup',
-          'onchange' => 'selectSpecies()',
+          'onchange' => 'Drupal.behaviors.aerialVideos.filterSpecies()',
           'title' => 'Species Group',
         ],
-        '#options' => [
-          '1' => $this->t('Geese, Swans and Cranes'),
-          '2' => $this->t('Dabbling Ducks'),
-          '3' => $this->t('Diving Ducks'),
-          '4' => $this->t('Sea Ducks'),
-          '5' => $this->t('Whistling Ducks'),
-          '6' => $this->t('Loons (video only; not narrated)'),
-          '7' => $this->t('Other Non-waterfowl (video only; not narrated)'),
-          '99' => $this->t('ALL species'),
-        ],
+        '#options' => $group_options,
       ],
       'species_select' => [
         '#type' => 'select2',
@@ -119,6 +99,42 @@ class AerialSpeciesBlock extends BlockBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * Helper function to organize species by group.
+   *
+   * @param \Drupal\taxonomy\Entity\Term[] $species_terms
+   *   Array of species taxonomy terms.
+   *
+   * @return array
+   *   Species organized by group ID.
+   */
+  protected function getSpeciesByGroup(array $species_terms) {
+    $species_by_group = [];
+
+    // First collect all species for each group.
+    foreach ($species_terms as $term) {
+      $species_id = $term->get('field_species_id')->value;
+      $species_group = $term->get('field_species_group')->entity;
+      if ($species_group) {
+        $group_id = $species_group->get('field_species_group_id')->value;
+        $species_by_group[$group_id][$species_id] = [
+          'id' => $species_id,
+          'name' => $term->label(),
+          'code' => $term->get('field_species_code')->value,
+        ];
+      }
+    }
+
+    // Sort species within each group alphabetically by name.
+    foreach ($species_by_group as &$group) {
+      uasort($group, function ($a, $b) {
+        return strcasecmp($a['name'], $b['name']);
+      });
+    }
+
+    return $species_by_group;
   }
 
 }
