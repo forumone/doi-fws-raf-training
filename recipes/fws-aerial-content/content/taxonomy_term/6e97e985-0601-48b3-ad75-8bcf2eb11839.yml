@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 6e97e985-0601-48b3-ad75-8bcf2eb11839
+  bundle: species
+  default_langcode: en
+  depends:
+    2881b14c-6e4d-4131-9621-507519043ebe: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Ruddy Duck'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Ruddy Duck | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Ruddy Duck'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/31'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: RUDU
+  field_species_group:
+    -
+      entity: 2881b14c-6e4d-4131-9621-507519043ebe
+  field_species_id:
+    -
+      value: 307

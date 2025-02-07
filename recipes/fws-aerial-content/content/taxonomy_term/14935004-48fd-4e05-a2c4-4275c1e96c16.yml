@@ -1,16 +1,18 @@
 _meta:
   version: '1.0'
   entity_type: taxonomy_term
-  uuid: e9e4624d-30fd-42ba-82cf-183037391872
-  bundle: species_group
+  uuid: 14935004-48fd-4e05-a2c4-4275c1e96c16
+  bundle: species
   default_langcode: en
+  depends:
+    bd13aa77-076d-4d71-804f-ca6514bfe62c: taxonomy_term
 default:
   status:
     -
       value: true
   name:
     -
-      value: 'Dabbling Ducks'
+      value: 'Surf Scoter'
   weight:
     -
       value: 0
@@ -25,17 +27,23 @@ default:
       tag: meta
       attributes:
         name: title
-        content: 'Dabbling Ducks | FWS: Aerial Observer Training and Testing Resources'
+        content: 'Surf Scoter | FWS: Aerial Observer Training and Testing Resources'
     -
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/taxonomy/term/7'
+        href: 'https://aerial.ddev.site/taxonomy/term/38'
   path:
     -
       alias: ''
       langcode: en
       pathauto: 1
-  field_species_group_id:
+  field_species_code:
     -
-      value: 2
+      value: SUSC
+  field_species_group:
+    -
+      entity: bd13aa77-076d-4d71-804f-ca6514bfe62c
+  field_species_id:
+    -
+      value: 408

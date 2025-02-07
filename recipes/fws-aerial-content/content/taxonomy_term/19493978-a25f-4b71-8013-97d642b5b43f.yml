@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 19493978-a25f-4b71-8013-97d642b5b43f
+  bundle: species
+  default_langcode: en
+  depends:
+    3b040d5d-2e71-43d9-a1e2-261a72d4445c: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Red-throated Loon'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Red-throated Loon | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/51'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: RTLO
+  field_species_group:
+    -
+      entity: 3b040d5d-2e71-43d9-a1e2-261a72d4445c
+  field_species_id:
+    -
+      value: 602

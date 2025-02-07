@@ -1,16 +1,18 @@
 _meta:
   version: '1.0'
   entity_type: taxonomy_term
-  uuid: e9e4624d-30fd-42ba-82cf-183037391872
-  bundle: species_group
+  uuid: 0250a535-fecd-44f9-b999-2e30b71cf913
+  bundle: species
   default_langcode: en
+  depends:
+    ce899bdd-6643-4c64-a2ae-61e5c02feacd: taxonomy_term
 default:
   status:
     -
       value: true
   name:
     -
-      value: 'Dabbling Ducks'
+      value: Cormorants
   weight:
     -
       value: 0
@@ -25,17 +27,23 @@ default:
       tag: meta
       attributes:
         name: title
-        content: 'Dabbling Ducks | FWS: Aerial Observer Training and Testing Resources'
+        content: 'Cormorants | FWS: Aerial Observer Training and Testing Resources'
     -
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/taxonomy/term/7'
+        href: 'https://aerial.ddev.site/taxonomy/term/63'
   path:
     -
       alias: ''
       langcode: en
       pathauto: 1
-  field_species_group_id:
+  field_species_code:
     -
-      value: 2
+      value: CORM
+  field_species_group:
+    -
+      entity: ce899bdd-6643-4c64-a2ae-61e5c02feacd
+  field_species_id:
+    -
+      value: 712

@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b6616cc8-7af8-4f17-8bfc-6fa15ede4b1d
+  bundle: species
+  default_langcode: en
+  depends:
+    12ed7f95-2096-4b33-a8cd-30d8e1528c24: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Black-bellied Whistling Duck'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Black-bellied Whistling Duck | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/48'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: BBWD
+  field_species_group:
+    -
+      entity: 12ed7f95-2096-4b33-a8cd-30d8e1528c24
+  field_species_id:
+    -
+      value: 501

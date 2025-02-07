@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: c182d310-a24c-4516-9b9f-d695b39f7e3a
+  bundle: species
+  default_langcode: en
+  depends:
+    ce899bdd-6643-4c64-a2ae-61e5c02feacd: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Horned Grebe'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Horned Grebe | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/55'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: HOGR
+  field_species_group:
+    -
+      entity: ce899bdd-6643-4c64-a2ae-61e5c02feacd
+  field_species_id:
+    -
+      value: 703

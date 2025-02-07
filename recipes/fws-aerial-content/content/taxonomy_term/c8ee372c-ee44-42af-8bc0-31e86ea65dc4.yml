@@ -1,0 +1,49 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: c8ee372c-ee44-42af-8bc0-31e86ea65dc4
+  bundle: species
+  default_langcode: en
+  depends:
+    bd13aa77-076d-4d71-804f-ca6514bfe62c: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: "Steller's Eider"
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: "Steller's Eider | FWS: Aerial Observer Training and Testing Resources"
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/35'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: STEI
+  field_species_group:
+    -
+      entity: bd13aa77-076d-4d71-804f-ca6514bfe62c
+  field_species_id:
+    -
+      value: 404

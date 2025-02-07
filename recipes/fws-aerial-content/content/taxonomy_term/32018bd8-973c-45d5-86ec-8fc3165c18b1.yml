@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 32018bd8-973c-45d5-86ec-8fc3165c18b1
+  bundle: species
+  default_langcode: en
+  depends:
+    ee9d5fb0-0f84-4789-9d26-50d3eea38fba: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'White Geese'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'White Geese | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'White Geese'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/9'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: SNGO
+  field_species_group:
+    -
+      entity: ee9d5fb0-0f84-4789-9d26-50d3eea38fba
+  field_species_id:
+    -
+      value: 101

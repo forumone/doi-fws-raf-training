@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b16b98d4-08cf-48f3-87da-20e5b3ea3e21
+  bundle: species
+  default_langcode: en
+  depends:
+    e9e4624d-30fd-42ba-82cf-183037391872: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Northern Pintail'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Northern Pintail | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Northern Pintail'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/19'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: NOPI
+  field_species_group:
+    -
+      entity: e9e4624d-30fd-42ba-82cf-183037391872
+  field_species_id:
+    -
+      value: 204

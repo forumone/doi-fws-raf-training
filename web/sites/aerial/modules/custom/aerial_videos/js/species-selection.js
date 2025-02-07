@@ -24,8 +24,13 @@
         // If a group is selected, add its species.
         if (selectedGroup && speciesByGroup[selectedGroup]) {
           const species = speciesByGroup[selectedGroup];
-          // Species are already sorted on the server side, just iterate through them.
-          Object.values(species).forEach(function (item) {
+          // Convert to array and sort alphabetically by name
+          const sortedSpecies = Object.values(species).sort((a, b) =>
+            a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+          );
+
+          // Add sorted species to dropdown
+          sortedSpecies.forEach(function (item) {
             $speciesSelect.append($('<option>', {
               value: item.id,
               text: item.name

@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 6b3eb3e3-4600-457a-924b-44a98fdbedbc
+  bundle: species
+  default_langcode: en
+  depends:
+    ee9d5fb0-0f84-4789-9d26-50d3eea38fba: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'White-fronted Goose'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'White-fronted Goose | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'White-fronted Goose'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/taxonomy/term/11'
+  path:
+    -
+      alias: ''
+      langcode: en
+      pathauto: 1
+  field_species_code:
+    -
+      value: WFGO
+  field_species_group:
+    -
+      entity: ee9d5fb0-0f84-4789-9d26-50d3eea38fba
+  field_species_id:
+    -
+      value: 103
