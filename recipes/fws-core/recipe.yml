@@ -59,8 +59,18 @@ install:
   - auto_entitylabel
   - better_exposed_filters
   - bootstrap
+  - bpmn_io
+  - charts
+  - charts_highcharts
+  - charts_highcharts_maps
   - components
+  - csv_serialization
+  - datatables
   - default_content
+  - eca
+  - eca_modeller_bpmn
+  - eca_ui
+  - externalauth
   - field_group
   - field_permissions
   - field_token_value
@@ -69,14 +79,26 @@ install:
   - inline_entity_form
   - jquery_ui_draggable
   - jquery_ui_resizable
+  - key
+  - key_asymmetric
   - linkit
+  - login_destination
+  - login_gov
   - metatag
   - node_revision_delete
+  - openid_connect
+  - paragraphs
+  - paragraphs_ee
+  - paragraphs_features
   - pathauto
   - prepopulate
+  - publishcontent
+  - quiz
   - redirect
   - responsive_image
   - rules
+  - samlauth
+  - select2
   - social_media_links
   - stringoverrides
   - svg_image
@@ -84,36 +106,16 @@ install:
   - taxonomy_access_fix
   - twig_field_value
   - twig_tweak
-  - webp
-  - webform
-  - webform_ui
-  - we_megamenu
-  - bpmn_io
-  - eca_modeller_bpmn
-  - eca_ui
-  - eca
-  - login_gov
-  - quiz
-  - openid_connect
-  - externalauth
-  - key_asymmetric
-  - key
+  - viewfield
   - views_aggregator
   - views_bulk_operations
+  - views_data_export
   - views_year_filter
   - visualization_charts
-  - datatables
-  - charts
-  - charts_highcharts
-  - charts_highcharts_maps
-  - login_destination
-  - paragraphs
-  - paragraphs_features
-  - paragraphs_ee
-  - publishcontent
-  - samlauth
-  - select2
-  - viewfield
+  - webform
+  - webform_ui
+  - webp
+  - we_megamenu
 
   # Custom
   - doi_login
