@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/page/aerial-observers-guide-north-american-waterfowl'
+        href: '/page/aerial-observers-guide-north-american-waterfowl'
   path:
     -
       alias: /page/aerial-observers-guide-north-american-waterfowl
