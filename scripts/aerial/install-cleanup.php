@@ -112,7 +112,9 @@ foreach ($files as $file) {
     continue;
   }
 
-  copy($source . $file, $destination . $file);
+  if (!file_exists($destination . $file)) {
+    copy($source . $file, $destination . $file);
+  }
 }
 
 echo "Image files have been copied to the specified location.\n";
@@ -124,7 +126,29 @@ if (!file_exists($video_destination)) {
   mkdir($video_destination, 0777, TRUE);
 }
 
-copy($video_source . 'Counting_Techniques_2030kbps.mp4', $video_destination . 'Counting_Techniques_2030kbps.mp4');
-copy($video_source . 'Counting_Techniques_590kbps.mp4', $video_destination . 'Counting_Techniques_590kbps.mp4');
+$counting_videos = [
+  'Counting_Techniques_2030kbps.mp4',
+  'Counting_Techniques_590kbps.mp4',
+];
 
-echo "Video files have been copied to the specified location.\n";
+foreach ($counting_videos as $video) {
+  if (!file_exists($video_destination . $video)) {
+    copy($video_source . $video, $video_destination . $video);
+  }
+}
+
+echo "Technique Video files have been copied to the specified location.\n";
+
+$video_source = 'https://fws.gov/waterfowlsurveys/videos/HIGH/';
+
+// Loop through the 'species' taxonomy to get the field_species_code value.
+$species = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'species']);
+foreach ($species as $term) {
+  $field_species_code = $term->get('field_species_code')->value;
+  $video_file = $field_species_code . '_2030kbps.mp4';
+  if (!file_exists($video_destination . $video_file)) {
+    copy($video_source . $video_file, $video_destination . $video_file);
+  }
+}
+
+echo "Species Video files have been copied to the specified location.\n";

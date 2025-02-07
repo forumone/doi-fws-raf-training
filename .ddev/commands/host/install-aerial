@@ -18,9 +18,9 @@ ddev drush -l $SITE_URI site:install minimal --yes \
 
 # Install recipes
 ddev drush -l $SITE_URI recipe ../recipes/fws-core
-ddev drush -l $SITE_URI scr ../scripts/aerial/install-cleanup.php
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-taxonomy
+ddev drush -l $SITE_URI scr ../scripts/aerial/install-cleanup.php
 ddev drush -l $SITE_URI en -y aerial_videos
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
 ddev drush -l $SITE_URI cr
