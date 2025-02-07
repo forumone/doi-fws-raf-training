@@ -62,4 +62,4 @@ default:
       summary: ''
   field_private:
     -
-      value: true
+      value: false
