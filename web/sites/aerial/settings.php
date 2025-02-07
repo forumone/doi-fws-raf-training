@@ -889,27 +889,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-if (file_exists('/var/www/site-php')) {
-  // Workaround for database error.
-  $class_loader->addPsr4('Drupal\\mysql\\', 'core/modules/mysql/src/');
-
-  require_once('/var/www/site-php/doifws/doifws-settings.inc');
-  $projectroot = "/var/www/html/" . $_ENV['AH_SITE_GROUP'] . '.' . $_ENV['AH_SITE_ENVIRONMENT'];
-  $settings['simplesamlphp_dir'] = $projectroot . '/vendor/simplesamlphp/simplesamlphp';
-  // Configure File folders
-  $settings['file_private_path'] = $projectroot . '/acquia-files/files-private/';
-
-  // Memcached settings for Acquia Hosting.
-  if (file_exists($projectroot . '/docroot/sites/default/cloud-memcache-d8+.php')) {
-    require($projectroot . '/docroot/sites/default/cloud-memcache-d8+.php');
-  }
-}
-
-#
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
-$settings['config_sync_directory'] = '../config/sync';
+$settings['config_sync_directory'] = '../config/eps/sync';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -920,6 +900,17 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
 error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
 
 /**
- * Show header authentication links.
+ * Hide header authentication links.
  */
-$config['system.site']['header_links_auth'] = TRUE;
+$config['system.site']['header_links_auth'] = FALSE;
+
+// Configure Acquia database settings for EPS site
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/doifws/fws_aerial-settings.inc';
+}
+
+# in production this will be over-ridden by platform-settings.php
+$settings['session.cookie_path'] = '/aerial';
+$settings['file_public_path'] = "sites/aerial/files";
+$settings['file_private_path'] = "sites/aerial/files/private";
+$settings['file_temp_path'] = "/tmp";
