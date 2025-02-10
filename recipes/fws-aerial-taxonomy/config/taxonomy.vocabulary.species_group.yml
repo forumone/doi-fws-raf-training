@@ -1,0 +1,9 @@
+uuid: c6bb38d6-2856-4618-9dd7-86a17775264c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Group'
+vid: species_group
+description: 'Groups of species for aerial videos'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: 81dea5c2-444a-4cae-b02a-13fac01f0150
+langcode: en
+status: true
+dependencies: {  }
+name: Species
+vid: species
+description: 'Bird species for aerial videos'
+weight: 0
+new_revision: false

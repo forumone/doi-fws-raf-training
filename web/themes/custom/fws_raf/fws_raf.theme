@@ -46,7 +46,8 @@ function fws_raf_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'page-node-edit-' . $node->bundle();
   }
 
-  if (!empty($variables['head_title']['title'])) {
+  // Only replace 'Species' with 'Manatee' for 'Manatee' site.
+  if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && !empty($variables['head_title']['title'])) {
     // Array of word variations to replace.
     $replacements = [
       'Species' => 'Manatee',
@@ -78,11 +79,12 @@ function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       ];
     }
 
-    if (isset($form['field_species_ref'])) {
+    // Only replace 'Manatee Reference' and 'Manatee Animal ID' for 'default' site.
+    if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_species_ref'])) {
       $form['field_species_ref']['widget'][0]['target_id']['#title'] = 'Manatee Reference';
     }
 
-    if (isset($form['field_species_id'])) {
+    if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_species_id'])) {
       $form['field_species_id']['widget'][0]['target_id']['#title'] = 'Manatee Animal ID';
     }
   }
@@ -98,7 +100,8 @@ function fws_raf_preprocess_page_title(&$variables) {
     // Convert title to string if it's a TranslatableMarkup object.
     $title = (string) $variables['title'];
 
-    if (strstr($title, 'Species') !== FALSE) {
+    // Only replace 'Species' with 'Manatee' for 'Manatee' site.
+    if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && strstr($title, 'Species') !== FALSE) {
       $variables['title'] = str_ireplace('Species', 'Manatee', $title);
     }
   }
@@ -108,7 +111,10 @@ function fws_raf_preprocess_page_title(&$variables) {
  * Implements hook_preprocess_HOOK() for panel templates.
  */
 function fws_raf_preprocess_bootstrap_panel(&$variables) {
-  $variables['heading'] = str_ireplace('Species', 'Manatee', $variables['heading']);
+  // Only replace 'Species' with 'Manatee' for 'Manatee' site.
+  if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE) {
+    $variables['heading'] = str_ireplace('Species', 'Manatee', $variables['heading']);
+  }
 }
 
 /**

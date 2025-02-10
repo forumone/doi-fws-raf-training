@@ -2,13 +2,17 @@
 
 /**
  * @file
+ * Prepares file_managed entries for species videos before content import.
+ *
+ * This script reads the species data from the content recipe and VIDEO_TRAINING.csv,
+ * then creates the necessary file_managed entries with correct UUIDs.
  */
 
 /**
  * @file
- * Installation clean-up and additinoal configuration.
+ * Installation clean-up and additional configuration.
  *
- *  Install-cleanup.php.
+ * Handles menu configuration and image file copying.
  */
 
 // Small cleanup to delete erroneous folder.
@@ -40,7 +44,6 @@ $menuConfig = [
         'data-target' => '',
       ],
     ],
-    // Additional menu items as per your configuration...
     '0e7dfd71-4a5c-4d64-ad44-24dcf2b3cce1' => [
       'rows_content' => [],
       'submenu_config' => [
@@ -112,11 +115,14 @@ foreach ($files as $file) {
     continue;
   }
 
-  copy($source . $file, $destination . $file);
+  if (!file_exists($destination . $file)) {
+    copy($source . $file, $destination . $file);
+  }
 }
 
 echo "Image files have been copied to the specified location.\n";
 
+// Copy technique video files.
 $video_source = 'https://systems.fws.gov/waterfowlsurveys/videos/newvideos/';
 $video_destination = './sites/aerial/files/videos/';
 
@@ -124,7 +130,15 @@ if (!file_exists($video_destination)) {
   mkdir($video_destination, 0777, TRUE);
 }
 
-copy($video_source . 'Counting_Techniques_2030kbps.mp4', $video_destination . 'Counting_Techniques_2030kbps.mp4');
-copy($video_source . 'Counting_Techniques_590kbps.mp4', $video_destination . 'Counting_Techniques_590kbps.mp4');
+$counting_videos = [
+  'Counting_Techniques_2030kbps.mp4',
+  'Counting_Techniques_590kbps.mp4',
+];
 
-echo "Video files have been copied to the specified location.\n";
+foreach ($counting_videos as $video) {
+  if (!file_exists($video_destination . $video)) {
+    copy($video_source . $video, $video_destination . $video);
+  }
+}
+
+echo "Technique Video files have been copied to the specified location.\n";
