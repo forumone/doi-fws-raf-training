@@ -1,0 +1,7 @@
+name: Aerial Videos
+type: module
+description: 'Provides a custom block with species selection for aerial videos.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:block

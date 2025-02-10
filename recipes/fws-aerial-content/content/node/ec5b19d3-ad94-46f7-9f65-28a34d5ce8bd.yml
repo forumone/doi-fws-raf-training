@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: ec5b19d3-ad94-46f7-9f65-28a34d5ce8bd
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Species Identification'
+  created:
+    -
+      value: 1738876591
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Species Identification | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species during these low-level flights is extremely challenging and requires adequate training. Species identification errors can be a serious source of bias and can compromise data quality.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species during these low-level flights is extremely challenging and requires adequate training. Species identification errors can be a serious source of bias and can compromise data quality.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: '/species-identification'
+  path:
+    -
+      alias: /species-identification
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<p>During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species during these low-level flights is extremely challenging and requires adequate training. Species identification errors can be a serious source of bias and can compromise data quality.</p><p>This section highlights characteristics of waterfowl that can be useful in species identification from the top-down perspective of an aerial observer. Here, you will find videos that describe how to identify each species of North American waterfowl (plus some non-waterfowl species), as well as how to distinguish species from similar-looking species.</p><p><strong>Suggested citation:</strong></p><p>Bowman, T. D. and D. Canfield. &nbsp;2015. Aerial observer training and testing resources: species identification videos. U.S. Fish and Wildlife Service. Downloaded 2/6/2025 from http://www.fws.gov/waterfowlsurveys/.</p><p><strong>Credits:</strong></p><p><strong>Aerial Videography:</strong> Daniel Zatz (Zatzworks), Ron Chappelle and George McKeon (Aerial Filmworks), and Rob Gunter (Island Century Media)<br><strong>Still photos:</strong> Josh Beuth, Ron Bielefeld, Tim Bowman, W. Sean Boyd, Andre Breault, Francois Bulduc, Joe Evenson, Scott Gilliland, Coy Hill, Steve Hillebrand, Brian Johns, William Larned, Christine Lepage, Dennis Marks, John McKinnon, Bob Platte, Wade Schock, Caleb Spiegel, Matt Wilson.<br><strong>Video editing and production:</strong> Doug Canfield<br><strong>Narration:</strong> Doug Canfield<br><strong>Web development and programming:</strong> Nandi Xie</p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

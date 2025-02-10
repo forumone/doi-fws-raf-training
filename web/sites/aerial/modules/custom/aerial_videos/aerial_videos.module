@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Aerial Videos module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function aerial_videos_theme() {
+  return [
+    'aerial_species_block' => [
+      'variables' => [
+        'species_options' => [],
+      ],
+    ],
+  ];
+}

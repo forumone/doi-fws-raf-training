@@ -923,3 +923,5 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
  * Show header authentication links.
  */
 $config['system.site']['header_links_auth'] = TRUE;
+
+$settings['replace_species_with_manatee'] = TRUE;

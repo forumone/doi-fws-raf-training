@@ -1,0 +1,9 @@
+species-selection:
+  version: 1.x
+  js:
+    js/species-selection.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
