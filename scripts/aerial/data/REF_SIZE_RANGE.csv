@@ -1,0 +1,6 @@
+"SIZE_RANGE","DESCRIPTION","MIN","MAX","updated_by","updated_on"
+"1",<100,0,99,aws_user,2015-04-14 14:04:19.203
+"2","100-500",100,500,aws_user,2015-04-14 14:04:19.203
+"3","500-3,000",500,3000,aws_user,2015-04-14 14:04:19.203
+"4",">3,000 (images always displayed for 15 secs)",3001,,aws_user,2015-04-14 14:04:19.203
+"5",ANY,,,aws_user,2015-04-14 14:04:19.203

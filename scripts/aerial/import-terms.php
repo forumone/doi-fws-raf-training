@@ -1,215 +1,115 @@
+#!/usr/bin/env php
 <?php
 
 /**
  * @file
- * Import species groups and species taxonomy terms, along with video files.
+ * Import taxonomy terms from CSV files.
  */
 
-// Ensure we have a video directory.
-$video_destination = './sites/aerial/files/videos/';
-if (!file_exists($video_destination)) {
-  mkdir($video_destination, 0777, TRUE);
-}
+use Drupal\taxonomy\Entity\Term;
 
-// First, import species groups.
-$species_groups = [];
-$group_csv = dirname(__FILE__) . '/data/REF_SPECIES_GROUP.csv';
+// Define the mapping of CSV files to vocabularies.
+$imports = [
+  'species_id_difficulty' => [
+    'file' => 'REF_DIFFICULTY_LEVEL.csv',
+    'field' => 'field_difficulty_level',
+// DIFFICULTY_LEVEL column.
+    'value_column' => 0,
+// DESCRIPTION column.
+    'name_column' => 1,
+  ],
+];
 
-if (($handle = fopen($group_csv, "r")) !== FALSE) {
-  // Skip header row.
-  fgetcsv($handle);
+foreach ($imports as $vocabulary_id => $import_config) {
+  try {
+    // Check if vocabulary exists.
+    $vocabulary = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_vocabulary')
+      ->load($vocabulary_id);
 
-  while (($row = fgetcsv($handle)) !== FALSE) {
-    $group_id = $row[0];
-    $name = $row[1];
-
-    // Create or load the species group term.
-    $terms = \Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadByProperties([
-        'vid' => 'species_group',
-        'field_species_group_id' => $group_id,
-      ]);
-
-    if (empty($terms)) {
-      $term = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->create([
-          'vid' => 'species_group',
-          'name' => $name,
-          'field_species_group_id' => $group_id,
-        ]);
-      $term->save();
-      print("Created species group: {$name} (ID: {$group_id})\n");
-    }
-    else {
-      $term = reset($terms);
-      print("Found existing species group: {$name} (ID: {$group_id})\n");
-    }
-
-    $species_groups[$group_id] = $term;
-  }
-
-  fclose($handle);
-}
-
-// Next, read the video mapping from VIDEO_TRAINING.csv.
-$video_mapping = [];
-$video_csv = dirname(__FILE__) . '/data/VIDEO_TRAINING.csv';
-
-if (($handle = fopen($video_csv, "r")) !== FALSE) {
-  // Skip header row.
-  fgetcsv($handle);
-
-  while (($row = fgetcsv($handle)) !== FALSE) {
-    $file_name = $row[1];
-    $species_id = $row[2];
-    $resolution = $row[4];
-
-    // Only store HIGH resolution videos.
-    if ($resolution === 'HIGH') {
-      $video_mapping[$species_id] = $file_name . '.mp4';
-    }
-  }
-
-  fclose($handle);
-}
-
-print("\nFound " . count($video_mapping) . " HIGH resolution videos in CSV.\n");
-
-// Finally, import species terms and link videos.
-$species_csv = dirname(__FILE__) . '/data/REF_SPECIES.csv';
-$missing_files = [];
-
-if (($handle = fopen($species_csv, "r")) !== FALSE) {
-  // Skip header row.
-  fgetcsv($handle);
-
-  while (($row = fgetcsv($handle)) !== FALSE) {
-    $species_id = $row[0];
-    $code = $row[1];
-    $group_id = $row[2];
-    $name = $row[3];
-
-    // Skip if no group found.
-    if (!isset($species_groups[$group_id])) {
-      print("Warning: No group found for species {$name} (ID: {$species_id})\n");
+    if (!$vocabulary) {
+      echo "Error: Vocabulary '$vocabulary_id' does not exist. Please run create-species-id-difficulty.php first.\n";
       continue;
     }
 
-    // Prepare video file if exists.
-    $file = NULL;
-    if (isset($video_mapping[$species_id])) {
-      $filename = $video_mapping[$species_id];
-      $uri = 'public://videos/' . $filename;
+    // Read and import CSV data.
+    $csv_file = dirname(__FILE__) . '/data/' . $import_config['file'];
+    if (!file_exists($csv_file)) {
+      echo "CSV file not found at: $csv_file\n";
+      continue;
+    }
 
-      // Check if file exists locally.
-      if (!file_exists($video_destination . $filename)) {
-        $missing_files[] = $filename;
+    $handle = fopen($csv_file, 'r');
+    if (!$handle) {
+      echo "Could not open CSV file: $csv_file\n";
+      continue;
+    }
+
+    $count = 0;
+    $updates = 0;
+    $errors = [];
+
+    echo "\nProcessing $vocabulary_id terms from {$import_config['file']}:\n";
+
+    // Skip header row.
+    fgetcsv($handle);
+
+    // Process each row.
+    while (($data = fgetcsv($handle)) !== FALSE) {
+      if (count($data) < 2) {
+        $errors[] = "Invalid row format: " . implode(',', $data);
+        continue;
       }
 
-      // Create managed file entry.
-      $files = \Drupal::entityTypeManager()
-        ->getStorage('file')
-        ->loadByProperties(['uri' => $uri]);
+      $value = $data[$import_config['value_column']];
+      $name = $data[$import_config['name_column']];
 
-      if (empty($files)) {
-        $file = \Drupal::entityTypeManager()
-          ->getStorage('file')
-          ->create([
-            'uri' => $uri,
-            'filename' => $filename,
-            'filemime' => 'video/mp4',
-            'filesize' => file_exists($video_destination . $filename) ? filesize($video_destination . $filename) : 0,
-            'status' => 1,
-            'uid' => 1,
+      try {
+        // Check if term already exists.
+        $terms = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadByProperties([
+            'vid' => $vocabulary_id,
+            'name' => $name,
           ]);
-        $file->save();
-        print("Created file entry for: {$filename}\n");
+
+        if (!empty($terms)) {
+          $term = reset($terms);
+          $term->set($import_config['field'], $value);
+          $term->save();
+          $updates++;
+          echo "Updated term: $name\n";
+        }
+        else {
+          $term = Term::create([
+            'vid' => $vocabulary_id,
+            'name' => $name,
+            $import_config['field'] => $value,
+          ]);
+          $term->save();
+          $count++;
+          echo "Created term: $name\n";
+        }
       }
-      else {
-        $file = reset($files);
-        print("Found existing file: {$filename}\n");
+      catch (\Exception $e) {
+        $errors[] = "Error processing term '$name': " . $e->getMessage();
       }
     }
 
-    // Create or update species term.
-    $terms = \Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadByProperties([
-        'vid' => 'species',
-        'field_species_id' => $species_id,
-      ]);
+    fclose($handle);
 
-    if (empty($terms)) {
-      $term = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->create([
-          'vid' => 'species',
-          'name' => $name,
-          'field_species_id' => $species_id,
-          'field_species_code' => $code,
-          'field_species_group' => ['target_id' => $species_groups[$group_id]->id()],
-        ]);
+    echo "\nImport completed for $vocabulary_id:\n";
+    echo "- Created: $count terms\n";
+    echo "- Updated: $updates terms\n";
 
-      if ($file) {
-        $term->set('field_species_video', ['target_id' => $file->id()]);
+    if (!empty($errors)) {
+      echo "\nErrors encountered:\n";
+      foreach ($errors as $error) {
+        echo "- $error\n";
       }
-
-      $term->save();
-      print("Created species term: {$name} (ID: {$species_id})\n");
-    }
-    else {
-      $term = reset($terms);
-      $term->set('name', $name);
-      $term->set('field_species_code', $code);
-      $term->set('field_species_group', ['target_id' => $species_groups[$group_id]->id()]);
-
-      if ($file) {
-        $term->set('field_species_video', ['target_id' => $file->id()]);
-      }
-
-      $term->save();
-      print("Updated species term: {$name} (ID: {$species_id})\n");
     }
   }
-
-  fclose($handle);
-}
-
-// Report missing files if any.
-if (!empty($missing_files)) {
-  print("\nWARNING: The following video files need to be downloaded:\n");
-  foreach ($missing_files as $file) {
-    print("  - {$file}\n");
+  catch (\Exception $e) {
+    echo "Error processing vocabulary $vocabulary_id: " . $e->getMessage() . "\n";
   }
-  print("\nPlease download these files to web/sites/aerial/files/videos/ when ready.\n");
-  print("Total files to download: " . count($missing_files) . "\n");
 }
-
-// Report totals.
-$term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-$group_count = $term_storage->getQuery()
-  ->accessCheck(FALSE)
-  ->condition('vid', 'species_group')
-  ->count()
-  ->execute();
-
-$species_count = $term_storage->getQuery()
-  ->accessCheck(FALSE)
-  ->condition('vid', 'species')
-  ->count()
-  ->execute();
-
-$file_count = \Drupal::entityTypeManager()
-  ->getStorage('file')
-  ->getQuery()
-  ->accessCheck(FALSE)
-  ->condition('filemime', 'video/mp4')
-  ->count()
-  ->execute();
-
-print("\nImport complete:\n");
-print("- Species Groups: {$group_count}\n");
-print("- Species: {$species_count}\n");
-print("- Video Files: {$file_count}\n");
