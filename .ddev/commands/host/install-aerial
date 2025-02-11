@@ -24,6 +24,7 @@ ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-taxonomy
 ddev drush -l $SITE_URI en -y aerial_videos
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
+ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-media
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
 ddev drush -l $SITE_URI cr
 
