@@ -81,6 +81,31 @@ $imports = [
     'name_column' => 1,
   ],
   'species' => [
+    'file' => 'REF_SPECIES.csv',
+    'field' => 'field_species_id',
+    // SPECIES column.
+    'value_column' => 0,
+    // DESCRIPTION column.
+    'name_column' => 3,
+    // Additional fields specific to species.
+    'additional_fields' => [
+      // SPECIES_CODE column.
+      'field_species_code' => 1,
+      // SPECIES_GROUP column.
+      'field_species_group' => [
+        'type' => 'reference',
+        'vocabulary' => 'species_group',
+        'field' => 'field_species_group_id',
+        'column' => 2,
+      ],
+      // Set is_test_species to 0 for base species.
+      'field_is_test_species' => [
+        'type' => 'boolean',
+        'value' => 0,
+      ],
+    ],
+  ],
+  'species_test' => [
     'file' => 'REF_SPECIES_FOR_TEST.csv',
     'field' => 'field_species_id',
     // SPECIES column.
@@ -98,17 +123,10 @@ $imports = [
         'field' => 'field_species_group_id',
         'column' => 2,
       ],
-      // IS_TEST column (1 for test species, 0 for non-test).
+      // Set is_test_species to 1 for test species.
       'field_is_test_species' => [
         'type' => 'boolean',
-        'value' => 0,
-      ],
-    ],
-    // Configuration for looking up referenced terms.
-    'field_references' => [
-      'field_species_group' => [
-        'vocabulary' => 'species_group',
-        'field' => 'field_species_group_id',
+        'value' => 1,
       ],
     ],
   ],
@@ -117,13 +135,16 @@ $imports = [
 // Import the basic vocabularies first.
 foreach ($imports as $vocabulary_id => $import_config) {
   try {
+    // For both species imports, use the species vocabulary.
+    $actual_vocabulary_id = $vocabulary_id === 'species_test' ? 'species' : $vocabulary_id;
+
     // Check if vocabulary exists.
     $vocabulary = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_vocabulary')
-      ->load($vocabulary_id);
+      ->load($actual_vocabulary_id);
 
     if (!$vocabulary) {
-      echo "Error: Vocabulary '$vocabulary_id' does not exist.\n";
+      echo "Error: Vocabulary '$actual_vocabulary_id' does not exist.\n";
       continue;
     }
 
@@ -144,7 +165,7 @@ foreach ($imports as $vocabulary_id => $import_config) {
     $updates = 0;
     $errors = [];
 
-    echo "\nProcessing $vocabulary_id terms from {$import_config['file']}:\n";
+    echo "\nProcessing $actual_vocabulary_id terms from {$import_config['file']}:\n";
 
     // Skip header row.
     fgetcsv($handle);
@@ -164,13 +185,13 @@ foreach ($imports as $vocabulary_id => $import_config) {
         $terms = \Drupal::entityTypeManager()
           ->getStorage('taxonomy_term')
           ->loadByProperties([
-            'vid' => $vocabulary_id,
+            'vid' => $actual_vocabulary_id,
             $import_config['field'] => $value,
           ]);
 
         // Prepare term data.
         $term_data = [
-          'vid' => $vocabulary_id,
+          'vid' => $actual_vocabulary_id,
           'name' => $name,
           $import_config['field'] => $value,
         ];
@@ -235,7 +256,7 @@ foreach ($imports as $vocabulary_id => $import_config) {
 
     fclose($handle);
 
-    echo "\nImport completed for $vocabulary_id:\n";
+    echo "\nImport completed for $actual_vocabulary_id:\n";
     echo "- Created: $count terms\n";
     echo "- Updated: $updates terms\n";
 
@@ -247,7 +268,7 @@ foreach ($imports as $vocabulary_id => $import_config) {
     }
   }
   catch (\Exception $e) {
-    echo "Error processing vocabulary $vocabulary_id: " . $e->getMessage() . "\n";
+    echo "Error processing vocabulary $actual_vocabulary_id: " . $e->getMessage() . "\n";
   }
 }
 
