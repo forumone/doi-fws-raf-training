@@ -7,6 +7,7 @@ dependencies:
     - field.field.media.species_video.field_elapsed_time
     - field.field.media.species_video.field_species
     - field.field.media.species_video.field_difficulty_level
+    - field.field.media.species_video.field_species_choices
     - media.type.species_video
   module:
     - file
@@ -50,6 +51,12 @@ content:
     region: content
     settings: { }
     third_party_settings: { }
+  field_species_choices:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: { }
+    third_party_settings: { }
   name:
     type: string_textfield
     weight: 0
@@ -60,7 +67,7 @@ content:
     third_party_settings: { }
   status:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true

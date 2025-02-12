@@ -7,6 +7,7 @@ dependencies:
     - field.field.media.species_video.field_elapsed_time
     - field.field.media.species_video.field_species
     - field.field.media.species_video.field_difficulty_level
+    - field.field.media.species_video.field_species_choices
     - media.type.species_video
   module:
     - file
@@ -60,6 +61,14 @@ content:
     settings:
       link: true
     weight: 5
+    region: content
+    third_party_settings: { }
+  field_species_choices:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    weight: 6
     region: content
     third_party_settings: { }
   name:
