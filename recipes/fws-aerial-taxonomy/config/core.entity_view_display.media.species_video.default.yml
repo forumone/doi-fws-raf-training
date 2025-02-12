@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.species_video.field_video_file
+    - field.field.media.species_video.field_location
+    - field.field.media.species_video.field_elapsed_time
+    - field.field.media.species_video.field_species
+    - field.field.media.species_video.field_difficulty_level
+    - media.type.species_video
+  module:
+    - file
+id: media.species_video.default
+targetEntityType: media
+bundle: species_video
+mode: default
+content:
+  field_video_file:
+    type: file_video
+    label: above
+    settings:
+      controls: true
+      autoplay: false
+      loop: false
+      multiple_file_display_type: tags
+      muted: false
+      width: 640
+      height: 480
+    weight: 1
+    region: content
+    third_party_settings: { }
+  field_location:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    weight: 2
+    region: content
+    third_party_settings: { }
+  field_elapsed_time:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 3
+    region: content
+    third_party_settings: { }
+  field_species:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    weight: 4
+    region: content
+    third_party_settings: { }
+  field_difficulty_level:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    weight: 5
+    region: content
+    third_party_settings: { }
+  name:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: { }
+hidden:
+  created: true
+  thumbnail: true
+  uid: true
