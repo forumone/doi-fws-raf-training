@@ -61,7 +61,7 @@ print("\nFound " . count($video_mapping) . " HIGH resolution videos in CSV.\n");
 
 // Define the mapping of CSV files to vocabularies.
 $imports = [
-  'difficulty_level' => [
+  'species_counting_difficulty' => [
     'file' => 'REF_DIFFICULTY_LEVEL.csv',
     'field' => 'field_difficulty_level',
     // DIFFICULTY_LEVEL column.

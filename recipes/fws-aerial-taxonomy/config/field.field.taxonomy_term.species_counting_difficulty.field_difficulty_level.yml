@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_difficulty_level
-    - taxonomy.vocabulary.difficulty_level
-id: taxonomy_term.difficulty_level.field_difficulty_level
+    - taxonomy.vocabulary.species_counting_difficulty
+id: taxonomy_term.species_counting_difficulty.field_difficulty_level
 field_name: field_difficulty_level
 entity_type: taxonomy_term
-bundle: difficulty_level
+bundle: species_counting_difficulty
 label: 'Difficulty Level ID'
 description: 'The unique identifier for this difficulty level'
 required: true

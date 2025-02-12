@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.difficulty_level.field_difficulty_level
-    - taxonomy.vocabulary.difficulty_level
+    - field.field.taxonomy_term.species_counting_difficulty.field_difficulty_level
+    - taxonomy.vocabulary.species_counting_difficulty
   module:
     - text
-id: taxonomy_term.difficulty_level.default
+id: taxonomy_term.species_counting_difficulty.default
 targetEntityType: taxonomy_term
-bundle: difficulty_level
+bundle: species_counting_difficulty
 mode: default
 content:
   description:
