@@ -19,6 +19,26 @@ if (!file_exists($video_destination)) {
 $video_mapping = [];
 $video_csv = dirname(__FILE__) . '/data/VIDEO_TRAINING.csv';
 
+// Read species-region mappings.
+$species_region_mapping = [];
+$species_region_csv = dirname(__FILE__) . '/data/REF_SPECIES_REGION.csv';
+
+if (($handle = fopen($species_region_csv, "r")) !== FALSE) {
+  // Skip header row.
+  fgetcsv($handle);
+
+  while (($row = fgetcsv($handle)) !== FALSE) {
+    $species_id = $row[0];
+    $region_id = $row[1];
+    if (!isset($species_region_mapping[$species_id])) {
+      $species_region_mapping[$species_id] = [];
+    }
+    $species_region_mapping[$species_id][] = $region_id;
+  }
+
+  fclose($handle);
+}
+
 if (($handle = fopen($video_csv, "r")) !== FALSE) {
   // Skip header row.
   fgetcsv($handle);
@@ -41,10 +61,18 @@ print("\nFound " . count($video_mapping) . " HIGH resolution videos in CSV.\n");
 
 // Define the mapping of CSV files to vocabularies.
 $imports = [
-  'species_id_difficulty' => [
+  'difficulty_level' => [
     'file' => 'REF_DIFFICULTY_LEVEL.csv',
     'field' => 'field_difficulty_level',
     // DIFFICULTY_LEVEL column.
+    'value_column' => 0,
+    // DESCRIPTION column.
+    'name_column' => 1,
+  ],
+  'species_id_difficulty' => [
+    'file' => 'REF_VIDEO_DIFFICULTY_LEVEL.csv',
+    'field' => 'field_difficulty_level',
+    // VIDEO_DIFFICULTY_LEVEL column.
     'value_column' => 0,
     // DESCRIPTION column.
     'name_column' => 1,
@@ -103,6 +131,16 @@ $imports = [
         'type' => 'boolean',
         'value' => 0,
       ],
+      // Add region references.
+      'field_region' => [
+        'type' => 'reference_multiple',
+        'vocabulary' => 'geographic_region',
+        'field' => 'field_geographic_region_id',
+        'lookup_callback' => function ($data) use ($species_region_mapping) {
+          $species_id = $data[0];
+          return $species_region_mapping[$species_id] ?? [];
+        },
+      ],
     ],
   ],
   'species_test' => [
@@ -127,6 +165,16 @@ $imports = [
       'field_is_test_species' => [
         'type' => 'boolean',
         'value' => 1,
+      ],
+      // Add region references.
+      'field_region' => [
+        'type' => 'reference_multiple',
+        'vocabulary' => 'geographic_region',
+        'field' => 'field_geographic_region_id',
+        'lookup_callback' => function ($data) use ($species_region_mapping) {
+          $species_id = $data[0];
+          return $species_region_mapping[$species_id] ?? [];
+        },
       ],
     ],
   ],
@@ -200,21 +248,40 @@ foreach ($imports as $vocabulary_id => $import_config) {
         if (isset($import_config['additional_fields'])) {
           foreach ($import_config['additional_fields'] as $field => $config) {
             if (is_array($config)) {
-              if (isset($config['type']) && $config['type'] === 'reference') {
-                // Handle reference fields.
-                $ref_terms = \Drupal::entityTypeManager()
-                  ->getStorage('taxonomy_term')
-                  ->loadByProperties([
-                    'vid' => $config['vocabulary'],
-                    $config['field'] => $data[$config['column']],
-                  ]);
-                if (!empty($ref_terms)) {
-                  $ref_term = reset($ref_terms);
-                  $term_data[$field] = ['target_id' => $ref_term->id()];
+              if (isset($config['type'])) {
+                if ($config['type'] === 'reference') {
+                  // Handle reference fields.
+                  $ref_terms = \Drupal::entityTypeManager()
+                    ->getStorage('taxonomy_term')
+                    ->loadByProperties([
+                      'vid' => $config['vocabulary'],
+                      $config['field'] => $data[$config['column']],
+                    ]);
+                  if (!empty($ref_terms)) {
+                    $ref_term = reset($ref_terms);
+                    $term_data[$field] = ['target_id' => $ref_term->id()];
+                  }
                 }
-              }
-              elseif (isset($config['type']) && $config['type'] === 'boolean') {
-                $term_data[$field] = ['value' => $config['value']];
+                elseif ($config['type'] === 'reference_multiple') {
+                  // Handle multiple reference fields.
+                  $ref_ids = $config['lookup_callback']($data);
+                  if (!empty($ref_ids)) {
+                    $ref_terms = \Drupal::entityTypeManager()
+                      ->getStorage('taxonomy_term')
+                      ->loadByProperties([
+                        'vid' => $config['vocabulary'],
+                        $config['field'] => $ref_ids,
+                      ]);
+                    if (!empty($ref_terms)) {
+                      $term_data[$field] = array_map(function ($term) {
+                        return ['target_id' => $term->id()];
+                      }, array_values($ref_terms));
+                    }
+                  }
+                }
+                elseif ($config['type'] === 'boolean') {
+                  $term_data[$field] = ['value' => $config['value']];
+                }
               }
             }
             else {

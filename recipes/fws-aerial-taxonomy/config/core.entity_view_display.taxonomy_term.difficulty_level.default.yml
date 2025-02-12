@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.difficulty_level.field_difficulty_level
+    - taxonomy.vocabulary.difficulty_level
+  module:
+    - text
+id: taxonomy_term.difficulty_level.default
+targetEntityType: taxonomy_term
+bundle: difficulty_level
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_difficulty_level:
+    type: string
+    label: above
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }
