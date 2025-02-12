@@ -1,17 +1,13 @@
-uuid: c0274dab-81b4-496e-95ea-8bf6f1e28de0
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_species_code
-field_name: field_species_code
+id: taxonomy_term.field_is_test_species
+field_name: field_is_test_species
 entity_type: taxonomy_term
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+type: boolean
+settings: {}
 module: core
 locked: false
 cardinality: 1
