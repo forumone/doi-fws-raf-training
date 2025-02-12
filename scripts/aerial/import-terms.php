@@ -26,6 +26,21 @@ $imports = [
   // DESCRIPTION column.
     'name_column' => 1,
   ],
+  'size_range' => [
+    'file' => 'REF_SIZE_RANGE.csv',
+    'field' => 'field_size_range_id',
+    // SIZE_RANGE column.
+    'value_column' => 0,
+    // DESCRIPTION column.
+    'name_column' => 1,
+    // Additional fields specific to size range.
+    'additional_fields' => [
+  // MIN_SIZE column.
+      'field_size_range_min' => 2,
+  // MAX_SIZE column.
+      'field_size_range_max' => 3,
+    ],
+  ],
 ];
 
 foreach ($imports as $vocabulary_id => $import_config) {
@@ -81,19 +96,32 @@ foreach ($imports as $vocabulary_id => $import_config) {
             'name' => $name,
           ]);
 
+        // Prepare term data.
+        $term_data = [
+          'vid' => $vocabulary_id,
+          'name' => $name,
+          $import_config['field'] => $value,
+        ];
+
+        // Add additional fields if configured (for size range)
+        if (isset($import_config['additional_fields'])) {
+          foreach ($import_config['additional_fields'] as $field => $column) {
+            $term_data[$field] = $data[$column];
+          }
+        }
+
         if (!empty($terms)) {
           $term = reset($terms);
-          $term->set($import_config['field'], $value);
+          // Update all configured fields.
+          foreach ($term_data as $field => $field_value) {
+            $term->set($field, $field_value);
+          }
           $term->save();
           $updates++;
           echo "Updated term: $name\n";
         }
         else {
-          $term = Term::create([
-            'vid' => $vocabulary_id,
-            'name' => $name,
-            $import_config['field'] => $value,
-          ]);
+          $term = Term::create($term_data);
           $term->save();
           $count++;
           echo "Created term: $name\n";

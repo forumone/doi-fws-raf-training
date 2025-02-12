@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Size Range'
+vid: size_range
+description: 'Size ranges for aerial surveys'
+weight: 0

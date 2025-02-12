@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_size_range_id
+    - taxonomy.vocabulary.size_range
+id: taxonomy_term.size_range.field_size_range_id
+field_name: field_size_range_id
+entity_type: taxonomy_term
+bundle: size_range
+label: 'Size Range ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 99
+  prefix: ''
+  suffix: ''
+field_type: integer

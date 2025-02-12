@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.size_range.field_size_range_id
+    - field.field.taxonomy_term.size_range.field_size_range_min
+    - field.field.taxonomy_term.size_range.field_size_range_max
+    - taxonomy.vocabulary.size_range
+id: taxonomy_term.size_range.default
+targetEntityType: taxonomy_term
+bundle: size_range
+mode: default
+content:
+  field_size_range_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 1
+    region: content
+    third_party_settings: {}
+  field_size_range_min:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 2
+    region: content
+    third_party_settings: {}
+  field_size_range_max:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 3
+    region: content
+    third_party_settings: {}
