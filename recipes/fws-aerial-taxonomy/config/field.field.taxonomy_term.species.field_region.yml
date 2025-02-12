@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_region
+    - taxonomy.vocabulary.geographic_region
+    - taxonomy.vocabulary.species
+id: taxonomy_term.species.field_region
+field_name: field_region
+entity_type: taxonomy_term
+bundle: species
+label: Region
+description: 'Geographic regions where this species can be found'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      geographic_region: geographic_region
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
