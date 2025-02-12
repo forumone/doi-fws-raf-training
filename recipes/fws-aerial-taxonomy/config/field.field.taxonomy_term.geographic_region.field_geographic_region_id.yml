@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_geographic_region_id
+    - taxonomy.vocabulary.geographic_region
+id: taxonomy_term.geographic_region.field_geographic_region_id
+field_name: field_geographic_region_id
+entity_type: taxonomy_term
+bundle: geographic_region
+label: 'Geographic Region ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 99
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.geographic_region.field_geographic_region_id
+    - taxonomy.vocabulary.geographic_region
+id: taxonomy_term.geographic_region.default
+targetEntityType: taxonomy_term
+bundle: geographic_region
+mode: default
+content:
+  field_geographic_region_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 1
+    region: content
+    third_party_settings: {}

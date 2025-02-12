@@ -18,6 +18,14 @@ $imports = [
 // DESCRIPTION column.
     'name_column' => 1,
   ],
+  'geographic_region' => [
+    'file' => 'REF_GEOGRAPHIC_REGION.csv',
+    'field' => 'field_geographic_region_id',
+  // GEOGRAPHIC_REGION column.
+    'value_column' => 0,
+  // DESCRIPTION column.
+    'name_column' => 1,
+  ],
 ];
 
 foreach ($imports as $vocabulary_id => $import_config) {

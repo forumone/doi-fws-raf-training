@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Geographic Region'
+vid: geographic_region
+description: 'Geographic regions for aerial surveys'
+weight: 0
