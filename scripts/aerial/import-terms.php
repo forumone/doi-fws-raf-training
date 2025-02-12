@@ -41,6 +41,14 @@ $imports = [
       'field_size_range_max' => 3,
     ],
   ],
+  'species_group' => [
+    'file' => 'REF_SPECIES_GROUP.csv',
+    'field' => 'field_species_group_id',
+    // SPECIES_GROUP column.
+    'value_column' => 0,
+    // DESCRIPTION column.
+    'name_column' => 1,
+  ],
 ];
 
 foreach ($imports as $vocabulary_id => $import_config) {
