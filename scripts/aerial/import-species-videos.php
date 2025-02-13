@@ -7,6 +7,7 @@
  */
 
 use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
 
 // Read CSV files.
 $csv_file = dirname(__FILE__) . '/data/VIDEO_FILE_METADATA.csv';
@@ -63,12 +64,45 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   }
 
   $file_id = $data[0];
+  $file_name = $data[1];
   $location = trim($data[2]);
   $elapsed_time = (int) $data[3];
   $species_id = $data[4];
   $difficulty_level = $data[5];
 
+  // Construct video filename with suffix.
+  $video_filename = $file_name . '_2030kbps.mp4';
+  $video_uri = 'public://videos/test/' . $video_filename;
+  $real_path = DRUPAL_ROOT . '/sites/aerial/files/videos/test/' . $video_filename;
+
+  // Check if video file exists.
+  if (!file_exists($real_path)) {
+    $errors[] = "Video file not found: $video_filename";
+    continue;
+  }
+
   try {
+    // Create or load the managed file entity for the video.
+    $files = \Drupal::entityTypeManager()
+      ->getStorage('file')
+      ->loadByProperties(['uri' => $video_uri]);
+
+    if (empty($files)) {
+      // Create new managed file.
+      $file = File::create([
+        'uri' => $video_uri,
+        'uid' => 1,
+        'status' => 1,
+        'filename' => $video_filename,
+      ]);
+      $file->save();
+      echo "Created file entity for: $video_filename\n";
+    }
+    else {
+      $file = reset($files);
+      echo "Found existing file: $video_filename\n";
+    }
+
     // Look up the species term.
     $species_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
@@ -133,6 +167,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       $media->set('field_elapsed_time', $elapsed_time);
       $media->set('field_species', ['target_id' => $species_term->id()]);
       $media->set('field_difficulty_level', ['target_id' => $difficulty_term->id()]);
+      $media->set('field_video_file', ['target_id' => $file->id()]);
       if (!empty($species_choices_refs)) {
         $media->set('field_species_choices', $species_choices_refs);
       }
@@ -149,6 +184,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'field_elapsed_time' => $elapsed_time,
         'field_species' => ['target_id' => $species_term->id()],
         'field_difficulty_level' => ['target_id' => $difficulty_term->id()],
+        'field_video_file' => ['target_id' => $file->id()],
         'field_species_choices' => $species_choices_refs,
         'status' => 1,
       ]);
