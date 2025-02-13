@@ -4,7 +4,7 @@
  * @file
  * Prepares file_managed entries for species videos before content import.
  *
- * This script reads the species data from the content recipe and VIDEO_TRAINING.csv,
+ * This script reads the species data from the content recipe,
  * then creates the necessary file_managed entries with correct UUIDs.
  */
 

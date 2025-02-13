@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'Species Group'
 vid: species_group
-description: 'Groups of species for aerial videos'
+description: 'Groups of related species for aerial surveys'
 weight: 0
 new_revision: false

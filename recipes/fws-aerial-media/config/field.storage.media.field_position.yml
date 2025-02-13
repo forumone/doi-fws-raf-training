@@ -1,0 +1,27 @@
+uuid: 2107937a-1d3c-4cf6-afe9-4eb869d02eea
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - options
+id: media.field_position
+field_name: field_position
+entity_type: media
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: slide
+      label: Slide
+    -
+      value: static
+      label: Static
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

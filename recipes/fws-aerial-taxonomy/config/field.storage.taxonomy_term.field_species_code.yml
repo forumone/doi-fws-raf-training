@@ -9,7 +9,7 @@ field_name: field_species_code
 entity_type: taxonomy_term
 type: string
 settings:
-  max_length: 4
+  max_length: 255
   case_sensitive: false
   is_ascii: false
 module: core

@@ -1,0 +1,77 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.species_video.field_video_file
+    - field.field.media.species_video.field_location
+    - field.field.media.species_video.field_elapsed_time
+    - field.field.media.species_video.field_species
+    - field.field.media.species_video.field_difficulty_level
+    - field.field.media.species_video.field_species_choices
+    - media.type.species_video
+  module:
+    - file
+    - path
+id: media.species_video.default
+targetEntityType: media
+bundle: species_video
+mode: default
+content:
+  field_video_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: { }
+  field_location:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  field_elapsed_time:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: { }
+  field_species:
+    type: options_select
+    weight: 4
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_difficulty_level:
+    type: options_select
+    weight: 5
+    region: content
+    settings: { }
+    third_party_settings: { }
+  field_species_choices:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: { }
+    third_party_settings: { }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: { }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: { }
+hidden:
+  created: true
+  uid: true

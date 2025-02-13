@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Counting Difficulty'
+vid: species_counting_difficulty
+description: 'Difficulty levels for counting species in aerial surveys'
+weight: 0

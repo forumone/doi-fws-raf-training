@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.species_group.field_species_group_id
+    - taxonomy.vocabulary.species_group
+id: taxonomy_term.species_group.default
+targetEntityType: taxonomy_term
+bundle: species_group
+mode: default
+content:
+  field_species_group_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 1
+    region: content
+    third_party_settings: {}

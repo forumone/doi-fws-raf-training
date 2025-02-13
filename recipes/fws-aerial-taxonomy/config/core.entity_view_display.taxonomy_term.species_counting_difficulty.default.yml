@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.species_counting_difficulty.field_difficulty_level
+    - taxonomy.vocabulary.species_counting_difficulty
+  module:
+    - text
+id: taxonomy_term.species_counting_difficulty.default
+targetEntityType: taxonomy_term
+bundle: species_counting_difficulty
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_difficulty_level:
+    type: string
+    label: above
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

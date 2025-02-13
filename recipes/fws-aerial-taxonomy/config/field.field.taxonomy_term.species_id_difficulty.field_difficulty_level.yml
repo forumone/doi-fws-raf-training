@@ -1,0 +1,23 @@
+uuid: 227c3ede-2d77-444a-8278-3bc8ca67d7b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_difficulty_level
+    - taxonomy.vocabulary.species_id_difficulty
+id: taxonomy_term.species_id_difficulty.field_difficulty_level
+field_name: field_difficulty_level
+entity_type: taxonomy_term
+bundle: species_id_difficulty
+label: 'Difficulty Level'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 10
+  prefix: ''
+  suffix: ''
+field_type: integer

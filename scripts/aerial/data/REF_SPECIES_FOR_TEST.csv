@@ -1,0 +1,75 @@
+"SPECIES","SPECIES_CODE","SPECIES_GROUP","DESCRIPTION","updated_by","updated_on"
+"101",SNGO,"1",Snow Goose,nandi_xie@fws.gov,2015-05-12 15:32:07.987
+"102",CAGO,"1",Canada Goose,nandi_xie@fws.gov,2015-05-12 15:32:07.987
+"103",WFGO,"1",White-fronted Goose,nandi_xie@fws.gov,2015-05-12 15:32:08.000
+"104",BRAN,"1",Brant,nandi_xie@fws.gov,2015-05-12 15:32:08.000
+"105",EMGO,"1",Emperor Goose,nandi_xie@fws.gov,2015-05-12 15:32:08.000
+"106",SWAN,"1",Swan (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:07.953
+"110",SACR,"1",Sandhill Crane,nandi_xie@fws.gov,2015-05-12 15:32:07.970
+"111",TRSW,"1",Trumpeter Swan,nandi_xie@fws.gov,2015-05-12 15:32:07.953
+"112",MUSW,"1",Mute Swan,nandi_xie@fws.gov,2015-05-12 15:32:07.953
+"113",WHCR,"1",Whooping Crane,nandi_xie@fws.gov,2015-05-12 15:32:07.970
+"114",TUSW,"1",Tundra Swan,nandi_xie@fws.gov,2015-05-12 15:32:07.953
+"201",MALL,"2",Mallard,nandi_xie@fws.gov,2015-05-12 15:32:08.237
+"202",MODU,"2",Mottled Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.250
+"203",ABDU,"2",American Black Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.250
+"204",NOPI,"2",Northern Pintail,nandi_xie@fws.gov,2015-05-12 15:32:08.267
+"205",AGWT,"2",American Green-winged Teal,nandi_xie@fws.gov,2015-05-12 15:32:08.267
+"206",BWTE,"2",Blue-winged Teal,nandi_xie@fws.gov,2015-05-12 15:32:08.283
+"207",CITE,"2",Cinnamon Teal,nandi_xie@fws.gov,2015-05-12 15:32:08.297
+"209",NSHO,"2",Northern Shoveler,nandi_xie@fws.gov,2015-05-12 15:32:08.297
+"210",GADW,"2",Gadwall,nandi_xie@fws.gov,2015-05-12 15:32:08.313
+"211",AMWI,"2",American Wigeon,nandi_xie@fws.gov,2015-05-12 15:32:08.313
+"212",WODU,"2",Wood Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.330
+"214",BWCT,"2",Blue-winged/Cinnamon Teal,nandi_xie@fws.gov,2015-05-12 15:32:08.297
+"303",SCAU,"3",Scaup (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.203
+"304",RNDU,"3",Ring-necked Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.220
+"305",REDH,"3",Redhead,nandi_xie@fws.gov,2015-05-12 15:32:08.220
+"306",CANV,"3",Canvasback,nandi_xie@fws.gov,2015-05-12 15:32:08.237
+"307",RUDU,"3",Ruddy Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.237
+"308",GRSC,"3",Greater Scaup,nandi_xie@fws.gov,2015-05-12 15:32:08.203
+"309",LESC,"3",Lesser Scaup,nandi_xie@fws.gov,2015-05-12 15:32:08.203
+"401",COEI,"4",Common Eider,nandi_xie@fws.gov,2015-05-12 15:32:08.017
+"402",KIEI,"4",King Eider,nandi_xie@fws.gov,2015-05-12 15:32:08.017
+"403",SPEI,"4",Spectacled Eider,nandi_xie@fws.gov,2015-05-12 15:32:08.033
+"404",STEI,"4",Stellers Eider,nandi_xie@fws.gov,2015-05-12 15:32:08.047
+"406",BLSC,"4",Black Scoter,nandi_xie@fws.gov,2015-05-12 15:32:08.063
+"407",WWSC,"4",White-winged Scoter,nandi_xie@fws.gov,2015-05-12 15:32:08.063
+"408",SUSC,"4",Surf Scoter,nandi_xie@fws.gov,2015-05-12 15:32:08.080
+"409",SCOT,"4",Scoter (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.080
+"410",LTDU,"4",Long-tailed Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.093
+"411",HARD,"4",Harlequin Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.110
+"412",COME,"4",Common Merganser,nandi_xie@fws.gov,2015-05-12 15:32:08.127
+"413",RBME,"4",Red-breasted Merganser,nandi_xie@fws.gov,2015-05-12 15:32:08.140
+"414",HOME,"4",Hooded Merganser,nandi_xie@fws.gov,2015-05-12 15:32:08.157
+"416",COGO,"4",Common Goldeneye,nandi_xie@fws.gov,2015-05-12 15:32:08.173
+"417",BAGO,"4",Barrows Goldeneye,nandi_xie@fws.gov,2015-05-12 15:32:08.173
+"419",BUFF,"4",Bufflehead,nandi_xie@fws.gov,2015-05-12 15:32:08.190
+"420",EIDR,"4",Eider (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.047
+"421",MERG,"4",Merganser (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.157
+"422",GOLD,"4",Goldeneye (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.190
+"501",BBWD,"5",Black-bellied Whistling Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.017
+"502",FUWD,"5",Fulvous Whistling Duck,nandi_xie@fws.gov,2015-05-12 15:32:08.017
+"601",COLO,"6",Common Loon,nandi_xie@fws.gov,2015-05-12 15:32:08.330
+"602",RTLO,"6",Red-throated Loon,nandi_xie@fws.gov,2015-05-12 15:32:08.343
+"603",PALO,"6",Pacific Loon,nandi_xie@fws.gov,2015-05-12 15:32:08.343
+"604",YBLO,"6",Yellow-billed Loon,nandi_xie@fws.gov,2015-05-12 15:32:08.343
+"605",LOON,"6",Loon (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.343
+"701",AMCO,"7",American Coot,nandi_xie@fws.gov,2015-05-12 15:32:08.360
+"702",PBGR,"7",Pied-billed Grebe,nandi_xie@fws.gov,2015-05-12 15:32:08.360
+"703",HOGR,"7",Horned Grebe,nandi_xie@fws.gov,2015-05-12 15:32:08.377
+"705",EAGR,"7",Eared Grebe,nandi_xie@fws.gov,2015-05-12 15:32:08.377
+"706",WEGR,"7",Western Grebe,nandi_xie@fws.gov,2015-05-12 15:32:08.377
+"708",AMBI,"7",American Bittern,nandi_xie@fws.gov,2015-05-12 15:32:08.390
+"709",PIGU,"7",Pigeon Guillemot,nandi_xie@fws.gov,2015-05-12 15:32:08.390
+"710",GUIL,"7",Guillemot (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.390
+"711",MURR,"7",Murre (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.407
+"712",CORM,"7",Cormorant (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.407
+"713",AWPE,"7",American White Pelican,nandi_xie@fws.gov,2015-05-12 15:32:08.407
+"714",GRBH,"7",Great Blue Heron,nandi_xie@fws.gov,2015-05-12 15:32:08.423
+"715",WIPT,"7",Willow Ptarmagain,nandi_xie@fws.gov,2015-05-12 15:32:08.390
+"716",PUGA,"7",Purple Gallinule,nandi_xie@fws.gov,2015-05-12 15:32:08.360
+"717",COGA,"7",Common Gallinule,nandi_xie@fws.gov,2015-05-12 15:32:08.360
+"718",COMO,"7",Common Moorhen,nandi_xie@fws.gov,2015-05-12 15:32:08.360
+"719",GREB,"7",Grebe (species unidentified),nandi_xie@fws.gov,2015-05-12 15:32:08.377
+"720",RNEP,"7",Ring-necked Pheasant,nandi_xie@fws.gov,2015-05-12 15:32:08.390
