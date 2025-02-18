@@ -15,27 +15,15 @@ class CountingQuizController extends ControllerBase {
    * @return array
    *   A render array for the debug page.
    */
-  public function display() {
-    // Get parameters from tempstore.
-    $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
-    $experience_level = $tempstore->get('experience_level');
+  public function display($experience_level, $size_range) {
+    // The experience_level parameter is already a loaded term entity due to the route parameter conversion.
+    $experience_term = $experience_level;
 
-    $size_range = $tempstore->get('size_range');
-
-    if (!$experience_level || !$size_range) {
-      return [
-        '#markup' => $this->t('No parameters found in session. Please start from the beginning.'),
-      ];
-    }
-
-    // Load the terms.
-    $experience_term = $this->entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->load($experience_level);
-
+    // Convert the size_range string parameter back to an array and load terms.
+    $size_range_ids = explode(',', $size_range);
     $size_terms = $this->entityTypeManager()
       ->getStorage('taxonomy_term')
-      ->loadMultiple((array) $size_range);
+      ->loadMultiple($size_range_ids);
 
     // Build the query conditions for the size ranges.
     $query = $this->entityTypeManager()->getStorage('media')->getQuery()

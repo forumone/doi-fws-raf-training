@@ -117,7 +117,19 @@ class CountingConfirmationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('fws_counting.quiz');
+    // Get the parameters from tempstore.
+    $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
+    $experience_level = $tempstore->get('experience_level');
+    $size_range = $tempstore->get('size_range');
+
+    // Convert size_range array to comma-separated string.
+    $size_range_string = implode(',', (array) $size_range);
+
+    // Redirect to the quiz page with parameters.
+    $form_state->setRedirect('fws_counting.quiz', [
+      'experience_level' => $experience_level,
+      'size_range' => $size_range_string,
+    ]);
   }
 
 }

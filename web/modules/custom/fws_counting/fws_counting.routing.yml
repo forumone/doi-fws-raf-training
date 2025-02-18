@@ -31,9 +31,15 @@ fws_counting.confirmation:
     _permission: 'access content'
 
 fws_counting.quiz:
-  path: '/test-your-counting-skills/quiz'
+  path: '/test-your-counting-skills/quiz/{experience_level}/{size_range}'
   defaults:
     _controller: '\Drupal\fws_counting\Controller\CountingQuizController::display'
     _title: 'Test Your Counting Skills'
+  options:
+    parameters:
+      experience_level:
+        type: entity:taxonomy_term
+      size_range:
+        type: string
   requirements:
     _permission: 'access content'
