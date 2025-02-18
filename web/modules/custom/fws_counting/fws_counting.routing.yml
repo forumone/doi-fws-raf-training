@@ -29,3 +29,11 @@ fws_counting.confirmation:
     _title: 'Test Your Counting Skills'
   requirements:
     _permission: 'access content'
+
+fws_counting.quiz:
+  path: '/test-your-counting-skills/quiz'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingQuizController::display'
+    _title: 'Test Your Counting Skills'
+  requirements:
+    _permission: 'access content'

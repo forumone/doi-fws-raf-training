@@ -117,9 +117,7 @@ class CountingConfirmationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // For now, we'll just redirect back to the first page
-    // This will be updated when we implement the actual test.
-    $form_state->setRedirect('fws_counting.test_skills');
+    $form_state->setRedirect('fws_counting.quiz');
   }
 
 }

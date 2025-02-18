@@ -24,5 +24,12 @@ function fws_counting_theme() {
     'counting_confirmation_form' => [
       'render element' => 'form',
     ],
+    'counting_quiz' => [
+      'variables' => [
+        'experience_level' => NULL,
+        'size_ranges' => [],
+        'images' => [],
+      ],
+    ],
   ];
 }
