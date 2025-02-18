@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the counting confirmation form.
+ *
+ * Available variables:
+ * - form: The form render array.
+ */
+#}
+<div class="counting-confirmation">
+  {% if form.parameters %}
+    <div class="parameters-section">
+      {{ form.parameters }}
+    </div>
+  {% endif %}
+
+  {% if form.instructions %}
+    <div class="instructions-section">
+      {{ form.instructions }}
+    </div>
+  {% endif %}
+
+  {% if form.actions %}
+    <div class="form-actions">
+      {{ form.actions }}
+    </div>
+  {% endif %}
+</div>

@@ -21,5 +21,8 @@ function fws_counting_theme() {
     'counting_experience_form' => [
       'render element' => 'form',
     ],
+    'counting_confirmation_form' => [
+      'render element' => 'form',
+    ],
   ];
 }

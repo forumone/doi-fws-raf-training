@@ -21,3 +21,11 @@ fws_counting.settings:
     _title: 'FWS Counting Settings'
   requirements:
     _permission: 'administer site configuration'
+
+fws_counting.confirmation:
+  path: '/test-your-counting-skills/confirmation'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingConfirmationForm'
+    _title: 'Test Your Counting Skills'
+  requirements:
+    _permission: 'access content'

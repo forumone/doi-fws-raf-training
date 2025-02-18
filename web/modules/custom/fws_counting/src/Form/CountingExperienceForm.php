@@ -74,12 +74,17 @@ class CountingExperienceForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $experience_level = $form_state->getValue('experience_level');
     $size_ranges = array_filter($form_state->getValue('size_ranges'));
-    
+
+    // Store the selected values in tempstore
+    $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
+    $tempstore->set('experience_level', $experience_level);
+    $tempstore->set('size_range', $size_ranges);
+
     // Store the values in the session for later use
     $_SESSION['counting_experience'] = $experience_level;
     $_SESSION['size_ranges'] = $size_ranges;
 
-    // Redirect to the next step (you can modify this as needed)
-    $form_state->setRedirect('fws_counting.form');
+    // Redirect to the confirmation page
+    $form_state->setRedirect('fws_counting.confirmation');
   }
 }
