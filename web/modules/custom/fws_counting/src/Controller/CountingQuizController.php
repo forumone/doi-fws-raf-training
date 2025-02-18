@@ -32,6 +32,15 @@ class CountingQuizController extends ControllerBase {
       ->condition('status', 1)
       ->range(0, 10);
 
+    // Validate we have valid size terms
+    if (empty($size_terms)) {
+      return [
+        '#markup' => $this->t('No valid size ranges provided.'),
+      ];
+    }
+
+    // Build the size range conditions
+    $valid_ranges = FALSE;
     $group = $query->orConditionGroup();
     foreach ($size_terms as $term) {
       $min = $term->get('field_size_range_min')->value;
@@ -45,13 +54,22 @@ class CountingQuizController extends ControllerBase {
       ]);
 
       if ($min && $max) {
+        $valid_ranges = TRUE;
         $range_group = $query->andConditionGroup()
           ->condition('field_bird_count', $min, '>=')
           ->condition('field_bird_count', $max, '<=');
         $group->condition($range_group);
       }
     }
-    $query->condition($group);
+
+    // Only add the group condition if we have valid ranges
+    if ($valid_ranges) {
+      $query->condition($group);
+    } else {
+      return [
+        '#markup' => $this->t('No valid size ranges found with min and max values.'),
+      ];
+    }
 
     // Execute query and load media entities.
     $media_ids = $query->execute();
