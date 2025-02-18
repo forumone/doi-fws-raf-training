@@ -6,7 +6,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Provides a confirmation form for the counting experience test.
@@ -24,36 +23,40 @@ class CountingConfirmationForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Get the parameters from the previous form from tempstore
+    // Get the parameters from the previous form from tempstore.
     $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
     $experience_level = $tempstore->get('experience_level');
     $size_range = $tempstore->get('size_range');
 
     if (!$experience_level || !$size_range) {
-      // Redirect back to the first form if we don't have the required data
+      // Redirect back to the first form if we don't have the required data.
       return new RedirectResponse(Url::fromRoute('fws_counting.test_skills')->toString());
     }
 
-    // Load the term data
+    // Load the term data.
     $experience_term = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->load($experience_level);
-    
+
     $size_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadMultiple((array) $size_range);
 
-    // Build the size range text
+    // Build the size range text.
     $size_ranges = [];
     foreach ($size_terms as $term) {
       $size_ranges[] = $term->label();
     }
     $size_range_text = implode(' AND ', $size_ranges);
 
-    // Get the viewing time from the term name
-    $term_name = $experience_term->label();
-    preg_match('/\((\d+) seconds?\)/', $term_name, $matches);
-    $viewing_time = !empty($matches[1]) ? $matches[1] : '6';
+    // Get the viewing time based on the difficulty level
+    $difficulty_level = $experience_term->get('field_difficulty_level')->value;
+    $viewing_time = match ((int) $difficulty_level) {
+      1 => 10,
+      2 => 6,
+      3 => 3,
+      default => 6, // Default to 6 seconds if level is not set
+    };
 
     $form['parameters'] = [
       '#type' => 'container',
@@ -66,15 +69,14 @@ class CountingConfirmationForm extends FormBase {
       'experience' => [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $this->t('Experience Level: @level (@time seconds to view image)', [
+        '#value' => $this->t('Experience Level: @level', [
           '@level' => $experience_term->label(),
-          '@time' => $viewing_time,
         ]),
       ],
       'size' => [
         '#type' => 'html_tag',
         '#tag' => 'p',
-        '#value' => $this->t('Flock Size Range: @range (images always displayed for 15 secs)', [
+        '#value' => $this->t('Flock Size Range: @range', [
           '@range' => $size_range_text,
         ]),
       ],
@@ -89,8 +91,8 @@ class CountingConfirmationForm extends FormBase {
         '#value' => $this->t('You will be given 10 images. Each image will display for @time seconds.
           After you enter your estimate, the next image comes up on the screen.
           A summary statistics for the session will be shown after the 10th iteration.', [
-          '@time' => $viewing_time,
-        ]),
+            '@time' => $viewing_time,
+          ]),
       ],
     ];
 
@@ -116,7 +118,8 @@ class CountingConfirmationForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // For now, we'll just redirect back to the first page
-    // This will be updated when we implement the actual test
+    // This will be updated when we implement the actual test.
     $form_state->setRedirect('fws_counting.test_skills');
   }
+
 }
