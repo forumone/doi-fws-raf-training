@@ -1,0 +1,10 @@
+quiz:
+  version: 1.x
+  js:
+    js/quiz.js: {}
+  css:
+    theme:
+      css/quiz.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

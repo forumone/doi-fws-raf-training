@@ -209,6 +209,7 @@ class CountingQuizController extends ControllerBase {
             '#uri' => $media->field_image->entity->getFileUri(),
           ],
           'bird_count' => $media->get('field_bird_count')->value,
+          'media_id' => $media->id(),
         ];
       }
     }
@@ -219,6 +220,14 @@ class CountingQuizController extends ControllerBase {
     ]);
 
     // Return the themed output.
+    // Prepare quiz context data.
+    $quiz_context = array_map(function ($image) {
+      return [
+        'mediaId' => $image['media_id'],
+        'birdCount' => (int) $image['bird_count'],
+      ];
+    }, $images);
+
     return [
       '#theme' => 'counting_quiz',
       '#experience_level' => $experience_term->label(),
@@ -226,6 +235,16 @@ class CountingQuizController extends ControllerBase {
         return $term->label();
       }, $size_terms),
       '#images' => $images,
+      '#attached' => [
+        'library' => [
+          'fws_counting/quiz',
+        ],
+        'drupalSettings' => [
+          'fwsCounting' => [
+            'quizContext' => $quiz_context,
+          ],
+        ],
+      ],
     ];
   }
 

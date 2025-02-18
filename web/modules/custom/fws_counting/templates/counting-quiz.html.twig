@@ -19,8 +19,8 @@
 </div>
 
 <div class="images-section">
-  {% for image in images %}
-    <div class="image-item">
+  {% for key, image in images %}
+    <div class="quiz-image" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
       {{ image.rendered }}
       <p>{{ 'Bird Count: @count'|t({'@count': image.bird_count}) }}</p>
     </div>
