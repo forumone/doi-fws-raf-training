@@ -10,7 +10,7 @@ fws_counting.test_skills:
   path: '/test-your-counting-skills'
   defaults:
     _controller: '\Drupal\fws_counting\Controller\CountingSkillsController::content'
-    _title_callback: '\Drupal\fws_counting\Controller\CountingSkillsController::content'
+    _title: 'Test Your Counting Skills'
   requirements:
     _permission: 'access content'
 
