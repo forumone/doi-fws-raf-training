@@ -1,0 +1,8 @@
+name: FWS Counting
+type: module
+description: 'Provides a form for species counting difficulty and size range selection.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:taxonomy
+configure: fws_counting.settings

@@ -1,0 +1,23 @@
+fws_counting.form:
+  path: '/counting/experience'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingExperienceForm'
+    _title: 'Counting Experience'
+  requirements:
+    _permission: 'access content'
+
+fws_counting.test_skills:
+  path: '/test-your-counting-skills'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingSkillsController::content'
+    _title_callback: '\Drupal\fws_counting\Controller\CountingSkillsController::content'
+  requirements:
+    _permission: 'access content'
+
+fws_counting.settings:
+  path: '/admin/config/fws_counting/settings'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingSettingsForm'
+    _title: 'FWS Counting Settings'
+  requirements:
+    _permission: 'administer site configuration'
