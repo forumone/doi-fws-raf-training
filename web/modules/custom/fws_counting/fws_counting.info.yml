@@ -6,3 +6,6 @@ core_version_requirement: ^9 || ^10
 dependencies:
   - drupal:taxonomy
 configure: fws_counting.settings
+
+# Declare template directory
+'template': 'templates'

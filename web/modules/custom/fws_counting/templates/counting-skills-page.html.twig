@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the counting skills page.
+ *
+ * Available variables:
+ * - intro_text: The introduction text from configuration.
+ * - form: The rendered counting experience form.
+ * - citation: The citation text from configuration.
+ * - credits: The credits text from configuration.
+ */
+#}
+<div class="counting-skills-page">
+  {% if intro_text is not empty %}
+    <div class="counting-skills-intro">
+      {{ intro_text }}
+    </div>
+  {% endif %}
+
+  {% if form is not empty %}
+    <div class="counting-skills-form">
+      {{ form }}
+    </div>
+  {% endif %}
+
+  {% if citation is not empty %}
+    <div class="counting-skills-citation">
+      {{ citation }}
+    </div>
+  {% endif %}
+
+  {% if credits is not empty %}
+    <div class="counting-skills-credits">
+      {{ credits }}
+    </div>
+  {% endif %}
+</div>

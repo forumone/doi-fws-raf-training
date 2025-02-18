@@ -16,26 +16,11 @@ class CountingSkillsController extends ControllerBase {
     $config = $this->config('fws_counting.settings');
     
     $build = [
-      '#type' => 'container',
-      '#attributes' => ['class' => ['counting-skills-page']],
-      'content' => [
-        'intro' => [
-          '#type' => 'html_tag',
-          '#tag' => 'p',
-          '#value' => $config->get('intro_text'),
-        ],
-        'form' => $this->formBuilder()->getForm('Drupal\fws_counting\Form\CountingExperienceForm'),
-        'citation' => [
-          '#type' => 'html_tag',
-          '#tag' => 'p',
-          '#value' => $config->get('citation'),
-        ],
-        'credits' => [
-          '#type' => 'html_tag',
-          '#tag' => 'p',
-          '#value' => $config->get('credits'),
-        ],
-      ],
+      '#theme' => 'counting_skills_page',
+      '#intro_text' => $config->get('intro_text'),
+      '#form' => $this->formBuilder()->getForm('Drupal\fws_counting\Form\CountingExperienceForm'),
+      '#citation' => $config->get('citation'),
+      '#credits' => $config->get('credits'),
     ];
 
     return $build;
