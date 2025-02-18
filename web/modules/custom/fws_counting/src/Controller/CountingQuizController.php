@@ -43,7 +43,7 @@ class CountingQuizController extends ControllerBase {
     $valid_ranges = FALSE;
     $has_any_range = FALSE;
 
-    // Check if ANY size range is selected
+    // Check if ANY size range is selected.
     foreach ($size_terms as $term) {
       if ($term->get('field_size_range_id')->value == 5) {
         $valid_ranges = TRUE;
@@ -53,7 +53,7 @@ class CountingQuizController extends ControllerBase {
     }
 
     if (!$has_any_range) {
-      // If ANY wasn't selected, process normal range conditions
+      // If ANY wasn't selected, process normal range conditions.
       $group = $query->orConditionGroup();
       foreach ($size_terms as $term) {
         $min = $term->get('field_size_range_min')->value;
@@ -71,7 +71,7 @@ class CountingQuizController extends ControllerBase {
           $range_group = $query->andConditionGroup()
             ->condition('field_bird_count', $min, '>=');
 
-          // Only add max condition if it exists
+          // Only add max condition if it exists.
           if ($max) {
             $range_group->condition('field_bird_count', $max, '<=');
           }
@@ -80,7 +80,7 @@ class CountingQuizController extends ControllerBase {
         }
       }
 
-      // Only add the group condition if we have valid ranges
+      // Only add the group condition if we have valid ranges.
       if ($valid_ranges) {
         $query->condition($group);
       }
@@ -92,18 +92,100 @@ class CountingQuizController extends ControllerBase {
       ];
     }
 
-    // Execute query and load media entities.
-    $media_ids = $query->execute();
+    if ($has_any_range) {
+      // For ANY range, just get random items.
+      $query->range(0, 10);
+      $media_ids = $query->execute();
+      $media_entities = $this->entityTypeManager()
+        ->getStorage('media')
+        ->loadMultiple($media_ids);
+    }
+    else {
+      // For multiple ranges, get items from each range.
+      $media_by_range = [];
+      $total_needed = 10;
 
-    // Debug: Log the query conditions and results.
-    \Drupal::logger('fws_counting')->notice('Query found @count media items. Media IDs: @ids', [
-      '@count' => count($media_ids),
-      '@ids' => print_r($media_ids, TRUE),
-    ]);
+      foreach ($size_terms as $term) {
+        // Skip if not a valid range term.
+        if (!isset($term->get('field_size_range_min')->value)) {
+          continue;
+        }
 
-    $media_entities = $this->entityTypeManager()
-      ->getStorage('media')
-      ->loadMultiple($media_ids);
+        // Create a query for this specific range.
+        $range_query = $this->entityTypeManager()->getStorage('media')->getQuery()
+          ->accessCheck(TRUE)
+          ->condition('bundle', 'species_image')
+          ->condition('status', 1);
+
+        $min = $term->get('field_size_range_min')->value;
+        $max = $term->get('field_size_range_max')->value;
+
+        $range_group = $range_query->andConditionGroup()
+          ->condition('field_bird_count', $min, '>=');
+        if ($max) {
+          $range_group->condition('field_bird_count', $max, '<=');
+        }
+        $range_query->condition($range_group);
+
+        // Get all media IDs for this range.
+        $range_media_ids = $range_query->execute();
+        if (!empty($range_media_ids)) {
+          $media_by_range[$term->id()] = $range_media_ids;
+        }
+      }
+
+      // Calculate how many items we need from each range.
+      $num_ranges = count($media_by_range);
+      if ($num_ranges > 0) {
+        $items_per_range = floor($total_needed / $num_ranges);
+        $remainder = $total_needed % $num_ranges;
+
+        // Get random items from each range.
+        $selected_media_ids = [];
+        foreach ($media_by_range as $term_id => $range_ids) {
+          $num_to_get = $items_per_range + ($remainder > 0 ? 1 : 0);
+          $remainder--;
+
+          // Randomly select items from this range.
+          $range_ids_array = array_values($range_ids);
+          shuffle($range_ids_array);
+          $selected_media_ids = array_merge(
+            $selected_media_ids,
+            array_slice($range_ids_array, 0, min($num_to_get, count($range_ids_array)))
+          );
+        }
+
+        // If we still need more items, get them from any range.
+        if (count($selected_media_ids) < $total_needed) {
+          $all_remaining_ids = [];
+          foreach ($media_by_range as $range_ids) {
+            $all_remaining_ids = array_merge($all_remaining_ids, array_values($range_ids));
+          }
+          $all_remaining_ids = array_diff($all_remaining_ids, $selected_media_ids);
+          shuffle($all_remaining_ids);
+          $selected_media_ids = array_merge(
+            $selected_media_ids,
+            array_slice($all_remaining_ids, 0, $total_needed - count($selected_media_ids))
+          );
+        }
+
+        // Shuffle the final selection.
+        shuffle($selected_media_ids);
+
+        // Debug: Log the selected media IDs.
+        \Drupal::logger('fws_counting')->notice('Selected @count media items. Media IDs: @ids', [
+          '@count' => count($selected_media_ids),
+          '@ids' => print_r($selected_media_ids, TRUE),
+        ]);
+
+        $media_entities = $this->entityTypeManager()
+          ->getStorage('media')
+          ->loadMultiple($selected_media_ids);
+      }
+      else {
+        $media_entities = [];
+      }
+    }
 
     // Prepare images for the template.
     $images = [];
