@@ -14,7 +14,7 @@ class CountingSkillsController extends ControllerBase {
    */
   public function content() {
     $config = $this->config('fws_counting.settings');
-    
+
     $build = [
       '#theme' => 'counting_skills_page',
       '#intro_text' => $config->get('intro_text'),
@@ -25,4 +25,5 @@ class CountingSkillsController extends ControllerBase {
 
     return $build;
   }
+
 }

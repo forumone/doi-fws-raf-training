@@ -4,7 +4,6 @@ namespace Drupal\fws_counting\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Provides a form for selecting counting experience and flock size ranges.
@@ -22,7 +21,7 @@ class CountingExperienceForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Load difficulty terms sorted by field_difficulty_level
+    // Load difficulty terms sorted by field_difficulty_level.
     $difficulty_vid = 'species_counting_difficulty';
     $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
       ->accessCheck(TRUE)
@@ -39,7 +38,7 @@ class CountingExperienceForm extends FormBase {
     }
 
     $form['#theme'] = 'counting_experience_form';
-    
+
     $form['experience_level'] = [
       '#type' => 'radios',
       '#title' => $this->t('Select your Experience Level'),
@@ -47,7 +46,7 @@ class CountingExperienceForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    // Load size range terms sorted by field_size_range_id
+    // Load size range terms sorted by field_size_range_id.
     $size_vid = 'size_range';
     $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
       ->accessCheck(TRUE)
@@ -85,16 +84,17 @@ class CountingExperienceForm extends FormBase {
     $experience_level = $form_state->getValue('experience_level');
     $size_ranges = array_filter($form_state->getValue('size_ranges'));
 
-    // Store the selected values in tempstore
+    // Store the selected values in tempstore.
     $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
     $tempstore->set('experience_level', $experience_level);
     $tempstore->set('size_range', $size_ranges);
 
-    // Store the values in the session for later use
+    // Store the values in the session for later use.
     $_SESSION['counting_experience'] = $experience_level;
     $_SESSION['size_ranges'] = $size_ranges;
 
-    // Redirect to the confirmation page
+    // Redirect to the confirmation page.
     $form_state->setRedirect('fws_counting.confirmation');
   }
+
 }
