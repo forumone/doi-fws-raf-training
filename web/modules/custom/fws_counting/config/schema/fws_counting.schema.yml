@@ -1,0 +1,16 @@
+fws_counting.settings:
+  type: config_object
+  label: 'FWS Counting settings'
+  mapping:
+    page_title:
+      type: string
+      label: 'Page title'
+    intro_text:
+      type: text
+      label: 'Introduction text'
+    citation:
+      type: text
+      label: 'Citation'
+    credits:
+      type: text
+      label: 'Credits'

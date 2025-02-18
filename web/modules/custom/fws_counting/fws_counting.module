@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS Counting module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function fws_counting_theme() {
+  return [
+    'counting_skills_page' => [
+      'variables' => [
+        'intro_text' => NULL,
+        'form' => NULL,
+        'citation' => NULL,
+        'credits' => NULL,
+      ],
+    ],
+    'counting_experience_form' => [
+      'render element' => 'form',
+    ],
+    'counting_confirmation_form' => [
+      'render element' => 'form',
+    ],
+    'counting_quiz' => [
+      'variables' => [
+        'experience_level' => NULL,
+        'size_ranges' => [],
+        'images' => [],
+      ],
+    ],
+  ];
+}

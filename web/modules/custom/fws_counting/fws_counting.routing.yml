@@ -1,0 +1,45 @@
+fws_counting.form:
+  path: '/counting/experience'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingExperienceForm'
+    _title: 'Counting Experience'
+  requirements:
+    _permission: 'access content'
+
+fws_counting.test_skills:
+  path: '/test-your-counting-skills'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingSkillsController::content'
+    _title: 'Test Your Counting Skills'
+  requirements:
+    _permission: 'access content'
+
+fws_counting.settings:
+  path: '/admin/config/fws_counting/settings'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingSettingsForm'
+    _title: 'FWS Counting Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+fws_counting.confirmation:
+  path: '/test-your-counting-skills/confirmation'
+  defaults:
+    _form: '\Drupal\fws_counting\Form\CountingConfirmationForm'
+    _title: 'Test Your Counting Skills'
+  requirements:
+    _permission: 'access content'
+
+fws_counting.quiz:
+  path: '/test-your-counting-skills/quiz/{experience_level}/{size_range}'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingQuizController::display'
+    _title: 'Test Your Counting Skills'
+  options:
+    parameters:
+      experience_level:
+        type: entity:taxonomy_term
+      size_range:
+        type: string
+  requirements:
+    _permission: 'access content'

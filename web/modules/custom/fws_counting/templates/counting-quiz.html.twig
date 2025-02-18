@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the counting quiz page.
+ *
+ * Available variables:
+ * - experience_level: The experience level term label.
+ * - size_ranges: Array of size range term labels.
+ * - images: Array of media images, each containing:
+ *   - uri: The image URI
+ *   - bird_count: The number of birds in the image
+ */
+#}
+
+<div class="parameters-section">
+  <h2>{{ 'Parameters chosen:'|t }}</h2>
+  <p>{{ 'Experience Level: @level'|t({'@level': experience_level}) }}</p>
+  <p>{{ 'Flock Size Range: @range'|t({'@range': size_ranges|join(' AND ')}) }}</p>
+</div>
+
+<div class="images-section">
+  {% for key, image in images %}
+    <div class="quiz-image" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
+      {{ image.rendered }}
+      <p>{{ 'Bird Count: @count'|t({'@count': image.bird_count}) }}</p>
+    </div>
+  {% endfor %}
+</div>
