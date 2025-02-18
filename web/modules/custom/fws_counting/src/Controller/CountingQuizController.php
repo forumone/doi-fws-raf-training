@@ -41,37 +41,52 @@ class CountingQuizController extends ControllerBase {
 
     // Build the size range conditions.
     $valid_ranges = FALSE;
-    $group = $query->orConditionGroup();
+    $has_any_range = FALSE;
+
+    // Check if ANY size range is selected
     foreach ($size_terms as $term) {
-      $min = $term->get('field_size_range_min')->value;
-      $max = $term->get('field_size_range_max')->value;
-
-      // Debug: Log size range information.
-      \Drupal::logger('fws_counting')->notice('Processing size range term @id: min=@min, max=@max', [
-        '@id' => $term->id(),
-        '@min' => $min,
-        '@max' => $max,
-      ]);
-
-      if (isset($min)) {
+      if ($term->get('field_size_range_id')->value == 5) {
         $valid_ranges = TRUE;
-        $range_group = $query->andConditionGroup()
-          ->condition('field_bird_count', $min, '>=');
-
-        // Only add max condition if it exists.
-        if ($max) {
-          $range_group->condition('field_bird_count', $max, '<=');
-        }
-
-        $group->condition($range_group);
+        $has_any_range = TRUE;
+        break;
       }
     }
 
-    // Only add the group condition if we have valid ranges.
-    if ($valid_ranges) {
-      $query->condition($group);
+    if (!$has_any_range) {
+      // If ANY wasn't selected, process normal range conditions
+      $group = $query->orConditionGroup();
+      foreach ($size_terms as $term) {
+        $min = $term->get('field_size_range_min')->value;
+        $max = $term->get('field_size_range_max')->value;
+
+        // Debug: Log size range information.
+        \Drupal::logger('fws_counting')->notice('Processing size range term @id: min=@min, max=@max', [
+          '@id' => $term->id(),
+          '@min' => $min,
+          '@max' => $max,
+        ]);
+
+        if (isset($min)) {
+          $valid_ranges = TRUE;
+          $range_group = $query->andConditionGroup()
+            ->condition('field_bird_count', $min, '>=');
+
+          // Only add max condition if it exists
+          if ($max) {
+            $range_group->condition('field_bird_count', $max, '<=');
+          }
+
+          $group->condition($range_group);
+        }
+      }
+
+      // Only add the group condition if we have valid ranges
+      if ($valid_ranges) {
+        $query->condition($group);
+      }
     }
-    else {
+
+    if (!$valid_ranges) {
       return [
         '#markup' => $this->t('No valid size ranges found with min and max values.'),
       ];
