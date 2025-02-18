@@ -1,0 +1,69 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 66d21432-8566-4ada-bcd5-3f30b894ca0a
+  bundle: page
+  default_langcode: en
+  depends:
+    e0ec417b-49c6-4219-9394-eb73adbdc950: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'The history of the Waterfowl Population Survey'
+  created:
+    -
+      value: 1739913474
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'The history of the Waterfowl Population Survey | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'IntroductionThe North American Waterfowl Population Program represents a 50-year legacy of standardized cooperative surveys performed by the U.S. Fish and Wildlife Service, the Canadian Wildlife Service, state and provincial biologists, and non-governmental cooperators. The survey program, celebrated in 2005, is believed to be the most extensive, comprehensive, long-term annual wildlife survey effort anywhere.Survey MethodologyEach spring, teams of FWS pilot-biologists and observers conduct aerial surveys of North American breeding grounds, covering:'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'IntroductionThe North American Waterfowl Population Program represents a 50-year legacy of standardized cooperative surveys performed by the U.S. Fish and Wildlife Service, the Canadian Wildlife Service, state and provincial biologists, and non-governmental cooperators. The survey program, celebrated in 2005, is believed to be the most extensive, comprehensive, long-term annual wildlife survey effort anywhere.Survey MethodologyEach spring, teams of FWS pilot-biologists and observers conduct aerial surveys of North American breeding grounds, covering:'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/history-waterfowl-population-survey'
+  path:
+    -
+      alias: /history-waterfowl-population-survey
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<h3>Introduction</h3><p>The North American Waterfowl Population Program represents a 50-year legacy of standardized cooperative surveys performed by the U.S. Fish and Wildlife Service, the Canadian Wildlife Service, state and provincial biologists, and non-governmental cooperators. The survey program, celebrated in 2005, is believed to be the most extensive, comprehensive, long-term annual wildlife survey effort anywhere.</p><h3>Survey Methodology</h3><p>Each spring, teams of FWS pilot-biologists and observers conduct aerial surveys of North American breeding grounds, covering:</p><ul><li>Territory from the Canadian Maritimes west to the Pacific</li><li>Range from mid-U.S. north to the Arctic Ocean</li><li>More than 80,000 miles annually</li><li>Flights at approximately 150 feet altitude</li><li>Pre-determined quarter-mile wide transects</li></ul><p>&nbsp;</p><p>Ground crews complement the aerial surveys by:</p><ul><li>Checking portions of aerial transects</li><li>Correcting for waterfowl not visible from the air</li><li>Providing data on pond numbers</li><li>Assessing habitat conditions</li></ul><p>&nbsp;</p><p>Additional survey components include:</p><ul><li>Mid-winter surveys extending into Mexico</li><li>Special species-specific surveys</li><li>Satellite imagery analysis</li><li>Hunter participation and harvest surveys</li><li>Banding programs</li></ul><h3>Historical Context</h3><h4>The Crisis</h4><p>By the early 1900s, multiple factors had severely impacted waterfowl populations:</p><ul><li>Habitat loss from agriculture and logging</li><li>Overharvesting</li><li>Recurring drought on breeding grounds</li><li>Public apathy</li><li>Inadequate state regulations</li></ul><h4>Federal Legal Protections</h4><p>Key legislative developments:</p><ul><li><strong>Migratory Bird Act of 1913</strong>: Signed by President William Howard Taft</li><li><strong>U.S.-Canada Treaty</strong>: Signed in 1916</li><li><strong>Migratory Bird Treaty Act</strong>: Signed in 1918</li><li>Additional treaties with:<ul><li>Mexico (1936)</li><li>Japan (1972)</li><li>Former Soviet Union (1976)</li></ul></li></ul><h3>Evolution of Aerial Surveys</h3><h4>Early Development</h4><ul><li>1931: Frederick C. Lincoln pioneered aerial surveys</li><li>1940: FWS acquired its first aircraft</li><li>Post-WWII: Expansion of aircraft fleet and pilot-biologist program</li></ul><h4>Modern Program</h4><p>Current resources include:</p><ul><li>12 FWS pilot-biologists and aircraft in continental U.S.</li><li>5 pilot-biologists and 4 planes in Alaska</li><li>Ground survey crews in prairie pothole regions</li><li>Advanced technology integration:<ul><li>GPS technology</li><li>Moving map video displays</li><li>Aerial videography</li></ul></li></ul><h3>Contact Information</h3><p>U.S. Fish and Wildlife Service<br>Division of Migratory Bird Management<br>4401 North Fairfax Drive, MS 4107<br>Arlington, Virginia 22203<br>Phone: 703/358 1714<br>Website: <a href="http://waterfowlsurveys.fws.gov">http://waterfowlsurveys.fws.gov</a></p>'
+      format: basic_html
+      summary: ''
+  field_file:
+    -
+      entity: e0ec417b-49c6-4219-9394-eb73adbdc950
+      display: true
+      description: ''
+  field_private:
+    -
+      value: false

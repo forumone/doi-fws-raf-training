@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: fe82eefc-941b-4366-97ee-992fd45feaf4
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'Pilot Biologists.pdf'
+  uri:
+    -
+      value: 'public://2025-02/Pilot Biologists.pdf'
+  filemime:
+    -
+      value: application/pdf
+  filesize:
+    -
+      value: 217087
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739914506

@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c48e753c-3d33-467b-ad55-0e0b76e8fa20
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'History and Background on Aerial Waterfowl Surveys in North America'
+  created:
+    -
+      value: 1739912840
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'History and Background on Aerial Waterfowl Surveys in North America | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: "Experimental efforts at surveying waterfowl were initiated in the 1930's but began in earnest in 1947, immediately after WWII, facilitated in part by technological advances, reliability, and availability of aircraft, as well as military-trained pilots proficient in slow, low-level flight."
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: "Experimental efforts at surveying waterfowl were initiated in the 1930's but began in earnest in 1947, immediately after WWII, facilitated in part by technological advances, reliability, and availability of aircraft, as well as military-trained pilots proficient in slow, low-level flight."
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/history-and-background-aerial-waterfowl-surveys-north-america'
+  path:
+    -
+      alias: /history-and-background-aerial-waterfowl-surveys-north-america
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<p>Experimental efforts at surveying waterfowl were initiated in the 1930''s but began in earnest in 1947, immediately after WWII, facilitated in part by technological advances, reliability, and availability of aircraft, as well as military-trained pilots proficient in slow, low-level flight.</p><p>Over the next decade, pioneering biologists experimented with aerial survey techniques on the breeding grounds. These early efforts evolved into the Waterfowl Breeding Population and Habitat Survey, a standardized aerial survey that is conducted every spring over a vast expanse of habitat in the U.S. and Canada. As the longest running major wildlife survey in the world, the survey has guided waterfowl management in the U.S. and Canada. It is conducted cooperatively by wildlife management agencies in the U.S. and Canada, with dozens of pilots and observers participating each year.</p><p>This survey provides information on population status that plays a key role in developing annual hunting regulations in the U.S. and Canada. Data from the survey undergo flyway technical review, and inform adaptive harvest management models to better ensure science-based decisions about hunting regulations, such as season length and dates, and bag limits.</p><p>The survey also provides a long-running record of annual variation in waterfowl breeding populations and, when complemented by brood surveys, estimates annual waterfowl production. Such information is useful in evaluating the overall health of waterfowl populations, and in monitoring the response of waterfowl populations to harvest and habitat management actions.</p><p>Although the Waterfowl Breeding Population and Habitat Survey is the most expansive waterfowl survey in North America, additional surveys are conducted at other times of the year, or may be focused on certain species, to provide data on other aspects of waterfowl populations or for waterfowl populations that are not well estimated by the Waterfowl Breeding Population and Habitat Survey. Examples include the mid-winter waterfowl survey, and special surveys targeting species such as brant, mottled ducks, scoters, and eiders.</p><p>Here are three videos that provide a historical perspective on the evolution of waterfowl surveys in North America, as well as the pilots and biologists that participate in those surveys.</p><p><strong>Behind the Flyways</strong> (30 min video; 1949; a great historical perspective on hunting, waterfowl management, and the evolution of waterfowl surveys - a classic)<br><a href="/sites/aerial/files/newvideos/Behind_the_Flyways_2000kbps.mp4">[High internet speed]</a>&nbsp; <a href="/sites/aerial/files/newvideos/Behind_the_Flyways_500kbps.mp4">[Low internet speed]</a>&nbsp;</p><p><strong>50 Years and Counting</strong> (8 min video; 2005; a history of the USFWS Waterfowl Population Survey<br><a href="/sites/aerial/files/newvideos/Waterfowl_Survey_50_Years_2000kbps.mp4">[High internet speed]</a>&nbsp; <a href="/sites/aerial/files/newvideos/Waterfowl_Survey_50_Years_500kbps.mp4">[Low internet speed]</a>&nbsp;</p><p><strong>America''s Duck Chasers</strong> (3 min video; 2007; an overview of the history and mission of our dedicated pilot-biologists who survey waterfowl)<br><a href="/sites/aerial/files/newvideos/Americas_Duck_Chasers_2000kbps.mp4">[High internet speed]</a>&nbsp; <a href="/sites/aerial/files/newvideos/Americas_Duck_Chasers_500kbps.mp4">[Low internet speed]</a>&nbsp;</p><p><strong>Other informational products about aerial waterfowl surveys in North America</strong></p><ul><li><a href="/history-waterfowl-population-survey">The history of the Waterfowl Population Survey</a></li><li><a href="/pilot-biologists-our-eyes-sky">The pilot-biologists</a></li><li><a href="https://www.fws.gov/media/waterfowl-population-status-2022">Waterfowl Population Status, 2022</a></li><li><a href="https://www.fws.gov/media/waterfowl-population-status-2023">Waterfowl Population Status, 2023</a></li><li><a href="https://www.fws.gov/media/waterfowl-population-status-2024">Waterfowl Population Status, 2024</a></li><li><a href="https://www.fws.gov/project/waterfowl-breeding-population-and-habitat-survey">Waterfowl Breeding Population and Habitat Survey</a></li></ul><p>&nbsp;</p><p><strong>Other websites of interest</strong></p><p><a href="https://www.fws.gov/migratorybirds/">http://www.fws.gov/migratorybirds/</a></p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

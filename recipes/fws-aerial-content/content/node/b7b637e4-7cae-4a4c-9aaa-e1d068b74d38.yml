@@ -1,0 +1,69 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b7b637e4-7cae-4a4c-9aaa-e1d068b74d38
+  bundle: page
+  default_langcode: en
+  depends:
+    fe82eefc-941b-4366-97ee-992fd45feaf4: file
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Pilot Biologists--Our Eyes in the Sky'
+  created:
+    -
+      value: 1739914188
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Pilot Biologists--Our Eyes in the Sky | FWS: Aerial Observer Training and Testing Resources'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Unique Wildlife StewardsFrederick C. Lincoln, a biologist with the U.S. Biological Survey, forerunner to the U.S. Fish and Wildlife Service, is credited with being the first to envision the use of airplanes as a tool in waterfowl management. In 1931 he persuaded the U.S. Army to take him and a photographer on a test flight over wintering waterfowl on the Potomac River below Washington, DC. This test proved successful and for the next 20 years, increasingly more aerial surveys were conducted. These surveys were pieced together through arrangements with the U.S.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'Unique Wildlife StewardsFrederick C. Lincoln, a biologist with the U.S. Biological Survey, forerunner to the U.S. Fish and Wildlife Service, is credited with being the first to envision the use of airplanes as a tool in waterfowl management. In 1931 he persuaded the U.S. Army to take him and a photographer on a test flight over wintering waterfowl on the Potomac River below Washington, DC. This test proved successful and for the next 20 years, increasingly more aerial surveys were conducted. These surveys were pieced together through arrangements with the U.S.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://aerial.ddev.site/pilot-biologists-our-eyes-sky'
+  path:
+    -
+      alias: /pilot-biologists-our-eyes-sky
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: "<h3>Unique Wildlife Stewards</h3><p>Frederick C. Lincoln, a biologist with the U.S. Biological Survey, forerunner to the U.S. Fish and Wildlife Service, is credited with being the first to envision the use of airplanes as a tool in waterfowl management. In 1931 he persuaded the U.S. Army to take him and a photographer on a test flight over wintering waterfowl on the Potomac River below Washington, DC. This test proved successful and for the next 20 years, increasingly more aerial surveys were conducted. These surveys were pieced together through arrangements with the U.S. Coast Guard, Navy, and Army to carry observers, called flyway biologists, on routine flights to inventory wintering waterfowl in the United States. They were occasionally supplemented by chartered aircraft and private pilots for areas in Canada and Mexico.</p><p>The aerial survey program saw its greatest expansion just after World War II when the FWS acquired surplus military aircraft. Military-trained pilots, usually with prior wildlife or conservation experience, were hired as flyway biologists, now also known as pilot-biologists. The combination of skilled pilot-biologists and an availability of aircraft enabled survey pioneers to experiment with spring counts on waterfowl breeding grounds in the north-central U.S. and Canada during the late 1940s and early '50s.</p><p>In the spring of 1955, the FWS and its cooperators launched the first coordinated waterfowl survey of the North American breeding grounds. From then on, this annual survey effort and its results have been instrumental in guiding the North American waterfowl management program.</p><h3>From Office to Wilderness</h3><p>The life of the pilot-biologist is demanding. Aerial surveying is one of the most challenging types of flying. Not only does the pilot-biologist fly the aircraft at reduced speed while skimming low-level above terrain; avoiding trees, hills, towers, other planes, and even the low-flying birds they are there to count; they must do this while staying on a straight line transect, identifying and counting 30 or more species of waterfowl, ensuring the data are being recorded by an on-board computer or audio cassette recorder, and coordinating the activities of one or more observers. This multitasking is the normal routine for several hours per day, for days and sometimes weeks at a time.</p><p>Just like point-to-point pilots, survey pilot-biologists must closely monitor weather forecasts and carefully plan fuel loads and weight and balances. However, pilot-biologists are required to spend more time understanding weather forecasts because they often travel to locations where there are no weather reporting stations. A critical error in judging weather in these remote areas may mean a night spent on a wilderness lake. Before the day ends, pilot-biologists are also responsible for maintaining and fueling their aircraft and coordinating data collection and reporting activities with their observers, and in some cases ground survey teams. Together, they transcribe, check, and back-up data, as well as decide on the next day's activities.</p><p>When not flying surveys, pilot-biologists are back in the office compiling the results of surveys; writing summary reports for international distribution; procuring equipment and assessing staffing needs for future surveys and waterfowl banding stations; completing individual pilot safety check rides and scheduled maintenance on their planes; and attending species and habitat meetings with FWS personnel, other Federal, State, or international agencies, and nongovernmental organizations and partners.</p><h3>Education and Training</h3><p>While the most critical phase of the job is learning to safely fly important missions and many individuals possess the skills necessary to become pilots, all successful candidates must obtain training as wildlife biologists to become part of the waterfowl aerial survey team. All pilot-biologists within the FWS Migratory Bird Program have earned at least a Bachelor's degree in biological sciences or a more specific natural resource discipline. Most have obtained a Master's or PhD in their respective fields.</p><p>All achieve the minimum of a commercial pilot certificate with instrument flight privileges and at least 500 hours flight time when beginning, but often go on to obtain seaplane and sometimes multi-engine ratings. With the onslaught of new technologies in recent years, pilot-biologists are continually updating their skills as well as maintaining working knowledge in Geographic Information Systems, remote sensing techniques, and statistical design. In addition, tightened security measures have required even greater familiarity with Federal Air Regulations and continued diligence for those pilots operating within congested or restricted airspaces.</p><h3>Demands, Thrills, and Rewards</h3><p>The demands placed upon these pilot-biologists are great. The technical aspects of the surveys alone require tremendous skill and concentration coupled with decisiveness and impeccable judgment in handling the aircraft, but the demands go beyond these. The pilots must go where the waterfowl go and be there at the precise times that the waterfowl should be counted. Survey areas are often hundreds of miles from home and family, and survey crews often find themselves out of phone contact and overnighting in makeshift lodging.</p><p>Personal lives and families take a back seat for days, weeks, and sometimes months as pilot-biologists, aerial observers, and ground crews measure the waterfowl migration, wait out weather, or go from one survey to another. Once home, they still have to compile and analyze data and write scientifically valid reports. Many have the additional responsibilities of being project leaders for Waterfowl Management Field Stations, run banding camps, attend species and habitat joint venture meetings, lend their expertise on a variety of migratory bird issues, and more.</p><p>Very few people are willing to take on the challenges posed by this demanding schedule, but those who do cannot imagine doing anything else. There are few jobs that combine so much raw adventure with fascinating technical challenges and frequent opportunities to unravel scientific mysteries. For the most part, the FWS pilot-biologists have found ways to blend the demands of a personally rewarding career with those necessary to be a good spouse or parent.</p><p>Rewards are found in safely compiling a quality survey data set and knowing that the numbers generated from surveys of a particular migratory bird will help perpetuate that species or help implement scientific actions that protect it from becoming endangered. There is also satisfaction in knowing that the demanding efforts to band 5,000 ducks in a month or neck band 1,000 geese in a week will help many biologists throughout the waterfowl flyways make informed management decisions in the best interest of the birds.</p><h3>Safety and Service</h3><p>Although serving as a pilot-biologist requires taking some risk, every effort is made to ensure the safety of these missions including intense training and strict operating protocols. As a result, the survey pilot-biologists have wracked up an impressive safety record over the years. The migratory bird pilot-biologists that currently conduct spring and summer waterfowl surveys have amassed a combined total of more than 250 years of FWS flight experience and more than 75,000 hours of safe flying, without a fatality.</p><p>They have done all of this flying low-level in some of the most remote areas of North and Central America as well as some of the highest density flight traffic environs of the U.S., Canada, and Mexico. Over the span of the past half century, some 25 other FWS pilot-biologists have held the honor and amassed an additional and equally impressive number of flight hours and tenure of flight safety.</p><p>For 50 years and still counting, the Fish and Wildlife Service pilot-biologists have been our eyes in the sky taking the pulse of North America's waterfowl.</p><h3>For More Information</h3><p>U.S. Fish and Wildlife Service<br>Division of Migratory Bird Management<br>4401 North Fairfax Drive, MS 4107<br>Arlington, Virginia 22203<br>703/358 1714<br><a href=\"http://waterfowlsurveys.fws.gov\">http://waterfowlsurveys.fws.gov</a></p>"
+      format: basic_html
+      summary: ''
+  field_file:
+    -
+      entity: fe82eefc-941b-4366-97ee-992fd45feaf4
+      display: true
+      description: ''
+  field_private:
+    -
+      value: false

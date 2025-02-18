@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/access-denied'
+        href: 'https://aerial.ddev.site/access-denied'
   path:
     -
       alias: /access-denied
