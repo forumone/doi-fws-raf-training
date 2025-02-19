@@ -1,0 +1,24 @@
+uuid: 717e93ac-5c7f-4f1b-9ee3-129fe84eb602
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_user_species_selection
+    - paragraphs.paragraphs_type.species_id_question
+    - taxonomy.vocabulary.species
+id: paragraph.species_id_question.field_user_species_selection
+field_name: field_user_species_selection
+entity_type: paragraph
+bundle: species_id_question
+label: 'User Species Selection'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species: species
+field_type: entity_reference

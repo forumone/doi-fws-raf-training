@@ -1,0 +1,23 @@
+uuid: 2e454b2c-41f1-4ef0-a135-d9bb81b6930a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test_score
+    - node.type.species_id_results
+id: node.species_id_results.field_test_score
+field_name: field_test_score
+entity_type: node
+bundle: species_id_results
+label: 'Test Score'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

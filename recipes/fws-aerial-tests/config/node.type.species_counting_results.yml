@@ -1,0 +1,11 @@
+uuid: d97bb231-30ad-47d6-aa4e-11c7bf390a3f
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Counting Results'
+type: species_counting_results
+description: 'Stores results from species counting tests, including user count responses and scores.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

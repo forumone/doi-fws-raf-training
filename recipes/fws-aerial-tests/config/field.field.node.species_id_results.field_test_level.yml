@@ -1,0 +1,19 @@
+uuid: f178e684-abad-419e-942f-d4bfc4bff136
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test_level
+    - node.type.species_id_results
+id: node.species_id_results.field_test_level
+field_name: field_test_level
+entity_type: node
+bundle: species_id_results
+label: 'Test Level'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

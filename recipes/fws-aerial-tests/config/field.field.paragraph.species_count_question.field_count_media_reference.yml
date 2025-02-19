@@ -1,0 +1,24 @@
+uuid: 84653757-6cb1-4170-95c3-6e7c6f5aebce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_count_media_reference
+    - media.type.species_image
+    - paragraphs.paragraphs_type.species_count_question
+id: paragraph.species_count_question.field_count_media_reference
+field_name: field_count_media_reference
+entity_type: paragraph
+bundle: species_count_question
+label: 'Media Reference'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      species_image: species_image
+field_type: entity_reference
