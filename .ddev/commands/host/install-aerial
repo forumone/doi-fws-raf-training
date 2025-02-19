@@ -27,10 +27,10 @@ ddev drush -l $SITE_URI en -y fws_counting
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-media
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-tests
-# ddev drush -l $SITE_URI scr ../scripts/aerial/import-users.php
-# ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
-# ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-photos.php
-# ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-videos.php
-# ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI scr ../scripts/aerial/import-users.php
+ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
+ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-photos.php
+ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-videos.php
+ddev drush -l $SITE_URI cr
 
-# ddev drush -l $SITE_URI uli
+ddev drush -l $SITE_URI uli
