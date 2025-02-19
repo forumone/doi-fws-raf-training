@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/page-not-found'
+        href: 'https://aerial.ddev.site/page-not-found'
   path:
     -
       alias: /page-not-found

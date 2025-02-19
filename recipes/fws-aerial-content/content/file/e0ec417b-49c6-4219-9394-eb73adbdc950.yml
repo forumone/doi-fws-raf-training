@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: e0ec417b-49c6-4219-9394-eb73adbdc950
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: 'The history of the Waterfowl Population Survey.pdf'
+  uri:
+    -
+      value: 'public://2025-02/The history of the Waterfowl Population Survey.pdf'
+  filemime:
+    -
+      value: application/pdf
+  filesize:
+    -
+      value: 198624
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1739913996

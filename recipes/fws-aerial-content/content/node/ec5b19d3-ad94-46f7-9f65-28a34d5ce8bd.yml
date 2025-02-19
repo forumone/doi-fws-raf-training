@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/species-identification'
+        href: 'https://aerial.ddev.site/species-identification'
   path:
     -
       alias: /species-identification
