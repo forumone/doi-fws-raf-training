@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-id: node.field_test_score
-field_name: field_test_score
-entity_type: node
+    - paragraphs
+id: paragraph.field_count_accuracy
+field_name: field_count_accuracy
+entity_type: paragraph
 type: decimal
 settings:
   precision: 10

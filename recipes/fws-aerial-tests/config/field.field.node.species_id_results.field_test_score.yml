@@ -12,7 +12,7 @@ bundle: species_id_results
 label: 'Test Score'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -20,4 +20,4 @@ settings:
   max: null
   prefix: ''
   suffix: ''
-field_type: integer
+field_type: decimal

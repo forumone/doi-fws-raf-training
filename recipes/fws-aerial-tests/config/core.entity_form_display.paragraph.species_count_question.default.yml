@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.species_count_question.field_count_accuracy
     - field.field.paragraph.species_count_question.field_count_media_reference
     - field.field.paragraph.species_count_question.field_user_count
     - paragraphs.paragraphs_type.species_count_question
@@ -13,12 +14,22 @@ targetEntityType: paragraph
 bundle: species_count_question
 mode: default
 content:
+  field_count_accuracy:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_count_media_reference:
-    type: media_library_widget
+    type: entity_reference_autocomplete
     weight: 0
     region: content
     settings:
-      media_types: {  }
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_user_count:
     type: number

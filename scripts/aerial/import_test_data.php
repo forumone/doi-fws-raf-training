@@ -189,12 +189,16 @@ function validate_configurations() {
       'fields' => [
         'field_count_difficulty',
         'field_count_questions',
+        'field_average_count_accuracy',
       ],
     ],
     'species_id_results' => [
       'fields' => [
         'field_id_difficulty',
         'field_id_questions',
+        'field_species_group',
+        'field_region',
+        'field_test_score',
       ],
     ],
   ];
@@ -309,6 +313,7 @@ function get_media_entity($file_id, $type = 'image') {
     // Video files follow pattern: [FILE_ID]_2030kbps.mp4.
     $filename_pattern = $file_id . '_2030kbps.mp4';
     $query = $media_storage->getQuery()
+      ->accessCheck(FALSE)
       ->condition('bundle', $type)
       ->condition('name', '%' . $filename_pattern, 'LIKE')
       ->range(0, 1);
@@ -316,6 +321,7 @@ function get_media_entity($file_id, $type = 'image') {
   else {
     // Photos use direct file ID lookup from metadata.
     $query = $media_storage->getQuery()
+      ->accessCheck(FALSE)
       ->condition('bundle', $type)
       ->condition('name', $file_id)
       ->range(0, 1);
@@ -329,6 +335,28 @@ function get_media_entity($file_id, $type = 'image') {
   }
 
   echo "Warning: No media entity found for file ID {$file_id}\n";
+  return NULL;
+}
+
+/**
+ * Function to find existing test node by test ID.
+ */
+function find_existing_test_node($test_id, $content_type) {
+  $query = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('type', $content_type)
+    ->condition('title', 'Test ' . $test_id)
+    ->range(0, 1);
+
+  $nids = $query->execute();
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    echo "Found existing node {$nid} for Test {$test_id}\n";
+    return Node::load($nid);
+  }
+
   return NULL;
 }
 
@@ -478,12 +506,29 @@ function import_test_data($limit = NULL) {
     $is_counting = ($answer_data['test_type'] === 'PHOTO');
     $content_type = $is_counting ? 'species_counting_results' : 'species_id_results';
 
-    // Create node.
-    $node = Node::create([
-      'type' => $content_type,
-      'title' => 'Test ' . $test_id,
-      'status' => 1,
-    ]);
+    // Try to find existing node.
+    $node = find_existing_test_node($test_id, $content_type);
+    if (!$node) {
+      // Create new node if none exists.
+      $node = Node::create([
+        'type' => $content_type,
+        'title' => 'Test ' . $test_id,
+        'status' => 1,
+      ]);
+      echo "Creating new node for Test {$test_id}\n";
+    }
+    else {
+      echo "Updating existing node for Test {$test_id}\n";
+      // Clear existing field values.
+      if ($is_counting) {
+        $node->set('field_count_questions', []);
+      }
+      else {
+        $node->set('field_id_questions', []);
+        $node->set('field_species_group', []);
+        $node->set('field_region', []);
+      }
+    }
 
     // Set difficulty level using correct field.
     if (isset($params['LEVEL'][0])) {
@@ -503,22 +548,32 @@ function import_test_data($limit = NULL) {
           $range_tids[] = ['target_id' => $range_tid];
         }
       }
-      if (!empty($range_tids)) {
-        $node->set('field_count_ranges', $range_tids);
-      }
 
       // Process count questions.
       $count_questions = [];
+      $total_count_accuracy = 0;
+      $question_count = 0;
       foreach ($answer_data['details'] as $detail) {
         if ($detail['test_param'] === 'COUNT') {
-          echo "DEBUG: Creating count question for Test {$test_id}: file={$detail['file_id']}, expected={$detail['expected_value']}, answer={$detail['answer_value']}\n";
+          $expected = (float) $detail['expected_value'];
+          $actual = (float) $detail['answer_value'];
+
+          // Calculate accuracy as a percentage difference from expected
+          // Negative means undercount, positive means overcount.
+          $accuracy = 0;
+          if ($expected > 0) {
+            $accuracy = (($actual - $expected) / $expected) * 100;
+          }
+
+          echo "DEBUG: Creating count question for Test {$test_id}: file={$detail['file_id']}, expected={$expected}, answer={$actual}, accuracy={$accuracy}%\n";
 
           // Create a paragraph entity for each count question.
           $paragraph = Paragraph::create([
             'type' => 'species_count_question',
             'field_count_media_reference' => ['target_id' => $detail['file_id']],
-            'field_expected_count' => $detail['expected_value'],
-            'field_user_count' => $detail['answer_value'],
+            'field_expected_count' => $expected,
+            'field_user_count' => $actual,
+            'field_count_accuracy' => $accuracy,
           ]);
           $paragraph->save();
 
@@ -526,13 +581,23 @@ function import_test_data($limit = NULL) {
             'target_id' => $paragraph->id(),
             'target_revision_id' => $paragraph->getRevisionId(),
           ];
+
+          $total_count_accuracy += $accuracy;
+          $question_count++;
         }
       }
 
-      // Set count questions.
+      // Set count questions and average accuracy.
       if (!empty($count_questions)) {
         echo "DEBUG: Setting " . count($count_questions) . " count questions for Test {$test_id}\n";
         $node->set('field_count_questions', $count_questions);
+
+        // Calculate and set average accuracy.
+        if ($question_count > 0) {
+          $average_accuracy = $total_count_accuracy / $question_count;
+          echo "DEBUG: Setting average count accuracy for Test {$test_id}: {$average_accuracy}%\n";
+          $node->set('field_average_count_accuracy', $average_accuracy);
+        }
       }
 
     }
@@ -597,12 +662,13 @@ function import_test_data($limit = NULL) {
 
     try {
       $node->save();
-      echo "Created {$content_type} node for Test {$test_id}\n";
+      $action = $node->isNew() ? "Created" : "Updated";
+      echo "{$action} {$content_type} node for Test {$test_id}\n";
       $processed_count++;
       $successful_imports++;
     }
     catch (Exception $e) {
-      echo "Error creating node for Test {$test_id}: " . $e->getMessage() . "\n";
+      echo "Error saving node for Test {$test_id}: " . $e->getMessage() . "\n";
       $processed_count++;
     }
   }
