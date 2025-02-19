@@ -2,11 +2,13 @@
 
 /**
  * @file
+ * Import test data from CSV files into Drupal nodes.
  */
 
 use Drupal\node\Entity\Node;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\file\Entity\File;
+use Drush\Drush;
 
 /**
  * Update parse_csv_file to include error handling.
@@ -195,7 +197,7 @@ function validate_configurations() {
       'Sea Ducks',
       'Geese, Swans and Cranes',
       'Whistling Ducks',
-      'Other Non-waterfowl',
+      'Other Non-waterfowl (video only; not narrated)',
       'ALL species',
     ],
     'geographic_region' => [
@@ -313,8 +315,15 @@ function get_media_entity($file_id, $type = 'image') {
 
 /**
  * Main import logic.
+ *
+ * @param int|null $limit
+ *   Optional maximum number of tests to import.
  */
 function import_test_data($limit = NULL) {
+  if ($limit !== NULL) {
+    echo "Import will be limited to {$limit} tests\n";
+  }
+
   echo "Starting configuration validation...\n";
 
   // Validate configurations first.
@@ -357,29 +366,29 @@ function import_test_data($limit = NULL) {
   $photo_metadata = get_file_metadata('photo');
   $video_metadata = get_file_metadata('video');
 
-  // Get unique test IDs.
-  $test_ids = array_unique(array_column($params_data, 'TEST_ID'));
+  // Get test IDs directly from TEST.csv.
+  $test_data = parse_csv_file($test_file);
+  $test_ids = array_values(array_unique(array_column($test_data, 'TEST_ID')));
   echo "Found " . count($test_ids) . " unique test IDs\n";
 
-  // Limit test IDs if needed
+  // Limit test IDs if needed.
   if ($limit !== NULL) {
     $test_ids = array_slice($test_ids, 0, $limit);
-    echo "Limited to {$limit} test IDs\n";
+    echo "Processing exactly {$limit} tests (including skipped tests)\n";
   }
 
   // Process each test.
   $processed_count = 0;
+  $successful_imports = 0;
+
   foreach ($test_ids as $test_id) {
-    if ($limit !== NULL && $processed_count >= $limit) {
-      echo "Reached import limit of {$limit} tests\n";
-      break;
-    }
     $params = get_test_parameters($params_data, $test_id);
     $answer_data = $test_answers[$test_id] ?? NULL;
 
     // Skip if no parameters or details found.
     if (empty($params) || empty($answer_data) || empty($answer_data['details'])) {
       echo "Skipping test {$test_id} - missing data\n";
+      $processed_count++;
       continue;
     }
 
@@ -499,23 +508,32 @@ function import_test_data($limit = NULL) {
       $node->save();
       echo "Created {$content_type} node for Test {$test_id}\n";
       $processed_count++;
+      $successful_imports++;
     }
     catch (Exception $e) {
       echo "Error creating node for Test {$test_id}: " . $e->getMessage() . "\n";
+      $processed_count++;
     }
   }
 
-  echo "Processed {$processed_count} tests\n";
+  echo "Processed {$processed_count} tests total ({$successful_imports} successful, " . ($processed_count - $successful_imports) . " skipped)\n";
 }
 
-// Execute import with error handling.
 // Get the limit from command line argument.
 $limit = NULL;
-$input = \Drush\Drush::input();
+$input = Drush::input();
 $args = $input->getArguments();
-if (isset($args['args']) && !empty($args['args'])) {
-  $limit = (int) $args['args'][0];
-  echo "Will import up to {$limit} tests\n";
+
+// In DDEV environment, the limit will be in the 'extra' array.
+if (isset($args['extra']) && count($args['extra']) > 1) {
+  $limit = (int) $args['extra'][1];
+  if ($limit <= 0) {
+    echo "Warning: Invalid limit value. Will import all tests.\n";
+    $limit = NULL;
+  }
+  else {
+    echo "Will import up to {$limit} tests.\n";
+  }
 }
 
 try {
