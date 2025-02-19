@@ -9,6 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\file\Entity\File;
 use Drush\Drush;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Update parse_csv_file to include error handling.
@@ -45,8 +46,11 @@ function parse_csv_file($filepath) {
  */
 function get_test_parameters($params_data, $test_id) {
   $test_params = [];
+  $param_count = 0;
   foreach ($params_data as $param) {
     if ($param['TEST_ID'] == $test_id) {
+      $param_count++;
+      echo "DEBUG: Found parameter for Test {$test_id}: {$param['PARAM_NAME']} = {$param['PARAM_VALUE']}\n";
       $param_name = $param['PARAM_NAME'];
       $param_value = $param['PARAM_VALUE'];
 
@@ -57,6 +61,7 @@ function get_test_parameters($params_data, $test_id) {
       $test_params[$param_name][] = $param_value;
     }
   }
+  echo "DEBUG: Total parameters found for Test {$test_id}: {$param_count}\n";
   return $test_params;
 }
 
@@ -80,9 +85,19 @@ function get_test_answers($test_file, $detail_file) {
 
   // Then get detailed answers.
   $detail_data = parse_csv_file($detail_file);
+  $detail_counts = [];
   foreach ($detail_data as $detail) {
     $test_id = $detail['TEST_ID'];
     if (isset($answers[$test_id])) {
+      if (!isset($detail_counts[$test_id])) {
+        $detail_counts[$test_id] = 0;
+      }
+      $detail_counts[$test_id]++;
+
+      if ($test_id == 19) {
+        echo "DEBUG: Found detail for Test 19: param={$detail['TEST_PARAM']}, expected={$detail['EXPECTED_VALUE']}, answer={$detail['ANSWER_VALUE']}, file={$detail['FILE_ID']}\n";
+      }
+
       $answers[$test_id]['details'][] = [
         'file_id' => $detail['FILE_ID'],
         'test_param' => $detail['TEST_PARAM'],
@@ -90,6 +105,10 @@ function get_test_answers($test_file, $detail_file) {
         'answer_value' => $detail['ANSWER_VALUE'],
       ];
     }
+  }
+
+  foreach ($detail_counts as $test_id => $count) {
+    echo "DEBUG: Test {$test_id} has {$count} details in TEST_DETAIL.csv\n";
   }
 
   return $answers;
@@ -385,9 +404,70 @@ function import_test_data($limit = NULL) {
     $params = get_test_parameters($params_data, $test_id);
     $answer_data = $test_answers[$test_id] ?? NULL;
 
-    // Skip if no parameters or details found.
-    if (empty($params) || empty($answer_data) || empty($answer_data['details'])) {
-      echo "Skipping test {$test_id} - missing data\n";
+    // Enhanced logging for skipped tests.
+    $skip_reasons = [];
+    if (empty($params)) {
+      $skip_reasons[] = "no parameters found in TEST_PARAM.csv";
+      // Check if test_id exists in TEST_PARAM.csv at all.
+      $param_exists = FALSE;
+      foreach ($params_data as $param) {
+        if ($param['TEST_ID'] == $test_id) {
+          $param_exists = TRUE;
+          break;
+        }
+      }
+      if (!$param_exists) {
+        echo "  Note: Test ID {$test_id} not found in TEST_PARAM.csv at all\n";
+      }
+      else {
+        echo "  Note: Test ID {$test_id} exists in TEST_PARAM.csv but get_test_parameters() returned empty\n";
+      }
+    }
+    else {
+      echo "  Found parameters in TEST_PARAM.csv: " . implode(", ", array_keys($params)) . "\n";
+    }
+
+    if (empty($answer_data)) {
+      $skip_reasons[] = "no test data found in TEST.csv";
+      // Check if test_id exists in TEST.csv.
+      $test_exists = FALSE;
+      foreach ($test_data as $test) {
+        if ($test['TEST_ID'] == $test_id) {
+          $test_exists = TRUE;
+          echo "  Found in TEST.csv with type: {$test['TEST_TYPE']}, date: {$test['TEST_DATE']}\n";
+          break;
+        }
+      }
+      if (!$test_exists) {
+        echo "  Note: Test ID {$test_id} not found in TEST.csv at all\n";
+      }
+    }
+    else {
+      echo "  Found in TEST.csv - type: {$answer_data['test_type']}, date: {$answer_data['test_date']}, user: {$answer_data['user_id']}\n";
+    }
+
+    if (empty($answer_data['details'])) {
+      $skip_reasons[] = "no test details found in TEST_DETAIL.csv";
+      // Count details in TEST_DETAIL.csv for this test.
+      $detail_count = 0;
+      foreach ($detail_data as $detail) {
+        if ($detail['TEST_ID'] == $test_id) {
+          $detail_count++;
+          echo "  Found detail: param={$detail['TEST_PARAM']}, expected={$detail['EXPECTED_VALUE']}, answer={$detail['ANSWER_VALUE']}\n";
+        }
+      }
+      echo "  Total details found in TEST_DETAIL.csv: {$detail_count}\n";
+    }
+    else {
+      echo "  Found " . count($answer_data['details']) . " details in TEST_DETAIL.csv\n";
+      foreach ($answer_data['details'] as $idx => $detail) {
+        echo "  Detail " . ($idx + 1) . ": param={$detail['test_param']}, expected={$detail['expected_value']}, answer={$detail['answer_value']}\n";
+      }
+    }
+
+    if (!empty($skip_reasons)) {
+      echo "Skipping test {$test_id} - " . implode(", ", $skip_reasons) . "\n";
+      echo "----------------------------------------\n";
       $processed_count++;
       continue;
     }
@@ -431,16 +511,27 @@ function import_test_data($limit = NULL) {
       $count_questions = [];
       foreach ($answer_data['details'] as $detail) {
         if ($detail['test_param'] === 'COUNT') {
+          echo "DEBUG: Creating count question for Test {$test_id}: file={$detail['file_id']}, expected={$detail['expected_value']}, answer={$detail['answer_value']}\n";
+
+          // Create a paragraph entity for each count question.
+          $paragraph = Paragraph::create([
+            'type' => 'species_count_question',
+            'field_count_media_reference' => ['target_id' => $detail['file_id']],
+            'field_expected_count' => $detail['expected_value'],
+            'field_user_count' => $detail['answer_value'],
+          ]);
+          $paragraph->save();
+
           $count_questions[] = [
-            'target_id' => $detail['file_id'],
-            'expected_count' => $detail['expected_value'],
-            'user_count' => $detail['answer_value'],
+            'target_id' => $paragraph->id(),
+            'target_revision_id' => $paragraph->getRevisionId(),
           ];
         }
       }
 
       // Set count questions.
       if (!empty($count_questions)) {
+        echo "DEBUG: Setting " . count($count_questions) . " count questions for Test {$test_id}\n";
         $node->set('field_count_questions', $count_questions);
       }
 
