@@ -6,20 +6,19 @@ dependencies:
     - field.field.paragraph.species_id_question.field_media_reference
     - field.field.paragraph.species_id_question.field_user_species_selection
     - paragraphs.paragraphs_type.species_id_question
+  module:
+    - media_library
 id: paragraph.species_id_question.default
 targetEntityType: paragraph
 bundle: species_id_question
 mode: default
 content:
   field_media_reference:
-    type: entity_reference_autocomplete
+    type: media_library_widget
     weight: 0
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
   field_user_species_selection:
     type: entity_reference_autocomplete

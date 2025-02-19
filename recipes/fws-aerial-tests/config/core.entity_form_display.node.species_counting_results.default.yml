@@ -8,8 +8,13 @@ dependencies:
     - field.field.node.species_counting_results.field_test_score
     - node.type.species_counting_results
   module:
-    - inline_entity_form
+    - paragraphs
+    - paragraphs_ee
+    - paragraphs_features
     - path
+    - select2
+_core:
+  default_config_hash: '-oSl1aUGLloPRXNL6GAKCN7abGjBqgPlfvphHAcUA3k'
 id: node.species_counting_results.default
 targetEntityType: node
 bundle: species_counting_results
@@ -22,33 +27,46 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_count_difficulty:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 1
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_count_questions:
-    type: inline_entity_form_complex
+    type: paragraphs
     weight: 3
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: optional
-    third_party_settings: {  }
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: species_count_question
+      features:
+        add_above: '0'
+        collapse_edit_all: '0'
+        convert: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+        show_collapse_all: false
+      paragraphs_ee:
+        paragraphs_ee:
+          dialog_off_canvas: false
+          dialog_style: tiles
+          drag_drop: false
   field_test_score:
     type: number
     weight: 2
