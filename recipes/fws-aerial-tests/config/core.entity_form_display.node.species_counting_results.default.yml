@@ -12,6 +12,7 @@ dependencies:
     - paragraphs_ee
     - paragraphs_features
     - path
+    - select2
 _core:
   default_config_hash: C-LcnfFcOAXCaA-yDiVjnRc8aPGqbHXTJJg7kuMhmtM
 id: node.species_counting_results.default
@@ -33,10 +34,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_count_difficulty:
-    type: options_select
+    type: select2_entity_reference
     weight: 1
     region: content
-    settings: {  }
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_count_questions:
     type: paragraphs
