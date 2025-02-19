@@ -1,0 +1,20 @@
+id: node.species_id_results.field_species_group
+field_name: field_species_group
+entity_type: node
+bundle: species_id_results
+label: 'Species Group'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+dependencies:
+  config:
+    - field.storage.node.field_species_group
+    - node.type.species_id_results
+    - taxonomy.vocabulary.species_group
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species_group: species_group
+field_type: entity_reference

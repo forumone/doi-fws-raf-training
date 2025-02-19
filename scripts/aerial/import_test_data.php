@@ -63,8 +63,8 @@ function get_test_parameters($params_data, $test_id) {
  */
 function get_test_answers($test_file, $detail_file) {
   $answers = [];
-  
-  // First get basic test info
+
+  // First get basic test info.
   $test_data = parse_csv_file($test_file);
   foreach ($test_data as $test) {
     $test_id = $test['TEST_ID'];
@@ -72,11 +72,11 @@ function get_test_answers($test_file, $detail_file) {
       'test_type' => $test['TEST_TYPE'],
       'test_date' => $test['TEST_DATE'],
       'user_id' => $test['USER_ID'],
-      'details' => []
+      'details' => [],
     ];
   }
 
-  // Then get detailed answers
+  // Then get detailed answers.
   $detail_data = parse_csv_file($detail_file);
   foreach ($detail_data as $detail) {
     $test_id = $detail['TEST_ID'];
@@ -85,11 +85,11 @@ function get_test_answers($test_file, $detail_file) {
         'file_id' => $detail['FILE_ID'],
         'test_param' => $detail['TEST_PARAM'],
         'expected_value' => $detail['EXPECTED_VALUE'],
-        'answer_value' => $detail['ANSWER_VALUE']
+        'answer_value' => $detail['ANSWER_VALUE'],
       ];
     }
   }
-  
+
   return $answers;
 }
 
@@ -131,7 +131,7 @@ function map_difficulty_level($level, $is_counting = TRUE) {
       ->getStorage('taxonomy_term')
       ->loadByProperties([
         'vid' => $vocabulary,
-        'field_difficulty_level' => $difficulty_id
+        'field_difficulty_level' => $difficulty_id,
       ]);
     if (!empty($terms)) {
       return reset($terms)->id();
@@ -167,13 +167,13 @@ function validate_configurations() {
     'species_counting_results' => [
       'fields' => [
         'field_count_difficulty',
-        'field_count_questions'
+        'field_count_questions',
       ],
     ],
     'species_id_results' => [
       'fields' => [
         'field_id_difficulty',
-        'field_id_questions'
+        'field_id_questions',
       ],
     ],
   ];
@@ -182,12 +182,12 @@ function validate_configurations() {
     'species_counting_difficulty' => [
       1 => 'Beginner',
       2 => 'Moderate',
-      3 => 'Challenging'
+      3 => 'Challenging',
     ],
     'species_id_difficulty' => [
       1 => 'Beginner',
       2 => 'Moderate',
-      3 => 'Challenging'
+      3 => 'Challenging',
     ],
     'species_group' => [
       'Dabbling Ducks',
@@ -237,14 +237,15 @@ function validate_configurations() {
     }
 
     if ($vocab === 'species_counting_difficulty' || $vocab === 'species_id_difficulty') {
-      // For difficulty vocabularies, check by difficulty level ID
+      // For difficulty vocabularies, check by difficulty level ID.
       foreach ($terms as $id => $term) {
         if (!$term_storage->loadByProperties(['vid' => $vocab, 'field_difficulty_level' => $id])) {
           $errors[] = "Missing difficulty level {$id} ({$term}) in vocabulary '{$vocab}'";
         }
       }
-    } else {
-      // For other vocabularies, check by name
+    }
+    else {
+      // For other vocabularies, check by name.
       foreach ($terms as $term) {
         if (!get_term_id_by_name($term, $vocab)) {
           $errors[] = "Missing term '$term' in vocabulary '$vocab'";
@@ -313,7 +314,7 @@ function get_media_entity($file_id, $type = 'image') {
 /**
  * Main import logic.
  */
-function import_test_data() {
+function import_test_data($limit = NULL) {
   echo "Starting configuration validation...\n";
 
   // Validate configurations first.
@@ -360,12 +361,23 @@ function import_test_data() {
   $test_ids = array_unique(array_column($params_data, 'TEST_ID'));
   echo "Found " . count($test_ids) . " unique test IDs\n";
 
+  // Limit test IDs if needed
+  if ($limit !== NULL) {
+    $test_ids = array_slice($test_ids, 0, $limit);
+    echo "Limited to {$limit} test IDs\n";
+  }
+
   // Process each test.
+  $processed_count = 0;
   foreach ($test_ids as $test_id) {
+    if ($limit !== NULL && $processed_count >= $limit) {
+      echo "Reached import limit of {$limit} tests\n";
+      break;
+    }
     $params = get_test_parameters($params_data, $test_id);
     $answer_data = $test_answers[$test_id] ?? NULL;
 
-    // Skip if no parameters or details found
+    // Skip if no parameters or details found.
     if (empty($params) || empty($answer_data) || empty($answer_data['details'])) {
       echo "Skipping test {$test_id} - missing data\n";
       continue;
@@ -373,7 +385,7 @@ function import_test_data() {
 
     echo "Processing test {$test_id} - {$answer_data['test_type']}\n";
 
-    // Determine content type based on test type
+    // Determine content type based on test type.
     $is_counting = ($answer_data['test_type'] === 'PHOTO');
     $content_type = $is_counting ? 'species_counting_results' : 'species_id_results';
 
@@ -406,19 +418,19 @@ function import_test_data() {
         $node->set('field_count_ranges', $range_tids);
       }
 
-      // Process count questions
+      // Process count questions.
       $count_questions = [];
       foreach ($answer_data['details'] as $detail) {
         if ($detail['test_param'] === 'COUNT') {
           $count_questions[] = [
             'target_id' => $detail['file_id'],
             'expected_count' => $detail['expected_value'],
-            'user_count' => $detail['answer_value']
+            'user_count' => $detail['answer_value'],
           ];
         }
       }
 
-      // Set count questions
+      // Set count questions.
       if (!empty($count_questions)) {
         $node->set('field_count_questions', $count_questions);
       }
@@ -463,21 +475,21 @@ function import_test_data() {
         }
       }
 
-      // Process species identification questions
+      // Process species identification questions.
       $id_questions = [];
       foreach ($answer_data['details'] as $detail) {
         if ($detail['test_param'] === 'SPECIES') {
           $expected_species_tid = get_term_id_by_name($detail['expected_value'], 'species');
           $answer_species_tid = get_term_id_by_name($detail['answer_value'], 'species');
-          
+
           $id_questions[] = [
             'target_id' => $detail['file_id'],
             'expected_species' => $expected_species_tid,
-            'user_species' => $answer_species_tid
+            'user_species' => $answer_species_tid,
           ];
         }
       }
-      
+
       if (!empty($id_questions)) {
         $node->set('field_id_questions', $id_questions);
       }
@@ -486,17 +498,29 @@ function import_test_data() {
     try {
       $node->save();
       echo "Created {$content_type} node for Test {$test_id}\n";
+      $processed_count++;
     }
     catch (Exception $e) {
       echo "Error creating node for Test {$test_id}: " . $e->getMessage() . "\n";
     }
   }
+
+  echo "Processed {$processed_count} tests\n";
 }
 
 // Execute import with error handling.
+// Get the limit from command line argument.
+$limit = NULL;
+$input = \Drush\Drush::input();
+$args = $input->getArguments();
+if (isset($args['args']) && !empty($args['args'])) {
+  $limit = (int) $args['args'][0];
+  echo "Will import up to {$limit} tests\n";
+}
+
 try {
   echo "Starting import process...\n";
-  import_test_data();
+  import_test_data($limit);
   echo "Import complete!\n";
 }
 catch (Exception $e) {

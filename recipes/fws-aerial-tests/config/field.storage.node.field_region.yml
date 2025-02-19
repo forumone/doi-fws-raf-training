@@ -1,0 +1,10 @@
+status: true
+id: node.field_region
+field_name: field_region
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+cardinality: 1
+translatable: true
