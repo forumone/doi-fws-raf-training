@@ -1,0 +1,33 @@
+uuid: c3293dc3-2c37-46c3-a23a-b2eda51c94ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.species_count_question.field_count_media_reference
+    - field.field.paragraph.species_count_question.field_user_count
+    - paragraphs.paragraphs_type.species_count_question
+id: paragraph.species_count_question.default
+targetEntityType: paragraph
+bundle: species_count_question
+mode: default
+content:
+  field_count_media_reference:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_user_count:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

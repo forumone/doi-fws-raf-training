@@ -1,0 +1,36 @@
+uuid: 5fd918bc-27d9-43c7-8fed-ddcc45505e4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.species_id_question.field_media_reference
+    - field.field.paragraph.species_id_question.field_user_species_selection
+    - paragraphs.paragraphs_type.species_id_question
+id: paragraph.species_id_question.default
+targetEntityType: paragraph
+bundle: species_id_question
+mode: default
+content:
+  field_media_reference:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_user_species_selection:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
