@@ -88,7 +88,7 @@ function get_term_id_by_name($name, $vocabulary) {
 }
 
 // Function to map difficulty level to taxonomy term ID
-function map_difficulty_level($level) {
+function map_difficulty_level($level, $is_counting = true) {
   $map = [
     'Beginner/Refresher (10 seconds to view image)' => 'Beginner Image',
     'Beginner/Refresher (10 seconds video)' => 'Beginner Video',
@@ -100,7 +100,8 @@ function map_difficulty_level($level) {
   
   $term_name = $map[$level] ?? '';
   if ($term_name) {
-    return get_term_id_by_name($term_name, 'difficulty_level');
+    $vocabulary = $is_counting ? 'species_counting_difficulty' : 'species_id_difficulty';
+    return get_term_id_by_name($term_name, $vocabulary);
   }
   return null;
 }
@@ -127,14 +128,14 @@ function validate_configurations() {
   $required_content_types = [
     'species_counting_results' => [
       'fields' => [
-        'field_count_difficulty', // Updated field name
+        'field_count_difficulty',
         'field_count_ranges',
         'field_species_image'
       ]
     ],
     'species_id_results' => [
       'fields' => [
-        'field_id_difficulty', // Updated field name
+        'field_id_difficulty',
         'field_species_groups',
         'field_regions',
         'field_species_video'
@@ -143,7 +144,15 @@ function validate_configurations() {
   ];
 
   $required_taxonomies = [
-    'difficulty_level' => [
+    'species_counting_difficulty' => [
+      'Beginner Image',
+      'Beginner Video',
+      'Moderate Image',  
+      'Moderate Video',
+      'Challenging Image',
+      'Challenging Video'
+    ],
+    'species_id_difficulty' => [
       'Beginner Image',
       'Beginner Video',
       'Moderate Image',  
@@ -331,7 +340,7 @@ function import_test_data() {
     
     // Set difficulty level using correct field
     if (isset($params['LEVEL'][0])) {
-      $difficulty_tid = map_difficulty_level($params['LEVEL'][0]);
+      $difficulty_tid = map_difficulty_level($params['LEVEL'][0], $is_counting);
       if ($difficulty_tid) {
         $field_name = $is_counting ? 'field_count_difficulty' : 'field_id_difficulty';
         $node->set($field_name, ['target_id' => $difficulty_tid]);
