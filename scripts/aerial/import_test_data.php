@@ -647,15 +647,26 @@ function import_test_data($limit = NULL) {
           $expected_species_tid = get_term_id_by_name($detail['expected_value'], 'species');
           $answer_species_tid = get_term_id_by_name($detail['answer_value'], 'species');
 
+          echo "DEBUG: Creating species ID question for Test {$test_id}: file={$detail['file_id']}, expected={$detail['expected_value']}, answer={$detail['answer_value']}\n";
+
+          // Create a paragraph entity for each species ID question.
+          $paragraph = Paragraph::create([
+            'type' => 'species_id_question',
+            'field_media_reference' => ['target_id' => get_media_entity($detail['file_id'])],
+            'field_user_species_selection' => ['target_id' => $answer_species_tid],
+            'field_expected_species' => ['target_id' => $expected_species_tid],
+          ]);
+          $paragraph->save();
+
           $id_questions[] = [
-            'target_id' => $detail['file_id'],
-            'expected_species' => $expected_species_tid,
-            'user_species' => $answer_species_tid,
+            'target_id' => $paragraph->id(),
+            'target_revision_id' => $paragraph->getRevisionId(),
           ];
         }
       }
 
       if (!empty($id_questions)) {
+        echo "DEBUG: Setting " . count($id_questions) . " ID questions for Test {$test_id}\n";
         $node->set('field_id_questions', $id_questions);
       }
     }
