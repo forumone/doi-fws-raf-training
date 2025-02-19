@@ -1,17 +1,15 @@
-uuid: 14ca2f8c-71b8-4e06-a440-c3636977b2e0
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_test_level
-field_name: field_test_level
+    - taxonomy
+id: node.field_count_difficulty
+field_name: field_count_difficulty
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

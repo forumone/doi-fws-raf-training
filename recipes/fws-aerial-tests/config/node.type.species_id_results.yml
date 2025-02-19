@@ -2,10 +2,10 @@ uuid: 1ec809c6-3f84-40d1-9eb2-3685f52c5961
 langcode: en
 status: true
 dependencies: {  }
-name: 'Species ID Results'
+name: 'Species ID Test Results'
 type: species_id_results
-description: 'Stores results from species identification tests, including user responses and scores.'
-help: null
-new_revision: true
+description: 'Results from aerial species identification tests'
+help: ''
+new_revision: false
 preview_mode: 1
-display_submitted: true
+display_submitted: false
