@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the species ID test start page.
+ *
+ * Available variables:
+ * - form: The rendered form for test configuration.
+ * - module_path: The path to the fws_id_test module.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="id-test-page">
+  <div class="id-test-form">
+    {{ form }}
+
+    <figure>
+      <figcaption>Geographic Regions (occurrence during any season)</figcaption>
+      <img style="float: left" src="{{ module_path }}/images/Geographic_Regions.jpg" width="400" border="0" usemap="#map">
+    </figure>
+  </div>
+</div>

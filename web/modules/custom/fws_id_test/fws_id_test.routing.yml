@@ -1,0 +1,23 @@
+fws_id_test.start:
+  path: '/id-test/start'
+  defaults:
+    _controller: '\Drupal\fws_id_test\Controller\IdTestController::content'
+    _title: 'Test Your Species Identification Skills'
+  requirements:
+    _permission: 'access content'
+
+fws_id_test.test:
+  path: '/id-test/test'
+  defaults:
+    _controller: '\Drupal\fws_id_test\Controller\IdTestController::test'
+    _title: 'Species ID Test'
+  requirements:
+    _permission: 'access content'
+
+fws_id_test.settings:
+  path: '/admin/config/fws/id-test'
+  defaults:
+    _form: '\Drupal\fws_id_test\Form\IdTestSettingsForm'
+    _title: 'FWS ID Test Settings'
+  requirements:
+    _permission: 'administer site configuration'
