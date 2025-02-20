@@ -159,6 +159,14 @@
       // Target all links in table headers that have sort functionality
       once('table-sort-accessibility', 'th a[href*="sort="]', context).forEach(function (link) {
         $(link).attr('role', 'button');
+
+        // Add spacebar support to submit sorting changes
+        $(link).on('keydown', function(e) {
+          if (e.which === 32) {
+            e.preventDefault();  // Prevent page scroll
+            window.location = e.target.href;
+          }
+        });
       });
     }
   };
