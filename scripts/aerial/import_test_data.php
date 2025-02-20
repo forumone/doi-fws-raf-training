@@ -693,6 +693,8 @@ function import_test_data($limit = NULL) {
 
       // Process species identification questions.
       $id_questions = [];
+      $correct_answers = 0;
+      $total_questions = 0;
       foreach ($answer_data['details'] as $detail) {
         if ($detail['test_param'] === 'SPECIES') {
           $expected_species_tid = get_term_id_by_name($detail['expected_value'], 'species');
@@ -703,12 +705,30 @@ function import_test_data($limit = NULL) {
           // Get media entity for video file.
           $media_id = get_media_entity($detail['file_id'], 'video', $video_metadata);
 
+          // Check if the answer matches the species on the media entity.
+          $is_correct = FALSE;
+          if ($media_id) {
+            $media = \Drupal::entityTypeManager()
+              ->getStorage('media')
+              ->load($media_id);
+            if ($media) {
+              $media_species = $media->get('field_species')->target_id;
+              $is_correct = ($media_species == $expected_species_tid && $expected_species_tid == $answer_species_tid);
+              if ($is_correct) {
+                $correct_answers++;
+              }
+              $total_questions++;
+              echo "DEBUG: Answer is " . ($is_correct ? "correct" : "incorrect") . " for question {$total_questions}\n";
+            }
+          }
+
           // Create a paragraph entity for each species ID question.
           $paragraph = Paragraph::create([
             'type' => 'species_id_question',
             'field_media_reference' => ['target_id' => $media_id],
             'field_user_species_selection' => ['target_id' => $answer_species_tid],
             'field_expected_species' => ['target_id' => $expected_species_tid],
+            'field_is_correct' => $is_correct,
           ]);
           $paragraph->save();
 
@@ -722,6 +742,13 @@ function import_test_data($limit = NULL) {
       if (!empty($id_questions)) {
         echo "DEBUG: Setting " . count($id_questions) . " ID questions for Test {$test_id}\n";
         $node->set('field_id_questions', $id_questions);
+
+        // Calculate and set test score as percentage of correct answers.
+        if ($total_questions > 0) {
+          $test_score = ($correct_answers / $total_questions) * 100;
+          echo "DEBUG: Setting test score for Test {$test_id}: {$test_score}% ({$correct_answers} correct out of {$total_questions})\n";
+          $node->set('field_test_score', $test_score);
+        }
       }
     }
 
