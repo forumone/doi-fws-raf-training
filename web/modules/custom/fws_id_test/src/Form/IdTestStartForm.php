@@ -114,8 +114,8 @@ class IdTestStartForm extends FormBase {
     $session->set('fws_id_test.species_group', array_filter($form_state->getValue('species_group')));
     $session->set('fws_id_test.region', array_filter($form_state->getValue('geographic_region')));
 
-    // Redirect to the test page.
-    $form_state->setRedirect('fws_id_test.test');
+    // Redirect to the confirmation page.
+    $form_state->setRedirect('fws_id_test.confirm');
   }
 
 }
