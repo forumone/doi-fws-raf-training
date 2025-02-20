@@ -1,0 +1,23 @@
+uuid: 2e454b2c-41f1-4ef0-a135-d9bb81b6930a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test_score
+    - node.type.species_id_results
+id: node.species_id_results.field_test_score
+field_name: field_test_score
+entity_type: node
+bundle: species_id_results
+label: 'Test Score'
+description: 'The percentage of correct species identifications in this test (0-100).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  prefix: ''
+  suffix: '%'
+field_type: decimal

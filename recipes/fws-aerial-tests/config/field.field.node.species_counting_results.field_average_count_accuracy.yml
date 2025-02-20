@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_average_count_accuracy
+    - node.type.species_counting_results
+id: node.species_counting_results.field_average_count_accuracy
+field_name: field_average_count_accuracy
+entity_type: node
+bundle: species_counting_results
+label: 'Average Count Accuracy'
+description: 'The average percentage difference between expected and actual counts across all questions. Negative values indicate average undercount, positive values indicate average overcount.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: '%'
+field_type: decimal

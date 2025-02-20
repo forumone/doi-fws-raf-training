@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_is_correct
+    - paragraphs.paragraphs_type.species_id_question
+id: paragraph.species_id_question.field_is_correct
+field_name: field_is_correct
+entity_type: paragraph
+bundle: species_id_question
+label: 'Is Correct'
+description: 'Whether the user selected the correct species (matches the species on the referenced media)'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Correct'
+  off_label: 'Incorrect'
+field_type: boolean

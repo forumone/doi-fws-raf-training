@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_test_score
+field_name: field_test_score
+entity_type: node
+type: decimal
+settings:
+  precision: 10
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {}

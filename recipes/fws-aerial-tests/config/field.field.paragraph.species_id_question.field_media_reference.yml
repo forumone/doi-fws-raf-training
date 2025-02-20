@@ -1,0 +1,24 @@
+uuid: f54389c3-8d7b-4b3c-9c5f-4afcaca4f9f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_media_reference
+    - media.type.species_video
+    - paragraphs.paragraphs_type.species_id_question
+id: paragraph.species_id_question.field_media_reference
+field_name: field_media_reference
+entity_type: paragraph
+bundle: species_id_question
+label: 'Media Reference'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      species_video: species_video
+field_type: entity_reference

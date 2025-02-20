@@ -19,7 +19,7 @@ default_value_callback: ''
 settings:
   handler: 'default:file'
   handler_settings: { }
-  file_directory: 'videos/species'
+  file_directory: 'videos/test'
   file_extensions: 'mp4 mov'
   max_filesize: ''
   description_field: false
