@@ -287,7 +287,7 @@ function validate_configurations() {
  */
 function get_file_metadata($type = 'photo') {
   $metadata = [];
-  $filepath = __DIR__ . '/data/' . ($type === 'photo' ? 'PHOTO_FILE_METADATA.csv' : 'VIDEO_FILE_SPECIES_CHOICE.csv');
+  $filepath = __DIR__ . '/data/' . ($type === 'photo' ? 'PHOTO_FILE_METADATA.csv' : 'VIDEO_FILE_METADATA.csv');
 
   if (!file_exists($filepath)) {
     echo "Warning: Metadata file not found: {$filepath}\n";
@@ -305,18 +305,69 @@ function get_file_metadata($type = 'photo') {
 
 /**
  * Function to get media entity by filename.
+ *
+ * @param string $file_id
+ *   The file ID to look up.
+ * @param string $type
+ *   The type of media entity ('image' or 'video').
+ * @param array $metadata
+ *   Optional metadata array for video lookups.
+ *
+ * @return int|null
+ *   The media entity ID if found, NULL otherwise.
  */
-function get_media_entity($file_id, $type = 'image') {
+function get_media_entity($file_id, $type = 'image', array $metadata = []) {
   $media_storage = \Drupal::entityTypeManager()->getStorage('media');
 
   if ($type === 'video') {
-    // Video files follow pattern: [FILE_ID]_2030kbps.mp4.
-    $filename_pattern = $file_id . '_2030kbps.mp4';
-    $query = $media_storage->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('bundle', $type)
-      ->condition('name', '%' . $filename_pattern, 'LIKE')
-      ->range(0, 1);
+    // Look up the actual filename from metadata.
+    if (!isset($metadata[$file_id])) {
+      echo "Warning: No metadata found for video file ID {$file_id}\n";
+      return NULL;
+    }
+
+    // Get the filename from metadata and construct the full filename.
+    $base_filename = $metadata[$file_id]['FILE_NAME'];
+    if (!$base_filename) {
+      echo "Warning: No filename found in metadata for file ID {$file_id}\n";
+      return NULL;
+    }
+
+    $filename = $base_filename . '_2030kbps.mp4';
+    $uri = 'public://videos/test/' . $filename;
+
+    echo "DEBUG: Looking for video file with URI: " . $uri . "\n";
+
+    $files = \Drupal::entityTypeManager()
+      ->getStorage('file')
+      ->loadByProperties(['uri' => $uri]);
+
+    if (empty($files)) {
+      \Drupal::logger('aerial_import')->warning('No file entity found with URI ' . $uri);
+      return NULL;
+    }
+
+    $file = reset($files);
+    $file_id = $file->id();
+
+    echo "DEBUG: Found file entity with ID: " . $file_id . "\n";
+
+    // Now find the media entity that references this file.
+    $query = \Drupal::entityQuery('media')
+      ->condition('bundle', 'species_video')
+      ->condition('field_video_file.target_id', $file_id)
+      ->accessCheck(FALSE);
+
+    $media_ids = $query->execute();
+
+    if (empty($media_ids)) {
+      \Drupal::logger('aerial_import')->warning('No media entity found referencing file ' . $filename);
+      return NULL;
+    }
+
+    $media_id = reset($media_ids);
+    echo "DEBUG: Found media entity with ID: " . $media_id . "\n";
+    return $media_id;
   }
   else {
     // Photos use direct file ID lookup from metadata.
@@ -330,7 +381,7 @@ function get_media_entity($file_id, $type = 'image') {
   $media_ids = $query->execute();
   if (!empty($media_ids)) {
     $media_id = reset($media_ids);
-    echo "Found existing media entity {$media_id} for file ID {$file_id}\n";
+    echo "DEBUG: Found existing media entity {$media_id} for file ID {$file_id}\n";
     return $media_id;
   }
 
@@ -633,7 +684,7 @@ function import_test_data($limit = NULL) {
       if (!empty($answer_data['video_path'])) {
         $file_id = basename($answer_data['video_path']);
         if (isset($video_metadata[$file_id])) {
-          $media_id = get_media_entity($file_id, 'video');
+          $media_id = get_media_entity($file_id, 'video', $video_metadata);
           if ($media_id) {
             $node->set('field_species_video', ['target_id' => $media_id]);
           }
@@ -649,10 +700,13 @@ function import_test_data($limit = NULL) {
 
           echo "DEBUG: Creating species ID question for Test {$test_id}: file={$detail['file_id']}, expected={$detail['expected_value']}, answer={$detail['answer_value']}\n";
 
+          // Get media entity for video file.
+          $media_id = get_media_entity($detail['file_id'], 'video', $video_metadata);
+
           // Create a paragraph entity for each species ID question.
           $paragraph = Paragraph::create([
             'type' => 'species_id_question',
-            'field_media_reference' => ['target_id' => get_media_entity($detail['file_id'])],
+            'field_media_reference' => ['target_id' => $media_id],
             'field_user_species_selection' => ['target_id' => $answer_species_tid],
             'field_expected_species' => ['target_id' => $expected_species_tid],
           ]);
