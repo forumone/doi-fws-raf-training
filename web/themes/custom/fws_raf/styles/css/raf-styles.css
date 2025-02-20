@@ -486,6 +486,12 @@ input.form-autocomplete {
 .page-node-add .text-format-wrapper .form-type-select .select-wrapper select {
   min-height: initial;
 }
+.page-node-edit .tabbable .description,
+.page-node-edit .tabbable .summary,
+.page-node-add .tabbable .description,
+.page-node-add .tabbable .summary {
+  color: #1b1c1a;
+}
 
 .node-confirm-form {
   margin-bottom: 30px;
