@@ -6,5 +6,5 @@ id: species_id_question
 label: 'Species ID Question'
 icon_uuid: null
 icon_default: null
-description: null
+description: 'A question that asks the user to identify the species in a video. Includes the expected species, user selection, and whether the answer was correct.'
 behavior_plugins: {  }
