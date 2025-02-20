@@ -3,9 +3,11 @@
 namespace Drupal\fws_id_test\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Database\Connection;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Controller for the species ID test page.
@@ -20,13 +22,48 @@ class IdTestController extends ControllerBase {
   protected $extensionPathResolver;
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a new IdTestController object.
    *
    * @param \Drupal\Core\Extension\ExtensionPathResolver $extension_path_resolver
    *   The extension path resolver.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    */
-  public function __construct(ExtensionPathResolver $extension_path_resolver) {
+  public function __construct(
+    ExtensionPathResolver $extension_path_resolver,
+    Connection $database,
+    EntityTypeManagerInterface $entity_type_manager,
+    RequestStack $request_stack,
+  ) {
     $this->extensionPathResolver = $extension_path_resolver;
+    $this->database = $database;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->requestStack = $request_stack;
   }
 
   /**
@@ -34,7 +71,10 @@ class IdTestController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('extension.path.resolver')
+      $container->get('extension.path.resolver'),
+      $container->get('database'),
+      $container->get('entity_type.manager'),
+      $container->get('request_stack')
     );
   }
 
@@ -62,47 +102,66 @@ class IdTestController extends ControllerBase {
    * Displays the species ID test page.
    */
   public function test() {
-    // Check if we have the required session values.
-    $session = \Drupal::service('session');
-    $difficulty = $session->get('fws_id_test.difficulty');
-    $species_groups = $session->get('fws_id_test.species_group');
-    $regions = $session->get('fws_id_test.region');
+    // Get parameters from the URL query.
+    $request = $this->requestStack->getCurrentRequest();
+    $query = $request->query;
 
-    // If any required values are missing, redirect back to start.
-    if (!$difficulty || empty($species_groups) || empty($regions)) {
-      $this->messenger()->addError($this->t('Please select your test options before starting.'));
-      return new RedirectResponse('/id-test/start');
+    $difficulty = $query->get('difficulty');
+    $species_groups = $query->all()['species_groups'] ?? [];
+    $locations = $query->all()['locations'] ?? [];
+
+    // Validate that we have the required parameters.
+    if (empty($difficulty) || empty($species_groups) || empty($locations)) {
+      $this->messenger()->addError($this->t('Missing required parameters. Please start the test from the beginning.'));
+      return $this->redirect('fws_id_test.start');
     }
 
-    // Load the term labels for display.
-    $term_storage = $this->entityTypeManager()->getStorage('taxonomy_term');
+    // First, get species that match our criteria (species groups and regions).
+    $species_query = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('vid', 'species')
+      ->condition('field_species_group', $species_groups, 'IN')
+      ->condition('field_geographic_region', $locations, 'IN');
+    $species_ids = $species_query->execute();
 
-    // Load difficulty term.
-    $difficulty_term = $term_storage->load($difficulty);
-    $difficulty_label = $difficulty_term ? $difficulty_term->label() : '';
+    if (empty($species_ids)) {
+      $this->messenger()->addError($this->t('No species found matching the selected criteria. Please modify your selection.'));
+      return $this->redirect('fws_id_test.start');
+    }
 
-    // Load species group terms.
-    $species_group_terms = $term_storage->loadMultiple(array_keys($species_groups));
-    $species_group_labels = array_map(function ($term) {
-      return $term->label();
-    }, $species_group_terms);
+    // Then get videos that reference these species and match the difficulty.
+    $query = $this->entityTypeManager->getStorage('media')->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('status', 1)
+      ->condition('bundle', 'species_video')
+      ->condition('field_species', $species_ids, 'IN')
+      ->condition('field_difficulty_level', $difficulty);
 
-    // Load region terms.
-    $region_terms = $term_storage->loadMultiple(array_keys($regions));
-    $region_labels = array_map(function ($term) {
-      return $term->label();
-    }, $region_terms);
+    // Get all matching media IDs.
+    $media_ids = $query->execute();
 
-    // For now, just return a placeholder message.
+    // If we don't have enough videos, show an error and redirect back.
+    if (count($media_ids) < 10) {
+      $this->messenger()->addError($this->t('Not enough videos available for the selected criteria. Please modify your selection.'));
+      return $this->redirect('fws_id_test.start');
+    }
+
+    // Randomly select 10 media IDs.
+    $random_media_ids = array_rand($media_ids, 10);
+    $selected_media_ids = array_intersect_key($media_ids, array_flip($random_media_ids));
+
+    // Load the full media entities.
+    $videos = $this->entityTypeManager->getStorage('media')->loadMultiple($selected_media_ids);
+
+    // Return the render array.
     return [
-      '#markup' => $this->t('Test page with:<br>
-        Experience Level: @difficulty<br>
-        Species Groups: @groups<br>
-        Regions/Habitats: @regions', [
-          '@difficulty' => $difficulty_label,
-          '@groups' => implode(', ', $species_group_labels),
-          '@regions' => implode(', ', $region_labels),
-        ]),
+      '#theme' => 'id_test_quiz',
+      '#videos' => $videos,
+      '#attached' => [
+        'library' => [
+          'fws_id_test/quiz',
+        ],
+      ],
     ];
   }
 

@@ -17,5 +17,11 @@ function fws_id_test_theme() {
       ],
       'template' => 'id-test-page',
     ],
+    'id_test_quiz' => [
+      'variables' => [
+        'videos' => NULL,
+      ],
+      'template' => 'id-test-quiz',
+    ],
   ];
 }

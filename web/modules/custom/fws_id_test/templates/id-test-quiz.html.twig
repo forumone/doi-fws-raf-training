@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the species ID test quiz.
+ *
+ * Available variables:
+ * - videos: Array of video media entities.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="id-test-quiz">
+  <div class="quiz-progress">
+    <div class="progress-bar">
+      <div class="progress" style="width: 0%"></div>
+    </div>
+    <div class="progress-text">Question <span class="current-question">1</span> of {{ videos|length }}</div>
+  </div>
+
+  <div class="quiz-container">
+    {% for video in videos %}
+      <div class="quiz-question" data-question="{{ loop.index }}" {% if not loop.first %}style="display: none;"{% endif %}>
+        <h3>Question {{ loop.index }}</h3>
+        <div class="video-container">
+          {{ video.field_video_file.view('full') }}
+        </div>
+        <div class="question-form">
+          <div class="form-item">
+            <label>What species is shown in this video?</label>
+            <div class="species-choices">
+              {% for choice in video.field_species_choices %}
+                <div class="choice">
+                  <input type="radio" name="q{{ loop.parent.loop.index }}" value="{{ choice.target_id }}" id="q{{ loop.parent.loop.index }}_{{ loop.index }}">
+                  <label for="q{{ loop.parent.loop.index }}_{{ loop.index }}">{{ choice.entity.label }}</label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="form-actions">
+            {% if not loop.first %}
+              <button type="button" class="button prev-question">Previous</button>
+            {% endif %}
+            {% if not loop.last %}
+              <button type="button" class="button next-question" disabled>Next</button>
+            {% else %}
+              <button type="button" class="button submit-quiz" disabled>Submit Quiz</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -107,15 +107,20 @@ class IdTestStartForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Store the selected values in the user's session for the next step.
-    $session = \Drupal::service('session');
-    $session->set('fws_id_test.difficulty', $form_state->getValue('species_id_difficulty'));
     // Filter out unselected values from checkboxes.
-    $session->set('fws_id_test.species_group', array_filter($form_state->getValue('species_group')));
-    $session->set('fws_id_test.region', array_filter($form_state->getValue('geographic_region')));
+    $species_groups = array_filter($form_state->getValue('species_group'));
+    $regions = array_filter($form_state->getValue('geographic_region'));
 
-    // Redirect to the confirmation page.
-    $form_state->setRedirect('fws_id_test.confirm');
+    // Redirect to the confirmation page with query parameters.
+    $form_state->setRedirect('fws_id_test.confirm', [], [
+      'query' => [
+        'difficulty' => $form_state->getValue('species_id_difficulty'),
+    // Ensure numeric array.
+        'species_groups' => array_values(array_keys($species_groups)),
+    // Ensure numeric array.
+        'locations' => array_values(array_keys($regions)),
+      ],
+    ]);
   }
 
 }
