@@ -70,6 +70,14 @@
       min-height: initial;
     }
   }
+
+  .tabbable {
+
+    .description,
+    .summary {
+      color: #1b1c1a;
+    }
+  }
 }
 
 .node-confirm-form {
