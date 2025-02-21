@@ -1,3 +1,4 @@
+uuid: d6497480-e384-4455-899b-6d7a4e8b73b7
 langcode: en
 status: true
 dependencies:
@@ -9,19 +10,17 @@ dependencies:
   module:
     - entity_reference_revisions
     - user
+_core:
+  default_config_hash: gNHQ3d8IxEiBqbLPUeE8D6CZbN1Z_4DEdYJhfX7OEt4
 id: node.species_counting_results.default
 targetEntityType: node
 bundle: species_counting_results
 mode: default
 content:
   field_average_count_accuracy:
-    type: number_decimal
-    label: above
-    settings:
-      thousand_separator: ''
-      decimal_separator: .
-      scale: 2
-      prefix_suffix: true
+    type: number_unformatted
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
@@ -37,15 +36,15 @@ content:
     region: content
   field_count_difficulty:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
   field_count_questions:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
