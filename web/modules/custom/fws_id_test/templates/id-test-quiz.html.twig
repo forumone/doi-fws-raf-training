@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the species ID test quiz.
+ *
+ * Available variables:
+ * - videos: Array of video media entities.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{# Display a list of videos with their choices #}
+<div class="species-id-quiz">
+  {% for video in videos %}
+    <div class="quiz-item" data-question="{{ loop.index }}">
+      <div class="video-container">
+        <video controls>
+          <source src="{{ video.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="choices-container">
+        <h3>Species Choices:</h3>
+        <ul>
+          {% for choice in video.choices %}
+            <li>{{ choice }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <hr>
+  {% endfor %}
+</div>

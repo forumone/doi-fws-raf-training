@@ -20,12 +20,17 @@ fin drush -l scr ../scripts/aerial/install-cleanup.php
 fin drush -l cr
 fin drush -l recipe ../recipes/fws-aerial-taxonomy
 fin drush -l en -y aerial_videos
+fin drush -l en -y fws_counting
+fin drush -l en -y fws_id_test
 fin drush -l recipe ../recipes/fws-aerial-content
 fin drush -l recipe ../recipes/fws-aerial-media
+fin drush -l recipe ../recipes/fws-aerial-tests
 fin drush -l scr ../scripts/aerial/import-users.php
 fin drush -l scr ../scripts/aerial/import-terms.php
 fin drush -l scr ../scripts/aerial/import-species-photos.php
 fin drush -l scr ../scripts/aerial/import-species-videos.php
+# Import sample test data.
+fin drush -l scr ../scripts/aerial/import_test_data.php 10
 fin drush -l cr
 
 fin drush -l uli

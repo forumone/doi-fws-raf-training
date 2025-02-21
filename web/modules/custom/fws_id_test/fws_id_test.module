@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS ID Test module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function fws_id_test_theme() {
+  return [
+    'id_test_page' => [
+      'variables' => [
+        'form' => NULL,
+        'module_path' => NULL,
+      ],
+      'template' => 'id-test-page',
+    ],
+    'id_test_quiz' => [
+      'variables' => [
+        'videos' => NULL,
+      ],
+      'template' => 'id-test-quiz',
+    ],
+  ];
+}

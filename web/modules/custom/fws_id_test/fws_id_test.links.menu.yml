@@ -1,0 +1,6 @@
+fws_id_test.settings:
+  title: 'FWS ID Test Settings'
+  description: 'Configure FWS ID Test module settings.'
+  parent: system.admin_config_system
+  route_name: fws_id_test.settings
+  weight: 100
