@@ -179,7 +179,14 @@ class IdTestController extends ControllerBase {
       '#videos' => $prepared_videos,
       '#attached' => [
         'library' => [
-          'fws_id_test/quiz',
+          'fws_id_test/id_test',
+        ],
+        'drupalSettings' => [
+          'fws_id_test' => [
+            'quiz' => [
+              'videos' => $prepared_videos,
+            ],
+          ],
         ],
       ],
     ];

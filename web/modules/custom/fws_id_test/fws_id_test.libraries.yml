@@ -5,3 +5,7 @@ id_test:
       css/id-test.css: {}
   js:
     js/id-test.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
