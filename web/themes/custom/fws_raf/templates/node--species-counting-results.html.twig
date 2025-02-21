@@ -1,0 +1,90 @@
+{#
+/**
+ * @file
+ * Theme override to display a species counting results node.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+  ]
+%}
+
+{% set total_estimate = 0 %}
+{% set total_actual = 0 %}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  <h2>Your Test Results</h2>
+  {{ title_suffix }}
+
+  <div class="user-parameters">
+    <h3>User Parameters Selected:</h3>
+    <div class="parameter">
+      <strong>Experience Level:</strong>
+      {{ content.field_count_difficulty }}
+    </div>
+    <div class="parameter">
+      <strong>Flock Size Range:</strong><br>
+      {{ content.field_flock_size_range }}
+    </div>
+  </div>
+
+  <div class="results-section">
+    <h3>Your Results:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Flock #</th>
+          <th>Your Estimate</th>
+          <th>Actual Flock Size</th>
+          <th>% Difference</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in content.field_count_questions %}
+          {% if question['#paragraph'] is defined %}
+            {% set flock_number = loop.index + 30 %}
+            {% set user_count = question['#paragraph'].field_user_count.value %}
+
+            {% set media = question['#paragraph'].field_count_media_reference.entity %}
+            {% if not media %}
+              {% set media = question['#paragraph'].field_species_count_question.entity %}
+            {% endif %}
+
+            {% set actual_count = media.field_bird_count.value %}
+            {% if not actual_count %}
+              {% set actual_count = media.field_species_image.entity.field_bird_count.value %}
+            {% endif %}
+
+            {% set total_estimate = total_estimate + user_count %}
+            {% set total_actual = total_actual + actual_count %}
+            <tr>
+              <td>Flock {{ flock_number }}</td>
+              <td>{{ user_count }}</td>
+              <td>{{ actual_count }}</td>
+              <td>{{ question['#paragraph'].field_count_accuracy.value|number_format(2) }}%</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Totals</td>
+          <td>{{ total_estimate }}</td>
+          <td>{{ total_actual }}</td>
+          <td>{% if total_actual != 0 %}{{ ((total_estimate - total_actual) / total_actual * 100)|number_format(2) }}{% else %}0.00{% endif %}%</td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            You either UNDERcounted or OVERcounted flocks in this size range by an average of {{ node.field_average_count_accuracy.value|number_format(2) }}%
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</article>

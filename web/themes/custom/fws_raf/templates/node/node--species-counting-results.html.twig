@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * Theme override to display a species counting results node.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  <h1>Your Test Results</h1>
+  {{ title_suffix }}
+
+  <div class="user-parameters">
+    <h2>User Parameters Selected:</h2>
+    <div class="parameter">
+      <strong>Experience Level:</strong> {{ content.field_experience_level }}
+    </div>
+    <div class="parameter">
+      <strong>Flock Size Range:</strong> {{ content.field_flock_size_range }}
+    </div>
+  </div>
+
+  <div class="results-section">
+    <h2>Your Results:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Flock #</th>
+          <th>Your Estimate</th>
+          <th>Actual Flock Size</th>
+          <th>% Difference</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, item in content.field_flock_results['#items'] %}
+          <tr>
+            <td>Flock {{ loop.index }}</td>
+            <td>{{ item.estimate }}</td>
+            <td>{{ item.actual }}</td>
+            <td>{{ item.difference }}%</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Totals</td>
+          <td>{{ content.field_total_estimate }}</td>
+          <td>{{ content.field_total_actual }}</td>
+          <td>{{ content.field_total_difference }}%</td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            You either UNDERcounted or OVERcounted flocks in this size range by an average of {{ content.field_average_difference }}%
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</article>
