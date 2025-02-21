@@ -1,0 +1,13 @@
+name: 'FWS Aerial User'
+description: 'FWS aerial configuration.'
+type: 'Site'
+
+install:
+  - fws_user
+
+config:
+  actions:
+    user.role.authenticated:
+      simple_config_update:
+        permissions:
+          - 'access user profiles'
