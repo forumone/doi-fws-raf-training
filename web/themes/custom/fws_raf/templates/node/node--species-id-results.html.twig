@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Theme override to display a species ID results node.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  <h2>Your Test Results</h2>
+  {{ title_suffix }}
+
+  <div class="user-parameters">
+    <h3>User Parameters Selected:</h3>
+    <div class="parameter">
+      <strong>Experience Level:</strong> {{ content.field_id_difficulty }}
+    </div>
+    <div class="parameter">
+      <strong>Species Group:</strong> {{ content.field_species_group }}
+    </div>
+    <div class="parameter">
+      <strong>Geographic Region:</strong> {{ content.field_region }}
+    </div>
+  </div>
+
+  <div class="results-section">
+    <h3>Your Results:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Your ID</th>
+          <th>Actual ID</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in content.field_id_questions %}
+          {% if question['#paragraph'] is defined %}
+            {% set media = question['#paragraph'].field_media_reference.entity %}
+            {% set video_file = media ? media.field_video_file.entity : null %}
+            {% set actual_species = media ? media.field_species.entity.label() : 'Unknown' %}
+            <tr>
+              <td>
+                {% if video_file %}
+                  <a href="{{ file_url(video_file.uri.value) }}" target="_blank">Video {{ loop.index }}</a>
+                {% else %}
+                  Video {{ loop.index }}
+                {% endif %}
+              </td>
+              <td>{{ question['#paragraph'].field_user_species_selection.entity.label() }}</td>
+              <td>{{ actual_species }}</td>
+              <td>{{ question['#paragraph'].field_is_correct.value ? 'Correct' : 'Incorrect' }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Percent with Correct Identification</td>
+          <td>{{ node.field_test_score.value|number_format(0) }}%</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</article>

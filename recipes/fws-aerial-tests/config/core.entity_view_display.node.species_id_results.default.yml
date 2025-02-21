@@ -1,3 +1,4 @@
+uuid: ee5a4547-2d70-426d-973f-7f7f14e60736
 langcode: en
 status: true
 dependencies:
@@ -11,6 +12,8 @@ dependencies:
   module:
     - entity_reference_revisions
     - user
+_core:
+  default_config_hash: '-3oHpLkpc2vrV19r-xQcE3xt-qtFo1Y9P8uxdnA_CBI'
 id: node.species_id_results.default
 targetEntityType: node
 bundle: species_id_results
@@ -18,15 +21,15 @@ mode: default
 content:
   field_id_difficulty:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
   field_id_questions:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -35,17 +38,17 @@ content:
     region: content
   field_region:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 2
     region: content
   field_species_group:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content
@@ -67,3 +70,4 @@ content:
     region: content
 hidden:
   langcode: true
+  search_api_excerpt: true
