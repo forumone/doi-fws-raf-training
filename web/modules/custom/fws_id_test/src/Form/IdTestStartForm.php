@@ -115,10 +115,8 @@ class IdTestStartForm extends FormBase {
     $form_state->setRedirect('fws_id_test.confirm', [], [
       'query' => [
         'difficulty' => $form_state->getValue('species_id_difficulty'),
-    // Ensure numeric array.
         'species_groups' => array_values(array_keys($species_groups)),
-    // Ensure numeric array.
-        'locations' => array_values(array_keys($regions)),
+        'regions' => array_values(array_keys($regions)),
       ],
     ]);
   }

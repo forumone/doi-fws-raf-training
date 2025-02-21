@@ -108,10 +108,10 @@ class IdTestController extends ControllerBase {
 
     $difficulty = $query->get('difficulty');
     $species_groups = $query->all()['species_groups'] ?? [];
-    $locations = $query->all()['locations'] ?? [];
+    $regions = $query->all()['regions'] ?? [];
 
     // Validate that we have the required parameters.
-    if (empty($difficulty) || empty($species_groups) || empty($locations)) {
+    if (empty($difficulty) || empty($species_groups) || empty($regions)) {
       $this->messenger()->addError($this->t('Missing required parameters. Please start the test from the beginning.'));
       return $this->redirect('fws_id_test.start');
     }
@@ -121,7 +121,7 @@ class IdTestController extends ControllerBase {
       ->accessCheck(TRUE)
       ->condition('vid', 'species')
       ->condition('field_species_group', $species_groups, 'IN')
-      ->condition('field_geographic_region', $locations, 'IN');
+      ->condition('field_region', $regions, 'IN');
     $species_ids = $species_query->execute();
 
     if (empty($species_ids)) {
@@ -134,8 +134,7 @@ class IdTestController extends ControllerBase {
       ->accessCheck(TRUE)
       ->condition('status', 1)
       ->condition('bundle', 'species_video')
-      ->condition('field_species', $species_ids, 'IN')
-      ->condition('field_difficulty_level', $difficulty);
+      ->condition('field_species', $species_ids, 'IN');
 
     // Get all matching media IDs.
     $media_ids = $query->execute();
@@ -145,7 +144,6 @@ class IdTestController extends ControllerBase {
       $this->messenger()->addError($this->t('Not enough videos available for the selected criteria. Please modify your selection.'));
       return $this->redirect('fws_id_test.start');
     }
-
     // Randomly select 10 media IDs.
     $random_media_ids = array_rand($media_ids, 10);
     $selected_media_ids = array_intersect_key($media_ids, array_flip($random_media_ids));
@@ -153,10 +151,32 @@ class IdTestController extends ControllerBase {
     // Load the full media entities.
     $videos = $this->entityTypeManager->getStorage('media')->loadMultiple($selected_media_ids);
 
+    // Prepare video data for template.
+    $prepared_videos = [];
+    foreach ($videos as $video) {
+      $video_file = $video->get('field_video_file')->entity;
+      if ($video_file) {
+        $species_choices = [];
+        if ($video->hasField('field_species_choices') && !$video->get('field_species_choices')->isEmpty()) {
+          foreach ($video->get('field_species_choices') as $choice) {
+            if ($choice->entity) {
+              $species_choices[] = $choice->entity->label();
+            }
+          }
+        }
+
+        $prepared_videos[] = [
+          'url' => $video_file->createFileUrl(),
+          'species' => $video->get('field_species')->entity ? $video->get('field_species')->entity->label() : '',
+          'choices' => $species_choices,
+        ];
+      }
+    }
+
     // Return the render array.
     return [
       '#theme' => 'id_test_quiz',
-      '#videos' => $videos,
+      '#videos' => $prepared_videos,
       '#attached' => [
         'library' => [
           'fws_id_test/quiz',

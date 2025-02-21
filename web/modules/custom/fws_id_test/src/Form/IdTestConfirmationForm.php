@@ -54,7 +54,7 @@ class IdTestConfirmationForm extends FormBase {
 
     $difficulty = $query->get('difficulty');
     $species_groups = $query->all()['species_groups'] ?? [];
-    $locations = $query->all()['locations'] ?? [];
+    $regions = $query->all()['regions'] ?? [];
 
     // Load the term labels for display.
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
@@ -70,7 +70,7 @@ class IdTestConfirmationForm extends FormBase {
     }, $species_group_terms);
 
     // Load region terms.
-    $region_terms = $term_storage->loadMultiple($locations);
+    $region_terms = $term_storage->loadMultiple($regions);
     $region_labels = array_map(function ($term) {
       return $term->label();
     }, $region_terms);
@@ -100,9 +100,9 @@ class IdTestConfirmationForm extends FormBase {
       '#value' => implode(',', $species_groups),
     ];
 
-    $form['locations'] = [
+    $form['regions'] = [
       '#type' => 'hidden',
-      '#value' => implode(',', $locations),
+      '#value' => implode(',', $regions),
     ];
 
     $form['actions'] = [
@@ -136,7 +136,7 @@ class IdTestConfirmationForm extends FormBase {
       'query' => [
         'difficulty' => $form_state->getValue('difficulty'),
         'species_groups' => explode(',', $form_state->getValue('species_groups')),
-        'locations' => explode(',', $form_state->getValue('locations')),
+        'regions' => explode(',', $form_state->getValue('regions')),
       ],
     ]);
   }
