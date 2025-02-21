@@ -5,7 +5,9 @@
       menu_level == 0 ? 'nav navbar-nav',
       menu_level > 0 ? 'dropdown-menu',
     ] %}
-    <ul{{ attributes.addClass(classes) }}{% if menu_level > 0 %} id="{{ submenu_id }}" role="menu"{% endif %}>
+    {# Id injected for ADA purposes with bootstrapDropdowns behavior in web/themes/custom/fws_raf/js/script-raf.js #}
+    <ul{{ attributes.addClass(classes) }}{% if menu_level > 0 %} id="submenu--inject-value" role="menu"{% endif %}>
+      {{ dd }}
       {% for item in items %}
         {%
           set item_classes = [

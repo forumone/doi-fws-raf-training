@@ -12,6 +12,12 @@
         const $toggle = $dropdown.find('.dropdown-toggle');
         const $menu = $dropdown.find('.dropdown-menu');
 
+        // Set the submenu ID based on the aria-controls attribute due to limited value scope
+        const submenuId = $toggle.attr('aria-controls');
+        if (submenuId) {
+          $menu.attr('id', submenuId);
+        }
+
         // Hover functionality
         $dropdown.hover(
           function () {
