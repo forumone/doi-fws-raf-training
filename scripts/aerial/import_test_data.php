@@ -129,6 +129,7 @@ function get_term_id_by_name($name, $vocabulary) {
     return reset($terms)->id();
   }
 
+  echo "Warning: No term found with name '{$name}' in vocabulary '{$vocabulary}'\n";
   return NULL;
 }
 
@@ -165,19 +166,7 @@ function map_difficulty_level($level, $is_counting = TRUE) {
  * Function to map range to taxonomy term ID.
  */
 function map_range($range) {
-  $map = [
-    '<100' => 'Under 100',
-    '100-500' => '100-500',
-    '500-3,000' => '500-3000',
-    '>3,000 (images always displayed for 15 secs)' => 'Over 3000',
-    'ANY' => 'Any',
-  ];
-
-  $term_name = $map[$range] ?? '';
-  if ($term_name) {
-    return get_term_id_by_name($term_name, 'count_ranges');
-  }
-  return NULL;
+  return get_term_id_by_name($range, 'size_range');
 }
 
 /**
@@ -591,13 +580,18 @@ function import_test_data($limit = NULL) {
     }
 
     if ($is_counting) {
-      // Set count ranges.
-      $range_tids = [];
-      foreach ($params['RANGE'] as $range) {
-        $range_tid = map_range($range);
+      // Set size range.
+      if (isset($params['RANGE'][0])) {
+        $range_tid = map_range($params['RANGE'][0]);
         if ($range_tid) {
-          $range_tids[] = ['target_id' => $range_tid];
+          $node->set('field_size_range', ['target_id' => $range_tid]);
         }
+        else {
+          echo "Warning: No valid term found for range value '{$params['RANGE'][0]}'\n";
+        }
+      }
+      else {
+        echo "DEBUG: No RANGE parameter found for test {$test_id}\n";
       }
 
       // Process count questions.

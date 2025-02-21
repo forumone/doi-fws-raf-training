@@ -513,6 +513,14 @@ input.form-autocomplete {
   margin-bottom: 20px;
 }
 
+/*
+ * Clean up the tabledrag handle display.
+ */
+.js .field--widget-paragraphs .draggable .tabledrag-handle {
+  padding-top: 2px;
+  width: 33px;
+}
+
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;

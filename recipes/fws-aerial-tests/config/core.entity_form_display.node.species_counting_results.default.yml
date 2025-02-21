@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.species_counting_results.field_average_count_accuracy
     - field.field.node.species_counting_results.field_count_difficulty
     - field.field.node.species_counting_results.field_count_questions
+    - field.field.node.species_counting_results.field_size_range
     - node.type.species_counting_results
   module:
     - paragraphs
@@ -14,7 +15,7 @@ dependencies:
     - path
     - select2
 _core:
-  default_config_hash: C-LcnfFcOAXCaA-yDiVjnRc8aPGqbHXTJJg7kuMhmtM
+  default_config_hash: 7gekdC6uAST87y3ny3hwuYkQj-Oesrg7RCdDOmhcpDU
 id: node.species_counting_results.default
 targetEntityType: node
 bundle: species_counting_results
@@ -59,21 +60,31 @@ content:
       default_paragraph_type: species_count_question
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
+        collapse_edit_all: '0'
         convert: '0'
-        duplicate: duplicate
+        duplicate: '0'
     third_party_settings:
       paragraphs_features:
         add_in_between: false
         add_in_between_link_count: 3
         delete_confirmation: false
         show_drag_and_drop: true
-        show_collapse_all: true
+        show_collapse_all: false
       paragraphs_ee:
         paragraphs_ee:
           dialog_off_canvas: false
           dialog_style: tiles
           drag_drop: false
+  field_size_range:
+    type: select2_entity_reference
+    weight: 2
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 4
@@ -131,4 +142,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_total_actual: true
+  field_total_difference: true
+  field_total_estimate: true
