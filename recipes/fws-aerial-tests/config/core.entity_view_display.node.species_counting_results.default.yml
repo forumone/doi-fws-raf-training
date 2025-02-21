@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.species_counting_results.field_average_count_accuracy
     - field.field.node.species_counting_results.field_count_difficulty
     - field.field.node.species_counting_results.field_count_questions
+    - field.field.node.species_counting_results.field_size_range
     - node.type.species_counting_results
   module:
     - entity_reference_revisions
@@ -49,7 +50,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_experience_level:
     type: string
@@ -71,6 +72,14 @@ content:
     label: hidden
     settings:
       link_to_entity: false
+    weight: 2
+    region: content
+  field_size_range:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
     weight: 2
     region: content
   field_total_actual:
