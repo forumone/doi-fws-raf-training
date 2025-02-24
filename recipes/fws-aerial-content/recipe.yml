@@ -6,9 +6,9 @@ config:
     # Set home page
     system.site:
       simple_config_update:
-        page.front: /node/5
-        page.403: /node/7
-        page.404: /node/6
+        page.front: /node/6
+        page.403: /node/10
+        page.404: /node/8
     # Set main navigation block visibility
     block.block.fws_raf_mainnavigation:
       simple_config_update:

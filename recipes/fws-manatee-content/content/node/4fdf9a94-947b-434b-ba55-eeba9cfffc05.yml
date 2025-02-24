@@ -39,17 +39,17 @@ default:
       tag: meta
       attributes:
         name: description
-        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them.'
+        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species and estimating numbers of birds in flocks during these low-level flights is extremely challenging and requires adequate training and experience.'
     -
       tag: meta
       attributes:
         name: abstract
-        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them.'
+        content: 'In North America, waterfowl are typically surveyed by aerial surveys, mostly by fixed-wing aircraft and sometimes by helicopter. During aerial surveys, observers are presented with a "bird''s-eye" view, often fleeting, of the waterfowl beneath them. Correctly identifying species and estimating numbers of birds in flocks during these low-level flights is extremely challenging and requires adequate training and experience.'
     -
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/page/about-aerial-observer-training'
+        href: 'https://fws-raf.ddev.site/page/about-aerial-observer-training'
   path:
     -
       alias: /page/about-aerial-observer-training
