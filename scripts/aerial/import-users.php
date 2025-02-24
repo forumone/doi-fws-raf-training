@@ -116,6 +116,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       $user = reset($existing_users);
       // Use email as username to avoid conflicts.
       $user->set('name', $email);
+      $user->set('field_name', $name);
       $user->save();
       $updates++;
       echo "Updated user: $name ($email)\n";
@@ -127,6 +128,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       $user->setUsername($email);
       $user->setEmail($email);
       $user->set('init', $email);
+      $user->set('field_name', $name);
       $user->enforceIsNew();
       $user->activate();
       $user->save();
