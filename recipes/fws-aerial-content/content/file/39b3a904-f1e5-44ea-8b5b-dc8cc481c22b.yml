@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 39b3a904-f1e5-44ea-8b5b-dc8cc481c22b
+  default_langcode: en
+default:
+  uid:
+    -
+      target_id: 1
+  filename:
+    -
+      value: PublicationsOrderForm_May2014.pdf
+  uri:
+    -
+      value: 'public://2025-02/PublicationsOrderForm_May2014.pdf'
+  filemime:
+    -
+      value: application/pdf
+  filesize:
+    -
+      value: 44639
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740439711
