@@ -51,7 +51,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/history-waterfowl-population-survey'
+        href: 'https://fws-raf.ddev.site/history-waterfowl-population-survey'
   path:
     -
       alias: /history-waterfowl-population-survey
