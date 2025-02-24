@@ -8,11 +8,17 @@
  * then creates the necessary file_managed entries with correct UUIDs.
  */
 
- use Drupal\user\Entity\User;
+use Drupal\user\Entity\User;
 
 // Small cleanup to delete erroneous folder.
 if (file_exists('public:') && is_writable('public:')) {
   rmdir('public:');
+}
+
+// Delete views.view.user_admin_people.
+$view = \Drupal::entityTypeManager()->getStorage('view')->load('user_admin_people');
+if ($view) {
+  $view->delete();
 }
 
 // The menu configuration data.

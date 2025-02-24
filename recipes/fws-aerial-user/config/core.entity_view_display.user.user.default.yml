@@ -1,0 +1,37 @@
+uuid: 7a2f8a40-b664-405f-b7ae-106dc919cc3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_name
+  module:
+    - fws_core
+    - user
+_core:
+  default_config_hash: qfMlQNB5YLCy0GvJ8d3OtFU0tDSFDcP-L-MYuKRG8Mo
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  field_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  user_picture:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: thumbnail
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  member_for: true
+  search_api_excerpt: true
