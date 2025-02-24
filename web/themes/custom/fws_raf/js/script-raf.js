@@ -177,6 +177,59 @@
     }
   };
 
+  Drupal.behaviors.verticalTabAccessibility = {
+    attach: function (context, settings) {
+      $(window).on('load', function() {
+
+        once('vertical-tab-accessibility', '.js-form-type-vertical-tabs', context).forEach(function (tabs) {
+          const $tabList = $(tabs).find('.vertical-tabs-list');
+          const $tabButtons = $(tabs).find('.vertical-tab-button');
+          const $tabLinks = $(tabs).find('.vertical-tab-button > a');
+          const $tabPanels = $(tabs).find('.vertical-tabs-pane');
+
+          // Set up the tab list container
+          $tabList.attr({
+            'role': 'tablist',
+            'aria-orientation': 'vertical',
+            'aria-label': 'Additional node settings'
+          });
+
+          // Set up each tab button as a presentation container
+          $tabButtons.attr({
+            'role': 'presentation'
+          });
+
+          // Set up each tab link with proper ARIA attributes
+          $tabLinks.each(function(index) {
+            const $link = $(this);
+            const panelId = 'vertical-tabs-panel-' + index;
+            const tabId = 'vertical-tabs-tab-' + index;
+
+            $link.attr({
+              'role': 'tab',
+              'aria-selected': $link.parent().hasClass('selected') ? 'true' : 'false',
+              'aria-controls': panelId,
+              'id': tabId
+            });
+          });
+
+          // Set up each tab panel with proper ARIA attributes
+          $tabPanels.each(function(index) {
+            const $panel = $(this);
+            const panelId = 'vertical-tabs-panel-' + index;
+            const tabId = 'vertical-tabs-tab-' + index;
+
+            $panel.attr({
+              'role': 'tabpanel',
+              'aria-labelledby': tabId,
+              'id': panelId
+            });
+          });
+        });
+      });
+    }
+  };
+
   Drupal.behaviors.viewsExposedFormFocus = {
     attach: function (context, settings) {
       // Store the focused element globally to persist through AJAX
