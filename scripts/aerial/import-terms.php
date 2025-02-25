@@ -6,8 +6,9 @@
  * Import taxonomy terms from CSV files.
  */
 
-use Drupal\taxonomy\Entity\Term;
-use Drupal\file\Entity\File;
+// Use fully qualified class names to avoid linter errors.
+$term_class = '\Drupal\taxonomy\Entity\Term';
+$file_class = '\Drupal\file\Entity\File';
 
 // Ensure we have a video directory.
 $video_destination = './sites/aerial/files/videos/';
@@ -143,39 +144,61 @@ $imports = [
       ],
     ],
   ],
-  'species_test' => [
-    'file' => 'REF_SPECIES_FOR_TEST.csv',
-    'field' => 'field_species_id',
-    // SPECIES column.
-    'value_column' => 0,
-    // DESCRIPTION column.
-    'name_column' => 3,
-    // Additional fields specific to species.
-    'additional_fields' => [
-      // SPECIES_CODE column.
-      'field_species_code' => 1,
-      // SPECIES_GROUP column.
-      'field_species_group' => [
-        'type' => 'reference',
-        'vocabulary' => 'species_group',
-        'field' => 'field_species_group_id',
-        'column' => 2,
-      ],
-      // Set is_test_species to 1 for test species.
-      'field_is_test_species' => [
-        'type' => 'boolean',
-        'value' => 1,
-      ],
-      // Add region references.
-      'field_region' => [
-        'type' => 'reference_multiple',
-        'vocabulary' => 'geographic_region',
-        'field' => 'field_geographic_region_id',
-        'lookup_callback' => function ($data) use ($species_region_mapping) {
-          $species_id = $data[0];
-          return $species_region_mapping[$species_id] ?? [];
-        },
-      ],
+];
+
+// First, let's track which species IDs are in REF_SPECIES.csv.
+$regular_species_ids = [];
+$regular_species_csv = dirname(__FILE__) . '/data/REF_SPECIES.csv';
+if (($handle = fopen($regular_species_csv, "r")) !== FALSE) {
+  // Skip header row.
+  fgetcsv($handle);
+
+  while (($data = fgetcsv($handle)) !== FALSE) {
+    if (count($data) >= 1) {
+      $regular_species_ids[] = $data[0];
+    }
+  }
+
+  fclose($handle);
+}
+
+// Now add the test species import configuration.
+$imports['species_test'] = [
+  'file' => 'REF_SPECIES_FOR_TEST.csv',
+  'field' => 'field_species_id',
+  // SPECIES column.
+  'value_column' => 0,
+  // DESCRIPTION column.
+  'name_column' => 3,
+  // Additional fields specific to species.
+  'additional_fields' => [
+    // SPECIES_CODE column.
+    'field_species_code' => 1,
+    // SPECIES_GROUP column.
+    'field_species_group' => [
+      'type' => 'reference',
+      'vocabulary' => 'species_group',
+      'field' => 'field_species_group_id',
+      'column' => 2,
+    ],
+    // Set is_test_species based on whether it's in REF_SPECIES.csv.
+    'field_is_test_species' => [
+      'type' => 'boolean_callback',
+      'callback' => function ($data) use ($regular_species_ids) {
+        $species_id = $data[0];
+        // If the species is in REF_SPECIES.csv, it's not a test species.
+        return in_array($species_id, $regular_species_ids) ? 0 : 1;
+      },
+    ],
+    // Add region references.
+    'field_region' => [
+      'type' => 'reference_multiple',
+      'vocabulary' => 'geographic_region',
+      'field' => 'field_geographic_region_id',
+      'lookup_callback' => function ($data) use ($species_region_mapping) {
+        $species_id = $data[0];
+        return $species_region_mapping[$species_id] ?? [];
+      },
     ],
   ],
 ];
@@ -282,12 +305,35 @@ foreach ($imports as $vocabulary_id => $import_config) {
                 elseif ($config['type'] === 'boolean') {
                   $term_data[$field] = ['value' => $config['value']];
                 }
+                elseif ($config['type'] === 'boolean_callback') {
+                  $term_data[$field] = ['value' => $config['callback']($data)];
+                }
               }
             }
             else {
               $term_data[$field] = $data[$config];
             }
           }
+        }
+
+        // For species from REF_SPECIES_FOR_TEST.csv, we need to handle them differently
+        // If the species exists in REF_SPECIES.csv, we don't want to update field_is_test_species
+        // If it doesn't exist in REF_SPECIES.csv, we create it with field_is_test_species = 1.
+        if ($vocabulary_id === 'species_test' && !empty($terms)) {
+          $term = reset($terms);
+
+          // For species that exist in both files, always use the label from REF_SPECIES.csv
+          // and just update other fields except name and field_is_test_species.
+          foreach ($term_data as $field => $field_value) {
+            if ($field === 'vid' || $field === 'field_is_test_species' || $field === 'name') {
+              continue;
+            }
+            $term->set($field, $field_value);
+          }
+          $term->save();
+          $updates++;
+          echo "Updated test species: " . $term->label() . "\n";
+          continue;
         }
 
         if (!empty($terms)) {
@@ -310,10 +356,73 @@ foreach ($imports as $vocabulary_id => $import_config) {
               $term_data[$field] = ['value' => $field_value];
             }
           }
-          $term = Term::create($term_data);
+          $term = $term_class::create($term_data);
           $term->save();
           $count++;
           echo "Created term: $name\n";
+        }
+
+        // Add video file for species if available.
+        if (($vocabulary_id === 'species' || $vocabulary_id === 'species_test') &&
+            isset($video_mapping[$value])) {
+          $filename = $video_mapping[$value];
+          $uri = 'public://videos/' . $filename;
+
+          // Check if file exists locally.
+          if (!file_exists($video_destination . $filename)) {
+            $missing_files[] = $filename;
+          }
+
+          // Create managed file entry.
+          $files = \Drupal::entityTypeManager()
+            ->getStorage('file')
+            ->loadByProperties(['uri' => $uri]);
+
+          if (empty($files)) {
+            $file = $file_class::create([
+              'uri' => $uri,
+              'filename' => $filename,
+              'filemime' => 'video/mp4',
+              'filesize' => file_exists($video_destination . $filename) ? filesize($video_destination . $filename) : 0,
+              'status' => 1,
+              'uid' => 1,
+            ]);
+            $file->save();
+            echo "Created file entry for: {$filename}\n";
+
+            // Get the term again to make sure we have the latest version.
+            $terms = \Drupal::entityTypeManager()
+              ->getStorage('taxonomy_term')
+              ->loadByProperties([
+                'vid' => 'species',
+                $import_config['field'] => $value,
+              ]);
+
+            if (!empty($terms)) {
+              $term = reset($terms);
+              $term->set('field_species_video', ['target_id' => $file->id()]);
+              $term->save();
+              echo "Added video to species: $name\n";
+            }
+          }
+          else {
+            $file = reset($files);
+
+            // Get the term again to make sure we have the latest version.
+            $terms = \Drupal::entityTypeManager()
+              ->getStorage('taxonomy_term')
+              ->loadByProperties([
+                'vid' => 'species',
+                $import_config['field'] => $value,
+              ]);
+
+            if (!empty($terms)) {
+              $term = reset($terms);
+              $term->set('field_species_video', ['target_id' => $file->id()]);
+              $term->save();
+              echo "Added existing video to species: $name\n";
+            }
+          }
         }
       }
       catch (\Exception $e) {
@@ -336,142 +445,6 @@ foreach ($imports as $vocabulary_id => $import_config) {
   }
   catch (\Exception $e) {
     echo "Error processing vocabulary $actual_vocabulary_id: " . $e->getMessage() . "\n";
-  }
-}
-
-// Now import species terms.
-$species_csv = dirname(__FILE__) . '/data/REF_SPECIES_FOR_TEST.csv';
-$missing_files = [];
-
-if (($handle = fopen($species_csv, "r")) !== FALSE) {
-  // Skip header row.
-  fgetcsv($handle);
-
-  $count = 0;
-  $updates = 0;
-  $errors = [];
-
-  echo "\nProcessing species terms from REF_SPECIES_FOR_TEST.csv:\n";
-
-  while (($data = fgetcsv($handle)) !== FALSE) {
-    if (count($data) < 4) {
-      $errors[] = "Invalid row format: " . implode(',', $data);
-      continue;
-    }
-
-    $species_id = $data[0];
-    $code = $data[1];
-    $group_id = $data[2];
-    $name = $data[3];
-
-    try {
-      // Look up the species group term.
-      $group_terms = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->loadByProperties([
-          'vid' => 'species_group',
-          'field_species_group_id' => $group_id,
-        ]);
-
-      if (empty($group_terms)) {
-        $errors[] = "Species group not found for ID: $group_id";
-        continue;
-      }
-
-      $group_term = reset($group_terms);
-
-      // Prepare video file if exists.
-      $file = NULL;
-      if (isset($video_mapping[$species_id])) {
-        $filename = $video_mapping[$species_id];
-        $uri = 'public://videos/' . $filename;
-
-        // Check if file exists locally.
-        if (!file_exists($video_destination . $filename)) {
-          $missing_files[] = $filename;
-        }
-
-        // Create managed file entry.
-        $files = \Drupal::entityTypeManager()
-          ->getStorage('file')
-          ->loadByProperties(['uri' => $uri]);
-
-        if (empty($files)) {
-          $file = File::create([
-            'uri' => $uri,
-            'filename' => $filename,
-            'filemime' => 'video/mp4',
-            'filesize' => file_exists($video_destination . $filename) ? filesize($video_destination . $filename) : 0,
-            'status' => 1,
-            'uid' => 1,
-          ]);
-          $file->save();
-          echo "Created file entry for: {$filename}\n";
-        }
-        else {
-          $file = reset($files);
-          echo "Found existing file: {$filename}\n";
-        }
-      }
-
-      // Check if species term already exists.
-      $terms = \Drupal::entityTypeManager()
-        ->getStorage('taxonomy_term')
-        ->loadByProperties([
-          'vid' => 'species',
-          'field_species_id' => $species_id,
-        ]);
-
-      if (empty($terms)) {
-        $term = Term::create([
-          'vid' => 'species',
-          'name' => $name,
-          'field_species_id' => ['value' => $species_id],
-          'field_species_code' => ['value' => $code],
-          'field_species_group' => ['target_id' => $group_term->id()],
-          'field_is_test_species' => ['value' => 0],
-        ]);
-
-        if ($file) {
-          $term->set('field_species_video', ['target_id' => $file->id()]);
-        }
-
-        $term->save();
-        $count++;
-        echo "Created species term: $name\n";
-      }
-      else {
-        $term = reset($terms);
-        $term->set('name', $name);
-        $term->set('field_species_code', ['value' => $code]);
-        $term->set('field_species_group', ['target_id' => $group_term->id()]);
-        $term->set('field_is_test_species', ['value' => 0]);
-
-        if ($file) {
-          $term->set('field_species_video', ['target_id' => $file->id()]);
-        }
-
-        $term->save();
-        $updates++;
-        echo "Updated species term: $name\n";
-      }
-    }
-    catch (\Exception $e) {
-      $errors[] = "Error processing species '$name': " . $e->getMessage();
-    }
-  }
-
-  fclose($handle);
-
-  echo "\nImport completed for species:\n";
-  echo "- Created: $count terms\n";
-  echo "- Updated: $updates terms\n";
-
-  if (!empty($errors)) {
-    echo "\nErrors encountered:\n";
-    foreach ($errors as $error) {
-      echo "- $error\n";
-    }
   }
 }
 
