@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 0b042f18-b3d8-4d59-961a-bc7d5b224cf6
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Main Page'
+  created:
+    -
+      value: 1738791559
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Main Page | FWS: State/Federal Falconry 3-186A Database'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Already a Licensed or Permitted FalconerPlease login: LoginIf you are a licensed or permitted falconer and are having problems accessing your account, please contact your State Falconry Administrator for assistance.New Licensed or Permitted FalconerAccount ActivationTo activate your account using state authorization/permit number or FEDID, please click: Activate Account'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'Already a Licensed or Permitted FalconerPlease login: LoginIf you are a licensed or permitted falconer and are having problems accessing your account, please contact your State Falconry Administrator for assistance.New Licensed or Permitted FalconerAccount ActivationTo activate your account using state authorization/permit number or FEDID, please click: Activate Account'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://falcon.ddev.site/main'
+  path:
+    -
+      alias: /main
+      langcode: en
+      pathauto: 0
+  body:
+    -
+      value: '<h2>Already a Licensed or Permitted Falconer</h2><p>Please login: <a href="#">Login</a></p><p>If you are a licensed or permitted falconer and are having problems accessing your account, please contact your State Falconry Administrator for assistance.</p><h2>New Licensed or Permitted Falconer</h2><h3>Account Activation</h3><p>To activate your account using state authorization/permit number or FEDID, please click: <a href="#">Activate Account</a></p><h3>Contact for Assistance</h3><p>State, Tribe, and Territory Falconry Coordinators; if you have questions, or need assistance related to falconry regulations, or the federal 3-186A database, please contact:</p><p>Joel E. (Jeep) Pagel, Ph.D.<br>Raptor Ecologist<br>National Raptor Program<br>Division of Migratory Bird Management<br>U.S. Fish and Wildlife Service<br>Email: <a href="mailto:joel_pagel@fws.gov">joel_pagel@fws.gov</a></p><p>If you are an Apprentice, General, or Master falconer, and have difficulty logging into the database or uploading your falconry data, or have questions about your 3-186A database profile, please contact your State, Tribal or Territory Falconry Administrator.</p><h3>New Falconer Without Authorization</h3><p>If you are a new falconer and do not have a state authorization/permit number or FEDID (formerly Federal ID), please contact your State Falconry Administrator.</p><p>To obtain a list of your State Falconry Administrator, please select one of the states from the drop down list box: <a href="#">Select State</a><br>Or click here to list all states: <a href="#">List All States</a></p><h2>Additional Resources</h2><h3>US Falconry Regulation</h3><p>Click here to visit US Falconry Regulation: <a href="#">US Falconry Regulation</a></p><h3>Frequently Asked Questions</h3><p><a href="#">Frequently Asked Questions</a></p>'
+      format: full_html
+      summary: ''
+  field_private:
+    -
+      value: false

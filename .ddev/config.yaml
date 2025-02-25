@@ -7,12 +7,15 @@ xdebug_enabled: false
 additional_hostnames:
   - eps
   - aerial
+  - falcon
 additional_fqdns: []
 database:
     type: mariadb
     version: "10.11"
 additional_databases:
   - eps
+  - falcon
+  - aerial
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
