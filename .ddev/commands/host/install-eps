@@ -28,6 +28,8 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-blocks
 ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
 ddev drush -l $SITE_URI en -y fws_sighting
+ddev drush -l $SITE_URI scr ../scripts/eps/import-users.php
+ddev drush -l $SITE_URI scr ../scripts/eps/import-sightings.php
 
 # Import users
 # ddev drush -l $SITE_URI scr ./scripts/eps/import-users.php

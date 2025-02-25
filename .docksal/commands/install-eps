@@ -26,6 +26,8 @@ fin drush -l recipe ../recipes/fws-sighting-blocks
 fin drush -l recipe ../recipes/fws-sighting-user
 fin drush -l recipe ../recipes/fws-eps-content
 fin drush -l en -y fws_sighting
+fin drush -l scr ../scripts/eps/import-users.php
+fin drush -l scr ../scripts/eps/import-sightings.php
 
 # Import users
 # fin drush -l scr ./scripts/eps/import-users.php
