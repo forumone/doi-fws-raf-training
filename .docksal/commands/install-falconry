@@ -1,0 +1,23 @@
+#!/bin/bash
+
+## Description: Install the Aerial multisite
+## Usage: install-falconry
+## Example: "fin install-falconry"
+
+fin composer install
+
+# Run the site installation
+fin drush site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: State/Federal Falconry 3-186A Database"
+
+# Install recipes
+fin drush recipe ../recipes/fws-core
+fin drush cr
+fin drush scr ../scripts/falcon/install-cleanup.php
+fin drush cr
+fin drush recipe ../recipes/fws-falcon-content
+
+fin drush uli

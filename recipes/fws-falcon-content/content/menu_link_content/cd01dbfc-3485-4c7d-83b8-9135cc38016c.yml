@@ -1,0 +1,50 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: cd01dbfc-3485-4c7d-83b8-9135cc38016c
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Frequently Asked Questions'
+  description:
+    -
+      value: 'Questions from the customer service call center'
+  menu_name:
+    -
+      value: footer-menu-site-links
+  link:
+    -
+      uri: 'internal:/'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -49
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: State/Federal Falconry 3-186A Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://falcon.ddev.site/page/about-aerial-observer-training'

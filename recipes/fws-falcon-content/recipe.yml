@@ -1,0 +1,11 @@
+name: 'FWS Falcon Content'
+description: 'FWS falconry sample content.'
+type: 'Site'
+config:
+  actions:
+    # Set home page
+    system.site:
+      simple_config_update:
+        page.front: /node/1
+        page.403: /node/3
+        page.404: /node/2
