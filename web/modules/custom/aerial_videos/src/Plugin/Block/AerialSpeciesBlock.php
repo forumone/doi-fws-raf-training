@@ -41,7 +41,10 @@ class AerialSpeciesBlock extends BlockBase {
     // Load all species terms.
     $species_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
-      ->loadByProperties(['vid' => 'species']);
+      ->loadByProperties([
+        'vid' => 'species',
+        'field_is_test_species' => 0,
+      ]);
 
     // Sort species terms alphabetically by name.
     usort($species_terms, function ($a, $b) {
