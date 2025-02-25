@@ -21,6 +21,7 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-core
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/falcon/install-cleanup.php
 ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-content
 
 ddev drush -l $SITE_URI uli
