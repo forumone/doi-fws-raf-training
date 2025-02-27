@@ -21,13 +21,12 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-core
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/falcon/install-cleanup.php
 ddev drush -l $SITE_URI cr
-
-# Create taxonomies and import terms
-ddev drush -l $SITE_URI scr ../scripts/falcon/create-taxonomies.php
-ddev drush -l $SITE_URI scr ../scripts/falcon/import-taxonomies.php
-
-# Install remaining recipes
+ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-taxonomy
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-content
+ddev drush -l $SITE_URI cr
+
+# Import taxonomy terms from CSV files
+ddev drush -l $SITE_URI scr ../scripts/falcon/import-taxonomies.php
 
 ddev drush -l $SITE_URI uli
