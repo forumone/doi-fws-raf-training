@@ -1,0 +1,9 @@
+uuid: 04a2cab0-bf2d-422d-9b95-5dcf0532df06
+langcode: en
+status: true
+dependencies: {  }
+name: Capture/Recapture
+vid: capture_recapture
+description: 'Lookup table for falcon capture or recapture status'
+weight: 0
+new_revision: false

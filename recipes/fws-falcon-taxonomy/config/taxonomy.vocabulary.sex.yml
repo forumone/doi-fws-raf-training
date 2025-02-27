@@ -1,0 +1,9 @@
+uuid: 948caa45-5f62-4c75-b3b8-8a438c9da746
+langcode: en
+status: true
+dependencies: {  }
+name: Sex
+vid: sex
+description: 'Lookup table for sex of falcons'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: 90fd5831-8a1a-4999-8f37-c5228bd33bf2
+langcode: en
+status: true
+dependencies: {  }
+name: 'Year of Hatch'
+vid: year_of_hatch
+description: 'Lookup table for falcon hatch years'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: c349fd46-869e-4bfa-b6dd-5a41e2c4922d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Cause of Death'
+vid: cause_of_death
+description: 'Lookup table for falcon causes of death'
+weight: 0
+new_revision: false

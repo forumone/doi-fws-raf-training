@@ -1,0 +1,9 @@
+uuid: d49398af-beb8-4b0e-b074-079d777e8430
+langcode: en
+status: true
+dependencies: {  }
+name: Status
+vid: status
+description: 'Lookup table for falcon status'
+weight: 0
+new_revision: false
