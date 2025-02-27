@@ -1,0 +1,9 @@
+uuid: 5a1c8b3f-7e4d-4c9a-b8e5-f6d2e9a1c0d1
+langcode: en
+status: true
+dependencies: {  }
+name: 'Access Code'
+vid: access_code
+description: 'Lookup table for falcon access codes'
+weight: 0
+new_revision: false

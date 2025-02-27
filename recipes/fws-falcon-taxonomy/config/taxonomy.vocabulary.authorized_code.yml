@@ -1,0 +1,9 @@
+uuid: 6b2d9c4f-8e5d-4d0a-c9f6-e7e3f0b2d1e2
+langcode: en
+status: true
+dependencies: {  }
+name: 'Authorized Code'
+vid: authorized_code
+description: 'Lookup table for falcon authorized codes'
+weight: 0
+new_revision: false

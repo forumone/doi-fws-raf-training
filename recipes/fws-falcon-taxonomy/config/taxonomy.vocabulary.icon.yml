@@ -1,0 +1,9 @@
+uuid: 7c3e0d5f-9f6e-4e1b-b0f7-a8f4f1c3e2f3
+langcode: en
+status: true
+dependencies: {  }
+name: 'Icon'
+vid: icon
+description: 'Lookup table for falcon icons'
+weight: 0
+new_revision: false

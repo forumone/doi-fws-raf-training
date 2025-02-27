@@ -1,0 +1,9 @@
+uuid: 8d4f1e6f-0f7f-4f2c-a1f8-a9f5f2d4f3f4
+langcode: en
+status: true
+dependencies: {  }
+name: 'Permit Duration'
+vid: permit_duration
+description: 'Lookup table for falcon permit durations'
+weight: 0
+new_revision: false

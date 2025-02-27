@@ -1,0 +1,9 @@
+uuid: 9e5f2f7f-1f8f-4f3d-a2f9-a0f6f3e5f4f5
+langcode: en
+status: true
+dependencies: {  }
+name: 'Permit Type'
+vid: permit_type
+description: 'Lookup table for falcon permit types'
+weight: 0
+new_revision: false
