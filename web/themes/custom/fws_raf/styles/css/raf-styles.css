@@ -249,6 +249,164 @@ header#navbar #navbar-collapse {
   margin-bottom: 10px;
 }
 
+.fieldset-wrapper .description {
+  padding: 15px 0 0;
+}
+
+.fieldgroup {
+  padding: 15px 0;
+}
+.fieldgroup legend {
+  padding: 15px 0 0;
+  margin: 0;
+}
+
+.disclaimer {
+  font-size: 14px;
+}
+.disclaimer + .disclaimer {
+  padding: 15px 0 0;
+}
+
+.form-type-checkbox.form-type-checkbox.checkbox {
+  position: relative;
+  padding: 5px;
+  margin: 0 0 0 -5px;
+}
+.form-type-checkbox.form-type-checkbox.checkbox input[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.form-type-checkbox.form-type-checkbox.checkbox input[type=checkbox]:focus + label:before {
+  outline: 2px solid #011430;
+  outline-offset: 2px;
+}
+.form-type-checkbox.form-type-checkbox.checkbox input[type=checkbox]:focus-visible + label:before {
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+.form-type-checkbox.form-type-checkbox.checkbox label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 2px 0;
+  margin: 0;
+  cursor: pointer;
+}
+.form-type-checkbox.form-type-checkbox.checkbox label:after, .form-type-checkbox.form-type-checkbox.checkbox label:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  z-index: 1;
+  text-align: center;
+  border-radius: 2px;
+}
+.form-type-checkbox.form-type-checkbox.checkbox label:before {
+  position: relative;
+  background: #FFF;
+  border: 1px solid #4a4a4a;
+}
+.form-type-checkbox.form-type-checkbox.checkbox label:after {
+  position: absolute;
+  background: #205493;
+  border-color: #205493;
+  opacity: 0;
+  content: "\e013";
+  font-family: "Glyphicons Halflings";
+  font-size: 12px;
+  color: #FFF;
+  top: 8px;
+  left: 5px;
+  padding: 0 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-type-checkbox.form-type-checkbox.checkbox input:checked + label:after {
+  opacity: 1;
+}
+.form-type-checkbox.form-type-checkbox.checkbox.has-error label {
+  color: #a94442;
+}
+.form-type-checkbox.form-type-checkbox.checkbox.has-error label:before {
+  border-color: #a94442;
+}
+
+.form-type-radio.form-type-radio.radio {
+  position: relative;
+  padding: 5px;
+  margin: 0 0 0 -5px;
+}
+.form-type-radio.form-type-radio.radio input[type=radio] {
+  opacity: 0;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.form-type-radio.form-type-radio.radio input[type=radio]:focus + label:before {
+  outline: 2px solid #011430;
+  outline-offset: 2px;
+}
+.form-type-radio.form-type-radio.radio input[type=radio]:focus-visible + label:before {
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+.form-type-radio.form-type-radio.radio label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 2px 0;
+  margin: 0;
+  cursor: pointer;
+}
+.form-type-radio.form-type-radio.radio label:after, .form-type-radio.form-type-radio.radio label:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  z-index: 1;
+  text-align: center;
+  border-radius: 50%;
+}
+.form-type-radio.form-type-radio.radio label:before {
+  position: relative;
+  background: #FFF;
+  border: 1px solid #4a4a4a;
+}
+.form-type-radio.form-type-radio.radio label:after {
+  position: absolute;
+  background: #205493;
+  border-color: #205493;
+  opacity: 0;
+  content: "";
+  width: 14px;
+  height: 14px;
+  margin: 3px;
+  border-radius: 50%;
+}
+.form-type-radio.form-type-radio.radio input:checked + label:after {
+  opacity: 1;
+}
+.form-type-radio.form-type-radio.radio.has-error label {
+  color: #a94442;
+}
+.form-type-radio.form-type-radio.radio.has-error label:before {
+  border-color: #a94442;
+}
+
 .select2.select2-container {
   height: 45px !important;
   line-height: 45px !important;
@@ -314,27 +472,16 @@ header#navbar #navbar-collapse {
   display: none;
 }
 
+.form-actions {
+  padding: 15px 0;
+}
+
 .user-login-form .form-control {
   max-width: 500px;
 }
 
 .openid-connect-login-form {
   margin-bottom: 40px;
-}
-
-.radio input[type=radio],
-.radio-inline input[type=radio],
-.checkbox input[type=checkbox],
-.checkbox-inline input[type=checkbox] {
-  position: absolute;
-  top: 0;
-  left: 2px;
-}
-
-input[type=file]:focus,
-input[type=radio]:focus,
-input[type=checkbox]:focus {
-  outline-offset: 5px;
 }
 
 .btn-success {
