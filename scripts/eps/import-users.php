@@ -10,7 +10,7 @@
 use Drupal\user\Entity\User;
 use Drupal\Component\Utility\Random;
 
-$filename = '../scripts/eps/data/user_export_2025-01-20_15-40-57.csv';
+$filename = '../scripts/eps/data/user_export.csv';
 
 // Check if file exists and is readable.
 if (!file_exists($filename) || !is_readable($filename)) {

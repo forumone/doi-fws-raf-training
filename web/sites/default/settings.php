@@ -286,7 +286,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6';
+$settings['hash_salt'] = 'bcld6PxS7yH4_y-xqccjgGEUucKjJUVQQwIGvxU7Ki_W6FCFE6zfPOYpEQ3MQYLUdaJ6P3Mjkg';
 
 /**
  * Deployment identifier.
@@ -925,3 +925,15 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
 $config['system.site']['header_links_auth'] = TRUE;
 
 $settings['replace_species_with_manatee'] = TRUE;
+$databases['default']['default'] = array (
+  'database' => 'db',
+  'username' => 'db',
+  'password' => 'db',
+  'prefix' => '',
+  'host' => 'db',
+  'port' => 3306,
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
