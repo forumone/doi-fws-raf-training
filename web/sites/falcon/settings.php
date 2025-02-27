@@ -536,7 +536,7 @@ $settings['update_free_access'] = FALSE;
  * must exist and be writable by Drupal. This directory must be relative to
  * the Drupal installation directory and be accessible over the web.
  */
-$settings['file_public_path'] = 'sites/eps/files';
+# $settings['file_public_path'] = 'sites/default/files';
 
 /**
  * Additional public file schemes:
@@ -773,12 +773,7 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
-$settings['trusted_host_patterns'] = [
-  '^localhost$',
-  '^doi.+\.prod\.acquia-sites\.com$',
-  '^fws-raf\.ddev\.site$',
-  '^eps\.ddev\.site$',
-];
+# $settings['trusted_host_patterns'] = [];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -894,10 +889,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
-$settings['config_sync_directory'] = '../config/eps/sync';
+$settings['config_sync_directory'] = '../config/falcon/sync';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -914,11 +906,12 @@ $config['system.site']['header_links_auth'] = FALSE;
 
 // Configure Acquia database settings for EPS site
 if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/doifws/fws_eps-settings.inc';
+  require '/var/www/site-php/doifws/fws_falcon-settings.inc';
 }
 
 # in production this will be over-ridden by platform-settings.php
-$settings['session.cookie_path'] = '/epsandhill';
-$settings['file_public_path'] = "sites/eps/files";
-$settings['file_private_path'] = "sites/eps/files/private";
+$settings['session.cookie_path'] = '/falcon';
+$settings['file_public_path'] = "sites/falcon/files";
+$settings['file_private_path'] = "sites/falcon/files/private";
 $settings['file_temp_path'] = "/tmp";
+

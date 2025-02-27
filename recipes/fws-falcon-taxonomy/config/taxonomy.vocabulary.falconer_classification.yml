@@ -1,0 +1,9 @@
+uuid: 25b6a038-bf66-44ec-a717-a3af36dbc95a
+langcode: en
+status: true
+dependencies: {  }
+name: 'Falconer Classification'
+vid: falconer_classification
+description: 'Lookup table for falconer classifications'
+weight: 0
+new_revision: false

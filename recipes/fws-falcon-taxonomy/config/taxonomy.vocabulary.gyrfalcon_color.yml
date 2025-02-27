@@ -1,0 +1,9 @@
+uuid: 0ea2461a-da2a-4a5f-b598-eb65a377db98
+langcode: en
+status: true
+dependencies: {  }
+name: 'If you captured a gyrfalcon, what color is it?'
+vid: gyrfalcon_color
+description: 'Lookup table for gyrfalcon colors'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: 359ab7e8-5673-4c42-8b8b-a515d38d9eca
+langcode: en
+status: true
+dependencies: {  }
+name: 'Trap State'
+vid: trap_state
+description: 'Lookup table for states where falcons were trapped'
+weight: 0
+new_revision: false

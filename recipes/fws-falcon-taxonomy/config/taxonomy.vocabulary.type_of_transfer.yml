@@ -1,0 +1,9 @@
+uuid: c381ef6e-b352-405f-be52-1bd0c4bdc1e4
+langcode: en
+status: true
+dependencies: {  }
+name: 'Type of Transfer'
+vid: type_of_transfer
+description: 'Lookup table for types of falcon transfers'
+weight: 0
+new_revision: false

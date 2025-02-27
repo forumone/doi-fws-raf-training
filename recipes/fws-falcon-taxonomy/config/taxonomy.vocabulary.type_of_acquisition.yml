@@ -1,0 +1,9 @@
+uuid: 340db818-7f00-44ea-8d6b-0461c410a8c2
+langcode: en
+status: true
+dependencies: {  }
+name: 'Type of Acquisition'
+vid: type_of_acquisition
+description: 'Lookup table for types of falcon acquisitions'
+weight: 0
+new_revision: false

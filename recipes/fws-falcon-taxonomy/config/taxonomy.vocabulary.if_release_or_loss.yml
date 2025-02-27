@@ -1,0 +1,9 @@
+uuid: 2f7ed34e-9ae8-42d7-a062-f3882a8c3058
+langcode: en
+status: true
+dependencies: {  }
+name: 'If Release or Loss'
+vid: if_release_or_loss
+description: 'Lookup table for release or loss categories'
+weight: 0
+new_revision: false

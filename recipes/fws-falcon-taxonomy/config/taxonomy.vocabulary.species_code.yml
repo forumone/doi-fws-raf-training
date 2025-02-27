@@ -1,0 +1,9 @@
+uuid: 5ad76776-bc30-49d7-a20a-9eb793f2d38d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Code'
+vid: species_code
+description: 'Lookup table for falcon species codes'
+weight: 0
+new_revision: false

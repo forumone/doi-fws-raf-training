@@ -1,0 +1,9 @@
+uuid: 00a2968d-c697-4340-901e-09f240f73964
+langcode: en
+status: true
+dependencies: {  }
+name: Age
+vid: age
+description: 'Lookup table for age categories of falcons'
+weight: 0
+new_revision: false

@@ -18,6 +18,7 @@ fin drush recipe ../recipes/fws-core
 fin drush cr
 fin drush scr ../scripts/falcon/install-cleanup.php
 fin drush cr
+fin drush recipe ../recipes/fws-falcon-taxonomy
 fin drush recipe ../recipes/fws-falcon-user
 fin drush recipe ../recipes/fws-falcon-content
 
