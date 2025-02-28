@@ -1,0 +1,21 @@
+uuid: be87afe8-54d2-4456-b3cf-8498048f73d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.preferred_contact_method
+  module:
+    - options
+    - user
+id: user.user.preferred_contact_method
+field_name: preferred_contact_method
+entity_type: user
+bundle: user
+label: 'Preferred Contact Method'
+description: "User's preferred communication channel"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

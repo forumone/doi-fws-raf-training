@@ -1,0 +1,33 @@
+uuid: 24ff4c84-d414-4fbc-a72e-70c31565f874
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.two_factor_method
+field_name: two_factor_method
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: SMS
+      label: SMS
+    -
+      value: AUTHENTICATOR_APP
+      label: 'Authenticator App'
+    -
+      value: EMAIL
+      label: Email
+    -
+      value: HARDWARE_TOKEN
+      label: 'Hardware Token'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

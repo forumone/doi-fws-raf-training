@@ -1,0 +1,20 @@
+uuid: db31d885-f821-45d2-b6d5-be8095d01555
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.professional_category
+  module:
+    - user
+id: user.user.professional_category
+field_name: professional_category
+entity_type: user
+bundle: user
+label: 'Professional Category'
+description: "Detailed classification of user's professional role"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

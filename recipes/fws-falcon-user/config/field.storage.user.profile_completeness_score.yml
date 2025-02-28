@@ -1,0 +1,20 @@
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999524
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.profile_completeness_score
+field_name: profile_completeness_score
+entity_type: user
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

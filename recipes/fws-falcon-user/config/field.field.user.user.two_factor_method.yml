@@ -1,0 +1,21 @@
+uuid: b7059dd1-f322-4ff0-8427-d73cfc9d0c3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.two_factor_method
+  module:
+    - options
+    - user
+id: user.user.two_factor_method
+field_name: two_factor_method
+entity_type: user
+bundle: user
+label: 'Two-Factor Authentication Method'
+description: 'Specified two-factor authentication method'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

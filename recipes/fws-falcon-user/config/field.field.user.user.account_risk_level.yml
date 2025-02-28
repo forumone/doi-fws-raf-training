@@ -1,0 +1,21 @@
+uuid: baf9c1f2-f126-4091-b228-c736618c9818
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.account_risk_level
+  module:
+    - options
+    - user
+id: user.user.account_risk_level
+field_name: account_risk_level
+entity_type: user
+bundle: user
+label: 'Account Risk Level'
+description: 'Assessment of potential security risks'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

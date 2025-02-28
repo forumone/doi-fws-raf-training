@@ -1,0 +1,24 @@
+uuid: b84f0938-cc5a-4c1e-8c23-2a9e53a6fedb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.profile_completeness_score
+  module:
+    - user
+id: user.user.profile_completeness_score
+field_name: profile_completeness_score
+entity_type: user
+bundle: user
+label: 'Profile Completeness Score'
+description: "Measure of how complete the user's profile is"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

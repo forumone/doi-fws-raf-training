@@ -1,0 +1,21 @@
+uuid: db656775-74f6-442a-87ed-a60130e89ab3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.security_level
+  module:
+    - options
+    - user
+id: user.user.security_level
+field_name: security_level
+entity_type: user
+bundle: user
+label: 'Security Level'
+description: 'User account security access level'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

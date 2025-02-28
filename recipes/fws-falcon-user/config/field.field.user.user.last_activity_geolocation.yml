@@ -1,0 +1,20 @@
+uuid: 31320661-af9c-41e8-83cc-72ad59433ee1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.last_activity_geolocation
+  module:
+    - user
+id: user.user.last_activity_geolocation
+field_name: last_activity_geolocation
+entity_type: user
+bundle: user
+label: 'Last Activity Geolocation'
+description: 'Geographic location of last login'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

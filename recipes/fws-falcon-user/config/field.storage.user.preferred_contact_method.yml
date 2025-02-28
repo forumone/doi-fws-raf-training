@@ -1,0 +1,33 @@
+uuid: 480d1586-64ec-40b7-b434-c4c4c0c153aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.preferred_contact_method
+field_name: preferred_contact_method
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: EMAIL
+      label: Email
+    -
+      value: PHONE1
+      label: 'Primary Phone'
+    -
+      value: PHONE2
+      label: 'Secondary Phone'
+    -
+      value: POSTAL_MAIL
+      label: 'Postal Mail'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
