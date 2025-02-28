@@ -633,10 +633,24 @@ input.form-autocomplete {
 .page-node-add .text-format-wrapper .form-type-select .select-wrapper select {
   min-height: initial;
 }
+.page-node-edit .form-item .description,
+.page-node-edit .form-item .help-block,
+.page-node-edit .form-item .summary,
 .page-node-edit .tabbable .description,
+.page-node-edit .tabbable .help-block,
 .page-node-edit .tabbable .summary,
+.page-node-edit .draggable .description,
+.page-node-edit .draggable .help-block,
+.page-node-edit .draggable .summary,
+.page-node-add .form-item .description,
+.page-node-add .form-item .help-block,
+.page-node-add .form-item .summary,
 .page-node-add .tabbable .description,
-.page-node-add .tabbable .summary {
+.page-node-add .tabbable .help-block,
+.page-node-add .tabbable .summary,
+.page-node-add .draggable .description,
+.page-node-add .draggable .help-block,
+.page-node-add .draggable .summary {
   color: #1b1c1a;
 }
 
