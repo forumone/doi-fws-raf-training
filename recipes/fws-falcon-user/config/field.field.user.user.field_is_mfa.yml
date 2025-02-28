@@ -1,0 +1,26 @@
+uuid: b7059dd1-f322-4ff0-8427-d73cfc9d0c3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_is_mfa
+  module:
+    - options
+    - user
+id: user.user.field_is_mfa
+field_name: field_is_mfa
+entity_type: user
+bundle: user
+label: 'Two-Factor Authentication Method'
+description: 'Specified two-factor authentication method'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_values:
+    - 'Y'
+    - 'N'
+  max_length: 1
+  case_sensitive: true
+field_type: list_string

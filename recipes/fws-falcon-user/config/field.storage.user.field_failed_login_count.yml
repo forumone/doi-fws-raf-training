@@ -1,0 +1,15 @@
+uuid: 4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_failed_login_count
+field_name: field_failed_login_count
+entity_type: user
+type: integer
+settings:
+  unsigned: true
+module: user
+locked: false
+cardinality: 1

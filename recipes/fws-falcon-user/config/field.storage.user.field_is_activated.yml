@@ -1,0 +1,14 @@
+uuid: 3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_is_activated
+field_name: field_is_activated
+entity_type: user
+type: boolean
+settings: {  }
+module: user
+locked: false
+cardinality: 1

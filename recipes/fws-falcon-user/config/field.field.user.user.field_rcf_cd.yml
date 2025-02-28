@@ -1,0 +1,21 @@
+uuid: be87afe8-54d2-4456-b3cf-8498048f73d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_rcf_cd
+  module:
+    - options
+    - user
+id: user.user.field_rcf_cd
+field_name: field_rcf_cd
+entity_type: user
+bundle: user
+label: 'RCF Code'
+description: "User's preferred communication channel"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

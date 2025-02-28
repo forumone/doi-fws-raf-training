@@ -1,0 +1,215 @@
+uuid: 8b9c0d1e-2f3g-4h5i-6j7k-8l9m0n1o2p3q
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_access_cd
+    - field.field.user.user.field_authorized_code
+    - field.field.user.user.field_failed_login_count
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_hid
+    - field.field.user.user.field_is_activated
+    - field.field.user.user.field_is_locked
+    - field.field.user.user.field_is_mfa
+    - field.field.user.user.field_last_activity
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_mfa_login_timestamp
+    - field.field.user.user.field_mfa_uuid
+    - field.field.user.user.field_permit_class
+    - field.field.user.user.field_permit_expiration_date
+    - field.field.user.user.field_permit_issued_date
+    - field.field.user.user.field_permit_number
+    - field.field.user.user.field_permit_status_cd
+    - field.field.user.user.field_phone1
+    - field.field.user.user.field_phone2
+    - field.field.user.user.field_rcf_cd
+    - field.field.user.user.field_version_no
+  module:
+    - datetime
+    - options
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  field_access_cd:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_authorized_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_failed_login_count:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_is_activated:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_is_locked:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_is_mfa:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_last_activity:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_mfa_login_timestamp:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_mfa_uuid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_permit_class:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_permit_expiration_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_permit_issued_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_permit_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_permit_status_cd:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_phone1:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_phone2:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_rcf_cd:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_version_no:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  member_for:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

@@ -1,0 +1,25 @@
+uuid: db656775-74f6-442a-87ed-a60130e89ab3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_access_cd
+  module:
+    - options
+    - user
+id: user.user.field_access_cd
+field_name: field_access_cd
+entity_type: user
+bundle: user
+label: 'Access Code'
+description: 'User account security access level'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_values:
+    - FC
+  max_length: 10
+  case_sensitive: true
+field_type: list_string

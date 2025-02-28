@@ -28,5 +28,6 @@ ddev drush -l $SITE_URI cr
 
 # Import taxonomy terms from CSV files
 ddev drush -l $SITE_URI scr ../scripts/falcon/import-taxonomies.php
+ddev drush -l $SITE_URI scr ../scripts/falcon/import-users.php 10
 
 ddev drush -l $SITE_URI uli

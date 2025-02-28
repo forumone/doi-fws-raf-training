@@ -1,0 +1,23 @@
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999532
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_phone2
+  module:
+    - user
+id: user.user.field_phone2
+field_name: field_phone2
+entity_type: user
+bundle: user
+label: 'Secondary Phone'
+description: 'User secondary phone number from source system'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+field_type: string

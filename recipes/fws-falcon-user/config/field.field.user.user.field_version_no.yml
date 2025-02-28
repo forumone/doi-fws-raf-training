@@ -1,0 +1,24 @@
+uuid: b84f0938-cc5a-4c1e-8c23-2a9e53a6fedb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_version_no
+  module:
+    - user
+id: user.user.field_version_no
+field_name: field_version_no
+entity_type: user
+bundle: user
+label: 'Version Number'
+description: "Measure of how complete the user's profile is"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 100
+  prefix: ''
+  suffix: ''
+field_type: integer

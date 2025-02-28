@@ -1,0 +1,22 @@
+uuid: 2l3m4n5o-6p7q-8r9s-0t1u-2v3w4x5y6z7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_permit_issued_date
+  module:
+    - datetime
+    - user
+id: user.user.field_permit_issued_date
+field_name: field_permit_issued_date
+entity_type: user
+bundle: user
+label: 'Permit Issued Date'
+description: 'Date when the permit was issued'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

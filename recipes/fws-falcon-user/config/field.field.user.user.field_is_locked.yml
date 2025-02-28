@@ -1,0 +1,23 @@
+uuid: 8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_is_locked
+  module:
+    - user
+id: user.user.field_is_locked
+field_name: field_is_locked
+entity_type: user
+bundle: user
+label: 'Account Locked'
+description: 'Whether the user account is locked'
+required: false
+translatable: true
+default_value:
+  - value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

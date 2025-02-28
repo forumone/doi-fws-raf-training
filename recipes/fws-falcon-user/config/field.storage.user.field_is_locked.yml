@@ -1,0 +1,14 @@
+uuid: 8b2a6f3c-d1e5-4f2a-9c3b-2d5f7h9j1k4m
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_is_locked
+field_name: field_is_locked
+entity_type: user
+type: boolean
+settings: {  }
+module: user
+locked: false
+cardinality: 1
