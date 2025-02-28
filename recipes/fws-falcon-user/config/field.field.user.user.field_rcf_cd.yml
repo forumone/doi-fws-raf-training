@@ -11,7 +11,7 @@ id: user.user.field_rcf_cd
 field_name: field_rcf_cd
 entity_type: user
 bundle: user
-label: 'Preferred Contact Method'
+label: 'RCF Code'
 description: "User's preferred communication channel"
 required: false
 translatable: true

@@ -11,11 +11,16 @@ id: user.user.field_permit_status_cd
 field_name: field_permit_status_cd
 entity_type: user
 bundle: user
-label: 'Account Risk Level'
+label: 'Permit Status Code'
 description: 'Assessment of potential security risks'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_values:
+    - ISS
+    - EXP
+  max_length: 10
+  case_sensitive: true
 field_type: list_string

@@ -11,11 +11,15 @@ id: user.user.field_access_cd
 field_name: field_access_cd
 entity_type: user
 bundle: user
-label: 'Security Level'
+label: 'Access Code'
 description: 'User account security access level'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_values:
+    - FC
+  max_length: 10
+  case_sensitive: true
 field_type: list_string

@@ -10,11 +10,13 @@ id: user.user.field_last_activity
 field_name: field_last_activity
 entity_type: user
 bundle: user
-label: 'Last Activity Geolocation'
+label: 'Last Activity'
 description: 'Geographic location of last login'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  max_length: 255
+  case_sensitive: true
 field_type: string

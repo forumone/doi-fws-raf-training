@@ -10,11 +10,16 @@ id: user.user.field_permit_class
 field_name: field_permit_class
 entity_type: user
 bundle: user
-label: 'Professional Category'
+label: 'Permit Class'
 description: "Detailed classification of user's professional role"
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_values:
+    - APPRENTICE
+    - MASTER
+  max_length: 20
+  case_sensitive: false
 field_type: string

@@ -17,5 +17,10 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_values:
+    - 'Y'
+    - 'N'
+  max_length: 1
+  case_sensitive: true
 field_type: list_string
