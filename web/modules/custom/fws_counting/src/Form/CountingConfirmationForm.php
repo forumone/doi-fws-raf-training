@@ -97,15 +97,17 @@ class CountingConfirmationForm extends FormBase {
     ];
 
     $form['actions'] = [
-      '#type' => 'actions',
+      '#type' => 'container',
+      '#attributes' => ['class' => ['form-actions']],
       'back' => [
         '#type' => 'link',
         '#title' => $this->t('Back'),
         '#url' => Url::fromRoute('fws_counting.test_skills'),
-        '#attributes' => ['class' => ['button']],
+        '#attributes' => ['class' => ['btn btn-default']],
       ],
       'submit' => [
         '#type' => 'submit',
+        '#attributes' => ['class' => ['btn btn-primary']],
         '#value' => $this->t('Begin Test'),
       ],
     ];

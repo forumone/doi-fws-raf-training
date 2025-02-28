@@ -69,8 +69,14 @@ class CountingExperienceForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['submit'] = [
+    $form['actions'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['form-actions']],
+    ];
+
+    $form['actions']['submit'] = [
       '#type' => 'submit',
+      '#attributes' => ['class' => ['btn btn-primary']],
       '#value' => $this->t('Next'),
     ];
 
