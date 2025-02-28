@@ -5,7 +5,11 @@ dependencies:
   config:
     - field.field.user.user.account_creation_source
     - field.field.user.user.account_risk_level
+    - field.field.user.user.first_name
+    - field.field.user.user.last_name
     - field.field.user.user.last_activity_geolocation
+    - field.field.user.user.phone1
+    - field.field.user.user.phone2
     - field.field.user.user.preferred_contact_method
     - field.field.user.user.professional_category
     - field.field.user.user.profile_completeness_score
@@ -37,12 +41,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  language:
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  last_activity_geolocation:
+  first_name:
     type: string_textfield
     weight: 5
     region: content
@@ -50,15 +49,52 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  language:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  last_activity_geolocation:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  last_name:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  phone1:
+    type: string_textfield
+    weight: 8
+    region: content
+    settings:
+      size: 20
+      placeholder: ''
+    third_party_settings: {  }
+  phone2:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 20
+      placeholder: ''
+    third_party_settings: {  }
   preferred_contact_method:
     type: options_select
-    weight: 6
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   professional_category:
     type: string_textfield
-    weight: 8
+    weight: 11
     region: content
     settings:
       size: 60
@@ -66,14 +102,14 @@ content:
     third_party_settings: {  }
   profile_completeness_score:
     type: number
-    weight: 9
+    weight: 12
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   security_level:
     type: options_select
-    weight: 10
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -84,7 +120,7 @@ content:
     third_party_settings: {  }
   two_factor_method:
     type: options_select
-    weight: 11
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }

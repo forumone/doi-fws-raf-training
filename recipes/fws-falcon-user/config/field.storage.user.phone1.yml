@@ -1,0 +1,21 @@
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999529
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.phone1
+field_name: phone1
+entity_type: user
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
