@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.account_creation_source
+    - field.storage.user.field_account_creation_source
   module:
     - user
-id: user.user.account_creation_source
-field_name: account_creation_source
+id: user.user.field_account_creation_source
+field_name: field_account_creation_source
 entity_type: user
 bundle: user
 label: 'Account Creation Source'

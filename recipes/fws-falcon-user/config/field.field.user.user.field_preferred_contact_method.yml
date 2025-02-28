@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.preferred_contact_method
+    - field.storage.user.field_preferred_contact_method
   module:
     - options
     - user
-id: user.user.preferred_contact_method
-field_name: preferred_contact_method
+id: user.user.field_preferred_contact_method
+field_name: field_preferred_contact_method
 entity_type: user
 bundle: user
 label: 'Preferred Contact Method'

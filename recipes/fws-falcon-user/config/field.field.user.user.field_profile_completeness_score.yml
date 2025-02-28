@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.profile_completeness_score
+    - field.storage.user.field_profile_completeness_score
   module:
     - user
-id: user.user.profile_completeness_score
-field_name: profile_completeness_score
+id: user.user.field_profile_completeness_score
+field_name: field_profile_completeness_score
 entity_type: user
 bundle: user
 label: 'Profile Completeness Score'

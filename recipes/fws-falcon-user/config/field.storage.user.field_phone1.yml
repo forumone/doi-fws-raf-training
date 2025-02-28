@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - user
-id: user.phone1
-field_name: phone1
+id: user.field_phone1
+field_name: field_phone1
 entity_type: user
 type: string
 settings:

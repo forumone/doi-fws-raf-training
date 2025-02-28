@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.professional_category
+    - field.storage.user.field_professional_category
   module:
     - user
-id: user.user.professional_category
-field_name: professional_category
+id: user.user.field_professional_category
+field_name: field_professional_category
 entity_type: user
 bundle: user
 label: 'Professional Category'

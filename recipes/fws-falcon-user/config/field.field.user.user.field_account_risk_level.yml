@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.account_risk_level
+    - field.storage.user.field_account_risk_level
   module:
     - options
     - user
-id: user.user.account_risk_level
-field_name: account_risk_level
+id: user.user.field_account_risk_level
+field_name: field_account_risk_level
 entity_type: user
 bundle: user
 label: 'Account Risk Level'

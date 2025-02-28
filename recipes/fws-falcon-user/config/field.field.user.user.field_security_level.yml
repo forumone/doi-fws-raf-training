@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.security_level
+    - field.storage.user.field_security_level
   module:
     - options
     - user
-id: user.user.security_level
-field_name: security_level
+id: user.user.field_security_level
+field_name: field_security_level
 entity_type: user
 bundle: user
 label: 'Security Level'

@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - user
-id: user.last_activity_geolocation
-field_name: last_activity_geolocation
+id: user.field_last_activity_geolocation
+field_name: field_last_activity_geolocation
 entity_type: user
 type: string
 settings:

@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.phone2
+    - field.storage.user.field_phone2
   module:
     - user
-id: user.user.phone2
-field_name: phone2
+id: user.user.field_phone2
+field_name: field_phone2
 entity_type: user
 bundle: user
 label: 'Secondary Phone'

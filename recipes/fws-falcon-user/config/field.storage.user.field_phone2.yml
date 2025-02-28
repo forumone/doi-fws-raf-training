@@ -1,11 +1,11 @@
-uuid: 7508cf2a-52d9-40c6-8818-a56f7a999527
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999531
 langcode: en
 status: true
 dependencies:
   module:
     - user
-id: user.last_name
-field_name: last_name
+id: user.field_phone2
+field_name: field_phone2
 entity_type: user
 type: string
 settings:

@@ -1,17 +1,17 @@
-uuid: 7508cf2a-52d9-40c6-8818-a56f7a999528
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999530
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.last_name
+    - field.storage.user.field_phone1
   module:
     - user
-id: user.user.last_name
-field_name: last_name
+id: user.user.field_phone1
+field_name: field_phone1
 entity_type: user
 bundle: user
-label: 'Last Name'
-description: 'User last name from source system'
+label: 'Primary Phone'
+description: 'User primary phone number from source system'
 required: false
 translatable: false
 default_value: {  }
