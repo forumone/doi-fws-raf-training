@@ -1,28 +1,28 @@
-uuid: 480d1586-64ec-40b7-b434-c4c4c0c153aa
+uuid: 7bda1e28-ec3c-44ae-9333-0e40320209c5
 langcode: en
 status: true
 dependencies:
   module:
     - options
     - user
-id: user.field_preferred_contact_method
-field_name: field_preferred_contact_method
+id: user.field_permit_status_cd
+field_name: field_permit_status_cd
 entity_type: user
 type: list_string
 settings:
   allowed_values:
     -
-      value: EMAIL
-      label: Email
+      value: LOW
+      label: Low
     -
-      value: PHONE1
-      label: 'Primary Phone'
+      value: MEDIUM
+      label: Medium
     -
-      value: PHONE2
-      label: 'Secondary Phone'
+      value: HIGH
+      label: High
     -
-      value: POSTAL_MAIL
-      label: 'Postal Mail'
+      value: CRITICAL
+      label: Critical
   allowed_values_function: ''
 module: options
 locked: false

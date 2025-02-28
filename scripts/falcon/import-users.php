@@ -60,14 +60,14 @@ $field_mapping = [
   'user_last_name' => 'field_last_name',
   'user_phone1' => 'field_phone1',
   'user_phone2' => 'field_phone2',
-  'permit_class' => 'field_professional_category',
-  'permit_status_cd' => 'field_account_risk_level',
-  'last_activity' => 'field_last_activity_geolocation',
-  'created_by' => 'field_account_creation_source',
-  'access_cd' => 'field_security_level',
-  'isMFA' => 'field_two_factor_method',
-  'rcf_cd' => 'field_preferred_contact_method',
-  'version_no' => 'field_profile_completeness_score',
+  'permit_class' => 'field_permit_class',
+  'permit_status_cd' => 'field_permit_status_cd',
+  'last_activity' => 'field_last_activity',
+  'access_cd' => 'field_access_cd',
+  'isMFA' => 'field_is_mfa',
+  'rcf_cd' => 'field_rcf_cd',
+  'version_no' => 'field_version_no',
+  'isDisabled' => 'status',
 ];
 
 // Determine column indices based on headers.
@@ -154,6 +154,11 @@ while (($data = fgetcsv($file)) !== FALSE && $successful_imports < $limit) {
           case 'field_account_risk_level':
             // Map permit_status_cd to risk level values.
             $value = !empty($value) ? $value : 'normal';
+            break;
+
+          case 'status':
+            // If isDisabled is 'N', set status to 1 (active), otherwise 0 (blocked)
+            $value = ($value === 'N') ? 1 : 0;
             break;
         }
 

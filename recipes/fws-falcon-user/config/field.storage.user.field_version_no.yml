@@ -1,17 +1,16 @@
-uuid: 1f39ae01-e5ca-4678-b1f5-884883071059
+uuid: 7508cf2a-52d9-40c6-8818-a56f7a999524
 langcode: en
 status: true
 dependencies:
   module:
     - user
-id: user.field_last_activity_geolocation
-field_name: field_last_activity_geolocation
+id: user.field_version_no
+field_name: field_version_no
 entity_type: user
-type: string
+type: integer
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

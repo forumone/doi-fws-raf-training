@@ -1,11 +1,11 @@
-uuid: 5908af22-aa6f-4437-be4c-e68f06e8195b
+uuid: 1f39ae01-e5ca-4678-b1f5-884883071059
 langcode: en
 status: true
 dependencies:
   module:
     - user
-id: user.field_account_creation_source
-field_name: field_account_creation_source
+id: user.field_last_activity
+field_name: field_last_activity
 entity_type: user
 type: string
 settings:

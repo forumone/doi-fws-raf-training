@@ -1,28 +1,28 @@
-uuid: 5ba78895-3856-4022-b732-046b0af564b5
+uuid: 480d1586-64ec-40b7-b434-c4c4c0c153aa
 langcode: en
 status: true
 dependencies:
   module:
     - options
     - user
-id: user.field_security_level
-field_name: field_security_level
+id: user.field_rcf_cd
+field_name: field_rcf_cd
 entity_type: user
 type: list_string
 settings:
   allowed_values:
     -
-      value: BASIC
-      label: Basic
+      value: EMAIL
+      label: Email
     -
-      value: ADVANCED
-      label: Advanced
+      value: PHONE1
+      label: 'Primary Phone'
     -
-      value: ADMIN
-      label: Admin
+      value: PHONE2
+      label: 'Secondary Phone'
     -
-      value: SUPER_ADMIN
-      label: 'Super Admin'
+      value: POSTAL_MAIL
+      label: 'Postal Mail'
   allowed_values_function: ''
 module: options
 locked: false
