@@ -23,15 +23,17 @@
     </div>
   {% endif %}
 
-  {% if citation is not empty %}
-    <div class="counting-skills-citation">
-      {{ citation }}
-    </div>
-  {% endif %}
+  <div class="counting-skills-disclaimer">
+    {% if citation is not empty %}
+      <div class="counting-skills-citation disclaimer">
+        {{ citation }}
+      </div>
+    {% endif %}
 
-  {% if credits is not empty %}
-    <div class="counting-skills-credits">
-      {{ credits }}
-    </div>
-  {% endif %}
+    {% if credits is not empty %}
+      <div class="counting-skills-credits disclaimer">
+        {{ credits }}
+      </div>
+    {% endif %}
+  </div>
 </div>

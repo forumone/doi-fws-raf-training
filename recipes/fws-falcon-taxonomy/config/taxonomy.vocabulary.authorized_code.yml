@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Authorized Code'
+vid: authorized_code
+description: 'Lookup table for falcon authorized codes'
+weight: 0
+new_revision: false

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Access Code'
+vid: access_code
+description: 'Lookup table for falcon access codes'
+weight: 0
+new_revision: false
