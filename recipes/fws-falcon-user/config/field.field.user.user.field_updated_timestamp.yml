@@ -1,0 +1,22 @@
+uuid: 2v3w4x5y-6z7a-8b9c-0d1e-2f3g4h5i6j7k
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_updated_timestamp
+  module:
+    - datetime
+    - user
+id: user.user.field_updated_timestamp
+field_name: field_updated_timestamp
+entity_type: user
+bundle: user
+label: 'Updated Timestamp'
+description: 'Date and time when the user account was last updated'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

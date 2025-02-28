@@ -68,6 +68,22 @@ $field_mapping = [
   'rcf_cd' => 'field_rcf_cd',
   'version_no' => 'field_version_no',
   'isDisabled' => 'status',
+
+  // New fields.
+  'authorized_cd' => 'field_authorized_code',
+  'isLocked' => 'field_is_locked',
+  'isActivated' => 'field_is_activated',
+  'failedlogin_count' => 'field_failed_login_count',
+  'permit_no' => 'field_permit_number',
+  'dt_permit_issued' => 'field_permit_issued_date',
+  'dt_permit_expires' => 'field_permit_expiration_date',
+  'dt_create' => 'field_created_timestamp',
+  'dt_update' => 'field_updated_timestamp',
+  'created_by' => 'field_created_by',
+  'updated_by' => 'field_updated_by',
+  'dt_mfa_login' => 'field_mfa_login_timestamp',
+  'mfa_uuid' => 'field_mfa_uuid',
+  'hid' => 'field_hid',
 ];
 
 // Determine column indices based on headers.
@@ -135,8 +151,33 @@ while (($data = fgetcsv($file)) !== FALSE && $successful_imports < $limit) {
       if (isset($column_indices[$drupal_field]) && isset($data[$column_indices[$drupal_field]])) {
         $value = $data[$column_indices[$drupal_field]];
 
-        // Handle special field types.
+        // Handle special field types and conversions.
         switch ($drupal_field) {
+          case 'field_is_locked':
+          case 'field_is_activated':
+            // Convert to boolean.
+            $value = ($value === 'Y' || $value === '1') ? 1 : 0;
+            break;
+
+          case 'field_failed_login_count':
+            // Ensure integer.
+            $value = (int) $value;
+            break;
+
+          case 'field_permit_issued_date':
+          case 'field_permit_expiration_date':
+          case 'field_created_timestamp':
+          case 'field_updated_timestamp':
+          case 'field_mfa_login_timestamp':
+            // Convert to datetime if not empty.
+            $value = !empty($value) ? date('Y-m-d\TH:i:s', strtotime($value)) : NULL;
+            break;
+
+          case 'field_is_mfa':
+            // Convert to boolean or specific string.
+            $value = ($value === 'Y') ? 'enabled' : 'disabled';
+            break;
+
           case 'field_profile_completeness_score':
             $value = (int) $value;
             break;

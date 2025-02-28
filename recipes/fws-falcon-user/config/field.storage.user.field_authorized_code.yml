@@ -1,0 +1,16 @@
+uuid: 9a3f5d1e-f4b7-4f1e-9e3a-1f3d5c7b8a2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_authorized_code
+field_name: field_authorized_code
+entity_type: user
+type: string
+settings:
+  max_length: 50
+  case_sensitive: true
+module: user
+locked: false
+cardinality: 1

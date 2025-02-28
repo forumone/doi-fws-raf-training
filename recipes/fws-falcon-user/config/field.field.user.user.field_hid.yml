@@ -1,0 +1,22 @@
+uuid: 7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_hid
+  module:
+    - user
+id: user.user.field_hid
+field_name: field_hid
+entity_type: user
+bundle: user
+label: 'HID'
+description: 'Hardware identifier for the user'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 100
+  case_sensitive: true
+field_type: string

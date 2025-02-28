@@ -1,4 +1,4 @@
-uuid: 9257c420-e80d-4d13-9d8b-b14cf121d473
+uuid: 8b9c0d1e-2f3g-4h5i-6j7k-8l9m0n1o2p3q
 langcode: en
 status: true
 dependencies:
@@ -30,205 +30,224 @@ dependencies:
     - field.field.user.user.field_version_no
   module:
     - datetime
+    - options
     - user
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
-  account:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_access_cd:
-    type: options_select
-    weight: 3
-    region: content
+    type: list_default
+    label: above
     settings: {  }
     third_party_settings: {  }
-  field_authorized_code:
-    type: string_textfield
-    weight: 14
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_created_by:
-    type: string_textfield
-    weight: 15
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_created_timestamp:
-    type: datetime_default
-    weight: 16
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_failed_login_count:
-    type: number
-    weight: 17
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_first_name:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 18
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_activated:
-    type: boolean_checkbox
-    weight: 19
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_is_locked:
-    type: boolean_checkbox
-    weight: 20
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_is_mfa:
-    type: options_select
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_last_activity:
-    type: string_textfield
-    weight: 7
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_last_name:
-    type: string_textfield
-    weight: 5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_mfa_login_timestamp:
-    type: datetime_default
-    weight: 21
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_mfa_uuid:
-    type: string_textfield
-    weight: 22
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_class:
-    type: string_textfield
-    weight: 8
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_expiration_date:
-    type: datetime_default
-    weight: 23
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_permit_issued_date:
-    type: datetime_default
-    weight: 24
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_permit_number:
-    type: string_textfield
-    weight: 25
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_status_cd:
-    type: options_select
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_phone1:
-    type: string_textfield
-    weight: 10
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_phone2:
-    type: string_textfield
-    weight: 11
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: options_select
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_updated_by:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_updated_timestamp:
-    type: datetime_default
-    weight: 27
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_version_no:
-    type: number
-    weight: 13
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  language:
     weight: 1
     region: content
-    settings: {  }
+  field_authorized_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-  timezone:
     weight: 2
     region: content
+  field_created_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_created_timestamp:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_failed_login_count:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_is_activated:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_is_locked:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_is_mfa:
+    type: list_default
+    label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
+  field_last_activity:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_mfa_login_timestamp:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_mfa_uuid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_permit_class:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_permit_expiration_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_permit_issued_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_permit_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_permit_status_cd:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_phone1:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_phone2:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_rcf_cd:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_updated_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_updated_timestamp:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_version_no:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  member_for:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   langcode: true
-  path: true

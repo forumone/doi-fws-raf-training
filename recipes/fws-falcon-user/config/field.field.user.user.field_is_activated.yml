@@ -1,0 +1,23 @@
+uuid: 9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_is_activated
+  module:
+    - user
+id: user.user.field_is_activated
+field_name: field_is_activated
+entity_type: user
+bundle: user
+label: 'Account Activated'
+description: 'Whether the user account is activated'
+required: false
+translatable: true
+default_value:
+  - value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

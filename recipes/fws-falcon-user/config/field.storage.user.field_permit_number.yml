@@ -1,0 +1,16 @@
+uuid: 5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_permit_number
+field_name: field_permit_number
+entity_type: user
+type: string
+settings:
+  max_length: 50
+  case_sensitive: true
+module: user
+locked: false
+cardinality: 1

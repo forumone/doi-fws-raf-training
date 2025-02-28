@@ -1,0 +1,22 @@
+uuid: 1u2v3w4x-5y6z-7a8b-9c0d-1e2f3g4h5i6j
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_created_timestamp
+  module:
+    - datetime
+    - user
+id: user.user.field_created_timestamp
+field_name: field_created_timestamp
+entity_type: user
+bundle: user
+label: 'Created Timestamp'
+description: 'Date and time when the user account was created'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

@@ -1,0 +1,22 @@
+uuid: 1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6z
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_permit_number
+  module:
+    - user
+id: user.user.field_permit_number
+field_name: field_permit_number
+entity_type: user
+bundle: user
+label: 'Permit Number'
+description: 'Unique identifier for the user permit'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 50
+  case_sensitive: true
+field_type: string

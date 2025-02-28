@@ -1,0 +1,22 @@
+uuid: 3w4x5y6z-7a8b-9c0d-1e2f-3g4h5i6j7k8l
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_created_by
+  module:
+    - user
+id: user.user.field_created_by
+field_name: field_created_by
+entity_type: user
+bundle: user
+label: 'Created By'
+description: 'Username of the person who created this account'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 100
+  case_sensitive: true
+field_type: string

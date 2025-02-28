@@ -1,0 +1,25 @@
+uuid: 0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_failed_login_count
+  module:
+    - user
+id: user.user.field_failed_login_count
+field_name: field_failed_login_count
+entity_type: user
+bundle: user
+label: 'Failed Login Count'
+description: 'Number of consecutive failed login attempts'
+required: false
+translatable: true
+default_value:
+  - value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

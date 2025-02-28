@@ -1,0 +1,16 @@
+uuid: 5o6p7q8r-9s0t-1u2v-3w4x-5y6z7a8b9c0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - user
+id: user.field_updated_timestamp
+field_name: field_updated_timestamp
+entity_type: user
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: false
+cardinality: 1

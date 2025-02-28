@@ -1,0 +1,22 @@
+uuid: 7c3d2e1f-a9b6-4f3e-8d2c-1f5g7h9j2k4m
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_authorized_code
+  module:
+    - user
+id: user.user.field_authorized_code
+field_name: field_authorized_code
+entity_type: user
+bundle: user
+label: 'Authorized Code'
+description: 'Authorization code for the user'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 50
+  case_sensitive: true
+field_type: string

@@ -1,0 +1,22 @@
+uuid: 6z7a8b9c-0d1e-2f3g-4h5i-6j7k8l9m0n1o
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_mfa_uuid
+  module:
+    - user
+id: user.user.field_mfa_uuid
+field_name: field_mfa_uuid
+entity_type: user
+bundle: user
+label: 'MFA UUID'
+description: 'Unique identifier for MFA authentication'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 100
+  case_sensitive: true
+field_type: string
