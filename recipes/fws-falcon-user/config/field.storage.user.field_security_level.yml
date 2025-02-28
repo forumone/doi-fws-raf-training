@@ -5,8 +5,8 @@ dependencies:
   module:
     - options
     - user
-id: user.security_level
-field_name: security_level
+id: user.field_security_level
+field_name: field_security_level
 entity_type: user
 type: list_string
 settings:

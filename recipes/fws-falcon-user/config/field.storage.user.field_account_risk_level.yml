@@ -5,8 +5,8 @@ dependencies:
   module:
     - options
     - user
-id: user.account_risk_level
-field_name: account_risk_level
+id: user.field_account_risk_level
+field_name: field_account_risk_level
 entity_type: user
 type: list_string
 settings:

@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - user
-id: user.account_creation_source
-field_name: account_creation_source
+id: user.field_account_creation_source
+field_name: field_account_creation_source
 entity_type: user
 type: string
 settings:

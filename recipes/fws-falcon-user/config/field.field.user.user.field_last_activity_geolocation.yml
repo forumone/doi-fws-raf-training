@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.last_activity_geolocation
+    - field.storage.user.field_last_activity_geolocation
   module:
     - user
-id: user.user.last_activity_geolocation
-field_name: last_activity_geolocation
+id: user.user.field_last_activity_geolocation
+field_name: field_last_activity_geolocation
 entity_type: user
 bundle: user
 label: 'Last Activity Geolocation'

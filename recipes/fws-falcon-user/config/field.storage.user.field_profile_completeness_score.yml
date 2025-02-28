@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - user
-id: user.profile_completeness_score
-field_name: profile_completeness_score
+id: user.field_profile_completeness_score
+field_name: field_profile_completeness_score
 entity_type: user
 type: integer
 settings:

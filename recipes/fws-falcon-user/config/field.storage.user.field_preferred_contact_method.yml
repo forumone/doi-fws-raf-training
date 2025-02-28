@@ -5,8 +5,8 @@ dependencies:
   module:
     - options
     - user
-id: user.preferred_contact_method
-field_name: preferred_contact_method
+id: user.field_preferred_contact_method
+field_name: field_preferred_contact_method
 entity_type: user
 type: list_string
 settings:

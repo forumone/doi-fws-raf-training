@@ -4,8 +4,8 @@ status: true
 dependencies:
   module:
     - user
-id: user.professional_category
-field_name: professional_category
+id: user.field_professional_category
+field_name: field_professional_category
 entity_type: user
 type: string
 settings:

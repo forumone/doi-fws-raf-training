@@ -5,8 +5,8 @@ dependencies:
   module:
     - options
     - user
-id: user.two_factor_method
-field_name: two_factor_method
+id: user.field_two_factor_method
+field_name: field_two_factor_method
 entity_type: user
 type: list_string
 settings:
