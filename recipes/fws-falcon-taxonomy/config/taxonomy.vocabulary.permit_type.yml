@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Permit Type'
+vid: permit_type
+description: 'Lookup table for falcon permit types'
+weight: 0
+new_revision: false

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Permit Duration'
+vid: permit_duration
+description: 'Lookup table for falcon permit durations'
+weight: 0
+new_revision: false
