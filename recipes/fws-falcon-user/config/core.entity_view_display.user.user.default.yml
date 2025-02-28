@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.user.user.field_access_cd
     - field.field.user.user.field_authorized_code
-    - field.field.user.user.field_created_by
-    - field.field.user.user.field_created_timestamp
     - field.field.user.user.field_failed_login_count
     - field.field.user.user.field_first_name
     - field.field.user.user.field_hid
@@ -25,8 +23,6 @@ dependencies:
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
     - field.field.user.user.field_rcf_cd
-    - field.field.user.user.field_updated_by
-    - field.field.user.user.field_updated_timestamp
     - field.field.user.user.field_version_no
   module:
     - datetime
@@ -51,23 +47,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_created_by:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_created_timestamp:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_failed_login_count:
     type: number_integer
@@ -217,23 +196,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 22
-    region: content
-  field_updated_by:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 23
-    region: content
-  field_updated_timestamp:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 24
     region: content
   field_version_no:
     type: number_integer

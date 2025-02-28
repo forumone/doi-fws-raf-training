@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.user.user.field_access_cd
     - field.field.user.user.field_authorized_code
-    - field.field.user.user.field_created_by
-    - field.field.user.user.field_created_timestamp
     - field.field.user.user.field_failed_login_count
     - field.field.user.user.field_first_name
     - field.field.user.user.field_hid
@@ -25,8 +23,6 @@ dependencies:
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
     - field.field.user.user.field_rcf_cd
-    - field.field.user.user.field_updated_by
-    - field.field.user.user.field_updated_timestamp
     - field.field.user.user.field_version_no
   module:
     - datetime
@@ -54,20 +50,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_created_by:
-    type: string_textfield
-    weight: 15
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_created_timestamp:
-    type: datetime_default
-    weight: 16
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_failed_login_count:
     type: number
@@ -195,20 +177,6 @@ content:
   field_rcf_cd:
     type: options_select
     weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_updated_by:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_updated_timestamp:
-    type: datetime_default
-    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }

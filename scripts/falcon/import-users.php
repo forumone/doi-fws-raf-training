@@ -73,17 +73,16 @@ $field_mapping = [
   'authorized_cd' => 'field_authorized_code',
   'isLocked' => 'field_is_locked',
   'isActivated' => 'field_is_activated',
-  'failedlogin_count' => 'field_failed_login_count',
   'permit_no' => 'field_permit_number',
   'dt_permit_issued' => 'field_permit_issued_date',
   'dt_permit_expires' => 'field_permit_expiration_date',
-  'dt_create' => 'field_created_timestamp',
-  'dt_update' => 'field_updated_timestamp',
-  'created_by' => 'field_created_by',
-  'updated_by' => 'field_updated_by',
   'dt_mfa_login' => 'field_mfa_login_timestamp',
   'mfa_uuid' => 'field_mfa_uuid',
   'hid' => 'field_hid',
+  // Map dt_create to Drupal core created field.
+  'dt_create' => 'created',
+  // Map dt_update to Drupal core changed field.
+  'dt_update' => 'changed',
 ];
 
 // Determine column indices based on headers.
@@ -159,18 +158,17 @@ while (($data = fgetcsv($file)) !== FALSE && $successful_imports < $limit) {
             $value = ($value === 'Y' || $value === '1') ? 1 : 0;
             break;
 
-          case 'field_failed_login_count':
-            // Ensure integer.
-            $value = (int) $value;
-            break;
-
           case 'field_permit_issued_date':
           case 'field_permit_expiration_date':
-          case 'field_created_timestamp':
-          case 'field_updated_timestamp':
           case 'field_mfa_login_timestamp':
             // Convert to datetime if not empty.
             $value = !empty($value) ? date('Y-m-d\TH:i:s', strtotime($value)) : NULL;
+            break;
+
+          case 'created':
+          case 'changed':
+            // Convert to Unix timestamp for Drupal core fields.
+            $value = !empty($value) ? strtotime($value) : time();
             break;
 
           case 'field_is_mfa':
