@@ -26,7 +26,7 @@ use Drupal\file\Entity\File;
 
 // Define the CSV file path.
 // Since the script runs from /var/www/html/web, we need to use a relative path from there.
-$csv_file = 'sites/falcon/files/falcon-data/falc_dad_species_image_202502271311.csv';
+$csv_file = 'sites/falcon/files/falcon-data/falc_dad_species_image_202503031511.csv';
 
 // Check if the file exists.
 if (!file_exists($csv_file)) {
@@ -65,11 +65,6 @@ $field_mapping = [
   'name_of_image' => 'field_name_of_image',
   'type_of_image' => 'field_type_of_image',
   'species_image' => 'field_species_image',
-  // 'image_extension' => 'field_image_extension',
-  // 'image_size' => 'field_image_size',
-  // 'image_size_view' => 'field_image_size_view',
-  // 'dt_create' => 'field_dt_create',
-  // 'dt_update' => 'field_dt_update',
 ];
 
 // Create an array to map CSV column indices to field names.
@@ -157,7 +152,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
             // Convert the SQL Server BLOB data to binary.
             try {
-              $value = convert_to_binary($value);
+              $value = base64_decode($value);
               print("Row $row_count: Converted SQL Server BLOB data to binary.\n");
             }
             catch (Exception $e) {
@@ -357,62 +352,3 @@ print("Nodes created: $created_count\n");
 print("Nodes updated: $updated_count\n");
 print("Errors: $error_count\n");
 print("\nDone.\n");
-
-/**
- * Converts SQL Server varbinary data to binary.
- */
-function convert_to_binary($escapedString) {
-  // Debug the input.
-  $input_length = strlen($escapedString);
-  print("Input string length: $input_length bytes\n");
-
-  // Check for common SQL Server BLOB prefixes and remove them if present.
-  if (substr($escapedString, 0, 2) === '0x') {
-    $escapedString = substr($escapedString, 2);
-    print("Removed '0x' prefix from SQL Server varbinary data.\n");
-  }
-
-  // For SQL Server varbinary data, it's typically hex encoded.
-  // If the string consists of only hex characters and has an even length,
-  // it's very likely to be hex encoded binary data.
-  if (ctype_xdigit($escapedString) && strlen($escapedString) % 2 === 0) {
-    print("Data appears to be SQL Server varbinary (hex encoded), converting to binary.\n");
-    $hex_binary = hex2bin($escapedString);
-    if ($hex_binary !== FALSE) {
-      print("Successfully converted SQL Server varbinary data to binary.\n");
-
-      // Debug the output.
-      $output_length = strlen($hex_binary);
-      print("Output binary length: $output_length bytes\n");
-
-      return $hex_binary;
-    }
-  }
-
-  // If we get here, the data might not be in the expected format.
-  // Try other conversion methods as fallbacks.
-  // Replace Unicode escape sequences.
-  $binary = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
-    return chr(hexdec($matches[1]));
-  }, $escapedString);
-
-  // Replace escaped characters like \r, \n, etc.
-  $binary = stripcslashes($binary);
-
-  // Check if the data might be base64 encoded as a fallback.
-  if (strlen($binary) < 10 || !preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', $binary)) {
-    // If the binary result is too short or doesn't contain binary data,
-    // try base64 decoding as a fallback.
-    $base64_decoded = base64_decode($escapedString, TRUE);
-    if ($base64_decoded !== FALSE && strlen($base64_decoded) > strlen($binary)) {
-      $binary = $base64_decoded;
-      print("Fallback: Successfully converted base64 data to binary.\n");
-    }
-  }
-
-  // Debug the output.
-  $output_length = strlen($binary);
-  print("Output binary length: $output_length bytes\n");
-
-  return $binary;
-}

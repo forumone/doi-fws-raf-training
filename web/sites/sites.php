@@ -7,6 +7,7 @@
 
 $sites['eps.ddev.site'] = 'eps';
 $sites['aerial.ddev.site'] = 'aerial';
+$sites['falcon.ddev.site'] = 'falcon';
 $sites['fws-raf.ddev.site'] = 'default';
 $sites['fws-raf.ddev.site.epsandhill'] = 'eps';
 $sites['fws-raf.ddev.site.aerial'] = 'aerial';

@@ -28,8 +28,9 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-node
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-content
 ddev drush -l $SITE_URI cr
 
-# Import taxonomy terms from CSV files
+# Run import scripts
 ddev drush -l $SITE_URI scr ../scripts/falcon/import-taxonomies.php
 ddev drush -l $SITE_URI scr ../scripts/falcon/import-users.php 10
+ddev drush -l $SITE_URI scr ../scripts/falcon/import_species_images.php
 
 ddev drush -l $SITE_URI uli
