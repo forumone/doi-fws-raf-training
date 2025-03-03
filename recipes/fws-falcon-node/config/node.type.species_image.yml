@@ -1,0 +1,11 @@
+uuid: 038baac7-a340-4f9b-bc3d-51ed4df328a5
+langcode: en
+status: true
+dependencies: {  }
+name: 'Species Image'
+type: species_image
+description: 'Content type for storing species images imported from falc_dad_species_image_202502271311.csv.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

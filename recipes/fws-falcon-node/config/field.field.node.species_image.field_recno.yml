@@ -1,0 +1,19 @@
+uuid: 098fa236-19d6-49da-ab1e-b57b3c478e23
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recno
+    - node.type.species_image
+id: node.species_image.field_recno
+field_name: field_recno
+entity_type: node
+bundle: species_image
+label: 'Record Number'
+description: 'The record number from the CSV.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

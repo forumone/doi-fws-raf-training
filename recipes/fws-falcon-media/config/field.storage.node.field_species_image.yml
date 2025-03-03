@@ -1,0 +1,23 @@
+uuid: 9e95511b-9531-453e-bedd-5a6f71da8cfa
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - node
+id: node.field_species_image
+field_name: field_species_image
+entity_type: node
+type: file
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+module: file
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
