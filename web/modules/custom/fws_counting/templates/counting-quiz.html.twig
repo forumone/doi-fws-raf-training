@@ -12,17 +12,24 @@
  */
 #}
 
-<div class="parameters-section">
+<div class="quiz__parameters">
   <h2>{{ 'Parameters chosen:'|t }}</h2>
   <p>{{ 'Experience Level: @level'|t({'@level': experience_level}) }}</p>
   <p>{{ 'Flock Size Range: @range'|t({'@range': size_ranges|join(' AND ')}) }}</p>
 </div>
 
-<div class="images-section">
+<div class="quiz__timer"></div>
+
+<div class="quiz__items" data-timer="10">
   {% for key, image in images %}
-    <div class="quiz-image" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
-      {{ image.rendered }}
-      <p>{{ 'Bird Count: @count'|t({'@count': image.bird_count}) }}</p>
+    <div class="quiz__item quiz__item--{{ key }}">
+      <div class="quiz__prompt" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
+        {{ image.rendered }}
+      </div>
+      <div class="quiz__answer quiz__answer--{{ key }}">
+        <p>{{ 'Bird Count: @count'|t({'@count': image.bird_count}) }}</p>
+        <button class="btn btn-primary quiz__continue">Continue</button>
+      </div>
     </div>
   {% endfor %}
 </div>

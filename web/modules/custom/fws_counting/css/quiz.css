@@ -1,1 +1,51 @@
-/* Styles here */
+/* Hiding quiz content for the intial state */
+.quiz__item:not(:first-child),
+.quiz__answer {
+  display: none;
+}
+
+.quiz__prompt img {
+  width: 100%;
+}
+
+.quiz__timer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.timer-circle {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.timer-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.timer-svg {
+  width: 52px;
+  height: 52px;
+  transform: rotate(-90deg);
+}
+
+.timer-svg circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.timer-svg circle:first-child {
+  stroke: #eee;
+}
+
+.timer-svg circle:last-child {
+  stroke: #007bff;
+  stroke-dasharray: 151px;
+  transition: stroke-dashoffset 1s linear;
+}

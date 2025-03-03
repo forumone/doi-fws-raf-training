@@ -4,6 +4,7 @@ description: 'Provides a form for species counting difficulty and size range sel
 package: Custom
 core_version_requirement: ^9 || ^10
 dependencies:
+  - drupal:core
   - drupal:taxonomy
 configure: fws_counting.settings
 
