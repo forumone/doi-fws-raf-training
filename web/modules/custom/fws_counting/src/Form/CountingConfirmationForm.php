@@ -23,6 +23,8 @@ class CountingConfirmationForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#attached']['library'][] = 'fws_counting/quiz';
+
     // Get the parameters from the previous form from tempstore.
     $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
     $experience_level = $tempstore->get('experience_level');
@@ -61,24 +63,29 @@ class CountingConfirmationForm extends FormBase {
     $form['parameters'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['parameters-chosen']],
-      'heading' => [
-        '#type' => 'html_tag',
-        '#tag' => 'h3',
-        '#value' => $this->t('Parameters chosen:'),
-      ],
-      'experience' => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('Experience Level: @level', [
-          '@level' => $experience_term->label(),
-        ]),
-      ],
-      'size' => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('Flock Size Range: @range', [
-          '@range' => $size_range_text,
-        ]),
+      'content' => [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['quiz__parameters']],
+        'info' => [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['quiz__info']],
+          'experience' => [
+            '#type' => 'html_tag',
+            '#tag' => 'p',
+            '#attributes' => ['class' => ['quiz__parameter']],
+            '#value' => $this->t('<b>Experience Level:</b> @level', [
+              '@level' => $experience_term->label(),
+            ]),
+          ],
+          'size' => [
+            '#type' => 'html_tag',
+            '#tag' => 'p',
+            '#attributes' => ['class' => ['quiz__parameter']],
+            '#value' => $this->t('<b>Flock Size Range</b>: @range', [
+              '@range' => $size_range_text,
+            ]),
+          ],
+        ],
       ],
     ];
 

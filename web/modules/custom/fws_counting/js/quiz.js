@@ -44,6 +44,7 @@
 
             if (timeLeft <= 0) {
               clearInterval(countdownInterval);
+              $('.quiz__item--' + currentQuestion, $quizContainer).find('.quiz__prompt').slideUp();
               $('.quiz__response', $('.quiz__item--' + currentQuestion, $quizContainer)).slideDown();
             }
           }, 1000);
@@ -66,8 +67,8 @@
           currentQuestion++;
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
-            console.log('Quiz complete!');
-            $('.quiz__timer', $quizContainer).hide();
+            $('.quiz__timer, .quiz__container').hide();
+            $('.quiz__complete').slideDown();
             return;
           }
 
@@ -104,6 +105,9 @@
           else {
             $(this).closest('.quiz__response').find('.quiz__incorrect').show();
           }
+
+          // Switch panels to display the answer information
+          $(this).closest('.quiz__guess').slideUp().next('.quiz__answer').slideDown();
         });
       });
     }

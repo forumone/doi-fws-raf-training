@@ -13,13 +13,15 @@
 #}
 
 <div class="quiz__parameters">
-  <h2>{{ 'Parameters chosen:'|t }}</h2>
-  <p class="quiz__parameter"><b>{{ 'Experience Level:'|t }}</b> {{ experience_level }}</p>
-  <p class="quiz__parameter"><b>{{ 'Flock Size Range:'|t }}</b> {{ size_ranges|join(' AND ') }}</p>
+  <div class="quiz__info">
+    <h2>{{ 'Parameters chosen:'|t }}</h2>
+    <p class="quiz__parameter"><b>{{ 'Experience Level:'|t }}</b> {{ experience_level }}</p>
+    <p class="quiz__parameter"><b>{{ 'Flock Size Range:'|t }}</b> {{ size_ranges|join(' AND ') }}</p>
+  </div>
+  <div class="quiz__timer"></div>
 </div>
 
 <div class="quiz__container">
-  <div class="quiz__timer"></div>
 
   <div class="quiz__items" data-timer="10">
     {% for key, image in images %}
@@ -33,17 +35,19 @@
 
           <div class="quiz__guess">
             <div class="form-item form-type-textfield form-item-guess form-group">
-              <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds do you count?'|t }}</span></label>
+              <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds did you count?'|t }}</span></label>
               <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" autocomplete="none" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" size="6" maxlength="6" required="required" aria-required="true">
             </div>
-            <button class="btn btn-primary quiz__submit">{{ 'Submit'|t }}</button>
+            <button class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
           </div>
 
           <div class="quiz__answer">
-            <div class="quiz__feedback quiz__correct">{{ 'That is correct!'|t }}</div>
-            <div class="quiz__feedback quiz__incorrect">{{ 'Sorry, that is incorrect.'|t }}</div>
-            <p><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
-            <p><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>
+            <div class="quiz__feedback quiz__correct alert alert-success">{{ 'That is correct!'|t }}</div>
+            <div class="quiz__feedback quiz__incorrect alert alert-warning">{{ 'Sorry, that is incorrect.'|t }}</div>
+            <div class="quiz__results">
+              <p class="quiz__result"><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
+              <p class="quiz__result"><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>
+            </div>
             <button class="btn btn-primary quiz__continue">{{ 'Continue'|t }}</button>
           </div>
         </div>
@@ -51,4 +55,9 @@
       </div>
     {% endfor %}
   </div>
+</div>
+
+<div class="quiz__complete">
+  <div class="alert alert-success">{{ 'Test Complete!'|t }}</div>
+  <p>You have successfully completed this assessment.</p>
 </div>
