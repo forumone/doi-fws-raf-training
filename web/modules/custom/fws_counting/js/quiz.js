@@ -44,11 +44,11 @@
 
             if (timeLeft <= 0) {
               clearInterval(countdownInterval);
-              $('.quiz__answer', $('.quiz__item--' + currentQuestion, $quizContainer)).slideDown();
+              $('.quiz__response', $('.quiz__item--' + currentQuestion, $quizContainer)).slideDown();
             }
           }, 1000);
 
-          // Set the timeout for showing the answer
+          // Set the timeout for showing the response
           timerInstance = setTimeout(function() {
             clearInterval(countdownInterval);
           }, timer * 1000);
@@ -73,7 +73,7 @@
 
           const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
           $currentItem.show();
-          $('.quiz__answer', $currentItem).hide();
+          $('.quiz__response', $currentItem).hide();
 
           startTimer();
         }
@@ -84,6 +84,26 @@
         // Handle continue button clicks
         $('.quiz__continue', $quizContainer).on('click', function() {
           showNextQuestion();
+        });
+
+        // Handle button click to update the closest .quiz__submission and check for correctness
+        $('.quiz__submit', $quizContainer).on('click', function() {
+          const userInput = $(this).closest('.quiz__response').find('.form-text').val();
+          const actualCount = $(this).closest('.quiz__response').find('.quiz__actual').text();
+
+          // Update the submission text
+          $(this).closest('.quiz__response').find('.quiz__submission').text(userInput);
+
+          // Ensure that the feedback text for the user guess is hidden
+          $('.quiz__feedback').hide();
+
+          // Display the appropriate error message relative to the user submission
+          if (userInput === actualCount) {
+            $(this).closest('.quiz__response').find('.quiz__correct').show();
+          }
+          else {
+            $(this).closest('.quiz__response').find('.quiz__incorrect').show();
+          }
         });
       });
     }

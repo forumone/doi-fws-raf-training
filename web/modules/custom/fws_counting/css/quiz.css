@@ -1,6 +1,22 @@
+.quiz__parameters {
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.quiz__parameters > .quiz__parameter {
+  padding: 0;
+  margin: 0;
+}
+
+.quiz__container {
+  position: relative;
+}
+
 /* Hiding quiz content for the intial state */
 .quiz__item:not(:first-child),
-.quiz__answer {
+.quiz__response,
+.quiz__feedback {
   display: none;
 }
 
@@ -11,7 +27,6 @@
 .quiz__timer {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
 }
 
 .timer-circle {
@@ -41,11 +56,11 @@
 }
 
 .timer-svg circle:first-child {
-  stroke: #eee;
+  stroke: #E7E7E7;
 }
 
 .timer-svg circle:last-child {
-  stroke: #007bff;
+  stroke: #205493;
   stroke-dasharray: 151px;
   transition: stroke-dashoffset 1s linear;
 }
