@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Icon'
-vid: icon
-description: 'Lookup table for falcon icons'
-weight: 0
-new_revision: false
