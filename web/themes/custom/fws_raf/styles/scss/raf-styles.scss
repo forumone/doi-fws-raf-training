@@ -1,13 +1,20 @@
-@forward 'variables';
-@forward 'sightings';
-@forward 'tracking'; // includes tracking report and search forms
-@forward 'navigation'; // includes header and nav
-@forward 'views';
-@forward 'form-components'; // includes select2 and field groups
-@forward 'autocomplete'; // UI widget overrides
-@forward 'user';
-@forward 'node';
-@forward 'node-forms';
-@forward 'species';
-@forward 'layout';
-@forward 'blocks';
+@forward 'layout/navigation'; // includes header and nav
+@forward 'layout/layout';
+
+@forward 'user/user';
+
+@forward 'blocks/blocks';
+
+@forward 'forms/autocomplete'; // UI widget overrides
+@forward 'forms/form-components'; // includes select2 and field groups
+@forward 'forms/node-forms';
+
+@forward 'nodes/node';
+@forward 'nodes/species';
+
+@forward 'quizzes/counting';
+@forward 'quizzes/identification';
+
+@forward 'views/views';
+@forward 'views/tracking'; // includes tracking report and search forms
+@forward 'views/sightings';
