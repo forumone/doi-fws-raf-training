@@ -81,7 +81,7 @@ class CountingConfirmationForm extends FormBase {
             '#type' => 'html_tag',
             '#tag' => 'p',
             '#attributes' => ['class' => ['quiz__parameter']],
-            '#value' => $this->t('<b>Flock Size Range</b>: @range', [
+            '#value' => $this->t('<b>Flock Size Range(s)</b>: @range', [
               '@range' => $size_range_text,
             ]),
           ],

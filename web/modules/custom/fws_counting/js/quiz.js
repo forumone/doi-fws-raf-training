@@ -3,35 +3,41 @@
 
   Drupal.behaviors.fwsCountingQuiz = {
     attach: function (context, settings) {
-      if (settings.fwsCounting && settings.fwsCounting.quizContext) {
-        console.log('Quiz Context Data:');
-        console.dir(settings.fwsCounting.quizContext);
-      }
+      // if (settings.fwsCounting && settings.fwsCounting.quizContext) {
+      //   console.log('Quiz Context Data:');
+      //   console.dir(settings.fwsCounting.quizContext);
+      // }
 
-      // Use once() with the newer Drupal 9+ syntax
       once('fws-counting-quiz', '.quiz__items', context).forEach(function (element) {
         const $quizContainer = $(element);
-        const timer = parseInt($quizContainer.data('timer')); // Keep as seconds for countdown
+        const defaultTimer = parseInt($quizContainer.data('timer')); // Default timer value
         let currentQuestion = 0;
         let timerInstance = null;
         let countdownInterval = null;
 
-        function updateTimerDisplay(secondsLeft) {
+        function getTimerDuration() {
+          const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
+          const birdCount = parseInt($currentItem.find('.quiz__actual').text());
+          return birdCount > 3000 ? 15 : defaultTimer;
+        }
+
+        function updateTimerDisplay(secondsLeft, totalSeconds) {
           const $timer = $('.quiz__timer');
           $timer.html(`<div class="timer-circle">
             <div class="timer-number">${secondsLeft}</div>
             <svg class="timer-svg">
               <circle r="24" cx="26" cy="26"></circle>
               <circle r="24" cx="26" cy="26"
-                style="stroke-dashoffset: ${(secondsLeft / timer) * 151}px">
+                style="stroke-dashoffset: ${(secondsLeft / totalSeconds) * 151}px">
               </circle>
             </svg>
           </div>`);
         }
 
         function startTimer() {
-          let timeLeft = timer;
-          updateTimerDisplay(timeLeft);
+          const totalSeconds = getTimerDuration();
+          let timeLeft = totalSeconds;
+          updateTimerDisplay(timeLeft, totalSeconds);
 
           // Clear any existing intervals
           if (countdownInterval) {
@@ -40,7 +46,7 @@
 
           countdownInterval = setInterval(() => {
             timeLeft--;
-            updateTimerDisplay(timeLeft);
+            updateTimerDisplay(timeLeft, totalSeconds);
 
             if (timeLeft <= 0) {
               clearInterval(countdownInterval);
@@ -52,7 +58,7 @@
           // Set the timeout for showing the response
           timerInstance = setTimeout(function() {
             clearInterval(countdownInterval);
-          }, timer * 1000);
+          }, totalSeconds * 1000);
         }
 
         function showNextQuestion() {

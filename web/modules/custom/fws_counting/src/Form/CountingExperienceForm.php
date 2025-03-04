@@ -64,7 +64,7 @@ class CountingExperienceForm extends FormBase {
 
     $form['size_ranges'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('Next, select flock size ranges'),
+      '#title' => $this->t('Next, select your Flock Size Range(s)'),
       '#options' => $size_options,
       '#required' => TRUE,
     ];
