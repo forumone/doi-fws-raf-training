@@ -1,0 +1,19 @@
+uuid: a19680eb-8e6b-4b5b-bbc1-c1c0b6270b27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_email_address
+    - node.type.permit_3186a
+id: node.permit_3186a.field_sender_email_address
+field_name: field_sender_email_address
+entity_type: node
+bundle: permit_3186a
+label: 'Sender Email Address'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

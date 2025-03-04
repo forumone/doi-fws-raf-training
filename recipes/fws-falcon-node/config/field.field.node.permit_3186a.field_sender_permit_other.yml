@@ -1,0 +1,19 @@
+uuid: 5bb30878-f436-4a2b-9696-6ea272b921e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_permit_other
+    - node.type.permit_3186a
+id: node.permit_3186a.field_sender_permit_other
+field_name: field_sender_permit_other
+entity_type: node
+bundle: permit_3186a
+label: 'Sender Other Permit'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

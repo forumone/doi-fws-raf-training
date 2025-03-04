@@ -5,6 +5,8 @@ dependencies:
   module:
     - file
     - node
+_core:
+  default_config_hash: 8Yi9IBpBgEbrrWbNtjmmX5wWrNb1C2p549vJXJGgtf4
 id: node.field_species_image
 field_name: field_species_image
 entity_type: node

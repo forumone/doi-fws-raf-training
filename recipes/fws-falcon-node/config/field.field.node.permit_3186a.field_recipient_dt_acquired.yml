@@ -1,0 +1,21 @@
+uuid: 34cc6d2a-e647-4436-9a05-993de487ca59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipient_dt_acquired
+    - node.type.permit_3186a
+  module:
+    - datetime
+id: node.permit_3186a.field_recipient_dt_acquired
+field_name: field_recipient_dt_acquired
+entity_type: node
+bundle: permit_3186a
+label: 'Recipient Date Acquired'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

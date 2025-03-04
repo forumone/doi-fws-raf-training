@@ -1,0 +1,20 @@
+uuid: d5d81fbe-51d0-4479-bb8a-51416c48f0d1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_state_of_trap_location
+field_name: field_state_of_trap_location
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

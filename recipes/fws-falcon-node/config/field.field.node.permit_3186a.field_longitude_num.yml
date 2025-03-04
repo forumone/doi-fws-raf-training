@@ -1,0 +1,19 @@
+uuid: 0cec871f-85c4-40b9-b7c0-56527d7c175f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_longitude_num
+    - node.type.permit_3186a
+id: node.permit_3186a.field_longitude_num
+field_name: field_longitude_num
+entity_type: node
+bundle: permit_3186a
+label: Longitude
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

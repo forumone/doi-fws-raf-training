@@ -1,0 +1,18 @@
+uuid: b71838d2-5449-4eb1-a035-a9d1e10cb3e5
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_sender_email_address
+field_name: field_sender_email_address
+entity_type: node
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

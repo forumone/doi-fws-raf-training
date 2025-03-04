@@ -1,0 +1,19 @@
+uuid: 6ffd791f-6945-44c6-8b74-e2ad1b82b432
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recno
+    - node.type.permit_3186a
+id: node.permit_3186a.field_recno
+field_name: field_recno
+entity_type: node
+bundle: permit_3186a
+label: 'Record Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,11 @@
+uuid: 3cfec25a-c05c-46d5-96df-c4c46aa4be65
+langcode: en
+status: true
+dependencies: {  }
+name: 'Permit 3186A'
+type: permit_3186a
+description: 'Content type for storing Permit 3186A data.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

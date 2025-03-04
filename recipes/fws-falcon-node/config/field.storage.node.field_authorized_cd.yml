@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: H7zalhKd72hFN_ttVTCvsyD4VOZGPuN3gHuBWSsUj_4
 id: node.field_authorized_cd
 field_name: field_authorized_cd
 entity_type: node

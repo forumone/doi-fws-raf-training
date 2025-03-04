@@ -1,0 +1,19 @@
+uuid: 2e1856e9-4287-4355-9cf6-1916d33187f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_city
+    - node.type.permit_3186a
+id: node.permit_3186a.field_sender_city
+field_name: field_sender_city
+entity_type: node
+bundle: permit_3186a
+label: 'Sender City'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

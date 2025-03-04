@@ -1,13 +1,11 @@
-uuid: aa774720-411a-4e14-8fe9-3fd310052f75
+uuid: a6b8f976-fbfc-426c-9e24-75c0da9602b5
 langcode: en
 status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: XHg1A0xwEO1umtMAz8UQxmpiphV1rH-9rV6DjPNupl8
-id: node.field_owner_state
-field_name: field_owner_state
+id: node.field_species_chip_no
+field_name: field_species_chip_no
 entity_type: node
 type: string
 settings:

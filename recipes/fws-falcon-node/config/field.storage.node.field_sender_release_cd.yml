@@ -1,13 +1,11 @@
-uuid: aa774720-411a-4e14-8fe9-3fd310052f75
+uuid: 098bc9fc-2394-414e-81e9-e1344e17155e
 langcode: en
 status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: XHg1A0xwEO1umtMAz8UQxmpiphV1rH-9rV6DjPNupl8
-id: node.field_owner_state
-field_name: field_owner_state
+id: node.field_sender_release_cd
+field_name: field_sender_release_cd
 entity_type: node
 type: string
 settings:

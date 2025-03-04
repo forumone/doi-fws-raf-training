@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: 71BXxbdpKyo7fYDyu4ZWigcJngEHjRCHBCC-mBPPCsY
 id: node.field_recno_3186a
 field_name: field_recno_3186a
 entity_type: node

@@ -1,0 +1,19 @@
+uuid: e4033879-1b58-4d4e-a0f7-e3e1d136dc48
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_band_no
+    - node.type.permit_3186a
+id: node.permit_3186a.field_species_band_no
+field_name: field_species_band_no
+entity_type: node
+bundle: permit_3186a
+label: 'Species Band Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

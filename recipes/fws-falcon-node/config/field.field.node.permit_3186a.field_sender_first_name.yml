@@ -1,0 +1,19 @@
+uuid: 988ded37-60d1-4bb5-8374-54d34dc0e960
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_first_name
+    - node.type.permit_3186a
+id: node.permit_3186a.field_sender_first_name
+field_name: field_sender_first_name
+entity_type: node
+bundle: permit_3186a
+label: 'Sender First Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

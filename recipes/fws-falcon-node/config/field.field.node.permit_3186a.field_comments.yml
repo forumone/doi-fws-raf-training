@@ -1,0 +1,19 @@
+uuid: a23cadc7-c31e-4753-ad22-f7f6c01fb024
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comments
+    - node.type.permit_3186a
+id: node.permit_3186a.field_comments
+field_name: field_comments
+entity_type: node
+bundle: permit_3186a
+label: Comments
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,20 @@
+uuid: c986ec84-7bc7-4b5e-acbd-865c779fe26a
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_sender_dt_transfer
+field_name: field_sender_dt_transfer
+entity_type: node
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

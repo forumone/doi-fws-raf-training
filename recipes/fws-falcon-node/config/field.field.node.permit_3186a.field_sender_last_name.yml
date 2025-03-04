@@ -1,0 +1,19 @@
+uuid: aa67c647-b0dd-4e37-8521-612146e5036c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_last_name
+    - node.type.permit_3186a
+id: node.permit_3186a.field_sender_last_name
+field_name: field_sender_last_name
+entity_type: node
+bundle: permit_3186a
+label: 'Sender Last Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

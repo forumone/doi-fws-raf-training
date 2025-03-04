@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: ERMSjm_OxnubYoNE-Js2qxbQpP67xsLPM0s9TTnk77E
 id: node.field_recno
 field_name: field_recno
 entity_type: node

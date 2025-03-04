@@ -1,0 +1,19 @@
+uuid: 525377e8-9d4c-4c9f-bd04-a166c956dc35
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipient_city
+    - node.type.permit_3186a
+id: node.permit_3186a.field_recipient_city
+field_name: field_recipient_city
+entity_type: node
+bundle: permit_3186a
+label: 'Recipient City'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
