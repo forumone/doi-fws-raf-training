@@ -15,6 +15,11 @@ header#navbar > .container {
     width: 970px;
   }
 }
+@media (min-width: 1200px) {
+  header#navbar > .container {
+    width: 1170px;
+  }
+}
 
 #block-fws-raf-mainnavigation {
   display: none;

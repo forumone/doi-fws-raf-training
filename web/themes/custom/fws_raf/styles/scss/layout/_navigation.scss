@@ -18,6 +18,10 @@ header#navbar {
     @include breakpoint(lg) {
       width: 970px;
     }
+
+    @include breakpoint(xl) {
+      width: 1170px;
+    }
   }
 }
 
