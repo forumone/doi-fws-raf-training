@@ -29,6 +29,7 @@ function fws_counting_theme() {
         'experience_level' => NULL,
         'size_ranges' => [],
         'images' => [],
+        'viewing_time' => NULL,
       ],
     ],
   ];

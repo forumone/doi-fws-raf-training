@@ -49,7 +49,7 @@ class CountingConfirmationForm extends FormBase {
     foreach ($size_terms as $term) {
       $size_ranges[] = $term->label();
     }
-    $size_range_text = implode(' AND ', $size_ranges);
+    $size_range_text = implode(', ', $size_ranges);
 
     // Get the viewing time based on the difficulty level
     $difficulty_level = $experience_term->get('field_difficulty_level')->value;

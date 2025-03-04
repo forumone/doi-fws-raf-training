@@ -9,12 +9,12 @@
  * - images: Array of media images, each containing:
  *   - uri: The image URI
  *   - bird_count: The number of birds in the image
+ * - viewing_time: The number of seconds to display each image
  */
 #}
 
 <div class="quiz__parameters">
   <div class="quiz__info">
-    <h2>{{ 'Parameters chosen:'|t }}</h2>
     <p class="quiz__parameter"><b>{{ 'Experience Level:'|t }}</b> {{ experience_level }}</p>
     <p class="quiz__parameter"><b>{{ 'Flock Size Range(s):'|t }}</b> {{ size_ranges|join(', ') }}</p>
   </div>
@@ -26,7 +26,7 @@
 
 <div class="quiz__container">
 
-  <div class="quiz__items" data-timer="10">
+  <div class="quiz__items" data-timer="{{ viewing_time }}">
     {% for key, image in images %}
       <div class="quiz__item quiz__item--{{ key }}">
 
