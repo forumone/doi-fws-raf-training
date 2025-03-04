@@ -37,7 +37,6 @@ $taxonomy_mapping = [
   'falc_ref_authorized_codes' => 'authorized_code',
   'falc_ref_date_permit_issue_expires' => 'permit_duration',
   'falc_ref_permit_types' => 'permit_type',
-  'falc_ref_icons' => 'icon',
 ];
 
 // Initialize counters.
@@ -131,12 +130,6 @@ foreach ($csv_files as $csv_file) {
         $ref_cd_index = array_search('st', $header);
         $description_index = array_search('duration', $header);
         $duration_type_index = array_search('duration_type', $header);
-      }
-
-      // Special case for icon which has different column structure.
-      if ($vocabulary_id === 'icon') {
-        // No description for icons.
-        $description_index = FALSE;
       }
 
       if ($ref_cd_index === FALSE || ($description_index === FALSE && $vocabulary_id !== 'icon')) {
