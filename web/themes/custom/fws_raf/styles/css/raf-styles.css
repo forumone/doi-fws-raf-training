@@ -558,7 +558,7 @@ input.form-autocomplete {
   margin-bottom: 50px;
 }
 
-.path-test-your-counting-skills .quiz__parameters {
+.fws-quiz .quiz__parameters {
   margin: 0 0 20px;
   padding: 0 0 20px;
   border-bottom: 1px solid #eeeeee;
@@ -567,64 +567,64 @@ input.form-autocomplete {
   width: 100%;
 }
 @media (min-width: 768px) {
-  .path-test-your-counting-skills .quiz__parameters {
+  .fws-quiz .quiz__parameters {
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
   }
 }
-.path-test-your-counting-skills .quiz__info h2 {
+.fws-quiz .quiz__info h2 {
   margin-top: 0;
 }
-.path-test-your-counting-skills .quiz__info .quiz__parameter {
+.fws-quiz .quiz__info .quiz__parameter {
   padding: 0;
   margin: 0;
 }
-.path-test-your-counting-skills .quiz__utils {
+.fws-quiz .quiz__utils {
   display: flex;
   align-items: center;
   align-self: flex-end;
   padding: 10px 0 0;
 }
 @media (min-width: 768px) {
-  .path-test-your-counting-skills .quiz__utils {
+  .fws-quiz .quiz__utils {
     padding: 0;
   }
 }
-.path-test-your-counting-skills .quiz__tracker {
+.fws-quiz .quiz__tracker {
   font-size: 20px;
   font-weight: bold;
   padding-right: 20px;
 }
-.path-test-your-counting-skills .quiz__timer {
+.fws-quiz .quiz__timer {
   display: flex;
   justify-content: center;
 }
-.path-test-your-counting-skills .quiz__container {
+.fws-quiz .quiz__container {
   position: relative;
 }
-.path-test-your-counting-skills .quiz__item:not(:first-child), .path-test-your-counting-skills .quiz__response, .path-test-your-counting-skills .quiz__feedback, .path-test-your-counting-skills .quiz__answer, .path-test-your-counting-skills .quiz__complete {
+.fws-quiz .quiz__item:not(:first-child), .fws-quiz .quiz__response, .fws-quiz .quiz__feedback, .fws-quiz .quiz__answer, .fws-quiz .quiz__complete {
   display: none;
 }
-.path-test-your-counting-skills .quiz__prompt img {
+.fws-quiz .quiz__prompt img {
   width: 100%;
 }
-.path-test-your-counting-skills .quiz__guess .form-text {
+.fws-quiz .quiz__guess .form-text {
   max-width: 320px;
 }
-.path-test-your-counting-skills .quiz__results {
+.fws-quiz .quiz__results {
   padding: 0 0 20px;
 }
-.path-test-your-counting-skills .quiz__answer .quiz__result {
+.fws-quiz .quiz__answer .quiz__result {
   padding: 0;
   margin: 0;
 }
-.path-test-your-counting-skills .timer-circle {
+.fws-quiz .timer-circle {
   position: relative;
   width: 52px;
   height: 52px;
 }
-.path-test-your-counting-skills .timer-number {
+.fws-quiz .timer-number {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -632,19 +632,19 @@ input.form-autocomplete {
   font-size: 20px;
   font-weight: bold;
 }
-.path-test-your-counting-skills .timer-svg {
+.fws-quiz .timer-svg {
   width: 52px;
   height: 52px;
   transform: rotate(-90deg);
 }
-.path-test-your-counting-skills .timer-svg circle {
+.fws-quiz .timer-svg circle {
   fill: none;
   stroke-width: 3;
 }
-.path-test-your-counting-skills .timer-svg circle:first-child {
+.fws-quiz .timer-svg circle:first-child {
   stroke: #E7E7E7;
 }
-.path-test-your-counting-skills .timer-svg circle:last-child {
+.fws-quiz .timer-svg circle:last-child {
   stroke: #205493;
   stroke-dasharray: 151px;
   transition: stroke-dashoffset 1s linear;
