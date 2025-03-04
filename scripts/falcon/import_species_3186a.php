@@ -4,7 +4,7 @@
  * @file
  * Drush script to map CSV data to Permit 3186A nodes.
  *
- * Usage: drush scr scripts/falcon/CsvFieldMapper.php [limit]
+ * Usage: drush scr scripts/falcon/import_species_3186a.php [limit]
  *   where [limit] is an optional number of records to process.
  */
 
@@ -28,7 +28,7 @@ if ($limit !== NULL) {
 /**
  * Maps CSV data to Permit 3186A nodes.
  */
-class CsvFieldMapper {
+class ImportSpecies3186a {
   /**
    * The maximum number of rows to process.
    *
@@ -56,35 +56,35 @@ class CsvFieldMapper {
     'sender_first_name' => 'field_sender_first_name',
     'sender_middle_name' => 'field_sender_middle_name',
     'sender_last_name' => 'field_sender_last_name',
-    'sender_address' => 'field_sender_street_address',
+    'sender_street_address' => 'field_sender_street_address',
     'sender_city' => 'field_sender_city',
-    'sender_state' => 'field_sender_st_cd',
-    'sender_zip' => 'field_sender_zip_cd',
+    'sender_st_cd' => 'field_sender_st_cd',
+    'sender_zip_cd' => 'field_sender_zip_cd',
     'sender_phone' => 'field_sender_phone',
-    'sender_email' => 'field_sender_email_address',
+    'sender_email_address' => 'field_sender_email_address',
     'sender_permit_no' => 'field_sender_permit_no',
-    'sender_permit_type' => 'field_sender_permit_type_cd',
+    'sender_permit_type_cd' => 'field_sender_permit_type_cd',
     'sender_permit_other' => 'field_sender_permit_other',
-    'sender_transfer_type' => 'field_sender_transfer_type_cd',
-    'sender_transfer_date' => 'field_sender_dt_transfer',
-    'sender_release_code' => 'field_sender_release_cd',
+    'sender_transfer_type_cd' => 'field_sender_transfer_type_cd',
+    'sender_dt_transfer' => 'field_sender_dt_transfer',
+    'sender_release_cd' => 'field_sender_release_cd',
     'sender_cause_of_death' => 'field_sender_cause_of_death',
 
     // Recipient information.
     'recipient_first_name' => 'field_recipient_first_name',
     'recipient_middle_name' => 'field_recipient_middle_name',
     'recipient_last_name' => 'field_recipient_last_name',
-    'recipient_address' => 'field_recipient_street_address',
+    'recipient_street_address' => 'field_recipient_street_address',
     'recipient_city' => 'field_recipient_city',
-    'recipient_state' => 'field_recipient_st_cd',
-    'recipient_zip' => 'field_recipient_zip_cd',
+    'recipient_st_cd' => 'field_recipient_st_cd',
+    'recipient_zip_cd' => 'field_recipient_zip_cd',
     'recipient_phone' => 'field_recipient_phone',
-    'recipient_email' => 'field_recipient_email_address',
+    'recipient_email_address' => 'field_recipient_email_address',
     'recipient_permit_no' => 'field_recipient_permit_no',
-    'recipient_permit_type' => 'field_recipient_permit_type_cd',
+    'recipient_permit_type_cd' => 'field_recipient_permit_type_cd',
     'recipient_permit_other' => 'field_recipient_permit_other',
-    'recipient_transfer_type' => 'field_recipient_trans_type_cd',
-    'recipient_date_acquired' => 'field_recipient_dt_acquired',
+    'recipient_transaction_type_cd' => 'field_recipient_trans_type_cd',
+    'recipient_dt_acquired' => 'field_recipient_dt_acquired',
 
     // Species information.
     'species_cd' => 'field_species_cd',
@@ -95,38 +95,38 @@ class CsvFieldMapper {
     'species_color' => 'field_species_color',
     'species_hatch_year' => 'field_species_hatch_year',
     'species_band_no' => 'field_species_band_no',
-    'species_band_type' => 'field_species_band_old_type',
+    'species_band_old_type' => 'field_species_band_old_type',
     'species_band_old_no' => 'field_species_band_old_no',
     'species_band_new_no' => 'field_species_band_new_no',
     'species_band_new_type' => 'field_species_band_new_type',
     'species_chip_no' => 'field_species_chip_no',
 
     // Location information.
-    'trap_state' => 'field_state_of_trap_location',
+    'state_of_trap_location' => 'field_state_of_trap_location',
     'trap_county' => 'field_trap_county',
-    'latitude' => 'field_latitude_num',
-    'longitude' => 'field_longitude_num',
+    'latitude_num' => 'field_latitude_num',
+    'longitude_num' => 'field_longitude_num',
 
     // Falconry applicant information.
     'falc_applicant_name' => 'field_falc_applicant_name',
     'falc_applicant_phone' => 'field_falc_applicant_phone',
     'falc_applicant_agreed' => 'field_falc_applicant_agreed',
-    'falc_date_signed' => 'field_falc_dt_signed',
+    'falc_dt_signed' => 'field_falc_dt_signed',
 
     // System fields.
-    'authorized_code' => 'field_authorized_cd',
-    'capture_recapture' => 'field_capture_recapture_cd',
-    'rcf_code' => 'field_rcf_cd',
-    'owner_access' => 'field_owner_access_cd',
+    'authorized_cd' => 'field_authorized_cd',
+    'capture_recapture_cd' => 'field_capture_recapture_cd',
+    'rcf_cd' => 'field_rcf_cd',
+    'owner_access_cd' => 'field_owner_access_cd',
     'owner_state' => 'field_owner_state',
-    'record_no' => 'field_recno',
+    'recno' => 'field_recno',
     'hid' => 'field_hid',
     'question_no' => 'field_question_no',
     'comments' => 'field_comments',
     'created_by' => 'field_created_by',
     'updated_by' => 'field_updated_by',
-    'date_created' => 'field_dt_create',
-    'date_updated' => 'field_dt_update',
+    'dt_create' => 'field_dt_create',
+    'dt_update' => 'field_dt_update',
     'last_action' => 'field_last_action',
   ];
 
@@ -204,18 +204,28 @@ class CsvFieldMapper {
    *
    * @param string $date_str
    *   The date string to format.
+   * @param string $field_name
+   *   The Drupal field name.
    *
-   * @return string|null
+   * @return array|null
    *   The formatted date or NULL if invalid.
    */
-  protected function formatDate(string $date_str) {
+  protected function formatDate(string $date_str, string $field_name) {
     if (empty($date_str)) {
       return NULL;
     }
 
     try {
       $date = new DateTime($date_str);
-      return $date->format('Y-m-d');
+      // For fields with dt_ in their name or ending in _dt, use datetime format.
+      if (strpos($field_name, 'dt_') !== FALSE || str_ends_with($field_name, '_dt')) {
+        return [
+          'value' => $date->format('Y-m-d H:i:s'),
+        ];
+      }
+      return [
+        'value' => $date->format('Y-m-d'),
+      ];
     }
     catch (Exception $e) {
       return NULL;
@@ -234,7 +244,7 @@ class CsvFieldMapper {
   protected function mapRow(array $row) {
     $values = [
       'type' => 'permit_3186a',
-      'title' => sprintf('Permit 3186A - %s', $row['record_no'] ?? 'Unknown'),
+      'title' => sprintf('Permit 3186A - %s', $row['recno'] ?? 'Unknown'),
       'status' => 1,
     ];
 
@@ -243,8 +253,12 @@ class CsvFieldMapper {
         $value = $row[$csv_field];
 
         // Handle special field types.
-        if (str_ends_with($drupal_field, '_dt_') || str_ends_with($drupal_field, '_date')) {
-          $value = $this->formatDate($value);
+        if (str_ends_with($drupal_field, '_dt_') || str_ends_with($drupal_field, '_date') || strpos($drupal_field, 'dt_') !== FALSE) {
+          $value = $this->formatDate($value, $drupal_field);
+          if ($value !== NULL) {
+            $values[$drupal_field] = $value;
+          }
+          continue;
         }
         elseif (isset($this->taxonomyFields[$drupal_field])) {
           // Special handling for species code - ensure it's properly formatted.
@@ -254,19 +268,22 @@ class CsvFieldMapper {
             }
             // Also store the species name for reference.
             if (!empty($row['species_name'])) {
-              $values['field_species_name'] = $row['species_name'];
+              $values['field_species_name'] = [
+                'value' => $row['species_name'],
+              ];
             }
           }
 
-          // Create the term if it doesn't exist.
+          // Create or get the term.
           $term = $this->getOrCreateTerm($value, $this->taxonomyFields[$drupal_field]);
-          // Only set the value if we successfully got a term.
           if ($term && $term->id()) {
-            $value = ['target_id' => $term->id()];
+            $values[$drupal_field] = [
+              'target_id' => $term->id(),
+            ];
           }
           else {
-            $value = NULL;
             echo "Warning: Could not create or find taxonomy term '$value' for vocabulary '{$this->taxonomyFields[$drupal_field]}' in field '$drupal_field'\n";
+            continue;
           }
         }
         elseif (str_ends_with($drupal_field, '_num')) {
@@ -275,16 +292,18 @@ class CsvFieldMapper {
         elseif (str_ends_with($drupal_field, '_agreed')) {
           $value = in_array(strtolower($value), ['true', 'yes', '1', 't']);
         }
-
-        if ($value !== NULL) {
-          $values[$drupal_field] = $value;
+        else {
+          // For regular text fields, ensure proper format.
+          $values[$drupal_field] = [
+            'value' => $value,
+          ];
         }
       }
     }
 
     // Validate required fields.
     if (empty($values['field_species_cd'])) {
-      $record_no = $row['record_no'] ?? 'Unknown';
+      $record_no = $row['recno'] ?? 'Unknown';
       $species_code = $row['species_cd'] ?? 'Not provided';
       throw new Exception("Missing required species code for record $record_no (Species code provided: $species_code)");
     }
@@ -329,7 +348,7 @@ class CsvFieldMapper {
           ->create($values);
         $node->save();
         $success_count++;
-        echo "Created node {$node->id()} for record {$row['record_no']}\n";
+        echo "Created node {$node->id()} for record {$row['recno']}\n";
       }
       catch (Exception $e) {
         $error_count++;
@@ -348,7 +367,7 @@ class CsvFieldMapper {
 }
 
 try {
-  $mapper = new CsvFieldMapper($limit);
+  $mapper = new ImportSpecies3186a($limit);
   $mapper->processFile($csv_file);
 }
 catch (Exception $e) {
