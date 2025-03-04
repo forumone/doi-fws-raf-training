@@ -17,6 +17,17 @@
   margin: 0;
 }
 
+.quiz__utils {
+  display: flex;
+  align-items: center;
+}
+
+.quiz__tracker {
+  font-size: 20px;
+  font-weight: bold;
+  padding-right: 20px;
+}
+
 .quiz__timer {
   display: flex;
   justify-content: center;

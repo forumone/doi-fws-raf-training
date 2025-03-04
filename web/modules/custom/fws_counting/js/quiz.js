@@ -76,6 +76,9 @@
           $currentItem.show();
           $('.quiz__response', $currentItem).hide();
 
+          // Update the quiz tracker
+          $('.quiz__tracker').text(`#${currentQuestion + 1}`);
+
           startTimer();
         }
 
