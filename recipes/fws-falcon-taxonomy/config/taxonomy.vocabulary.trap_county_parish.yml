@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Trap County/Parish'
-vid: trap_county_parish
-description: 'Lookup table for counties or parishes where falcons were trapped'
-weight: 0
-new_revision: false

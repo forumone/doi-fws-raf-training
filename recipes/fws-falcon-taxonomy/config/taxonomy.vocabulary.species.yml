@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: Species
 vid: species
-description: null
+description: '	Lookup table for falcon species names'
 weight: 0
 new_revision: false
