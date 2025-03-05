@@ -607,12 +607,14 @@ content:
       match_limit: 10
     third_party_settings: {  }
   field_trap_county:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 46
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_updated_by:
     type: string_textfield

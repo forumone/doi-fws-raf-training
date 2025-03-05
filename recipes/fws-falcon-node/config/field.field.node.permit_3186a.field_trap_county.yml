@@ -1,19 +1,29 @@
 uuid: 3605d1e1-7c27-4472-9527-dfe42b083b60
 langcode: en
-status: true
+status: TRUE
 dependencies:
   config:
     - field.storage.node.field_trap_county
     - node.type.permit_3186a
+    - taxonomy.vocabulary.county_parish
 id: node.permit_3186a.field_trap_county
 field_name: field_trap_county
 entity_type: node
 bundle: permit_3186a
 label: 'Trap County'
 description: ''
-required: false
-translatable: true
+required: FALSE
+translatable: TRUE
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: string
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      county_parish: county_parish
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+field_type: entity_reference
