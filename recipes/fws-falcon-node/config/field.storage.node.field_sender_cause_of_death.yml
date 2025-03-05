@@ -1,20 +1,19 @@
 langcode: en
-status: true
+status: TRUE
 dependencies:
   module:
     - node
+    - taxonomy
 id: node.field_sender_cause_of_death
 field_name: field_sender_cause_of_death
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
-locked: false
+locked: FALSE
 cardinality: 1
-translatable: true
+translatable: TRUE
 indexes: {  }
-persist_with_no_fields: false
-custom_storage: false
+persist_with_no_fields: FALSE
+custom_storage: FALSE

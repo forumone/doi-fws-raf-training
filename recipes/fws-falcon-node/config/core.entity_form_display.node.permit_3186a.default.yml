@@ -540,12 +540,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_sender_cause_of_death:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 19
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_sender_city:
     type: string_textfield
@@ -628,12 +630,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_sender_release_cd:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 18
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_sender_st_cd:
     type: select2_entity_reference
@@ -744,12 +748,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_species_color:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 45
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_species_hatch_year:
     type: string_textfield
