@@ -116,6 +116,25 @@ class IdTestController extends ControllerBase {
       return $this->redirect('fws_id_test.start');
     }
 
+    // Load the term labels for display.
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+
+    // Load difficulty term.
+    $difficulty_term = $term_storage->load($difficulty);
+    $difficulty_label = $difficulty_term ? $difficulty_term->label() : '';
+
+    // Load species group terms.
+    $species_group_terms = $term_storage->loadMultiple($species_groups);
+    $species_group_labels = array_map(function ($term) {
+      return $term->label();
+    }, $species_group_terms);
+
+    // Load region terms.
+    $region_terms = $term_storage->loadMultiple($regions);
+    $region_labels = array_map(function ($term) {
+      return $term->label();
+    }, $region_terms);
+
     // First, get species that match our criteria (species groups and regions).
     $species_query = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
       ->accessCheck(TRUE)
@@ -174,9 +193,12 @@ class IdTestController extends ControllerBase {
     }
 
     // Return the render array.
-    return [
+    $render_array = [
       '#theme' => 'id_test_quiz',
       '#videos' => $prepared_videos,
+      '#experience_level' => $difficulty_label,
+      '#species_groups' => $species_group_labels,
+      '#geographic_regions' => $region_labels,
       '#attached' => [
         'library' => [
           'fws_id_test/id_test',
@@ -190,6 +212,8 @@ class IdTestController extends ControllerBase {
         ],
       ],
     ];
+
+    return $render_array;
   }
 
 }

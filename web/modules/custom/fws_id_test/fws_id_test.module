@@ -19,7 +19,10 @@ function fws_id_test_theme() {
     ],
     'id_test_quiz' => [
       'variables' => [
-        'videos' => NULL,
+        'videos' => [],
+        'experience_level' => '',
+        'species_groups' => [],
+        'geographic_regions' => [],
       ],
       'template' => 'id-test-quiz',
     ],

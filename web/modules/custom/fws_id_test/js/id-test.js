@@ -16,6 +16,8 @@
           });
         });
       }
+
+      // Initialize the quiz
     }
   };
 
