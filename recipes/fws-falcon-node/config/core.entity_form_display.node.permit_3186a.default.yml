@@ -1,4 +1,3 @@
-uuid: daf00de3-aa62-4fd8-a556-a81e97909544
 langcode: en
 status: true
 dependencies:
@@ -206,7 +205,7 @@ content:
     region: content
     settings:
       width: 100%
-      autocomplete: false
+      autocomplete: FALSE
       match_operator: CONTAINS
       match_limit: 10
     third_party_settings: {  }
@@ -501,12 +500,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_species_band_new_type:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 52
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_species_band_no:
     type: string_textfield
@@ -525,12 +526,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_species_band_old_type:
-    type: string_textfield
+    type: select2_entity_reference
     weight: 50
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
+      autocomplete: FALSE
+      match_operator: CONTAINS
+      match_limit: 10
     third_party_settings: {  }
   field_species_cd:
     type: select2_entity_reference
