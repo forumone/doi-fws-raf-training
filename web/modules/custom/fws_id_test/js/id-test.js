@@ -21,7 +21,9 @@
       once('fws-id-test', '.quiz__items', context).forEach(function (element) {
         const $quizContainer = $(element);
         let currentQuestion = 0;
+        let correctAnswers = 0;
         const quizData = drupalSettings.fws_id_test.quiz;
+        const totalQuestions = quizData.videos.length;
 
         function showNextQuestion() {
           $('.quiz__item--' + currentQuestion, $quizContainer).hide();
@@ -29,6 +31,8 @@
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
             $('.quiz__container').hide();
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100) || 0;
+            $('.quiz__score').text(scorePercentage);
             $('.quiz__complete').slideDown();
             return;
           }
@@ -61,6 +65,10 @@
 
         // Handle continue button clicks
         $('.quiz__continue', $quizContainer).on('click', function() {
+          if (currentQuestion + 1 >= totalQuestions) {
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+            $('.quiz__score').text(scorePercentage);
+          }
           showNextQuestion();
         });
 
@@ -81,6 +89,7 @@
           // Show appropriate feedback
           if (selectedSpecies === correctSpecies) {
             $currentItem.find('.quiz__correct').show();
+            correctAnswers++;
           } else {
             $currentItem.find('.quiz__incorrect').show();
           }
