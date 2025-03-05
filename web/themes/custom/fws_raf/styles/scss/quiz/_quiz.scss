@@ -74,8 +74,15 @@
       }
     }
 
-    &__guess .form-text {
-      max-width: 320px;
+    &__guess {
+
+      .form-text {
+        max-width: 320px;
+      }
+
+      .form-type-radios {
+        padding: 0 0 20px;
+      }
     }
 
     &__results {

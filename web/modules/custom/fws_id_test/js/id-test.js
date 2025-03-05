@@ -86,7 +86,7 @@
           }
 
           // Switch to answer panel
-          $(this).closest('.quiz__choices').slideUp()
+          $(this).closest('.quiz__guess').slideUp()
             .closest('.quiz__response').find('.quiz__answer').slideDown();
         });
 
