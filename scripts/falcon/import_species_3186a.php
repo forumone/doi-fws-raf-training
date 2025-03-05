@@ -28,7 +28,7 @@ if ($limit !== NULL) {
 /**
  * Maps CSV data to Permit 3186A nodes.
  */
-class ImportSpecies3186a {
+class import_species_3186a {
   /**
    * The maximum number of rows to process.
    *
@@ -136,21 +136,31 @@ class ImportSpecies3186a {
    * @var array
    */
   protected $taxonomyFields = [
-    'field_species_cd' => 'species',
+    'field_species_cd' => 'species_code',
+    'field_species_name' => 'species',
+    'field_species_sex' => 'sex',
+    'field_species_source' => 'source',
     'field_sender_st_cd' => 'state',
     'field_recipient_st_cd' => 'state',
     'field_state_of_trap_location' => 'state',
-    'field_owner_state' => 'state',
     'field_sender_permit_type_cd' => 'permit_type',
     'field_recipient_permit_type_cd' => 'permit_type',
     'field_sender_transfer_type_cd' => 'type_of_transfer',
     'field_recipient_trans_type_cd' => 'type_of_transfer',
     'field_sender_release_cd' => 'if_release_or_loss',
-    'field_authorized_cd' => 'authorized_code',
-    'field_capture_recapture_cd' => 'capture_recapture',
-    'field_rcf_cd' => 'rcf_code',
-    'field_owner_access_cd' => 'access_code',
     'field_species_age' => 'age',
+  ];
+
+  /**
+   * Fields that should be treated as plain strings.
+   *
+   * @var array
+   */
+  protected $stringFields = [
+    'field_authorized_cd',
+    'field_owner_state',
+    'field_owner_access_cd',
+    'field_rcf_cd',
   ];
 
   /**
@@ -249,8 +259,8 @@ class ImportSpecies3186a {
     ];
 
     foreach ($this->fieldMappings as $csv_field => $drupal_field) {
-      if (isset($row[$csv_field]) && $row[$csv_field] !== '') {
-        $value = $row[$csv_field];
+      if (isset($row[$csv_field])) {
+        $value = trim($row[$csv_field]);
 
         // Handle special field types.
         if (str_ends_with($drupal_field, '_dt_') || str_ends_with($drupal_field, '_date') || strpos($drupal_field, 'dt_') !== FALSE) {
@@ -261,17 +271,14 @@ class ImportSpecies3186a {
           continue;
         }
         elseif (isset($this->taxonomyFields[$drupal_field])) {
+          // Skip empty values for taxonomy fields.
+          if (empty($value)) {
+            continue;
+          }
+
           // Special handling for species code - ensure it's properly formatted.
-          if ($drupal_field === 'field_species_cd') {
-            if (is_numeric($value)) {
-              $value = sprintf('%04d', (int) $value);
-            }
-            // Also store the species name for reference.
-            if (!empty($row['species_name'])) {
-              $values['field_species_name'] = [
-                'value' => $row['species_name'],
-              ];
-            }
+          if ($drupal_field === 'field_species_cd' && is_numeric($value)) {
+            $value = sprintf('%04d', (int) $value);
           }
 
           // Create or get the term.
@@ -280,10 +287,18 @@ class ImportSpecies3186a {
             $values[$drupal_field] = [
               'target_id' => $term->id(),
             ];
+            echo "Linked term '$value' to field '$drupal_field'\n";
           }
           else {
             echo "Warning: Could not create or find taxonomy term '$value' for vocabulary '{$this->taxonomyFields[$drupal_field]}' in field '$drupal_field'\n";
             continue;
+          }
+        }
+        elseif (in_array($drupal_field, $this->stringFields)) {
+          // Handle string fields.
+          if (!empty($value)) {
+            $values[$drupal_field] = ['value' => $value];
+            echo "Set string value '$value' for field '$drupal_field'\n";
           }
         }
         elseif (str_ends_with($drupal_field, '_num')) {
@@ -293,10 +308,7 @@ class ImportSpecies3186a {
           $value = in_array(strtolower($value), ['true', 'yes', '1', 't']);
         }
         else {
-          // For regular text fields, ensure proper format.
-          $values[$drupal_field] = [
-            'value' => $value,
-          ];
+          $values[$drupal_field] = ['value' => $value];
         }
       }
     }
@@ -367,7 +379,7 @@ class ImportSpecies3186a {
 }
 
 try {
-  $mapper = new ImportSpecies3186a($limit);
+  $mapper = new import_species_3186a($limit);
   $mapper->processFile($csv_file);
 }
 catch (Exception $e) {
