@@ -1,14 +1,17 @@
+uuid: 328422dc-819f-4588-a73e-954f5cb3f980
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_sender_street_address
     - node.type.permit_3186a
+_core:
+  default_config_hash: cY03k1NgFOycq51-KwlqcgYSXuJc3iVQk6BNWC9ZTJQ
 id: node.permit_3186a.field_sender_street_address
 field_name: field_sender_street_address
 entity_type: node
 bundle: permit_3186a
-label: 'Sender Street Address'
+label: 'Street Address'
 description: ''
 required: false
 translatable: true

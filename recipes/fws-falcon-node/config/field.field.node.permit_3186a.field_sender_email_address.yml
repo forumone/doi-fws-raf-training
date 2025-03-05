@@ -1,14 +1,17 @@
+uuid: 575af8b6-d30e-4cbf-bbae-bd48a1dd8fb9
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_sender_email_address
     - node.type.permit_3186a
+_core:
+  default_config_hash: uo05FvVd4KCr6r_sdxcbtj_D1NPsep-VTqJnvbim1x4
 id: node.permit_3186a.field_sender_email_address
 field_name: field_sender_email_address
 entity_type: node
 bundle: permit_3186a
-label: 'Sender Email Address'
+label: 'Email Address'
 description: ''
 required: false
 translatable: true

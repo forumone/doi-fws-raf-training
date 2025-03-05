@@ -1,3 +1,4 @@
+uuid: df1984dd-be06-47d3-8359-8d602fbd2780
 langcode: en
 status: true
 dependencies:
@@ -5,11 +6,13 @@ dependencies:
     - field.storage.node.field_recipient_st_cd
     - node.type.permit_3186a
     - taxonomy.vocabulary.state
+_core:
+  default_config_hash: TnwcbUbUjlfumarkxth6MNJlu6BnPORxNjSQSZltsoY
 id: node.permit_3186a.field_recipient_st_cd
 field_name: field_recipient_st_cd
 entity_type: node
 bundle: permit_3186a
-label: 'Recipient State'
+label: State
 description: ''
 required: false
 translatable: true

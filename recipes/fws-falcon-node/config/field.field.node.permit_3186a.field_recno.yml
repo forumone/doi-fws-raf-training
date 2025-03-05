@@ -1,14 +1,17 @@
+uuid: bd5fe74d-d3c9-4b32-a427-e7de78a07747
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_recno
     - node.type.permit_3186a
+_core:
+  default_config_hash: ZIa2pHtgECla3VQ0_iAgaiYnYWLC7Ac-9e4n30K9v2o
 id: node.permit_3186a.field_recno
 field_name: field_recno
 entity_type: node
 bundle: permit_3186a
-label: 'Record Number'
+label: 'Record ID'
 description: ''
 required: false
 translatable: true

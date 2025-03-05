@@ -1,3 +1,4 @@
+uuid: 1704a4f2-1b21-46e2-ba2c-fc667bd0b64e
 langcode: en
 status: true
 dependencies:
@@ -6,11 +7,13 @@ dependencies:
     - node.type.permit_3186a
   module:
     - datetime
+_core:
+  default_config_hash: KCGEPHYiY8Po3SpP6lH5g4j-yA3lIV3Sym-uY5QqJbI
 id: node.permit_3186a.field_sender_dt_transfer
 field_name: field_sender_dt_transfer
 entity_type: node
 bundle: permit_3186a
-label: 'Sender Transfer Date'
+label: 'Date of Transfer (or other action)'
 description: ''
 required: false
 translatable: true

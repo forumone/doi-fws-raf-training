@@ -1,14 +1,17 @@
+uuid: 40fdc496-26e3-45e2-ba13-7cf47d1f6a4e
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_sender_phone
     - node.type.permit_3186a
+_core:
+  default_config_hash: Cf7J6WuiKqQrhTWtiAEM2bbg4OevAwD_Lt5CI0n-mJM
 id: node.permit_3186a.field_sender_phone
 field_name: field_sender_phone
 entity_type: node
 bundle: permit_3186a
-label: 'Sender Phone'
+label: Phone
 description: ''
 required: false
 translatable: true

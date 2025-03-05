@@ -1,9 +1,12 @@
+uuid: cf046a96-8c7c-43ba-a4ce-c489c9a8ebcf
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_updated_by
     - node.type.permit_3186a
+_core:
+  default_config_hash: eN0N9Vljw7VXR9PJX_9u7JS_pZsg2ne_IHMMnpYsnmM
 id: node.permit_3186a.field_updated_by
 field_name: field_updated_by
 entity_type: node

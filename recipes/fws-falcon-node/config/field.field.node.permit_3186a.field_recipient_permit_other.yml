@@ -1,15 +1,18 @@
+uuid: 9040fce2-22d6-4470-a2f4-3fb7cebf55a1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_recipient_permit_other
     - node.type.permit_3186a
+_core:
+  default_config_hash: Fg27qX2Tnd-t0ETT14JYrBhL6F_wn_30oDRphiFVVwA
 id: node.permit_3186a.field_recipient_permit_other
 field_name: field_recipient_permit_other
 entity_type: node
 bundle: permit_3186a
-label: 'Recipient Other Permit'
-description: ''
+label: 'Permit Other'
+description: 'For official use only'
 required: false
 translatable: true
 default_value: {  }

@@ -1,18 +1,21 @@
+uuid: 6a71c59e-428d-41ae-9b36-386de9ae838e
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_owner_state
     - node.type.permit_3186a
     - taxonomy.vocabulary.state
+_core:
+  default_config_hash: Wa60UCacHQLs89qcTxuTzNSuWYaCdkkJ1vsaoJ7dnVQ
 id: node.permit_3186a.field_owner_state
 field_name: field_owner_state
 entity_type: node
 bundle: permit_3186a
-label: 'Owner State'
+label: ST
 description: ''
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -23,6 +26,6 @@ settings:
     sort:
       field: name
       direction: asc
-    auto_create: FALSE
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

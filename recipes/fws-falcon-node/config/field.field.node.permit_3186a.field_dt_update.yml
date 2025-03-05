@@ -1,3 +1,4 @@
+uuid: 8026367c-7e75-4ce4-9f72-ef70eadd56d5
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - node.type.permit_3186a
   module:
     - datetime
+_core:
+  default_config_hash: RmXC-snYzC5FGuvKNtUGi0-p_CBpWu0_Vs-ebSwfoOM
 id: node.permit_3186a.field_dt_update
 field_name: field_dt_update
 entity_type: node

@@ -1,14 +1,17 @@
+uuid: c26d2001-e146-4c13-aff1-f28dc6049756
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_species_color
     - node.type.permit_3186a
+_core:
+  default_config_hash: cYwOhkTVBChMERjG-L3Zq8NPmZOb_q5RkaF043C-zBM
 id: node.permit_3186a.field_species_color
 field_name: field_species_color
 entity_type: node
 bundle: permit_3186a
-label: 'Species Color'
+label: 'If you captured a gyrfalcon, what color is it?'
 description: ''
 required: false
 translatable: true

@@ -1,14 +1,17 @@
+uuid: b4d0370c-8c9c-476e-8e10-2ab2898a5c77
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_sender_zip_cd
     - node.type.permit_3186a
+_core:
+  default_config_hash: IY9wICqrUqGeMHPsgs9zAgJqSPlgdHDRqwgU9lLZ-ZE
 id: node.permit_3186a.field_sender_zip_cd
 field_name: field_sender_zip_cd
 entity_type: node
 bundle: permit_3186a
-label: 'Sender ZIP Code'
+label: 'ZIP Code'
 description: ''
 required: false
 translatable: true

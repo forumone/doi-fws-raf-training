@@ -1,3 +1,4 @@
+uuid: 85985fc4-363c-450f-81bc-e5fa981b6ffd
 langcode: en
 status: true
 dependencies:
@@ -6,11 +7,13 @@ dependencies:
     - node.type.permit_3186a
   module:
     - datetime
+_core:
+  default_config_hash: QmfYVMf7GTjQNgFMKNFs0zVDRZnz2ZRlwayXAXnfPzQ
 id: node.permit_3186a.field_recipient_dt_acquired
 field_name: field_recipient_dt_acquired
 entity_type: node
 bundle: permit_3186a
-label: 'Recipient Date Acquired'
+label: 'Date of Acquisition'
 description: ''
 required: false
 translatable: true

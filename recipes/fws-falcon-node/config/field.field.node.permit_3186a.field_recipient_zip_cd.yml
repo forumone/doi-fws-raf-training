@@ -1,14 +1,17 @@
+uuid: cc988f39-eeb5-469c-a7c6-690a44cded87
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_recipient_zip_cd
     - node.type.permit_3186a
+_core:
+  default_config_hash: K5i6SXLXZesZdgM7KmwXRfnG-_RsEz6WO7MK9J9Q9P4
 id: node.permit_3186a.field_recipient_zip_cd
 field_name: field_recipient_zip_cd
 entity_type: node
 bundle: permit_3186a
-label: 'Recipient ZIP Code'
+label: 'ZIP Code'
 description: ''
 required: false
 translatable: true

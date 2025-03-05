@@ -1,3 +1,4 @@
+uuid: 41d3c0cc-76de-453a-b674-fe6c8e27b2f3
 langcode: en
 status: true
 dependencies:
@@ -5,11 +6,13 @@ dependencies:
     - field.storage.node.field_species_source
     - node.type.permit_3186a
     - taxonomy.vocabulary.source
+_core:
+  default_config_hash: XFwe26zRJsE4Gh2B-cOp2lAYk0AiVVwHs8U197lx-Uc
 id: node.permit_3186a.field_species_source
 field_name: field_species_source
 entity_type: node
 bundle: permit_3186a
-label: 'Species Source'
+label: Source
 description: ''
 required: false
 translatable: true
