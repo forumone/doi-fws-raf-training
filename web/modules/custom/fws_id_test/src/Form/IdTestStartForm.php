@@ -30,7 +30,7 @@ class IdTestStartForm extends FormBase {
 
     $form['species_group'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('Select Species Group(s):'),
+      '#title' => $this->t('Select Species Group(s)'),
       '#required' => TRUE,
       '#options' => $this->getSpeciesGroupOptions(),
       '#description' => $this->t('Select one or more species groups to test.'),
