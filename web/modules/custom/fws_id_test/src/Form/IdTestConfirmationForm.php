@@ -77,10 +77,11 @@ class IdTestConfirmationForm extends FormBase {
 
     $form['confirmation_message'] = [
       '#type' => 'markup',
-      '#markup' => $this->t('<h3>Parameters chosen:</h3>
-        <p><strong>Experience Level:</strong> @difficulty<br>
-        <strong>Species Groups:</strong> @groups<br>
-        <strong>Geographic Regions:</strong> @regions</p>
+      '#markup' => $this->t('<div class="quiz__parameters"><div class="quiz__info">
+        <p class="quiz__parameter"><b>Experience Level:</b> @difficulty</p>
+        <p class="quiz__parameter"><b>Species Groups:</b> @groups</p>
+        <p class="quiz__parameter"><b>Geographic Regions:</b> @regions</p>
+        </div></div>
         <p>You will be presented with 10 video clips. After you answer a multiple choice question
         for all 10 clips, summary statistics will be presented.</p>', [
           '@difficulty' => $difficulty_label,
@@ -113,15 +114,13 @@ class IdTestConfirmationForm extends FormBase {
       '#type' => 'link',
       '#title' => $this->t('Back'),
       '#url' => Url::fromRoute('fws_id_test.start'),
-      '#attributes' => [
-        'class' => ['button'],
-      ],
+      '#attributes' => ['class' => ['btn btn-default']],
     ];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
+      '#attributes' => ['class' => ['btn btn-primary']],
       '#value' => $this->t('Begin Test'),
-      '#button_type' => 'primary',
     ];
 
     return $form;

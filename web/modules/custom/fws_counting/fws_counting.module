@@ -29,7 +29,20 @@ function fws_counting_theme() {
         'experience_level' => NULL,
         'size_ranges' => [],
         'images' => [],
+        'viewing_time' => NULL,
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function fws_counting_preprocess_html(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Add 'fws-quiz' class to body for all pages from this module.
+  if (strpos($route_name, 'fws_counting') === 0) {
+    $variables['attributes']['class'][] = 'fws-quiz fws-quiz--counting';
+  }
 }

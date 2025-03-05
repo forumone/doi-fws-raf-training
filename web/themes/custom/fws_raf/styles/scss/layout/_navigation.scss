@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'utils/breakpoints' as *;
 
 header#navbar {
   #navbar-collapse {
@@ -6,15 +6,21 @@ header#navbar {
     box-shadow: none;
   }
 
-  @media (min-width: v.$desktop-breakpoint) {
-    .navbar-header {
+  .navbar-header {
+    @include breakpoint(lg) {
       min-width: 250px;
     }
   }
 
-  @media (max-width: v.$mobile-breakpoint) {
-    >.container {
-      width: 100%;
+  >.container {
+    width: 100%;
+
+    @include breakpoint(lg) {
+      width: 970px;
+    }
+
+    @include breakpoint(xl) {
+      width: 1170px;
     }
   }
 }
@@ -24,9 +30,12 @@ header#navbar {
 }
 
 .mb-menuwrapper {
-  @media (max-width: v.$mobile-breakpoint) {
-    height: calc(100% - 115px);
-    top: 115px;
+  height: calc(100% - 115px);
+  top: 115px;
+
+  @include breakpoint(lg) {
+    height: calc(100% - 178px);
+    top: 178px;
   }
 }
 

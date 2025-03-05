@@ -228,6 +228,15 @@ class CountingQuizController extends ControllerBase {
       ];
     }, $images);
 
+    // Get the viewing time based on the difficulty level
+    $difficulty_level = $experience_term->get('field_difficulty_level')->value;
+    $viewing_time = match ((int) $difficulty_level) {
+      1 => 10,
+      2 => 6,
+      3 => 3,
+      default => 6, // Default to 6 seconds if level is not set
+    };
+
     return [
       '#theme' => 'counting_quiz',
       '#experience_level' => $experience_term->label(),
@@ -235,6 +244,7 @@ class CountingQuizController extends ControllerBase {
         return $term->label();
       }, $size_terms),
       '#images' => $images,
+      '#viewing_time' => $viewing_time,
       '#attached' => [
         'library' => [
           'fws_counting/quiz',

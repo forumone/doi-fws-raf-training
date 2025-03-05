@@ -9,20 +9,58 @@
  * - images: Array of media images, each containing:
  *   - uri: The image URI
  *   - bird_count: The number of birds in the image
+ * - viewing_time: The number of seconds to display each image
  */
 #}
 
-<div class="parameters-section">
-  <h2>{{ 'Parameters chosen:'|t }}</h2>
-  <p>{{ 'Experience Level: @level'|t({'@level': experience_level}) }}</p>
-  <p>{{ 'Flock Size Range: @range'|t({'@range': size_ranges|join(' AND ')}) }}</p>
+<div class="quiz__parameters">
+  <div class="quiz__info">
+    <p class="quiz__parameter"><b>{{ 'Experience Level:'|t }}</b> {{ experience_level }}</p>
+    <p class="quiz__parameter"><b>{{ 'Flock Size Range(s):'|t }}</b> {{ size_ranges|join(', ') }}</p>
+  </div>
+  <div class="quiz__utils">
+    <div class="quiz__tracker">#1</div>
+    <div class="quiz__timer"></div>
+  </div>
 </div>
 
-<div class="images-section">
-  {% for key, image in images %}
-    <div class="quiz-image" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
-      {{ image.rendered }}
-      <p>{{ 'Bird Count: @count'|t({'@count': image.bird_count}) }}</p>
-    </div>
-  {% endfor %}
+<div class="quiz__container">
+
+  <div class="quiz__items" data-timer="{{ viewing_time }}">
+    {% for key, image in images %}
+      <div class="quiz__item quiz__item--{{ key }}">
+
+        <div class="quiz__prompt" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
+          {{ image.rendered }}
+        </div>
+
+        <div class="quiz__response quiz__response--{{ key }}">
+
+          <div class="quiz__guess">
+            <div class="form-item form-type-textfield form-item-guess form-group">
+              <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds did you count?'|t }}</span></label>
+              <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" autocomplete="none" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" size="6" maxlength="6" required="required" aria-required="true">
+            </div>
+            <button class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
+          </div>
+
+          <div class="quiz__answer">
+            <div class="quiz__feedback quiz__correct alert alert-success">{{ 'That is correct!'|t }}</div>
+            <div class="quiz__feedback quiz__incorrect alert alert-warning">{{ 'Sorry, that is incorrect.'|t }}</div>
+            <div class="quiz__results">
+              <p class="quiz__result"><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
+              <p class="quiz__result"><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>
+            </div>
+            <button class="btn btn-primary quiz__continue">{{ 'Continue'|t }}</button>
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="quiz__complete">
+  <div class="alert alert-success">{{ 'Test Complete!'|t }}</div>
+  <p>You have successfully completed this assessment.</p>
 </div>

@@ -22,11 +22,10 @@ class IdTestStartForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['species_id_difficulty'] = [
-      '#type' => 'select2',
+      '#type' => 'radios',
       '#title' => $this->t('Select Your Experience Level'),
       '#required' => TRUE,
       '#options' => $this->getDifficultyOptions(),
-      '#description' => $this->t('Choose your experience level for species identification.'),
     ];
 
     $form['species_group'] = [
