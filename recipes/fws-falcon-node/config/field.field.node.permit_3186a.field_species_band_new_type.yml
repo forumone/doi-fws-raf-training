@@ -9,7 +9,7 @@ id: node.permit_3186a.field_species_band_new_type
 field_name: field_species_band_new_type
 entity_type: node
 bundle: permit_3186a
-label: 'Species Band New Type'
+label: 'New Band Type'
 description: ''
 required: FALSE
 translatable: TRUE
