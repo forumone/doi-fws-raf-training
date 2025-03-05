@@ -41,12 +41,17 @@
         <div class="quiz__response quiz__response--{{ key }}">
           <div class="quiz__choices">
             <div class="choices-container">
-              <h3>{{ 'Species Choices:'|t }}</h3>
-              <ul class="species-options">
-                {% for choice in video.choices %}
-                  <li class="species-option">{{ choice }}</li>
-                {% endfor %}
-              </ul>
+              <h3>{{ 'Which species was present in the video?'|t }}</h3>
+              <div class="js-form-type-radios form-type-radios js-form-item form-item">
+                <div class="js-form-item form-item js-form-type-radio form-type-radio">
+                  {% for choice in video.choices %}
+                    <div class="js-form-item form-item js-form-type-radio form-type-radio radio">
+                      <input type="radio" id="choice-{{ key }}-{{ loop.index }}" name="species-choice-{{ key }}" value="{{ choice }}" class="form-radio">
+                      <label for="choice-{{ key }}-{{ loop.index }}" class="option">{{ choice }}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
             <button class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
           </div>
