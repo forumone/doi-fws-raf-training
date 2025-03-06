@@ -51,6 +51,7 @@
         "drupal/stringoverrides": "^1.8",
         "drupal/svg_image_responsive": "^3.0",
         "drupal/taxonomy_access_fix": "^4.0",
+        "drupal/trash": "^3.0",
         "drupal/twig_field_value": "^2.0",
         "drupal/twig_tweak": "^3.3",
         "drupal/viewfield": "^3.0@beta",
