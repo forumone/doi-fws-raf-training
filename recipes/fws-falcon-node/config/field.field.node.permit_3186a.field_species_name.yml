@@ -1,0 +1,31 @@
+uuid: 3b9286c2-42f7-4d2f-b0a5-3a00f0a88500
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_name
+    - node.type.permit_3186a
+    - taxonomy.vocabulary.species
+_core:
+  default_config_hash: vfxGECsQW-x25Xvc8TobfF7AeZ_J9BWj5XVaC_lL-4E
+id: node.permit_3186a.field_species_name
+field_name: field_species_name
+entity_type: node
+bundle: permit_3186a
+label: 'Species Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species: species
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

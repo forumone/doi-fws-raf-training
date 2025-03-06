@@ -1,9 +1,10 @@
-uuid: 25670396-2391-4b3c-9f40-57dc1a638637
 langcode: en
 status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: ERMSjm_OxnubYoNE-Js2qxbQpP67xsLPM0s9TTnk77E
 id: node.field_recno
 field_name: field_recno
 entity_type: node

@@ -1,0 +1,31 @@
+uuid: 9ef00f1c-1cb2-49e6-a59d-8d6afaefb729
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_transfer_type_cd
+    - node.type.permit_3186a
+    - taxonomy.vocabulary.type_of_acquisition
+_core:
+  default_config_hash: mJ52aRoqZZywJW--Pgu2gyHw9p5zETaFGmuu46Vh0mY
+id: node.permit_3186a.field_sender_transfer_type_cd
+field_name: field_sender_transfer_type_cd
+entity_type: node
+bundle: permit_3186a
+label: 'Type of Transfer'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      type_of_acquisition: type_of_acquisition
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

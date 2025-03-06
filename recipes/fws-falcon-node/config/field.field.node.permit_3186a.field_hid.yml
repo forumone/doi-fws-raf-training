@@ -1,0 +1,21 @@
+uuid: 18c83142-1042-45be-85ca-f08b435c72de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hid
+    - node.type.permit_3186a
+_core:
+  default_config_hash: mhrl0uoCdMvvrNmlXqgL19fEZNkWWso8M4UbtBPko6M
+id: node.permit_3186a.field_hid
+field_name: field_hid
+entity_type: node
+bundle: permit_3186a
+label: HID
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

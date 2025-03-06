@@ -1,0 +1,21 @@
+uuid: 5b47f8b1-b271-4d60-b7af-d74daeedb6b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_falc_applicant_phone
+    - node.type.permit_3186a
+_core:
+  default_config_hash: qbydzhsW7i-Bc6opdF1QU9XkjrNCjRuwRPq6GL2idlM
+id: node.permit_3186a.field_falc_applicant_phone
+field_name: field_falc_applicant_phone
+entity_type: node
+bundle: permit_3186a
+label: 'Phone Number (with area code)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,21 @@
+uuid: f44e54bd-5813-4129-a7bd-3b7299716f39
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipient_permit_no
+    - node.type.permit_3186a
+_core:
+  default_config_hash: un9xM8aN2H2h9RApoelLdFSNI36OyAkRFqzUQaizSKQ
+id: node.permit_3186a.field_recipient_permit_no
+field_name: field_recipient_permit_no
+entity_type: node
+bundle: permit_3186a
+label: 'USFWS Permit No.'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

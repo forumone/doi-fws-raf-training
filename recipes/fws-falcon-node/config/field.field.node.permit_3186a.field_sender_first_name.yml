@@ -1,0 +1,21 @@
+uuid: e65b237a-09a8-4039-a969-e2354d90972a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sender_first_name
+    - node.type.permit_3186a
+_core:
+  default_config_hash: zUsQpyo4NMjAJiLaZe-Nxv-KaBTzLhuOXp1q-cmj9LE
+id: node.permit_3186a.field_sender_first_name
+field_name: field_sender_first_name
+entity_type: node
+bundle: permit_3186a
+label: 'First Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

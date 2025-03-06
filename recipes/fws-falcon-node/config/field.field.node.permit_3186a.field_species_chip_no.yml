@@ -1,0 +1,21 @@
+uuid: cb60ce41-0288-4f54-bf91-442de7ef0e4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_chip_no
+    - node.type.permit_3186a
+_core:
+  default_config_hash: lwjCv_r75Gb9y8IJFi_C9uTIac1H5wJt0X1iJ0fPm9w
+id: node.permit_3186a.field_species_chip_no
+field_name: field_species_chip_no
+entity_type: node
+bundle: permit_3186a
+label: 'Microchip Number (if applicable)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

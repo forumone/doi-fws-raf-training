@@ -1,0 +1,21 @@
+uuid: ed41e36c-6673-4844-83ab-0e0a49ef6a67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipient_middle_name
+    - node.type.permit_3186a
+_core:
+  default_config_hash: hFi5_QQJSfxtWCQrDxxoDN7JCGLGePpZ4NqThveqvWA
+id: node.permit_3186a.field_recipient_middle_name
+field_name: field_recipient_middle_name
+entity_type: node
+bundle: permit_3186a
+label: 'Middle Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

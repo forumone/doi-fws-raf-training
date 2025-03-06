@@ -1,0 +1,21 @@
+uuid: 9d89a41e-5824-4138-98c9-3acbd4e78722
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_question_no
+    - node.type.permit_3186a
+_core:
+  default_config_hash: meeUUeNMq7DJIuqLcvH_JUgadeM6QM4a8vSn_SGGgB4
+id: node.permit_3186a.field_question_no
+field_name: field_question_no
+entity_type: node
+bundle: permit_3186a
+label: 'Trans. Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

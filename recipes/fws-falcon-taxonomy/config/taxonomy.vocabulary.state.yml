@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-name: 'Trap State'
-vid: trap_state
+name: 'State'
+vid: state
 description: 'Lookup table for states where falcons were trapped'
 weight: 0
 new_revision: false

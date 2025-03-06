@@ -1,0 +1,31 @@
+uuid: ffbd0b45-e9dc-4b2e-a6a6-b6791c27c6da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_age
+    - node.type.permit_3186a
+    - taxonomy.vocabulary.age
+_core:
+  default_config_hash: lgPzKFhsiGBOkwr4pMQekT5YqnBAL5iOeB_uiO-CiF0
+id: node.permit_3186a.field_species_age
+field_name: field_species_age
+entity_type: node
+bundle: permit_3186a
+label: Age
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      age: age
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

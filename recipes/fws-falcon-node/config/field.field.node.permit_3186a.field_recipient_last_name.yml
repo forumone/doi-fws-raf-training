@@ -1,0 +1,21 @@
+uuid: 82aa66a2-046a-4ec3-ad30-6ccd6154eda6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipient_last_name
+    - node.type.permit_3186a
+_core:
+  default_config_hash: fgIzhHVC7g1wgFFKsFi3zgQUzneCqhZVYDo_wuHFfhQ
+id: node.permit_3186a.field_recipient_last_name
+field_name: field_recipient_last_name
+entity_type: node
+bundle: permit_3186a
+label: 'Last Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

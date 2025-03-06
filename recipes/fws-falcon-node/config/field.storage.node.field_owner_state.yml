@@ -1,21 +1,21 @@
-uuid: aa774720-411a-4e14-8fe9-3fd310052f75
 langcode: en
-status: true
+status: TRUE
 dependencies:
   module:
     - node
+    - taxonomy
+_core:
+  default_config_hash: XHg1A0xwEO1umtMAz8UQxmpiphV1rH-9rV6DjPNupl8
 id: node.field_owner_state
 field_name: field_owner_state
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
-locked: false
+locked: FALSE
 cardinality: 1
-translatable: true
+translatable: TRUE
 indexes: {  }
-persist_with_no_fields: false
-custom_storage: false
+persist_with_no_fields: FALSE
+custom_storage: FALSE

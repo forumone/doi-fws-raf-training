@@ -1,9 +1,10 @@
-uuid: 3b10a512-bd32-4ec8-bf53-b9b9dafa1bb3
 langcode: en
 status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: 71BXxbdpKyo7fYDyu4ZWigcJngEHjRCHBCC-mBPPCsY
 id: node.field_recno_3186a
 field_name: field_recno_3186a
 entity_type: node

@@ -1,0 +1,21 @@
+uuid: 7f33aaa9-24b8-4155-8616-a18be09e7b1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_owner_access_cd
+    - node.type.permit_3186a
+_core:
+  default_config_hash: 01VG8wLK_uL2hlFdWOfe7bbLVGUO_JYqATqomh7PnpY
+id: node.permit_3186a.field_owner_access_cd
+field_name: field_owner_access_cd
+entity_type: node
+bundle: permit_3186a
+label: 'Owner Access Code'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

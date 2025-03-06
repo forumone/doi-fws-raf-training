@@ -31,5 +31,6 @@ ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/falcon/import-taxonomies.php
 ddev drush -l $SITE_URI scr ../scripts/falcon/import-users.php 10
 ddev drush -l $SITE_URI scr ../scripts/falcon/import_species_images.php
+ddev drush -l $SITE_URI scr ../scripts/falcon/import_species_3186a.php 1000
 
 ddev drush -l $SITE_URI uli
