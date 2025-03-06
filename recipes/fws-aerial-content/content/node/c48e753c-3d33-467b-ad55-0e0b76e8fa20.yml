@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/history-and-background-aerial-waterfowl-surveys-north-america'
+        href: '/history-and-background-aerial-waterfowl-surveys-north-america'
   path:
     -
       alias: /history-and-background-aerial-waterfowl-surveys-north-america
