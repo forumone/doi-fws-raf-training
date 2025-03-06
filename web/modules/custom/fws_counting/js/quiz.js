@@ -12,6 +12,8 @@
         const $quizContainer = $(element);
         const defaultTimer = parseInt($quizContainer.data('timer')); // Default timer value
         let currentQuestion = 0;
+        let correctAnswers = 0;
+        const totalQuestions = $('.quiz__item', $quizContainer).length;
         let timerInstance = null;
         let countdownInterval = null;
 
@@ -74,6 +76,8 @@
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
             $('.quiz__timer, .quiz__container').hide();
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100) || 0;
+            $('.quiz__score').text(scorePercentage);
             $('.quiz__complete').slideDown();
             return;
           }
@@ -93,6 +97,10 @@
 
         // Handle continue button clicks
         $('.quiz__continue', $quizContainer).on('click', function() {
+          if (currentQuestion + 1 >= totalQuestions) {
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+            $('.quiz__score').text(scorePercentage);
+          }
           showNextQuestion();
         });
 
@@ -110,6 +118,7 @@
           // Display the appropriate error message relative to the user submission
           if (userInput === actualCount) {
             $(this).closest('.quiz__response').find('.quiz__correct').show();
+            correctAnswers++;
           }
           else {
             $(this).closest('.quiz__response').find('.quiz__incorrect').show();

@@ -32,6 +32,7 @@
 
         <div class="quiz__prompt" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
           {{ image.rendered }}
+          <p class="quiz__help">{{ 'Review the image and enter the amount of birds viewed on the following panel.'|t }}</p>
         </div>
 
         <div class="quiz__response quiz__response--{{ key }}">
@@ -62,5 +63,10 @@
 
 <div class="quiz__complete">
   <div class="alert alert-success">{{ 'Test Complete!'|t }}</div>
-  <p>You have successfully completed this assessment.</p>
+  <h3>{{ 'You scored a'|t }} <span class="quiz__score"></span>%</h3>
+  <p>{{ 'You have successfully completed this assessment.'|t }}</p>
+  <div class="quiz__actions form-actions">
+    <a href="/" class="btn btn-primary">{{ 'Return Home'|t }}</a>
+    <a href="/test-your-counting-skills" class="btn btn-default">{{ 'Take Another Test'|t }}</a>
+  </div>
 </div>

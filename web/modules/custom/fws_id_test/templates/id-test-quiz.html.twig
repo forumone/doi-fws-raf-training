@@ -5,31 +5,79 @@
  *
  * Available variables:
  * - videos: Array of video media entities.
+ * - experience_level: The experience level term label.
+ * - species_groups: Array of species group term labels.
+ * - geographic_regions: Array of geographic region term labels.
  *
  * @ingroup themeable
  */
 #}
 
-{# Display a list of videos with their choices #}
-<div class="species-id-quiz">
-  {% for video in videos %}
-    <div class="quiz-item" data-question="{{ loop.index }}">
-      <div class="video-container">
-        <video controls>
-          <source src="{{ video.url }}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+<div class="quiz__parameters">
+  <div class="quiz__info">
+    <p class="quiz__parameter"><b>{{ 'Experience Level:'|t }}</b> {{ experience_level }}</p>
+    <p class="quiz__parameter"><b>{{ 'Species Groups:'|t }}</b> {{ species_groups|join(', ') }}</p>
+    <p class="quiz__parameter"><b>{{ 'Geographic Regions:'|t }}</b> {{ geographic_regions|join(', ') }}</p>
+  </div>
+  <div class="quiz__utils">
+    <div class="quiz__tracker">#1</div>
+  </div>
+</div>
 
-      <div class="choices-container">
-        <h3>Species Choices:</h3>
-        <ul>
-          {% for choice in video.choices %}
-            <li>{{ choice }}</li>
-          {% endfor %}
-        </ul>
+<div class="quiz__container">
+  <div class="quiz__items">
+    {% for key, video in videos %}
+      <div class="quiz__item quiz__item--{{ key }}" data-question="{{ key + 1 }}">
+
+        <div class="quiz__prompt" data-quiz-number="{{ key + 1 }}">
+          <div class="video-container">
+            <video controls>
+              <source src="{{ video.url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="quiz__help">{{ 'Play the video and select the species viewed on the following panel.'|t }}</p>
+        </div>
+
+        <div class="quiz__response quiz__response--{{ key }}">
+
+          <div class="quiz__guess">
+            <h3>{{ 'Which species was present in the video?'|t }}</h3>
+            <div class="js-form-type-radios form-type-radios js-form-item form-item">
+              <div class="js-form-item form-item js-form-type-radio form-type-radio">
+                {% for choice in video.choices %}
+                  <div class="js-form-item form-item js-form-type-radio form-type-radio radio">
+                    <input type="radio" id="choice-{{ key }}-{{ loop.index }}" name="species-choice-{{ key }}" value="{{ choice }}" class="form-radio">
+                    <label for="choice-{{ key }}-{{ loop.index }}" class="option">{{ choice }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <button class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
+          </div>
+
+          <div class="quiz__answer">
+            <div class="quiz__feedback quiz__correct alert alert-success">{{ 'That is correct!'|t }}</div>
+            <div class="quiz__feedback quiz__incorrect alert alert-warning">{{ 'Sorry, that is incorrect.'|t }}</div>
+            <div class="quiz__results">
+              <p class="quiz__result"><b>{{ 'Correct Species:'|t }}</b> <span class="quiz__actual"></span></p>
+              <p class="quiz__result"><b>{{ 'You Selected:'|t }}</b> <span class="quiz__submission"></span></p>
+            </div>
+            <button class="btn btn-primary quiz__continue">{{ 'Continue'|t }}</button>
+          </div>
+        </div>
+
       </div>
-    </div>
-    <hr>
-  {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="quiz__complete">
+  <div class="alert alert-success">{{ 'Test Complete!'|t }}</div>
+  <h3>{{ 'You scored a'|t }} <span class="quiz__score"></span>%</h3>
+  <p>{{ 'You have successfully completed this assessment.'|t }}</p>
+  <div class="quiz__actions form-actions">
+    <a href="/" class="btn btn-primary">{{ 'Return Home'|t }}</a>
+    <a href="/id-test/start" class="btn btn-default">{{ 'Take Another Test'|t }}</a>
+  </div>
 </div>

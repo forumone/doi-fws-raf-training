@@ -30,7 +30,7 @@ class IdTestStartForm extends FormBase {
 
     $form['species_group'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('Select Species Group(s):'),
+      '#title' => $this->t('Select Species Group(s)'),
       '#required' => TRUE,
       '#options' => $this->getSpeciesGroupOptions(),
       '#description' => $this->t('Select one or more species groups to test.'),
@@ -61,9 +61,14 @@ class IdTestStartForm extends FormBase {
    * Gets the difficulty level options from taxonomy.
    */
   protected function getDifficultyOptions() {
+    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('vid', 'species_id_difficulty')
+      ->sort('field_difficulty_level', 'ASC');
+    $term_ids = $query->execute();
     $terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
-      ->loadByProperties(['vid' => 'species_id_difficulty']);
+      ->loadMultiple($term_ids);
 
     $options = [];
     foreach ($terms as $term) {
