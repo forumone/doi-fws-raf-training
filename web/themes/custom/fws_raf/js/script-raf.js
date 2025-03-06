@@ -180,17 +180,17 @@
   Drupal.behaviors.verticalTabAccessibility = {
     attach: function (context, settings) {
       $(window).on('load', function() {
-
         once('vertical-tab-accessibility', '.js-form-type-vertical-tabs', context).forEach(function (tabs) {
+          // Remove the control label at the top
+          $(tabs).find('.control-label').remove();
+
           const $tabList = $(tabs).find('.vertical-tabs-list');
           const $tabButtons = $(tabs).find('.vertical-tab-button');
           const $tabLinks = $(tabs).find('.vertical-tab-button > a');
           const $tabPanels = $(tabs).find('.vertical-tabs-pane');
 
-          // Set up the tab list container
+          // Remove role="tablist" and aria-orientation from the container
           $tabList.attr({
-            'role': 'tablist',
-            'aria-orientation': 'vertical',
             'aria-label': 'Additional node settings'
           });
 
@@ -199,17 +199,28 @@
             'role': 'presentation'
           });
 
-          // Set up each tab link with proper ARIA attributes
+          // Remove any existing (active tab) spans
+          $tabLinks.find('#active-vertical-tab').remove();
+
+          // Set up each tab link with proper ARIA attributes and remove aria-expanded
           $tabLinks.each(function(index) {
             const $link = $(this);
             const panelId = 'vertical-tabs-panel-' + index;
             const tabId = 'vertical-tabs-tab-' + index;
+            const isSelected = $link.parent().hasClass('selected');
+
+            // Remove aria-expanded attribute and ensure it stays removed
+            $link.removeAttr('aria-expanded')
+              .on('click.removeExpanded mousedown.removeExpanded focus.removeExpanded', function() {
+                $(this).removeAttr('aria-expanded');
+              });
 
             $link.attr({
               'role': 'tab',
-              'aria-selected': $link.parent().hasClass('selected') ? 'true' : 'false',
+              'aria-selected': isSelected ? 'true' : 'false',
               'aria-controls': panelId,
-              'id': tabId
+              'id': tabId,
+              'tabindex': isSelected ? '0' : '-1'
             });
           });
 
@@ -222,9 +233,87 @@
             $panel.attr({
               'role': 'tabpanel',
               'aria-labelledby': tabId,
-              'id': panelId
+              'id': panelId,
+              'tabindex': '0'
             });
+
+            // Hide all panels except the selected one
+            if (!$tabLinks.eq(index).parent().hasClass('selected')) {
+              $panel.hide();
+            }
           });
+
+          // Add keyboard navigation
+          $tabLinks.on('keydown', function(e) {
+            const $currentTab = $(this);
+            let $targetTab = null;
+
+            switch(e.key) {
+              case 'ArrowLeft':
+              case 'ArrowUp':
+                e.preventDefault();
+                $targetTab = $currentTab.parent().prev().find('a');
+                if (!$targetTab.length) {
+                  $targetTab = $tabLinks.last();
+                }
+                break;
+
+              case 'ArrowRight':
+              case 'ArrowDown':
+                e.preventDefault();
+                $targetTab = $currentTab.parent().next().find('a');
+                if (!$targetTab.length) {
+                  $targetTab = $tabLinks.first();
+                }
+                break;
+
+              case 'Home':
+                e.preventDefault();
+                $targetTab = $tabLinks.first();
+                break;
+
+              case 'End':
+                e.preventDefault();
+                $targetTab = $tabLinks.last();
+                break;
+
+              case ' ':
+              case 'Enter':
+                e.preventDefault();
+                activateTab($currentTab);
+                break;
+            }
+
+            if ($targetTab && $targetTab.length) {
+              activateTab($targetTab);
+            }
+          });
+
+          // Click handler for tabs
+          $tabLinks.on('click', function(e) {
+            e.preventDefault();
+            activateTab($(this));
+          });
+
+          // Function to activate a tab
+          function activateTab($tab) {
+            const $panel = $('#' + $tab.attr('aria-controls'));
+
+            // Update tab states
+            $tabLinks.attr('aria-selected', 'false').attr('tabindex', '-1')
+              .removeAttr('aria-expanded'); // Ensure aria-expanded stays removed
+            $tab.attr('aria-selected', 'true').attr('tabindex', '0')
+              .removeAttr('aria-expanded') // Ensure aria-expanded stays removed
+              .focus();
+
+            // Update panel visibility
+            $tabPanels.hide();
+            $panel.show();
+
+            // Update selected class
+            $tabButtons.removeClass('selected');
+            $tab.parent().addClass('selected');
+          }
         });
       });
     }
