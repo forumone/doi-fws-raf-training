@@ -20,4 +20,4 @@ $sites['doifwsdevapps.prod.acquia-sites.com.epsandhill'] = 'eps';
 // Handle /aerial paths on Acquia.
 $sites['doifwsdevapps.prod.acquia-sites.com.aerial'] = 'aerial';
 // Handle /falcon paths on Acquia.
-$sites['doifwsdevapps.prod.acquia-sites.com.aerial'] = 'falcon';
+$sites['doifwsdevapps.prod.acquia-sites.com.falcon'] = 'falcon';
