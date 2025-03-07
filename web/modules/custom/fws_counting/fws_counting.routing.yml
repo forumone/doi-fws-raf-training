@@ -43,3 +43,21 @@ fws_counting.quiz:
         type: string
   requirements:
     _permission: 'access content'
+
+fws_counting.save_answer:
+  path: '/test-your-counting-skills/save-answer'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingQuizController::saveAnswer'
+    _title: 'Save Quiz Answer'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'
+
+fws_counting.get_results:
+  path: '/test-your-counting-skills/get-results/{node_id}'
+  defaults:
+    _controller: '\Drupal\fws_counting\Controller\CountingQuizController::getResults'
+    _title: 'Get Quiz Results'
+  requirements:
+    _permission: 'access content'
+    node_id: \d+

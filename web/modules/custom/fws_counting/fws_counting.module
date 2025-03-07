@@ -30,6 +30,7 @@ function fws_counting_theme() {
         'size_ranges' => [],
         'images' => [],
         'viewing_time' => NULL,
+        'results_node_id' => NULL,
       ],
     ],
   ];

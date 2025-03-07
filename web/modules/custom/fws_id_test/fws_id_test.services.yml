@@ -1,0 +1,4 @@
+services:
+  fws_id_test.quiz_results:
+    class: Drupal\fws_id_test\Service\IdTestResultsService
+    arguments: ['@entity_type.manager', '@current_user']

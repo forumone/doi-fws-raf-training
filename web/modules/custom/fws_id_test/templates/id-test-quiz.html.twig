@@ -25,7 +25,7 @@
 </div>
 
 <div class="quiz__container">
-  <div class="quiz__items">
+  <div class="quiz__items" data-results-node-id="{{ results_node_id }}">
     {% for key, video in videos %}
       <div class="quiz__item quiz__item--{{ key }}" data-question="{{ key + 1 }}">
 

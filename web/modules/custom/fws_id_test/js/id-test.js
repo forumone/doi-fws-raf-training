@@ -24,16 +24,48 @@
         let correctAnswers = 0;
         const quizData = drupalSettings.fws_id_test.quiz;
         const totalQuestions = quizData.videos.length;
+        const resultsNodeId = quizData.resultsNodeId;
+
+        function saveQuizAnswer(questionIndex, userAnswer, correctAnswer) {
+          if (!resultsNodeId) {
+            console.error('No results node ID found');
+            return;
+          }
+
+          console.log('Saving answer:', {
+            questionIndex,
+            userAnswer,
+            correctAnswer
+          });
+
+          // Save the answer via AJAX
+          $.ajax({
+            url: '/id-test/save-answer',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              nodeId: resultsNodeId,
+              questionIndex: questionIndex,
+              userAnswer: userAnswer,
+              correctAnswer: correctAnswer,
+            }),
+            success: function (response) {
+              console.log('Answer saved successfully');
+            },
+            error: function (xhr, status, error) {
+              console.error('Error saving answer:', error);
+              console.error('Response:', xhr.responseText);
+            }
+          });
+        }
 
         function showNextQuestion() {
           $('.quiz__item--' + currentQuestion, $quizContainer).hide();
           currentQuestion++;
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
-            $('.quiz__container').hide();
-            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100) || 0;
-            $('.quiz__score').text(scorePercentage);
-            $('.quiz__complete').slideDown();
+            // Redirect to the results node
+            window.location.href = `/node/${resultsNodeId}`;
             return;
           }
 
@@ -52,10 +84,10 @@
         }
 
         // Handle video completion
-        $('.quiz__item', $quizContainer).each(function(index) {
+        $('.quiz__item', $quizContainer).each(function (index) {
           const $video = $(this).find('video')[0];
           if ($video) {
-            $video.addEventListener('ended', function() {
+            $video.addEventListener('ended', function () {
               const $currentItem = $('.quiz__item--' + index, $quizContainer);
               $currentItem.find('.quiz__prompt').slideUp();
               $currentItem.find('.quiz__response').slideDown();
@@ -64,20 +96,24 @@
         });
 
         // Handle continue button clicks
-        $('.quiz__continue', $quizContainer).on('click', function() {
-          if (currentQuestion + 1 >= totalQuestions) {
-            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
-            $('.quiz__score').text(scorePercentage);
-          }
+        $('.quiz__continue', $quizContainer).on('click', function () {
           showNextQuestion();
         });
 
         // Handle submit button clicks
-        $('.quiz__submit', $quizContainer).on('click', function() {
+        $('.quiz__submit', $quizContainer).on('click', function () {
           const $currentItem = $(this).closest('.quiz__item');
           const questionIndex = parseInt($currentItem.data('question')) - 1;
           const selectedSpecies = $currentItem.find('input[type="radio"]:checked').val();
           const correctSpecies = quizData.videos[questionIndex].species;
+
+          // Make sure we have a selection
+          if (!selectedSpecies) {
+            alert('Please select a species before submitting.');
+            return;
+          }
+
+          console.log('Selected:', selectedSpecies, 'Correct:', correctSpecies);
 
           // Update the submission and actual text
           $currentItem.find('.quiz__submission').text(selectedSpecies);
@@ -93,6 +129,9 @@
           } else {
             $currentItem.find('.quiz__incorrect').show();
           }
+
+          // Save the answer
+          saveQuizAnswer(questionIndex, selectedSpecies, correctSpecies);
 
           // Switch to answer panel
           $(this).closest('.quiz__guess').slideUp()

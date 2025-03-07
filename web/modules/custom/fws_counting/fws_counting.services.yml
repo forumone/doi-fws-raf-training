@@ -1,0 +1,4 @@
+services:
+  fws_counting.quiz_results:
+    class: Drupal\fws_counting\Service\QuizResultsService
+    arguments: ['@entity_type.manager', '@current_user']
