@@ -8,6 +8,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controller for the species ID test page.
@@ -213,7 +215,70 @@ class IdTestController extends ControllerBase {
       ],
     ];
 
+    // Create a results node.
+    $quiz_results_service = \Drupal::service('fws_id_test.quiz_results');
+    $results_node = $quiz_results_service->createResultsNode(
+      $difficulty_term,
+    // Use the first region term.
+      reset($region_terms),
+    // Use the first species group term.
+      reset($species_group_terms),
+      array_map(function ($video) {
+        return [
+          'media_id' => $video->id(),
+        ];
+      }, $videos)
+    );
+
+    // Add the results node ID to the render array.
+    $render_array['#results_node_id'] = $results_node->id();
+    $render_array['#attached']['drupalSettings']['fws_id_test']['quiz']['resultsNodeId'] = $results_node->id();
+
     return $render_array;
+  }
+
+  /**
+   * Saves a quiz answer.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request object.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response.
+   */
+  public function saveAnswer(Request $request) {
+    $content = $request->getContent();
+    $data = json_decode($content, TRUE);
+
+    // Validate required fields.
+    if (empty($data['nodeId']) ||
+        !isset($data['questionIndex']) ||
+        !isset($data['userAnswer']) ||
+        !isset($data['correctAnswer'])) {
+      return new JsonResponse(
+        ['success' => FALSE, 'message' => 'Missing required fields.'],
+        400
+      );
+    }
+
+    // Save the answer.
+    $quiz_results_service = \Drupal::service('fws_id_test.quiz_results');
+    $success = $quiz_results_service->updateQuestionResult(
+      $data['nodeId'],
+      $data['questionIndex'],
+      $data['userAnswer'],
+      $data['correctAnswer']
+    );
+
+    if ($success) {
+      return new JsonResponse(['success' => TRUE]);
+    }
+    else {
+      return new JsonResponse(
+        ['success' => FALSE, 'message' => 'Failed to save answer.'],
+        500
+      );
+    }
   }
 
 }

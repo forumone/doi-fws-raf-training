@@ -105,6 +105,12 @@ function fws_raf_preprocess_page_title(&$variables) {
       $variables['title'] = str_ireplace('Species', 'Manatee', $title);
     }
   }
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && ($node->bundle() === 'species_counting_results' || $node->bundle() === 'species_id_results')) {
+    // Hide the page title.
+    $variables['title'] = '';
+  }
 }
 
 /**
