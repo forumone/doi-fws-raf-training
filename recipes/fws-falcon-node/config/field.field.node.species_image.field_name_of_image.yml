@@ -1,3 +1,4 @@
+uuid: 1c715df9-fac2-46b7-a1db-24b9f585a4a3
 langcode: en
 status: true
 dependencies:
@@ -8,8 +9,8 @@ id: node.species_image.field_name_of_image
 field_name: field_name_of_image
 entity_type: node
 bundle: species_image
-label: 'Name of Image'
-description: 'The name of the image from the CSV.'
+label: 'Image Name'
+description: ''
 required: false
 translatable: true
 default_value: {  }

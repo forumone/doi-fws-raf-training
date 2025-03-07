@@ -9,7 +9,6 @@
  */
 
 use Drupal\user\Entity\User;
-use Drupal\Component\Utility\Random;
 use Drush\Drush;
 
 // Get the limit from command line argument if provided.
@@ -17,16 +16,9 @@ $input = Drush::input();
 $args = $input->getArguments();
 $limit = isset($args['extra'][1]) ? (int) $args['extra'][1] : PHP_INT_MAX;
 
-$successful_imports = 0;
-
 // Define the CSV file path for DDEV environment.
 $filename = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_sys_userprofile_202502271311.csv';
-
-// Check if file exists and is readable.
-if (!file_exists($filename) || !is_readable($filename)) {
-  print("Error: Cannot read file $filename\n");
-  exit(1);
-}
+$limbo_filename = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_sys_userprofile_limbo_202502271311.csv';
 
 // Initialize counters.
 $stats = [
@@ -35,22 +27,17 @@ $stats = [
   'updated' => 0,
   'skipped' => 0,
   'errors' => 0,
+  'limbo_processed' => 0,
+  'limbo_created' => 0,
+  'limbo_updated' => 0,
+  'limbo_skipped' => 0,
+  'limbo_errors' => 0,
 ];
 
-// Open CSV file.
-$file = fopen($filename, 'r');
-if (!$file) {
-  print("Error: Unable to open file $filename\n");
-  exit(1);
-}
-
-// Read headers.
-$headers = fgetcsv($file);
-if (!$headers) {
-  print("Error: CSV file appears to be empty\n");
-  fclose($file);
-  exit(1);
-}
+// Initialize global counters.
+global $_falcon_successful_imports, $_falcon_successful_limbo_imports;
+$_falcon_successful_imports = 0;
+$_falcon_successful_limbo_imports = 0;
 
 // Define field mappings.
 $field_mapping = [
@@ -85,155 +72,220 @@ $field_mapping = [
   'dt_update' => 'changed',
 ];
 
-// Determine column indices based on headers.
-$column_indices = [];
-foreach ($field_mapping as $csv_header => $drupal_field) {
-  $index = array_search($csv_header, $headers);
-  if ($index !== FALSE) {
-    $column_indices[$drupal_field] = $index;
-  }
-  else {
-    print("Warning: Could not find column for $csv_header\n");
-  }
-}
+/**
+ * Function to process a CSV file.
+ */
+function process_csv_file($file_path, &$stats, $limit, $field_mapping, $is_limbo = FALSE) {
+  global $_falcon_successful_imports, $_falcon_successful_limbo_imports;
 
-// Initialize Random utility for password generation.
-$random = new Random();
-
-// Print the user limit we're enforcing.
-print("Importing with a limit of $limit users...\n\n");
-
-// Process each row.
-while (($data = fgetcsv($file)) !== FALSE && $successful_imports < $limit) {
-  $stats['processed']++;
-
-  // Extract data from CSV row using column indices.
-  $username = isset($column_indices['name']) ? $data[$column_indices['name']] : '';
-  $email = isset($column_indices['mail']) ? $data[$column_indices['mail']] : '';
-
-  // Skip if required fields are missing.
-  if (empty($username) || empty($email)) {
-    print("Skipping row: Missing username or email\n");
-    $stats['skipped']++;
-    continue;
+  // Check if file exists and is readable.
+  if (!file_exists($file_path) || !is_readable($file_path)) {
+    print("Error: Cannot read file $file_path\n");
+    return FALSE;
   }
 
-  // Validate email format.
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    print("Invalid email format: $email \n");
-    $stats['errors']++;
-    continue;
+  // Open CSV file.
+  $file = fopen($file_path, 'r');
+  if (!$file) {
+    print("Error: Unable to open file $file_path\n");
+    return FALSE;
   }
 
-  try {
-    // Check if user exists by email.
-    $existing_users = \Drupal::entityTypeManager()
-      ->getStorage('user')
-      ->loadByProperties(['mail' => $email]);
+  print("Processing file: $file_path\n");
 
-    if (!empty($existing_users)) {
-      $user = reset($existing_users);
-      print("Updating existing user: $email\n");
-      $stats['updated']++;
+  // Read headers.
+  $headers = fgetcsv($file);
+  if (!$headers) {
+    print("Error: CSV file appears to be empty\n");
+    fclose($file);
+    return FALSE;
+  }
+
+  // Determine column indices based on headers.
+  $column_indices = [];
+  foreach ($field_mapping as $csv_header => $drupal_field) {
+    $index = array_search($csv_header, $headers);
+    if ($index !== FALSE) {
+      $column_indices[$drupal_field] = $index;
     }
     else {
-      $user = User::create();
-      $stats['created']++;
+      print("Warning: Could not find column for $csv_header\n");
+    }
+  }
+
+  // Process each row.
+  while (($data = fgetcsv($file)) !== FALSE && ($is_limbo ? $_falcon_successful_limbo_imports : $_falcon_successful_imports) < $limit) {
+    $stat_key = $is_limbo ? 'limbo_processed' : 'processed';
+    $stats[$stat_key]++;
+
+    // Extract data from CSV row using column indices.
+    $username = isset($column_indices['name']) ? $data[$column_indices['name']] : '';
+    $email = isset($column_indices['mail']) ? $data[$column_indices['mail']] : '';
+
+    // Skip if required fields are missing.
+    if (empty($username) || empty($email)) {
+      print("Skipping row: Missing username or email\n");
+      $stat_key = $is_limbo ? 'limbo_skipped' : 'skipped';
+      $stats[$stat_key]++;
+      continue;
     }
 
-    // Set basic user fields.
-    $user->setUsername($username);
-    $user->setEmail($email);
+    // Validate email format.
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      print("Invalid email format: $email \n");
+      $stat_key = $is_limbo ? 'limbo_errors' : 'errors';
+      $stats[$stat_key]++;
+      continue;
+    }
 
-    // Set additional fields from CSV.
-    foreach ($field_mapping as $csv_header => $drupal_field) {
-      if (isset($column_indices[$drupal_field]) && isset($data[$column_indices[$drupal_field]])) {
-        $value = $data[$column_indices[$drupal_field]];
+    try {
+      // Check if user exists by email.
+      $existing_users = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->loadByProperties(['mail' => $email]);
 
-        // Handle special field types and conversions.
-        switch ($drupal_field) {
-          case 'field_is_locked':
-          case 'field_is_activated':
-            // Convert to boolean.
-            $value = ($value === 'Y' || $value === '1') ? 1 : 0;
-            break;
-
-          case 'field_permit_issued_date':
-          case 'field_permit_expiration_date':
-          case 'field_mfa_login_timestamp':
-            // Convert to datetime if not empty.
-            $value = !empty($value) ? date('Y-m-d\TH:i:s', strtotime($value)) : NULL;
-            break;
-
-          case 'created':
-          case 'changed':
-            // Convert to Unix timestamp for Drupal core fields.
-            $value = !empty($value) ? strtotime($value) : time();
-            break;
-
-          case 'field_is_mfa':
-            // Convert to boolean or specific string.
-            $value = ($value === 'Y') ? 'enabled' : 'disabled';
-            break;
-
-          case 'field_profile_completeness_score':
-            $value = (int) $value;
-            break;
-
-          case 'field_two_factor_method':
-            // Convert boolean 'isMFA' to appropriate value.
-            $value = $value === '1' ? 'enabled' : 'disabled';
-            break;
-
-          case 'field_security_level':
-            // Map access_cd to security level values.
-            $value = !empty($value) ? $value : 'standard';
-            break;
-
-          case 'field_account_risk_level':
-            // Map permit_status_cd to risk level values.
-            $value = !empty($value) ? $value : 'normal';
-            break;
-
-          case 'status':
-            // If isDisabled is 'N', set status to 1 (active), otherwise 0 (blocked)
-            $value = ($value === 'N') ? 1 : 0;
-            break;
-        }
-
-        $user->set($drupal_field, $value);
+      if (!empty($existing_users)) {
+        $user = reset($existing_users);
+        print("Updating existing user: $email\n");
+        $stat_key = $is_limbo ? 'limbo_updated' : 'updated';
+        $stats[$stat_key]++;
       }
+      else {
+        $user = User::create();
+        $stat_key = $is_limbo ? 'limbo_created' : 'created';
+        $stats[$stat_key]++;
+      }
+
+      // Set basic user fields.
+      $user->setUsername($username);
+      $user->setEmail($email);
+
+      // Set additional fields from CSV.
+      foreach ($field_mapping as $csv_header => $drupal_field) {
+        if (isset($column_indices[$drupal_field]) && isset($data[$column_indices[$drupal_field]])) {
+          $value = $data[$column_indices[$drupal_field]];
+
+          // Handle special field types and conversions.
+          switch ($drupal_field) {
+            case 'field_is_locked':
+            case 'field_is_activated':
+              // Convert to boolean.
+              $value = ($value === 'Y' || $value === '1') ? 1 : 0;
+              break;
+
+            case 'field_permit_issued_date':
+            case 'field_permit_expiration_date':
+            case 'field_mfa_login_timestamp':
+              // Convert to datetime if not empty.
+              $value = !empty($value) ? date('Y-m-d\TH:i:s', strtotime($value)) : NULL;
+              break;
+
+            case 'created':
+            case 'changed':
+              // Convert to Unix timestamp for Drupal core fields.
+              $value = !empty($value) ? strtotime($value) : time();
+              break;
+
+            case 'field_is_mfa':
+              // Convert to boolean or specific string.
+              $value = ($value === 'Y') ? 'enabled' : 'disabled';
+              break;
+
+            case 'field_profile_completeness_score':
+              $value = (int) $value;
+              break;
+
+            case 'field_two_factor_method':
+              // Convert boolean 'isMFA' to appropriate value.
+              $value = $value === '1' ? 'enabled' : 'disabled';
+              break;
+
+            case 'field_security_level':
+              // Map access_cd to security level values.
+              $value = !empty($value) ? $value : 'standard';
+              break;
+
+            case 'field_account_risk_level':
+              // Map permit_status_cd to risk level values.
+              $value = !empty($value) ? $value : 'normal';
+              break;
+
+            case 'status':
+              // For limbo records, always set status to 0 (blocked)
+              // For regular records, if isDisabled is 'N', set status to 1 (active), otherwise 0 (blocked)
+              $value = $is_limbo ? 0 : (($value === 'N') ? 1 : 0);
+              break;
+          }
+
+          $user->set($drupal_field, $value);
+        }
+      }
+
+      // For limbo records, set the status to 0 (blocked)
+      if ($is_limbo) {
+        $user->set('status', 0);
+      }
+
+      // Save the user without checking the return value.
+      $user->save();
+
+      // If we get here, the save was successful (no exception thrown)
+      if ($is_limbo) {
+        $_falcon_successful_limbo_imports++;
+        print("Successfully saved limbo user: " . $user->getAccountName() . " (" . $user->getEmail() . ") - Import #$_falcon_successful_limbo_imports/$limit\n");
+      }
+      else {
+        $_falcon_successful_imports++;
+        print("Successfully saved user: " . $user->getAccountName() . " (" . $user->getEmail() . ") - Import #$_falcon_successful_imports/$limit\n");
+      }
+
     }
-
-    // Save the user without checking the return value.
-    $user->save();
-
-    // If we get here, the save was successful (no exception thrown)
-    $successful_imports++;
-    print("Successfully saved user: " . $user->getAccountName() . " (" . $user->getEmail() . ") - Import #$successful_imports/$limit\n");
-
-    // No need for an additional check here as the while loop condition will stop the loop.
+    catch (Exception $e) {
+      print("Error processing user: " . $e->getMessage() . "\n");
+      $stat_key = $is_limbo ? 'limbo_errors' : 'errors';
+      $stats[$stat_key]++;
+    }
   }
-  catch (Exception $e) {
-    print("Error processing user: " . $e->getMessage() . "\n");
-    $stats['errors']++;
-  }
+
+  // Close file.
+  fclose($file);
+  return TRUE;
 }
 
-// Close file.
-fclose($file);
+// Print the user limit we're enforcing.
+print("Importing with a limit of $limit users per type...\n\n");
+
+// Process regular records.
+print("Processing regular records...\n");
+process_csv_file($filename, $stats, $limit, $field_mapping, FALSE);
+
+// Process limbo records.
+print("\nProcessing limbo records...\n");
+process_csv_file($limbo_filename, $stats, $limit, $field_mapping, TRUE);
 
 // Output import statistics.
 print("\nImport completed.\n");
-print("Processed rows: {$stats['processed']}\n");
-print("Users created: {$stats['created']}\n");
-print("Users updated: {$stats['updated']}\n");
-print("Rows skipped: {$stats['skipped']}\n");
-print("Errors: {$stats['errors']}\n");
-print("Total successful imports: $successful_imports\n");
+print("Regular records:\n");
+print("  Processed rows: {$stats['processed']}\n");
+print("  Users created: {$stats['created']}\n");
+print("  Users updated: {$stats['updated']}\n");
+print("  Rows skipped: {$stats['skipped']}\n");
+print("  Errors: {$stats['errors']}\n");
+print("  Total successful imports: $_falcon_successful_imports\n");
 
-if ($successful_imports >= $limit) {
-  print("Import LIMIT REACHED ($limit users). Additional users were not imported.\n");
+print("\nLimbo records:\n");
+print("  Processed rows: {$stats['limbo_processed']}\n");
+print("  Users created: {$stats['limbo_created']}\n");
+print("  Users updated: {$stats['limbo_updated']}\n");
+print("  Rows skipped: {$stats['limbo_skipped']}\n");
+print("  Errors: {$stats['limbo_errors']}\n");
+print("  Total successful imports: $_falcon_successful_limbo_imports\n");
+
+if ($_falcon_successful_imports >= $limit) {
+  print("Regular import LIMIT REACHED ($limit users).\n");
+}
+if ($_falcon_successful_limbo_imports >= $limit) {
+  print("Limbo import LIMIT REACHED ($limit users).\n");
 }
 
 // Print out available fields for debugging.

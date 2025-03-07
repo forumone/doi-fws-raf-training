@@ -1,3 +1,4 @@
+uuid: 93fe62ad-dcc8-4a70-b2ef-c00acaf2fe16
 langcode: en
 status: true
 dependencies:
@@ -5,13 +6,13 @@ dependencies:
     - field.storage.node.field_species_image
     - node.type.species_image
   module:
-    - file
+    - image
 id: node.species_image.field_species_image
 field_name: field_species_image
 entity_type: node
 bundle: species_image
 label: 'Species Image'
-description: 'The species image file from the CSV.'
+description: ''
 required: false
 translatable: true
 default_value: {  }
@@ -20,7 +21,18 @@ settings:
   handler: 'default:file'
   handler_settings: {  }
   file_directory: species_images
-  file_extensions: 'jpg jpeg png gif'
+  file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
-  description_field: true
-field_type: file
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

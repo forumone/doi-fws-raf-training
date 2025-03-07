@@ -1,3 +1,4 @@
+uuid: 609ba215-5e85-4ba4-a25b-054895a0a961
 langcode: en
 status: true
 dependencies:
@@ -9,7 +10,7 @@ field_name: field_recno
 entity_type: node
 bundle: species_image
 label: 'Record Number'
-description: 'The record number from the CSV.'
+description: ''
 required: true
 translatable: true
 default_value: {  }

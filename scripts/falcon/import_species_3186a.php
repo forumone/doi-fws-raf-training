@@ -15,9 +15,15 @@ if (!empty($extra[0]) && is_numeric($extra[0])) {
 }
 
 $csv_file = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_dad_3186a_master_202502271311.csv';
+$limbo_csv_file = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_dad_3186a_master_limbo_202502271311.csv';
 
 if (!file_exists($csv_file)) {
   echo "CSV file not found at: $csv_file\n";
+  exit(1);
+}
+
+if (!file_exists($limbo_csv_file)) {
+  echo "Limbo CSV file not found at: $limbo_csv_file\n";
   exit(1);
 }
 
@@ -28,7 +34,7 @@ if ($limit !== NULL) {
 /**
  * Maps CSV data to Permit 3186A nodes.
  */
-class import_species_3186a {
+class ImportSpecies3186a {
   /**
    * The maximum number of rows to process.
    *
@@ -328,11 +334,13 @@ class import_species_3186a {
    *
    * @param string $file_path
    *   The path to the CSV file.
+   * @param bool $is_limbo
+   *   Whether this is processing limbo records.
    *
    * @throws \Exception
    *   If the file cannot be opened or processed.
    */
-  public function processFile(string $file_path) {
+  public function processFile(string $file_path, bool $is_limbo = FALSE) {
     if (($handle = fopen($file_path, 'r')) === FALSE) {
       throw new Exception("Could not open file: $file_path");
     }
@@ -355,12 +363,21 @@ class import_species_3186a {
 
       try {
         $values = $this->mapRow($row);
+
+        // Set status for limbo records.
+        if ($is_limbo) {
+          // Unpublished.
+          $values['status'] = 0;
+          // Mark as deleted with current timestamp.
+          $values['deleted'] = time();
+        }
+
         $node = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->create($values);
         $node->save();
         $success_count++;
-        echo "Created node {$node->id()} for record {$row['recno']}\n";
+        echo "Created node {$node->id()} for record {$row['recno']}" . ($is_limbo ? " (limbo/deleted)" : "") . "\n";
       }
       catch (Exception $e) {
         $error_count++;
@@ -370,7 +387,7 @@ class import_species_3186a {
 
     fclose($handle);
 
-    echo "\nProcessing complete:\n";
+    echo "\nProcessing complete for " . ($is_limbo ? "limbo" : "active") . " records:\n";
     echo "Total rows processed: $row_count\n";
     echo "Successful imports: $success_count\n";
     echo "Errors: $error_count\n";
@@ -379,8 +396,15 @@ class import_species_3186a {
 }
 
 try {
-  $mapper = new import_species_3186a($limit);
+  $mapper = new ImportSpecies3186a($limit);
+
+  // Process regular records.
+  echo "\nProcessing regular records...\n";
   $mapper->processFile($csv_file);
+
+  // Process limbo records.
+  echo "\nProcessing limbo records...\n";
+  $mapper->processFile($limbo_csv_file, TRUE);
 }
 catch (Exception $e) {
   echo "Error: {$e->getMessage()}\n";

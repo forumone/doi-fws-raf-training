@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.species_image.field_type_of_image
     - node.type.species_image
   module:
-    - file
+    - image
     - user
 id: node.species_image.default
 targetEntityType: node
@@ -59,10 +59,13 @@ content:
     weight: 1
     region: content
   field_species_image:
-    type: file_default
+    type: image
     label: above
     settings:
-      use_description_as_link_text: true
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 6
     region: content

@@ -1,3 +1,4 @@
+uuid: d71e74b9-dfd8-4f95-b165-143d5b87acae
 langcode: en
 status: true
 dependencies:
@@ -9,10 +10,12 @@ field_name: field_owner_state
 entity_type: node
 bundle: species_image
 label: 'Owner State'
-description: 'The owner state from the CSV.'
+description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: string
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference
