@@ -51,7 +51,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://aerial.ddev.site/pilot-biologists-our-eyes-sky'
+        href: '/pilot-biologists-our-eyes-sky'
   path:
     -
       alias: /pilot-biologists-our-eyes-sky
