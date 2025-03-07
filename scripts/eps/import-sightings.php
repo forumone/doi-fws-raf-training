@@ -10,7 +10,7 @@
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
-$filename = '../scripts/eps/data/sightings_export.csv';
+$filename = '../scripts/eps/data/sightings_export-updated.csv';
 
 if (!file_exists($filename)) {
   print("File not found: $filename\n");
@@ -29,6 +29,12 @@ $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitio
 print("\nAvailable fields for sighting content type:\n");
 foreach ($field_definitions as $field_name => $field_definition) {
   print($field_name . " => " . $field_definition->getType() . "\n");
+}
+
+// Check if field_year exists.
+$has_field_year = isset($field_definitions['field_year']);
+if (!$has_field_year) {
+  print("\nWARNING: field_year field not found. Year data will not be imported.\n");
 }
 
 // Open CSV file.
@@ -88,27 +94,29 @@ try {
           'value' => date('Y-m-d\TH:i:s', strtotime($data['Date & Time'])),
         ];
 
-        // Set the year taxonomy reference.
-        $year = date('Y', strtotime($data['Date & Time']));
-        $term_id = \Drupal::entityQuery('taxonomy_term')
-          ->condition('vid', 'year')
-          ->condition('name', $year)
-          ->accessCheck(FALSE)
-          ->execute();
+        // Set the year taxonomy reference if field_year exists.
+        if ($has_field_year) {
+          $year = date('Y', strtotime($data['Date & Time']));
+          $term_id = \Drupal::entityQuery('taxonomy_term')
+            ->condition('vid', 'year')
+            ->condition('name', $year)
+            ->accessCheck(FALSE)
+            ->execute();
 
-        if (empty($term_id)) {
-          $term = Term::create([
-            'name' => $year,
-            'vid' => 'year',
-          ]);
-          $term->save();
-          $term_id = $term->id();
-        }
-        else {
-          $term_id = reset($term_id);
-        }
+          if (empty($term_id)) {
+            $term = Term::create([
+              'name' => $year,
+              'vid' => 'year',
+            ]);
+            $term->save();
+            $term_id = $term->id();
+          }
+          else {
+            $term_id = reset($term_id);
+          }
 
-        $node->set('field_year', ['target_id' => $term_id]);
+          $node->set('field_year', ['target_id' => $term_id]);
+        }
       }
 
       if (!empty($data['Habitat'])) {
@@ -146,6 +154,10 @@ try {
       }
 
       if (!empty($data['Spotter Username']) && $data['Spotter Username'] !== '.') {
+        // Set the spotter username as the field_spotter value.
+        $node->set('field_spotter', $data['Spotter Username']);
+
+        // Also set the node author if the user exists.
         $users = \Drupal::entityTypeManager()
           ->getStorage('user')
           ->loadByProperties(['name' => $data['Spotter Username']]);
@@ -192,33 +204,35 @@ finally {
   print("Errors: $errors\n");
 }
 
-// Update weights in the 'year' vocabulary to sort by year descending.
-try {
-  $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('year');
-  if ($vocabulary) {
-    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('year', 0, NULL, TRUE);
+// Update weights in the 'year' vocabulary to sort by year descending, if it exists.
+if ($has_field_year) {
+  try {
+    $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('year');
+    if ($vocabulary) {
+      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('year', 0, NULL, TRUE);
 
-    if ($terms) {
-      foreach ($terms as $term) {
-        // Extract year from term name and calculate weight
-        // Most recent year should have lowest weight to appear first.
-        $year = (int) $term->getName();
-        // Makes recent years have lower weights.
-        $weight = -1 * $year;
+      if ($terms) {
+        foreach ($terms as $term) {
+          // Extract year from term name and calculate weight.
+          // Most recent year should have lowest weight to appear first.
+          $year = (int) $term->getName();
+          // Makes recent years have lower weights.
+          $weight = -1 * $year;
 
-        $term->setWeight($weight);
-        $term->save();
+          $term->setWeight($weight);
+          $term->save();
+        }
+        echo "Successfully updated weights in 'year' vocabulary for descending sort order.\n";
       }
-      echo "Successfully updated weights in 'year' vocabulary for descending sort order.\n";
+      else {
+        echo "No terms found in 'year' vocabulary.\n";
+      }
     }
     else {
-      echo "No terms found in 'year' vocabulary.\n";
+      echo "Year vocabulary not found.\n";
     }
   }
-  else {
-    echo "Year vocabulary not found.\n";
+  catch (Exception $e) {
+    echo "Error updating year vocabulary weights: " . $e->getMessage() . "\n";
   }
-}
-catch (Exception $e) {
-  echo "Error updating year vocabulary weights: " . $e->getMessage() . "\n";
 }
