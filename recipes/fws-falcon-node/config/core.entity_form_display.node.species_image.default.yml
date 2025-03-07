@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.species_image.field_type_of_image
     - node.type.species_image
   module:
-    - file
+    - image
     - path
 id: node.species_image.default
 targetEntityType: node
@@ -65,11 +65,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_species_image:
-    type: file_generic
+    type: image_image
     weight: 6
     region: content
     settings:
       progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   field_type_of_image:
     type: string_textfield

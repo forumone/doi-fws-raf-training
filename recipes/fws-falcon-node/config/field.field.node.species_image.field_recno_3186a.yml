@@ -1,3 +1,4 @@
+uuid: 3fa11895-b203-4057-901e-aa303dcbcc3a
 langcode: en
 status: true
 dependencies:
@@ -8,8 +9,8 @@ id: node.species_image.field_recno_3186a
 field_name: field_recno_3186a
 entity_type: node
 bundle: species_image
-label: 'Record Number 3186a'
-description: 'The record number 3186a from the CSV.'
+label: 'Record Number 3186A'
+description: ''
 required: false
 translatable: true
 default_value: {  }

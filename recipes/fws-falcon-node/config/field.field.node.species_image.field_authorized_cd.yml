@@ -1,3 +1,4 @@
+uuid: 6c8f8a9e-c233-4c1d-b930-447e35da77b3
 langcode: en
 status: true
 dependencies:
@@ -9,7 +10,7 @@ field_name: field_authorized_cd
 entity_type: node
 bundle: species_image
 label: 'Authorized Code'
-description: 'The authorized code from the CSV.'
+description: ''
 required: false
 translatable: true
 default_value: {  }

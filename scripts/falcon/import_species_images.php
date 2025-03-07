@@ -8,6 +8,7 @@
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
+use Drupal\taxonomy\Entity\Term;
 
 // Field mapping configuration.
 $field_mapping = [
@@ -47,6 +48,9 @@ if (!$header) {
   fclose($handle);
   exit(1);
 }
+
+// Cache for state taxonomy terms to avoid repeated lookups
+$state_term_cache = [];
 
 // Process each row.
 while (($row = fgetcsv($handle)) !== FALSE) {
@@ -97,6 +101,42 @@ while (($row = fgetcsv($handle)) !== FALSE) {
           else {
             throw new \Exception("Invalid base64 image data for record: " . $data['recno']);
           }
+        }
+      }
+      else if ($csv_field === 'owner_state') {
+        // Special handling for the state taxonomy reference field
+        if (!empty($data[$csv_field])) {
+          $state_code = $data[$csv_field];
+          
+          // Get the taxonomy term ID for the state code
+          if (!isset($state_term_cache[$state_code])) {
+            // Look up the taxonomy term by name
+            $terms = \Drupal::entityTypeManager()
+              ->getStorage('taxonomy_term')
+              ->loadByProperties([
+                'vid' => 'state', // Assuming the vocabulary ID is 'state'
+                'name' => $state_code,
+              ]);
+            
+            if (!empty($terms)) {
+              $term = reset($terms);
+              $state_term_cache[$state_code] = $term->id();
+              echo "Found term ID {$term->id()} for state: $state_code\n";
+            } else {
+              // Create the term if it doesn't exist
+              echo "State term not found for $state_code, creating it...\n";
+              $new_term = Term::create([
+                'vid' => 'state',
+                'name' => $state_code,
+              ]);
+              $new_term->save();
+              $state_term_cache[$state_code] = $new_term->id();
+              echo "Created new state term with ID {$new_term->id()} for: $state_code\n";
+            }
+          }
+          
+          // Set the term reference
+          $node->set($drupal_field, ['target_id' => $state_term_cache[$state_code]]);
         }
       }
       else {
