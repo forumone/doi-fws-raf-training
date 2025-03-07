@@ -3,6 +3,8 @@
 namespace Drupal\fws_counting\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller for the counting quiz page.
@@ -228,14 +230,19 @@ class CountingQuizController extends ControllerBase {
       ];
     }, $images);
 
-    // Get the viewing time based on the difficulty level
+    // Get the viewing time based on the difficulty level.
     $difficulty_level = $experience_term->get('field_difficulty_level')->value;
     $viewing_time = match ((int) $difficulty_level) {
       1 => 10,
       2 => 6,
       3 => 3,
-      default => 6, // Default to 6 seconds if level is not set
+      // Default to 6 seconds if level is not set.
+      default => 6,
     };
+
+    // Create a results node to track the quiz progress.
+    $quiz_results_service = \Drupal::service('fws_counting.quiz_results');
+    $results_node = $quiz_results_service->createResultsNode($experience_term, $size_terms, $images);
 
     return [
       '#theme' => 'counting_quiz',
@@ -245,6 +252,7 @@ class CountingQuizController extends ControllerBase {
       }, $size_terms),
       '#images' => $images,
       '#viewing_time' => $viewing_time,
+      '#results_node_id' => $results_node->id(),
       '#attached' => [
         'library' => [
           'fws_counting/quiz',
@@ -252,10 +260,83 @@ class CountingQuizController extends ControllerBase {
         'drupalSettings' => [
           'fwsCounting' => [
             'quizContext' => $quiz_context,
+            'resultsNodeId' => $results_node->id(),
           ],
         ],
       ],
     ];
+  }
+
+  /**
+   * Saves a quiz answer.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The request object.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   A JSON response.
+   */
+  public function saveAnswer(Request $request) {
+    $content = $request->getContent();
+    $data = json_decode($content, TRUE);
+
+    // Validate required fields.
+    if (empty($data['nodeId']) ||
+        !isset($data['questionIndex']) ||
+        !isset($data['userCount']) ||
+        !isset($data['actualCount'])) {
+      return new JsonResponse(
+        ['success' => FALSE, 'message' => 'Missing required fields.'],
+        400
+      );
+    }
+
+    // Save the answer.
+    $quiz_results_service = \Drupal::service('fws_counting.quiz_results');
+    $success = $quiz_results_service->updateQuestionResult(
+      $data['nodeId'],
+      $data['questionIndex'],
+      $data['userCount'],
+      $data['actualCount']
+    );
+
+    if ($success) {
+      return new JsonResponse(['success' => TRUE]);
+    }
+    else {
+      return new JsonResponse(
+        ['success' => FALSE, 'message' => 'Failed to save answer.'],
+        500
+      );
+    }
+  }
+
+  /**
+   * Gets the quiz results.
+   *
+   * @param int $node_id
+   *   The node ID.
+   *
+   * @return array
+   *   A render array for the results.
+   */
+  public function getResults($node_id) {
+    $quiz_results_service = \Drupal::service('fws_counting.quiz_results');
+    $node = $this->entityTypeManager()->getStorage('node')->load($node_id);
+
+    if (!$node || $node->bundle() !== 'species_counting_results') {
+      return [
+        '#markup' => $this->t('Results not found.'),
+        '#prefix' => '<div class="alert alert-warning">',
+        '#suffix' => '</div>',
+      ];
+    }
+
+    // Build the view of the node.
+    $view_builder = $this->entityTypeManager()->getViewBuilder('node');
+    $view = $view_builder->view($node, 'default');
+
+    return $view;
   }
 
 }
