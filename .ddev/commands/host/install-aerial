@@ -29,12 +29,13 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-media
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-tests
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-user
+ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-reports
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-users.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-photos.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-videos.php
 # Import sample test data.
-ddev drush -l $SITE_URI scr ../scripts/aerial/import_test_data.php 10
+ddev drush -l $SITE_URI scr ../scripts/aerial/import_test_data.php 20
 ddev drush -l $SITE_URI cr
 
 ddev drush -l $SITE_URI uli
