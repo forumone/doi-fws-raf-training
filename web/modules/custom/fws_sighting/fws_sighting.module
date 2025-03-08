@@ -214,3 +214,51 @@ function fws_sighting_theme() {
     ],
   ];
 }
+
+/**
+ * Implements hook_node_insert().
+ */
+function fws_sighting_node_insert(NodeInterface $node) {
+  // Only act on sighting nodes.
+  if ($node->getType() != 'sighting') {
+    return;
+  }
+
+  // Check if field_spotter exists and is empty.
+  if ($node->hasField('field_spotter') && empty($node->get('field_spotter')->value)) {
+    // Get the node author.
+    $author = $node->getOwner();
+
+    // Check if the author has first and last name fields.
+    if ($author && $author->hasField('field_first_name') && $author->hasField('field_last_name')) {
+      $first_name = $author->get('field_first_name')->value;
+      $last_name = $author->get('field_last_name')->value;
+
+      // If both first and last name are available, use them.
+      if (!empty($first_name) && !empty($last_name)) {
+        $spotter_name = $first_name . ' ' . $last_name;
+        $node->set('field_spotter', $spotter_name);
+        $node->save();
+      }
+      // If only one is available, use what we have.
+      elseif (!empty($first_name)) {
+        $node->set('field_spotter', $first_name);
+        $node->save();
+      }
+      elseif (!empty($last_name)) {
+        $node->set('field_spotter', $last_name);
+        $node->save();
+      }
+      // If neither is available, use the username.
+      else {
+        $node->set('field_spotter', $author->getAccountName());
+        $node->save();
+      }
+    }
+    // If the author doesn't have first/last name fields, use the username.
+    else {
+      $node->set('field_spotter', $author->getAccountName());
+      $node->save();
+    }
+  }
+}
