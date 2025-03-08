@@ -8,6 +8,7 @@ additional_hostnames:
   - eps
   - aerial
   - falcon
+  - rcgr
 additional_fqdns: []
 database:
     type: mariadb
@@ -16,6 +17,7 @@ additional_databases:
   - eps
   - falcon
   - aerial
+  - rcgr
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []

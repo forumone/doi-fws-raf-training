@@ -1,0 +1,50 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: TRUE
+  title:
+    -
+      value: View / Print Registration Form
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/profile/registration-form'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: FALSE
+  rediscover:
+    -
+      value: FALSE
+  weight:
+    -
+      value: 4
+  expanded:
+    -
+      value: FALSE
+  parent:
+    -
+      value: 'menu_link_content:9b2f6e74-8d53-5f0a-b4f2-0e7c9d5f6e8a'
+  revision_translation_affected:
+    -
+      value: TRUE
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'View / Print Registration Form | FWS: RCGR'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'internal:/profile/registration-form'

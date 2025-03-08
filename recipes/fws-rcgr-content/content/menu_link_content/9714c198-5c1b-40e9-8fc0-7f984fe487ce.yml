@@ -1,0 +1,47 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 9714c198-5c1b-40e9-8fc0-7f984fe487ce
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: Disclaimers
+  menu_name:
+    -
+      value: footer-menu-legal
+  link:
+    -
+      uri: 'internal:/'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -46
+  expanded:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: State/Federal Falconry 3-186A Database'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://falcon.ddev.site/page/about-aerial-observer-training'

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+## Description: Install the RCGR multisite
+## Usage: install-rcgr
+## Example: "ddev install-rcgr"
+
+ddev composer install
+
+# Ensure we're using the correct site URI
+SITE_URI="rcgr.ddev.site"
+
+# Run the site installation
+ddev drush -l $SITE_URI site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Resident Canada Goose Registration"
+
+# Install recipes
+ddev drush -l $SITE_URI recipe ../recipes/fws-core
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI scr ../scripts/rcgr/install-cleanup.php
+ddev drush -l $SITE_URI cr
+ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-content
+ddev drush -l $SITE_URI cr
+
+ddev drush -l $SITE_URI uli
