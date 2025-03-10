@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_permit_no
+  module:
+    - user
+id: user.user.field_permit_no
+field_name: field_permit_no
+entity_type: user
+bundle: user
+label: 'Permit Number'
+description: 'Unique identifier for the user permit'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 50
+  case_sensitive: true
+field_type: string

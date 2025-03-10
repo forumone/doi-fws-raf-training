@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dt_permit_expires
+  module:
+    - datetime
+    - user
+id: user.user.field_dt_permit_expires
+field_name: field_dt_permit_expires
+entity_type: user
+bundle: user
+label: 'Permit Expiration Date'
+description: 'Date when the permit expires'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

@@ -1,10 +1,12 @@
-uuid: 9257c420-e80d-4d13-9d8b-b14cf121d473
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.user.user.field_access_cd
-    - field.field.user.user.field_authorized_code
+    - field.field.user.user.field_authorized_cd
+    - field.field.user.user.field_dt_mfa_login
+    - field.field.user.user.field_dt_permit_expires
+    - field.field.user.user.field_dt_permit_issued
     - field.field.user.user.field_failed_login_count
     - field.field.user.user.field_first_name
     - field.field.user.user.field_hid
@@ -13,18 +15,16 @@ dependencies:
     - field.field.user.user.field_is_mfa
     - field.field.user.user.field_last_activity
     - field.field.user.user.field_last_name
-    - field.field.user.user.field_mfa_login_timestamp
     - field.field.user.user.field_mfa_uuid
     - field.field.user.user.field_permit_class
-    - field.field.user.user.field_permit_expiration_date
-    - field.field.user.user.field_permit_issued_date
-    - field.field.user.user.field_permit_number
+    - field.field.user.user.field_permit_no
     - field.field.user.user.field_permit_status_cd
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
     - field.field.user.user.field_rcf_cd
     - field.field.user.user.field_version_no
   module:
+    - datetime
     - user
 _core:
   default_config_hash: WneGN-fUZreuL3vjlSno2bomG9xwtzF74GHObCEjtQI
@@ -44,12 +44,37 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_authorized_code:
+  field_authorized_cd:
     type: string_textfield
     weight: 14
     region: content
     settings:
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_dt_mfa_login:
+    type: datetime_default
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_dt_permit_expires:
+    type: datetime_default
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_dt_permit_issued:
+    type: datetime_default
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_failed_login_count:
+    type: number
+    weight: 16
+    region: content
+    settings:
       placeholder: ''
     third_party_settings: {  }
   field_first_name:
@@ -67,6 +92,20 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_is_activated:
+    type: boolean_checkbox
+    weight: 17
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  field_is_locked:
+    type: boolean_checkbox
+    weight: 18
+    region: content
+    settings:
+      display_label: TRUE
     third_party_settings: {  }
   field_is_mfa:
     type: options_select
@@ -90,9 +129,25 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_mfa_uuid:
+    type: string_textfield
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_permit_class:
     type: string_textfield
     weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_permit_no:
+    type: string_textfield
+    weight: 23
     region: content
     settings:
       size: 60
@@ -144,13 +199,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_failed_login_count: true
-  field_is_activated: true
-  field_is_locked: true
-  field_mfa_login_timestamp: true
-  field_mfa_uuid: true
-  field_permit_expiration_date: true
-  field_permit_issued_date: true
-  field_permit_number: true
   langcode: true
   path: true

@@ -1,10 +1,12 @@
-uuid: 8b9c0d1e-2f3g-4h5i-6j7k-8l9m0n1o2p3q
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.user.user.field_access_cd
-    - field.field.user.user.field_authorized_code
+    - field.field.user.user.field_authorized_cd
+    - field.field.user.user.field_dt_mfa_login
+    - field.field.user.user.field_dt_permit_expires
+    - field.field.user.user.field_dt_permit_issued
     - field.field.user.user.field_failed_login_count
     - field.field.user.user.field_first_name
     - field.field.user.user.field_hid
@@ -13,12 +15,9 @@ dependencies:
     - field.field.user.user.field_is_mfa
     - field.field.user.user.field_last_activity
     - field.field.user.user.field_last_name
-    - field.field.user.user.field_mfa_login_timestamp
     - field.field.user.user.field_mfa_uuid
     - field.field.user.user.field_permit_class
-    - field.field.user.user.field_permit_expiration_date
-    - field.field.user.user.field_permit_issued_date
-    - field.field.user.user.field_permit_number
+    - field.field.user.user.field_permit_no
     - field.field.user.user.field_permit_status_cd
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
@@ -40,13 +39,40 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_authorized_code:
+  field_authorized_cd:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_dt_mfa_login:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_dt_permit_expires:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_dt_permit_issued:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_failed_login_count:
     type: number_integer
@@ -116,15 +142,6 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  field_mfa_login_timestamp:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 13
-    region: content
   field_mfa_uuid:
     type: string
     label: above
@@ -141,25 +158,7 @@ content:
     third_party_settings: {  }
     weight: 15
     region: content
-  field_permit_expiration_date:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  field_permit_issued_date:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_permit_number:
+  field_permit_no:
     type: string
     label: above
     settings:

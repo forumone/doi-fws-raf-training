@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_authorized_cd
+field_name: field_authorized_cd
+entity_type: user
+type: string
+settings:
+  max_length: 50
+  case_sensitive: true
+module: user
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

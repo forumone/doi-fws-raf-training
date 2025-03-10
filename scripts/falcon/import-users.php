@@ -57,13 +57,13 @@ $field_mapping = [
   'isDisabled' => 'status',
 
   // New fields.
-  'authorized_cd' => 'field_authorized_code',
+  'authorized_cd' => 'field_authorized_cd',
   'isLocked' => 'field_is_locked',
   'isActivated' => 'field_is_activated',
-  'permit_no' => 'field_permit_number',
-  'dt_permit_issued' => 'field_permit_issued_date',
-  'dt_permit_expires' => 'field_permit_expiration_date',
-  'dt_mfa_login' => 'field_mfa_login_timestamp',
+  'permit_no' => 'field_permit_no',
+  'dt_permit_issued' => 'field_dt_permit_issued',
+  'dt_permit_expires' => 'field_dt_permit_expires',
+  'dt_mfa_login' => 'field_dt_mfa_login',
   'mfa_uuid' => 'field_mfa_uuid',
   'hid' => 'field_hid',
   // Map dt_create to Drupal core created field.
