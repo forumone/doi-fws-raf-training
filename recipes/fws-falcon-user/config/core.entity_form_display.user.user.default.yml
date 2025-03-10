@@ -273,12 +273,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_state_cd:
-    type: string_textfield
+    type: options_select
     weight: 31
     region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_version_no:
     type: number

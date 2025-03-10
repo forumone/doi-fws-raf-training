@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - taxonomy
     - user
 id: user.field_state_cd
 field_name: field_state_cd
 entity_type: user
-type: string
+type: entity_reference
 settings:
-  max_length: 2
-  case_sensitive: false
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1
