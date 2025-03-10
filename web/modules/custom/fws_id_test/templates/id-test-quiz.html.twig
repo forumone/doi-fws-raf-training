@@ -31,12 +31,12 @@
 
         <div class="quiz__prompt" data-quiz-number="{{ key + 1 }}">
           <div class="video-container">
-            <video controls>
+            <video autoplay muted>
               <source src="{{ video.url }}" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
-          <p class="quiz__help">{{ 'Play the video and select the species viewed on the following panel.'|t }}</p>
+          <p class="quiz__help">{{ 'Watch the video and select the species viewed on the following panel.'|t }}</p>
         </div>
 
         <div class="quiz__response quiz__response--{{ key }}">

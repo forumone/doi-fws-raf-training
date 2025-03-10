@@ -23,8 +23,26 @@
         let currentQuestion = 0;
         let correctAnswers = 0;
         const quizData = drupalSettings.fws_id_test.quiz;
-        const totalQuestions = quizData.videos.length;
+        // const totalQuestions = quizData.videos.length;
         const resultsNodeId = quizData.resultsNodeId;
+
+        // Autoplay the first video when the quiz loads
+        const $firstVideo = $('.quiz__item--0', $quizContainer).find('video')[0];
+        if ($firstVideo) {
+          $firstVideo.play().catch(error => {
+            console.warn('Initial autoplay failed:', error);
+            // Show a play button if autoplay is blocked
+            const $videoContainer = $($firstVideo).closest('.video-container');
+            if (!$videoContainer.find('.manual-play-button').length) {
+              const $playButton = $('<button class="manual-play-button btn btn-primary">Play Video</button>');
+              $videoContainer.append($playButton);
+              $playButton.on('click', function() {
+                $firstVideo.play();
+                $(this).hide();
+              });
+            }
+          });
+        }
 
         function saveQuizAnswer(questionIndex, userAnswer, correctAnswer) {
           if (!resultsNodeId) {
@@ -80,6 +98,20 @@
           const $video = $currentItem.find('video')[0];
           if ($video) {
             $video.currentTime = 0;
+            // Ensure video autoplays
+            $video.play().catch(error => {
+              console.warn('Autoplay failed:', error);
+              // Show a play button or message if autoplay is blocked
+              const $videoContainer = $($video).closest('.video-container');
+              if (!$videoContainer.find('.manual-play-button').length) {
+                const $playButton = $('<button class="manual-play-button btn btn-primary">Play Video</button>');
+                $videoContainer.append($playButton);
+                $playButton.on('click', function() {
+                  $video.play();
+                  $(this).hide();
+                });
+              }
+            });
           }
         }
 
