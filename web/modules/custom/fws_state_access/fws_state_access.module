@@ -10,7 +10,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_entity_access().
@@ -72,36 +71,4 @@ function fws_state_access_entity_create_access(AccountInterface $account, array 
   }
 
   return AccessResult::neutral();
-}
-
-/**
- * Implements hook_entity_reference_selection_alter().
- */
-function fws_state_access_entity_reference_selection_alter(array &$selection_settings, &$context) {
-  if ($context['field_definition']->getName() === 'field_owner_state') {
-    // Ensure we have a proper target bundle set.
-    $selection_settings['target_bundles'] = ['state'];
-
-    // Add sort settings.
-    $selection_settings['sort'] = [
-      'field' => 'field_state_code',
-      'direction' => 'ASC',
-    ];
-  }
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fws_state_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check if this is a node form with our field.
-  if (isset($form['field_owner_state'])) {
-    // Ensure the field uses the proper widget settings.
-    if (isset($form['field_owner_state']['widget'])) {
-      $form['field_owner_state']['widget']['#selection_settings']['sort'] = [
-        'field' => 'field_state_code',
-        'direction' => 'ASC',
-      ];
-    }
-  }
 }

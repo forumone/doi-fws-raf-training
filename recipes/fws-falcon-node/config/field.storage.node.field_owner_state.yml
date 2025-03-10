@@ -1,29 +1,19 @@
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - node
     - taxonomy
-_core:
-  default_config_hash: XHg1A0xwEO1umtMAz8UQxmpiphV1rH-9rV6DjPNupl8
 id: node.field_owner_state
 field_name: field_owner_state
 entity_type: node
 type: entity_reference
 settings:
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      state: state
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+  target_type: taxonomy_term
 module: core
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false
