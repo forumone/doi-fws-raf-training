@@ -42,6 +42,19 @@
           let timeLeft = totalSeconds;
           updateTimerDisplay(timeLeft, totalSeconds);
 
+          // Set animation duration to match the timer
+          const $currentImage = $('.quiz__item--' + currentQuestion, $quizContainer).find('.quiz__prompt img');
+
+          // Calculate a slightly longer animation duration to prevent jerking at the end
+          // By making it longer than the viewing time, we ensure the animation doesn't complete before the timer ends
+          const animationDuration = totalSeconds * 1.5; // 50% longer than the timer
+          $currentImage.css({
+            'animation-duration': animationDuration + 's',
+            'animation-play-state': 'running',
+            'animation-iteration-count': '1', // Only run once to prevent reset
+            'animation-fill-mode': 'forwards' // Keep the final state
+          });
+
           // Clear any existing intervals
           if (countdownInterval) {
             clearInterval(countdownInterval);
@@ -53,6 +66,8 @@
 
             if (timeLeft <= 0) {
               clearInterval(countdownInterval);
+              // Pause the animation when time is up to prevent any jerking
+              $currentImage.css('animation-play-state', 'paused');
               $('.quiz__item--' + currentQuestion, $quizContainer).find('.quiz__prompt').slideUp();
               $('.quiz__response', $('.quiz__item--' + currentQuestion, $quizContainer)).slideDown();
             }
@@ -111,6 +126,14 @@
           const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
           $currentItem.show();
           $('.quiz__response', $currentItem).hide();
+
+          // Reset the animation state for the new image
+          // First, remove any inline styles that might have been applied
+          const $newImage = $currentItem.find('.quiz__prompt img');
+          $newImage.removeAttr('style');
+
+          // Force a reflow to ensure the animation restarts properly
+          void $newImage[0].offsetWidth;
 
           // Update the quiz tracker
           $('.quiz__tracker').text(`#${currentQuestion + 1}`);
