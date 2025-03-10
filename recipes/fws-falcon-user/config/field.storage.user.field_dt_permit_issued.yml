@@ -10,6 +10,7 @@ entity_type: user
 type: datetime
 settings:
   datetime_type: datetime
+  datetime_precision: 6
 module: datetime
 locked: false
 cardinality: 1

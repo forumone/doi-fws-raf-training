@@ -173,11 +173,27 @@ function process_csv_file($file_path, &$stats, $limit, $field_mapping, $is_limbo
               $value = ($value === 'Y' || $value === '1') ? 1 : 0;
               break;
 
-            case 'field_permit_issued_date':
-            case 'field_permit_expiration_date':
-            case 'field_mfa_login_timestamp':
-              // Convert to datetime if not empty.
-              $value = !empty($value) ? date('Y-m-d\TH:i:s', strtotime($value)) : NULL;
+            case 'field_dt_permit_issued':
+            case 'field_dt_permit_expires':
+            case 'field_dt_mfa_login':
+              // Convert to datetime if not empty, using ISO 8601 format.
+              if (!empty($value)) {
+                // Remove milliseconds if present.
+                $value = preg_replace('/\.\d+$/', '', $value);
+                if (strtotime($value) !== FALSE) {
+                  $datetime = date('Y-m-d\TH:i:s', strtotime($value));
+                  $value = [
+                    'value' => $datetime,
+                  ];
+                }
+                else {
+                  print("Warning: Could not parse date value: $value\n");
+                  $value = NULL;
+                }
+              }
+              else {
+                $value = NULL;
+              }
               break;
 
             case 'created':
