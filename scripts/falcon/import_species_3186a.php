@@ -155,6 +155,7 @@ class ImportSpecies3186a {
     'field_recipient_trans_type_cd' => 'type_of_transfer',
     'field_sender_release_cd' => 'if_release_or_loss',
     'field_species_age' => 'age',
+    'field_owner_state' => 'state',
   ];
 
   /**
@@ -164,7 +165,6 @@ class ImportSpecies3186a {
    */
   protected $stringFields = [
     'field_authorized_cd',
-    'field_owner_state',
     'field_owner_access_cd',
     'field_rcf_cd',
   ];
