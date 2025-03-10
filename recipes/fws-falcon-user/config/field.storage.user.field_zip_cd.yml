@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_zip_cd
+field_name: field_zip_cd
+entity_type: user
+type: string
+settings:
+  max_length: 10
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

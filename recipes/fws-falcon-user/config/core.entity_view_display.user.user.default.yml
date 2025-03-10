@@ -3,11 +3,19 @@ status: true
 dependencies:
   config:
     - field.field.user.user.field_access_cd
+    - field.field.user.user.field_address_l1
+    - field.field.user.user.field_address_l2
+    - field.field.user.user.field_address_l3
+    - field.field.user.user.field_address_l4
+    - field.field.user.user.field_address_l5
+    - field.field.user.user.field_address_l6
     - field.field.user.user.field_authorized_cd
+    - field.field.user.user.field_city
     - field.field.user.user.field_dt_mfa_login
     - field.field.user.user.field_dt_permit_expires
     - field.field.user.user.field_dt_permit_issued
     - field.field.user.user.field_failed_login_count
+    - field.field.user.user.field_falcon_address
     - field.field.user.user.field_first_name
     - field.field.user.user.field_hid
     - field.field.user.user.field_is_activated
@@ -15,14 +23,18 @@ dependencies:
     - field.field.user.user.field_is_mfa
     - field.field.user.user.field_last_activity
     - field.field.user.user.field_last_name
+    - field.field.user.user.field_middle_name
     - field.field.user.user.field_mfa_uuid
     - field.field.user.user.field_permit_class
     - field.field.user.user.field_permit_no
     - field.field.user.user.field_permit_status_cd
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
+    - field.field.user.user.field_possess_eagle
     - field.field.user.user.field_rcf_cd
+    - field.field.user.user.field_state_cd
     - field.field.user.user.field_version_no
+    - field.field.user.user.field_zip_cd
   module:
     - datetime
     - options
@@ -39,6 +51,54 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_address_l1:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_address_l2:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_address_l3:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_address_l4:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_address_l5:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 28
+    region: content
+  field_address_l6:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 29
+    region: content
   field_authorized_cd:
     type: string
     label: above
@@ -46,6 +106,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 30
     region: content
   field_dt_mfa_login:
     type: datetime_default
@@ -82,6 +150,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_falcon_address:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 23
     region: content
   field_first_name:
     type: string
@@ -142,6 +218,14 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
+  field_middle_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_mfa_uuid:
     type: string
     label: above
@@ -189,12 +273,30 @@ content:
     third_party_settings: {  }
     weight: 21
     region: content
+  field_possess_eagle:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 33
+    region: content
   field_rcf_cd:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 22
+    region: content
+  field_state_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 31
     region: content
   field_version_no:
     type: number_integer
@@ -204,6 +306,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 25
+    region: content
+  field_zip_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 32
     region: content
   member_for:
     settings: {  }

@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_umcp
+field_name: field_umcp
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

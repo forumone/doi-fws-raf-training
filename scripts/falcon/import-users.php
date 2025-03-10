@@ -44,6 +44,7 @@ $field_mapping = [
   'userid' => 'name',
   'user_email' => 'mail',
   'user_first_name' => 'field_first_name',
+  'user_middle_name' => 'field_middle_name',
   'user_last_name' => 'field_last_name',
   'user_phone1' => 'field_phone1',
   'user_phone2' => 'field_phone2',
@@ -55,6 +56,7 @@ $field_mapping = [
   'rcf_cd' => 'field_rcf_cd',
   'version_no' => 'field_version_no',
   'isDisabled' => 'status',
+  'failed_login_count' => 'field_failed_login_count',
 
   // New fields.
   'authorized_cd' => 'field_authorized_cd',
@@ -66,6 +68,17 @@ $field_mapping = [
   'dt_mfa_login' => 'field_dt_mfa_login',
   'mfa_uuid' => 'field_mfa_uuid',
   'hid' => 'field_hid',
+  'falcon_address' => 'field_falcon_address',
+  'address_l1' => 'field_address_l1',
+  'address_l2' => 'field_address_l2',
+  'address_l3' => 'field_address_l3',
+  'address_l4' => 'field_address_l4',
+  'address_l5' => 'field_address_l5',
+  'address_l6' => 'field_address_l6',
+  'city' => 'field_city',
+  'state_cd' => 'field_state_cd',
+  'zip_cd' => 'field_zip_cd',
+  'possess_eagle' => 'field_possess_eagle',
   // Map dt_create to Drupal core created field.
   'dt_create' => 'created',
   // Map dt_update to Drupal core changed field.

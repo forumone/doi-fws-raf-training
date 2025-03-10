@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_address_l5
+  module:
+    - user
+id: user.user.field_address_l5
+field_name: field_address_l5
+entity_type: user
+bundle: user
+label: 'Address Line 5'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  case_sensitive: false
+field_type: string

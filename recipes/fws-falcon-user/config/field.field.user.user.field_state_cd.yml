@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_state_cd
+  module:
+    - user
+id: user.user.field_state_cd
+field_name: field_state_cd
+entity_type: user
+bundle: user
+label: 'State'
+description: 'Two-letter state code.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 2
+  case_sensitive: false
+field_type: string

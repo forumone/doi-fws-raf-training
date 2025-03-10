@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_umcp
+  module:
+    - user
+id: user.user.field_umcp
+field_name: field_umcp
+entity_type: user
+bundle: user
+label: 'UMCP'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
