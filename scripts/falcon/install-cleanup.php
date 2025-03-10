@@ -131,3 +131,10 @@ foreach ($users as $username => $role) {
     echo "User '$username' already exists, skipping creation.\n";
   }
 }
+
+// Assign state value 'AR' for user state_admin in field_state_cd.
+$user = User::load('state_admin');
+if ($user) {
+  $user->set('field_state_cd', 'AR');
+  $user->save();
+}

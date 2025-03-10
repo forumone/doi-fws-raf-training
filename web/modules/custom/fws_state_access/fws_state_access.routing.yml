@@ -1,0 +1,7 @@
+fws_state_access.test:
+  path: '/admin/fws-state-access/test/{node}'
+  defaults:
+    _controller: '\Drupal\fws_state_access\Controller\StateAccessController::testAccess'
+    _title: 'Test State Access'
+  requirements:
+    _permission: 'administer state based access'

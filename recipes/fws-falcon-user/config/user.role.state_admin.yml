@@ -12,4 +12,6 @@ weight: 3
 is_admin: false
 permissions:
   - 'create users'
-  - 'administer state based access'
+  - 'access state based content'
+  - 'edit any permit_3186a content'
+  - 'edit any species_image content'
