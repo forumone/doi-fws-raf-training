@@ -1,0 +1,15 @@
+uuid: e26650fc-336a-41a2-94d1-b98bd87d7a02
+langcode: en
+status: true
+dependencies:
+  module:
+    - create_user_permission
+_core:
+  default_config_hash: WINBNhvLz_f0NUPoNAXs43yoHtxQnRPF7lSV91tQbCQ
+id: state_admin
+label: 'State Admin'
+weight: 3
+is_admin: false
+permissions:
+  - 'create users'
+  - 'administer state based access'

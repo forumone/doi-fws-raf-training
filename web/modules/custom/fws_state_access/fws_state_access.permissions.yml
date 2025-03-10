@@ -1,0 +1,4 @@
+administer state based access:
+  title: 'Administer state-based access'
+  description: 'Allow users to manage content within their assigned state.'
+  restrict access: TRUE

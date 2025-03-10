@@ -11,7 +11,15 @@ field_name: field_owner_state
 entity_type: node
 type: entity_reference
 settings:
-  target_type: taxonomy_term
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      state: state
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 module: core
 locked: FALSE
 cardinality: 1
