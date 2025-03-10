@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_authorized_by
+  module:
+    - user
+id: user.user.field_authorized_by
+field_name: field_authorized_by
+entity_type: user
+bundle: user
+label: 'Authorized By'
+description: 'User who authorized this account'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  case_sensitive: false
+field_type: string

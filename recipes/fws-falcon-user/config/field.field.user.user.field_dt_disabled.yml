@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dt_disabled
+  module:
+    - datetime
+    - user
+id: user.user.field_dt_disabled
+field_name: field_dt_disabled
+entity_type: user
+bundle: user
+label: 'Disable Date'
+description: 'Date when the user account was disabled'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

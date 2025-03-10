@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dt_authorized
+  module:
+    - datetime
+    - user
+id: user.user.field_dt_authorized
+field_name: field_dt_authorized
+entity_type: user
+bundle: user
+label: 'Authorization Date'
+description: 'Date when the user was authorized'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime

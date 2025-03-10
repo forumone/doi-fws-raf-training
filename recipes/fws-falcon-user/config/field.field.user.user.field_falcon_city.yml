@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_falcon_city
+  module:
+    - user
+id: user.user.field_falcon_city
+field_name: field_falcon_city
+entity_type: user
+bundle: user
+label: 'Falcon City'
+description: 'City for falcon-related activities'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  case_sensitive: false
+field_type: string

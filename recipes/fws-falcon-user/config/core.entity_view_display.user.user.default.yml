@@ -9,22 +9,36 @@ dependencies:
     - field.field.user.user.field_address_l4
     - field.field.user.user.field_address_l5
     - field.field.user.user.field_address_l6
+    - field.field.user.user.field_author_access_cd
+    - field.field.user.user.field_author_state
+    - field.field.user.user.field_authorized_by
     - field.field.user.user.field_authorized_cd
     - field.field.user.user.field_city
+    - field.field.user.user.field_comments
+    - field.field.user.user.field_created_by
+    - field.field.user.user.field_dt_activated
+    - field.field.user.user.field_dt_authorized
+    - field.field.user.user.field_dt_disabled
+    - field.field.user.user.field_dt_locked
     - field.field.user.user.field_dt_mfa_login
     - field.field.user.user.field_dt_permit_expires
     - field.field.user.user.field_dt_permit_issued
     - field.field.user.user.field_failed_login_count
     - field.field.user.user.field_falcon_address
+    - field.field.user.user.field_falcon_city
+    - field.field.user.user.field_falcon_state_cd
+    - field.field.user.user.field_falcon_zip_cd
     - field.field.user.user.field_first_name
+    - field.field.user.user.field_gold_permit
     - field.field.user.user.field_hid
     - field.field.user.user.field_is_activated
     - field.field.user.user.field_is_locked
     - field.field.user.user.field_is_mfa
     - field.field.user.user.field_last_activity
     - field.field.user.user.field_last_name
-    - field.field.user.user.field_middle_name
+    - field.field.user.user.field_message_to_target
     - field.field.user.user.field_mfa_uuid
+    - field.field.user.user.field_middle_name
     - field.field.user.user.field_permit_class
     - field.field.user.user.field_permit_no
     - field.field.user.user.field_permit_status_cd
@@ -33,11 +47,13 @@ dependencies:
     - field.field.user.user.field_possess_eagle
     - field.field.user.user.field_rcf_cd
     - field.field.user.user.field_state_cd
+    - field.field.user.user.field_umcp
+    - field.field.user.user.field_updated_by
     - field.field.user.user.field_version_no
     - field.field.user.user.field_zip_cd
   module:
     - datetime
-    - options
+    - text
     - user
 id: user.user.default
 targetEntityType: user
@@ -45,9 +61,10 @@ bundle: user
 mode: default
 content:
   field_access_cd:
-    type: list_default
+    type: string
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
@@ -57,7 +74,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 24
+    weight: 2
     region: content
   field_address_l2:
     type: string
@@ -65,7 +82,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 25
+    weight: 3
     region: content
   field_address_l3:
     type: string
@@ -73,7 +90,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 26
+    weight: 4
     region: content
   field_address_l4:
     type: string
@@ -81,7 +98,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 27
+    weight: 5
     region: content
   field_address_l5:
     type: string
@@ -89,7 +106,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 28
+    weight: 6
     region: content
   field_address_l6:
     type: string
@@ -97,7 +114,31 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 29
+    weight: 7
+    region: content
+  field_author_access_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_author_state:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_authorized_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_authorized_cd:
     type: string
@@ -105,7 +146,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 11
     region: content
   field_city:
     type: string
@@ -113,34 +154,85 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 30
+    weight: 12
+    region: content
+  field_comments:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_created_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_dt_activated:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_dt_authorized:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_dt_disabled:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_dt_locked:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 18
     region: content
   field_dt_mfa_login:
     type: datetime_default
     label: above
     settings:
-      timezone_override: ''
       format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 19
     region: content
   field_dt_permit_expires:
     type: datetime_default
     label: above
     settings:
-      timezone_override: ''
       format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    weight: 16
+    weight: 20
     region: content
   field_dt_permit_issued:
     type: datetime_default
     label: above
     settings:
-      timezone_override: ''
       format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 21
     region: content
   field_failed_login_count:
     type: number_integer
@@ -149,7 +241,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 5
+    weight: 22
     region: content
   field_falcon_address:
     type: string
@@ -159,13 +251,47 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
+  field_falcon_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_falcon_state_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_falcon_zip_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 26
+    region: content
   field_first_name:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 27
+    region: content
+  field_gold_permit:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 28
     region: content
   field_hid:
     type: string
@@ -173,7 +299,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 7
+    weight: 29
     region: content
   field_is_activated:
     type: boolean
@@ -183,7 +309,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 30
     region: content
   field_is_locked:
     type: boolean
@@ -193,14 +319,15 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 31
     region: content
   field_is_mfa:
-    type: list_default
+    type: string
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 32
     region: content
   field_last_activity:
     type: string
@@ -208,7 +335,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 33
     region: content
   field_last_name:
     type: string
@@ -216,15 +343,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 12
+    weight: 34
     region: content
-  field_middle_name:
-    type: string
+  field_message_to_target:
+    type: text_default
     label: above
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 35
     region: content
   field_mfa_uuid:
     type: string
@@ -232,7 +358,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 36
+    region: content
+  field_middle_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 37
     region: content
   field_permit_class:
     type: string
@@ -240,7 +374,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    weight: 38
     region: content
   field_permit_no:
     type: string
@@ -248,14 +382,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 18
+    weight: 39
     region: content
   field_permit_status_cd:
-    type: list_default
+    type: string
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    weight: 19
+    weight: 40
     region: content
   field_phone1:
     type: string
@@ -263,7 +398,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 20
+    weight: 41
     region: content
   field_phone2:
     type: string
@@ -271,7 +406,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 21
+    weight: 42
     region: content
   field_possess_eagle:
     type: boolean
@@ -281,22 +416,41 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 33
+    weight: 43
     region: content
   field_rcf_cd:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 22
-    region: content
-  field_state_cd:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 31
+    weight: 44
+    region: content
+  field_state_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 45
+    region: content
+  field_umcp:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 46
+    region: content
+  field_updated_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 47
     region: content
   field_version_no:
     type: number_integer
@@ -305,7 +459,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 25
+    weight: 48
     region: content
   field_zip_cd:
     type: string
@@ -313,12 +467,8 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 32
-    region: content
-  member_for:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 49
     region: content
 hidden:
   langcode: true
+  member_for: true

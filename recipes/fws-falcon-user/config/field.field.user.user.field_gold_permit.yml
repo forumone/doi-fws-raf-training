@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_umcp
+    - field.storage.user.field_gold_permit
   module:
     - user
-id: user.user.field_umcp
-field_name: field_umcp
+id: user.user.field_gold_permit
+field_name: field_gold_permit
 entity_type: user
 bundle: user
-label: 'UMCP'
-description: 'User Management Control Panel flag'
+label: 'Gold Permit'
+description: 'Indicates if the user has a gold permit'
 required: false
 translatable: true
 default_value:

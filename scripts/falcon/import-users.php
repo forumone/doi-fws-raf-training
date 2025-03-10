@@ -17,8 +17,8 @@ $args = $input->getArguments();
 $limit = isset($args['extra'][1]) ? (int) $args['extra'][1] : PHP_INT_MAX;
 
 // Define the CSV file path for DDEV environment.
-$filename = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_sys_userprofile_202502271311.csv';
-$limbo_filename = DRUPAL_ROOT . '/sites/falcon/files/falcon-data/falc_sys_userprofile_limbo_202502271311.csv';
+$filename = dirname(DRUPAL_ROOT) . '/web/sites/falcon/files/falcon-data/falc_sys_userprofile_202502271311.csv';
+$limbo_filename = dirname(DRUPAL_ROOT) . '/web/sites/falcon/files/falcon-data/falc_sys_userprofile_limbo_202502271311.csv';
 
 // Initialize counters.
 $stats = [
@@ -57,6 +57,18 @@ $field_mapping = [
   'version_no' => 'field_version_no',
   'isDisabled' => 'status',
   'failed_login_count' => 'field_failed_login_count',
+  'dt_locked' => 'field_dt_locked',
+  'dt_disabled' => 'field_dt_disabled',
+  'dt_activated' => 'field_dt_activated',
+  'umcp' => 'field_umcp',
+  'message_to_target' => 'field_message_to_target',
+  'authorized_by' => 'field_authorized_by',
+  'author_state' => 'field_author_state',
+  'dt_authorized' => 'field_dt_authorized',
+  'author_access_cd' => 'field_author_access_cd',
+  'comments' => 'field_comments',
+  'created_by' => 'field_created_by',
+  'updated_by' => 'field_updated_by',
 
   // New fields.
   'authorized_cd' => 'field_authorized_cd',
@@ -69,16 +81,20 @@ $field_mapping = [
   'mfa_uuid' => 'field_mfa_uuid',
   'hid' => 'field_hid',
   'falcon_address' => 'field_falcon_address',
-  'address_l1' => 'field_address_l1',
-  'address_l2' => 'field_address_l2',
-  'address_l3' => 'field_address_l3',
-  'address_l4' => 'field_address_l4',
-  'address_l5' => 'field_address_l5',
-  'address_l6' => 'field_address_l6',
-  'city' => 'field_city',
-  'state_cd' => 'field_state_cd',
-  'zip_cd' => 'field_zip_cd',
+  'user_address_l1' => 'field_address_l1',
+  'user_address_l2' => 'field_address_l2',
+  'user_address_l3' => 'field_address_l3',
+  'user_address_l4' => 'field_address_l4',
+  'user_address_l5' => 'field_address_l5',
+  'user_address_l6' => 'field_address_l6',
+  'user_city' => 'field_city',
+  'user_state_cd' => 'field_state_cd',
+  'user_zip_cd' => 'field_zip_cd',
   'possess_eagle' => 'field_possess_eagle',
+  'falcon_city' => 'field_falcon_city',
+  'falcon_state_cd' => 'field_falcon_state_cd',
+  'falcon_zip_cd' => 'field_falcon_zip_cd',
+  'gold_permit' => 'field_gold_permit',
   // Map dt_create to Drupal core created field.
   'dt_create' => 'created',
   // Map dt_update to Drupal core changed field.
@@ -182,6 +198,8 @@ function process_csv_file($file_path, &$stats, $limit, $field_mapping, $is_limbo
           switch ($drupal_field) {
             case 'field_is_locked':
             case 'field_is_activated':
+            case 'field_gold_permit':
+            case 'field_umcp':
               // Convert to boolean.
               $value = ($value === 'Y' || $value === '1') ? 1 : 0;
               break;
@@ -189,6 +207,10 @@ function process_csv_file($file_path, &$stats, $limit, $field_mapping, $is_limbo
             case 'field_dt_permit_issued':
             case 'field_dt_permit_expires':
             case 'field_dt_mfa_login':
+            case 'field_dt_locked':
+            case 'field_dt_disabled':
+            case 'field_dt_activated':
+            case 'field_dt_authorized':
               // Convert to datetime if not empty, using ISO 8601 format.
               if (!empty($value)) {
                 // Remove milliseconds if present.
@@ -243,6 +265,28 @@ function process_csv_file($file_path, &$stats, $limit, $field_mapping, $is_limbo
               // For limbo records, always set status to 0 (blocked)
               // For regular records, if isDisabled is 'N', set status to 1 (active), otherwise 0 (blocked)
               $value = $is_limbo ? 0 : (($value === 'N') ? 1 : 0);
+              break;
+
+            case 'field_state_cd':
+            case 'field_falcon_state_cd':
+            case 'field_author_state':
+              if (!empty($value)) {
+                // Look up the taxonomy term ID for this state code.
+                $terms = \Drupal::entityTypeManager()
+                  ->getStorage('taxonomy_term')
+                  ->loadByProperties([
+                    'vid' => 'state',
+                    'name' => strtoupper($value),
+                  ]);
+                if (!empty($terms)) {
+                  $term = reset($terms);
+                  $value = ['target_id' => $term->id()];
+                }
+                else {
+                  print("Warning: Could not find state taxonomy term for: $value\n");
+                  $value = NULL;
+                }
+              }
               break;
           }
 

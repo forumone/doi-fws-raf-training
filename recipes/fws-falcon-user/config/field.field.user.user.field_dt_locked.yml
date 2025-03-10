@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dt_locked
+  module:
+    - datetime
+    - user
+id: user.user.field_dt_locked
+field_name: field_dt_locked
+entity_type: user
+bundle: user
+label: 'Lock Date'
+description: 'Date when the user account was locked'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  datetime_type: datetime
+field_type: datetime
