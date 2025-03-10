@@ -167,6 +167,18 @@
           }
         });
 
+        // Ensure only numeric input is accepted
+        $('.form-text', $quizContainer).on('input', function() {
+          // Remove any non-numeric characters
+          this.value = this.value.replace(/[^0-9]/g, '');
+
+          // Ensure the value is not negative
+          const numValue = parseInt(this.value, 10);
+          if (numValue < 0) {
+            this.value = '0';
+          }
+        });
+
         // Handle form submission
         $('.quiz-form', $quizContainer).on('submit', function(e) {
           e.preventDefault();
@@ -203,6 +215,13 @@
           const $form = $(this).closest('form');
           const $response = $(this).closest('.quiz__response');
           const userInput = $form ? $form.find('.form-text').val() : $response.find('.form-text').val();
+
+          // Ensure userInput is a valid number
+          if (!userInput || isNaN(parseInt(userInput))) {
+            alert('Please enter a valid number.');
+            return;
+          }
+
           const actualCount = $response.find('.quiz__actual').text();
           let isCorrect = false;
 
