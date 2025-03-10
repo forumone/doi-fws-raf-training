@@ -55,6 +55,7 @@
               clearInterval(countdownInterval);
               $('.quiz__item--' + currentQuestion, $quizContainer).find('.quiz__prompt').slideUp();
               $('.quiz__response', $('.quiz__item--' + currentQuestion, $quizContainer)).slideDown();
+              focusOnInput(); // Focus on the input field when the response is shown
             }
           }, 1000);
 
@@ -116,13 +117,79 @@
           $('.quiz__tracker').text(`#${currentQuestion + 1}`);
 
           startTimer();
+
+          // Set up a timer to focus on the input field when the timer ends
+          const questionTimer = getTimerDuration();
+          setTimeout(function() {
+            focusOnInput();
+          }, questionTimer * 1000);
+        }
+
+        // When timer ends, focus on the input field
+        function focusOnInput() {
+          const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
+          const $input = $currentItem.find('.form-text');
+          if ($input.length) {
+            setTimeout(function() {
+              $input.focus();
+            }, 100); // Short delay to ensure the element is visible
+          }
+        }
+
+        // Focus on the Continue button when the answer panel is shown
+        function focusOnContinueButton() {
+          const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
+          const $continueButton = $currentItem.find('.quiz__continue');
+          if ($continueButton.length) {
+            setTimeout(function() {
+              $continueButton.focus();
+            }, 100); // Short delay to ensure the element is visible
+          }
         }
 
         // Start first timer
         startTimer();
 
+        // For the first question, set up a handler to focus on the input when the timer ends
+        if ($('.quiz__item--0', $quizContainer).length) {
+          const firstQuestionTimer = getTimerDuration();
+          setTimeout(function() {
+            // This will run after the timer for the first question ends
+            focusOnInput();
+          }, firstQuestionTimer * 1000);
+        }
+
+        // Add keyboard accessibility - handle Enter key press in input field
+        $('.form-text', $quizContainer).on('keypress', function(e) {
+          if (e.which === 13) { // Enter key
+            e.preventDefault();
+            $(this).closest('.quiz__guess').find('.quiz__submit').click();
+          }
+        });
+
+        // Handle form submission
+        $('.quiz-form', $quizContainer).on('submit', function(e) {
+          e.preventDefault();
+          $(this).find('.quiz__submit').click();
+        });
+
+        // Handle continue form submission
+        $('.continue-form', $quizContainer).on('submit', function(e) {
+          e.preventDefault();
+          $(this).find('.quiz__continue').click();
+        });
+
+        // Add keyboard accessibility - handle Enter key press for Continue button
+        $quizContainer.on('keypress', '.quiz__answer', function(e) {
+          if (e.which === 13) { // Enter key
+            e.preventDefault();
+            $(this).find('.quiz__continue').click();
+          }
+        });
+
         // Handle continue button clicks
-        $('.quiz__continue', $quizContainer).on('click', function () {
+        $('.quiz__continue', $quizContainer).on('click', function (e) {
+          e.preventDefault(); // Prevent form submission if inside a form
           if (currentQuestion + 1 >= totalQuestions) {
             const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
             $('.quiz__score').text(scorePercentage);
@@ -131,32 +198,38 @@
         });
 
         // Handle button click to update the closest .quiz__submission and check for correctness
-        $('.quiz__submit', $quizContainer).on('click', function () {
-          const userInput = $(this).closest('.quiz__response').find('.form-text').val();
-          const actualCount = $(this).closest('.quiz__response').find('.quiz__actual').text();
+        $('.quiz__submit', $quizContainer).on('click', function(e) {
+          e.preventDefault(); // Prevent form submission if inside a form
+          const $form = $(this).closest('form');
+          const $response = $(this).closest('.quiz__response');
+          const userInput = $form ? $form.find('.form-text').val() : $response.find('.form-text').val();
+          const actualCount = $response.find('.quiz__actual').text();
           let isCorrect = false;
 
           // Update the submission text
-          $(this).closest('.quiz__response').find('.quiz__submission').text(userInput);
+          $response.find('.quiz__submission').text(userInput);
 
           // Ensure that the feedback text for the user guess is hidden
           $('.quiz__feedback').hide();
 
           // Display the appropriate error message relative to the user submission
           if (userInput === actualCount) {
-            $(this).closest('.quiz__response').find('.quiz__correct').show();
+            $response.find('.quiz__correct').show();
             correctAnswers++;
             isCorrect = true;
           }
           else {
-            $(this).closest('.quiz__response').find('.quiz__incorrect').show();
+            $response.find('.quiz__incorrect').show();
           }
 
           // Save the answer
           saveQuizAnswer(currentQuestion, parseInt(userInput), parseInt(actualCount), isCorrect);
 
           // Switch panels to display the answer information
-          $(this).closest('.quiz__guess').slideUp().next('.quiz__answer').slideDown();
+          $(this).closest('.quiz__guess').slideUp().next('.quiz__answer').slideDown(function() {
+            // Focus on the Continue button after the answer panel is shown
+            focusOnContinueButton();
+          });
         });
       });
     }
