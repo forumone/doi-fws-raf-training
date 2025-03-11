@@ -181,7 +181,7 @@ class ReleaseReportController extends ControllerBase {
         if ($a_timestamp === $b_timestamp) {
           return 0;
         }
-        return ($direction === 'asc') 
+        return ($direction === 'asc')
           ? ($a_timestamp <=> $b_timestamp)
           : ($b_timestamp <=> $a_timestamp);
       }
@@ -440,8 +440,8 @@ class ReleaseReportController extends ControllerBase {
     $request = \Drupal::request();
     $filters = $request->query->all();
 
-    $current_sort = isset($filters['sort']) ? $filters['sort'] : '';
-    $current_direction = isset($filters['direction']) ? $filters['direction'] : 'asc';
+    $current_sort = $filters['sort'] ?? '';
+    $current_direction = $filters['direction'] ?? 'asc';
 
     if ($current_sort === $field) {
       // Toggle direction.
@@ -463,10 +463,14 @@ class ReleaseReportController extends ControllerBase {
     $url = Url::fromRoute($current_route, [], ['query' => $new_query]);
 
     // Return a render array for the link.
-    return Link::fromTextAndUrl($this->t('@label @indicator', [
-      '@label' => $label,
-      '@indicator' => $sort_indicator,
-    ]), $url)->toRenderable();
+    return [
+      '#type' => 'link',
+      '#title' => $this->t('@label @indicator', [
+        '@label' => $label,
+        '@indicator' => $sort_indicator,
+      ]),
+      '#url' => $url,
+    ];
   }
 
   /**
@@ -483,40 +487,35 @@ class ReleaseReportController extends ControllerBase {
    *   An array representing the table row data.
    */
   protected function buildRowData(NodeInterface $species_entity, NodeInterface $rescue, NodeInterface $release) {
-    // Get the name from species_name paragraphs.
-    $name = 'N/A';
-    if (!$species_entity->get('field_names')->isEmpty()) {
-      $paragraphs = $species_entity->get('field_names')->referencedEntities();
-      foreach ($paragraphs as $para) {
-        if (!$para->get('field_primary')->isEmpty() && $para->get('field_primary')->value) {
-          if (!$para->get('field_name')->isEmpty()) {
-            $name = $para->get('field_name')->value;
-            break;
-          }
-        }
-      }
-    }
+    // Get the species name.
+    $name = $species_entity->getTitle();
 
     // Build the rest of the row data.
     return [
       ['data' => $name],
-      ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'], // 1
-      ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'], // 2
-      ['data' => Link::createFromRoute(
-        !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A',
-        'entity.node.canonical',
-        ['node' => $species_entity->id()]
-      )->toRenderable()],
-      ['data' => !$rescue->field_rescue_date->isEmpty()
-        ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
-        : 'N/A'],
-      ['data' => !$release->field_release_date->isEmpty()
-        ? Link::createFromRoute(
-          $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
-          'entity.node.canonical',
-          ['node' => $release->id()]
-        )
-        : 'N/A'],
+      ['data' => !$species_entity->field_sex->isEmpty() ? $species_entity->field_sex->entity->label() : 'N/A'],
+      ['data' => $this->trackingSearchManager->getPrimarySpeciesId($species_entity->id()) ?? 'N/A'],
+      [
+        'data' => [
+          '#type' => 'link',
+          '#title' => !$species_entity->field_number->isEmpty() ? $species_entity->field_number->value : 'N/A',
+          '#url' => Url::fromRoute('entity.node.canonical', ['node' => $species_entity->id()]),
+        ],
+      ],
+      [
+        'data' => !$rescue->field_rescue_date->isEmpty()
+          ? $this->dateFormatter->format(strtotime($rescue->field_rescue_date->value), 'custom', 'm/d/Y')
+          : 'N/A',
+      ],
+      [
+        'data' => !$release->field_release_date->isEmpty()
+          ? [
+            '#type' => 'link',
+            '#title' => $this->dateFormatter->format(strtotime($release->field_release_date->value), 'custom', 'm/d/Y'),
+            '#url' => Url::fromRoute('entity.node.canonical', ['node' => $release->id()]),
+          ]
+          : 'N/A',
+      ],
       ['data' => $this->getRescueCauseDetail($rescue)],
       ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)],
       ['data' => $this->getPreReleaseMetrics($species_entity->id())],
@@ -623,8 +622,8 @@ class ReleaseReportController extends ControllerBase {
       ->accessCheck(FALSE);
 
     // Build an OR group for:
-    //  1) field_number matches $search_term
-    //  2) field_names references any paragraph whose ID is in $paragraph_ids
+    // 1) field_number matches $search_term
+    // 2) field_names references any paragraph whose ID is in $paragraph_ids.
     $or_group = $query->orConditionGroup()
       ->condition('field_number', $search_term, 'CONTAINS');
 

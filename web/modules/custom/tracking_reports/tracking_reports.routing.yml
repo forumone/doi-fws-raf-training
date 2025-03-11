@@ -101,3 +101,11 @@ tracking_reports.release_report:
     _title: 'Species Release Report'
   requirements:
     _permission: 'access tracking reports'
+
+tracking_reports.ytd_summary:
+  path: '/tracking/ytd-summary'
+  defaults:
+    _controller: '\Drupal\tracking_reports\Controller\YtdSummaryController::content'
+    _title: 'Year-to-Date Summary Report'
+  requirements:
+    _permission: 'access tracking reports'

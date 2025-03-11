@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains tracking_reports.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function tracking_reports_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.tracking_reports':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Tracking Reports module provides reporting functionality for species tracking data.') . '</p>';
+      return $output;
+
+    case 'tracking_reports.ytd_summary':
+      return '<p>' . t('This report shows a year-to-date summary of manatee rescues, releases, and rehabilitation counts, along with a table of recent records.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function tracking_reports_theme() {
+  return [
+    'tracking-reports-ytd-summary' => [
+      'variables' => [
+        'rescue_count' => NULL,
+        'release_count' => NULL,
+        'rehab_count' => NULL,
+        'records' => NULL,
+        'current_year' => NULL,
+      ],
+    ],
+  ];
+}
