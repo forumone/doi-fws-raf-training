@@ -4,6 +4,7 @@ type: 'Site'
 
 install:
   - fws_user
+  - fws_state_access
 
 config:
   actions:

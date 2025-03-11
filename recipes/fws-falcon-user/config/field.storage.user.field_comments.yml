@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_comments
+field_name: field_comments
+entity_type: user
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

@@ -1,0 +1,20 @@
+uuid: b31b5e09-3ef7-4797-a291-060cc43da94d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.permit_3186a
+    - node.type.species_image
+  module:
+    - node
+_core:
+  default_config_hash: a7F14_l9XZMn5nSg5z6jmnzv9OPLDSf9aRDFFf2n8dc
+id: falconer
+label: Falconer
+weight: 2
+is_admin: false
+permissions:
+  - 'create permit_3186a content'
+  - 'create species_image content'
+  - 'edit own permit_3186a content'
+  - 'edit own species_image content'

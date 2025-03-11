@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - user
+id: user.field_dt_permit_expires
+field_name: field_dt_permit_expires
+entity_type: user
+type: datetime
+settings:
+  datetime_type: datetime
+  datetime_precision: 6
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

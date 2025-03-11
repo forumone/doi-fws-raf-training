@@ -2,14 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
-    - taxonomy
-id: node.field_owner_state
-field_name: field_owner_state
-entity_type: node
-type: entity_reference
+    - user
+id: user.field_zip_cd
+field_name: field_zip_cd
+entity_type: user
+type: string
 settings:
-  target_type: taxonomy_term
+  max_length: 20
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

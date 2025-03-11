@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_gold_permit
+  module:
+    - user
+id: user.user.field_gold_permit
+field_name: field_gold_permit
+entity_type: user
+bundle: user
+label: 'Gold Permit'
+description: 'Indicates if the user has a gold permit'
+required: false
+translatable: true
+default_value:
+  - value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

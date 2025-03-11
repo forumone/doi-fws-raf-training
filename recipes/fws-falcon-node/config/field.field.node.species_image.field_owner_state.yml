@@ -1,10 +1,13 @@
-uuid: d71e74b9-dfd8-4f95-b165-143d5b87acae
+uuid: 1e0ed65e-7192-4a27-a197-8d08b0b4c1f7
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_owner_state
     - node.type.species_image
+    - taxonomy.vocabulary.state
+_core:
+  default_config_hash: QcIvwg0h7EV3viL-G9LcM2wvrVzz1iPW2bgyXt51gS4
 id: node.species_image.field_owner_state
 field_name: field_owner_state
 entity_type: node
@@ -17,5 +20,12 @@ default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
-  handler_settings: {  }
+  handler_settings:
+    target_bundles:
+      state: state
+    sort:
+      field: tid
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

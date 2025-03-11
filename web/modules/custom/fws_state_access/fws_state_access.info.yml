@@ -1,0 +1,8 @@
+name: FWS State Access
+type: module
+description: 'Provides state-based access control for users and entities.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:user
+  - drupal:taxonomy

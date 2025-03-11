@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_zip_cd
+  module:
+    - user
+id: user.user.field_zip_cd
+field_name: field_zip_cd
+entity_type: user
+bundle: user
+label: 'ZIP Code'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

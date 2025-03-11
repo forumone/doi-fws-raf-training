@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_possess_eagle
+field_name: field_possess_eagle
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

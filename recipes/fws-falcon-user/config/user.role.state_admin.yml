@@ -1,0 +1,34 @@
+uuid: e26650fc-336a-41a2-94d1-b98bd87d7a02
+langcode: en
+status: true
+dependencies:
+  module:
+    - create_user_permission
+_core:
+  default_config_hash: WINBNhvLz_f0NUPoNAXs43yoHtxQnRPF7lSV91tQbCQ
+id: state_admin
+label: 'State Admin'
+weight: 3
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access state based content'
+  - 'create permit_3186a content'
+  - 'create species_image content'
+  - 'delete any permit_3186a content'
+  - 'delete any species_image content'
+  - 'delete own permit_3186a content'
+  - 'delete permit_3186a revisions'
+  - 'delete species_image revisions'
+  - 'edit any permit_3186a content'
+  - 'edit any species_image content'
+  - 'edit own permit_3186a content'
+  - 'edit own species_image content'
+  - 'revert permit_3186a revisions'
+  - 'revert species_image revisions'
+  - 'select any term'
+  - 'view any term'
+  - 'view any term name'
+  - 'view any vocabulary name'
+  - 'view permit_3186a revisions'
+  - 'view species_image revisions'

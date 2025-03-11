@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_message_to_target
+  module:
+    - text
+    - user
+id: user.user.field_message_to_target
+field_name: field_message_to_target
+entity_type: user
+bundle: user
+label: 'Message to Target'
+description: 'Message intended for the target user'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
