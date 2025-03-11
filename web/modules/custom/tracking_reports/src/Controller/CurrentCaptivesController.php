@@ -192,6 +192,35 @@ class CurrentCaptivesController extends ControllerBase {
 
     $species_entity_ids = $species_query->accessCheck(FALSE)->execute();
 
+    // If no species are found, return early with empty results.
+    if (empty($species_entity_ids)) {
+      return [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['tracking-report-container']],
+        'facility_filter_form' => \Drupal::formBuilder()->getForm(FacilityFilterForm::class),
+        'table' => [
+          '#type' => 'table',
+          '#header' => [
+            ['data' => $this->t('Tracking Number')],
+            ['data' => $this->t('Name')],
+            ['data' => $this->t('Species ID')],
+            ['data' => $this->t('Event')],
+            ['data' => $this->t('Event Date')],
+            ['data' => $this->t('# Days in Captivity')],
+            ['data' => $this->t('Facility')],
+          ],
+          '#rows' => [],
+          '#empty' => $this->t('No species records found.'),
+          '#attributes' => ['class' => ['tracking-report-table']],
+        ],
+        '#attached' => [
+          'library' => [
+            'tracking_reports/tracking_reports',
+          ],
+        ],
+      ];
+    }
+
     // Gather each species's primary name.
     $primary_names = [];
     if (!empty($species_entity_ids)) {
@@ -350,7 +379,8 @@ class CurrentCaptivesController extends ControllerBase {
             ['data' => $event['organization']],
           ],
           'data-facility' => $event['organization'],
-          'number_num' => $number_num, // used for sorting by 'Tracking Number'.
+          // Used for sorting by 'Tracking Number'.
+          'number_num' => $number_num,
         ];
       }
     }
@@ -447,7 +477,8 @@ class CurrentCaptivesController extends ControllerBase {
     }
 
     // Pager setup. We have array data, so chunk manually.
-    $limit = 25; // Items per page
+    // Items per page.
+    $limit = 25;
     $total = count($rows);
     $pager_manager = \Drupal::service('pager.manager');
     $pager = $pager_manager->createPager($total, $limit);
@@ -455,7 +486,7 @@ class CurrentCaptivesController extends ControllerBase {
 
     // Chunk the rows by $limit.
     $chunks = array_chunk($rows, $limit);
-    $rows_for_current_page = isset($chunks[$current_page]) ? $chunks[$current_page] : [];
+    $rows_for_current_page = $chunks[$current_page] ?? [];
 
     // Build the table.
     $table = [
