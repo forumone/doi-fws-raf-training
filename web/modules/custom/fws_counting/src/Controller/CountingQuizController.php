@@ -207,7 +207,7 @@ class CountingQuizController extends ControllerBase {
         $images[] = [
           'rendered' => [
             '#theme' => 'image_style',
-            '#style_name' => 'medium',
+            '#style_name' => 'i43large',
             '#uri' => $media->field_image->entity->getFileUri(),
           ],
           'bird_count' => $media->get('field_bird_count')->value,
