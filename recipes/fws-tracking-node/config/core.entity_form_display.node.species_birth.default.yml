@@ -85,7 +85,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: ahuBVIzA3P5NThHFblVIPLfWYnbR-G7rJYaM7XZlcHY
+  default_config_hash: OKe5idga-o8p-X9V8Ezg3EEF1MhyQqS_vwS-anfhYww
 id: node.species_birth.default
 targetEntityType: node
 bundle: species_birth
@@ -155,14 +155,14 @@ content:
       display_label: true
     third_party_settings: {  }
   field_org:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 2
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_species_ref:
     type: inline_entity_form_simple
