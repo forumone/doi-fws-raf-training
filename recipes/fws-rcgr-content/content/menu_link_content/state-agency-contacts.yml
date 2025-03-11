@@ -1,0 +1,50 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 4n5o6p7q-8r9s-0t1u-2v3w-4x5y6z7a8b9c
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: TRUE
+  title:
+    -
+      value: State Agency Contacts and Information
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/resources/state-agency-contacts'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: FALSE
+  rediscover:
+    -
+      value: FALSE
+  weight:
+    -
+      value: 5
+  expanded:
+    -
+      value: FALSE
+  parent:
+    -
+      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
+  revision_translation_affected:
+    -
+      value: TRUE
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'State Agency Contacts and Information | FWS: RCGR'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'internal:/resources/state-agency-contacts'

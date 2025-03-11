@@ -1,0 +1,50 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t
+  bundle: menu_link_content
+  default_langcode: en
+default:
+  enabled:
+    -
+      value: TRUE
+  title:
+    -
+      value: Add Locations / Agents
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/profile/locations-agents'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: FALSE
+  rediscover:
+    -
+      value: FALSE
+  weight:
+    -
+      value: 3
+  expanded:
+    -
+      value: FALSE
+  parent:
+    -
+      value: 'menu_link_content:9b2f6e74-8d53-5f0a-b4f2-0e7c9d5f6e8a'
+  revision_translation_affected:
+    -
+      value: TRUE
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Add Locations / Agents | FWS: RCGR'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'internal:/profile/locations-agents'

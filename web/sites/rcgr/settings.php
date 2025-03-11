@@ -286,7 +286,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6';
+$settings['hash_salt'] = '4EbInmUyoAgXbOouo9h6M_olRGCMEI-UttzNMIzRk9EP5I6YRI-41xRh1-rdN34nb89T6hQg3A';
 
 /**
  * Deployment identifier.
@@ -889,7 +889,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-$settings['config_sync_directory'] = '../config/falcon/sync';
+$settings['config_sync_directory'] = '../config/rcgr/sync';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -904,14 +904,26 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
  */
 $config['system.site']['header_links_auth'] = FALSE;
 
-// Configure Acquia database settings for Falcon site
+// Configure Acquia database settings for RCGR site
 if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/doifws/fws_falcon-settings.inc';
+  require '/var/www/site-php/doifws/fws_rcgr-settings.inc';
 }
 
 # in production this will be over-ridden by platform-settings.php
-$settings['session.cookie_path'] = '/falcon';
-$settings['file_public_path'] = "sites/falcon/files";
-$settings['file_private_path'] = "sites/falcon/files/private";
+$settings['session.cookie_path'] = '/rcgr';
+$settings['file_public_path'] = "sites/rcgr/files";
+$settings['file_private_path'] = "sites/rcgr/files/private";
 $settings['file_temp_path'] = "/tmp";
 
+$databases['default']['default'] = array (
+  'database' => 'db',
+  'username' => 'db',
+  'password' => 'db',
+  'prefix' => '',
+  'host' => 'db',
+  'port' => 3306,
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
