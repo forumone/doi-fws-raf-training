@@ -34,7 +34,7 @@ default:
       tag: meta
       attributes:
         name: title
-        content: 'Definitions for the Manatee Rescue, Rehabilitation and Release Program Database | FWS: Captive Manatee Database'
+        content: 'Definitions for the Manatee Rescue, Rehabilitation and Release Program Database | FWS: Manatee Rescue and Rehabilitation Database'
     -
       tag: meta
       attributes:
