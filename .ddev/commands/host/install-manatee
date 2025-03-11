@@ -15,6 +15,9 @@ ddev drush recipe ../recipes/fws-tracking-blocks
 ddev drush recipe ../recipes/fws-tracking-user
 ddev drush recipe ../recipes/fws-manatee-content
 
+# Import taxonomy and nodes.
+./scripts/manatee/import-taxonomy.sh && ./scripts/manatee/import-nodes.sh
+
 # ddev drush webform-libraries-download
 
 ddev drush uli

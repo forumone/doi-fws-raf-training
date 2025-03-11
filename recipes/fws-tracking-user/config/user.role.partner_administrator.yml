@@ -16,6 +16,7 @@ label: 'Partner Administrator'
 weight: -2
 is_admin: null
 permissions:
+  - 'access content'
   - 'access administration pages'
   - 'access content overview'
   - 'access taxonomy overview'

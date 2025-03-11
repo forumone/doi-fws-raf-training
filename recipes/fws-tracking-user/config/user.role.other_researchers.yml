@@ -18,6 +18,7 @@ label: 'Other Researchers'
 weight: -3
 is_admin: null
 permissions:
+  - 'access content'
   - 'access content overview'
   - 'access toolbar'
   - 'access tracking reports'

@@ -26,6 +26,7 @@ label: Contributor
 weight: -5
 is_admin: null
 permissions:
+  - 'access content'
   - 'access tracking reports'
   - 'access user profiles'
   - 'create other_names content'
