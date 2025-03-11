@@ -27,10 +27,9 @@ For these entities, state administrators can only:
 ## Configuration
 
 1. Ensure the required fields exist:
-   - User entity: `field_state_cd` (Text field)
+   - User entity: `field_state_cd` (Entity reference to taxonomy terms)
    - Species Image entity: `field_owner_state` (Entity reference to taxonomy terms)
    - Permit 3186a entity: `field_owner_state` (Entity reference to taxonomy terms)
-   - State taxonomy terms: `field_state_code` (Text field matching format of `field_state_cd`)
 
 2. Grant the 'administer state based access' permission to appropriate roles:
    - Go to Administration » People » Permissions
@@ -38,8 +37,6 @@ For these entities, state administrators can only:
    - Check the permission for roles that should have state-restricted access
 
 3. Set the appropriate state code (`field_state_cd`) for each user who needs state-based access.
-
-4. Ensure your state taxonomy terms have their `field_state_code` values set to match the format used in `field_state_cd`.
 
 ## Technical Details
 
@@ -51,6 +48,9 @@ The module defines the following permission:
 The module implements the following hooks:
 - `hook_entity_access()`: Controls view/edit/delete operations
 - `hook_entity_create_access()`: Controls entity creation
+- `hook_node_access()`: Provides specific access control for nodes
+- `hook_form_alter()`: Ensures state admins can access forms for their state's content
+- `hook_preprocess_node()`: Adds an "Edit as State Admin" link for state-specific content
 
 ### Route-based Access Control
 Additional route-based access checking is available through the `_state_access_check` requirement.
@@ -64,6 +64,11 @@ example.route:
   requirements:
     _state_access_check: 'TRUE'
 ```
+
+### Caching
+The module uses proper cache contexts and tags to ensure access checks are correctly cached:
+- Cache contexts: `user`
+- Cache tags: `user:[uid]` and `node:[nid]` where applicable
 
 ## Troubleshooting
 
@@ -79,7 +84,6 @@ example.route:
 
 3. Entity access issues:
    - Confirm `field_owner_state` exists and contains valid values
-   - Verify taxonomy terms have `field_state_code` values that match the format of user `field_state_cd` values
    - Check that taxonomy term references are properly set
 
 ## Maintainers

@@ -62,16 +62,25 @@ class StateAccessChecker implements AccessCheckInterface {
    *   The access result.
    */
   public function access(Route $route, AccountInterface $account) {
-    if (!$account->hasPermission('administer state based access')) {
+    if (!$account->hasPermission('access state based content')) {
       return AccessResult::neutral();
     }
 
     $user = $this->entityTypeManager->getStorage('user')->load($account->id());
-    if (!$user->hasField('field_state_cd') || $user->get('field_state_cd')->isEmpty()) {
-      return AccessResult::forbidden();
+    $user_state = fws_state_access_get_user_state($user);
+
+    // Check if the route has a specific requirement for state access.
+    $strict_check = $route->getRequirement('_state_access_check') === 'strict';
+
+    if ($user_state === NULL && $strict_check) {
+      return AccessResult::forbidden()
+        ->addCacheContexts(['user'])
+        ->addCacheTags(['user:' . $account->id()]);
     }
 
-    return AccessResult::allowed();
+    return AccessResult::allowed()
+      ->addCacheContexts(['user'])
+      ->addCacheTags(['user:' . $account->id()]);
   }
 
 }

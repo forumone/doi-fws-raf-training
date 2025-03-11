@@ -11,132 +11,115 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Gets the state value for a user entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $user
+ *   The user entity.
+ *
+ * @return mixed
+ *   The state value or NULL if not available.
+ */
+function fws_state_access_get_user_state(EntityInterface $user) {
+  if (!$user->hasField('field_state_cd') || $user->get('field_state_cd')->isEmpty()) {
+    return NULL;
+  }
+
+  return $user->get('field_state_cd')->target_id;
+}
+
+/**
+ * Gets the state value for a node entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node entity.
+ *
+ * @return mixed
+ *   The state value or NULL if not available.
+ */
+function fws_state_access_get_node_state(EntityInterface $node) {
+  if (!$node->hasField('field_owner_state') || $node->get('field_owner_state')->isEmpty()) {
+    return NULL;
+  }
+
+  return $node->get('field_owner_state')->target_id;
+}
 
 /**
  * Implements hook_entity_access().
  */
 function fws_state_access_entity_access(EntityInterface $entity, $operation, AccountInterface $account) {
-  // Log the access check.
-  \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-    'Checking access for @entity_type @entity_id, operation: @op, user: @uid',
-    [
-      '@entity_type' => $entity->getEntityTypeId(),
-      '@entity_id' => $entity->id(),
-      '@op' => $operation,
-      '@uid' => $account->id(),
-    ]
-  );
-
   // Check if user has the state access permission.
-  if (!$account->hasPermission('administer state based access')) {
-    \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'User @uid does not have administer state based access permission', ['@uid' => $account->id()]);
+  if (!$account->hasPermission('access state based content')) {
+    return AccessResult::neutral();
+  }
+
+  // Allow users with 'administer users' permission to bypass state restrictions for user entities.
+  if ($entity->getEntityTypeId() === 'user' && $account->hasPermission('administer users')) {
+    return AccessResult::neutral();
+  }
+
+  // Only apply restrictions to specific entity types and bundles.
+  $restricted_entities = [
+    'node' => ['species_image', 'permit_3186a'],
+    'user' => ['user'],
+  ];
+
+  $entity_type = $entity->getEntityTypeId();
+  $bundle = $entity->bundle();
+
+  // If this is not a restricted entity type or bundle, return neutral.
+  if (!isset($restricted_entities[$entity_type]) ||
+      !in_array($bundle, $restricted_entities[$entity_type])) {
     return AccessResult::neutral();
   }
 
   // Get the user's state code.
   $user = User::load($account->id());
-  if (!$user->hasField('field_state_cd') || $user->get('field_state_cd')->isEmpty()) {
-    \Drupal::logger('fws_state_access')->log(RfcLogLevel::WARNING, 'User @uid missing field_state_cd', ['@uid' => $account->id()]);
-    return AccessResult::neutral();
-  }
+  $user_state = fws_state_access_get_user_state($user);
 
-  // Dump the field structure to debug.
-  $field_definition = $user->getFieldDefinition('field_state_cd');
-  $field_type = $field_definition->getType();
-  $field_settings = $field_definition->getSettings();
-  \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-    'User field_state_cd type: @type, target_type: @target_type',
-    [
-      '@type' => $field_type,
-      '@target_type' => $field_settings['target_type'] ?? 'none',
-    ]
-  );
-
-  // Get the field value based on its type.
-  if ($field_type === 'entity_reference') {
-    $user_state = $user->get('field_state_cd')->target_id;
-    \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'User @uid has state target_id: @state', ['@uid' => $account->id(), '@state' => $user_state]);
-  }
-  else {
-    $user_state = $user->get('field_state_cd')->value;
-    \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'User @uid has state value: @state', ['@uid' => $account->id(), '@state' => $user_state]);
+  if ($user_state === NULL) {
+    // If the user has the permission but no state code, only deny access to restricted entities.
+    return AccessResult::forbidden()
+      ->addCacheContexts(['user'])
+      ->addCacheTags(['user:' . $account->id()]);
   }
 
   // Handle user entity access.
-  if ($entity->getEntityTypeId() === 'user') {
-    if ($entity->hasField('field_state_cd') && !$entity->get('field_state_cd')->isEmpty()) {
-      // Get the field value based on its type.
-      if ($field_type === 'entity_reference') {
-        $entity_state = $entity->get('field_state_cd')->target_id;
-        \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'User entity @uid has state target_id: @state', ['@uid' => $entity->id(), '@state' => $entity_state]);
-      }
-      else {
-        $entity_state = $entity->get('field_state_cd')->value;
-        \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'User entity @uid has state value: @state', ['@uid' => $entity->id(), '@state' => $entity_state]);
-      }
+  if ($entity_type === 'user') {
+    $entity_state = fws_state_access_get_user_state($entity);
 
-      // Compare the values.
+    if ($entity_state !== NULL) {
       $result = ($user_state == $entity_state);
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-        'User access comparison: @user_state == @entity_state = @result',
-        [
-          '@user_state' => $user_state,
-          '@entity_state' => $entity_state,
-          '@result' => $result ? 'TRUE' : 'FALSE',
-        ]
-      );
-
-      return $result ? AccessResult::allowed() : AccessResult::forbidden();
+      return $result
+        ? AccessResult::allowed()->addCacheContexts(['user'])->addCacheTags(['user:' . $account->id()])
+        : AccessResult::forbidden()->addCacheContexts(['user'])->addCacheTags(['user:' . $account->id()]);
     }
   }
 
   // Handle species_image and permit_3186a entity access.
-  if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), ['species_image', 'permit_3186a'])) {
-    \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'Node @nid is a @bundle', ['@nid' => $entity->id(), '@bundle' => $entity->bundle()]);
+  if ($entity_type === 'node' && in_array($bundle, ['species_image', 'permit_3186a'])) {
+    $node_state = fws_state_access_get_node_state($entity);
 
-    if ($entity->hasField('field_owner_state') && !$entity->get('field_owner_state')->isEmpty()) {
-      // Dump the field structure to debug.
-      $node_field_definition = $entity->getFieldDefinition('field_owner_state');
-      $node_field_type = $node_field_definition->getType();
-      $node_field_settings = $node_field_definition->getSettings();
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-        'Node field_owner_state type: @type, target_type: @target_type',
-        [
-          '@type' => $node_field_type,
-          '@target_type' => $node_field_settings['target_type'] ?? 'none',
-        ]
-      );
-
-      $term_id = $entity->get('field_owner_state')->target_id;
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'Node @nid has owner state target_id: @state', ['@nid' => $entity->id(), '@state' => $term_id]);
-
-      // Direct comparison with the user's state code.
-      $result = ($user_state == $term_id);
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-        'Node access comparison: @user_state == @term_id = @result',
-        [
-          '@user_state' => $user_state,
-          '@term_id' => $term_id,
-          '@result' => $result ? 'TRUE' : 'FALSE',
-        ]
-      );
+    if ($node_state !== NULL) {
+      $result = ($user_state == $node_state);
 
       if ($result) {
-        \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'Access allowed for node @nid', ['@nid' => $entity->id()]);
-        // Make this access result override any other access controls.
-        return AccessResult::allowed()->setCacheMaxAge(0);
+        return AccessResult::allowed()
+          ->addCacheContexts(['user'])
+          ->addCacheTags(['user:' . $account->id(), 'node:' . $entity->id()]);
       }
       else {
-        \Drupal::logger('fws_state_access')->log(RfcLogLevel::WARNING, 'Access denied for node @nid', ['@nid' => $entity->id()]);
-        return AccessResult::forbidden();
+        return AccessResult::forbidden()
+          ->addCacheContexts(['user'])
+          ->addCacheTags(['user:' . $account->id(), 'node:' . $entity->id()]);
       }
-    }
-    else {
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::WARNING, 'Node @nid missing field_owner_state', ['@nid' => $entity->id()]);
     }
   }
 
-  \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'Neutral access for @entity_type @entity_id', ['@entity_type' => $entity->getEntityTypeId(), '@entity_id' => $entity->id()]);
   return AccessResult::neutral();
 }
 
@@ -145,17 +128,31 @@ function fws_state_access_entity_access(EntityInterface $entity, $operation, Acc
  */
 function fws_state_access_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
   // Only apply restrictions to users with state access permission.
-  if (!$account->hasPermission('administer state based access')) {
+  if (!$account->hasPermission('access state based content')) {
     return AccessResult::neutral();
   }
 
-  // Allow creation of supported entity types.
-  if (in_array($context['entity_type_id'], ['user', 'node']) &&
-      (in_array($entity_bundle, ['species_image', 'permit_3186a']) || $context['entity_type_id'] === 'user')) {
-    return AccessResult::allowed();
+  // Only apply restrictions to specific entity types and bundles.
+  $restricted_entities = [
+    'node' => ['species_image', 'permit_3186a'],
+    'user' => ['user'],
+  ];
+
+  $entity_type = $context['entity_type_id'];
+
+  // If this is not a restricted entity type or bundle, return neutral.
+  if (!isset($restricted_entities[$entity_type]) ||
+      !in_array($entity_bundle, $restricted_entities[$entity_type])) {
+    return AccessResult::neutral();
   }
 
-  return AccessResult::neutral();
+  // Get the user's state code.
+  $user = User::load($account->id());
+  $user_state = fws_state_access_get_user_state($user);
+
+  // Allow creation even if user has no state code.
+  // The state code will be checked when accessing the entity later.
+  return AccessResult::allowed();
 }
 
 /**
@@ -167,51 +164,171 @@ function fws_state_access_node_access(NodeInterface $node, $op, AccountInterface
     return AccessResult::neutral();
   }
 
+  // Only apply restrictions to specific operations.
+  $restricted_operations = ['view', 'update', 'delete'];
+  if (!in_array($op, $restricted_operations)) {
+    return AccessResult::neutral();
+  }
+
   // Check if user has the state access permission.
-  if (!$account->hasPermission('administer state based access')) {
+  if (!$account->hasPermission('access state based content')) {
     return AccessResult::neutral();
   }
 
   // Get the user's state code.
   $user = User::load($account->id());
-  if (!$user->hasField('field_state_cd') || $user->get('field_state_cd')->isEmpty()) {
-    return AccessResult::neutral();
+  $user_state = fws_state_access_get_user_state($user);
+
+  if ($user_state === NULL) {
+    // If the user has the permission but no state code, explicitly deny access.
+    return AccessResult::forbidden()
+      ->addCacheContexts(['user'])
+      ->addCacheTags(['user:' . $account->id(), 'node:' . $node->id()]);
   }
-  $user_state = $user->get('field_state_cd')->target_id;
 
   // Check if the node has an owner state.
-  if ($node->hasField('field_owner_state') && !$node->get('field_owner_state')->isEmpty()) {
-    $node_state = $node->get('field_owner_state')->target_id;
+  $node_state = fws_state_access_get_node_state($node);
 
+  if ($node_state !== NULL) {
     // If the states match, explicitly allow access.
     if ($user_state == $node_state) {
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO,
-        'Node access hook: Allowing @op access to @nid for user @uid (state match: @state)',
-        [
-          '@op' => $op,
-          '@nid' => $node->id(),
-          '@uid' => $account->id(),
-          '@state' => $user_state,
-        ]
-      );
-
-      // Use a non-cacheable access result to ensure it's always checked.
-      return AccessResult::allowed()->setCacheMaxAge(0);
+      return AccessResult::allowed()
+        ->addCacheContexts(['user'])
+        ->addCacheTags(['user:' . $account->id(), 'node:' . $node->id()]);
     }
     else {
-      \Drupal::logger('fws_state_access')->log(RfcLogLevel::WARNING,
-        'Node access hook: Denying @op access to @nid for user @uid (state mismatch: @user_state != @node_state)',
-        [
-          '@op' => $op,
-          '@nid' => $node->id(),
-          '@uid' => $account->id(),
-          '@user_state' => $user_state,
-          '@node_state' => $node_state,
-        ]
-      );
-      return AccessResult::forbidden();
+      return AccessResult::forbidden()
+        ->addCacheContexts(['user'])
+        ->addCacheTags(['user:' . $account->id(), 'node:' . $node->id()]);
     }
   }
 
   return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function fws_state_access_menu_local_tasks_alter(&$data, $route_name) {
+  // Force access to edit tabs for state admins.
+  if (strpos($route_name, 'entity.node.canonical') === 0) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface && in_array($node->bundle(), ['permit_3186a', 'species_image'])) {
+      $account = \Drupal::currentUser();
+      if ($account->hasPermission('access state based content')) {
+        $user = User::load($account->id());
+        $user_state = fws_state_access_get_user_state($user);
+
+        if ($user_state !== NULL) {
+          $node_state = fws_state_access_get_node_state($node);
+
+          if ($node_state !== NULL && $user_state == $node_state) {
+            // Force access to edit tab.
+            if (isset($data['tabs'][0]['entity.node.edit_form'])) {
+              $data['tabs'][0]['entity.node.edit_form']['#access'] = TRUE;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_state_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if this is a node edit form for our content types.
+  if (strpos($form_id, '_node_form') !== FALSE) {
+    $node = $form_state->getFormObject()->getEntity();
+    if (in_array($node->bundle(), ['permit_3186a', 'species_image'])) {
+      $account = \Drupal::currentUser();
+      if ($account->hasPermission('access state based content')) {
+        $user = User::load($account->id());
+        $user_state = fws_state_access_get_user_state($user);
+
+        if ($user_state !== NULL) {
+          $node_state = fws_state_access_get_node_state($node);
+
+          if ($node_state !== NULL && $user_state == $node_state) {
+            // Add a submit handler to ensure the form can be submitted.
+            $form['#validate'][] = 'fws_state_access_node_form_validate';
+            $form['actions']['submit']['#submit'][] = 'fws_state_access_node_form_submit';
+
+            // Bypass access checks for the form.
+            $form['#access'] = TRUE;
+
+            // Make sure critical fields are accessible.
+            $critical_fields = [
+              'title',
+              'field_owner_state',
+              'actions',
+              'status',
+              'revision_log',
+            ];
+
+            foreach ($critical_fields as $field) {
+              if (isset($form[$field]) && isset($form[$field]['#access'])) {
+                $form[$field]['#access'] = TRUE;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Custom validation handler for node forms.
+ */
+function fws_state_access_node_form_validate($form, FormStateInterface $form_state) {
+  // Remove any access-related validation errors.
+  $errors = $form_state->getErrors();
+  $form_state->clearErrors();
+
+  foreach ($errors as $name => $error) {
+    // Skip access-related errors.
+    if (strpos($error, 'access') === FALSE) {
+      $form_state->setErrorByName($name, $error);
+    }
+  }
+}
+
+/**
+ * Custom submit handler for node forms.
+ */
+function fws_state_access_node_form_submit($form, FormStateInterface $form_state) {
+  // Log successful submission at a lower level.
+  \Drupal::logger('fws_state_access')->log(RfcLogLevel::INFO, 'Node form submitted successfully');
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function fws_state_access_preprocess_node(&$variables) {
+  // Add a direct edit link for state admins.
+  if (in_array($variables['node']->bundle(), ['permit_3186a', 'species_image'])) {
+    $account = \Drupal::currentUser();
+    if ($account->hasPermission('access state based content')) {
+      $user = User::load($account->id());
+      $user_state = fws_state_access_get_user_state($user);
+
+      if ($user_state !== NULL) {
+        $node_state = fws_state_access_get_node_state($variables['node']);
+
+        if ($node_state !== NULL && $user_state == $node_state) {
+          $variables['content']['state_admin_edit_link'] = [
+            '#type' => 'link',
+            '#title' => t('Edit as State Admin'),
+            '#url' => Url::fromRoute('entity.node.edit_form', ['node' => $variables['node']->id()]),
+            '#attributes' => [
+              'class' => ['button', 'button--primary'],
+            ],
+            '#weight' => -100,
+          ];
+        }
+      }
+    }
+  }
 }

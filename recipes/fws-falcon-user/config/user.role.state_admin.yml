@@ -13,7 +13,6 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access state based content'
-  - 'create users'
   - 'create permit_3186a content'
   - 'create species_image content'
   - 'delete any permit_3186a content'
@@ -27,5 +26,9 @@ permissions:
   - 'edit own species_image content'
   - 'revert permit_3186a revisions'
   - 'revert species_image revisions'
+  - 'select any term'
+  - 'view any term'
+  - 'view any term name'
+  - 'view any vocabulary name'
   - 'view permit_3186a revisions'
   - 'view species_image revisions'
