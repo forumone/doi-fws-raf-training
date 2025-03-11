@@ -79,9 +79,9 @@ function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       ];
     }
 
-    // Only replace 'Manatee Reference' and 'Manatee Animal ID' for 'default' site.
+    // Only replace 'Manatee Number' and 'Manatee Animal ID' for 'default' site.
     if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_species_ref'])) {
-      $form['field_species_ref']['widget'][0]['target_id']['#title'] = 'Manatee Reference';
+      $form['field_species_ref']['widget'][0]['target_id']['#title'] = 'Manatee Number';
     }
 
     if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_species_id'])) {

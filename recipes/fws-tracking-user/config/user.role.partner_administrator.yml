@@ -20,7 +20,6 @@ permissions:
   - 'access administration pages'
   - 'access content overview'
   - 'access taxonomy overview'
-  - 'access toolbar'
   - 'access tracking reports'
   - 'administer nodes'
   - 'administer taxonomy'

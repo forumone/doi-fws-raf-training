@@ -11,7 +11,7 @@ id: node.species_rescue.field_flood_gate
 field_name: field_flood_gate
 entity_type: node
 bundle: species_rescue
-label: 'Flood Gate Number'
+label: 'Navigation Lock/Floodgate/Weir'
 description: 'Identification of flood gate where trapped. Will only be used if primary or secondary cause of rescue was entrapment.'
 required: false
 translatable: true

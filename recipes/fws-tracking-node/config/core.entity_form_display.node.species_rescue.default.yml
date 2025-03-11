@@ -49,7 +49,6 @@ third_party_settings:
         - field_species_ref
         - field_dead
         - field_rescue_date
-        - field_rescue_per_day
         - field_rescue_type
       label: 'Rescue Information'
       region: content
@@ -122,7 +121,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: kgxJO59jlJTjl5uvNr-0CFX7wRp9ukBarFWx86bnRn0
+  default_config_hash: jiU9lYhnz0L2aOXSarb-qXSZKvkNOXTWylOYIycJRwE
 id: node.species_rescue.default
 targetEntityType: node
 bundle: species_rescue
@@ -286,7 +285,7 @@ content:
     third_party_settings: {  }
   field_rescue_per_day:
     type: number
-    weight: 4
+    weight: 8
     region: content
     settings:
       placeholder: ''
