@@ -1,0 +1,5 @@
+tracking_reports.ytd_summary:
+  title: 'YTD Summary'
+  route_name: tracking_reports.ytd_summary
+  base_route: system.admin_content
+  weight: 10

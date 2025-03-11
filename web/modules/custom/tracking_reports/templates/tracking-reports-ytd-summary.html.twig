@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display YTD summary report.
+ *
+ * Available variables:
+ * - rescue_count: The number of manatee rescues for the current year.
+ * - release_count: The number of releases for the current year.
+ * - rehab_count: The current total number of manatees in rehabilitation.
+ * - records: A render array containing the records table.
+ * - current_year: The current year.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="ytd-summary-report">
+  <div class="ytd-summary-container">
+    <h2>{{ current_year }} {{ 'Summary'|t }}</h2>
+    <div class="summary-items">
+      <div class="summary-item">
+        <span class="summary-label">{{ 'Number of manatee rescues:'|t }}</span>
+        <span class="summary-value">{{ rescue_count }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">{{ 'Number of releases:'|t }}</span>
+        <span class="summary-value">{{ release_count }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">{{ 'Current total number of manatees in rehabilitation:'|t }}</span>
+        <span class="summary-value">{{ rehab_count }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ytd-records-container">
+    <h2>{{ 'Recent Records'|t }}</h2>
+    {{ records }}
+  </div>
+</div>

@@ -1,0 +1,6 @@
+tracking_reports.ytd_summary:
+  title: 'Year-to-Date Summary Report'
+  route_name: tracking_reports.ytd_summary
+  description: 'View year-to-date summary of manatee rescues, releases, and rehabilitation counts.'
+  parent: system.admin_content
+  weight: 10
