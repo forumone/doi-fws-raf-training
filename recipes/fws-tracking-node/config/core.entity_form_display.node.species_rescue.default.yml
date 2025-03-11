@@ -829,13 +829,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_rescue_per_day:
-    type: number
-    weight: 8
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
   field_rescue_type:
     type: select2_entity_reference
     weight: 5
@@ -978,6 +971,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_location: true
+  field_rescue_date: true
   path: true
   promote: true
   status: true
