@@ -97,8 +97,10 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       ],
       'field_city' => $city,
       'field_waterway' => $waterway,
-      'field_latitude' => is_numeric($latitude) ? (float) $latitude : NULL,
-      'field_longitude' => is_numeric($longitude) ? (float) $longitude : NULL,
+      'field_geolocation' => [
+        'lat' => is_numeric($latitude) ? (float) $latitude : NULL,
+        'lng' => is_numeric($longitude) ? (float) $longitude : NULL,
+      ],
       'field_pregnant' => [
         'target_id' => get_taxonomy_term_id('pregnant', $pregnant),
       ],
