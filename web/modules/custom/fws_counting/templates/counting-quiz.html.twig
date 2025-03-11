@@ -32,7 +32,9 @@
       <div class="quiz__item quiz__item--{{ key }}">
 
         <div class="quiz__prompt" data-media-id="{{ image.media_id }}" data-quiz-number="{{ key + 1 }}">
-          {{ image.rendered }}
+          <div class="quiz__media">
+            {{ image.rendered }}
+          </div>
           <p class="quiz__help">{{ 'Review the image and enter the amount of birds viewed on the following panel.'|t }}</p>
         </div>
 
