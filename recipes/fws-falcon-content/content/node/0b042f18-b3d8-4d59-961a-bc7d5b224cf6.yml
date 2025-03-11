@@ -46,7 +46,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://falcon.ddev.site/main'
+        href: '/main'
   path:
     -
       alias: /main
