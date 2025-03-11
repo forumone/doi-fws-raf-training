@@ -10,5 +10,6 @@ label: Viewer
 weight: -4
 is_admin: null
 permissions:
+  - 'access content'
   - 'access tracking reports'
   - 'view any unpublished content'
