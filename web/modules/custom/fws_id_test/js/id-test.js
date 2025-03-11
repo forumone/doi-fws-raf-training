@@ -95,13 +95,66 @@
           }
         });
 
+        // Focus on the Continue button when the answer panel is shown
+        function focusOnContinueButton() {
+          const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
+          const $continueButton = $currentItem.find('.quiz__continue');
+          if ($continueButton.length) {
+            setTimeout(function() {
+              $continueButton.focus();
+            }, 100); // Short delay to ensure the element is visible
+          }
+        }
+
+        // Add keyboard accessibility - handle Enter key press for radio buttons
+        $quizContainer.on('keypress', '.form-radio, .quiz__guess', function(e) {
+          if (e.which === 13) { // Enter key
+            e.preventDefault();
+            const $currentItem = $(this).closest('.quiz__item');
+            const $radioChecked = $currentItem.find('input[type="radio"]:checked');
+            if ($radioChecked.length) {
+              $currentItem.find('.quiz__submit').click();
+            } else {
+              alert('Please select a species before submitting.');
+            }
+          }
+        });
+
+        // Handle form submission
+        $('.quiz-form', $quizContainer).on('submit', function(e) {
+          e.preventDefault();
+          const $currentItem = $(this).closest('.quiz__item');
+          const $radioChecked = $currentItem.find('input[type="radio"]:checked');
+          if ($radioChecked.length) {
+            $(this).find('.quiz__submit').click();
+          } else {
+            alert('Please select a species before submitting.');
+          }
+        });
+
+        // Handle continue form submission
+        $('.continue-form', $quizContainer).on('submit', function(e) {
+          e.preventDefault();
+          $(this).find('.quiz__continue').click();
+        });
+
+        // Add keyboard accessibility - handle Enter key press for Continue button
+        $quizContainer.on('keypress', '.quiz__answer', function(e) {
+          if (e.which === 13) { // Enter key
+            e.preventDefault();
+            $(this).find('.quiz__continue').click();
+          }
+        });
+
         // Handle continue button clicks
-        $('.quiz__continue', $quizContainer).on('click', function () {
+        $('.quiz__continue', $quizContainer).on('click', function (e) {
+          e.preventDefault(); // Prevent form submission if inside a form
           showNextQuestion();
         });
 
         // Handle submit button clicks
-        $('.quiz__submit', $quizContainer).on('click', function () {
+        $('.quiz__submit', $quizContainer).on('click', function(e) {
+          e.preventDefault(); // Prevent form submission if inside a form
           const $currentItem = $(this).closest('.quiz__item');
           const questionIndex = parseInt($currentItem.data('question')) - 1;
           const selectedSpecies = $currentItem.find('input[type="radio"]:checked').val();
@@ -135,7 +188,10 @@
 
           // Switch to answer panel
           $(this).closest('.quiz__guess').slideUp()
-            .closest('.quiz__response').find('.quiz__answer').slideDown();
+            .closest('.quiz__response').find('.quiz__answer').slideDown(function() {
+              // Focus on the Continue button after the answer panel is shown
+              focusOnContinueButton();
+            });
         });
 
         // Show first question

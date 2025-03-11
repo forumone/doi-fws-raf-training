@@ -41,11 +41,13 @@
         <div class="quiz__response quiz__response--{{ key }}">
 
           <div class="quiz__guess">
-            <div class="form-item form-type-textfield form-item-guess form-group">
-              <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds did you count?'|t }}</span></label>
-              <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" autocomplete="none" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" size="6" maxlength="6" required="required" aria-required="true">
-            </div>
-            <button class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
+            <form class="quiz-form" onsubmit="return false;">
+              <div class="form-item form-type-textfield form-item-guess form-group">
+                <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds did you count?'|t }}</span></label>
+                <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" autocomplete="none" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" min="0" inputmode="numeric" pattern="[0-9]*" size="6" maxlength="6" required="required" aria-required="true">
+              </div>
+              <button type="submit" class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
+            </form>
           </div>
 
           <div class="quiz__answer">
@@ -55,7 +57,9 @@
               <p class="quiz__result"><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
               <p class="quiz__result"><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>
             </div>
-            <button class="btn btn-primary quiz__continue">{{ 'Continue'|t }}</button>
+            <form class="continue-form" onsubmit="return false;">
+              <button type="submit" class="btn btn-primary quiz__continue" tabindex="0">{{ 'Continue'|t }}</button>
+            </form>
           </div>
         </div>
 
