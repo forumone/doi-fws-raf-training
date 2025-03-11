@@ -34,7 +34,7 @@ default:
       tag: meta
       attributes:
         name: title
-        content: 'Manatee Homepage | FWS: Captive Manatee Database'
+        content: 'Manatee Homepage | FWS: Manatee Rescue and Rehabilitation Database'
     -
       tag: meta
       attributes:
