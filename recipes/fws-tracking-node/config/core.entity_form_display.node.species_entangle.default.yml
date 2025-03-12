@@ -13,8 +13,9 @@ dependencies:
   module:
     - datetime
     - path
+    - select2
 _core:
-  default_config_hash: vmqirmmnnHOG0AUxcfzc_VRctzQmNGFfw61_YdFiARw
+  default_config_hash: 44VaTRvaP7XBVMVSDWcFgUQaZM5tpXpPXZGHI8HAeDo
 id: node.species_entangle.default
 targetEntityType: node
 bundle: species_entangle
@@ -43,14 +44,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_gear_type:
-    type: entity_reference_autocomplete
+    type: select2_entity_reference
     weight: 4
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_rescue_date:
     type: datetime_default
