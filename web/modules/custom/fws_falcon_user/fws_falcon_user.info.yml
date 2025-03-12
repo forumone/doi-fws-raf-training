@@ -1,0 +1,7 @@
+name: FWS Falcon User
+type: module
+description: 'Handles auto-generation and read-only functionality for authorized CD field.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:user
