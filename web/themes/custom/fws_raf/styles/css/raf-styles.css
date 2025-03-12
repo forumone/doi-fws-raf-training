@@ -450,6 +450,9 @@ input.form-autocomplete {
   top: 0 !important;
   right: 5px !important;
 }
+.select2-selection__arrow b {
+  display: none;
+}
 
 .field-group-details .panel-heading a {
   display: flex;
