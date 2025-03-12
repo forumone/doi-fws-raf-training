@@ -1,3 +1,4 @@
+uuid: bc994231-6bb2-4dae-9fa8-c0ba8e7a0cfa
 langcode: en
 status: true
 dependencies:
@@ -13,6 +14,7 @@ dependencies:
     - field.field.user.user.field_author_state
     - field.field.user.user.field_authorized_by
     - field.field.user.user.field_authorized_cd
+    - field.field.user.user.field_authorized_code
     - field.field.user.user.field_city
     - field.field.user.user.field_comments
     - field.field.user.user.field_created_by
@@ -37,10 +39,12 @@ dependencies:
     - field.field.user.user.field_last_activity
     - field.field.user.user.field_last_name
     - field.field.user.user.field_message_to_target
+    - field.field.user.user.field_mfa_login_timestamp
     - field.field.user.user.field_mfa_uuid
     - field.field.user.user.field_middle_name
     - field.field.user.user.field_permit_class
     - field.field.user.user.field_permit_no
+    - field.field.user.user.field_permit_number
     - field.field.user.user.field_permit_status_cd
     - field.field.user.user.field_phone1
     - field.field.user.user.field_phone2
@@ -55,6 +59,8 @@ dependencies:
     - datetime
     - text
     - user
+_core:
+  default_config_hash: Ab-yzyE6Sa0rRTKPif7aGVvOLJJjup0qYxOhR-VxZ8U
 id: user.user.default
 targetEntityType: user
 bundle: user
@@ -175,8 +181,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 15
     region: content
@@ -184,8 +190,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 16
     region: content
@@ -193,8 +199,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 17
     region: content
@@ -202,8 +208,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 18
     region: content
@@ -211,8 +217,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 19
     region: content
@@ -220,8 +226,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 20
     region: content
@@ -229,8 +235,8 @@ content:
     type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
     weight: 21
     region: content
@@ -470,5 +476,9 @@ content:
     weight: 49
     region: content
 hidden:
+  field_authorized_code: true
+  field_mfa_login_timestamp: true
+  field_permit_number: true
   langcode: true
   member_for: true
+  search_api_excerpt: true

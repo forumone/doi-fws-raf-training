@@ -6,18 +6,17 @@ dependencies:
     - field.storage.user.field_phone2
   module:
     - user
+_core:
+  default_config_hash: Pm-j-Md-3_1pEng6COfBNOJCuOLYxJrGuZMDZmuqlUI
 id: user.user.field_phone2
 field_name: field_phone2
 entity_type: user
 bundle: user
-label: 'Secondary Phone'
+label: 'Alternate Phone'
 description: 'User secondary phone number from source system'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
+settings: {  }
 field_type: string

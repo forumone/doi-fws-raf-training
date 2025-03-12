@@ -1,3 +1,4 @@
+uuid: 93a5347c-48f7-4d11-833f-e4f84e9e4652
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - field.storage.user.field_zip_cd
   module:
     - user
+_core:
+  default_config_hash: TgcJtQOYqKnWwlsdz7a31GP0NqjRY_u-98rUg8_O7Po
 id: user.user.field_zip_cd
 field_name: field_zip_cd
 entity_type: user

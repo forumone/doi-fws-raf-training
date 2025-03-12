@@ -1,10 +1,14 @@
+uuid: 5209cbca-5a76-4203-92dd-d350aed38e8b
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.user.field_author_state
+    - taxonomy.vocabulary.state
   module:
     - user
+_core:
+  default_config_hash: JFemvPu6BmgZ4n1Dp3elwJH56_gGAZY2WoPq_7zCXlc
 id: user.user.field_author_state
 field_name: field_author_state
 entity_type: user
@@ -16,7 +20,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: default:taxonomy_term
+  handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
       state: state

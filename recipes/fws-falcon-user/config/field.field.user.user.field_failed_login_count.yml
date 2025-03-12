@@ -6,6 +6,8 @@ dependencies:
     - field.storage.user.field_failed_login_count
   module:
     - user
+_core:
+  default_config_hash: YwIpvOEEfpJ1iuvq8Bo16NA8FO5zPJEyXj5q8wwwrMA
 id: user.user.field_failed_login_count
 field_name: field_failed_login_count
 entity_type: user
@@ -15,7 +17,8 @@ description: 'Number of consecutive failed login attempts'
 required: false
 translatable: true
 default_value:
-  - value: 0
+  -
+    value: 0
 default_value_callback: ''
 settings:
   min: 0

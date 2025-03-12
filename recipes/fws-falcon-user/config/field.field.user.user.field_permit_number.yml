@@ -6,6 +6,8 @@ dependencies:
     - field.storage.user.field_permit_number
   module:
     - user
+_core:
+  default_config_hash: G2lLyMnQUIW4mb75cxn5hLVNzGP8NhQb1x3bs9syH-A
 id: user.user.field_permit_number
 field_name: field_permit_number
 entity_type: user
@@ -16,7 +18,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 50
-  case_sensitive: true
+settings: {  }
 field_type: string
