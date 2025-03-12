@@ -49,7 +49,7 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'https://falcon.ddev.site/access-denied'
+        href: '/access-denied'
   path:
     -
       alias: /access-denied
