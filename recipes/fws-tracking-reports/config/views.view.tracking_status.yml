@@ -30,7 +30,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 7ahv7MdWLSqpBQcjGr5JkmiPyuqSYw3jsrVI4xumuxA
+  default_config_hash: PkO9IcP9SDWxRyi-PS35YpMq6dfVKf7QwZ8_ibXQRv0
 id: tracking_status
 label: 'Species Status Report'
 module: views
@@ -489,10 +489,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_default
+          type: datetime_custom
           settings:
             timezone_override: ''
-            format_type: html_date
+            date_format: m/d/Y
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -512,7 +512,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: 'Rescue Length'
-          exclude: true
+          exclude: false
           alter:
             alter_text: true
             text: '{{ field_length_1__value }} cm'
@@ -573,11 +573,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Rescue Weight, Length'
+          label: 'Rescue Weight'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_weight_1__value }} kg, {{ field_length_1 }}'
+            text: '{{ field_weight_1__value }} kg'
             make_link: false
             path: ''
             absolute: false
@@ -816,68 +816,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_length:
-          id: field_length
-          table: node__field_length
-          field: field_length
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Current Length'
-          exclude: true
-          alter:
-            alter_text: true
-            text: '{{ field_length }} cm'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_unformatted
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_rescue_cause_detail:
           id: field_rescue_cause_detail
           table: taxonomy_term__field_rescue_cause_detail
@@ -941,6 +879,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_length:
+          id: field_length
+          table: node__field_length
+          field: field_length
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Current Length'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_length }} cm'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_unformatted
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_weight:
           id: field_weight
           table: node__field_weight
@@ -949,11 +949,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Current Weight, Length'
+          label: 'Current Weight'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_weight }} kg, {{ field_length }}'
+            text: '{{ field_weight }} kg'
             make_link: false
             path: ''
             absolute: false
@@ -1710,8 +1710,8 @@ display:
             field_city: field_city
             field_county: field_county
             field_waterway: field_waterway
-            field_length: field_length
             field_rescue_cause_detail: field_rescue_cause_detail
+            field_length: field_length
             field_weight: field_weight
             field_release_status: field_release_status
             field_health_status: field_health_status
@@ -1768,14 +1768,14 @@ display:
               empty_column: false
               responsive: ''
             field_length_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_weight_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1802,13 +1802,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_length:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             field_rescue_cause_detail:
               sortable: true
               default_sort_order: asc
@@ -1816,8 +1809,15 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            field_length:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_weight:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
