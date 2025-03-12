@@ -58,7 +58,9 @@ class TrackingSearchManager {
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadByProperties(['vid' => 'tag_type']);
     foreach ($terms as $term) {
-      $types[$term->id()] = $term->label();
+      if ($term->hasField('field_tag_type_text') && !$term->field_tag_type_text->isEmpty()) {
+        $types[$term->id()] = $term->field_tag_type_text->value;
+      }
     }
     asort($types);
     return $types;
@@ -559,7 +561,7 @@ class TrackingSearchManager {
   public function getLatestEvent($species_id, $specific_type = NULL) {
     $event_types = [
       'species_birth' => 'field_birth_date',
-      'species_rescue' => 'field_rescue_date', 
+      'species_rescue' => 'field_rescue_date',
       'transfer' => 'field_transfer_date',
       'species_release' => 'field_release_date',
       'species_death' => 'field_death_date',
@@ -585,7 +587,8 @@ class TrackingSearchManager {
           return [
             'type' => ucfirst(str_replace(['species_', '_'], ['', ' '], $specific_type)),
             'date' => $formatted_date,
-            'timestamp' => strtotime($date_value), // Added for sorting
+          // Added for sorting.
+            'timestamp' => strtotime($date_value),
           ];
         }
       }
@@ -745,7 +748,7 @@ class TrackingSearchManager {
       $sid = $species_entity->id();
       $latest_event = $this->getLatestEvent($sid, $event_type);
 
-      // Get the event node to fetch details
+      // Get the event node to fetch details.
       $event_type_bundle = strtolower(str_replace(' ', '_', 'species_' . $latest_event['type']));
       if ($event_type_bundle !== 'species_n/a') {
         $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -753,7 +756,7 @@ class TrackingSearchManager {
           ->condition('field_species_ref', $sid)
           ->accessCheck(FALSE);
 
-        // Add date field condition based on event type
+        // Add date field condition based on event type.
         $date_fields = [
           'species_birth' => 'field_birth_date',
           'species_rescue' => 'field_rescue_date',
@@ -768,7 +771,7 @@ class TrackingSearchManager {
 
         $event_query->range(0, 1);
         $event_results = $event_query->execute();
-        
+
         $event_details = 'N/A';
         if (!empty($event_results)) {
           $event_node = $this->entityTypeManager->getStorage('node')->load(reset($event_results));
@@ -776,7 +779,8 @@ class TrackingSearchManager {
             $event_details = $this->getEventDetails($event_node);
           }
         }
-      } else {
+      }
+      else {
         $event_details = 'N/A';
       }
 
@@ -854,7 +858,7 @@ class TrackingSearchManager {
         ],
       ];
 
-      // Combine date and details for the last event column
+      // Combine date and details for the last event column.
       $event_info = $row['latest_event_date'];
       if ($row['latest_event_details'] !== 'N/A') {
         $event_info .= ' - ' . $row['latest_event_details'];
@@ -1288,10 +1292,10 @@ class TrackingSearchManager {
             }
           }
           elseif ($type === 'transfer') {
-            // For transfer events, get facility names from taxonomy terms
+            // For transfer events, get facility names from taxonomy terms.
             $from_facility = 'N/A';
             $to_facility = 'N/A';
-            
+
             if (!$node->field_from_facility->isEmpty()) {
               $term_id = $node->field_from_facility->target_id;
               $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id);
@@ -1299,7 +1303,7 @@ class TrackingSearchManager {
                 $from_facility = $term->getName();
               }
             }
-            
+
             if (!$node->field_to_facility->isEmpty()) {
               $term_id = $node->field_to_facility->target_id;
               $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($term_id);
@@ -1307,7 +1311,7 @@ class TrackingSearchManager {
                 $to_facility = $term->getName();
               }
             }
-            
+
             $location = "To: {$to_facility} From: {$from_facility}";
           }
           else {
@@ -1317,7 +1321,7 @@ class TrackingSearchManager {
             }
           }
 
-          // Get event details
+          // Get event details.
           $details = '';
           if ($type === 'transfer' && !$node->field_reason->isEmpty()) {
             $term_id = $node->field_reason->target_id;
