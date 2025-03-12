@@ -1,15 +1,16 @@
 @forward 'utils/reset';
 @forward 'utils/typography';
 
-@forward 'layout/navigation'; // includes header and nav
+@forward 'layout/header';
+@forward 'layout/footer';
 @forward 'layout/layout';
 
 @forward 'user/user';
 
 @forward 'blocks/blocks';
 
-@forward 'forms/autocomplete'; // UI widget overrides
-@forward 'forms/form-components'; // includes select2 and field groups
+@forward 'forms/autocomplete';
+@forward 'forms/form-components';
 @forward 'forms/node-forms';
 
 @forward 'nodes/node';
@@ -18,5 +19,5 @@
 @forward 'quiz/quiz';
 
 @forward 'views/views';
-@forward 'views/tracking'; // includes tracking report and search forms
+@forward 'views/tracking';
 @forward 'views/sightings';

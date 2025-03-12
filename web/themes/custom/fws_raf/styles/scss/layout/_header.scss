@@ -1,0 +1,123 @@
+@use 'utils/breakpoints' as *;
+@use 'utils/colors' as *;
+
+header#navbar {
+  background: linear-gradient($blue-dark 0%, $blue-dark 25%, rgba($blue-medium, 0.8) 100%);
+
+  #navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  .navbar-header {
+    @include breakpoint(lg) {
+      min-width: 250px;
+    }
+  }
+
+  > .container {
+    width: 100%;
+
+    @include breakpoint(lg) {
+      width: 970px;
+    }
+
+    @include breakpoint(xl) {
+      width: 1170px;
+    }
+  }
+}
+
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+.mb-menuwrapper {
+  height: calc(100% - 115px);
+  top: 115px;
+
+  @include breakpoint(lg) {
+    height: calc(100% - 178px);
+    top: 178px;
+  }
+}
+
+.fws-branding {
+
+  &__logo {
+
+    img {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__name {
+    width: 350px;
+    line-height: 30px;
+  }
+}
+
+.navbar-main {
+  width: auto;
+  margin-bottom: 0;
+
+  .navbar-nav {
+    float: right;
+    clear: both;
+
+    & > li {
+
+      & > a {
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    background-color: $white;
+    list-style: none;
+    padding: 0;
+
+    & > li {
+
+      & > a {
+        background-color: $white;
+        color: $gray-dark;
+        padding: 10px 15px;
+
+        &:hover,
+        &:focus {
+          background-color: $blue-medium;
+          color: $white;
+        }
+      }
+    }
+
+    & > .active {
+
+      & > a {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.navbar-default {
+
+  .navbar-nav {
+
+    & > .active {
+
+      & > a {
+        color: $white;
+
+        &:hover,
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+  }
+}

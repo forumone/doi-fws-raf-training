@@ -120,6 +120,9 @@ p, .p1.p1 {
   font-size: 10px;
 }
 
+header#navbar {
+  background: linear-gradient(#021d44 0%, #021d44 25%, rgba(32, 84, 147, 0.8) 100%);
+}
 header#navbar #navbar-collapse {
   border-top: 0;
   box-shadow: none;
@@ -162,6 +165,10 @@ header#navbar > .container {
   width: 100%;
   margin-bottom: 10px;
 }
+.fws-branding__name {
+  width: 350px;
+  line-height: 30px;
+}
 
 .navbar-main {
   width: auto;
@@ -172,47 +179,41 @@ header#navbar > .container {
   clear: both;
 }
 .navbar-main .navbar-nav > li > a {
-  font-size: 1.062em;
   font-weight: 700;
   text-transform: uppercase;
 }
 .navbar-main .dropdown-menu {
-  background-color: #fff;
+  background-color: #FFFFFF;
   list-style: none;
   padding: 0;
 }
 .navbar-main .dropdown-menu > li > a {
-  background-color: #fff;
-  color: #333;
+  background-color: #FFFFFF;
+  color: #3F3E46;
   padding: 10px 15px;
 }
 .navbar-main .dropdown-menu > li > a:hover, .navbar-main .dropdown-menu > li > a:focus {
-  background-color: #337ab7;
-  color: #fff;
+  background-color: #205493;
+  color: #FFFFFF;
 }
-.navbar-main .dropdown-menu > li.active > a {
+.navbar-main .dropdown-menu > .active > a {
   font-weight: bold;
 }
 
 .navbar-default .navbar-nav > .active > a {
-  color: #fff;
+  color: #FFFFFF;
 }
 .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #fff;
+  color: #FFFFFF;
+}
+
+.footer {
+  margin-top: 50px;
 }
 
 .field--name-body img {
   max-width: 100%;
   margin: 0 auto;
-}
-
-.fws-branding__name {
-  width: 350px;
-  line-height: 30px;
-}
-
-.footer {
-  margin-top: 50px;
 }
 
 .path-user .main-container {
@@ -290,7 +291,7 @@ input.form-autocomplete {
   z-index: 2;
 }
 .form-type-checkbox.form-type-checkbox.checkbox input[type=checkbox]:focus + label:before {
-  outline: 2px solid #011430;
+  outline: 2px solid #021d44;
   outline-offset: 2px;
 }
 .form-type-checkbox.form-type-checkbox.checkbox input[type=checkbox]:focus-visible + label:before {
@@ -362,7 +363,7 @@ input.form-autocomplete {
   z-index: 2;
 }
 .form-type-radio.form-type-radio.radio input[type=radio]:focus + label:before {
-  outline: 2px solid #011430;
+  outline: 2px solid #021d44;
   outline-offset: 2px;
 }
 .form-type-radio.form-type-radio.radio input[type=radio]:focus-visible + label:before {
