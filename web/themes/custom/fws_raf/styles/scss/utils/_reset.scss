@@ -21,3 +21,8 @@ video {
     height: 100%;
   }
 }
+
+// Preventing white line display on the bottom of the page
+#drupal-live-announce {
+  bottom: 0;
+}
