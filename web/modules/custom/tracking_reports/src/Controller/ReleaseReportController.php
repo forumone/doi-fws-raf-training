@@ -102,10 +102,15 @@ class ReleaseReportController extends ControllerBase {
    * @param mixed $cell_data
    *   The cell data, which can be a Link object or a render array.
    *
-   * @return string
-   *   The sortable string value.
+   * @return string|float
+   *   The sortable value (string or float).
    */
   protected function getSortableValue($cell_data) {
+    // Check for data-sort-value attribute for numeric sorting.
+    if (is_array($cell_data) && isset($cell_data['data-sort-value'])) {
+      return (float) $cell_data['data-sort-value'];
+    }
+
     // Handle Link objects.
     if ($cell_data instanceof Link) {
       return $cell_data->getText();
@@ -146,8 +151,12 @@ class ReleaseReportController extends ControllerBase {
       'rescue_date' => 4,
       'release_date' => 5,
       'rescue_cause' => 6,
-      'rescue_county' => 9,
-      'release_county' => 10,
+      'rescue_weight' => 7,
+      'rescue_length' => 8,
+      'release_weight' => 9,
+      'release_length' => 10,
+      'rescue_county' => 11,
+      'release_county' => 12,
     ];
 
     // If the sort column isn't recognized, just return rows unsorted.
@@ -161,6 +170,31 @@ class ReleaseReportController extends ControllerBase {
       // Get sortable values, handling both Link objects and arrays with 'data' key.
       $a_value = $this->getSortableValue($a['data'][$column]);
       $b_value = $this->getSortableValue($b['data'][$column]);
+
+      // Special handling for numeric columns.
+      $numeric_columns = [
+        'rescue_weight',
+        'rescue_length',
+        'release_weight',
+        'release_length',
+      ];
+      if (in_array($sort, $numeric_columns)) {
+        // Handle N/A values (stored as -1).
+        if ($a_value === -1 && $b_value !== -1) {
+          return ($direction === 'asc') ? 1 : -1;
+        }
+        if ($b_value === -1 && $a_value !== -1) {
+          return ($direction === 'asc') ? -1 : 1;
+        }
+
+        // Numeric comparison.
+        if ($a_value == $b_value) {
+          return 0;
+        }
+        return ($direction === 'asc')
+          ? ($a_value < $b_value ? -1 : 1)
+          : ($b_value < $a_value ? -1 : 1);
+      }
 
       // Special handling for N/A values - always sort them last.
       if ($a_value === 'N/A' && $b_value === 'N/A') {
@@ -239,24 +273,67 @@ class ReleaseReportController extends ControllerBase {
   }
 
   /**
-   * Gets formatted metrics string for weight/length.
+   * Gets formatted weight value.
    *
    * @param \Drupal\Core\Field\FieldItemListInterface|null $weight
    *   The weight field.
+   *
+   * @return string
+   *   The formatted weight string.
+   */
+  protected function getWeightString($weight) {
+    if ($weight && !$weight->isEmpty()) {
+      return $weight->value . ' kg';
+    }
+    return 'N/A';
+  }
+
+  /**
+   * Gets formatted length value.
+   *
    * @param \Drupal\Core\Field\FieldItemListInterface|null $length
    *   The length field.
    *
    * @return string
-   *   The formatted metrics string.
+   *   The formatted length string.
    */
-  protected function getMetricsString($weight, $length) {
-    $weight_val = ($weight && !$weight->isEmpty()) ? $weight->value : 'N/A';
-    $length_val = ($length && !$length->isEmpty()) ? $length->value : 'N/A';
-
-    if ($weight_val === 'N/A' && $length_val === 'N/A') {
-      return 'N/A';
+  protected function getLengthString($length) {
+    if ($length && !$length->isEmpty()) {
+      return $length->value . ' cm';
     }
-    return $weight_val . ' kg, ' . $length_val . ' cm';
+    return 'N/A';
+  }
+
+  /**
+   * Gets weight value for sorting.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface|null $weight
+   *   The weight field.
+   *
+   * @return float
+   *   The weight value or -1 for N/A.
+   */
+  protected function getWeightValue($weight) {
+    if ($weight && !$weight->isEmpty()) {
+      return (float) $weight->value;
+    }
+    return -1;
+  }
+
+  /**
+   * Gets length value for sorting.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface|null $length
+   *   The length field.
+   *
+   * @return float
+   *   The length value or -1 for N/A.
+   */
+  protected function getLengthValue($length) {
+    if ($length && !$length->isEmpty()) {
+      return (float) $length->value;
+    }
+    return -1;
   }
 
   /**
@@ -395,8 +472,10 @@ class ReleaseReportController extends ControllerBase {
       ['data' => $this->buildSortLink('Rescue Date', 'rescue_date')],
       ['data' => $this->buildSortLink('Release Date', 'release_date')],
       ['data' => $this->buildSortLink('Cause of Rescue', 'rescue_cause')],
-      ['data' => 'Rescue Weight, Length'],
-      ['data' => 'Release Weight, Length'],
+      ['data' => $this->buildSortLink('Rescue Weight', 'rescue_weight')],
+      ['data' => $this->buildSortLink('Rescue Length', 'rescue_length')],
+      ['data' => $this->buildSortLink('Release Weight', 'release_weight')],
+      ['data' => $this->buildSortLink('Release Length', 'release_length')],
       ['data' => $this->buildSortLink('Rescue County', 'rescue_county')],
       ['data' => $this->buildSortLink('Release County', 'release_county')],
     ];
@@ -490,6 +569,11 @@ class ReleaseReportController extends ControllerBase {
     // Get the species name.
     $name = $species_entity->getTitle();
 
+    // Get pre-release metrics.
+    $prerelease_metrics = $this->getPreReleaseMetrics($species_entity->id());
+    $prerelease_weight = $prerelease_metrics['weight'];
+    $prerelease_length = $prerelease_metrics['length'];
+
     // Build the rest of the row data.
     return [
       ['data' => $name],
@@ -517,8 +601,22 @@ class ReleaseReportController extends ControllerBase {
           : 'N/A',
       ],
       ['data' => $this->getRescueCauseDetail($rescue)],
-      ['data' => $this->getMetricsString($rescue->field_weight ?? NULL, $rescue->field_length ?? NULL)],
-      ['data' => $this->getPreReleaseMetrics($species_entity->id())],
+      [
+        'data' => $this->getWeightString($rescue->field_weight ?? NULL),
+        'data-sort-value' => $this->getWeightValue($rescue->field_weight ?? NULL),
+      ],
+      [
+        'data' => $this->getLengthString($rescue->field_length ?? NULL),
+        'data-sort-value' => $this->getLengthValue($rescue->field_length ?? NULL),
+      ],
+      [
+        'data' => $this->getWeightString($prerelease_weight),
+        'data-sort-value' => $this->getWeightValue($prerelease_weight),
+      ],
+      [
+        'data' => $this->getLengthString($prerelease_length),
+        'data-sort-value' => $this->getLengthValue($prerelease_length),
+      ],
       ['data' => !$rescue->field_county->isEmpty() ? $rescue->field_county->entity->label() : 'N/A'],
       ['data' => !$release->field_county->isEmpty() ? $release->field_county->entity->label() : 'N/A'],
     ];
@@ -530,8 +628,8 @@ class ReleaseReportController extends ControllerBase {
    * @param int $species_id
    *   The species ID.
    *
-   * @return string
-   *   The formatted pre-release metrics or 'N/A'.
+   * @return array
+   *   An array containing weight and length information.
    */
   protected function getPreReleaseMetrics($species_id) {
     $prerelease_query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -544,9 +642,15 @@ class ReleaseReportController extends ControllerBase {
     $results = $prerelease_query->execute();
     if (!empty($results)) {
       $prerelease = $this->entityTypeManager->getStorage('node')->load(reset($results));
-      return $this->getMetricsString($prerelease->field_weight ?? NULL, $prerelease->field_length ?? NULL);
+      return [
+        'weight' => $prerelease->field_weight ?? NULL,
+        'length' => $prerelease->field_length ?? NULL,
+      ];
     }
-    return 'N/A';
+    return [
+      'weight' => NULL,
+      'length' => NULL,
+    ];
   }
 
   /**
