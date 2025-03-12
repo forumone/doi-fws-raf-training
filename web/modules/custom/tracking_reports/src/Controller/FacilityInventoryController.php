@@ -492,6 +492,10 @@ class FacilityInventoryController extends ControllerBase {
             'species_id' => $species_id,
             'number' => $number,
             'weight_length' => $weight_length,
+            'weight' => $event['weight'] !== 'N/A' ? $event['weight'] . ' kg' : 'N/A',
+            'weight_value' => $event['weight'] !== 'N/A' ? (float) $event['weight'] : -1,
+            'length' => $event['length'] !== 'N/A' ? $event['length'] . ' cm' : 'N/A',
+            'length_value' => $event['length'] !== 'N/A' ? (float) $event['length'] : -1,
             'county' => $county,
             'rescue_date' => $rescue_date,
             'rescue_cause' => $rescue_cause_detail,
@@ -503,11 +507,45 @@ class FacilityInventoryController extends ControllerBase {
       }
     }
 
-    // Default sort by facility name
+    // Default sort by facility name.
     if (!empty($sortable_data)) {
       usort($sortable_data, function ($a, $b) {
         return strnatcasecmp($a['facility_name'], $b['facility_name']);
       });
+    }
+
+    // Get sort parameters from the request.
+    $request = $this->requestStack->getCurrentRequest();
+    $sort = $request->query->get('sort', '');
+    $order = $request->query->get('order', 'asc');
+
+    // Apply sorting if requested.
+    if (!empty($sort) && !empty($sortable_data)) {
+      // Special handling for numeric fields.
+      if ($sort === 'weight_value' || $sort === 'length_value') {
+        usort($sortable_data, function ($a, $b) use ($sort, $order) {
+          if ($a[$sort] == $b[$sort]) {
+            return 0;
+          }
+
+          if ($order === 'asc') {
+            return ($a[$sort] < $b[$sort]) ? -1 : 1;
+          }
+          else {
+            return ($a[$sort] > $b[$sort]) ? -1 : 1;
+          }
+        });
+      }
+      else {
+        usort($sortable_data, function ($a, $b) use ($sort, $order) {
+          if ($order === 'asc') {
+            return strnatcasecmp($a[$sort], $b[$sort]);
+          }
+          else {
+            return strnatcasecmp($b[$sort], $a[$sort]);
+          }
+        });
+      }
     }
 
     // Build table headers.
@@ -533,8 +571,13 @@ class FacilityInventoryController extends ControllerBase {
         'class' => ['sortable'],
       ],
       [
-        'data' => $this->t('Weight, Length'),
-        'field' => 'weight_length',
+        'data' => $this->t('Weight'),
+        'field' => 'weight_value',
+        'class' => ['sortable'],
+      ],
+      [
+        'data' => $this->t('Length'),
+        'field' => 'length_value',
         'class' => ['sortable'],
       ],
       [
@@ -578,7 +621,14 @@ class FacilityInventoryController extends ControllerBase {
               ['node' => $data['species_nid']]
             ),
           ],
-          ['data' => $data['weight_length']],
+          [
+            'data' => $data['weight'],
+            'data-sort-value' => $data['weight_value'],
+          ],
+          [
+            'data' => $data['length'],
+            'data-sort-value' => $data['length_value'],
+          ],
           ['data' => $data['county']],
           ['data' => $data['rescue_date']],
           ['data' => $data['rescue_cause']],
