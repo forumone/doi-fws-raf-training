@@ -31,8 +31,23 @@
 
           // Sort rows
           rows.sort(function (a, b) {
-            const aValue = $(a).find('td').eq(index).text().trim();
-            const bValue = $(b).find('td').eq(index).text().trim();
+            const aCell = $(a).find('td').eq(index);
+            const bCell = $(b).find('td').eq(index);
+
+            // Check for data-sort-value attribute first (for numeric values)
+            if (aCell.attr('data-sort-value') !== undefined) {
+              const aValue = parseFloat(aCell.attr('data-sort-value'));
+              const bValue = parseFloat(bCell.attr('data-sort-value'));
+
+              // Handle N/A values (stored as -1)
+              if (aValue === -1 && bValue !== -1) return isAsc ? 1 : -1;
+              if (bValue === -1 && aValue !== -1) return isAsc ? -1 : 1;
+
+              return isAsc ? aValue - bValue : bValue - aValue;
+            }
+
+            const aValue = aCell.text().trim();
+            const bValue = bCell.text().trim();
 
             // Parse dates in YYYY-MM-DD format
             if (aValue.match(/^\d{4}-\d{2}-\d{2}$/)) {
@@ -41,24 +56,11 @@
                 new Date(bValue) - new Date(aValue);
             }
 
-            // Parse "X yr, Y mo" format
-            if (aValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/)) {
-              const aMonths = aValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/).slice(1)
-                .filter(x => x !== undefined && !x.includes(','))
-                .reduce((acc, val, i) => acc + (i === 0 ? parseInt(val) * 12 : parseInt(val)), 0);
-              const bMonths = bValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/).slice(1)
-                .filter(x => x !== undefined && !x.includes(','))
-                .reduce((acc, val, i) => acc + (i === 0 ? parseInt(val) * 12 : parseInt(val)), 0);
-              return isAsc ? aMonths - bMonths : bMonths - aMonths;
-            }
-
-            // Parse "X kg, Y cm" format
-            if (aValue.includes('kg')) {
-              const aNum = parseFloat(aValue);
-              const bNum = parseFloat(bValue);
-              if (!isNaN(aNum) && !isNaN(bNum)) {
-                return isAsc ? aNum - bNum : bNum - aNum;
-              }
+            // Parse "X days" format
+            if (aValue.match(/(\d+)\s*days/)) {
+              const aDays = parseInt(aValue.match(/(\d+)\s*days/)[1]);
+              const bDays = parseInt(bValue.match(/(\d+)\s*days/)[1]);
+              return isAsc ? aDays - bDays : bDays - aDays;
             }
 
             // Default string comparison
