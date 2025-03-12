@@ -204,6 +204,7 @@ class CurrentCaptivesController extends ControllerBase {
             ['data' => $this->t('Tracking Number')],
             ['data' => $this->t('Name')],
             ['data' => $this->t('Species ID')],
+            ['data' => $this->t('Sex')],
             ['data' => $this->t('Event')],
             ['data' => $this->t('Event Date')],
             ['data' => $this->t('# Days in Captivity')],
@@ -350,6 +351,19 @@ class CurrentCaptivesController extends ControllerBase {
       $species_id_val = $species_ids[$sid] ?? '';
       $rescue_type = $rescue_types[$sid] ?? 'none';
 
+      // Get the sex value from the species node
+      $sex = 'Unknown';
+      if ($species_node->hasField('field_sex') && !$species_node->field_sex->isEmpty()) {
+        // If field_sex is a taxonomy term reference
+        if ($species_node->field_sex->entity) {
+          $sex = $species_node->field_sex->entity->getName();
+        }
+        // If field_sex is a plain text or list field
+        else {
+          $sex = $species_node->field_sex->value;
+        }
+      }
+
       // Figure out # of days in captivity if rescue type is B or none.
       $captivity_date = NULL;
       if (isset($type_b_rescue_dates[$sid])) {
@@ -373,6 +387,7 @@ class CurrentCaptivesController extends ControllerBase {
             ['data' => $number_link],
             ['data' => $name],
             ['data' => $species_id_val],
+            ['data' => $sex],
             ['data' => $event_type],
             ['data' => $formatted_date],
             ['data' => $days_in_captivity],
@@ -399,6 +414,10 @@ class CurrentCaptivesController extends ControllerBase {
       'species_id' => [
         'data' => $this->t('Species ID'),
         'field' => 'species_id',
+      ],
+      'sex' => [
+        'data' => $this->t('Sex'),
+        'field' => 'sex',
       ],
       'event' => [
         'data' => $this->t('Event'),
@@ -447,24 +466,29 @@ class CurrentCaptivesController extends ControllerBase {
             $b_val = strtolower($b['data'][2]['data']);
             break;
 
-          case 'event':
+          case 'sex':
             $a_val = strtolower($a['data'][3]['data']);
             $b_val = strtolower($b['data'][3]['data']);
             break;
 
+          case 'event':
+            $a_val = strtolower($a['data'][4]['data']);
+            $b_val = strtolower($b['data'][4]['data']);
+            break;
+
           case 'event_date':
-            $a_val = strtotime($a['data'][4]['data']);
-            $b_val = strtotime($b['data'][4]['data']);
+            $a_val = strtotime($a['data'][5]['data']);
+            $b_val = strtotime($b['data'][5]['data']);
             break;
 
           case 'days_captive':
-            $a_val = is_numeric($a['data'][5]['data']) ? (int) $a['data'][5]['data'] : PHP_INT_MAX;
-            $b_val = is_numeric($b['data'][5]['data']) ? (int) $b['data'][5]['data'] : PHP_INT_MAX;
+            $a_val = is_numeric($a['data'][6]['data']) ? (int) $a['data'][6]['data'] : PHP_INT_MAX;
+            $b_val = is_numeric($b['data'][6]['data']) ? (int) $b['data'][6]['data'] : PHP_INT_MAX;
             break;
 
           case 'facility':
-            $a_val = strtolower($a['data'][6]['data']);
-            $b_val = strtolower($b['data'][6]['data']);
+            $a_val = strtolower($a['data'][7]['data']);
+            $b_val = strtolower($b['data'][7]['data']);
             break;
         }
 
