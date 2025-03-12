@@ -463,6 +463,19 @@ class ReleaseReportController extends ControllerBase {
     $offset = $current_page * $this->itemsPerPage;
     $paged_rows = array_slice($rows, $offset, $this->itemsPerPage);
 
+    // Add total results count.
+    $build['total_count'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['total-results-count']],
+      'count' => [
+        '#markup' => $this->formatPlural(
+          $total_records,
+          '1 result found',
+          '@count results found'
+        ),
+      ],
+    ];
+
     // Build table header with sortable links.
     $headers = [
       ['data' => $this->buildSortLink('Name', 'name')],
