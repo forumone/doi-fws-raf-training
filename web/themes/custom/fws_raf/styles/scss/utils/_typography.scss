@@ -1,0 +1,125 @@
+@use 'breakpoints' as *;
+@use 'colors' as *;
+
+@mixin font--primary($weight: 400) {
+  font-weight: $weight;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+}
+
+@mixin font--secondary($weight: 400) {
+  font-weight: $weight;
+  font-family: 'Merriweather', 'Times New Roman', Times, serif;
+}
+
+@mixin headings {
+  h1, h2, h3,
+  h4, h5, h6 {
+    & {
+      @content;
+    }
+  }
+}
+
+html, body {
+  @include font--primary;
+  color: $gray-dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+@mixin h1 {
+  @include font--primary(600);
+  color: $blue-medium;
+  font-size: 32px;
+
+  @include breakpoint(lg) {
+    font-size: 44px;
+  }
+}
+
+h1, .h1.h1 {
+  @include h1;
+}
+
+@mixin h2 {
+  @include font--primary(600);
+  color: $blue-medium;
+  font-size: 28px;
+
+  @include breakpoint(lg) {
+    font-size: 34px;
+  }
+}
+
+h2, .h2.h2 {
+  @include h2;
+}
+
+@mixin h3 {
+  @include font--primary(600);
+  color: $blue-medium;
+  font-size: 20px;
+
+  @include breakpoint(lg) {
+    font-size: 24px;
+  }
+}
+
+h3, .h3.h3 {
+  @include h3;
+}
+
+@mixin h4 {
+  @include font--primary(600);
+  color: $blue-medium;
+  font-size: 18px;
+
+  @include breakpoint(lg) {
+    font-size: 20px;
+  }
+}
+
+h4, .h4.h4 {
+  @include h4;
+}
+
+@mixin h5 {
+  @include font--primary(800);
+  color: $blue-medium;
+  font-size: 16px;
+
+  @include breakpoint(lg) {
+    font-size: 18px;
+  }
+}
+
+h5, .h5.h5 {
+ @include h5;
+}
+
+@mixin h6 {
+  @include font--primary(800);
+  color: $blue-medium;
+  font-size: 16px;
+}
+
+h6, .h6.h6 {
+  @include h6;
+}
+
+p, .p1.p1 {
+  @include font--primary;
+  color: $gray-dark;
+  font-size: 16px;
+}
+
+.p2.p2 {
+  @include font--primary;
+  color: $gray-dark;
+  font-size: 14px;
+}
+
+.p3.p3 {
+  @include font--primary;
+  color: $gray-dark;
+  font-size: 10px;
+}
