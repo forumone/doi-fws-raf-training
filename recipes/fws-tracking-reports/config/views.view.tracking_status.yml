@@ -512,7 +512,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: 'Rescue Length'
-          exclude: true
+          exclude: false
           alter:
             alter_text: true
             text: '{{ field_length_1__value }} cm'
@@ -573,11 +573,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Rescue Weight, Length'
+          label: 'Rescue Weight'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_weight_1__value }} kg, {{ field_length_1 }}'
+            text: '{{ field_weight_1__value }} kg'
             make_link: false
             path: ''
             absolute: false
@@ -1768,14 +1768,14 @@ display:
               empty_column: false
               responsive: ''
             field_length_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_weight_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
