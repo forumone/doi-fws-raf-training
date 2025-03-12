@@ -53,7 +53,7 @@ class FacilityInventoryController extends ControllerBase {
   }
 
   /**
-   * Calculate time in captivity in years and months through end of filtered year.
+   * Calculate time in captivity in days through end of filtered year.
    *
    * @param \Drupal\Core\Datetime\DrupalDateTime $start_date
    *   The start date.
@@ -61,23 +61,17 @@ class FacilityInventoryController extends ControllerBase {
    *   The filtered year.
    *
    * @return string
-   *   Formatted string showing years and/or months.
+   *   Formatted string showing days in captivity.
    */
   protected function calculateTimeInCaptivity(DrupalDateTime $start_date, $year) {
     // Create end date as December 31st of the filtered year.
     $end_date = new DrupalDateTime($year . '-12-31');
 
+    // Calculate the difference in days.
     $interval = $end_date->diff($start_date);
-    $years = $interval->y;
-    $months = $interval->m;
+    $total_days = $interval->days;
 
-    if ($years > 0) {
-      if ($months > 0) {
-        return sprintf('%d yr, %d mo', $years, $months);
-      }
-      return sprintf('%d yr', $years);
-    }
-    return sprintf('%d mo', $months);
+    return sprintf('%d days', $total_days);
   }
 
   /**
@@ -458,8 +452,11 @@ class FacilityInventoryController extends ControllerBase {
 
         // Calculate time in captivity.
         $time_in_captivity = 'N/A';
+        $time_in_captivity_days = -1;
         if ($captivity_date) {
           $time_in_captivity = $this->calculateTimeInCaptivity($captivity_date, $year);
+          // Extract the numeric value for sorting.
+          $time_in_captivity_days = (int) $captivity_date->diff(new DrupalDateTime($year . '-12-31'))->days;
         }
 
         // Weight/length display.
@@ -500,6 +497,7 @@ class FacilityInventoryController extends ControllerBase {
             'rescue_date' => $rescue_date,
             'rescue_cause' => $rescue_cause_detail,
             'time_in_captivity' => $time_in_captivity,
+            'time_in_captivity_days' => $time_in_captivity_days,
             'medical_status' => $medical_status,
             'species_nid' => $species_entity->id(),
           ];
@@ -632,7 +630,10 @@ class FacilityInventoryController extends ControllerBase {
           ['data' => $data['county']],
           ['data' => $data['rescue_date']],
           ['data' => $data['rescue_cause']],
-          ['data' => $data['time_in_captivity']],
+          [
+            'data' => $data['time_in_captivity'],
+            'data-sort-value' => $data['time_in_captivity_days'],
+          ],
           ['data' => $data['medical_status']],
         ],
       ];

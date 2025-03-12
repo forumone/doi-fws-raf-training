@@ -56,15 +56,11 @@
                 new Date(bValue) - new Date(aValue);
             }
 
-            // Parse "X yr, Y mo" format
-            if (aValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/)) {
-              const aMonths = aValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/).slice(1)
-                .filter(x => x !== undefined && !x.includes(','))
-                .reduce((acc, val, i) => acc + (i === 0 ? parseInt(val) * 12 : parseInt(val)), 0);
-              const bMonths = bValue.match(/(\d+)\s*yr(,\s*(\d+)\s*mo)?/).slice(1)
-                .filter(x => x !== undefined && !x.includes(','))
-                .reduce((acc, val, i) => acc + (i === 0 ? parseInt(val) * 12 : parseInt(val)), 0);
-              return isAsc ? aMonths - bMonths : bMonths - aMonths;
+            // Parse "X days" format
+            if (aValue.match(/(\d+)\s*days/)) {
+              const aDays = parseInt(aValue.match(/(\d+)\s*days/)[1]);
+              const bDays = parseInt(bValue.match(/(\d+)\s*days/)[1]);
+              return isAsc ? aDays - bDays : bDays - aDays;
             }
 
             // Default string comparison
