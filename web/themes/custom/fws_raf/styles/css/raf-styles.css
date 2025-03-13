@@ -256,6 +256,11 @@ input.form-autocomplete {
   display: inline-block;
 }
 
+#edit-filters--content .form-actions,
+.views-exposed-form .form-actions {
+  padding: 0;
+}
+
 .fieldset-wrapper .description {
   padding: 15px 0 0;
 }

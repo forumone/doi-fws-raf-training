@@ -25,6 +25,7 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-taxonomy
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-node
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-content
+ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-reports
 ddev drush -l $SITE_URI cr
 
 # Run import scripts

@@ -49,7 +49,7 @@ try {
       ];
 
       // Set state code for state_admin and state_law users.
-      if (in_array($username, ['state_admin', 'state_law'])) {
+      if (in_array($username, ['state_admin', 'state_law', 'falconer'])) {
         $user_data['field_state_cd'] = $va_term->id();
       }
 
