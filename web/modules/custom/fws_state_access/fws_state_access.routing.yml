@@ -1,0 +1,8 @@
+fws_state_access.create_user:
+  path: '/state/create-user'
+  defaults:
+    _entity_form: 'user.register'
+    _title: 'Create State User'
+  requirements:
+    _permission: 'create state based user'
+    _state_access_check: 'TRUE'
