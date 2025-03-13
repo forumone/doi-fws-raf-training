@@ -168,6 +168,11 @@
   align-items: center !important;
   top: 0 !important;
   right: 5px !important;
+
+  // Hide this element as it conflicts with the display of the chevron
+  b {
+    display: none;
+  }
 }
 
 .field-group-details {
