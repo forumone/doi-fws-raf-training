@@ -13,6 +13,7 @@ use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Gets the state value for a user entity.
@@ -235,6 +236,48 @@ function fws_state_access_menu_local_tasks_alter(&$data, $route_name) {
 }
 
 /**
+ * Helper function to alter state field in user forms.
+ *
+ * @param array $form
+ *   The form array to alter.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _fws_state_access_alter_state_field(array &$form, FormStateInterface $form_state) {
+  // Get the current logged-in user.
+  $current_user = \Drupal::currentUser();
+
+  // Check if the current user has permission to create state-based users.
+  if ($current_user->hasPermission('create state based user')) {
+    // Get the current user's state.
+    $logged_in_user = User::load($current_user->id());
+
+    if ($logged_in_user->hasField('field_state_cd') && !$logged_in_user->get('field_state_cd')->isEmpty()) {
+      $state_term_id = $logged_in_user->get('field_state_cd')->target_id;
+      $state_term = Term::load($state_term_id);
+
+      if ($state_term && isset($form['field_state_cd'])) {
+        // Get the state name.
+        $state_name = $state_term->getName();
+
+        // Set the default value for the hidden field.
+        $form['field_state_cd']['widget']['#default_value'] = [$state_term_id];
+
+        // Create a visible display that looks like a form field.
+        $form['field_state_cd']['widget']['#type'] = 'item';
+        $form['field_state_cd']['widget']['#title'] = t('State');
+        $form['field_state_cd']['widget']['#markup'] = $state_name;
+        $form['field_state_cd']['widget']['#description'] = t('State is automatically set based on your account.');
+        $form['field_state_cd']['widget']['#wrapper_attributes'] = ['class' => ['form-item']];
+
+        // Hide the actual select element.
+        $form['field_state_cd']['widget'][0]['target_id']['#access'] = FALSE;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function fws_state_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -336,32 +379,19 @@ function fws_state_access_preprocess_node(&$variables) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function fws_state_access_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $route_match = \Drupal::routeMatch();
-
-  // Only alter the form if we're on our specific route.
-  if ($route_match->getRouteName() === 'fws_state_access.create_user') {
-    // Add a submit handler to set the state code.
-    $form['#submit'][] = 'fws_state_access_user_register_submit';
-
-    // Hide the state code field if it exists, as we'll set it automatically.
-    if (isset($form['field_state_cd'])) {
-      $form['field_state_cd']['#access'] = FALSE;
-    }
-  }
+function fws_state_access_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _fws_state_access_alter_state_field($form, $form_state);
 }
 
 /**
- * Submit handler for the user registration form.
+ * Implements hook_form_FORM_ID_alter().
  */
-function fws_state_access_user_register_submit($form, FormStateInterface $form_state) {
-  $account = $form_state->getFormObject()->getEntity();
-  $current_user = User::load(\Drupal::currentUser()->id());
+function fws_state_access_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Get the current route.
+  $route_name = \Drupal::routeMatch()->getRouteName();
 
-  // Set the state code if the current user has one.
-  if ($current_user->hasField('field_state_cd') && !$current_user->get('field_state_cd')->isEmpty()) {
-    $state_code = $current_user->get('field_state_cd')->target_id;
-    $account->set('field_state_cd', $state_code);
-    $account->save();
+  // Only alter the form if we're on our specific state user creation route.
+  if ($route_name === 'fws_state_access.create_user') {
+    _fws_state_access_alter_state_field($form, $form_state);
   }
 }
