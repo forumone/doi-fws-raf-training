@@ -7,3 +7,8 @@ access state based content:
   title: 'Access state-based content'
   description: 'Allow users to access content that matches their state code.'
   restrict access: FALSE
+
+create state based user:
+  title: 'Create state-based user accounts'
+  description: 'Allows users to create new user accounts within their state.'
+  restrict access: TRUE

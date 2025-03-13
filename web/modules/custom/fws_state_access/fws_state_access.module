@@ -332,3 +332,36 @@ function fws_state_access_preprocess_node(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fws_state_access_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $route_match = \Drupal::routeMatch();
+
+  // Only alter the form if we're on our specific route.
+  if ($route_match->getRouteName() === 'fws_state_access.create_user') {
+    // Add a submit handler to set the state code.
+    $form['#submit'][] = 'fws_state_access_user_register_submit';
+
+    // Hide the state code field if it exists, as we'll set it automatically.
+    if (isset($form['field_state_cd'])) {
+      $form['field_state_cd']['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Submit handler for the user registration form.
+ */
+function fws_state_access_user_register_submit($form, FormStateInterface $form_state) {
+  $account = $form_state->getFormObject()->getEntity();
+  $current_user = User::load(\Drupal::currentUser()->id());
+
+  // Set the state code if the current user has one.
+  if ($current_user->hasField('field_state_cd') && !$current_user->get('field_state_cd')->isEmpty()) {
+    $state_code = $current_user->get('field_state_cd')->target_id;
+    $account->set('field_state_cd', $state_code);
+    $account->save();
+  }
+}
