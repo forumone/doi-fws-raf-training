@@ -1,5 +1,10 @@
 @use 'utils/colors' as *;
 
+#edit-filters--content .form-actions,
+.views-exposed-form .form-actions {
+  padding: 0;
+}
+
 .fieldset-wrapper {
 
   .description {
@@ -39,13 +44,13 @@
     z-index: 2;
 
     // Add focus styles
-    &:focus + label:before {
+    &:focus+label:before {
       outline: 2px solid $blue-dark;
       outline-offset: 2px;
     }
 
     // High contrast focus for Windows
-    &:focus-visible + label:before {
+    &:focus-visible+label:before {
       outline: 2px solid -webkit-focus-ring-color;
       outline-offset: 2px;
     }
@@ -84,7 +89,7 @@
       border-color: $blue-medium;
       opacity: 0;
 
-      @if $type == checkbox {
+      @if $type ==checkbox {
         content: '\e013';
         font-family: 'Glyphicons Halflings';
         font-size: 12px;
@@ -107,7 +112,7 @@
     }
   }
 
-  input:checked + label:after {
+  input:checked+label:after {
     opacity: 1;
   }
 
