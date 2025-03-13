@@ -7,6 +7,8 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Implements hook_form_alter().
@@ -24,58 +26,79 @@ function fws_falcon_user_form_alter(&$form, FormStateInterface $form_state, $for
       $form['field_authorized_cd']['widget'][0]['value']['#description'] = t('This field is automatically generated and cannot be modified.');
     }
   }
+
+  // Check if this is a permit_3186a node form.
+  if (in_array($form_id, ['node_permit_3186a_form', 'node_permit_3186a_edit_form'])) {
+    // Make the field_falc_dt_signed field read-only.
+    if (isset($form['field_falc_dt_signed'])) {
+      $form['field_falc_dt_signed']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_falc_dt_signed']['widget'][0]['value']['#description'] = t('This field is automatically set when the permit is first created and cannot be modified.');
+    }
+  }
 }
 
 /**
  * Implements hook_entity_presave().
  */
 function fws_falcon_user_entity_presave(EntityInterface $entity) {
-  // Only process for user entities.
-  if ($entity->getEntityTypeId() !== 'user') {
-    return;
-  }
+  // Handle user entities.
+  if ($entity->getEntityTypeId() === 'user') {
+    // Only generate authorized CD for new users.
+    if (!$entity->isNew()) {
+      return;
+    }
 
-  // Only generate authorized CD for new users.
-  if (!$entity->isNew()) {
-    return;
-  }
+    // Skip if the field already has a value.
+    if (!$entity->get('field_authorized_cd')->isEmpty()) {
+      return;
+    }
 
-  // Skip if the field already has a value.
-  if (!$entity->get('field_authorized_cd')->isEmpty()) {
-    return;
-  }
+    // Get the database connection.
+    $database = \Drupal::database();
 
-  // Get the database connection.
-  $database = \Drupal::database();
+    // Query all tables that might contain authorized CD values.
+    $tables = [
+      'user__field_authorized_cd',
+      'node__field_authorized_cd',
+      'node_revision__field_authorized_cd',
+    ];
 
-  // Query all tables that might contain authorized CD values.
-  $tables = [
-    'user__field_authorized_cd',
-    'node__field_authorized_cd',
-    'node_revision__field_authorized_cd',
-  ];
+    $highest_numeric = 0;
 
-  $highest_numeric = 0;
+    foreach ($tables as $table) {
+      $query = $database->select($table, 'f')
+        ->fields('f', ['field_authorized_cd_value'])
+        ->condition('field_authorized_cd_value', 'A%', 'LIKE');
 
-  foreach ($tables as $table) {
-    $query = $database->select($table, 'f')
-      ->fields('f', ['field_authorized_cd_value'])
-      ->condition('field_authorized_cd_value', 'A%', 'LIKE');
+      $results = $query->execute()->fetchAll();
 
-    $results = $query->execute()->fetchAll();
-
-    foreach ($results as $row) {
-      $numeric = (int) substr($row->field_authorized_cd_value, 1);
-      if ($numeric > $highest_numeric) {
-        $highest_numeric = $numeric;
+      foreach ($results as $row) {
+        $numeric = (int) substr($row->field_authorized_cd_value, 1);
+        if ($numeric > $highest_numeric) {
+          $highest_numeric = $numeric;
+        }
       }
     }
+
+    // Generate the next number.
+    $next_number = $highest_numeric + 1;
+    $new_cd = 'A' . str_pad($next_number, 5, '0', STR_PAD_LEFT);
+
+    // Set the new authorized CD value.
+    $entity->set('field_authorized_cd', $new_cd);
   }
+  // Handle permit_3186a nodes.
+  elseif ($entity instanceof NodeInterface && $entity->bundle() === 'permit_3186a') {
+    // Only set the date if this is a new node and the field is empty.
+    if ($entity->isNew() && $entity->get('field_falc_dt_signed')->isEmpty()) {
+      // Create a datetime object for the current time.
+      $current_datetime = new DrupalDateTime('now');
 
-  // Generate the next number.
-  $next_number = $highest_numeric + 1;
-  $new_cd = 'A' . str_pad($next_number, 5, '0', STR_PAD_LEFT);
+      // Format the datetime for storage.
+      $formatted_datetime = $current_datetime->format('Y-m-d\TH:i:s');
 
-  // Set the new authorized CD value.
-  $entity->set('field_authorized_cd', $new_cd);
+      // Set the field value.
+      $entity->set('field_falc_dt_signed', $formatted_datetime);
+    }
+  }
 }
