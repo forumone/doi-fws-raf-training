@@ -1,3 +1,4 @@
+uuid: 2e3f0353-ee60-4c10-889c-1e10b3d22554
 langcode: en
 status: true
 dependencies:
@@ -5,16 +6,19 @@ dependencies:
     - field.storage.user.field_gold_permit
   module:
     - user
+_core:
+  default_config_hash: mrNry8IxiRmwHw2tIPUWqSKcxg3Bc6pOd5N_ro3ADfk
 id: user.user.field_gold_permit
 field_name: field_gold_permit
 entity_type: user
 bundle: user
-label: 'Gold Permit'
+label: 'Possesses a Golden Eagle permit'
 description: 'Indicates if the user has a gold permit'
 required: false
 translatable: true
 default_value:
-  - value: 0
+  -
+    value: 0
 default_value_callback: ''
 settings:
   on_label: 'Yes'

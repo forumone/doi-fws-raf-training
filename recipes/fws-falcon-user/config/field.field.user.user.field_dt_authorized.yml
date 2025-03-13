@@ -1,3 +1,4 @@
+uuid: 9c66f80d-d675-4b56-875a-7f79c94e2765
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
   module:
     - datetime
     - user
+_core:
+  default_config_hash: jTT5vPHqyY0iTearbyDjWY6KOyzPpT-wGf6qrlDYmu8
 id: user.user.field_dt_authorized
 field_name: field_dt_authorized
 entity_type: user
@@ -16,6 +19,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  datetime_type: datetime
+settings: {  }
 field_type: datetime

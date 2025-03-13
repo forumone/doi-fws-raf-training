@@ -1,3 +1,4 @@
+uuid: 89b93553-9a38-4394-a875-25311efe25eb
 langcode: en
 status: true
 dependencies:
@@ -6,15 +7,18 @@ dependencies:
   module:
     - text
     - user
+_core:
+  default_config_hash: uDQ-ezH-SA6gjJD-W-DqenD6KM4L9i-2VJ0nzm7MbWk
 id: user.user.field_comments
 field_name: field_comments
 entity_type: user
 bundle: user
-label: 'Comments'
+label: Comments
 description: 'Additional comments about the user'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

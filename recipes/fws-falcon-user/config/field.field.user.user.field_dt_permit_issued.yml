@@ -1,3 +1,4 @@
+uuid: b9b55db4-d292-45c9-b8fb-4294e9ad3345
 langcode: en
 status: true
 dependencies:
@@ -6,16 +7,17 @@ dependencies:
   module:
     - datetime
     - user
+_core:
+  default_config_hash: 7ATL1FQ-gQyd97trVRg1g6PJuy2ZacFXSz7gqt_glUU
 id: user.user.field_dt_permit_issued
 field_name: field_dt_permit_issued
 entity_type: user
 bundle: user
-label: 'Permit Issued Date'
+label: 'Date Issued'
 description: 'Date when the permit was issued'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  datetime_type: datetime
+settings: {  }
 field_type: datetime

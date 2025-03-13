@@ -1,3 +1,4 @@
+uuid: 8ded2d9d-d617-4884-82eb-ba5b1e5b58e1
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - field.storage.user.field_possess_eagle
   module:
     - user
+_core:
+  default_config_hash: Ewh1Nb0sa-fLV4tCKQclFfptwmcqIzRsGOmlC6EwbE4
 id: user.user.field_possess_eagle
 field_name: field_possess_eagle
 entity_type: user
@@ -14,7 +17,8 @@ description: ''
 required: false
 translatable: true
 default_value:
-  - value: 0
+  -
+    value: 0
 default_value_callback: ''
 settings:
   on_label: 'Yes'

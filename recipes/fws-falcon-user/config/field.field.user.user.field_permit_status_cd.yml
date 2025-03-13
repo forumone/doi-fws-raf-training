@@ -7,6 +7,8 @@ dependencies:
   module:
     - options
     - user
+_core:
+  default_config_hash: r65gK2fEsPYq-FFmInMear7jYQpZsWi-W-AOkmNp3cM
 id: user.user.field_permit_status_cd
 field_name: field_permit_status_cd
 entity_type: user
@@ -17,10 +19,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  allowed_values:
-    - ISS
-    - EXP
-  max_length: 10
-  case_sensitive: true
+settings: {  }
 field_type: list_string

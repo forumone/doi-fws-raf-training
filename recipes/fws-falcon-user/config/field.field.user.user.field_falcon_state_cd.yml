@@ -1,10 +1,14 @@
+uuid: e95b4e42-54f9-4a18-bbf4-a58d689c375a
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.user.field_falcon_state_cd
+    - taxonomy.vocabulary.state
   module:
     - user
+_core:
+  default_config_hash: 3dzHC5kxJPYm8sJXxd7Dy_yAsNOsnNP8stWfKC1ZBlU
 id: user.user.field_falcon_state_cd
 field_name: field_falcon_state_cd
 entity_type: user
@@ -16,7 +20,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: default:taxonomy_term
+  handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
       state: state

@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Contains fws_falcon_user.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_falcon_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Target both user registration and edit forms.
+  if ($form_id === 'user_register_form' || $form_id === 'user_form') {
+    if (isset($form['field_authorized_cd'])) {
+      // Make the field read-only.
+      $form['field_authorized_cd']['widget'][0]['value']['#attributes'] = [
+        'readonly' => 'readonly',
+        'disabled' => 'disabled',
+      ];
+      // Update the description.
+      $form['field_authorized_cd']['widget'][0]['value']['#description'] = t('This field is automatically generated and cannot be modified.');
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_falcon_user_entity_presave(EntityInterface $entity) {
+  // Only process for user entities.
+  if ($entity->getEntityTypeId() !== 'user') {
+    return;
+  }
+
+  // Only generate authorized CD for new users.
+  if (!$entity->isNew()) {
+    return;
+  }
+
+  // Skip if the field already has a value.
+  if (!$entity->get('field_authorized_cd')->isEmpty()) {
+    return;
+  }
+
+  // Get the database connection.
+  $database = \Drupal::database();
+
+  // Query all tables that might contain authorized CD values.
+  $tables = [
+    'user__field_authorized_cd',
+    'node__field_authorized_cd',
+    'node_revision__field_authorized_cd',
+  ];
+
+  $highest_numeric = 0;
+
+  foreach ($tables as $table) {
+    $query = $database->select($table, 'f')
+      ->fields('f', ['field_authorized_cd_value'])
+      ->condition('field_authorized_cd_value', 'A%', 'LIKE');
+
+    $results = $query->execute()->fetchAll();
+
+    foreach ($results as $row) {
+      $numeric = (int) substr($row->field_authorized_cd_value, 1);
+      if ($numeric > $highest_numeric) {
+        $highest_numeric = $numeric;
+      }
+    }
+  }
+
+  // Generate the next number.
+  $next_number = $highest_numeric + 1;
+  $new_cd = 'A' . str_pad($next_number, 5, '0', STR_PAD_LEFT);
+
+  // Set the new authorized CD value.
+  $entity->set('field_authorized_cd', $new_cd);
+}
