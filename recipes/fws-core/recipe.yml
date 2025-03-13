@@ -103,7 +103,6 @@ install:
   - stringoverrides
   - svg_image
   - svg_image_responsive
-  - taxonomy_access_fix
   - trash
   - twig_field_value
   - twig_tweak
@@ -189,7 +188,6 @@ config:
     stringoverrides: '*'
     svg_image: '*'
     svg_image_responsive: '*'
-    taxonomy_access_fix: '*'
     viewfield: '*'
     webp: '*'
     we_megamenu: '*'
