@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 
 /**
  * Implements hook_form_alter().
@@ -99,6 +101,64 @@ function fws_falcon_user_entity_presave(EntityInterface $entity) {
 
       // Set the field value.
       $entity->set('field_falc_dt_signed', $formatted_datetime);
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function fws_falcon_user_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fws_falcon_user module.
+    case 'help.page.fws_falcon_user':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for Falcon user profile overrides.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function fws_falcon_user_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+  // Get the Falcon user profile override setting.
+  $falcon_user_profile_override = \Drupal::config('system.site')->get('falcon_user_profile_override');
+
+  // If the setting is enabled, add a template suggestion.
+  if ($falcon_user_profile_override) {
+    $suggestions[] = 'user__falcon';
+  }
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+function fws_falcon_user_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+  // Only apply to user entities in default view mode.
+  if ($context['entity_type'] == 'user' && $context['bundle'] == 'user' && $context['view_mode'] == 'default') {
+    // Get the Falcon user profile override setting.
+    $falcon_user_profile_override = \Drupal::config('system.site')->get('falcon_user_profile_override');
+
+    // If the setting is enabled, hide all field labels.
+    if ($falcon_user_profile_override) {
+      // Get all components (fields) from the display.
+      $components = $display->getComponents();
+
+      // Loop through each component and set the label to hidden.
+      foreach ($components as $name => $component) {
+        $display->setComponent($name, [
+          'label' => 'hidden',
+          'type' => $component['type'],
+          'settings' => $component['settings'] ?? [],
+          'third_party_settings' => $component['third_party_settings'] ?? [],
+          'weight' => $component['weight'],
+          'region' => $component['region'],
+        ]);
+      }
     }
   }
 }

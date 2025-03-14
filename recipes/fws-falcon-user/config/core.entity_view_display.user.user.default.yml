@@ -57,26 +57,26 @@ dependencies:
     - field.field.user.user.field_zip_cd
   module:
     - datetime
+    - options
     - text
     - user
 _core:
-  default_config_hash: Ab-yzyE6Sa0rRTKPif7aGVvOLJJjup0qYxOhR-VxZ8U
+  default_config_hash: gLS_9uMYnqt4PSi0pjtorQ8Eh8sv8mppOSZ8hhqhAA0
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
   field_access_cd:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: list_key
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
   field_address_l1:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -84,7 +84,7 @@ content:
     region: content
   field_address_l2:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -92,7 +92,7 @@ content:
     region: content
   field_address_l3:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -100,7 +100,7 @@ content:
     region: content
   field_address_l4:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -108,7 +108,7 @@ content:
     region: content
   field_address_l5:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -116,7 +116,7 @@ content:
     region: content
   field_address_l6:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -124,7 +124,7 @@ content:
     region: content
   field_author_access_cd:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -132,15 +132,15 @@ content:
     region: content
   field_author_state:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 9
     region: content
   field_authorized_by:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -148,7 +148,7 @@ content:
     region: content
   field_authorized_cd:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -156,7 +156,7 @@ content:
     region: content
   field_city:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -164,14 +164,14 @@ content:
     region: content
   field_comments:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 13
     region: content
   field_created_by:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -179,7 +179,7 @@ content:
     region: content
   field_dt_activated:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -188,7 +188,7 @@ content:
     region: content
   field_dt_authorized:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -197,7 +197,7 @@ content:
     region: content
   field_dt_disabled:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -206,7 +206,7 @@ content:
     region: content
   field_dt_locked:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -215,7 +215,7 @@ content:
     region: content
   field_dt_mfa_login:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -224,7 +224,7 @@ content:
     region: content
   field_dt_permit_expires:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -233,7 +233,7 @@ content:
     region: content
   field_dt_permit_issued:
     type: datetime_default
-    label: above
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
@@ -242,7 +242,7 @@ content:
     region: content
   field_failed_login_count:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -251,7 +251,7 @@ content:
     region: content
   field_falcon_address:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -259,7 +259,7 @@ content:
     region: content
   field_falcon_city:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -267,15 +267,15 @@ content:
     region: content
   field_falcon_state_cd:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 25
     region: content
   field_falcon_zip_cd:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -283,7 +283,7 @@ content:
     region: content
   field_first_name:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -291,7 +291,7 @@ content:
     region: content
   field_gold_permit:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -301,7 +301,7 @@ content:
     region: content
   field_hid:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -309,7 +309,7 @@ content:
     region: content
   field_is_activated:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -319,7 +319,7 @@ content:
     region: content
   field_is_locked:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -328,16 +328,15 @@ content:
     weight: 31
     region: content
   field_is_mfa:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: list_key
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 32
     region: content
   field_last_activity:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -345,7 +344,7 @@ content:
     region: content
   field_last_name:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -353,14 +352,14 @@ content:
     region: content
   field_message_to_target:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 35
     region: content
   field_mfa_uuid:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -368,7 +367,7 @@ content:
     region: content
   field_middle_name:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -376,7 +375,7 @@ content:
     region: content
   field_permit_class:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -384,23 +383,22 @@ content:
     region: content
   field_permit_no:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 39
     region: content
   field_permit_status_cd:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: list_key
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 40
     region: content
   field_phone1:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -408,7 +406,7 @@ content:
     region: content
   field_phone2:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -416,7 +414,7 @@ content:
     region: content
   field_possess_eagle:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -425,24 +423,23 @@ content:
     weight: 43
     region: content
   field_rcf_cd:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+    type: list_key
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 44
     region: content
   field_state_cd:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 45
     region: content
   field_umcp:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -452,7 +449,7 @@ content:
     region: content
   field_updated_by:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -460,7 +457,7 @@ content:
     region: content
   field_version_no:
     type: number_integer
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -469,11 +466,22 @@ content:
     region: content
   field_zip_cd:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 49
+    region: content
+  user_picture:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   field_authorized_code: true

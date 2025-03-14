@@ -1,0 +1,261 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to present user data for the Falcon site.
+ *
+ * This template overrides the default user.html.twig template specifically for
+ * the Falcon site when the 'falcon_user_profile_override' setting is enabled.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+
+{%
+  set classes = [
+    'user-information',
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+
+  {# Data Edit Group #}
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Personal Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Basic Information #}
+            {% if user.field_first_name.value or user.field_last_name.value or user.field_middle_name.value %}
+            <tr>
+              <th class="col-md-3">Name</th>
+              <td class="col-md-9">
+                {{ user.field_first_name.value }}
+                {% if user.field_middle_name.value %}{{ user.field_middle_name.value }} {% endif %}
+                {{ user.field_last_name.value }}
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if user.mail.value %}
+            <tr>
+              <th class="col-md-3">Email</th>
+              <td class="col-md-9">{{ user.mail.value }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_phone1 %}
+            <tr>
+              <th class="col-md-3">Telephone</th>
+              <td class="col-md-9">{{ content.field_phone1 }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_phone2 %}
+            <tr>
+              <th class="col-md-3">Secondary Phone</th>
+              <td class="col-md-9">{{ content.field_phone2 }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_address_l1 or content.field_address_l2 or content.field_address_l3 or
+                content.field_address_l4 or content.field_address_l5 or content.field_address_l6 %}
+            <tr>
+              <th class="col-md-3">Address</th>
+              <td class="col-md-9">
+                {{ content.field_address_l1 }}
+                {% if content.field_address_l2 %}<div>{{ content.field_address_l2 }}</div>{% endif %}
+                {% if content.field_address_l3 %}<div>{{ content.field_address_l3 }}</div>{% endif %}
+                {% if content.field_address_l4 %}<div>{{ content.field_address_l4 }}</div>{% endif %}
+                {% if content.field_address_l5 %}<div>{{ content.field_address_l5 }}</div>{% endif %}
+                {% if content.field_address_l6 %}<div>{{ content.field_address_l6 }}</div>{% endif %}
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_city %}
+            <tr>
+              <th class="col-md-3">City</th>
+              <td class="col-md-9">{{ content.field_city }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_state_cd %}
+            <tr>
+              <th class="col-md-3">State</th>
+              <td class="col-md-9">{{ content.field_state_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_zip_cd %}
+            <tr>
+              <th class="col-md-3">ZIP Code</th>
+              <td class="col-md-9">{{ content.field_zip_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_is_locked %}
+            <tr>
+              <th class="col-md-3">Account Locked</th>
+              <td class="col-md-9">{{ content.field_is_locked }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_dt_locked %}
+            <tr>
+              <th class="col-md-3">Lock Date</th>
+              <td class="col-md-9">{{ content.field_dt_locked }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_dt_disabled %}
+            <tr>
+              <th class="col-md-3">Disabled Date</th>
+              <td class="col-md-9">{{ content.field_dt_disabled }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_is_activated %}
+            <tr>
+              <th class="col-md-3">Account Activated</th>
+              <td class="col-md-9">{{ content.field_is_activated }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_dt_activated %}
+            <tr>
+              <th class="col-md-3">Activation Date</th>
+              <td class="col-md-9">{{ content.field_dt_activated }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Comments Group #}
+  {% if content.field_comments %}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Comments</h3>
+    </div>
+    <div class="panel-body">
+      {{ content.field_comments }}
+    </div>
+  </div>
+  {% endif %}
+
+  {# State Permit Group #}
+  {% if content.field_permit_no or content.field_permit_status_cd or content.field_dt_permit_issued or
+      content.field_dt_permit_expires or content.field_possess_eagle or content.field_gold_permit %}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">State Permit</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_permit_no %}
+            <tr>
+              <th class="col-md-3">Permit Number</th>
+              <td class="col-md-9">{{ content.field_permit_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_permit_status_cd %}
+            <tr>
+              <th class="col-md-3">Permit Status</th>
+              <td class="col-md-9">{{ content.field_permit_status_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_dt_permit_issued %}
+            <tr>
+              <th class="col-md-3">Permit Issued Date</th>
+              <td class="col-md-9">{{ content.field_dt_permit_issued }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_dt_permit_expires %}
+            <tr>
+              <th class="col-md-3">Permit Expiration Date</th>
+              <td class="col-md-9">{{ content.field_dt_permit_expires }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_possess_eagle %}
+            <tr>
+              <th class="col-md-3">Possess Eagle</th>
+              <td class="col-md-9">{{ content.field_possess_eagle }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_gold_permit %}
+            <tr>
+              <th class="col-md-3">Gold Permit</th>
+              <td class="col-md-9">{{ content.field_gold_permit }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {# MEW Group #}
+  {% if content.field_falcon_address or content.field_falcon_city or content.field_falcon_state_cd or content.field_falcon_zip_cd %}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">MEW</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_falcon_address %}
+            <tr>
+              <th class="col-md-3">Address</th>
+              <td class="col-md-9">{{ content.field_falcon_address }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falcon_city %}
+            <tr>
+              <th class="col-md-3">City</th>
+              <td class="col-md-9">{{ content.field_falcon_city }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falcon_state_cd %}
+            <tr>
+              <th class="col-md-3">State</th>
+              <td class="col-md-9">{{ content.field_falcon_state_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falcon_zip_cd %}
+            <tr>
+              <th class="col-md-3">ZIP Code</th>
+              <td class="col-md-9">{{ content.field_falcon_zip_cd }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</article>
