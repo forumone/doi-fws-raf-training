@@ -74,7 +74,7 @@ function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     if (strpos($form_id, 'node_sighting_') === 0) {
       $form['location_consent'] = [
         '#type' => 'markup',
-        '#markup' => '<div class="alert alert-info location-consent-message"><p>Do you consent to sharing your location with fws.gov? USFWS will not permanently store this information, however it will be shared with our mapping provider (Google) in order to provide you with the best mapping experience. Acceptance is optional; if you do not accept, you will have to manually find the location of interest.</p></div>',
+        '#markup' => '<div class="alert alert-info location-consent-message"><p>Do you consent to sharing your location with fws.gov? USFWS will not permanently store this information, however it will be shared with our mapping provider in order to provide you with the best mapping experience. Acceptance is optional; if you do not accept, you will have to manually find the location of interest.</p></div>',
         '#weight' => -100,
       ];
     }
