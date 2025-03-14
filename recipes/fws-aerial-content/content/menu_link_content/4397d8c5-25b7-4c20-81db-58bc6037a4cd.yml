@@ -16,7 +16,7 @@ default:
       value: footer-menu-site-links
   link:
     -
-      uri: 'internal:/'
+      uri: 'https://www.fws.gov/about/leadership'
       title: ''
       options: {  }
   external:
@@ -24,7 +24,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -50
