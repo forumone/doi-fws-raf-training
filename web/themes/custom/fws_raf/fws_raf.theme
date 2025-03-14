@@ -145,3 +145,16 @@ function fws_raf_preprocess_page(&$variables) {
   // Get the header_links_auth configuration value from settings.
   $variables['header_links_auth'] = \Drupal::config('system.site')->get('header_links_auth') ?? FALSE;
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for user.
+ */
+function fws_raf_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+  // Check if the falcon_user_profile_override setting is enabled.
+  $falcon_user_profile_override = \Drupal::service('settings')->get('falcon_user_profile_override', FALSE);
+
+  // Add our custom template suggestion if the setting is enabled.
+  if ($falcon_user_profile_override) {
+    $suggestions[] = 'user__falcon';
+  }
+}

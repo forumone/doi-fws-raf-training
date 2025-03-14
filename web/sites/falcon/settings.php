@@ -915,3 +915,10 @@ $settings['file_public_path'] = "sites/falcon/files";
 $settings['file_private_path'] = "sites/falcon/files/private";
 $settings['file_temp_path'] = "/tmp";
 
+/**
+ * Custom settings for the Falcon site.
+ */
+
+// Enable the custom user profile template.
+$settings['falcon_user_profile_override'] = TRUE;
+
