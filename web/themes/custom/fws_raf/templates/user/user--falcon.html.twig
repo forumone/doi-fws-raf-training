@@ -151,7 +151,16 @@
       <h3 class="panel-title">Comments</h3>
     </div>
     <div class="panel-body">
-      {{ content.field_comments }}
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th class="col-md-3">Comments</th>
+              <td class="col-md-9">{{ content.field_comments }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   {% endif %}
