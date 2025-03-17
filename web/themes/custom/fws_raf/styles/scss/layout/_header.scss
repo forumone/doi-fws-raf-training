@@ -1,5 +1,6 @@
 @use 'utils/breakpoints' as *;
 @use 'utils/colors' as *;
+@use 'utils/typography' as *;
 
 @mixin menuUnderline($transparency: .75) {
   position: relative;
@@ -13,6 +14,7 @@
 
   &:hover,
   &:focus {
+    outline: 0;
 
     &:after {
       content: '';
@@ -28,11 +30,84 @@
     }
   }
 
-  &:focus-visible {
-    outline: 0;
-    box-shadow: 0 0 0 4px rgba($white, $transparency);
+  &:focus {
     border-radius: 4px;
+    box-shadow: none;
     transition: all .125s ease-out;
+  }
+
+  &:focus-visible {
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px rgba($white, $transparency);
+    transition: all .125s ease-out;
+  }
+}
+
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+.branding {
+
+  &__container {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    margin-right: 60px;
+    color: $white;
+    transition: all .25s ease-out;
+
+    @include breakpoint(md) {
+      padding: 10px 10px 0;
+    }
+
+    @include breakpoint(lg) {
+      padding: 20px 10px 0;
+    }
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: none;
+      transition: all .125s ease-out;
+    }
+
+    &:focus-visible {
+      outline: 0;
+      box-shadow: 0 0 0 4px $white;
+      border-radius: 4px;
+      transition: all .125s ease-out;
+    }
+  }
+
+  &__logo {
+    margin-right: 15px;
+    width: 50px;
+
+    @include breakpoint(md) {
+      width: 65px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    @include font--primary(600);
+    font-size: 22px;
+    color: $white;
+  }
+
+  &__slogan {
+    @include font--primary(400);
+    font-size: 16px;
+    color: $white;
   }
 }
 
@@ -44,20 +119,20 @@ header#navbar {
     box-shadow: none;
   }
 
-  .navbar-header {
+  .navbar-header .navbar-toggle {
+    right: 5px;
+    top: 5px;
+  }
 
+  .menu--utility li a {
     @include breakpoint(lg) {
-      min-width: 250px;
-    }
-
-    .navbar-toggle {
-      right: 5px;
-      top: -13px;
+      @include menuUnderline();
     }
   }
 
   > .container {
     width: 100%;
+    padding: 0;
 
     @include breakpoint(lg) {
       width: 970px;
@@ -65,12 +140,6 @@ header#navbar {
 
     @include breakpoint(xl) {
       width: 1170px;
-    }
-  }
-
-  .menu--utility li a {
-    @include breakpoint(lg) {
-      @include menuUnderline();
     }
   }
 }
@@ -98,37 +167,18 @@ header#navbar {
   }
 }
 
-#block-fws-raf-mainnavigation {
-  display: none;
-}
-
 .mb-menuwrapper {
-  height: calc(100% - 115px);
-  top: 115px;
+  height: calc(100% - 88px);
+  top: 88px;
 
-  @include breakpoint(lg) {
-    height: calc(100% - 178px);
-    top: 178px;
-  }
-}
-
-.fws-branding {
-
-  &__logo {
-
-    img {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  }
-
-  &__name {
-    width: 350px;
-    line-height: 30px;
+  @include breakpoint(md) {
+    height: calc(100% - 100px);
+    top: 100px;
   }
 }
 
 .navbar-main {
+  border: 0;
   width: auto;
   margin-bottom: 0;
 
