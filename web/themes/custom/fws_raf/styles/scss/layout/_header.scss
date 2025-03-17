@@ -28,9 +28,9 @@
     }
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 0;
-    box-shadow: 0 2px 12px 4px rgba($white, $transparency);
+    box-shadow: 0 0 0 4px rgba($white, $transparency);
     border-radius: 4px;
     transition: all .125s ease-out;
   }
@@ -45,8 +45,14 @@ header#navbar {
   }
 
   .navbar-header {
+
     @include breakpoint(lg) {
       min-width: 250px;
+    }
+
+    .navbar-toggle {
+      right: 5px;
+      top: -13px;
     }
   }
 
@@ -66,6 +72,29 @@ header#navbar {
     @include breakpoint(lg) {
       @include menuUnderline();
     }
+  }
+}
+
+.menu__toggle {
+  height: 48px;
+  width: 48px;
+  right: 5px;
+  top: 5px;
+  appearance: none;
+  outline: 0;
+  border: 0;
+  transition: all .25s ease-out;
+  animation: none;
+
+  &:focus {
+    box-shadow: 0 0 0 4px $white;
+    border-radius: 4px;
+    transition: all .125s ease-out;
+  }
+
+  &:before,
+  &:after {
+    transition: none;
   }
 }
 

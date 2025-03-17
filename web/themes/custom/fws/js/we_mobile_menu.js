@@ -1,7 +1,7 @@
 (function ($) {
 
     "use strict";
-  
+
     $.fn.mobileMenu = function (options) {
       var settings = $.extend({
         targetWrapper: '.navbar-we-mega-menu',
@@ -9,13 +9,13 @@
         toggledClass: 'toggled',
         pageSelector: 'body'
       }, options);
-  
+
       if ($(window).width() <= 991) {
         $(settings.targetWrapper).addClass('mobile-main-menu');
       }
-  
+
       var toggleButton = this;
-  
+
       $(window).resize(function () {
         if ($(window).width() <= 991) {
           $(settings.targetWrapper).addClass('mobile-main-menu');
@@ -31,7 +31,7 @@
           item.find('ul').css('display', '');
         }
       });
-  
+
       function _weMegaMenuClear() {
         var wrapper = $(settings.pageSelector);
         var overlay = wrapper.find('.overlay');
@@ -42,7 +42,7 @@
         });
         wrapper.removeClass(settings.toggledClass);
         wrapper.find('div.region-we-mega-menu nav').removeClass('we-mobile-megamenu-active');
-  
+
         if (overlay.length > 0) {
           wrapper.find('.btn-close').remove();
           overlay.remove();
@@ -51,21 +51,21 @@
           $('body').css('position', '');
         }
       }
-  
+
       this.off('click.mobileMenu');
       this.on('click.mobileMenu', function (e) {
         /* START CUSTOMIZATION
         * this line needs to get the main mega menu, and the orginal source was designed
         * to work with multiple mega menus, so it would take the original we mega menu hamburger
         * (the item clicked) and find the closest mega menu. Since we only have one and changed
-        * the clickable item to the bootstrap hamburger, this line needed editing to get the 
-        * right menu. 
-        * Orignal line 
+        * the clickable item to the bootstrap hamburger, this line needed editing to get the
+        * right menu.
+        * Orignal line
         * var targetWrapper = $(this).closest('div.region-we-mega-menu').find('nav.navbar-we-mega-menu');
         * */
         var targetWrapper = $('div.region-we-mega-menu').find('nav.navbar-we-mega-menu');
         // END CUSTOMIZATION
-        
+
         var wrapper = $(settings.pageSelector);
         if (!wrapper.hasClass(settings.toggledClass)) {
           wrapper.addClass(settings.toggledClass).css('position', 'relative');
@@ -83,15 +83,15 @@
             $('body').css('position', 'relative');
           }
           if (wrapper.find('.btn-close').length == 0) {
-            var btnClose = $('<span class="btn-close"></span>');
+            var btnClose = $('<button class="btn-close menu__toggle"></button>');
             btnClose.prependTo(wrapper);
-  
+
             $('.btn-close').on('click', function (e) {
               _weMegaMenuClear();
               /* START CUSTOMIZATION
               * Since the bootstrap button is opening both the region-collapsible and the mega menu
               * when the close button is closed, it needs to close the region-collapsible as well.
-              * so this will toggle that class to do so. 
+              * so this will toggle that class to do so.
               */
               $("#navbar-collapse").removeClass('in');
               //this gives the header a darker gradient, remove it when menu is closed.
@@ -101,7 +101,7 @@
               return false;
             });
           }
-  
+
         } else {
           _weMegaMenuClear();
         }
@@ -109,20 +109,20 @@
         /* START CUSTOMIZATION
         * Since the bootstrap button is opening both the region-collapsible and the mega menu
         * we cannot allow propagation to stop, we need to allow it to continue so bootstrap will
-        * open up region-collaspisble. So i commented this line out.  
+        * open up region-collaspisble. So i commented this line out.
         */
         //e.stopPropagation();
         /* END CUSTOMIZATION */
       });
-  
+
       if (settings.accordionMenu == 'true') {
         /* START CUSTOMIZATION
         * this line needs to get the main mega menu, and the orginal source was designed
         * to work with multiple mega menus, so it would take the original we mega menu hamburger
         * (the item clicked) and find the closest mega menu. Since we only have one and changed
-        * the clickable item to the bootstrap hamburger, this line needed editing to get the 
-        * right menu. 
-        * Orignal line 
+        * the clickable item to the bootstrap hamburger, this line needed editing to get the
+        * right menu.
+        * Orignal line
         * var targetWrapper = $(this).closest('div.region-we-mega-menu').find('nav.navbar-we-mega-menu');
         * */
         var targetWrapper = $('div.region-we-mega-menu').find('nav.navbar-we-mega-menu');
@@ -149,7 +149,7 @@
                     scrollTop: $this.offset().top
                   }, 700);
                 }, 500);
-  
+
               } else {
                 $sub_menu_inner.slideUp();
               }
@@ -159,5 +159,5 @@
         });
       }
     }
-  
+
   }(jQuery));
