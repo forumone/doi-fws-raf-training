@@ -145,6 +145,35 @@ header#navbar > .container {
     width: 1170px;
   }
 }
+@media (min-width: 992px) {
+  header#navbar .menu--utility li a {
+    position: relative;
+    text-decoration: none;
+    transition: all 0.25s ease-out;
+  }
+  header#navbar .menu--utility li a:after {
+    transform: scale(0);
+    transition: all 0.25s ease-out;
+  }
+  header#navbar .menu--utility li a:hover:after, header#navbar .menu--utility li a:focus:after {
+    content: "";
+    position: absolute;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.75);
+    transform: scale(1);
+    transition: all 0.125s ease-out;
+  }
+  header#navbar .menu--utility li a:focus {
+    outline: 0;
+    box-shadow: 0 2px 12px 4px rgba(255, 255, 255, 0.75);
+    border-radius: 4px;
+    transition: all 0.125s ease-out;
+  }
+}
 
 #block-fws-raf-mainnavigation {
   display: none;
@@ -182,6 +211,35 @@ header#navbar > .container {
   font-weight: 700;
   text-transform: uppercase;
 }
+@media (min-width: 992px) {
+  .navbar-main .navbar-nav > li > a {
+    position: relative;
+    text-decoration: none;
+    transition: all 0.25s ease-out;
+  }
+  .navbar-main .navbar-nav > li > a:after {
+    transform: scale(0);
+    transition: all 0.25s ease-out;
+  }
+  .navbar-main .navbar-nav > li > a:hover:after, .navbar-main .navbar-nav > li > a:focus:after {
+    content: "";
+    position: absolute;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 4px;
+    background: white;
+    transform: scale(1);
+    transition: all 0.125s ease-out;
+  }
+  .navbar-main .navbar-nav > li > a:focus {
+    outline: 0;
+    box-shadow: 0 2px 12px 4px white;
+    border-radius: 4px;
+    transition: all 0.125s ease-out;
+  }
+}
 .navbar-main .dropdown-menu {
   background-color: #FFFFFF;
   list-style: none;
@@ -195,6 +253,8 @@ header#navbar > .container {
 .navbar-main .dropdown-menu > li > a:hover, .navbar-main .dropdown-menu > li > a:focus {
   background-color: #205493;
   color: #FFFFFF;
+  box-shadow: none;
+  outline: 0;
 }
 .navbar-main .dropdown-menu > .active > a {
   font-weight: bold;
