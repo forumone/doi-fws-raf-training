@@ -7,6 +7,8 @@ dependencies:
   module:
     - options
     - user
+_core:
+  default_config_hash: PRbpli_0uNYJyCGxDOlTwf6_UXH822xvcVUAdB5HFpM
 id: user.user.field_access_cd
 field_name: field_access_cd
 entity_type: user
@@ -17,9 +19,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  allowed_values:
-    - FC
-  max_length: 10
-  case_sensitive: true
+settings: {  }
 field_type: list_string

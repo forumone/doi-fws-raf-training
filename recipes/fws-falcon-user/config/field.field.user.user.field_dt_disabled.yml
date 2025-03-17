@@ -1,3 +1,4 @@
+uuid: 4651c9ea-df40-4e4b-9bb3-9ea950086546
 langcode: en
 status: true
 dependencies:
@@ -6,16 +7,17 @@ dependencies:
   module:
     - datetime
     - user
+_core:
+  default_config_hash: v5DP940HriN6wYExvNQaE83OJVdpTpaPeF_mqVz9hSk
 id: user.user.field_dt_disabled
 field_name: field_dt_disabled
 entity_type: user
 bundle: user
-label: 'Disable Date'
+label: 'Date Disabled'
 description: 'Date when the user account was disabled'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  datetime_type: datetime
+settings: {  }
 field_type: datetime

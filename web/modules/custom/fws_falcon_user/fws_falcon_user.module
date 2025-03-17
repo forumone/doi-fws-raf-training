@@ -1,0 +1,164 @@
+<?php
+
+/**
+ * @file
+ * Contains fws_falcon_user.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_falcon_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Target both user registration and edit forms.
+  if ($form_id === 'user_register_form' || $form_id === 'user_form') {
+    if (isset($form['field_authorized_cd'])) {
+      // Make the field read-only.
+      $form['field_authorized_cd']['widget'][0]['value']['#attributes'] = [
+        'readonly' => 'readonly',
+        'disabled' => 'disabled',
+      ];
+      // Update the description.
+      $form['field_authorized_cd']['widget'][0]['value']['#description'] = t('This field is automatically generated and cannot be modified.');
+    }
+  }
+
+  // Check if this is a permit_3186a node form.
+  if (in_array($form_id, ['node_permit_3186a_form', 'node_permit_3186a_edit_form'])) {
+    // Make the field_falc_dt_signed field read-only.
+    if (isset($form['field_falc_dt_signed'])) {
+      $form['field_falc_dt_signed']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_falc_dt_signed']['widget'][0]['value']['#description'] = t('This field is automatically set when the permit is first created and cannot be modified.');
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_falcon_user_entity_presave(EntityInterface $entity) {
+  // Handle user entities.
+  if ($entity->getEntityTypeId() === 'user') {
+    // Only generate authorized CD for new users.
+    if (!$entity->isNew()) {
+      return;
+    }
+
+    // Skip if the field already has a value.
+    if (!$entity->get('field_authorized_cd')->isEmpty()) {
+      return;
+    }
+
+    // Get the database connection.
+    $database = \Drupal::database();
+
+    // Query all tables that might contain authorized CD values.
+    $tables = [
+      'user__field_authorized_cd',
+      'node__field_authorized_cd',
+      'node_revision__field_authorized_cd',
+    ];
+
+    $highest_numeric = 0;
+
+    foreach ($tables as $table) {
+      $query = $database->select($table, 'f')
+        ->fields('f', ['field_authorized_cd_value'])
+        ->condition('field_authorized_cd_value', 'A%', 'LIKE');
+
+      $results = $query->execute()->fetchAll();
+
+      foreach ($results as $row) {
+        $numeric = (int) substr($row->field_authorized_cd_value, 1);
+        if ($numeric > $highest_numeric) {
+          $highest_numeric = $numeric;
+        }
+      }
+    }
+
+    // Generate the next number.
+    $next_number = $highest_numeric + 1;
+    $new_cd = 'A' . str_pad($next_number, 5, '0', STR_PAD_LEFT);
+
+    // Set the new authorized CD value.
+    $entity->set('field_authorized_cd', $new_cd);
+  }
+  // Handle permit_3186a nodes.
+  elseif ($entity instanceof NodeInterface && $entity->bundle() === 'permit_3186a') {
+    // Only set the date if this is a new node and the field is empty.
+    if ($entity->isNew() && $entity->get('field_falc_dt_signed')->isEmpty()) {
+      // Create a datetime object for the current time.
+      $current_datetime = new DrupalDateTime('now');
+
+      // Format the datetime for storage.
+      $formatted_datetime = $current_datetime->format('Y-m-d\TH:i:s');
+
+      // Set the field value.
+      $entity->set('field_falc_dt_signed', $formatted_datetime);
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function fws_falcon_user_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fws_falcon_user module.
+    case 'help.page.fws_falcon_user':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for Falcon user profile overrides.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function fws_falcon_user_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+  // Get the Falcon user profile override setting.
+  $falcon_user_profile_override = \Drupal::config('system.site')->get('falcon_user_profile_override');
+
+  // If the setting is enabled, add a template suggestion.
+  if ($falcon_user_profile_override) {
+    $suggestions[] = 'user__falcon';
+  }
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+function fws_falcon_user_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+  // Only apply to user entities in default view mode.
+  if ($context['entity_type'] == 'user' && $context['bundle'] == 'user' && $context['view_mode'] == 'default') {
+    // Get the Falcon user profile override setting.
+    $falcon_user_profile_override = \Drupal::config('system.site')->get('falcon_user_profile_override');
+
+    // If the setting is enabled, hide all field labels.
+    if ($falcon_user_profile_override) {
+      // Get all components (fields) from the display.
+      $components = $display->getComponents();
+
+      // Loop through each component and set the label to hidden.
+      foreach ($components as $name => $component) {
+        $display->setComponent($name, [
+          'label' => 'hidden',
+          'type' => $component['type'],
+          'settings' => $component['settings'] ?? [],
+          'third_party_settings' => $component['third_party_settings'] ?? [],
+          'weight' => $component['weight'],
+          'region' => $component['region'],
+        ]);
+      }
+    }
+  }
+}

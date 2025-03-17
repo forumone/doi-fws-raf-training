@@ -1,3 +1,4 @@
+uuid: e29124d7-3699-4dde-adf2-cbbd1584c7d2
 langcode: en
 status: true
 dependencies:
@@ -5,16 +6,19 @@ dependencies:
     - field.storage.user.field_umcp
   module:
     - user
+_core:
+  default_config_hash: gnS9pKP6PbIks75ojbwCIoiw8ehrDuLNL7Ysm2sOMRQ
 id: user.user.field_umcp
 field_name: field_umcp
 entity_type: user
 bundle: user
-label: 'UMCP'
+label: UMCP
 description: 'User Management Control Panel flag'
 required: false
 translatable: true
 default_value:
-  - value: 0
+  -
+    value: 0
 default_value_callback: ''
 settings:
   on_label: 'Yes'

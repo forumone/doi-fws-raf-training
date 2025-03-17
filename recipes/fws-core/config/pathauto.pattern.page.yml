@@ -9,7 +9,7 @@ _core:
 id: page
 label: Page
 type: 'canonical_entities:node'
-pattern: 'page/[node:title]'
+pattern: '[node:title]'
 selection_criteria:
   8ee254b1-8f74-48db-88a6-d2679945ee13:
     id: 'entity_bundle:node'

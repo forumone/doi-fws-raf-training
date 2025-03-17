@@ -36,7 +36,7 @@
             if (!$videoContainer.find('.manual-play-button').length) {
               const $playButton = $('<button class="manual-play-button btn btn-primary">Play Video</button>');
               $videoContainer.append($playButton);
-              $playButton.on('click', function() {
+              $playButton.on('click', function () {
                 $firstVideo.play();
                 $(this).hide();
               });
@@ -82,8 +82,9 @@
           currentQuestion++;
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
-            // Redirect to the results node
-            window.location.href = `/node/${resultsNodeId}`;
+            // Redirect to the results node using Drupal's base path
+            const basePath = drupalSettings.path.baseUrl || '/';
+            window.location.href = `${basePath}node/${resultsNodeId}`;
             return;
           }
 
@@ -106,7 +107,7 @@
               if (!$videoContainer.find('.manual-play-button').length) {
                 const $playButton = $('<button class="manual-play-button btn btn-primary">Play Video</button>');
                 $videoContainer.append($playButton);
-                $playButton.on('click', function() {
+                $playButton.on('click', function () {
                   $video.play();
                   $(this).hide();
                 });
@@ -132,14 +133,14 @@
           const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
           const $continueButton = $currentItem.find('.quiz__continue');
           if ($continueButton.length) {
-            setTimeout(function() {
+            setTimeout(function () {
               $continueButton.focus();
             }, 100); // Short delay to ensure the element is visible
           }
         }
 
         // Add keyboard accessibility - handle Enter key press for radio buttons
-        $quizContainer.on('keypress', '.form-radio, .quiz__guess', function(e) {
+        $quizContainer.on('keypress', '.form-radio, .quiz__guess', function (e) {
           if (e.which === 13) { // Enter key
             e.preventDefault();
             const $currentItem = $(this).closest('.quiz__item');
@@ -153,7 +154,7 @@
         });
 
         // Handle form submission
-        $('.quiz-form', $quizContainer).on('submit', function(e) {
+        $('.quiz-form', $quizContainer).on('submit', function (e) {
           e.preventDefault();
           const $currentItem = $(this).closest('.quiz__item');
           const $radioChecked = $currentItem.find('input[type="radio"]:checked');
@@ -165,13 +166,13 @@
         });
 
         // Handle continue form submission
-        $('.continue-form', $quizContainer).on('submit', function(e) {
+        $('.continue-form', $quizContainer).on('submit', function (e) {
           e.preventDefault();
           $(this).find('.quiz__continue').click();
         });
 
         // Add keyboard accessibility - handle Enter key press for Continue button
-        $quizContainer.on('keypress', '.quiz__answer', function(e) {
+        $quizContainer.on('keypress', '.quiz__answer', function (e) {
           if (e.which === 13) { // Enter key
             e.preventDefault();
             $(this).find('.quiz__continue').click();
@@ -185,7 +186,7 @@
         });
 
         // Handle submit button clicks
-        $('.quiz__submit', $quizContainer).on('click', function(e) {
+        $('.quiz__submit', $quizContainer).on('click', function (e) {
           e.preventDefault(); // Prevent form submission if inside a form
           const $currentItem = $(this).closest('.quiz__item');
           const questionIndex = parseInt($currentItem.data('question')) - 1;
@@ -220,7 +221,7 @@
 
           // Switch to answer panel
           $(this).closest('.quiz__guess').slideUp()
-            .closest('.quiz__response').find('.quiz__answer').slideDown(function() {
+            .closest('.quiz__response').find('.quiz__answer').slideDown(function () {
               // Focus on the Continue button after the answer panel is shown
               focusOnContinueButton();
             });

@@ -6,7 +6,7 @@ dependencies:
     - field.storage.node.field_falc_applicant_phone
     - node.type.permit_3186a
 _core:
-  default_config_hash: qbydzhsW7i-Bc6opdF1QU9XkjrNCjRuwRPq6GL2idlM
+  default_config_hash: LuG4LeEzxkFMC7-dksOVcBsMcALDugar_u4sNJLXuxY
 id: node.permit_3186a.field_falc_applicant_phone
 field_name: field_falc_applicant_phone
 entity_type: node

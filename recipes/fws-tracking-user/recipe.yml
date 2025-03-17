@@ -3,6 +3,7 @@ description: 'FWS tracking user fields, roles and permissions.'
 type: 'Site'
 
 install:
+  - taxonomy_access_fix
   - fws_user
 
 config:

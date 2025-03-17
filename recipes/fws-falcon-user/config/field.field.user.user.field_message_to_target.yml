@@ -1,3 +1,4 @@
+uuid: d286cd9c-06ab-433f-93d5-a30d653329d3
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
   module:
     - text
     - user
+_core:
+  default_config_hash: g9BRGZWMdQo2SOTeaniJ19UhmfoRTe-uxS920ox-VEY
 id: user.user.field_message_to_target
 field_name: field_message_to_target
 entity_type: user
@@ -16,5 +19,6 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

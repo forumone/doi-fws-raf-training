@@ -119,8 +119,9 @@
           currentQuestion++;
 
           if (currentQuestion >= $('.quiz__item', $quizContainer).length) {
-            // Redirect to the results node
-            window.location.href = `/node/${resultsNodeId}`;
+            // Redirect to the results node using Drupal's base path
+            const basePath = drupalSettings.path.baseUrl || '/';
+            window.location.href = `${basePath}node/${resultsNodeId}`;
             return;
           }
 
@@ -143,7 +144,7 @@
 
           // Set up a timer to focus on the input field when the timer ends
           const questionTimer = getTimerDuration();
-          setTimeout(function() {
+          setTimeout(function () {
             focusOnInput();
           }, questionTimer * 1000);
         }
@@ -153,7 +154,7 @@
           const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
           const $input = $currentItem.find('.form-text');
           if ($input.length) {
-            setTimeout(function() {
+            setTimeout(function () {
               $input.focus();
             }, 100); // Short delay to ensure the element is visible
           }
@@ -164,7 +165,7 @@
           const $currentItem = $('.quiz__item--' + currentQuestion, $quizContainer);
           const $continueButton = $currentItem.find('.quiz__continue');
           if ($continueButton.length) {
-            setTimeout(function() {
+            setTimeout(function () {
               $continueButton.focus();
             }, 100); // Short delay to ensure the element is visible
           }
@@ -176,14 +177,14 @@
         // For the first question, set up a handler to focus on the input when the timer ends
         if ($('.quiz__item--0', $quizContainer).length) {
           const firstQuestionTimer = getTimerDuration();
-          setTimeout(function() {
+          setTimeout(function () {
             // This will run after the timer for the first question ends
             focusOnInput();
           }, firstQuestionTimer * 1000);
         }
 
         // Add keyboard accessibility - handle Enter key press in input field
-        $('.form-text', $quizContainer).on('keypress', function(e) {
+        $('.form-text', $quizContainer).on('keypress', function (e) {
           if (e.which === 13) { // Enter key
             e.preventDefault();
             $(this).closest('.quiz__guess').find('.quiz__submit').click();
@@ -191,7 +192,7 @@
         });
 
         // Ensure only numeric input is accepted
-        $('.form-text', $quizContainer).on('input', function() {
+        $('.form-text', $quizContainer).on('input', function () {
           // Remove any non-numeric characters
           this.value = this.value.replace(/[^0-9]/g, '');
 
@@ -203,19 +204,19 @@
         });
 
         // Handle form submission
-        $('.quiz-form', $quizContainer).on('submit', function(e) {
+        $('.quiz-form', $quizContainer).on('submit', function (e) {
           e.preventDefault();
           $(this).find('.quiz__submit').click();
         });
 
         // Handle continue form submission
-        $('.continue-form', $quizContainer).on('submit', function(e) {
+        $('.continue-form', $quizContainer).on('submit', function (e) {
           e.preventDefault();
           $(this).find('.quiz__continue').click();
         });
 
         // Add keyboard accessibility - handle Enter key press for Continue button
-        $quizContainer.on('keypress', '.quiz__answer', function(e) {
+        $quizContainer.on('keypress', '.quiz__answer', function (e) {
           if (e.which === 13) { // Enter key
             e.preventDefault();
             $(this).find('.quiz__continue').click();
@@ -233,7 +234,7 @@
         });
 
         // Handle button click to update the closest .quiz__submission and check for correctness
-        $('.quiz__submit', $quizContainer).on('click', function(e) {
+        $('.quiz__submit', $quizContainer).on('click', function (e) {
           e.preventDefault(); // Prevent form submission if inside a form
           const $form = $(this).closest('form');
           const $response = $(this).closest('.quiz__response');
@@ -268,7 +269,7 @@
           saveQuizAnswer(currentQuestion, parseInt(userInput), parseInt(actualCount), isCorrect);
 
           // Switch panels to display the answer information
-          $(this).closest('.quiz__guess').slideUp().next('.quiz__answer').slideDown(function() {
+          $(this).closest('.quiz__guess').slideUp().next('.quiz__answer').slideDown(function () {
             // Focus on the Continue button after the answer panel is shown
             focusOnContinueButton();
           });

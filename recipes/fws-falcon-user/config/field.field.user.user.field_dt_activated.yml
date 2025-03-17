@@ -1,3 +1,4 @@
+uuid: dc6db305-7fe5-49f3-b99d-01a0f6295aa9
 langcode: en
 status: true
 dependencies:
@@ -6,16 +7,17 @@ dependencies:
   module:
     - datetime
     - user
+_core:
+  default_config_hash: z1DO6VNXsGedqAxclQFsBJGP1RGoR_quTocASteDDns
 id: user.user.field_dt_activated
 field_name: field_dt_activated
 entity_type: user
 bundle: user
-label: 'Activation Date'
+label: 'Date Activated'
 description: 'Date when the user account was activated'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  datetime_type: datetime
+settings: {  }
 field_type: datetime

@@ -23,8 +23,8 @@ function fws_user_user_view_alter(array &$build, EntityInterface $entity, Entity
  * Implements hook_form_FORM_ID_alter().
  */
 function fws_user_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Hide the username field in the user edit form.
-  if (isset($form['account']['name'])) {
+  // Hide the username field in the user edit form if it's not empty and we're editing.
+  if (isset($form['account']['name']) && !$form_state->getFormObject()->getEntity()->isNew() && !empty($form['account']['name']['#default_value'])) {
     $form['account']['name']['#access'] = FALSE;
   }
 }

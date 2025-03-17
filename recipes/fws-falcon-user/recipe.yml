@@ -23,3 +23,4 @@ config:
       simple_config_update:
         permissions:
           - 'access user profiles'
+          - 'access content'

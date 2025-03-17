@@ -15,6 +15,7 @@ permissions:
   - 'access state based content'
   - 'create permit_3186a content'
   - 'create species_image content'
+  - 'create state based user'
   - 'delete any permit_3186a content'
   - 'delete any species_image content'
   - 'delete own permit_3186a content'

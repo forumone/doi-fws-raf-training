@@ -7,6 +7,8 @@ dependencies:
   module:
     - options
     - user
+_core:
+  default_config_hash: u2Op--bmjAq9wIjbm0cBkPEhPp5rHtakBZmQSdUKWEs
 id: user.user.field_is_mfa
 field_name: field_is_mfa
 entity_type: user
@@ -17,10 +19,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  allowed_values:
-    - 'Y'
-    - 'N'
-  max_length: 1
-  case_sensitive: true
+settings: {  }
 field_type: list_string

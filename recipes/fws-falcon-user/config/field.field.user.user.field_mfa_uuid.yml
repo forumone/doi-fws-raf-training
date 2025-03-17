@@ -6,6 +6,8 @@ dependencies:
     - field.storage.user.field_mfa_uuid
   module:
     - user
+_core:
+  default_config_hash: 57YKAV0MhoXEcJCIlTsxKxaKD1o5dipOfeGp9LyfzvQ
 id: user.user.field_mfa_uuid
 field_name: field_mfa_uuid
 entity_type: user
@@ -16,7 +18,5 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 100
-  case_sensitive: true
+settings: {  }
 field_type: string
