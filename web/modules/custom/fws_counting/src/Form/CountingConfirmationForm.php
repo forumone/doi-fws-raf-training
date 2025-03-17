@@ -6,11 +6,39 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a confirmation form for the counting experience test.
  */
 class CountingConfirmationForm extends FormBase {
+
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * Constructs a new CountingConfirmationForm.
+   *
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   */
+  public function __construct(RequestStack $request_stack) {
+    $this->requestStack = $request_stack;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('request_stack')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -25,12 +53,12 @@ class CountingConfirmationForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'fws_counting/quiz';
 
-    // Get the parameters from the previous form from tempstore.
-    $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
-    $experience_level = $tempstore->get('experience_level');
-    $size_range = $tempstore->get('size_range');
+    // Get the parameters from the query.
+    $query = $this->requestStack->getCurrentRequest()->query;
+    $experience_level = $query->get('experience_level');
+    $size_range = $query->all()['size_range'] ?? [];
 
-    if (!$experience_level || !$size_range) {
+    if (!$experience_level || empty($size_range)) {
       // Redirect back to the first form if we don't have the required data.
       return new RedirectResponse(Url::fromRoute('fws_counting.test_skills')->toString());
     }
@@ -51,13 +79,14 @@ class CountingConfirmationForm extends FormBase {
     }
     $size_range_text = implode(', ', $size_ranges);
 
-    // Get the viewing time based on the difficulty level
+    // Get the viewing time based on the difficulty level.
     $difficulty_level = $experience_term->get('field_difficulty_level')->value;
     $viewing_time = match ((int) $difficulty_level) {
       1 => 10,
       2 => 6,
       3 => 3,
-      default => 6, // Default to 6 seconds if level is not set
+      // Default to 6 seconds if level is not set.
+      default => 6,
     };
 
     $form['parameters'] = [
@@ -126,10 +155,10 @@ class CountingConfirmationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Get the parameters from tempstore.
-    $tempstore = \Drupal::service('tempstore.private')->get('fws_counting');
-    $experience_level = $tempstore->get('experience_level');
-    $size_range = $tempstore->get('size_range');
+    // Get the parameters from query.
+    $query = $this->requestStack->getCurrentRequest()->query;
+    $experience_level = $query->get('experience_level');
+    $size_range = $query->all()['size_range'] ?? [];
 
     // Convert size_range array to comma-separated string.
     $size_range_string = implode(',', (array) $size_range);
