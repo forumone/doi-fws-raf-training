@@ -21,6 +21,8 @@ class IdTestStartForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#attributes']['class'][] = 'fws-id-test-start-form';
+
     $form['species_id_difficulty'] = [
       '#type' => 'radios',
       '#title' => $this->t('Select Your Experience Level'),
@@ -101,9 +103,17 @@ class IdTestStartForm extends FormBase {
       ->loadByProperties(['vid' => 'geographic_region']);
 
     $options = [];
+
+    // Make sure to display "ALL" option first.
     foreach ($terms as $term) {
-      $options[$term->id()] = $term->label();
+      if (str_starts_with(strtoupper($term->label()), 'ALL')) {
+        $options = [$term->id() => $term->label()] + $options;
+      }
+      else {
+        $options[$term->id()] = $term->label();
+      }
     }
+
     return $options;
   }
 
@@ -115,12 +125,34 @@ class IdTestStartForm extends FormBase {
     $species_groups = array_filter($form_state->getValue('species_group'));
     $regions = array_filter($form_state->getValue('geographic_region'));
 
+    // Filter out any "ALL" options.
+    $species_groups_filtered = [];
+    $regions_filtered = [];
+
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+    // Filter out ALL from species groups.
+    foreach ($species_groups as $tid => $value) {
+      $term = $term_storage->load($tid);
+      if ($term && !str_starts_with(strtoupper($term->label()), 'ALL')) {
+        $species_groups_filtered[$tid] = $value;
+      }
+    }
+
+    // Filter out ALL from regions.
+    foreach ($regions as $tid => $value) {
+      $term = $term_storage->load($tid);
+      if ($term && !str_starts_with(strtoupper($term->label()), 'ALL')) {
+        $regions_filtered[$tid] = $value;
+      }
+    }
+
     // Redirect to the confirmation page with query parameters.
     $form_state->setRedirect('fws_id_test.confirm', [], [
       'query' => [
         'difficulty' => $form_state->getValue('species_id_difficulty'),
-        'species_groups' => array_values(array_keys($species_groups)),
-        'regions' => array_values(array_keys($regions)),
+        'species_groups' => array_values(array_keys($species_groups_filtered)),
+        'regions' => array_values(array_keys($regions_filtered)),
       ],
     ]);
   }
