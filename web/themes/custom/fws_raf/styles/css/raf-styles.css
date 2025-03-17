@@ -542,7 +542,32 @@ input.form-autocomplete {
   top: 0 !important;
   right: 5px !important;
 }
-.select2-selection__arrow b {
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  display: none;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow:after {
+  content: "\e114";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Glyphicons Halflings";
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 0;
+  width: 20px;
+  height: 20px;
+  color: #205493;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.select2-container--open .select2-selection--single .select2-selection__arrow:after {
+  transform: rotate(180deg);
+}
+
+.select-wrapper.select-wrapper--select2:after {
   display: none;
 }
 

@@ -11,6 +11,12 @@
         const descriptionId = `${selectId}-description`;
         const statusId = `${selectId}-status`;
 
+        // Check if the select is inside a .select-wrapper and add class if found
+        const $wrapper = $select.closest('.select-wrapper');
+        if ($wrapper.length) {
+          $wrapper.addClass('select-wrapper--select2');
+        }
+
         // Find associated label
         const $label = $(`label[for="${selectId}"]`);
         if ($label.length) {

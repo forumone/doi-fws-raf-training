@@ -168,11 +168,40 @@
   align-items: center !important;
   top: 0 !important;
   right: 5px !important;
+}
 
-  // Hide this element as it conflicts with the display of the chevron
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+
   b {
     display: none;
   }
+
+  &:after {
+    content: '\e114';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+    top: calc(50% - 10px);
+    right: 0;
+    width: 20px;
+    height: 20px;
+    color: $blue-medium;
+    line-height: 0;
+    pointer-events: none;
+  }
+}
+
+// Rotate the chevron when the dropdown is open.
+.select2-container--open .select2-selection--single .select2-selection__arrow:after {
+  transform: rotate(180deg);
+}
+
+// Hide the default chevron for select2 elements with the legacy select-wrapper class.
+.select-wrapper.select-wrapper--select2:after {
+  display: none;
 }
 
 .field-group-details {
