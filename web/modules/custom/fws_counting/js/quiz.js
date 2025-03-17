@@ -109,7 +109,7 @@
 
         function showNextQuestion() {
           if (timerInstance) {
-            clearTimeout(timerInstance); g
+            clearTimeout(timerInstance);
           }
           if (countdownInterval) {
             clearInterval(countdownInterval);
