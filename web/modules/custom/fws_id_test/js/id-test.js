@@ -3,19 +3,80 @@
 
   Drupal.behaviors.fwsIdTest = {
     attach: function (context, settings) {
-      // Log the quiz data to demonstrate it's available
-      // if (drupalSettings.fws_id_test && drupalSettings.fws_id_test.quiz) {
-      //   console.log('Quiz Data:', drupalSettings.fws_id_test.quiz);
+      // Handle "ALL" checkbox functionality for species groups and regions
+      once('all-checkbox-handler', 'form.fws-id-test-start-form', context).forEach(function (form) {
+        const $form = $(form);
 
-      //   // Log each video's data
-      //   drupalSettings.fws_id_test.quiz.videos.forEach((video, index) => {
-      //     console.log(`Video ${index + 1}:`, {
-      //       url: video.url,
-      //       correctSpecies: video.species,
-      //       choices: video.choices
-      //     });
-      //   });
-      // }
+        // Use the label text to find the ALL checkboxes
+        const $speciesCheckboxes = $form.find('input[name^="species_group"]');
+        const $allSpeciesCheckbox = $speciesCheckboxes.filter(function () {
+          return $(this).next('label').text().trim() === 'ALL species';
+        });
+
+        if ($allSpeciesCheckbox.length) {
+          const $otherSpeciesCheckboxes = $speciesCheckboxes.not($allSpeciesCheckbox);
+
+          // When ALL is clicked
+          $allSpeciesCheckbox.on('change', function () {
+            console.log('ALL species checkbox changed');
+            if ($(this).is(':checked')) {
+              $otherSpeciesCheckboxes.prop('checked', true);
+            } else {
+              $otherSpeciesCheckboxes.prop('checked', false);
+            }
+          });
+
+          // Update ALL when individual options change
+          $otherSpeciesCheckboxes.on('change', function () {
+            const allChecked = $otherSpeciesCheckboxes.filter(':checked').length === $otherSpeciesCheckboxes.length;
+            $allSpeciesCheckbox.prop('checked', allChecked);
+          });
+        }
+
+        // Handle ALL regions option
+        const $regionCheckboxes = $form.find('input[name^="geographic_region"]');
+        const $allRegionsCheckbox = $regionCheckboxes.filter(function () {
+          return $(this).next('label').text().trim() === 'ALL Regions and Habitats';
+        });
+
+        if ($allRegionsCheckbox.length) {
+          const $otherRegionCheckboxes = $regionCheckboxes.not($allRegionsCheckbox);
+
+          // When ALL is clicked
+          $allRegionsCheckbox.on('change', function () {
+            console.log('ALL regions checkbox changed');
+            if ($(this).is(':checked')) {
+              $otherRegionCheckboxes.prop('checked', true);
+            } else {
+              $otherRegionCheckboxes.prop('checked', false);
+            }
+          });
+
+          // Update ALL when individual options change
+          $otherRegionCheckboxes.on('change', function () {
+            const allChecked = $otherRegionCheckboxes.filter(':checked').length === $otherRegionCheckboxes.length;
+            $allRegionsCheckbox.prop('checked', allChecked);
+          });
+        }
+
+        // Modify form submission to handle ALL options
+        $form.on('submit', function () {
+          // Make sure at least one option is selected for both groups
+          // (not counting ALL checkbox)
+          const $checkedSpecies = $speciesCheckboxes.not($allSpeciesCheckbox).filter(':checked');
+          const $checkedRegions = $regionCheckboxes.not($allRegionsCheckbox).filter(':checked');
+
+          if ($checkedSpecies.length === 0) {
+            alert(Drupal.t('Please select at least one species group.'));
+            return false;
+          }
+
+          if ($checkedRegions.length === 0) {
+            alert(Drupal.t('Please select at least one geographic region.'));
+            return false;
+          }
+        });
+      });
 
       // Initialize the quiz
       once('fws-id-test', '.quiz__items', context).forEach(function (element) {
