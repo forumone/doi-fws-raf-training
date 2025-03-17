@@ -1,0 +1,170 @@
+@use 'utils/breakpoints' as *;
+@use 'utils/colors' as *;
+
+@mixin menuUnderline($transparency: .75) {
+  position: relative;
+  text-decoration: none;
+  transition: all .25s ease-out;
+
+  &:after {
+    transform: scale(0);
+    transition: all .25s ease-out;
+  }
+
+  &:hover,
+  &:focus {
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: auto;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 4px;
+      background: rgba($white, $transparency);
+      transform: scale(1);
+      transition: all .125s ease-out;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 2px 12px 4px rgba($white, $transparency);
+    border-radius: 4px;
+    transition: all .125s ease-out;
+  }
+}
+
+header#navbar {
+  background: linear-gradient($blue-dark 0%, $blue-dark 25%, rgba($blue-medium, 0.8) 100%);
+
+  #navbar-collapse {
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  .navbar-header {
+    @include breakpoint(lg) {
+      min-width: 250px;
+    }
+  }
+
+  > .container {
+    width: 100%;
+
+    @include breakpoint(lg) {
+      width: 970px;
+    }
+
+    @include breakpoint(xl) {
+      width: 1170px;
+    }
+  }
+
+  .menu--utility li a {
+    @include breakpoint(lg) {
+      @include menuUnderline();
+    }
+  }
+}
+
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+.mb-menuwrapper {
+  height: calc(100% - 115px);
+  top: 115px;
+
+  @include breakpoint(lg) {
+    height: calc(100% - 178px);
+    top: 178px;
+  }
+}
+
+.fws-branding {
+
+  &__logo {
+
+    img {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__name {
+    width: 350px;
+    line-height: 30px;
+  }
+}
+
+.navbar-main {
+  width: auto;
+  margin-bottom: 0;
+
+  .navbar-nav {
+    float: right;
+    clear: both;
+
+    & > li {
+
+      & > a {
+        font-weight: 700;
+        text-transform: uppercase;
+
+        @include breakpoint(lg) {
+          @include menuUnderline(1);
+        }
+      }
+    }
+  }
+
+  .dropdown-menu {
+    background-color: $white;
+    list-style: none;
+    padding: 0;
+
+    & > li {
+
+      & > a {
+        background-color: $white;
+        color: $gray-dark;
+        padding: 10px 15px;
+
+        &:hover,
+        &:focus {
+          background-color: $blue-medium;
+          color: $white;
+          box-shadow: none;
+          outline: 0;
+        }
+      }
+    }
+
+    & > .active {
+
+      & > a {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.navbar-default {
+
+  .navbar-nav {
+
+    & > .active {
+
+      & > a {
+        color: $white;
+
+        &:hover,
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+  }
+}
