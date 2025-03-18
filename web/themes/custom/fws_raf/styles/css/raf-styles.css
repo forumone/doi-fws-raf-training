@@ -400,8 +400,10 @@ input[type=week],
 textarea,
 textarea.form-control,
 select,
+select.form-select.form-control,
 .select2 .select2-selection {
   width: 100%;
+  height: 40px;
   background: white;
   border: 1px solid #8E8C99;
   border-radius: 4px;
@@ -425,6 +427,7 @@ input[type=week]:focus-visible,
 textarea:focus-visible,
 textarea.form-control:focus-visible,
 select:focus-visible,
+select.form-select.form-control:focus-visible,
 .select2 .select2-selection:focus-visible {
   outline: none;
   border: 2px solid #3F3E46;
@@ -433,12 +436,12 @@ select:focus-visible,
 }
 
 .select2 {
-  height: 45px;
-  line-height: 45px;
+  height: 40px;
+  line-height: 40px;
 }
 .select2 .select2-selection {
   padding: 0 30px 0 0;
-  height: 45px;
+  height: 40px;
   display: flex;
   align-items: center;
 }
@@ -1121,41 +1124,19 @@ input.form-autocomplete {
   padding: 20px;
 }
 
-#edit-filters--content .form-type-select .select-wrapper select,
-#edit-filters--content .form-type-select .select-wrapper select option,
-.views-exposed-form .form-type-select .select-wrapper select,
-.views-exposed-form .form-type-select .select-wrapper select option {
-  min-width: 85px;
-  min-height: 36px;
+#edit-filters--content .form--inline,
+.views-exposed-form .form--inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 25px;
 }
-#edit-filters--content .form-type-select .select-wrapper:after,
-.views-exposed-form .form-type-select .select-wrapper:after {
-  top: 27px;
-  right: 0;
-  z-index: 10;
+#edit-filters--content .form--inline:before,
+.views-exposed-form .form--inline:before {
+  display: none;
 }
-#edit-filters--content .form-control,
-.views-exposed-form .form-control {
-  display: inline-block;
-}
-#edit-filters--content .form-item,
-.views-exposed-form .form-item {
-  float: left;
-  margin-right: 20px;
-  margin-bottom: 10px;
-}
-#edit-filters--content .form-item label,
-.views-exposed-form .form-item label {
-  margin-right: 10px;
-  display: inline-block;
-}
-#edit-filters--content .form-item .form-text,
-.views-exposed-form .form-item .form-text {
-  max-width: 150px;
-}
-#edit-filters--content .form-actions,
-.views-exposed-form .form-actions {
-  margin-bottom: 10px;
+#edit-filters--content .form--inline label,
+.views-exposed-form .form--inline label {
+  margin-right: 5px;
 }
 
 .view-tracking-other-names .form-actions {
