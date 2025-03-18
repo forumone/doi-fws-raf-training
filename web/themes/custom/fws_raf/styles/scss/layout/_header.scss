@@ -52,6 +52,7 @@
   &__container {
     display: flex;
     align-items: flex-start;
+    max-width: 450px;
     padding: 10px;
     margin-right: 60px;
     color: $white;
@@ -96,6 +97,7 @@
   &__text {
     display: flex;
     flex-direction: column;
+    max-width: 350px;
   }
 
   &__name {

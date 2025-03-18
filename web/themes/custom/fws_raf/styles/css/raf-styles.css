@@ -127,6 +127,7 @@ p, .p1.p1 {
 .branding__container {
   display: flex;
   align-items: flex-start;
+  max-width: 450px;
   padding: 10px;
   margin-right: 60px;
   color: #FFFFFF;
@@ -168,6 +169,7 @@ p, .p1.p1 {
 .branding__text {
   display: flex;
   flex-direction: column;
+  max-width: 350px;
 }
 .branding__name {
   font-weight: 600;
