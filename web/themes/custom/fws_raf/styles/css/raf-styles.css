@@ -120,6 +120,70 @@ p, .p1.p1 {
   font-size: 10px;
 }
 
+#block-fws-raf-mainnavigation {
+  display: none;
+}
+
+.branding__container {
+  display: flex;
+  align-items: flex-start;
+  max-width: 450px;
+  padding: 10px;
+  margin-right: 60px;
+  color: #FFFFFF;
+  transition: all 0.25s ease-out;
+}
+@media (min-width: 768px) {
+  .branding__container {
+    padding: 10px 10px 0;
+  }
+}
+@media (min-width: 992px) {
+  .branding__container {
+    padding: 20px 10px 0;
+  }
+}
+.branding__container:hover, .branding__container:focus {
+  color: #FFFFFF;
+}
+.branding__container:focus {
+  outline: 0;
+  box-shadow: none;
+  transition: all 0.125s ease-out;
+}
+.branding__container:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 4px #FFFFFF;
+  border-radius: 4px;
+  transition: all 0.125s ease-out;
+}
+.branding__logo {
+  margin-right: 15px;
+  width: 50px;
+}
+@media (min-width: 768px) {
+  .branding__logo {
+    width: 65px;
+  }
+}
+.branding__text {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+}
+.branding__name {
+  font-weight: 600;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 22px;
+  color: #FFFFFF;
+}
+.branding__slogan {
+  font-weight: 400;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
 header#navbar {
   background: linear-gradient(#021d44 0%, #021d44 25%, rgba(32, 84, 147, 0.8) 100%);
 }
@@ -127,27 +191,9 @@ header#navbar #navbar-collapse {
   border-top: 0;
   box-shadow: none;
 }
-@media (min-width: 992px) {
-  header#navbar .navbar-header {
-    min-width: 250px;
-  }
-}
 header#navbar .navbar-header .navbar-toggle {
   right: 5px;
-  top: -13px;
-}
-header#navbar > .container {
-  width: 100%;
-}
-@media (min-width: 992px) {
-  header#navbar > .container {
-    width: 970px;
-  }
-}
-@media (min-width: 1200px) {
-  header#navbar > .container {
-    width: 1170px;
-  }
+  top: 5px;
 }
 @media (min-width: 992px) {
   header#navbar .menu--utility li a {
@@ -158,6 +204,9 @@ header#navbar > .container {
   header#navbar .menu--utility li a:after {
     transform: scale(0);
     transition: all 0.25s ease-out;
+  }
+  header#navbar .menu--utility li a:hover, header#navbar .menu--utility li a:focus {
+    outline: 0;
   }
   header#navbar .menu--utility li a:hover:after, header#navbar .menu--utility li a:focus:after {
     content: "";
@@ -171,11 +220,29 @@ header#navbar > .container {
     transform: scale(1);
     transition: all 0.125s ease-out;
   }
-  header#navbar .menu--utility li a:focus-visible {
-    outline: 0;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.75);
+  header#navbar .menu--utility li a:focus {
     border-radius: 4px;
+    box-shadow: none;
     transition: all 0.125s ease-out;
+  }
+  header#navbar .menu--utility li a:focus-visible {
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.75);
+    transition: all 0.125s ease-out;
+  }
+}
+header#navbar > .container {
+  width: 100%;
+  padding: 0;
+}
+@media (min-width: 992px) {
+  header#navbar > .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  header#navbar > .container {
+    width: 1170px;
   }
 }
 
@@ -201,31 +268,19 @@ header#navbar > .container {
   transition: none;
 }
 
-#block-fws-raf-mainnavigation {
-  display: none;
-}
-
 .mb-menuwrapper {
-  height: calc(100% - 115px);
-  top: 115px;
+  height: calc(100% - 88px);
+  top: 88px;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .mb-menuwrapper {
-    height: calc(100% - 178px);
-    top: 178px;
+    height: calc(100% - 100px);
+    top: 100px;
   }
 }
 
-.fws-branding__logo img {
-  width: 100%;
-  margin-bottom: 10px;
-}
-.fws-branding__name {
-  width: 350px;
-  line-height: 30px;
-}
-
 .navbar-main {
+  border: 0;
   width: auto;
   margin-bottom: 0;
 }
@@ -247,6 +302,9 @@ header#navbar > .container {
     transform: scale(0);
     transition: all 0.25s ease-out;
   }
+  .navbar-main .navbar-nav > li > a:hover, .navbar-main .navbar-nav > li > a:focus {
+    outline: 0;
+  }
   .navbar-main .navbar-nav > li > a:hover:after, .navbar-main .navbar-nav > li > a:focus:after {
     content: "";
     position: absolute;
@@ -259,10 +317,14 @@ header#navbar > .container {
     transform: scale(1);
     transition: all 0.125s ease-out;
   }
-  .navbar-main .navbar-nav > li > a:focus-visible {
-    outline: 0;
-    box-shadow: 0 0 0 4px white;
+  .navbar-main .navbar-nav > li > a:focus {
     border-radius: 4px;
+    box-shadow: none;
+    transition: all 0.125s ease-out;
+  }
+  .navbar-main .navbar-nav > li > a:focus-visible {
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px white;
     transition: all 0.125s ease-out;
   }
 }
