@@ -24,41 +24,18 @@
 
 #edit-filters--content,
 .views-exposed-form {
-  .form-type-select .select-wrapper {
 
-    select,
-    select option {
-      min-width: 85px;
-      min-height: 36px;
+  .form--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 25px;
+
+    &:before {
+      display: none;
     }
-
-    &:after {
-      top: 27px;
-      right: 0;
-      z-index: 10;
-    }
-  }
-
-  .form-control {
-    display: inline-block;
-  }
-
-  .form-item {
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 10px;
 
     label {
-      margin-right: 10px;
-      display: inline-block;
+      margin-right: 5px;
     }
-
-    .form-text {
-      max-width: 150px;
-    }
-  }
-
-  .form-actions {
-    margin-bottom: 10px;
   }
 }
