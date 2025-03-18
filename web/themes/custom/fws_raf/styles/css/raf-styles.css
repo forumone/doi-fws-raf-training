@@ -435,6 +435,30 @@ select.form-select.form-control:focus-visible,
   transition: border 0.125s ease-out, box-shadow 0.125s ease-out;
 }
 
+.form-type-select .select-wrapper select {
+  padding: 12px 36px 12px 16px;
+}
+.form-type-select .select-wrapper:after {
+  content: "\e114";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Glyphicons Halflings";
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 0;
+  width: 20px;
+  height: 20px;
+  color: #205493;
+  line-height: 0;
+  pointer-events: none;
+  top: 50%;
+  right: 2px;
+  transform: none;
+  z-index: 50;
+}
+
 .select2 {
   height: 40px;
   line-height: 40px;
