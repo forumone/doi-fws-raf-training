@@ -69,19 +69,13 @@
     &:hover,
     &:focus {
       color: $white;
-    }
 
-    &:focus {
-      outline: 0;
-      box-shadow: none;
-      transition: all .125s ease-out;
-    }
-
-    &:focus-visible {
-      outline: 0;
-      box-shadow: 0 0 0 4px $white;
-      border-radius: 4px;
-      transition: all .125s ease-out;
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 4px $white;
+        border-radius: 4px;
+        transition: all .125s ease-out;
+      }
     }
   }
 
@@ -210,7 +204,7 @@ header#navbar {
 
       & > a {
         background-color: $white;
-        color: $gray-dark;
+        color: $gray-darker;
         padding: 10px 15px;
 
         &:hover,
