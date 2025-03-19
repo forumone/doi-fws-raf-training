@@ -29,7 +29,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: T0qfeORc3SJLm9qMoCeA9nBDXhDhxn-9DAlVOgEmyJE
+  default_config_hash: ho8Lma7b0BG6-_ZiZHfGuhqKRFTj7jf6P6xdSKSG9aw
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -46,16 +46,17 @@ display:
     display_options:
       title: 'All Observations'
       fields:
-        view_node:
-          id: view_node
-          table: node
-          field: view_node
+        title:
+          id: title
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: entity_link
-          label: Details
+          entity_field: title
+          plugin_id: field
+          label: Title
           exclude: false
           alter:
             alter_text: false
@@ -88,7 +89,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -96,9 +97,20 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: view
-          output_url_as_text: false
-          absolute: false
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_date_time:
           id: field_date_time
           table: node__field_date_time
@@ -968,7 +980,7 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            view_node: view_node
+            title: title
             field_date_time: field_date_time
             field_bird_count: field_bird_count
             field_state: field_state
@@ -977,7 +989,7 @@ display:
             field_last_name: field_last_name
           default: field_date_time
           info:
-            view_node:
+            title:
               sortable: true
               default_sort_order: asc
               align: ''
