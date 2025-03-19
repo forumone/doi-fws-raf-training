@@ -90,7 +90,7 @@ third_party_settings:
         - field_species_chip_no
         - field_species_age
         - field_species_hatch_year
-      label: '1.1 Species Info.'
+      label: '1. Species asdsa'
       region: content
       parent_name: ''
       weight: 1
@@ -121,7 +121,7 @@ third_party_settings:
         - field_sender_release_cd
         - field_sender_cause_of_death
         - field_sender_permit_other
-      label: '1.2 Sender'
+      label: '2. Sender'
       region: content
       parent_name: ''
       weight: 3
@@ -150,7 +150,7 @@ third_party_settings:
         - field_recipient_permit_type_cd
         - field_recipient_trans_type_cd
         - field_recipient_permit_other
-      label: '1.3 Recipient'
+      label: '3. Recipient'
       region: content
       parent_name: ''
       weight: 4
@@ -171,7 +171,7 @@ third_party_settings:
         - field_trap_county
         - field_latitude_num
         - field_longitude_num
-      label: '1.4 Capture or Recapture'
+      label: '4. Capture or Recapture'
       region: content
       parent_name: ''
       weight: 5
@@ -190,7 +190,7 @@ third_party_settings:
         - field_species_band_old_type
         - field_species_band_new_no
         - field_species_band_new_type
-      label: '1.5 Re-banding'
+      label: '5. Re-banding'
       region: content
       parent_name: ''
       weight: 7
@@ -203,29 +203,13 @@ third_party_settings:
         open: false
         description: '(to report the re-banding of a wild or captive-bred bird) REQUIRED: Old bands returned to the Migratory Bird Permit Office'
         required_fields: true
-    group_comments:
-      children:
-        - field_comments
-      label: '1.6 Comments (optional)'
-      region: content
-      parent_name: ''
-      weight: 8
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: true
     group_certification:
       children:
         - field_falc_applicant_name
         - field_falc_applicant_phone
         - field_falc_applicant_agreed
         - field_falc_dt_signed
-      label: '1.7 Certification'
+      label: '6. Certification'
       region: content
       parent_name: ''
       weight: 9
@@ -240,6 +224,7 @@ third_party_settings:
         required_fields: true
     group_administrative:
       children:
+        - field_comments
         - field_hid
         - field_dt_create
         - field_dt_update
@@ -262,7 +247,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: RA8Ta-_gB949erTUW0jZKCfzdqxJzHumklitIpSiuAA
+  default_config_hash: OHT8sM9rxaBMmHxaLHYM91_KLocribsJkBGqzXxPVDw
 id: node.permit_3186a.default
 targetEntityType: node
 bundle: permit_3186a
@@ -302,7 +287,7 @@ content:
     third_party_settings: {  }
   field_created_by:
     type: string_textfield
-    weight: 18
+    weight: 5
     region: content
     settings:
       size: 60
@@ -310,13 +295,13 @@ content:
     third_party_settings: {  }
   field_dt_create:
     type: datetime_default
-    weight: 16
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_dt_update:
     type: datetime_default
-    weight: 17
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -351,7 +336,7 @@ content:
     third_party_settings: {  }
   field_hid:
     type: string_textfield
-    weight: 15
+    weight: 2
     region: content
     settings:
       size: 60
@@ -359,7 +344,7 @@ content:
     third_party_settings: {  }
   field_last_action:
     type: string_textfield
-    weight: 20
+    weight: 7
     region: content
     settings:
       size: 60
@@ -383,7 +368,7 @@ content:
     third_party_settings: {  }
   field_owner_access_cd:
     type: string_textfield
-    weight: 21
+    weight: 8
     region: content
     settings:
       size: 60
@@ -409,7 +394,7 @@ content:
     third_party_settings: {  }
   field_rcf_cd:
     type: string_textfield
-    weight: 22
+    weight: 9
     region: content
     settings:
       size: 60
@@ -545,7 +530,7 @@ content:
     region: content
     settings:
       width: 100%
-      autocomplete: FALSE
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
     third_party_settings: {  }
@@ -635,7 +620,7 @@ content:
     region: content
     settings:
       width: 100%
-      autocomplete: FALSE
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
     third_party_settings: {  }
@@ -753,7 +738,7 @@ content:
     region: content
     settings:
       width: 100%
-      autocomplete: FALSE
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
     third_party_settings: {  }
@@ -817,7 +802,7 @@ content:
     third_party_settings: {  }
   field_updated_by:
     type: string_textfield
-    weight: 19
+    weight: 6
     region: content
     settings:
       size: 60

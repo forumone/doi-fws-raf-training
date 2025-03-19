@@ -29,12 +29,12 @@ class Form3186A extends FormBase {
       '#title' => $this->t('Select which activity you are reporting'),
       '#description' => $this->t('Then click next to complete the sections listed in parentheses () for that activity.'),
       '#options' => [
-        1 => $this->t('1. transferred a bird to another permittee (or to another permit you hold) (1, 2, 3, 6)'),
-        2 => $this->t('2. released a bird or lost a bird due to its escape, theft, or death (1, 2, 6)'),
-        3 => $this->t('3. acquired bird from another permittee, other than a rehabilitator, (1, 2, 3, 6)'),
-        4 => $this->t('4. acquired bird from a rehabilitation permittee (1, 2, 3, 6)'),
-        5 => $this->t('5. captured a bird from the wild or recaptured a previously captive (banded) bird (1, 2, 4, 6)'),
-        6 => $this->t('6. re-banded a bird, either wild or captive-bred, for which the band was lost or removed (1, 2, 5, 6)'),
+        1 => $this->t('1. Transferred a bird to another permittee (or to another permit you hold) (1, 2, 3, 6)'),
+        2 => $this->t('2. Released a bird or lost a bird due to its escape, theft, or death (1, 2, 6)'),
+        3 => $this->t('3. Acquired bird from another permittee, other than a rehabilitator, (1, 2, 3, 6)'),
+        4 => $this->t('4. Acquired bird from a rehabilitation permittee (1, 2, 3, 6)'),
+        5 => $this->t('5. Captured a bird from the wild or recaptured a previously captive (banded) bird (1, 2, 4, 6)'),
+        6 => $this->t('6. Re-banded a bird, either wild or captive-bred, for which the band was lost or removed (1, 2, 5, 6)'),
       ],
       '#required' => TRUE,
     ];
