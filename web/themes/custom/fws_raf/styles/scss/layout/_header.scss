@@ -13,7 +13,8 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &[aria-expanded="true"] {
     outline: 0;
 
     &:after {

@@ -211,10 +211,10 @@ header#navbar .navbar-header .navbar-toggle {
     transform: scale(0);
     transition: all 0.25s ease-out;
   }
-  header#navbar .menu--utility li a:hover, header#navbar .menu--utility li a:focus {
+  header#navbar .menu--utility li a:hover, header#navbar .menu--utility li a:focus, header#navbar .menu--utility li a[aria-expanded=true] {
     outline: 0;
   }
-  header#navbar .menu--utility li a:hover:after, header#navbar .menu--utility li a:focus:after {
+  header#navbar .menu--utility li a:hover:after, header#navbar .menu--utility li a:focus:after, header#navbar .menu--utility li a[aria-expanded=true]:after {
     content: "";
     position: absolute;
     top: auto;
@@ -308,10 +308,10 @@ header#navbar > .container {
     transform: scale(0);
     transition: all 0.25s ease-out;
   }
-  .navbar-main .navbar-nav > li > a:hover, .navbar-main .navbar-nav > li > a:focus {
+  .navbar-main .navbar-nav > li > a:hover, .navbar-main .navbar-nav > li > a:focus, .navbar-main .navbar-nav > li > a[aria-expanded=true] {
     outline: 0;
   }
-  .navbar-main .navbar-nav > li > a:hover:after, .navbar-main .navbar-nav > li > a:focus:after {
+  .navbar-main .navbar-nav > li > a:hover:after, .navbar-main .navbar-nav > li > a:focus:after, .navbar-main .navbar-nav > li > a[aria-expanded=true]:after {
     content: "";
     position: absolute;
     top: auto;

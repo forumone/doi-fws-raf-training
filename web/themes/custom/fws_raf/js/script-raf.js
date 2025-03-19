@@ -18,35 +18,54 @@
           $menu.attr('id', submenuId);
         }
 
-        // Hover functionality
-        $dropdown.hover(
-          function () {
-            const $this = $(this);
-            // Add a small delay to prevent accidental triggers
-            $this.data('timeout', setTimeout(function () {
-              $this.addClass('show');
-              $menu.addClass('show');
-              $toggle.attr('aria-expanded', 'true');
-            }, 200));
-          },
-          function () {
-            const $this = $(this);
-            // Clear timeout if it exists
-            clearTimeout($this.data('timeout'));
-            $this.removeClass('show');
+        // Function to close all other dropdowns
+        const closeOtherDropdowns = function() {
+          $('.dropdown').not($dropdown).each(function() {
+            $(this).removeClass('show');
+            $(this).find('.dropdown-menu').removeClass('show');
+            $('.dropdown-toggle').attr('aria-expanded', 'false');
+          });
+        };
+
+        // Handle clicks outside the dropdown
+        $(document).on('click', function(e) {
+          if (!$(e.target).closest('.dropdown').length) {
+            $dropdown.removeClass('show');
             $menu.removeClass('show');
             $toggle.attr('aria-expanded', 'false');
           }
-        );
+        });
+
+        // Handle click on toggle button
+        $toggle.on('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const isExpanded = $dropdown.hasClass('show');
+
+          if (!isExpanded) {
+            closeOtherDropdowns();
+            $dropdown.addClass('show');
+            $menu.addClass('show');
+            $toggle.attr('aria-expanded', 'true');
+            // Focus first menu item
+            $menu.find('a').first().focus();
+          } else {
+            $dropdown.removeClass('show');
+            $menu.removeClass('show');
+            $toggle.attr('aria-expanded', 'false');
+          }
+        });
 
         // Keyboard functionality for dropdown toggle
         $toggle.on('keydown', function (e) {
           // Enter or Space to open/close dropdown
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            const isExpanded = $toggle.attr('aria-expanded') === 'true';
+            e.stopPropagation();
+            const isExpanded = $dropdown.hasClass('show');
 
             if (!isExpanded) {
+              closeOtherDropdowns();
               $dropdown.addClass('show');
               $menu.addClass('show');
               $toggle.attr('aria-expanded', 'true');
