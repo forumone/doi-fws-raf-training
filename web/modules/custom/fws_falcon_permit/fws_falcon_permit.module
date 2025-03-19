@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS Falcon Permit module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function fws_falcon_permit_theme() {
+  return [
+    'fws_falcon_permit_3_186a' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function fws_falcon_permit_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.fws_falcon_permit':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The FWS Falcon Permit module provides forms for managing falcon permits and reporting activities.') . '</p>';
+      return $output;
+  }
+}

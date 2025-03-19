@@ -1,0 +1,7 @@
+fws_falcon_permit.form_3_186a:
+  path: '/falcon-permit/3-186a'
+  defaults:
+    _title: 'Add New 3-186A'
+    _form: '\Drupal\fws_falcon_permit\Form\Form3186A'
+  requirements:
+    _permission: 'access content'

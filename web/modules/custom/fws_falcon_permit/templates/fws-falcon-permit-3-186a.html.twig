@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the 3-186A form.
+ *
+ * Available variables:
+ * - form: The form element.
+ */
+#}
+<div class="fws-falcon-permit-3-186a-form">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-content">
+        {{ form }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-sections-info">
+        <h3>{{ '3-186A Form Sections:'|t }}</h3>
+        <ol>
+          <li>{{ 'Species Information'|t }}</li>
+          <li>{{ 'Sender Information'|t }}</li>
+          <li>{{ 'Recipient Information'|t }}</li>
+          <li>{{ 'Capture'|t }}</li>
+          <li>{{ 'Re-banding'|t }}</li>
+          <li>{{ 'Certification'|t }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
