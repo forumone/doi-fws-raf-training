@@ -138,18 +138,17 @@
     }
   };
 
-  Drupal.behaviors.keepViewsFiltersOpen = {
+  Drupal.behaviors.keepViewsFilters = {
     attach: function (context, settings) {
       // Handle form submission
       once('views-filter-submit', 'form.views-exposed-form', context).forEach(function (element) {
         $(element).on('submit', function (e) {
           var $panel = $(this).closest('.panel-collapse');
-          var $toggle = $panel.siblings('.panel-heading').find('[data-toggle="collapse"]');
+          var $toggle = $panel.siblings('.panel-heading').find('button[data-toggle="collapse"]');
 
           $panel
             .addClass('in')
-            .css('height', '')
-            .attr('aria-expanded', 'true');
+            .css('height', '');
 
           $toggle
             .removeClass('collapsed')
@@ -158,22 +157,30 @@
       });
 
       // Handle AJAX completion
-      // Use once() on the document only if it hasn't been processed yet
       once('views-filter-ajax', 'body', context).forEach(function (element) {
         $(document).on('ajaxComplete', function (event, xhr, settings) {
           $('.panel-collapse:has(.views-exposed-form)').each(function () {
             var $panel = $(this);
-            var $toggle = $panel.siblings('.panel-heading').find('[data-toggle="collapse"]');
+            var $toggle = $panel.siblings('.panel-heading').find('button[data-toggle="collapse"]');
 
             $panel
               .addClass('in')
-              .css('height', '')
-              .attr('aria-expanded', 'true');
+              .css('height', '');
 
             $toggle
               .removeClass('collapsed')
               .attr('aria-expanded', 'true');
           });
+        });
+      });
+
+      // Add keyboard support for filter toggle buttons
+      once('filter-toggle-keyboard', 'button[data-toggle="collapse"]', context).forEach(function (element) {
+        $(element).on('keydown', function(e) {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            $(this).click();
+          }
         });
       });
     }
