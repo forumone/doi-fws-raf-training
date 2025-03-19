@@ -164,13 +164,40 @@
     attach: function (context, settings) {
       // Target all links in table headers that have sort functionality
       once('table-sort-accessibility', 'th a[href*="sort="]', context).forEach(function (link) {
-        $(link).attr('role', 'button');
+        const $link = $(link);
+        $link.attr('role', 'button');
+
+        // Store column identifier before clicking
+        $link.on('click', function(e) {
+          // Store the column ID without the dynamic suffix
+          const columnId = $(this).closest('th').attr('id').split('--')[0];
+          sessionStorage.setItem('lastSortedColumn', columnId);
+        });
 
         // Add spacebar support to submit sorting changes
-        $(link).on('keydown', function(e) {
+        $link.on('keydown', function(e) {
           if (e.which === 32) {
             e.preventDefault();  // Prevent page scroll
+            // Store the column ID without the dynamic suffix
+            const columnId = $(this).closest('th').attr('id').split('--')[0];
+            sessionStorage.setItem('lastSortedColumn', columnId);
             window.location = e.target.href;
+          }
+        });
+      });
+
+      // Only attach the ajaxComplete handler once
+      once('table-sort-ajax', 'body', context).forEach(function (element) {
+        $(document).on('ajaxComplete', function (event, xhr, settings) {
+          const lastSortedColumn = sessionStorage.getItem('lastSortedColumn');
+          if (lastSortedColumn) {
+            // Find the element by matching the ID prefix
+            const $sortLink = $(`[id^="${lastSortedColumn}--"] a`);
+            if ($sortLink.length) {
+              $sortLink.focus();
+              // Clear the stored value after restoring focus
+              sessionStorage.removeItem('lastSortedColumn');
+            }
           }
         });
       });
