@@ -4,6 +4,7 @@ namespace Drupal\fws_falcon_permit\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Provides a form for reporting falcon activities (Form 3-186A).
@@ -21,6 +22,8 @@ class Form3186A extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#attached']['library'][] = 'fws_falcon_permit/form_3_186a';
+
     $form['activity_type'] = [
       '#type' => 'radios',
       '#title' => $this->t('Select which activity you are reporting'),
@@ -40,7 +43,7 @@ class Form3186A extends FormBase {
       '#type' => 'actions',
     ];
 
-    $form['actions']['submit'] = [
+    $form['actions']['next'] = [
       '#type' => 'submit',
       '#value' => $this->t('Next'),
       '#attributes' => [
@@ -55,9 +58,16 @@ class Form3186A extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Store the selected activity in session and redirect to appropriate section.
-    $_SESSION['fws_falcon_permit_activity'] = $form_state->getValue('activity_type');
-    $form_state->setRedirect('fws_falcon_permit.form_3_186a_section1');
+    $activity_type = $form_state->getValue('activity_type');
+
+    // Redirect to the node add form with the activity type as a query parameter.
+    $url = Url::fromUri('internal:/node/add/permit_3186a', [
+      'query' => [
+        'activity_type' => $activity_type,
+      ],
+    ]);
+
+    $form_state->setRedirectUrl($url);
   }
 
   /**
