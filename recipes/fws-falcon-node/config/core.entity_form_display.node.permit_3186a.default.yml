@@ -90,7 +90,7 @@ third_party_settings:
         - field_species_chip_no
         - field_species_age
         - field_species_hatch_year
-      label: '1. Species asdsa'
+      label: '1. Species'
       region: content
       parent_name: ''
       weight: 1
