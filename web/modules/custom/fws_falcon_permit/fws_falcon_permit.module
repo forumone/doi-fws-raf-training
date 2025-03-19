@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -28,5 +29,15 @@ function fws_falcon_permit_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('The FWS Falcon Permit module provides forms for managing falcon permits and reporting activities.') . '</p>';
       return $output;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_falcon_permit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Attach our JS behavior to the permit node form.
+  if ($form_id == 'node_permit_3186a_form') {
+    $form['#attached']['library'][] = 'fws_falcon_permit/form_3_186a';
   }
 }
