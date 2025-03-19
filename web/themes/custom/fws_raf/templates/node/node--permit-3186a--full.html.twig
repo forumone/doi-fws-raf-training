@@ -1,0 +1,489 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to present permit_3186a data.
+ *
+ * This template overrides the default node.html.twig template specifically for
+ * the permit_3186a node type to display fields from field groups 1-6.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'.
+ * - attributes: HTML attributes for the container element.
+ * - node: A Drupal Node entity.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{%
+  set classes = [
+    'permit-information',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+
+  {# Species Info - Group 1 #}
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">1. Species Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_recno %}
+            <tr>
+              <th class="col-md-3">Record Number</th>
+              <td class="col-md-9">{{ content.field_recno }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_question_no %}
+            <tr>
+              <th class="col-md-3">Question Number</th>
+              <td class="col-md-9">{{ content.field_question_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_owner_state %}
+            <tr>
+              <th class="col-md-3">Owner State</th>
+              <td class="col-md-9">{{ content.field_owner_state }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_authorized_cd %}
+            <tr>
+              <th class="col-md-3">Authorization Code</th>
+              <td class="col-md-9">{{ content.field_authorized_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_cd %}
+            <tr>
+              <th class="col-md-3">Species Code</th>
+              <td class="col-md-9">{{ content.field_species_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_name %}
+            <tr>
+              <th class="col-md-3">Species Name</th>
+              <td class="col-md-9">{{ content.field_species_name }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_band_no %}
+            <tr>
+              <th class="col-md-3">Band Number</th>
+              <td class="col-md-9">{{ content.field_species_band_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_sex %}
+            <tr>
+              <th class="col-md-3">Sex</th>
+              <td class="col-md-9">{{ content.field_species_sex }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_source %}
+            <tr>
+              <th class="col-md-3">Source</th>
+              <td class="col-md-9">{{ content.field_species_source }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_chip_no %}
+            <tr>
+              <th class="col-md-3">Chip Number</th>
+              <td class="col-md-9">{{ content.field_species_chip_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_age %}
+            <tr>
+              <th class="col-md-3">Age</th>
+              <td class="col-md-9">{{ content.field_species_age }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_hatch_year %}
+            <tr>
+              <th class="col-md-3">Hatch Year</th>
+              <td class="col-md-9">{{ content.field_species_hatch_year }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Sender Info - Group 2 #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">2. Sender Information (person transferring bird)</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_sender_permit_no %}
+            <tr>
+              <th class="col-md-3">Permit Number</th>
+              <td class="col-md-9">{{ content.field_sender_permit_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_first_name or content.field_sender_middle_name or content.field_sender_last_name %}
+            <tr>
+              <th class="col-md-3">Name</th>
+              <td class="col-md-9">
+                {{ content.field_sender_first_name }}
+                {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
+                {{ content.field_sender_last_name }}
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_dt_transfer %}
+            <tr>
+              <th class="col-md-3">Transfer Date</th>
+              <td class="col-md-9">{{ content.field_sender_dt_transfer }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_street_address %}
+            <tr>
+              <th class="col-md-3">Street Address</th>
+              <td class="col-md-9">{{ content.field_sender_street_address }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_city %}
+            <tr>
+              <th class="col-md-3">City</th>
+              <td class="col-md-9">{{ content.field_sender_city }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_st_cd %}
+            <tr>
+              <th class="col-md-3">State</th>
+              <td class="col-md-9">{{ content.field_sender_st_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_zip_cd %}
+            <tr>
+              <th class="col-md-3">ZIP Code</th>
+              <td class="col-md-9">{{ content.field_sender_zip_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_email_address %}
+            <tr>
+              <th class="col-md-3">Email Address</th>
+              <td class="col-md-9">{{ content.field_sender_email_address }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_phone %}
+            <tr>
+              <th class="col-md-3">Phone</th>
+              <td class="col-md-9">{{ content.field_sender_phone }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_permit_type_cd %}
+            <tr>
+              <th class="col-md-3">Permit Type</th>
+              <td class="col-md-9">{{ content.field_sender_permit_type_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_transfer_type_cd %}
+            <tr>
+              <th class="col-md-3">Transfer Type</th>
+              <td class="col-md-9">{{ content.field_sender_transfer_type_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_release_cd %}
+            <tr>
+              <th class="col-md-3">Release Code</th>
+              <td class="col-md-9">{{ content.field_sender_release_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_cause_of_death %}
+            <tr>
+              <th class="col-md-3">Cause of Death</th>
+              <td class="col-md-9">{{ content.field_sender_cause_of_death }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_sender_permit_other %}
+            <tr>
+              <th class="col-md-3">Other Permit</th>
+              <td class="col-md-9">{{ content.field_sender_permit_other }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Recipient Info - Group 3 #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">3. Recipient Information (person acquiring bird)</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_recipient_permit_no %}
+            <tr>
+              <th class="col-md-3">Permit Number</th>
+              <td class="col-md-9">{{ content.field_recipient_permit_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_first_name or content.field_recipient_middle_name or content.field_recipient_last_name %}
+            <tr>
+              <th class="col-md-3">Name</th>
+              <td class="col-md-9">
+                {{ content.field_recipient_first_name }}
+                {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
+                {{ content.field_recipient_last_name }}
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_dt_acquired %}
+            <tr>
+              <th class="col-md-3">Date Acquired</th>
+              <td class="col-md-9">{{ content.field_recipient_dt_acquired }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_street_address %}
+            <tr>
+              <th class="col-md-3">Street Address</th>
+              <td class="col-md-9">{{ content.field_recipient_street_address }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_city %}
+            <tr>
+              <th class="col-md-3">City</th>
+              <td class="col-md-9">{{ content.field_recipient_city }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_st_cd %}
+            <tr>
+              <th class="col-md-3">State</th>
+              <td class="col-md-9">{{ content.field_recipient_st_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_zip_cd %}
+            <tr>
+              <th class="col-md-3">ZIP Code</th>
+              <td class="col-md-9">{{ content.field_recipient_zip_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_email_address %}
+            <tr>
+              <th class="col-md-3">Email Address</th>
+              <td class="col-md-9">{{ content.field_recipient_email_address }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_phone %}
+            <tr>
+              <th class="col-md-3">Phone</th>
+              <td class="col-md-9">{{ content.field_recipient_phone }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_permit_type_cd %}
+            <tr>
+              <th class="col-md-3">Permit Type</th>
+              <td class="col-md-9">{{ content.field_recipient_permit_type_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_trans_type_cd %}
+            <tr>
+              <th class="col-md-3">Transfer Type</th>
+              <td class="col-md-9">{{ content.field_recipient_trans_type_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_recipient_permit_other %}
+            <tr>
+              <th class="col-md-3">Other Permit</th>
+              <td class="col-md-9">{{ content.field_recipient_permit_other }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Capture or Recapture - Group 4 #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">4. Capture or Recapture (If bird taken from the wild)</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_capture_recapture_cd %}
+            <tr>
+              <th class="col-md-3">Capture/Recapture Code</th>
+              <td class="col-md-9">{{ content.field_capture_recapture_cd }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_state_of_trap_location %}
+            <tr>
+              <th class="col-md-3">State of Trap Location</th>
+              <td class="col-md-9">{{ content.field_state_of_trap_location }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_color %}
+            <tr>
+              <th class="col-md-3">Species Color</th>
+              <td class="col-md-9">{{ content.field_species_color }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_trap_county %}
+            <tr>
+              <th class="col-md-3">Trap County</th>
+              <td class="col-md-9">{{ content.field_trap_county }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_latitude_num %}
+            <tr>
+              <th class="col-md-3">Latitude</th>
+              <td class="col-md-9">{{ content.field_latitude_num }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_longitude_num %}
+            <tr>
+              <th class="col-md-3">Longitude</th>
+              <td class="col-md-9">{{ content.field_longitude_num }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Rebanding - Group 5 #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">5. Re-banding</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_species_band_old_no %}
+            <tr>
+              <th class="col-md-3">Old Band Number</th>
+              <td class="col-md-9">{{ content.field_species_band_old_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_band_old_type %}
+            <tr>
+              <th class="col-md-3">Old Band Type</th>
+              <td class="col-md-9">{{ content.field_species_band_old_type }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_band_new_no %}
+            <tr>
+              <th class="col-md-3">New Band Number</th>
+              <td class="col-md-9">{{ content.field_species_band_new_no }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_species_band_new_type %}
+            <tr>
+              <th class="col-md-3">New Band Type</th>
+              <td class="col-md-9">{{ content.field_species_band_new_type }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Certification - Group 6 #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">6. Certification</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_falc_applicant_name %}
+            <tr>
+              <th class="col-md-3">Applicant Name</th>
+              <td class="col-md-9">{{ content.field_falc_applicant_name }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falc_applicant_phone %}
+            <tr>
+              <th class="col-md-3">Applicant Phone</th>
+              <td class="col-md-9">{{ content.field_falc_applicant_phone }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falc_applicant_agreed %}
+            <tr>
+              <th class="col-md-3">Agreed to Terms</th>
+              <td class="col-md-9">{{ content.field_falc_applicant_agreed }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_falc_dt_signed %}
+            <tr>
+              <th class="col-md-3">Date Signed</th>
+              <td class="col-md-9">{{ content.field_falc_dt_signed }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</article>
