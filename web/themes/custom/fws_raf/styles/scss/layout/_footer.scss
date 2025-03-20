@@ -1,4 +1,23 @@
-// Add spacing to the footer
+@use 'utils/breakpoints' as *;
+
 .footer {
   margin-top: 50px;
+}
+
+.footer-slogan {
+
+  p {
+
+    @include breakpoint(md) {
+      margin: 0 15px;
+    }
+  }
+
+  .image-wrapper img {
+    width: 100px;
+
+    @include breakpoint(md) {
+      width: 65px;
+    }
+  }
 }

@@ -16,6 +16,43 @@
 
       var toggleButton = this;
 
+      // Add keyboard navigation trapping
+      function trapFocus(e) {
+        if (!$(settings.pageSelector).hasClass(settings.toggledClass)) return;
+
+        var $focusableElements = $('#navbar-collapse').find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        var $firstFocusable = $focusableElements.first();
+        var $lastFocusable = $focusableElements.last();
+
+        if (e.key === 'Tab') {
+          // If there are no focusable elements, prevent default tab behavior
+          if ($focusableElements.length === 0) {
+            e.preventDefault();
+            return;
+          }
+
+          // If shift + tab
+          if (e.shiftKey) {
+            // If the first focusable element receives focus, move to the last focusable element
+            if (document.activeElement === $firstFocusable[0]) {
+              e.preventDefault();
+              $lastFocusable.focus();
+            }
+          }
+          // If just tab
+          else {
+            // If the last focusable element receives focus, move to the first focusable element
+            if (document.activeElement === $lastFocusable[0]) {
+              e.preventDefault();
+              $firstFocusable.focus();
+            }
+          }
+        }
+        if (e.key === 'Escape') {
+          _weMegaMenuClear();
+        }
+      }
+
       $(window).resize(function () {
         if ($(window).width() <= 991) {
           $(settings.targetWrapper).addClass('mobile-main-menu');
@@ -29,6 +66,8 @@
           $(settings.pageSelector).css('position', '');
           item.removeClass('open');
           item.find('ul').css('display', '');
+          $(document).off('keydown', trapFocus);
+          $('#navbar-collapse').attr('aria-expanded', 'false');
         }
       });
 
@@ -42,6 +81,8 @@
         });
         wrapper.removeClass(settings.toggledClass);
         wrapper.find('div.region-we-mega-menu nav').removeClass('we-mobile-megamenu-active');
+        $(document).off('keydown', trapFocus);
+        $('#navbar-collapse').attr('aria-expanded', 'false');
 
         if (overlay.length > 0) {
           wrapper.find('.btn-close').remove();
@@ -71,6 +112,9 @@
           wrapper.addClass(settings.toggledClass).css('position', 'relative');
           $(settings.targetWrapper).addClass('mobile-main-menu');
           targetWrapper.addClass('we-mobile-megamenu-active');
+          $(document).on('keydown', trapFocus);
+          $('#navbar-collapse').attr('aria-expanded', 'true');
+
           if (wrapper.find('.overlay').length == 0) {
             var overlay = $('<div class="overlay"></div>');
             overlay.prependTo(wrapper);
@@ -101,7 +145,6 @@
               return false;
             });
           }
-
         } else {
           _weMegaMenuClear();
         }

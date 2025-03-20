@@ -180,14 +180,24 @@ p, .p1.p1 {
 .branding__name {
   font-weight: 600;
   font-family: "Source Sans Pro", Arial, sans-serif;
-  font-size: 22px;
+  font-size: 18px;
   color: #FFFFFF;
+}
+@media (min-width: 768px) {
+  .branding__name {
+    font-size: 22px;
+  }
 }
 .branding__slogan {
   font-weight: 400;
   font-family: "Source Sans Pro", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   color: #FFFFFF;
+}
+@media (min-width: 768px) {
+  .branding__slogan {
+    font-size: 16px;
+  }
 }
 
 header#navbar {
@@ -363,6 +373,20 @@ header#navbar > .container {
 
 .footer {
   margin-top: 50px;
+}
+
+@media (min-width: 768px) {
+  .footer-slogan p {
+    margin: 0 15px;
+  }
+}
+.footer-slogan .image-wrapper img {
+  width: 100px;
+}
+@media (min-width: 768px) {
+  .footer-slogan .image-wrapper img {
+    width: 65px;
+  }
 }
 
 .field--name-body img {

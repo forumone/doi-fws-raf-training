@@ -97,14 +97,22 @@
 
   &__name {
     @include font--primary(600);
-    font-size: 22px;
+    font-size: 18px;
     color: $white;
+
+    @include breakpoint(md) {
+      font-size: 22px;
+    }
   }
 
   &__slogan {
     @include font--primary(400);
-    font-size: 16px;
+    font-size: 14px;
     color: $white;
+
+    @include breakpoint(md) {
+      font-size: 16px;
+    }
   }
 }
 
