@@ -14,6 +14,7 @@
   ]
 %}
 
+{# Initialize total variables as integers #}
 {% set total_estimate = 0 %}
 {% set total_actual = 0 %}
 
@@ -49,25 +50,60 @@
         {% for question in content.field_count_questions %}
           {% if question['#paragraph'] is defined %}
             {% set flock_number = loop.index + 30 %}
-            {% set user_count = question['#paragraph'].field_user_count.value %}
 
-            {% set media = question['#paragraph'].field_count_media_reference.entity %}
-            {% if not media %}
+            {# Safely get user count as a number #}
+            {% set user_count = 0 %}
+            {% if question['#paragraph'].field_user_count is defined and question['#paragraph'].field_user_count.value is defined %}
+              {% if question['#paragraph'].field_user_count.value is not iterable %}
+                {% set user_count = question['#paragraph'].field_user_count.value %}
+              {% endif %}
+            {% endif %}
+
+            {# Safely get actual count as a number #}
+            {% set actual_count = 0 %}
+            {% set media = null %}
+
+            {% if question['#paragraph'].field_count_media_reference is defined and question['#paragraph'].field_count_media_reference.entity is defined %}
+              {% set media = question['#paragraph'].field_count_media_reference.entity %}
+            {% elseif question['#paragraph'].field_species_count_question is defined and question['#paragraph'].field_species_count_question.entity is defined %}
               {% set media = question['#paragraph'].field_species_count_question.entity %}
             {% endif %}
 
-            {% set actual_count = media.field_bird_count.value %}
-            {% if not actual_count %}
-              {% set actual_count = media.field_species_image.entity.field_bird_count.value %}
+            {% if media is not null %}
+              {% if media.field_bird_count is defined and media.field_bird_count.value is defined %}
+                {% if media.field_bird_count.value is not iterable %}
+                  {% set actual_count = media.field_bird_count.value %}
+                {% endif %}
+              {% elseif media.field_species_image is defined and media.field_species_image.entity is defined %}
+                {% if media.field_species_image.entity.field_bird_count is defined and media.field_species_image.entity.field_bird_count.value is defined %}
+                  {% if media.field_species_image.entity.field_bird_count.value is not iterable %}
+                    {% set actual_count = media.field_species_image.entity.field_bird_count.value %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
             {% endif %}
 
-            {% set total_estimate = total_estimate + user_count %}
-            {% set total_actual = total_actual + actual_count %}
+            {# Before adding, check that both values are numeric (not arrays or other types) #}
+            {% if user_count is not iterable and actual_count is not iterable %}
+              {# Calculate running totals - CRITICAL that both values are single numbers #}
+              {% set total_estimate_temp = total_estimate %}
+              {% set total_estimate = total_estimate_temp + user_count %}
+
+              {% set total_actual_temp = total_actual %}
+              {% set total_actual = total_actual_temp + actual_count %}
+            {% endif %}
+
             <tr>
               <td>Flock {{ flock_number }}</td>
               <td>{{ user_count }}</td>
               <td>{{ actual_count }}</td>
-              <td>{{ question['#paragraph'].field_count_accuracy.value|number_format(2) }}%</td>
+              <td>
+                {% if actual_count > 0 and user_count is not iterable and actual_count is not iterable %}
+                  {{ ((user_count - actual_count) / actual_count * 100)|number_format(2) }}%
+                {% else %}
+                  0.00%
+                {% endif %}
+              </td>
             </tr>
           {% endif %}
         {% endfor %}
@@ -77,11 +113,21 @@
           <td>Totals</td>
           <td>{{ total_estimate }}</td>
           <td>{{ total_actual }}</td>
-          <td>{% if total_actual != 0 %}{{ ((total_estimate - total_actual) / total_actual * 100)|number_format(2) }}{% else %}0.00{% endif %}%</td>
+          <td>
+            {% if total_actual > 0 and total_estimate is not iterable and total_actual is not iterable %}
+              {{ ((total_estimate - total_actual) / total_actual * 100)|number_format(2) }}%
+            {% else %}
+              0.00%
+            {% endif %}
+          </td>
         </tr>
         <tr>
           <td colspan="4">
-            You either UNDERcounted or OVERcounted flocks in this size range by an average of {{ node.field_average_count_accuracy.value|number_format(2) }}%
+            {% if node.field_average_count_accuracy is defined and node.field_average_count_accuracy.value is defined %}
+              You either UNDERcounted or OVERcounted flocks in this size range by an average of {{ node.field_average_count_accuracy.value|number_format(2) }}%
+            {% else %}
+              Unable to calculate average count accuracy
+            {% endif %}
           </td>
         </tr>
       </tfoot>
