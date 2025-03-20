@@ -1,0 +1,9 @@
+name: FWS Falcon Permit
+type: module
+description: 'Provides forms for falcon permit management.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:path

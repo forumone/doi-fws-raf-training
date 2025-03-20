@@ -155,6 +155,9 @@ function fws_raf_theme_suggestions_user_alter(array &$suggestions, array $variab
 
   // Add our custom template suggestion if the setting is enabled.
   if ($falcon_user_profile_override) {
-    $suggestions[] = 'user__falcon';
+    // Make sure we're actually viewing a user entity.
+    if (isset($variables['elements']['#user']) && $variables['elements']['#user']->getEntityTypeId() === 'user') {
+      $suggestions[] = 'user__falcon';
+    }
   }
 }

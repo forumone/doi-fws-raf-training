@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS Falcon Permit module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function fws_falcon_permit_theme() {
+  return [
+    'fws_falcon_permit_3_186a' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function fws_falcon_permit_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.fws_falcon_permit':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The FWS Falcon Permit module provides forms for managing falcon permits and reporting activities.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_falcon_permit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Attach our JS behavior to the permit node form.
+  if (in_array($form_id, ['node_permit_3186a_form', 'node_permit_3186a_edit_form'])) {
+    $form['#attached']['library'][] = 'fws_falcon_permit/form_3_186a';
+
+    // Make Record ID read-only.
+    if (isset($form['field_recno'])) {
+      $form['field_recno']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+
+    // Make Trans Number read-only.
+    if (isset($form['field_question_no'])) {
+      $form['field_question_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_falcon_permit_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'permit_3186a') {
+    // Handle Record ID if it's a new node.
+    if ($entity->isNew() && $entity->hasField('field_recno')) {
+      // Get the highest record ID from the database.
+      $query = \Drupal::database()->select('node__field_recno', 'r');
+      $query->addExpression('MAX(CAST(r.field_recno_value AS SIGNED))', 'max_recno');
+      $result = $query->execute()->fetchField();
+
+      // Set the new record ID (highest + 1).
+      $next_record_id = $result ? $result + 1 : 1;
+      $entity->set('field_recno', $next_record_id);
+
+      // Append the record number to the node title.
+      $current_title = $entity->getTitle();
+      $entity->setTitle($current_title . ' ' . $next_record_id);
+    }
+
+    // Handle Trans Number.
+    if ($entity->hasField('field_question_no')) {
+      if ($entity->isNew()) {
+        // Set to 1 for new nodes.
+        $entity->set('field_question_no', 1);
+      }
+      else {
+        // Increment existing value.
+        $current_trans = $entity->get('field_question_no')->value;
+        $entity->set('field_question_no', $current_trans + 1);
+      }
+    }
+  }
+}

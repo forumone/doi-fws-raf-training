@@ -1,0 +1,10 @@
+status: 1
+pattern: 'Permit 3-186A [node:field_recno]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.permit_3186a
+new_content_behavior: 0
