@@ -20,7 +20,7 @@ ddev drush -l $SITE_URI site:install minimal --yes \
 ddev drush -l $SITE_URI recipe ../recipes/fws-core
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI scr ../scripts/falcon/install-cleanup.php
-ddev drush -l $SITE_URI en -y fws_falcon_user
+ddev drush -l $SITE_URI en -y fws_falcon_user fws_falcon_permit
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-taxonomy
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-node
 ddev drush -l $SITE_URI recipe ../recipes/fws-falcon-user

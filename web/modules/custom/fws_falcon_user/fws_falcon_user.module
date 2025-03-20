@@ -122,19 +122,6 @@ function fws_falcon_user_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK_alter().
- */
-function fws_falcon_user_theme_suggestions_user_alter(array &$suggestions, array $variables) {
-  // Get the Falcon user profile override setting.
-  $falcon_user_profile_override = \Drupal::config('system.site')->get('falcon_user_profile_override');
-
-  // If the setting is enabled, add a template suggestion.
-  if ($falcon_user_profile_override) {
-    $suggestions[] = 'user__falcon';
-  }
-}
-
-/**
  * Implements hook_entity_view_display_alter().
  */
 function fws_falcon_user_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {

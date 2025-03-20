@@ -1,0 +1,9 @@
+form_3_186a:
+  version: 1.x
+  js:
+    js/permit-form-behavior.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once

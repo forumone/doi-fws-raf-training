@@ -1,0 +1,615 @@
+uuid: 10f451fc-6821-4b0e-bd93-3a818add5166
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.permit_3186a.field_authorized_cd
+    - field.field.node.permit_3186a.field_capture_recapture_cd
+    - field.field.node.permit_3186a.field_comments
+    - field.field.node.permit_3186a.field_created_by
+    - field.field.node.permit_3186a.field_dt_create
+    - field.field.node.permit_3186a.field_dt_update
+    - field.field.node.permit_3186a.field_falc_applicant_agreed
+    - field.field.node.permit_3186a.field_falc_applicant_name
+    - field.field.node.permit_3186a.field_falc_applicant_phone
+    - field.field.node.permit_3186a.field_falc_dt_signed
+    - field.field.node.permit_3186a.field_hid
+    - field.field.node.permit_3186a.field_last_action
+    - field.field.node.permit_3186a.field_latitude_num
+    - field.field.node.permit_3186a.field_longitude_num
+    - field.field.node.permit_3186a.field_owner_access_cd
+    - field.field.node.permit_3186a.field_owner_state
+    - field.field.node.permit_3186a.field_question_no
+    - field.field.node.permit_3186a.field_rcf_cd
+    - field.field.node.permit_3186a.field_recipient_city
+    - field.field.node.permit_3186a.field_recipient_dt_acquired
+    - field.field.node.permit_3186a.field_recipient_email_address
+    - field.field.node.permit_3186a.field_recipient_first_name
+    - field.field.node.permit_3186a.field_recipient_last_name
+    - field.field.node.permit_3186a.field_recipient_middle_name
+    - field.field.node.permit_3186a.field_recipient_permit_no
+    - field.field.node.permit_3186a.field_recipient_permit_other
+    - field.field.node.permit_3186a.field_recipient_permit_type_cd
+    - field.field.node.permit_3186a.field_recipient_phone
+    - field.field.node.permit_3186a.field_recipient_st_cd
+    - field.field.node.permit_3186a.field_recipient_street_address
+    - field.field.node.permit_3186a.field_recipient_trans_type_cd
+    - field.field.node.permit_3186a.field_recipient_zip_cd
+    - field.field.node.permit_3186a.field_recno
+    - field.field.node.permit_3186a.field_sender_cause_of_death
+    - field.field.node.permit_3186a.field_sender_city
+    - field.field.node.permit_3186a.field_sender_dt_transfer
+    - field.field.node.permit_3186a.field_sender_email_address
+    - field.field.node.permit_3186a.field_sender_first_name
+    - field.field.node.permit_3186a.field_sender_last_name
+    - field.field.node.permit_3186a.field_sender_middle_name
+    - field.field.node.permit_3186a.field_sender_permit_no
+    - field.field.node.permit_3186a.field_sender_permit_other
+    - field.field.node.permit_3186a.field_sender_permit_type_cd
+    - field.field.node.permit_3186a.field_sender_phone
+    - field.field.node.permit_3186a.field_sender_release_cd
+    - field.field.node.permit_3186a.field_sender_st_cd
+    - field.field.node.permit_3186a.field_sender_street_address
+    - field.field.node.permit_3186a.field_sender_transfer_type_cd
+    - field.field.node.permit_3186a.field_sender_zip_cd
+    - field.field.node.permit_3186a.field_species_age
+    - field.field.node.permit_3186a.field_species_band_new_no
+    - field.field.node.permit_3186a.field_species_band_new_type
+    - field.field.node.permit_3186a.field_species_band_no
+    - field.field.node.permit_3186a.field_species_band_old_no
+    - field.field.node.permit_3186a.field_species_band_old_type
+    - field.field.node.permit_3186a.field_species_cd
+    - field.field.node.permit_3186a.field_species_chip_no
+    - field.field.node.permit_3186a.field_species_color
+    - field.field.node.permit_3186a.field_species_hatch_year
+    - field.field.node.permit_3186a.field_species_name
+    - field.field.node.permit_3186a.field_species_sex
+    - field.field.node.permit_3186a.field_species_source
+    - field.field.node.permit_3186a.field_state_of_trap_location
+    - field.field.node.permit_3186a.field_trap_county
+    - field.field.node.permit_3186a.field_updated_by
+    - node.type.permit_3186a
+  module:
+    - datetime
+    - user
+id: node.permit_3186a.default
+targetEntityType: node
+bundle: permit_3186a
+mode: default
+content:
+  field_authorized_cd:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_capture_recapture_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_comments:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_created_by:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_dt_create:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_dt_update:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_falc_applicant_agreed:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_falc_applicant_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_falc_applicant_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_falc_dt_signed:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_hid:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_last_action:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_latitude_num:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_longitude_num:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_owner_access_cd:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_owner_state:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_question_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_rcf_cd:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_recipient_city:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_recipient_dt_acquired:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_recipient_email_address:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_recipient_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_recipient_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_recipient_middle_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_recipient_permit_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_recipient_permit_other:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_recipient_permit_type_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 28
+    region: content
+  field_recipient_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_recipient_st_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 30
+    region: content
+  field_recipient_street_address:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 29
+    region: content
+  field_recipient_trans_type_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 31
+    region: content
+  field_recipient_zip_cd:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 32
+    region: content
+  field_recno:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 33
+    region: content
+  field_sender_cause_of_death:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 34
+    region: content
+  field_sender_city:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 35
+    region: content
+  field_sender_dt_transfer:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 36
+    region: content
+  field_sender_email_address:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 37
+    region: content
+  field_sender_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 38
+    region: content
+  field_sender_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 39
+    region: content
+  field_sender_middle_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 40
+    region: content
+  field_sender_permit_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 41
+    region: content
+  field_sender_permit_other:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 42
+    region: content
+  field_sender_permit_type_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 43
+    region: content
+  field_sender_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 45
+    region: content
+  field_sender_release_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 44
+    region: content
+  field_sender_st_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 47
+    region: content
+  field_sender_street_address:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 46
+    region: content
+  field_sender_transfer_type_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 48
+    region: content
+  field_sender_zip_cd:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 49
+    region: content
+  field_species_age:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  field_species_band_new_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 51
+    region: content
+  field_species_band_new_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 52
+    region: content
+  field_species_band_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 53
+    region: content
+  field_species_band_old_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 54
+    region: content
+  field_species_band_old_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 55
+    region: content
+  field_species_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 56
+    region: content
+  field_species_chip_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 57
+    region: content
+  field_species_color:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 58
+    region: content
+  field_species_hatch_year:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 59
+    region: content
+  field_species_name:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 60
+    region: content
+  field_species_sex:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 61
+    region: content
+  field_species_source:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 62
+    region: content
+  field_state_of_trap_location:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 63
+    region: content
+  field_trap_county:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 64
+    region: content
+  field_updated_by:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  langcode:
+    type: language
+    label: hidden
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+hidden:
+  links: true
+  search_api_excerpt: true
