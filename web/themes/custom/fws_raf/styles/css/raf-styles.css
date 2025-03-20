@@ -5,7 +5,7 @@ a:focus {
 }
 *:focus:focus-visible,
 a:focus:focus-visible {
-  box-shadow: 0 0 0 4px rgba(76, 118, 168, 0.5), 0 0 10px 0 #FFFFFF;
+  box-shadow: 0 0 0 2px #4c76a8, 0 0 0 6px rgba(76, 118, 168, 0.25);
   border-radius: 2px;
 }
 
@@ -159,7 +159,7 @@ p, .p1.p1 {
 }
 .branding__container:hover:focus-visible, .branding__container:focus:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px #FFFFFF;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   border-radius: 4px;
   transition: all 0.125s ease-out;
 }
@@ -272,11 +272,12 @@ header#navbar > .container {
   appearance: none;
   outline: 0;
   border: 0;
+  border-radius: 4px;
   transition: all 0.25s ease-out;
   animation: none;
 }
 .menu__toggle:focus {
-  box-shadow: 0 0 0 4px #FFFFFF;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   border-radius: 4px;
   transition: all 0.125s ease-out;
 }
@@ -388,24 +389,30 @@ body.mobile-menu-open {
 #mobile-nav button.mobile__nav {
   all: unset;
   cursor: pointer;
-  width: 45px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   position: absolute;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  background: #084787;
+  background: rgba(2, 29, 68, 0.5);
   transition: background 0.25s ease-out;
 }
 #mobile-nav button.mobile__nav i {
   font-size: 24px;
   font-weight: 500;
+  margin: 0;
 }
 #mobile-nav button.mobile__nav:hover, #mobile-nav button.mobile__nav:focus-visible {
   background: #021d44;
   transition: background 0.125s ease-out;
+}
+#mobile-nav button.mobile__nav:focus-visible {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px #FFFFFF, inset 0 0 0 6px rgba(255, 255, 255, 0.25);
+  transition: all 0.125s ease-out;
 }
 #mobile-nav button.nav-drilldown {
   right: 0;
@@ -413,8 +420,31 @@ body.mobile-menu-open {
 #mobile-nav button.back-icon {
   left: 0;
 }
+#mobile-nav .mb-item {
+  border: 0;
+}
+#mobile-nav .mb-item + .mb-item {
+  border-top: 1px solid rgba(2, 29, 68, 0.25);
+}
 #mobile-nav .mb-item a {
-  padding: 15px;
+  border: 0;
+  margin: 0;
+  font-size: 18px;
+  padding: 20px 15px;
+  background: #205493;
+  transition: all 0.125s ease-out;
+}
+#mobile-nav .mb-item a:hover, #mobile-nav .mb-item a:focus-visible {
+  background: #021d44;
+  transition: background 0.125s ease-out;
+}
+#mobile-nav .mb-item a:focus-visible {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px #FFFFFF, inset 0 0 0 6px rgba(255, 255, 255, 0.25);
+  transition: all 0.125s ease-out;
+}
+#mobile-nav .mb-back {
+  height: 60px;
 }
 #mobile-nav .mb-subviewopen .nav-drilldown.nav-drilldown {
   display: none;
@@ -423,11 +453,44 @@ body.mobile-menu-open {
   display: block;
 }
 #mobile-nav .parent-level {
-  padding-left: 60px;
+  text-transform: uppercase;
+  padding: 20px 15px 20px 80px;
+}
+#mobile-nav .parent-level,
+#mobile-nav .current-level {
+  height: 60px;
+  font-size: 18px;
+}
+#mobile-nav .parent-level a,
+#mobile-nav .current-level a {
+  height: 60px;
+}
+#mobile-nav .subul .mb-item a {
+  color: #202022;
+  background: #FFFFFF;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+#mobile-nav .subul .mb-item a:hover, #mobile-nav .subul .mb-item a:focus-visible {
+  background: #F3F3F5;
+  transition: background 0.125s ease-out;
+}
+#mobile-nav .subul .mb-item a:focus-visible {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px #021d44, inset 0 0 0 6px rgba(32, 84, 147, 0.25);
+  transition: all 0.125s ease-out;
+}
+#mobile-nav .subul .mb-item + .mb-item {
+  border-top: 1px solid #F3F3F5;
 }
 
 .footer {
   margin-top: 50px;
+}
+.footer .menu a:focus-visible {
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
+  transition: all 0.125s ease-out;
 }
 
 @media (min-width: 768px) {
@@ -442,6 +505,15 @@ body.mobile-menu-open {
   .footer-slogan .image-wrapper img {
     width: 65px;
   }
+}
+
+.social-media-links--platforms.horizontal {
+  overflow: visible;
+}
+.social-media-links--platforms.horizontal a:focus-visible {
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
+  transition: all 0.125s ease-out;
 }
 
 .field--name-body img {

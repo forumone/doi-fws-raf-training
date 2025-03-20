@@ -73,7 +73,7 @@
 
       &:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 4px $white;
+        box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
         border-radius: 4px;
         transition: all .125s ease-out;
       }
@@ -157,11 +157,12 @@ header#navbar {
   appearance: none;
   outline: 0;
   border: 0;
+  border-radius: 4px;
   transition: all .25s ease-out;
   animation: none;
 
   &:focus {
-    box-shadow: 0 0 0 4px $white;
+    box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
     border-radius: 4px;
     transition: all .125s ease-out;
   }
