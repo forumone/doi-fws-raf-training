@@ -6,13 +6,18 @@
   .panel {
     box-shadow: none;
     border: 0;
-  }
 
-  .panel-heading,
-  .panel-title {
-    padding: 0;
-    margin: 0;
-    border: 0;
+    .panel-heading,
+    .panel-title {
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    // Override inheritedoverly specific panel-body class.
+    .panel-body.panel-body.panel-body {
+      border: 0;
+    }
   }
 
   .filter__toggle {

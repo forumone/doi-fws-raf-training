@@ -1137,12 +1137,16 @@ input.form-autocomplete {
   box-shadow: none;
   border: 0;
 }
-.release-filter-form .panel-heading,
-.release-filter-form .panel-title,
-.views-element-container .panel-heading,
-.views-element-container .panel-title {
+.release-filter-form .panel .panel-heading,
+.release-filter-form .panel .panel-title,
+.views-element-container .panel .panel-heading,
+.views-element-container .panel .panel-title {
   padding: 0;
   margin: 0;
+  border: 0;
+}
+.release-filter-form .panel .panel-body.panel-body.panel-body,
+.views-element-container .panel .panel-body.panel-body.panel-body {
   border: 0;
 }
 .release-filter-form .filter__toggle,
