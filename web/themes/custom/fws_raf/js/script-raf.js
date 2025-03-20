@@ -47,8 +47,7 @@
             $dropdown.addClass('show');
             $menu.addClass('show');
             $toggle.attr('aria-expanded', 'true');
-            // Focus first menu item
-            $menu.find('a').first().focus();
+            // Remove focus for mouse clicks
           } else {
             $dropdown.removeClass('show');
             $menu.removeClass('show');
@@ -69,7 +68,8 @@
               $dropdown.addClass('show');
               $menu.addClass('show');
               $toggle.attr('aria-expanded', 'true');
-              // Focus first menu item
+
+              // Only focus first menu item when using keyboard
               $menu.find('a').first().focus();
             } else {
               $dropdown.removeClass('show');
