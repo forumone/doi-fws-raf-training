@@ -123,3 +123,11 @@ p, .p1.p1 {
   color: $gray-dark;
   font-size: 10px;
 }
+
+.disclaimer {
+  font-size: 14px;
+
+  +.disclaimer {
+    padding: 15px 0 0;
+  }
+}

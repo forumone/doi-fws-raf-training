@@ -55,14 +55,14 @@
   {% if exposed %}
     <div class="panel-group" id="filters-accordion-{{ dom_id }}">
       <div class="panel panel-default">
-        <div class="panel-heading" style="padding: 0;">
+        <div class="panel-heading">
           <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#filters-accordion-{{ dom_id }}" href="#filters-collapse-{{ dom_id }}" class="collapsed" style="display: block; padding: 10px 15px;">
-              Filter Options <i class="fa fa-caret-down" style="float: right;"></i>
-            </a>
+            <button id="filter-toggle-{{ dom_id }}" class="filter__toggle collapsed" data-toggle="collapse" data-parent="#filters-accordion-{{ dom_id }}" href="#filters-collapse-{{ dom_id }}" aria-expanded="false" aria-controls="filters-collapse-{{ dom_id }}">
+              Filter Options
+            </button>
           </h2>
         </div>
-        <div id="filters-collapse-{{ dom_id }}" class="panel-collapse collapse">
+        <div id="filters-collapse-{{ dom_id }}" class="panel-collapse collapse" role="region" aria-labelledby="filter-toggle-{{ dom_id }}">
           <div class="panel-body">
             <div class="view-filters form-group">
               {{ exposed }}

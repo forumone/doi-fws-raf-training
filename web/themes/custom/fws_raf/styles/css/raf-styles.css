@@ -131,6 +131,13 @@ p, .p1.p1 {
   font-size: 10px;
 }
 
+.disclaimer {
+  font-size: 14px;
+}
+.disclaimer + .disclaimer {
+  padding: 15px 0 0;
+}
+
 #block-fws-raf-mainnavigation {
   display: none;
 }
@@ -404,7 +411,8 @@ select,
 select.form-select.form-control,
 .select2 .select2-selection {
   width: 100%;
-  height: 40px;
+  min-width: 120px;
+  height: 45px;
   color: #3F3E46;
   background: white;
   border: 1px solid #8E8C99;
@@ -465,12 +473,12 @@ select.form-select.form-control:focus-visible,
 }
 
 .select2 {
-  height: 40px;
-  line-height: 40px;
+  height: 45px;
+  line-height: 45px;
 }
 .select2 .select2-selection {
   padding: 0 30px 0 0;
-  height: 40px;
+  height: 45px;
   display: flex;
   align-items: center;
 }
@@ -721,13 +729,6 @@ select.form-select.form-control:focus-visible,
 .fieldgroup legend {
   padding: 15px 0 0;
   margin: 0;
-}
-
-.disclaimer {
-  font-size: 14px;
-}
-.disclaimer + .disclaimer {
-  padding: 15px 0 0;
 }
 
 .field-group-details .panel-heading a {
@@ -1131,34 +1132,76 @@ input.form-autocomplete {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.release-filter-form .view-content .views-field a,
-.views-element-container .view-content .views-field a {
-  white-space: nowrap;
+.release-filter-form .panel,
+.views-element-container .panel {
+  box-shadow: none;
+  border: 0;
 }
-.release-filter-form .panel-heading a,
-.release-filter-form .panel-title a,
-.views-element-container .panel-heading a,
-.views-element-container .panel-title a {
+.release-filter-form .panel .panel-heading,
+.release-filter-form .panel .panel-title,
+.views-element-container .panel .panel-heading,
+.views-element-container .panel .panel-title {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.release-filter-form .panel .panel-body.panel-body.panel-body,
+.views-element-container .panel .panel-body.panel-body.panel-body {
+  border: 0;
+}
+.release-filter-form .filter__toggle,
+.views-element-container .filter__toggle {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-}
-.release-filter-form .panel-heading a:not(.collapsed) .fa-caret-down,
-.release-filter-form .panel-title a:not(.collapsed) .fa-caret-down,
-.views-element-container .panel-heading a:not(.collapsed) .fa-caret-down,
-.views-element-container .panel-title a:not(.collapsed) .fa-caret-down {
-  transform: rotate(180deg);
-}
-.release-filter-form .panel-body,
-.views-element-container .panel-body {
+  width: 100%;
   padding: 20px;
+  color: #3F3E46;
+  background: #FAFAFC;
+  border: 1px solid #8E8C99;
+  border-radius: 4px;
+  transition: border 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+.release-filter-form .filter__toggle:focus-visible,
+.views-element-container .filter__toggle:focus-visible {
+  outline: none;
+  border: 2px solid #3F3E46;
+  box-shadow: 0 0 0 4px rgba(32, 84, 147, 0.25);
+  transition: border 0.125s ease-out, box-shadow 0.125s ease-out;
+}
+.release-filter-form .filter__toggle:after,
+.views-element-container .filter__toggle:after {
+  content: "\e114";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Glyphicons Halflings";
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  color: #205493;
+  line-height: 0;
+  pointer-events: none;
+  transform: rotate(-180deg);
+  transition: transform 0.25s ease-out;
+}
+.release-filter-form .filter__toggle.collapsed:after,
+.views-element-container .filter__toggle.collapsed:after {
+  transform: rotate(0deg);
+  transition: transform 0.125s ease-out;
 }
 
+#edit-filters--content label,
+.views-exposed-form label {
+  display: block;
+}
 #edit-filters--content .form--inline,
 .views-exposed-form .form--inline {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px 25px;
+  gap: 20px 30px;
 }
 #edit-filters--content .form--inline:before,
 .views-exposed-form .form--inline:before {
@@ -1256,11 +1299,6 @@ input.form-autocomplete {
   transform: rotate(180deg);
 }
 
-#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value .form-text,
-#views-exposed-form-all-sightings-page-1 .form-item-field-bird-count-value-1 .form-text {
-  max-width: 50px;
-}
-
 .gm-style-iw-d .views-field {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
@@ -1268,11 +1306,11 @@ input.form-autocomplete {
 .gm-style-iw-d .views-field:last-child {
   margin-bottom: 0;
 }
-.gm-style-iw-d .views-field.views-field-view-node .field-content a {
-  color: #0066cc;
+.gm-style-iw-d .views-field.views-field-title .field-content a {
+  color: #205493;
   text-decoration: none;
 }
-.gm-style-iw-d .views-field.views-field-view-node .field-content a:hover {
+.gm-style-iw-d .views-field.views-field-title .field-content a:hover {
   text-decoration: underline;
 }
 .gm-style-iw-d .views-field.views-field-field-location .geolocation-latlng {
