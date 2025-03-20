@@ -1,0 +1,74 @@
+@use 'utils/colors' as *;
+
+body.mobile-menu-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.navbar-collapse {
+  &.collapse {
+    display: none;
+
+    &.in {
+      display: block;
+    }
+  }
+}
+
+#mobile-nav {
+
+  button.mobile__nav {
+    all: unset;
+    cursor: pointer;
+    width: 45px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    background: #084787;
+    transition: background 0.25s ease-out;
+
+    i {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: $blue-dark;
+      transition: background 0.125s ease-out;
+    }
+  }
+
+  button.nav-drilldown {
+    right: 0;
+  }
+
+  button.back-icon {
+    left: 0;
+  }
+
+  .mb-item a {
+    padding: 15px;
+  }
+
+  .mb-subviewopen {
+    .nav-drilldown.nav-drilldown {
+      display: none;
+    }
+  }
+
+  // Overriding legacy issue that globally hides the first level of the menu
+  .subul > li[data-level="1"]:first-of-type {
+    display: block;
+  }
+
+  .parent-level {
+    padding-left: 60px;
+  }
+}
