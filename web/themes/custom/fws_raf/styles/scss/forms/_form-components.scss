@@ -2,7 +2,8 @@
 
 @mixin formInput() {
   width: 100%;
-  height: 40px;
+  min-width: 120px;
+  height: 45px;
   color: $gray-dark;
   background: white;
   border: 1px solid $gray-medium;
@@ -77,12 +78,12 @@ select.form-select.form-control,
 }
 
 .select2 {
-  height: 40px;
-  line-height: 40px;
+  height: 45px;
+  line-height: 45px;
 
   .select2-selection {
     padding: 0 30px 0 0;
-    height: 40px;
+    height: 45px;
     display: flex;
     align-items: center;
 
@@ -311,13 +312,13 @@ select.form-select.form-control,
   }
 }
 
-.disclaimer {
-  font-size: 14px;
+// Potential future display to baseline label styles.
+// .form-item {
 
-  +.disclaimer {
-    padding: 15px 0 0;
-  }
-}
+//   label {
+//     display: block;
+//   }
+// }
 
 .field-group-details {
   .panel-heading a {

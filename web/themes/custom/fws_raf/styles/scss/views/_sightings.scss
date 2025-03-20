@@ -1,12 +1,4 @@
-#views-exposed-form-all-sightings-page-1 {
-
-  .form-item-field-bird-count-value,
-  .form-item-field-bird-count-value-1 {
-    .form-text {
-      max-width: 50px;
-    }
-  }
-}
+@use 'utils/colors' as *;
 
 // Style google map info window
 .gm-style-iw-d {
@@ -21,9 +13,9 @@
     }
 
     // View link styling
-    &.views-field-view-node {
+    &.views-field-title {
       .field-content a {
-        color: #0066cc;
+        color: $blue-medium;
         text-decoration: none;
 
         &:hover {
