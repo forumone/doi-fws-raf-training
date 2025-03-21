@@ -1,5 +1,6 @@
+uuid: 7c02365b-3787-4045-9cf3-75fe29b88190
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.user.field_primary_contact_name
@@ -10,9 +11,9 @@ field_name: field_primary_contact_name
 entity_type: user
 bundle: user
 label: 'Primary Contact Name'
-description: 'Name of the primary contact'
+description: ''
 required: false
-translatable: false
+translatable: null
 default_value: {  }
 default_value_callback: ''
 settings: {  }

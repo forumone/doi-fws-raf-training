@@ -1,4 +1,3 @@
-uuid: 7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - field.storage.user.field_hid
   module:
     - user
-_core:
-  default_config_hash: F2FcS-SHfQNCBGZE6HztvalaRrqC4K3_UG8SFFOtUeg
 id: user.user.field_hid
 field_name: field_hid
 entity_type: user

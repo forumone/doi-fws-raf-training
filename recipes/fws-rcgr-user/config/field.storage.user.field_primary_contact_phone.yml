@@ -1,5 +1,6 @@
+uuid: f47504cb-62be-4ac0-8fc4-fdd6090fc39f
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - user
@@ -8,9 +9,9 @@ field_name: field_primary_contact_phone
 entity_type: user
 type: string
 settings:
-  max_length: 50
-  is_ascii: false
+  max_length: 255
   case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

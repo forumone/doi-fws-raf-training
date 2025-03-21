@@ -1,559 +1,83 @@
-uuid: 766e66b2-0f8a-4e80-8dbd-7c4edd640350
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.field_access_cd
-    - field.field.user.user.field_address_l1
-    - field.field.user.user.field_address_l2
-    - field.field.user.user.field_address_l3
-    - field.field.user.user.field_address_l4
-    - field.field.user.user.field_address_l5
-    - field.field.user.user.field_address_l6
-    - field.field.user.user.field_author_access_cd
-    - field.field.user.user.field_author_state
-    - field.field.user.user.field_authorized_by
-    - field.field.user.user.field_authorized_cd
-    - field.field.user.user.field_authorized_code
-    - field.field.user.user.field_city
-    - field.field.user.user.field_comments
-    - field.field.user.user.field_created_by
-    - field.field.user.user.field_dt_activated
-    - field.field.user.user.field_dt_authorized
-    - field.field.user.user.field_dt_disabled
-    - field.field.user.user.field_dt_locked
-    - field.field.user.user.field_dt_mfa_login
-    - field.field.user.user.field_dt_permit_expires
-    - field.field.user.user.field_dt_permit_issued
-    - field.field.user.user.field_failed_login_count
-    - field.field.user.user.field_falcon_address
-    - field.field.user.user.field_falcon_city
-    - field.field.user.user.field_falcon_state_cd
-    - field.field.user.user.field_falcon_zip_cd
-    - field.field.user.user.field_first_name
-    - field.field.user.user.field_gold_permit
-    - field.field.user.user.field_hid
-    - field.field.user.user.field_is_activated
-    - field.field.user.user.field_is_locked
-    - field.field.user.user.field_is_mfa
-    - field.field.user.user.field_last_activity
-    - field.field.user.user.field_last_name
-    - field.field.user.user.field_message_to_target
-    - field.field.user.user.field_mfa_login_timestamp
-    - field.field.user.user.field_mfa_uuid
-    - field.field.user.user.field_middle_name
-    - field.field.user.user.field_permit_class
-    - field.field.user.user.field_permit_no
-    - field.field.user.user.field_permit_number
-    - field.field.user.user.field_permit_status_cd
-    - field.field.user.user.field_phone1
-    - field.field.user.user.field_phone2
-    - field.field.user.user.field_possess_eagle
-    - field.field.user.user.field_rcf_cd
-    - field.field.user.user.field_registrant_type_cd
-    - field.field.user.user.field_state_cd
-    - field.field.user.user.field_umcp
-    - field.field.user.user.field_updated_by
-    - field.field.user.user.field_version_no
-    - field.field.user.user.field_zip_cd
+    - field.field.user.user.field_applicant_address_line1
+    - field.field.user.user.field_applicant_address_line2
+    - field.field.user.user.field_applicant_business_name
+    - field.field.user.user.field_applicant_city
+    - field.field.user.user.field_applicant_first_name
+    - field.field.user.user.field_applicant_last_name
+    - field.field.user.user.field_applicant_middle_name
+    - field.field.user.user.field_applicant_state
+    - field.field.user.user.field_applicant_zip
+    - field.field.user.user.field_fax_number
+    - field.field.user.user.field_primary_contact_name
+    - field.field.user.user.field_primary_contact_phone
+    - field.field.user.user.field_principal_name
+    - field.field.user.user.field_primary_contact_email
   module:
-    - datetime
-    - field_group
-    - select2
-    - text
+    - path
     - user
-third_party_settings:
-  field_group:
-    group_data_edit:
-      children:
-        - account
-        - field_authorized_cd
-        - field_access_cd
-        - field_permit_class
-        - field_first_name
-        - field_middle_name
-        - field_last_name
-        - field_address_l1
-        - field_address_l2
-        - field_address_l3
-        - field_address_l4
-        - field_address_l5
-        - field_address_l6
-        - field_city
-        - field_state_cd
-        - field_zip_cd
-        - field_phone1
-        - field_phone2
-        - field_registrant_type_cd
-        - field_is_locked
-        - field_dt_locked
-        - field_dt_disabled
-        - field_is_activated
-        - field_dt_activated
-      label: 'Data Edit'
-      region: content
-      parent_name: ''
-      weight: 0
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: true
-        description: ''
-        required_fields: true
-    group_state_permit:
-      children:
-        - field_permit_no
-        - field_permit_status_cd
-        - field_dt_permit_issued
-        - field_dt_permit_expires
-        - field_possess_eagle
-        - field_gold_permit
-      label: 'State Permit'
-      region: content
-      parent_name: ''
-      weight: 2
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: true
-    group_mew:
-      children:
-        - field_falcon_address
-        - field_falcon_city
-        - field_falcon_state_cd
-        - field_falcon_zip_cd
-      label: MEW
-      region: content
-      parent_name: ''
-      weight: 3
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: true
-    group_data_audit:
-      children:
-        - field_created_by
-        - field_updated_by
-      label: 'Data Audit'
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: true
-    group_comments:
-      children:
-        - field_comments
-      label: Comments
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        open: false
-        description: ''
-        required_fields: true
-    group_administrative:
-      children:
-        - field_author_access_cd
-        - field_author_state
-        - field_authorized_by
-        - field_dt_authorized
-        - field_dt_mfa_login
-        - field_failed_login_count
-        - field_hid
-        - field_is_mfa
-        - field_last_activity
-        - field_message_to_target
-        - field_mfa_uuid
-        - field_rcf_cd
-        - field_umcp
-        - field_version_no
-      label: Administrative
-      region: content
-      parent_name: ''
-      weight: 5
-      format_type: details
-      format_settings:
-        classes: ''
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-    group_locale:
-      children:
-        - language
-        - timezone
-      label: 'Locale Settings'
-      region: content
-      parent_name: ''
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
-_core:
-  default_config_hash: t-No-beJtMWhrFIY2OE_BDOw_d7EXw6AdA3w2gwx-U4
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
   account:
-    weight: 18
+    weight: -10
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_access_cd:
-    type: select2
-    weight: 20
-    region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_address_l1:
+  field_applicant_address_line1:
     type: string_textfield
-    weight: 25
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_address_l2:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_address_l3:
-    type: string_textfield
-    weight: 27
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_address_l4:
-    type: string_textfield
-    weight: 28
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_address_l5:
-    type: string_textfield
-    weight: 29
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_address_l6:
-    type: string_textfield
-    weight: 30
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_author_access_cd:
-    type: string_textfield
-    weight: 116
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_author_state:
-    type: string_textfield
-    weight: 117
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_authorized_by:
-    type: string_textfield
-    weight: 118
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_authorized_cd:
-    type: string_textfield
-    weight: 19
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_authorized_code:
-    type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_city:
-    type: string_textfield
-    weight: 31
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_comments:
-    type: text_textarea
-    weight: 8
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_created_by:
-    type: string_textfield
-    weight: 10
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_dt_activated:
-    type: datetime_default
-    weight: 39
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_authorized:
-    type: datetime_default
-    weight: 119
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_disabled:
-    type: datetime_default
-    weight: 37
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_locked:
-    type: datetime_default
-    weight: 36
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_mfa_login:
-    type: datetime_default
-    weight: 120
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_permit_expires:
-    type: datetime_default
-    weight: 52
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_permit_issued:
-    type: datetime_default
-    weight: 51
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_failed_login_count:
-    type: number
-    weight: 121
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_falcon_address:
-    type: string_textfield
-    weight: 30
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_falcon_city:
-    type: string_textfield
-    weight: 31
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_falcon_state_cd:
-    type: string_textfield
-    weight: 32
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_falcon_zip_cd:
-    type: string_textfield
-    weight: 33
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_first_name:
-    type: string_textfield
-    weight: 22
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_gold_permit:
-    type: boolean_checkbox
-    weight: 54
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 122
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_activated:
-    type: boolean_checkbox
     weight: 38
     region: content
     settings:
-      display_label: true
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_is_locked:
-    type: boolean_checkbox
+  field_applicant_address_line2:
+    type: string_textfield
+    weight: 39
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_business_name:
+    type: string_textfield
+    weight: 31
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_city:
+    type: string_textfield
     weight: 35
     region: content
     settings:
-      display_label: true
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_is_mfa:
-    type: select2
-    weight: 123
-    region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_last_activity:
+  field_applicant_first_name:
     type: string_textfield
-    weight: 124
+    weight: 32
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_last_name:
+  field_applicant_last_name:
     type: string_textfield
-    weight: 24
+    weight: 34
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_message_to_target:
-    type: string_textfield
-    weight: 125
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_mfa_login_timestamp:
-    type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_mfa_uuid:
-    type: string_textfield
-    weight: 126
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_middle_name:
-    type: string_textfield
-    weight: 23
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_class:
-    type: string_textfield
-    weight: 21
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_no:
-    type: string_textfield
-    weight: 50
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_number:
-    type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_status_cd:
-    type: select2
-    weight: 51
-    region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_phone1:
+  field_applicant_middle_name:
     type: string_textfield
     weight: 33
     region: content
@@ -561,84 +85,77 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_phone2:
+  field_applicant_state:
     type: string_textfield
-    weight: 34
+    weight: 36
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_possess_eagle:
-    type: boolean_checkbox
-    weight: 53
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: select2
-    weight: 127
-    region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_registrant_type_cd:
+  field_applicant_zip:
     type: string_textfield
-    weight: 34
+    weight: 37
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_state_cd:
+  field_fax_number:
     type: string_textfield
-    weight: 32
+    weight: 42
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_umcp:
-    type: boolean_checkbox
-    weight: 128
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_updated_by:
+  field_primary_contact_name:
     type: string_textfield
-    weight: 11
+    weight: 40
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_version_no:
+  field_primary_contact_phone:
     type: string_textfield
-    weight: 129
+    weight: 41
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_zip_cd:
+  field_principal_name:
     type: string_textfield
-    weight: 32
+    weight: 43
     region: content
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_primary_contact_email:
+    type: email_default
+    weight: 44
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
     third_party_settings: {  }
   language:
-    weight: 13
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
   timezone:
-    weight: 14
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  contact: true
+  langcode: true

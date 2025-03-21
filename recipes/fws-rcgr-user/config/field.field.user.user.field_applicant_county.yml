@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_county
+  module:
+    - user
+id: user.user.field_applicant_county
+field_name: field_applicant_county
+entity_type: user
+bundle: user
+label: 'Applicant County'
+description: 'The county of the applicant''s address.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,4 +1,3 @@
-uuid: 31a28c2b-a4d2-4693-a7bd-ac859a94dec3
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
     - taxonomy.vocabulary.state
   module:
     - user
-_core:
-  default_config_hash: vQM9Jz3gq_b-2vq2iPWomPau9fRuQ3fqGMUc8K1t8qk
 id: user.user.field_state_cd
 field_name: field_state_cd
 entity_type: user

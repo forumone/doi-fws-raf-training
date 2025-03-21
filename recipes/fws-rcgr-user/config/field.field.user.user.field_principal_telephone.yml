@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_principal_telephone
+  module:
+    - user
+id: user.user.field_principal_telephone
+field_name: field_principal_telephone
+entity_type: user
+bundle: user
+label: 'Principal Telephone'
+description: 'The telephone number of the principal contact.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

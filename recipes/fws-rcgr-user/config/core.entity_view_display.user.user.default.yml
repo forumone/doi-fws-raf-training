@@ -1,430 +1,61 @@
-uuid: fc6c7673-88d9-43cc-85c9-e2d28d1bb56a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.field_access_cd
-    - field.field.user.user.field_address_l1
-    - field.field.user.user.field_address_l2
-    - field.field.user.user.field_address_l3
-    - field.field.user.user.field_address_l4
-    - field.field.user.user.field_address_l5
-    - field.field.user.user.field_address_l6
-    - field.field.user.user.field_author_access_cd
-    - field.field.user.user.field_author_state
-    - field.field.user.user.field_authorized_by
-    - field.field.user.user.field_authorized_cd
-    - field.field.user.user.field_authorized_code
-    - field.field.user.user.field_city
-    - field.field.user.user.field_comments
-    - field.field.user.user.field_created_by
-    - field.field.user.user.field_dt_activated
-    - field.field.user.user.field_dt_authorized
-    - field.field.user.user.field_dt_disabled
-    - field.field.user.user.field_dt_locked
-    - field.field.user.user.field_dt_mfa_login
-    - field.field.user.user.field_dt_permit_expires
-    - field.field.user.user.field_dt_permit_issued
-    - field.field.user.user.field_failed_login_count
-    - field.field.user.user.field_falcon_address
-    - field.field.user.user.field_falcon_city
-    - field.field.user.user.field_falcon_state_cd
-    - field.field.user.user.field_falcon_zip_cd
-    - field.field.user.user.field_first_name
-    - field.field.user.user.field_gold_permit
-    - field.field.user.user.field_hid
-    - field.field.user.user.field_is_activated
-    - field.field.user.user.field_is_locked
-    - field.field.user.user.field_is_mfa
-    - field.field.user.user.field_last_activity
-    - field.field.user.user.field_last_name
-    - field.field.user.user.field_message_to_target
-    - field.field.user.user.field_mfa_login_timestamp
-    - field.field.user.user.field_mfa_uuid
-    - field.field.user.user.field_middle_name
-    - field.field.user.user.field_permit_class
-    - field.field.user.user.field_permit_no
-    - field.field.user.user.field_permit_number
-    - field.field.user.user.field_permit_status_cd
-    - field.field.user.user.field_phone1
-    - field.field.user.user.field_phone2
-    - field.field.user.user.field_possess_eagle
-    - field.field.user.user.field_rcf_cd
-    - field.field.user.user.field_registrant_type_cd
-    - field.field.user.user.field_state_cd
-    - field.field.user.user.field_umcp
-    - field.field.user.user.field_updated_by
-    - field.field.user.user.field_version_no
-    - field.field.user.user.field_zip_cd
+    - field.field.user.user.field_applicant_address_line1
+    - field.field.user.user.field_applicant_address_line2
+    - field.field.user.user.field_applicant_business_name
+    - field.field.user.user.field_applicant_city
+    - field.field.user.user.field_applicant_first_name
+    - field.field.user.user.field_applicant_last_name
+    - field.field.user.user.field_applicant_middle_name
+    - field.field.user.user.field_applicant_state
+    - field.field.user.user.field_applicant_zip
+    - field.field.user.user.field_fax_number
+    - field.field.user.user.field_primary_contact_name
+    - field.field.user.user.field_primary_contact_phone
+    - field.field.user.user.field_principal_name
+    - field.field.user.user.field_primary_contact_email
   module:
-    - datetime
-    - field_group
-    - options
-    - text
     - user
-third_party_settings:
-  field_group:
-    group_account:
-      children:
-        - member_for
-        - field_first_name
-        - field_middle_name
-        - field_last_name
-        - field_city
-        - field_state_cd
-        - field_zip_cd
-        - field_phone1
-        - field_phone2
-        - field_authorized_cd
-        - field_access_cd
-        - field_permit_class
-        - field_registrant_type_cd
-      label: Account
-      region: content
-      parent_name: ''
-      weight: 0
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        id: ''
-        description: ''
-_core:
-  default_config_hash: zzd2LlsVaC6stw3yt0RjPpIYYsKTwK-1RcQrNFd1ZA4
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
-  field_access_cd:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_address_l1:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_address_l2:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_address_l3:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_address_l4:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_address_l5:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_address_l6:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_author_access_cd:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 8
-    region: content
-  field_author_state:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_authorized_by:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_authorized_cd:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_city:
+  field_applicant_address_line1:
     type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_comments:
-    type: text_default
-    label: hidden
-    settings: {  }
     third_party_settings: {  }
     weight: 13
     region: content
-  field_created_by:
+  field_applicant_address_line2:
     type: string
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 14
     region: content
-  field_dt_activated:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: long
-    third_party_settings: {  }
-    weight: 39
-    region: content
-  field_dt_authorized:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: m/d/Y
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  field_dt_disabled:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: m/d/Y
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_dt_locked:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: long
-    third_party_settings: {  }
-    weight: 36
-    region: content
-  field_dt_mfa_login:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: m/d/Y
-    third_party_settings: {  }
-    weight: 19
-    region: content
-  field_dt_permit_expires:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: m/d/Y
-    third_party_settings: {  }
-    weight: 20
-    region: content
-  field_dt_permit_issued:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: m/d/Y
-    third_party_settings: {  }
-    weight: 21
-    region: content
-  field_failed_login_count:
-    type: number_integer
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 22
-    region: content
-  field_falcon_address:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 23
-    region: content
-  field_falcon_city:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  field_falcon_state_cd:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 25
-    region: content
-  field_falcon_zip_cd:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 26
-    region: content
-  field_first_name:
+  field_applicant_business_name:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    weight: 6
     region: content
-  field_gold_permit:
-    type: boolean
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 28
-    region: content
-  field_hid:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 29
-    region: content
-  field_is_activated:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 38
-    region: content
-  field_is_locked:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 35
-    region: content
-  field_is_mfa:
-    type: list_key
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 32
-    region: content
-  field_last_activity:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 33
-    region: content
-  field_last_name:
+  field_applicant_city:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 10
     region: content
-  field_message_to_target:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 35
-    region: content
-  field_mfa_uuid:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 36
-    region: content
-  field_middle_name:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_permit_class:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_permit_no:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 39
-    region: content
-  field_permit_status_cd:
-    type: list_key
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 40
-    region: content
-  field_phone1:
+  field_applicant_first_name:
     type: string
     label: above
     settings:
@@ -432,7 +63,15 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  field_phone2:
+  field_applicant_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_applicant_middle_name:
     type: string
     label: above
     settings:
@@ -440,24 +79,15 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
-  field_possess_eagle:
-    type: boolean
-    label: hidden
+  field_applicant_state:
+    type: string
+    label: above
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      link_to_entity: false
     third_party_settings: {  }
-    weight: 43
+    weight: 11
     region: content
-  field_rcf_cd:
-    type: list_key
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 44
-    region: content
-  field_registrant_type_cd:
+  field_applicant_zip:
     type: string
     label: above
     settings:
@@ -465,103 +95,50 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  field_state_cd:
-    type: list_default
+  field_fax_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_primary_contact_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_primary_contact_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_primary_contact_email:
+    type: email_mailto
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 19
     region: content
-  field_umcp:
-    type: boolean
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 46
-    region: content
-  field_updated_by:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 47
-    region: content
-  field_version_no:
-    type: number_integer
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 48
-    region: content
-  field_zip_cd:
+  field_principal_name:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
-    region: content
-  user_picture:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 0
+    weight: 18
     region: content
   member_for:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 5
     region: content
 hidden:
-  field_address_l1: true
-  field_address_l2: true
-  field_address_l3: true
-  field_address_l4: true
-  field_address_l5: true
-  field_address_l6: true
-  field_author_access_cd: true
-  field_author_state: true
-  field_authorized_by: true
-  field_authorized_cd: true
-  field_authorized_code: true
-  field_comments: true
-  field_created_by: true
-  field_dt_authorized: true
-  field_dt_disabled: true
-  field_dt_mfa_login: true
-  field_dt_permit_expires: true
-  field_dt_permit_issued: true
-  field_failed_login_count: true
-  field_falcon_address: true
-  field_falcon_city: true
-  field_falcon_state_cd: true
-  field_falcon_zip_cd: true
-  field_gold_permit: true
-  field_hid: true
-  field_is_mfa: true
-  field_last_activity: true
-  field_message_to_target: true
-  field_mfa_login_timestamp: true
-  field_mfa_uuid: true
-  field_permit_no: true
-  field_permit_number: true
-  field_permit_status_cd: true
-  field_possess_eagle: true
-  field_rcf_cd: true
-  field_umcp: true
-  field_updated_by: true
-  field_version_no: true
   langcode: true
-  member_for: true
   search_api_excerpt: true

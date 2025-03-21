@@ -1,4 +1,3 @@
-uuid: be87afe8-54d2-4456-b3cf-8498048f73d2
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
   module:
     - options
     - user
-_core:
-  default_config_hash: ITZG4FOeiO-IGqnjKaz8Ay2fgbjIvu9j-h_AqaRNuG4
 id: user.user.field_rcf_cd
 field_name: field_rcf_cd
 entity_type: user

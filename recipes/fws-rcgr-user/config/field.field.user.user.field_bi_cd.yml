@@ -11,8 +11,8 @@ entity_type: user
 bundle: user
 label: 'Business ID'
 description: 'Business ID code'
-required: false
-translatable: false
+required: FALSE
+translatable: FALSE
 default_value: {  }
 default_value_callback: ''
 settings: {  }

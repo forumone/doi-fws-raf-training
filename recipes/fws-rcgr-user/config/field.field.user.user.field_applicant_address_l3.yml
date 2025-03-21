@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_address_l3
+  module:
+    - user
+id: user.user.field_applicant_address_l3
+field_name: field_applicant_address_l3
+entity_type: user
+bundle: user
+label: 'Applicant Address Line 3'
+description: 'The third line of the applicant''s address.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

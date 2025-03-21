@@ -1,5 +1,6 @@
+uuid: a37f7b0a-f640-44f5-a6e5-65df801b3615
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.user.field_primary_contact_phone
@@ -10,9 +11,9 @@ field_name: field_primary_contact_phone
 entity_type: user
 bundle: user
 label: 'Primary Contact Phone'
-description: 'Phone number of the primary contact'
+description: ''
 required: false
-translatable: false
+translatable: null
 default_value: {  }
 default_value_callback: ''
 settings: {  }

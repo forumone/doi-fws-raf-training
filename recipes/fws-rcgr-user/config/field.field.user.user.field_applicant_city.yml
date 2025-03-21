@@ -1,0 +1,20 @@
+uuid: 389bad45-98fe-4696-b8a0-7734e34e6624
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_city
+  module:
+    - user
+id: user.user.field_applicant_city
+field_name: field_applicant_city
+entity_type: user
+bundle: user
+label: 'Applicant City'
+description: ''
+required: false
+translatable: null
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

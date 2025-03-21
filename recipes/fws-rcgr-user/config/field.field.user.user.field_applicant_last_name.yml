@@ -1,0 +1,20 @@
+uuid: 19500a45-794c-4477-ad46-d5a52aea5b86
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_last_name
+  module:
+    - user
+id: user.user.field_applicant_last_name
+field_name: field_applicant_last_name
+entity_type: user
+bundle: user
+label: 'Applicant Last Name'
+description: ''
+required: false
+translatable: null
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

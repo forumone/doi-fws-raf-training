@@ -10,9 +10,9 @@ field_name: field_business_name
 entity_type: user
 bundle: user
 label: 'Business Name'
-description: 'The name of the business or organization'
-required: false
-translatable: false
+description: 'Name of the business or organization'
+required: FALSE
+translatable: FALSE
 default_value: {  }
 default_value_callback: ''
 settings: {  }

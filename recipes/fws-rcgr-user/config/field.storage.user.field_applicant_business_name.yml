@@ -1,0 +1,21 @@
+uuid: 62d2bdf6-2af7-411a-95c2-ff9904962a11
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_applicant_business_name
+field_name: field_applicant_business_name
+entity_type: user
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
