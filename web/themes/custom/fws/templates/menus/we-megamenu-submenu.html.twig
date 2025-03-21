@@ -1,8 +1,8 @@
-<span class="nav-drilldown"><i class="fa fa-angle-right" aria-hidden="true"></i><span class="visible-hidden">Forward</span>
+<button class="nav-drilldown mobile__nav"><i class="fa fa-angle-right" aria-hidden="true"></i><span class="visible-hidden">Forward</span>
 {# {{ row[0]['#items'][0]['title'] }} -> the row contains the name of this item as title, but it's not always in the 0 element... TODO: Change Forward to say somethign link PageName Child Menu #}
-</span>
+</button>
 <div {{ attributes.addClass('mb-submenu') }}>
-  <div class="mb-back"><a href="#" class="back-icon"><i class="fa fa-angle-left" aria-hidden="true"></i><span class="visible-hidden">Back</span></a><span class="parent-level"></span></div><div class="current-level"></div>
+  <div class="mb-back"><button class="back-icon mobile__nav"><i class="fa fa-angle-left" aria-hidden="true"></i><span class="visible-hidden">Back</span></button><span class="parent-level"></span></div><div class="current-level"></div>
   <div class="we-mega-menu-submenu-inner">
     {{ row }}
   </div>

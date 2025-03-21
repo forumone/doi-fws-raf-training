@@ -73,7 +73,7 @@
 
       &:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 4px $white;
+        box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
         border-radius: 4px;
         transition: all .125s ease-out;
       }
@@ -97,14 +97,22 @@
 
   &__name {
     @include font--primary(600);
-    font-size: 22px;
+    font-size: 18px;
     color: $white;
+
+    @include breakpoint(md) {
+      font-size: 22px;
+    }
   }
 
   &__slogan {
     @include font--primary(400);
-    font-size: 16px;
+    font-size: 14px;
     color: $white;
+
+    @include breakpoint(md) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -149,11 +157,12 @@ header#navbar {
   appearance: none;
   outline: 0;
   border: 0;
+  border-radius: 4px;
   transition: all .25s ease-out;
   animation: none;
 
   &:focus {
-    box-shadow: 0 0 0 4px $white;
+    box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
     border-radius: 4px;
     transition: all .125s ease-out;
   }

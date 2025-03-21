@@ -1,4 +1,42 @@
-// Add spacing to the footer
+@use 'utils/breakpoints' as *;
+@use 'utils/colors' as *;
 .footer {
   margin-top: 50px;
+
+  .menu a {
+
+    &:focus-visible {
+      border-radius: 4px;
+      box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
+      transition: all .125s ease-out;
+    }
+  }
+}
+
+.footer-slogan {
+
+  p {
+
+    @include breakpoint(md) {
+      margin: 0 15px;
+    }
+  }
+
+  .image-wrapper img {
+    width: 100px;
+
+    @include breakpoint(md) {
+      width: 65px;
+    }
+  }
+}
+
+.social-media-links--platforms.horizontal {
+  overflow: visible;
+
+  a:focus-visible {
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
+    transition: all .125s ease-out;
+  }
 }
