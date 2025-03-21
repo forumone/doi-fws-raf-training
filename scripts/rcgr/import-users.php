@@ -18,11 +18,16 @@ $args = $input->getArguments();
 $limit = isset($args['extra'][1]) ? (int) $args['extra'][1] : PHP_INT_MAX;
 $update_existing = isset($args['extra'][2]) ? (bool) $args['extra'][2] : FALSE;
 
+// Define variable to track if we're tracking imported, updated, or both.
+// 'combined', 'imported_only', 'updated_only'.
+$limit_type = 'combined';
+
 // Get input file path.
 $timestamp = date('YmdHi');
 $project_root = dirname(getcwd());
 $input_file = $project_root . '/scripts/rcgr/data/rcgr_userprofile_no_passwords_202503211115.csv';
-$log_file = $project_root . "/scripts/rcgr/data/user_import_log_{$timestamp}.txt";
+// No log file will be created, only console output.
+$log_file = NULL;
 
 /**
  * Set up logging.
@@ -30,55 +35,60 @@ $log_file = $project_root . "/scripts/rcgr/data/user_import_log_{$timestamp}.txt
 function log_message($message, $log_file) {
   $timestamp = date('Y-m-d H:i:s');
   $log_message = "[{$timestamp}] {$message}\n";
-  file_put_contents($log_file, $log_message, FILE_APPEND);
+  // Only output to console, no log file.
   echo $log_message;
 }
 
-// Initialize log file.
-file_put_contents($log_file, "=== RCGR User Import Log ===\n");
+// Initialize log output.
+echo "=== RCGR User Import Log ===\n";
 log_message("Starting user import from: {$input_file}", $log_file);
 log_message("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit), $log_file);
 log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_file);
 
-// Define field mappings (CSV field => Drupal user field).
+// Define field mappings from CSV to user fields.
 $field_mappings = [
-  // Will be used as username.
-  'userid' => NULL,
-  // Store in user account name.
-  'applicant_business_name' => NULL,
-  'applicant_last_name' => 'field_last_name',
-  'applicant_first_name' => 'field_first_name',
-  'applicant_middle_name' => 'field_middle_name',
-  // Not mapped currently.
-  'applicant_prefix' => NULL,
-  // Not mapped currently.
-  'applicant_suffix' => NULL,
-  'applicant_address_l1' => 'field_address_l1',
-  // Field doesn't exist in database, so don't map it.
-  'applicant_address_l2' => NULL,
-  // Field doesn't exist in database, so don't map it.
-  'applicant_address_l3' => NULL,
-  // Not mapped currently.
-  'applicant_county' => NULL,
-  'applicant_city' => 'field_city',
-  'applicant_state' => 'field_state_cd',
-  'applicant_zip' => 'field_zip_cd',
-  'applicant_home_phone' => 'field_phone1',
-  'applicant_work_phone' => 'field_phone2',
-  // Will be used as email.
-  'applicant_email_address' => NULL,
-  'hid' => 'field_hid',
-  'rcf_cd' => 'field_rcf_cd',
+  'applicant_business_name' => 'field_applicant_business_name',
+  'applicant_last_name' => 'field_applicant_last_name',
+  'applicant_first_name' => 'field_applicant_first_name',
+  'applicant_middle_name' => 'field_applicant_middle_name',
+  'applicant_prefix' => 'field_applicant_prefix',
+  'applicant_suffix' => 'field_applicant_suffix',
+  'applicant_address_l1' => 'field_applicant_address_l1',
+  'applicant_address_l2' => 'field_applicant_address_l2',
+  'applicant_address_l3' => 'field_applicant_address_l3',
+  'applicant_city' => 'field_applicant_city',
+  'applicant_state' => 'field_applicant_state',
+  'applicant_zip' => 'field_applicant_zip',
+  'applicant_county' => 'field_applicant_county',
+  'applicant_home_phone' => 'field_applicant_home_phone',
+  'applicant_work_phone' => 'field_applicant_work_phone',
+// Main phone number.
+  'applicant_telephone' => 'field_phone',
+  'applicant_fax_number' => 'field_fax_number',
+  'principal_name' => 'field_principal_name',
+  'principal_last_name' => 'field_principal_last_name',
+  'principal_first_name' => 'field_principal_first_name',
+  'principal_middle_name' => 'field_principal_middle_name',
+  'principal_suffix' => 'field_principal_suffix',
+  'principal_title' => 'field_principal_title',
+  'principal_email_address' => 'field_principal_email',
+  'principal_telephone' => 'field_principal_telephone',
+  'primary_contact_name' => 'field_primary_contact_name',
+  'primary_contact_telephone' => 'field_primary_contact_phone',
+  'primary_contact_email_address' => 'field_primary_contact_email',
   'version_no' => 'field_version_no',
+  'hid' => 'field_hid',
+  'program_id' => 'field_program_id',
   'registrant_type_cd' => 'field_registrant_type_cd',
-  // For created time.
-  'dt_create' => NULL,
-  // For changed time.
-  'dt_update' => NULL,
+  'bi_cd' => 'field_bi_cd',
+  'rcf_cd' => 'field_rcf_cd',
   'create_by' => 'field_created_by',
   'update_by' => 'field_updated_by',
-  // Not mapped currently.
-  'bi_cd' => NULL,
+  // Fields that will be handled separately.
+// Will be used for email.
+  'applicant_email_address' => NULL,
+// Will be used for username.
+  'userid' => NULL,
 ];
 
 // Open input file.
@@ -118,9 +128,36 @@ $updated_count = 0;
 $error_count = 0;
 $skipped_count = 0;
 
+/**
+ * Check if we're still under our limit.
+ */
+function check_limit_reached($success_count, $updated_count, $limit, $limit_type) {
+  if ($limit === PHP_INT_MAX) {
+    return FALSE;
+  }
+
+  switch ($limit_type) {
+    case 'imported_only':
+      return $success_count >= $limit;
+
+    case 'updated_only':
+      return $updated_count >= $limit;
+
+    case 'combined':
+    default:
+      return ($success_count + $updated_count) >= $limit;
+  }
+}
+
 // Process data rows.
-while (($data = fgetcsv($handle)) !== FALSE && $success_count < $limit) {
+while (($data = fgetcsv($handle)) !== FALSE) {
   $row_count++;
+
+  // Check if we've hit our limit of successful imports + updates before processing more.
+  if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
+    log_message("Import limit of {$limit} reached. Stopping.", $log_file);
+    break;
+  }
 
   // Create associative array of row data.
   $row = array_combine($header, $data);
@@ -133,7 +170,7 @@ while (($data = fgetcsv($handle)) !== FALSE && $success_count < $limit) {
   }
 
   if (empty($row['applicant_email_address'])) {
-    log_message("Warning: Row {$row_count} missing email address for user '{$row['userid']}' - skipping as email is required to tie user to permit data", $log_file);
+    // Don't log individual missing emails, just increment skip count..
     $skipped_count++;
     continue;
   }
@@ -146,7 +183,7 @@ while (($data = fgetcsv($handle)) !== FALSE && $success_count < $limit) {
   $original_email = $email;
   $email = sanitize_email($email);
   if (empty($email)) {
-    log_message("Warning: Row {$row_count} has invalid email address '{$original_email}' for user '{$username}' - skipping", $log_file);
+    // Don't log individual invalid emails, just increment skip count..
     $skipped_count++;
     continue;
   }
@@ -218,35 +255,33 @@ while (($data = fgetcsv($handle)) !== FALSE && $success_count < $limit) {
       }
     }
 
-    // Set account name - use business name if available, otherwise full name.
-    $account_name = !empty($row['applicant_business_name']) ?
-      trim($row['applicant_business_name']) :
-      trim($row['applicant_first_name'] . ' ' . $row['applicant_last_name']);
+    // Set the account name - prefer business name if available.
+    $account_name = '';
+    if (!empty($row['applicant_business_name'])) {
+      $account_name = $row['applicant_business_name'];
+    }
+    else {
+      // Fall back to applicant name.
+      $first_name = !empty($row['applicant_first_name']) ? $row['applicant_first_name'] : '';
+      $last_name = !empty($row['applicant_last_name']) ? $row['applicant_last_name'] : '';
+      $account_name = trim($first_name . ' ' . $last_name);
+    }
 
-    // Limit account name length to 60 characters to avoid database errors.
+    // Ensure account name is not empty.
+    if (empty($account_name)) {
+      $account_name = $username;
+    }
+
+    // Check if account name is too long and truncate if necessary.
     if (strlen($account_name) > 60) {
       $original_name = $account_name;
       $account_name = substr($account_name, 0, 57) . '...';
-      log_message("Truncated account name from '{$original_name}' to '{$account_name}'", $log_file);
+      log_message("Truncated account name: $original_name -> $account_name", $log_file);
     }
 
-    // Make account name unique if needed by appending username.
-    if (!empty($account_name)) {
-      // Check if this account name exists and doesn't belong to current user.
-      $query = \Drupal::entityQuery('user')
-        ->condition('name', $account_name)
-        ->condition('uid', $user->id(), '<>')
-        ->accessCheck(FALSE);
-      $result = $query->execute();
-
-      if (!empty($result)) {
-        // Append username to make it unique.
-        $account_name = $account_name . '-' . $username;
-        log_message("Making account name unique: '{$account_name}'", $log_file);
-      }
-
-      $user->set('name', $account_name);
-    }
+    $user->set('name', $username);
+    // Set the display name instead of account_name.
+    $user->set('field_applicant_business_name', $account_name);
 
     // Set created/changed dates if available.
     if (!empty($row['dt_create'])) {
@@ -273,10 +308,16 @@ while (($data = fgetcsv($handle)) !== FALSE && $success_count < $limit) {
       }
     }
 
-    // Map all other fields based on field mapping.
-    foreach ($field_mappings as $csv_field => $drupal_field) {
-      if ($drupal_field && isset($row[$csv_field]) && $row[$csv_field] !== '') {
-        $user->set($drupal_field, $row[$csv_field]);
+    // Set user fields.
+    foreach ($field_mappings as $csv_column => $drupal_field) {
+      // Skip if field mapping is null or the CSV column doesn't exist.
+      if ($drupal_field === NULL || !isset($row[$csv_column])) {
+        continue;
+      }
+
+      // Only set the field if there's a value in the CSV column.
+      if (!empty($row[$csv_column])) {
+        $user->set($drupal_field, $row[$csv_column]);
       }
     }
 
@@ -312,9 +353,8 @@ log_message("Successfully imported: {$success_count}", $log_file);
 log_message("Successfully updated: {$updated_count}", $log_file);
 log_message("Errors: {$error_count}", $log_file);
 log_message("Skipped: {$skipped_count}", $log_file);
-log_message("Log saved to: {$log_file}", $log_file);
 
-if ($success_count >= $limit) {
+if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
   log_message("Import LIMIT REACHED ($limit users)", $log_file);
 }
 
