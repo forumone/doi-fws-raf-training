@@ -170,7 +170,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   }
 
   if (empty($row['applicant_email_address'])) {
-    // Don't log individual missing emails, just increment skip count..
+    // Don't log individual missing emails, just increment skip count.
     $skipped_count++;
     continue;
   }
@@ -183,20 +183,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   $original_email = $email;
   $email = sanitize_email($email);
   if (empty($email)) {
-    // Don't log individual invalid emails, just increment skip count..
+    // Don't log individual invalid emails, just increment skip count.
     $skipped_count++;
     continue;
-  }
-  if ($original_email !== $email) {
-    log_message("Email sanitized from '{$original_email}' to '{$email}'", $log_file);
   }
 
   // Sanitize username to make it valid for Drupal.
   $original_username = $username;
   $username = sanitize_username($username);
-  if ($original_username !== $username) {
-    log_message("Username sanitized from '{$original_username}' to '{$username}'", $log_file);
-  }
 
   // Check if user already exists.
   $existing_user = user_load_by_name($username);
@@ -276,7 +270,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (strlen($account_name) > 60) {
       $original_name = $account_name;
       $account_name = substr($account_name, 0, 57) . '...';
-      log_message("Truncated account name: $original_name -> $account_name", $log_file);
     }
 
     $user->set('name', $username);
