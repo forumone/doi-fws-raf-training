@@ -138,7 +138,7 @@ content:
     third_party_settings: {  }
   field_applicant_work_phone:
     type: string_textfield
-    weight: 15
+    weight: 16
     region: content
     settings:
       size: 60
@@ -202,7 +202,7 @@ content:
     third_party_settings: {  }
   field_primary_contact_name:
     type: string_textfield
-    weight: 23
+    weight: 25
     region: content
     settings:
       size: 60
@@ -329,6 +329,14 @@ content:
     weight: 36
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_applicant_telephone:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
 hidden:
   contact: true

@@ -47,6 +47,8 @@ log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_
 
 // Define field mappings from CSV to user fields.
 $field_mappings = [
+// Will be used for username.
+  'userid' => NULL,
   'applicant_business_name' => 'field_applicant_business_name',
   'applicant_last_name' => 'field_applicant_last_name',
   'applicant_first_name' => 'field_applicant_first_name',
@@ -56,15 +58,15 @@ $field_mappings = [
   'applicant_address_l1' => 'field_applicant_address_l1',
   'applicant_address_l2' => 'field_applicant_address_l2',
   'applicant_address_l3' => 'field_applicant_address_l3',
+  'applicant_county' => 'field_applicant_county',
   'applicant_city' => 'field_applicant_city',
   'applicant_state' => 'field_applicant_state',
   'applicant_zip' => 'field_applicant_zip',
-  'applicant_county' => 'field_applicant_county',
   'applicant_home_phone' => 'field_applicant_home_phone',
   'applicant_work_phone' => 'field_applicant_work_phone',
-// Main phone number.
-  'applicant_telephone' => 'field_phone',
   'applicant_fax_number' => 'field_fax_number',
+// Will be used as email.
+  'applicant_email_address' => NULL,
   'principal_name' => 'field_principal_name',
   'principal_last_name' => 'field_principal_last_name',
   'principal_first_name' => 'field_principal_first_name',
@@ -84,11 +86,6 @@ $field_mappings = [
   'rcf_cd' => 'field_rcf_cd',
   'create_by' => 'field_created_by',
   'update_by' => 'field_updated_by',
-  // Fields that will be handled separately.
-// Will be used for email.
-  'applicant_email_address' => NULL,
-// Will be used for username.
-  'userid' => NULL,
 ];
 
 // Open input file.
@@ -180,7 +177,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   $email = trim($row['applicant_email_address']);
 
   // Sanitize and validate the email address.
-  $original_email = $email;
   $email = sanitize_email($email);
   if (empty($email)) {
     // Don't log individual invalid emails, just increment skip count.
@@ -189,7 +185,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   }
 
   // Sanitize username to make it valid for Drupal.
-  $original_username = $username;
   $username = sanitize_username($username);
 
   // Check if user already exists.
@@ -303,14 +298,19 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Set user fields.
     foreach ($field_mappings as $csv_column => $drupal_field) {
-      // Skip if field mapping is null or the CSV column doesn't exist.
-      if ($drupal_field === NULL || !isset($row[$csv_column])) {
+      // Skip null mappings.
+      if ($drupal_field == NULL) {
         continue;
       }
 
       // Only set the field if there's a value in the CSV column.
       if (!empty($row[$csv_column])) {
-        $user->set($drupal_field, $row[$csv_column]);
+        try {
+          $user->set($drupal_field, $row[$csv_column]);
+        }
+        catch (\Exception $e) {
+          log_message("Error setting field $drupal_field to '{$row[$csv_column]}': " . $e->getMessage(), $log_file);
+        }
       }
     }
 
