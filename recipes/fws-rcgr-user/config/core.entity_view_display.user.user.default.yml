@@ -7,15 +7,35 @@ dependencies:
     - field.field.user.user.field_applicant_business_name
     - field.field.user.user.field_applicant_city
     - field.field.user.user.field_applicant_first_name
+    - field.field.user.user.field_applicant_home_phone
     - field.field.user.user.field_applicant_last_name
     - field.field.user.user.field_applicant_middle_name
+    - field.field.user.user.field_applicant_prefix
     - field.field.user.user.field_applicant_state
+    - field.field.user.user.field_applicant_suffix
+    - field.field.user.user.field_applicant_work_phone
     - field.field.user.user.field_applicant_zip
+    - field.field.user.user.field_bi_cd
+    - field.field.user.user.field_created_by
     - field.field.user.user.field_fax_number
+    - field.field.user.user.field_hid
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_prim_contact_email
     - field.field.user.user.field_primary_contact_name
     - field.field.user.user.field_primary_contact_phone
+    - field.field.user.user.field_principal_email
+    - field.field.user.user.field_principal_first_name
+    - field.field.user.user.field_principal_last_name
+    - field.field.user.user.field_principal_middle_name
     - field.field.user.user.field_principal_name
-    - field.field.user.user.field_primary_contact_email
+    - field.field.user.user.field_principal_suffix
+    - field.field.user.user.field_principal_telephone
+    - field.field.user.user.field_principal_title
+    - field.field.user.user.field_program_id
+    - field.field.user.user.field_rcf_cd
+    - field.field.user.user.field_registrant_type_cd
+    - field.field.user.user.field_updated_by
+    - field.field.user.user.field_version_no
   module:
     - user
 id: user.user.default
@@ -29,7 +49,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 13
+    weight: 9
     region: content
   field_applicant_address_line2:
     type: string
@@ -37,7 +57,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 10
     region: content
   field_applicant_business_name:
     type: string
@@ -45,7 +65,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 1
     region: content
   field_applicant_city:
     type: string
@@ -53,7 +73,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   field_applicant_first_name:
     type: string
@@ -61,7 +81,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 7
+    weight: 3
+    region: content
+  field_applicant_home_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_applicant_last_name:
     type: string
@@ -69,7 +97,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 9
+    weight: 2
     region: content
   field_applicant_middle_name:
     type: string
@@ -77,7 +105,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 8
+    weight: 4
+    region: content
+  field_applicant_prefix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_applicant_state:
     type: string
@@ -85,7 +121,23 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 12
+    region: content
+  field_applicant_suffix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_applicant_work_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
     region: content
   field_applicant_zip:
     type: string
@@ -93,7 +145,23 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 12
+    weight: 13
+    region: content
+  field_bi_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 30
+    region: content
+  field_created_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 32
     region: content
   field_fax_number:
     type: string
@@ -103,13 +171,36 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
+  field_hid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_prim_contact_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
+    region: content
   field_primary_contact_name:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    weight: 23
     region: content
   field_primary_contact_phone:
     type: string
@@ -117,16 +208,24 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 18
+    weight: 24
     region: content
-  field_primary_contact_email:
-    type: email_mailto
+  field_principal_email:
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 22
+    region: content
+  field_principal_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 19
     region: content
-  field_principal_name:
+  field_principal_last_name:
     type: string
     label: above
     settings:
@@ -134,10 +233,90 @@ content:
     third_party_settings: {  }
     weight: 18
     region: content
+  field_principal_middle_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_principal_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_principal_suffix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_principal_telephone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_principal_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_program_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 28
+    region: content
+  field_rcf_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 31
+    region: content
+  field_registrant_type_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 29
+    region: content
+  field_updated_by:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 33
+    region: content
+  field_version_no:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 34
+    region: content
   member_for:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 0
     region: content
 hidden:
   langcode: true
