@@ -1,0 +1,19 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.user.field_program_id
+  module:
+    - user
+id: user.user.field_program_id
+field_name: field_program_id
+entity_type: user
+bundle: user
+label: 'Program ID'
+description: 'The identifier for the program'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

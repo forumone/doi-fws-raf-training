@@ -1,0 +1,22 @@
+uuid: 4d228f5c-5bbb-4116-9f8a-94ed05305f53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_created_by
+  module:
+    - user
+_core:
+  default_config_hash: AHP1w1H7jaTjAtHNuOst30tKNk5SNowZlPQksMslcLs
+id: user.user.field_created_by
+field_name: field_created_by
+entity_type: user
+bundle: user
+label: 'Record Created By'
+description: 'User who created this account'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

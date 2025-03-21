@@ -1,0 +1,21 @@
+uuid: 8d24d5e7-9cc1-438e-bc17-ff8e6c7a12df
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_registrant_type_cd
+field_name: field_registrant_type_cd
+entity_type: user
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

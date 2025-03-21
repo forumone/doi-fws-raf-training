@@ -1,0 +1,22 @@
+uuid: 172ed10f-4682-45cd-a840-1fece2c329a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_address_l1
+  module:
+    - user
+_core:
+  default_config_hash: ZSlDS3o4ySwkNg-C9AWiyxxFqTlBdkeZZNieuLBpsac
+id: user.user.field_address_l1
+field_name: field_address_l1
+entity_type: user
+bundle: user
+label: 'Street Address'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
