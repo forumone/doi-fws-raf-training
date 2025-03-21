@@ -138,6 +138,14 @@ p, .p1.p1 {
   padding: 15px 0 0;
 }
 
+ul, ol {
+  padding: 0 0 0 20px;
+  margin: 0;
+}
+ul li + li, ol li + li {
+  padding-top: 20px;
+}
+
 #block-fws-raf-mainnavigation {
   display: none;
 }
