@@ -1,0 +1,5 @@
+"ref_cd","description","program_id","region","site_id","control_program_id","control_region","control_site_id","dt_create","dt_update","create_by","update_by","xml_cd","rcf_cd"
+ABN,ABANDONED,MB,"9","01",MB,"9","01",2005-11-07 11:21:34.717,,Toan,,,N
+AMD,AMENDMENT,MB,"9","01",MB,"9","01",2005-11-07 11:21:34.717,,Toan,,,N
+NEW,NEW APPLICATION,MB,"9","01",MB,"9","01",2005-11-07 11:21:34.717,,Toan,,,N
+REN,RENEW,MB,"9","01",MB,"9","01",2005-11-07 11:21:34.717,,Toan,,,N
