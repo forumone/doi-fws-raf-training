@@ -1,5 +1,5 @@
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.user.field_primary_contact_email
@@ -9,8 +9,8 @@ id: user.user.field_primary_contact_email
 field_name: field_primary_contact_email
 entity_type: user
 bundle: user
-label: 'Primary Contact Email'
-description: 'Email address of the primary contact'
+label: 'Primary Contact Email Address'
+description: 'The primary contact''s email address.'
 required: false
 translatable: false
 default_value: {  }
