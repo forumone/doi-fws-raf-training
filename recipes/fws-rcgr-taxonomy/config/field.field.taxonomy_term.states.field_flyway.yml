@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_flyway
+    - taxonomy.vocabulary.states
+id: taxonomy_term.states.field_flyway
+field_name: field_flyway
+entity_type: taxonomy_term
+bundle: states
+label: 'Flyway'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -23,6 +23,7 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/install-cleanup.php
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-content
+ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-taxonomy
 ddev drush -l $SITE_URI cr
 
 # Run import scripts

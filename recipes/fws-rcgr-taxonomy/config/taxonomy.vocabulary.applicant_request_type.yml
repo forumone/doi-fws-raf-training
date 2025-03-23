@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Applicant Request Type'
+vid: applicant_request_type
+description: 'Taxonomy for applicant request types.'
+weight: 0
