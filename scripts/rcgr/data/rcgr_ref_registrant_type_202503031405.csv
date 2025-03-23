@@ -1,0 +1,7 @@
+"ref_cd","description","program_id","region","site_id","control_program_id","control_region","control_site_id","dt_create","dt_update","create_by","update_by","xml_cd","rcf_cd"
+A,Agency,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V
+B,Business,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V
+H,Homeowner's Association,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V
+I,Institution,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V
+L,Local Government,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V
+P,Property Management Company,MB,"9","01",MB,"9","01",2012-04-11 13:23:39.010,,Toan,"","",V

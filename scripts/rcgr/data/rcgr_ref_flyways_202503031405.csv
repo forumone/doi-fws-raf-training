@@ -1,0 +1,5 @@
+"Flyway","ST","program_id","region","site_id","control_program_id","control_region","control_site_id","dt_create","dt_update","create_by","update_by","xml_cd","rcf_cd"
+Atlantic Flyway,"CT,DC,DE,FL,GA,MA,MD,ME,NC,NH,NJ,NY,PA,RI,SC,VA,VT,WV",MB,"9","01",MB,"9","01",2012-04-18 12:43:26.537,,Toan,"",M,N
+Central Flyway,"CO,KS,MT,ND,NE,NM,OK,SD,TX,WY",MB,"9","01",MB,"9","01",2012-04-18 12:43:26.537,,Toan,"",M,N
+Mississippi Flyway,"AL,AR,IA,IL,IN,KY,LA,MI,MN,MO,MS,OH,TN,WI",MB,"9","01",MB,"9","01",2012-04-18 12:43:26.537,,Toan,"",M,N
+Pacific Flyway,"AK,AZ,CA,ID,NV,OR,UT,WA",MB,"9","01",MB,"9","01",2012-04-18 12:43:26.537,,Toan,"",M,N

@@ -1,0 +1,20 @@
+uuid: 6c0e734f-bd3e-4f18-bee2-0672c7be3fb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_business_name
+  module:
+    - user
+id: user.user.field_applicant_business_name
+field_name: field_applicant_business_name
+entity_type: user
+bundle: user
+label: 'Applicant Business Name'
+description: ''
+required: false
+translatable: null
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

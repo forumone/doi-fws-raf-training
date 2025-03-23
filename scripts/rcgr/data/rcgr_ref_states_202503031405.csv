@@ -1,0 +1,60 @@
+"ST","State","Region","Flyway","tSort"
+"","","","",A
+---,----------------------------------------,A,"",C
+AK,ALASKA,"7",Pacific Flyway,Z
+AL,ALABAMA,"4",Mississippi Flyway,Z
+All,All,A,"",B
+AM,AMERICAN SAMOA,"1","",Z
+AR,ARKANSAS,"4",Mississippi Flyway,Z
+AZ,ARIZONA,"2",Pacific Flyway,Z
+CA,CALIFORNIA,"1",Pacific Flyway,Z
+CO,COLORADO,"6",Central Flyway,Z
+CT,CONNECTICUT,"5",Atlantic Flyway,Z
+DC,DISTRICT OF COLUMBIA,"5",Atlantic Flyway,Z
+DE,DELAWARE,"5",Atlantic Flyway,Z
+FL,FLORIDA,"4",Atlantic Flyway,Z
+GA,GEORGIA,"4",Atlantic Flyway,Z
+GU,GUAM,"1","",Z
+HI,HAWAII,"1","",Z
+IA,IOWA,"3",Mississippi Flyway,Z
+ID,IDAHO,"1",Pacific Flyway,Z
+IL,ILLINOIS,"3",Mississippi Flyway,Z
+IN,INDIANA,"3",Mississippi Flyway,Z
+KS,KANSAS,"6",Central Flyway,Z
+KY,KENTUCKY,"4",Mississippi Flyway,Z
+LA,LOUISIANA,"4",Mississippi Flyway,Z
+MA,MASSACHUSETTS,"5",Atlantic Flyway,Z
+MD,MARYLAND,"5",Atlantic Flyway,Z
+ME,MAINE,"5",Atlantic Flyway,Z
+MI,MICHIGAN,"3",Mississippi Flyway,Z
+MN,MINNESOTA,"3",Mississippi Flyway,Z
+MO,MISSOURI,"3",Mississippi Flyway,Z
+MP,NORTHERN MARIANAS IS, ,"",Z
+MS,MISSISSIPPI,"4",Mississippi Flyway,Z
+MT,MONTANA,"6",Central Flyway,Z
+NC,NORTH CAROLINA,"4",Atlantic Flyway,Z
+ND,NORTH DAKOTA,"6",Central Flyway,Z
+NE,NEBRASKA,"6",Central Flyway,Z
+NH,NEW HAMPSHIRE,"5",Atlantic Flyway,Z
+NJ,NEW JERSEY,"5",Atlantic Flyway,Z
+NM,NEW MEXICO,"2",Central Flyway,Z
+NV,NEVADA,"1",Pacific Flyway,Z
+NY,NEW YORK,"5",Atlantic Flyway,Z
+OH,OHIO,"3",Mississippi Flyway,Z
+OK,OKLAHOMA,"2",Central Flyway,Z
+OR,OREGON,"1",Pacific Flyway,Z
+PA,PENNSYLVANIA,"5",Atlantic Flyway,Z
+PR,PUERTO RICO,"4","",Z
+RI,RHODE ISLAND,"5",Atlantic Flyway,Z
+SC,SOUTH CAROLINA,"4",Atlantic Flyway,Z
+SD,SOUTH DAKOTA,"6",Central Flyway,Z
+TN,TENNESSEE,"4",Mississippi Flyway,Z
+TX,TEXAS,"2",Central Flyway,Z
+UT,UTAH,"6",Pacific Flyway,Z
+VA,VIRGINIA,"5",Atlantic Flyway,Z
+VI,VIRGIN ISLANDS,"4","",Z
+VT,VERMONT,"5",Atlantic Flyway,Z
+WA,WASHINGTON,"1",Pacific Flyway,Z
+WI,WISCONSIN,"3",Mississippi Flyway,Z
+WV,WEST VIRGINIA,"5",Atlantic Flyway,Z
+WY,WYOMING,"6",Central Flyway,Z

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_primary_contact_email
+  module:
+    - user
+id: user.user.field_primary_contact_email
+field_name: field_primary_contact_email
+entity_type: user
+bundle: user
+label: 'Primary Contact Email Address'
+description: 'The primary contact''s email address.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

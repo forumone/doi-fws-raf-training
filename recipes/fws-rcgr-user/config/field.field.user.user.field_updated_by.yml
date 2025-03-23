@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_updated_by
+  module:
+    - user
+id: user.user.field_updated_by
+field_name: field_updated_by
+entity_type: user
+bundle: user
+label: 'Record Last Modified By'
+description: 'User who last updated this account'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_hid
+field_name: field_hid
+entity_type: user
+type: string
+settings:
+  max_length: 100
+  case_sensitive: true
+module: user
+locked: false
+cardinality: 1
