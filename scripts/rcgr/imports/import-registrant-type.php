@@ -19,17 +19,6 @@ $mapping = [
   'description_field' => 'description',
   'field_mappings' => [
     'program_id' => 'field_program_id',
-    'region' => 'field_region',
-    'site_id' => 'field_site_id',
-    'control_program_id' => 'field_control_program_id',
-    'control_region' => 'field_control_region',
-    'control_site_id' => 'field_control_site_id',
-    'dt_create' => 'field_dt_create',
-    'dt_update' => 'field_dt_update',
-    'create_by' => 'field_create_by',
-    'update_by' => 'field_update_by',
-    'xml_cd' => 'field_xml_cd',
-    'rcf_cd' => 'field_rcf_cd',
   ],
   'skip_row_callback' => function ($row, $row_number, $column_indices) {
     // Skip empty rows or separator rows.

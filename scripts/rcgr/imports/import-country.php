@@ -31,6 +31,12 @@ $mapping = [
       return TRUE;
     }
 
+    // Skip rows where the country code is just a blank space.
+    if (trim($row[$column_indices['ref_cd']]) === ' ' || trim($row[$column_indices['ref_cd']]) === '') {
+      Drush::logger()->notice("Skipping blank country code at row {$row_number}");
+      return TRUE;
+    }
+
     return FALSE;
   },
 ];
