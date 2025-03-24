@@ -1,0 +1,78 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.permit.field_recno
+    - field.field.node.permit.field_isremoved
+    - field.field.node.permit.field_permit_no
+    - field.field.node.permit.field_report_year
+    - field.field.node.permit.field_person_name
+    - field.field.node.permit.field_version_no
+    - field.field.node.permit.field_hid
+    - field.field.node.permit.field_program_id
+    - field.field.node.permit.field_region
+    - field.field.node.permit.field_site_id
+    - field.field.node.permit.field_control_program_id
+    - field.field.node.permit.field_control_region
+    - field.field.node.permit.field_control_site_id
+    - field.field.node.permit.field_dt_create
+    - field.field.node.permit.field_dt_update
+    - field.field.node.permit.field_create_by
+    - field.field.node.permit.field_update_by
+    - field.field.node.permit.field_xml_cd
+    - field.field.node.permit.field_rcf_cd
+    - node.type.permit
+  module:
+    - user
+id: node.permit.teaser
+targetEntityType: node
+bundle: permit
+mode: teaser
+content:
+  field_permit_no:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_person_name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_program_id:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_recno: true
+  field_isremoved: true
+  field_report_year: true
+  field_version_no: true
+  field_hid: true
+  field_region: true
+  field_site_id: true
+  field_control_program_id: true
+  field_control_region: true
+  field_control_site_id: true
+  field_dt_create: true
+  field_dt_update: true
+  field_create_by: true
+  field_update_by: true
+  field_xml_cd: true
+  field_rcf_cd: true

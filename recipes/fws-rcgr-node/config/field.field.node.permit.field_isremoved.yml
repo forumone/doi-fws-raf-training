@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_isremoved
+    - node.type.permit
+id: node.permit.field_isremoved
+field_name: field_isremoved
+entity_type: node
+bundle: permit
+label: 'Is Removed'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'TRUE'
+  off_label: 'FALSE'
+field_type: boolean
