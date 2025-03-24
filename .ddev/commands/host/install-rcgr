@@ -28,5 +28,6 @@ ddev drush -l $SITE_URI cr
 
 # Run import scripts
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-users.php 10
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-taxonomies.php
 
 ddev drush -l $SITE_URI uli

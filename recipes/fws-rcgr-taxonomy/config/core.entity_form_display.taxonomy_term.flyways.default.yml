@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.flyways.field_program_id
+    - field.field.taxonomy_term.flyways.field_st
+    - taxonomy.vocabulary.flyways
+  module:
+    - options
+id: taxonomy_term.flyways.default
+targetEntityType: taxonomy_term
+bundle: flyways
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 0
+    settings:
+      rows: 5
+    third_party_settings: {}
+  field_program_id:
+    type: options_select
+    weight: 1
+    settings:
+      size: 60
+    third_party_settings: {}
+  field_st:
+    type: options_select
+    weight: 2
+    settings:
+      size: 60
+    third_party_settings: {}
+  name:
+    type: string_textfield
+    weight: -50
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {}
+hidden: {}
