@@ -100,9 +100,8 @@ $taxonomy_mappings = [
   'rcgr_ref_states_202503031405.csv' => [
     'vid' => 'states',
     'name_field' => 'ST',
-    'description_field' => NULL,
+    'description_field' => 'State',
     'field_mappings' => [
-      'State' => 'field_state',
       'Region' => 'field_region',
       'Flyway' => 'field_flyway',
       'tSort' => 'field_tsort',
@@ -114,7 +113,8 @@ $taxonomy_mappings = [
     'description_field' => NULL,
     'field_mappings' => [
       'recno' => 'field_recno',
-      'state_cd' => 'field_state_cd',
+      // Commenting out state_cd reference field temporarily
+      // 'state_cd' => 'field_state_cd',.
       'isCountyRestricted' => 'field_iscountyrestricted',
       'program_id' => 'field_program_id',
     ],
@@ -134,135 +134,242 @@ foreach ($taxonomy_mappings as $csv_file => $mapping) {
     continue;
   }
 
-  // Get header row.
+  // Read header row.
   $header = fgetcsv($handle);
   if (!$header) {
-    log_message("Error: Could not read header row from CSV", $log_file);
-    fclose($handle);
+    log_message("Error: Could not read header row from {$csv_file}", $log_file);
     continue;
   }
 
-  // Check if name field exists in header.
-  if (!in_array($mapping['name_field'], $header)) {
-    log_message("Error: Required column '{$mapping['name_field']}' not found in CSV header", $log_file);
-    fclose($handle);
+  // Remove quotes from header values.
+  $header = array_map(function ($value) {
+    return trim($value, '"');
+  }, $header);
+
+  log_message("CSV Header columns: " . implode(', ', $header), $log_file);
+
+  // Find the index of the name field in the header.
+  $name_field_index = array_search($mapping['name_field'], $header);
+  if ($name_field_index === FALSE) {
+    log_message("Error: Required name field '{$mapping['name_field']}' not found in CSV header", $log_file);
     continue;
   }
+
+  // Create a mapping of CSV column names to their indices.
+  $column_indices = array_flip($header);
 
   // Initialize counters.
-  $row_count = 0;
-  $success_count = 0;
-  $updated_count = 0;
-  $error_count = 0;
-  $skipped_count = 0;
+  $created = 0;
+  $skipped = 0;
+  $errors = 0;
 
-  // Process data rows.
-  while (($data = fgetcsv($handle)) !== FALSE) {
-    $row_count++;
+  // Process each row.
+  $row_number = 1;
+  while (($row = fgetcsv($handle)) !== FALSE) {
+    $row_number++;
 
-    // Check if we've hit our limit of successful imports + updates before processing more.
-    if (($success_count + $updated_count) >= $limit) {
-      log_message("Import limit of {$limit} for {$mapping['vid']} reached. Stopping.", $log_file);
-      break;
-    }
+    // Remove quotes from values.
+    $row = array_map(function ($value) {
+      return trim($value, '"');
+    }, $row);
 
-    // Create associative array of row data.
-    $row = array_combine($header, $data);
-
-    // Check if we have the required name field.
-    if (empty($row[$mapping['name_field']])) {
-      log_message("Warning: Row {$row_count} missing required name field - skipping", $log_file);
-      $skipped_count++;
+    // Skip empty rows, separator rows, or rows with empty names.
+    if (empty($row) || (count($row) === 1 && empty($row[0])) ||
+        (isset($row[0]) && strpos($row[0], '---') !== FALSE) ||
+        (isset($row[0]) && strpos($row[0], 'All') !== FALSE) ||
+        ($mapping['vid'] === 'states' && in_array($row_number, [2, 3, 6]))) {
+      Drush::logger()->warning("Warning: Skipping empty, separator, or excluded row");
       continue;
     }
 
-    // Clean and prepare term data.
-    $name = trim($row[$mapping['name_field']]);
+    // Determine the name value based on the vocabulary.
+    switch ($mapping['vid']) {
+      case 'states':
+        $name = $row[$column_indices['ST']];
+        break;
 
-    // Skip rows with empty names after trimming.
-    if (empty($name)) {
-      $skipped_count++;
+      case 'flyways':
+        $name = $row[$column_indices['Flyway']];
+        break;
+
+      case 'restricted_counties':
+        $name = $row[$column_indices['county_name']];
+        break;
+
+      default:
+        $name = $row[$column_indices[$mapping['name_field']]];
+    }
+
+    // Skip empty rows, separator rows, or rows with empty names.
+    if (empty($name) || $name === '---' || $name === 'All') {
+      Drush::logger()->warning("Warning: Skipping empty, separator, or excluded row");
       continue;
     }
 
-    // Set description if applicable.
-    $description = '';
-    if (!empty($mapping['description_field']) && isset($row[$mapping['description_field']])) {
-      $description = trim($row[$mapping['description_field']]);
+    // Log field values being processed.
+    Drush::logger()->notice("Processing field values for term '$name':");
+    foreach ($mapping['field_mappings'] as $csv_column => $field_name) {
+      if (isset($column_indices[$csv_column])) {
+        $value = isset($row[$column_indices[$csv_column]]) ? trim($row[$column_indices[$csv_column]]) : '';
+        Drush::logger()->notice("  $csv_column => $field_name: '$value'");
+      }
     }
 
     // Check if term already exists.
-    $existing_terms = \Drupal::entityTypeManager()
+    $existing_term = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadByProperties([
-        'name' => $name,
         'vid' => $mapping['vid'],
+        'name' => $name,
       ]);
 
-    if ($existing_terms) {
-      $term = reset($existing_terms);
+    if (!empty($existing_term)) {
+      Drush::logger()->warning("Term '$name' already exists in {$mapping['vid']} - skipping");
 
-      if ($update_existing) {
-        log_message("Updating existing term '{$name}' in {$mapping['vid']}", $log_file);
-        $updated_count++;
+      // Show field values for existing term.
+      $term = reset($existing_term);
+      Drush::logger()->notice("Field values for term '$name':");
+      foreach ($mapping['field_mappings'] as $csv_column => $field_name) {
+        if (isset($column_indices[$csv_column])) {
+          $value = isset($row[$column_indices[$csv_column]]) ? trim($row[$column_indices[$csv_column]]) : '';
+          Drush::logger()->notice("  $csv_column => $field_name: '$value'");
+        }
       }
-      else {
-        log_message("Term '{$name}' already exists in {$mapping['vid']} - skipping", $log_file);
-        $skipped_count++;
-        continue;
-      }
+      continue;
     }
-    else {
-      // Create new term.
-      $term = Term::create([
-        'name' => $name,
-        'vid' => $mapping['vid'],
-      ]);
-      $success_count++;
+
+    // Create new term.
+    $term = Term::create([
+      'vid' => $mapping['vid'],
+      'name' => $name,
+      'langcode' => 'en',
+    ]);
+
+    // Set description if available.
+    if (isset($column_indices[$mapping['description_field']]) && !empty($row[$column_indices[$mapping['description_field']]])) {
+      $term->setDescription(trim($row[$column_indices[$mapping['description_field']]]));
+    }
+
+    // Set field values.
+    foreach ($mapping['field_mappings'] as $csv_column => $field_name) {
+      if (isset($column_indices[$csv_column])) {
+        // Get the field value based on the field name and CSV column.
+        $value = isset($row[$column_indices[$csv_column]]) ? trim($row[$column_indices[$csv_column]]) : '';
+
+        // Skip empty values.
+        if (empty($value)) {
+          continue;
+        }
+
+        // Debug logs for values.
+        Drush::logger()->notice("Setting field $field_name with value '$value'");
+
+        // Handle field values based on field type.
+        try {
+          // Get the field definition.
+          $field_definition = $term->getFieldDefinition($field_name);
+          if (!$field_definition) {
+            Drush::logger()->warning("Warning: Field definition not found for $field_name");
+            continue;
+          }
+
+          // Debug the field type.
+          $field_type = $field_definition->getType();
+          Drush::logger()->notice("Field $field_name is of type: $field_type");
+
+          // Set the field value based on its type.
+          switch ($field_type) {
+            case 'string':
+              // Ensure string values are properly formatted.
+              $value = (string) $value;
+              Drush::logger()->notice("Setting $field_name to string value: '$value'");
+              $term->set($field_name, $value);
+              break;
+
+            case 'integer':
+              // Handle integer fields.
+              $int_value = (int) $value;
+              Drush::logger()->notice("Setting $field_name integer value: '$int_value'");
+              $term->set($field_name, $int_value);
+              break;
+
+            case 'entity_reference':
+              // Handle entity references.
+              $handler_settings = $field_definition->getSetting('handler_settings');
+              $target_bundles = $handler_settings['target_bundles'] ?? [];
+              $vocabulary = !empty($target_bundles) ? key($target_bundles) : '';
+
+              if (empty($vocabulary)) {
+                Drush::logger()->warning("Warning: Could not determine target vocabulary for $field_name");
+                continue;
+              }
+
+              Drush::logger()->notice("Looking for referenced term '$value' in vocabulary '$vocabulary'");
+
+              // Special handling for field_state_cd to debug.
+              if ($field_name === 'field_state_cd') {
+                Drush::logger()->notice("Debug: state_cd reference lookup for '$value'");
+
+                // Try to load and display all matching terms.
+                $query = \Drupal::entityQuery('taxonomy_term')
+                  ->condition('vid', $vocabulary);
+                $tids = $query->execute();
+
+                if (empty($tids)) {
+                  Drush::logger()->warning("Debug: No terms found in '$vocabulary' vocabulary");
+                }
+                else {
+                  Drush::logger()->notice("Debug: Found " . count($tids) . " terms in '$vocabulary' vocabulary");
+
+                  // Load a few sample terms to check.
+                  $terms = \Drupal::entityTypeManager()
+                    ->getStorage('taxonomy_term')
+                    ->loadMultiple(array_slice($tids, 0, 5));
+
+                  foreach ($terms as $term) {
+                    Drush::logger()->notice("Debug: Sample term: '" . $term->getName() . "' (id: " . $term->id() . ")");
+                  }
+                }
+              }
+
+              $referenced_term = \Drupal::entityTypeManager()
+                ->getStorage('taxonomy_term')
+                ->loadByProperties([
+                  'vid' => $vocabulary,
+                  'name' => $value,
+                ]);
+
+              if (!empty($referenced_term)) {
+                $referenced_term = reset($referenced_term);
+                $term->set($field_name, ['target_id' => $referenced_term->id()]);
+                Drush::logger()->notice("Set $field_name reference to term '{$referenced_term->getName()}' (id: {$referenced_term->id()})");
+              }
+              else {
+                Drush::logger()->warning("Referenced term '$value' not found in $vocabulary vocabulary - skipping field");
+                continue;
+              }
+              break;
+
+            default:
+              Drush::logger()->warning("Warning: Unsupported field type {$field_definition->getType()} for $field_name");
+              continue;
+          }
+        }
+        catch (\Exception $e) {
+          Drush::logger()->warning("Warning: Could not set value '$value' for field $field_name: " . $e->getMessage());
+          continue;
+        }
+      }
     }
 
     try {
-      // Set description.
-      if (!empty($description)) {
-        $term->setDescription($description);
-      }
-
-      // Set field values.
-      foreach ($mapping['field_mappings'] as $csv_field => $drupal_field) {
-        if (isset($row[$csv_field]) && $row[$csv_field] !== '') {
-          $value = $row[$csv_field];
-
-          // Handle special field types.
-          if (strpos($drupal_field, 'field_dt_') === 0) {
-            // Convert date strings to the format Drupal expects.
-            $date = new DateTime($value);
-            $term->set($drupal_field, $date->format('Y-m-d\TH:i:s'));
-          }
-          elseif ($drupal_field === 'field_recno') {
-            // Convert numeric values to integers.
-            $term->set($drupal_field, (int) $value);
-          }
-          else {
-            // Default handling for string fields.
-            $term->set($drupal_field, $value);
-          }
-        }
-      }
-
-      // Save the term.
       $term->save();
-
+      Drush::logger()->success("Created term '$name' in {$mapping['vid']} vocabulary");
+      $created++;
     }
-    catch (Exception $e) {
-      log_message("Error saving term '{$name}' in {$mapping['vid']}: " . $e->getMessage(), $log_file);
-      $error_count++;
-
-      if ($existing_terms) {
-        $updated_count--;
-      }
-      else {
-        $success_count--;
-      }
+    catch (\Exception $e) {
+      Drush::logger()->error("Error creating term '$name' in {$mapping['vid']} vocabulary: " . $e->getMessage());
+      $errors++;
     }
   }
 
@@ -270,11 +377,10 @@ foreach ($taxonomy_mappings as $csv_file => $mapping) {
 
   // Report statistics for this taxonomy.
   log_message("Completed import for {$mapping['vid']}:", $log_file);
-  log_message("  Total rows processed: {$row_count}", $log_file);
-  log_message("  Terms created: {$success_count}", $log_file);
-  log_message("  Terms updated: {$updated_count}", $log_file);
-  log_message("  Terms skipped: {$skipped_count}", $log_file);
-  log_message("  Errors: {$error_count}", $log_file);
+  log_message("  Total rows processed: {$row_number}", $log_file);
+  log_message("  Terms created: {$created}", $log_file);
+  log_message("  Terms skipped: {$skipped}", $log_file);
+  log_message("  Errors: {$errors}", $log_file);
   log_message("", $log_file);
 }
 

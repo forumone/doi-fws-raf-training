@@ -6,11 +6,17 @@ dependencies:
 id: taxonomy_term.field_flyway
 field_name: field_flyway
 entity_type: taxonomy_term
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
+  target_type: taxonomy_term
+  handler: default
+  handler_settings:
+    target_bundles:
+      flyways: flyways
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
 module: core
 locked: false
 cardinality: 1
