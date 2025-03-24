@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_rcf_cd
+    - field.storage.node.field_applicant_state
     - node.type.permit
-    - taxonomy.vocabulary.status
-id: node.permit.field_rcf_cd
-field_name: field_rcf_cd
+    - taxonomy.vocabulary.states
+id: node.permit.field_applicant_state
+field_name: field_applicant_state
 entity_type: node
 bundle: permit
-label: 'RCF Code'
+label: 'Applicant State'
 description: ''
 required: false
 translatable: true
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      status: status
+      states: states
     sort:
       field: name
       direction: asc

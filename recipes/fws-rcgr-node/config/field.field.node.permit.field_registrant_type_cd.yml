@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_rcf_cd
+    - field.storage.node.field_registrant_type_cd
     - node.type.permit
-    - taxonomy.vocabulary.status
-id: node.permit.field_rcf_cd
-field_name: field_rcf_cd
+    - taxonomy.vocabulary.registrant_type
+id: node.permit.field_registrant_type_cd
+field_name: field_registrant_type_cd
 entity_type: node
 bundle: permit
-label: 'RCF Code'
+label: 'Registrant Type'
 description: ''
 required: false
 translatable: true
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      status: status
+      registrant_type: registrant_type
     sort:
       field: name
       direction: asc

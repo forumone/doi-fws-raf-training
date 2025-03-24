@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - taxonomy
-id: node.field_program_id
-field_name: field_program_id
+id: node.field_applicant_state
+field_name: field_applicant_state
 entity_type: node
 type: entity_reference
 settings:
@@ -13,7 +13,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      program: program
+      states: states
     sort:
       field: name
       direction: asc

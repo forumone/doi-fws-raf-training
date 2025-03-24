@@ -2,6 +2,10 @@
 
 /**
  * @file
+ * Script to import permits from CSV into Drupal nodes.
+ *
+ * This script imports permit data from a CSV file and creates/updates
+ * nodes in Drupal with proper entity reference fields to taxonomies.
  */
 
 use Drupal\node\Entity\Node;
@@ -22,7 +26,7 @@ $errors = 0;
 $logger->notice('Starting import for permits');
 
 // Open the CSV file.
-$csv_file = dirname(dirname(__FILE__)) . '/data/rcgr_permit_app_mast_202503031405.csv';
+$csv_file = dirname(__FILE__) . '/data/rcgr_permit_app_mast_202503031405.csv';
 $handle = fopen($csv_file, 'r');
 
 if ($handle === FALSE) {
@@ -39,19 +43,98 @@ $field_mapping = [
   'permit_no' => 'field_permit_no',
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
-  'program_id' => 'field_program_id',
-  'region' => 'field_region',
-  'site_id' => 'field_site_id',
-  'control_program_id' => 'field_control_program_id',
-  'control_region' => 'field_control_region',
-  'control_site_id' => 'field_control_site_id',
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
   'create_by' => 'field_create_by',
   'update_by' => 'field_update_by',
   'xml_cd' => 'field_xml_cd',
-  'rcf_cd' => 'field_rcf_cd',
 ];
+
+// Initialize taxonomy reference mapping.
+$taxonomy_mapping = [
+  'program_id' => [
+    'field' => 'field_program_id',
+    'vocabulary' => 'program',
+    'field_match' => 'name',
+  ],
+  'region' => [
+    'field' => 'field_region',
+    'vocabulary' => 'states',
+    'field_match' => 'field_region.value',
+  ],
+  'rcf_cd' => [
+    'field' => 'field_rcf_cd',
+    'vocabulary' => 'status',
+    'field_match' => 'name',
+  ],
+  'registrant_type_cd' => [
+    'field' => 'field_registrant_type_cd',
+    'vocabulary' => 'registrant_type',
+    'field_match' => 'name',
+  ],
+  'permit_status_cd' => [
+    'field' => 'field_permit_status_cd',
+    'vocabulary' => 'application_status',
+    'field_match' => 'name',
+  ],
+  'applicant_state' => [
+    'field' => 'field_applicant_state',
+    'vocabulary' => 'states',
+    'field_match' => 'field_state_cd.value',
+  ],
+];
+
+// Cache for taxonomy terms to avoid repeated lookups.
+$_import_terms_cache = [];
+
+/**
+ * Helper function to get taxonomy term ID by code.
+ *
+ * @param string $code
+ *   The code to look up.
+ * @param string $vocabulary
+ *   The vocabulary machine name.
+ * @param string $field_match
+ *   The field to match on.
+ * @param object $logger
+ *   The logger object.
+ *
+ * @return int|null
+ *   The term ID or null if not found.
+ */
+function get_taxonomy_term_id_by_code($code, $vocabulary, $field_match, $logger) {
+  global $_import_terms_cache;
+
+  // Check cache first.
+  $cache_key = $vocabulary . ':' . $code;
+  if (isset($_import_terms_cache[$cache_key])) {
+    return $_import_terms_cache[$cache_key];
+  }
+
+  // Prepare the query.
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', $vocabulary)
+    ->accessCheck(FALSE);
+
+  // Add condition based on the field to match.
+  if ($field_match === 'name') {
+    $query->condition('name', $code);
+  }
+  else {
+    $query->condition($field_match, $code);
+  }
+
+  $tids = $query->execute();
+
+  if (!empty($tids)) {
+    $tid = reset($tids);
+    $_import_terms_cache[$cache_key] = $tid;
+    return $tid;
+  }
+
+  $logger->warning('Could not find taxonomy term for code: ' . $code . ' in vocabulary: ' . $vocabulary);
+  return NULL;
+}
 
 // Process each row.
 while (($row = fgetcsv($handle)) !== FALSE) {
@@ -105,14 +188,39 @@ while (($row = fgetcsv($handle)) !== FALSE) {
             }
           }
           // Handle version_no as integer.
-          elseif ($drupal_field === 'field_version_no') {
+          elseif ($drupal_field === 'field_version_no' || $drupal_field === 'field_recno' || $drupal_field === 'field_report_year' || $drupal_field === 'field_is_removed') {
             if (is_numeric($value)) {
               $node->set($drupal_field, (int) $value);
             }
           }
           // Handle normal string fields.
           else {
+            // For string fields, set the property correctly.
             $node->set($drupal_field, $value);
+          }
+        }
+      }
+
+      // Set taxonomy reference fields.
+      foreach ($taxonomy_mapping as $csv_field => $mapping) {
+        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]])) {
+          $code = trim($row[$csv_map[$csv_field]]);
+          if (!empty($code)) {
+            $term_id = get_taxonomy_term_id_by_code($code, $mapping['vocabulary'], $mapping['field_match'], $logger);
+            if ($term_id) {
+              $node->set($mapping['field'], ['target_id' => $term_id]);
+            }
+          }
+        }
+      }
+
+      // Handle special case for applicant_state which is in the CSV but has a different field name.
+      if (isset($csv_map['applicant_state']) && isset($row[$csv_map['applicant_state']])) {
+        $state_code = trim($row[$csv_map['applicant_state']]);
+        if (!empty($state_code)) {
+          $term_id = get_taxonomy_term_id_by_code($state_code, 'states', 'field_state_cd.value', $logger);
+          if ($term_id) {
+            $node->set('field_applicant_state', ['target_id' => $term_id]);
           }
         }
       }
@@ -159,8 +267,10 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       $nid = reset($nids);
       $node = Node::load($nid);
 
-      // Set all mapped fields.
+      // Track updates.
       $updated_fields = 0;
+
+      // Set all mapped fields.
       foreach ($field_mapping as $csv_field => $drupal_field) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]])) {
           $value = trim($row[$csv_map[$csv_field]]);
@@ -180,7 +290,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
             }
           }
           // Handle version_no as integer.
-          elseif ($drupal_field === 'field_version_no') {
+          elseif ($drupal_field === 'field_version_no' || $drupal_field === 'field_recno' || $drupal_field === 'field_report_year' || $drupal_field === 'field_is_removed') {
             if (is_numeric($value) && (int) $node->get($drupal_field)->value !== (int) $value) {
               $node->set($drupal_field, (int) $value);
               $updated_fields++;
@@ -190,6 +300,42 @@ while (($row = fgetcsv($handle)) !== FALSE) {
           elseif ($node->get($drupal_field)->value !== $value) {
             $node->set($drupal_field, $value);
             $updated_fields++;
+          }
+        }
+      }
+
+      // Set taxonomy reference fields.
+      foreach ($taxonomy_mapping as $csv_field => $mapping) {
+        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]])) {
+          $code = trim($row[$csv_map[$csv_field]]);
+          if (!empty($code)) {
+            $term_id = get_taxonomy_term_id_by_code($code, $mapping['vocabulary'], $mapping['field_match'], $logger);
+
+            if ($term_id) {
+              $current_value = $node->get($mapping['field'])->target_id;
+
+              if ($current_value != $term_id) {
+                $node->set($mapping['field'], ['target_id' => $term_id]);
+                $updated_fields++;
+              }
+            }
+          }
+        }
+      }
+
+      // Handle special case for applicant_state.
+      if (isset($csv_map['applicant_state']) && isset($row[$csv_map['applicant_state']])) {
+        $state_code = trim($row[$csv_map['applicant_state']]);
+        if (!empty($state_code)) {
+          $term_id = get_taxonomy_term_id_by_code($state_code, 'states', 'field_state_cd.value', $logger);
+
+          if ($term_id) {
+            $current_value = $node->get('field_applicant_state')->target_id;
+
+            if ($current_value != $term_id) {
+              $node->set('field_applicant_state', ['target_id' => $term_id]);
+              $updated_fields++;
+            }
           }
         }
       }

@@ -3,14 +3,22 @@ status: true
 dependencies:
   module:
     - node
+    - taxonomy
 id: node.field_rcf_cd
 field_name: field_rcf_cd
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
+  target_type: taxonomy_term
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      status: status
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 module: core
 locked: false
 cardinality: 1
