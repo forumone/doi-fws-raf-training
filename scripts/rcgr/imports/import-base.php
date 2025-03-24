@@ -253,6 +253,11 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
         Drush::logger()->success("Created term '$name' in {$mapping['vid']} vocabulary");
         $stats['created']++;
       }
+
+      // Execute post-save callback if defined.
+      if (isset($mapping['post_save_callback']) && is_callable($mapping['post_save_callback'])) {
+        $mapping['post_save_callback']($term, $row, $column_indices);
+      }
     }
     catch (\Exception $e) {
       Drush::logger()->error("Error saving term '$name' in {$mapping['vid']} vocabulary: " . $e->getMessage());
