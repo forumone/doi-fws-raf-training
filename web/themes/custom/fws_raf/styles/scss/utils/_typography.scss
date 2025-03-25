@@ -132,11 +132,13 @@ p, .p1.p1 {
   }
 }
 
-ul, ol {
-  padding: 0 0 0 20px;
-  margin: 0;
+.field--name-body {
+  ul, ol {
+    padding: 0 0 0 20px;
+    margin: 0;
 
-  li + li {
-    padding-top: 20px;
+    li + li {
+      padding-top: 20px;
+    }
   }
 }

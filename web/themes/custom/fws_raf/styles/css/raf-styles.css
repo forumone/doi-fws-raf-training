@@ -138,11 +138,11 @@ p, .p1.p1 {
   padding: 15px 0 0;
 }
 
-ul, ol {
+.field--name-body ul, .field--name-body ol {
   padding: 0 0 0 20px;
   margin: 0;
 }
-ul li + li, ol li + li {
+.field--name-body ul li + li, .field--name-body ol li + li {
   padding-top: 20px;
 }
 
