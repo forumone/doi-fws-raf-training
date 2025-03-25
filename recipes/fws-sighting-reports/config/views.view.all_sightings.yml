@@ -29,7 +29,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: ho8Lma7b0BG6-_ZiZHfGuhqKRFTj7jf6P6xdSKSG9aw
+  default_config_hash: KJo5lWztKs_OaOhZKYqk--S2pZ0CbgFOKo0HfUtdMJ8
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -56,11 +56,75 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Title
-          exclude: false
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: entity_link
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a href="{{ view_node }}" aria-label="View {{ title }}">View</a>'
             make_link: false
             path: ''
             absolute: false
@@ -97,20 +161,9 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          text: View
+          output_url_as_text: true
+          absolute: false
         field_date_time:
           id: field_date_time
           table: node__field_date_time
@@ -981,6 +1034,7 @@ display:
           default_row_class: true
           columns:
             title: title
+            view_node: view_node
             field_date_time: field_date_time
             field_bird_count: field_bird_count
             field_state: field_state
@@ -990,12 +1044,19 @@ display:
           default: field_date_time
           info:
             title:
-              sortable: true
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
+            view_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-low
             field_date_time:
               sortable: true
               default_sort_order: desc
