@@ -431,6 +431,20 @@ $csv_map = [
   'registrant_type_cd' => 15,
   'permit_status_cd' => 16,
   'applicant_state' => 17,
+  'bi_cd' => 18,
+  'location_address_l1' => 19,
+  'location_address_l2' => 20,
+  'location_address_l3' => 21,
+  'location_city' => 22,
+  'location_county' => 23,
+  'location_state' => 24,
+  'qty_nest_egg_destroyed_mar' => 25,
+  'qty_nest_egg_destroyed_apr' => 26,
+  'qty_nest_egg_destroyed_may' => 27,
+  'qty_nest_egg_destroyed_jun' => 28,
+  'qty_nest_egg_destroyed_tot' => 29,
+  'isLocationCertified' => 30,
+  'ca_access_key' => 31,
 ];
 
 // Define field mappings.
@@ -444,6 +458,9 @@ $field_mappings = [
   'hid' => 'field_hid',
   'site_id' => 'field_site_id',
   'control_site_id' => 'field_control_site_id',
+  'bi_cd' => 'field_bi_cd',
+  'location_city' => 'field_location_city',
+  'ca_access_key' => 'field_ca_access_key',
 ];
 
 // Define date field mappings.
@@ -605,6 +622,34 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         }
       }
 
+      // Add special handling for location address fields.
+      if (isset($row[$csv_map['location_address_l1']]) || isset($row[$csv_map['location_address_l2']]) || isset($row[$csv_map['location_address_l3']])) {
+        $node_data['field_location_address'] = [];
+        foreach (['location_address_l1', 'location_address_l2', 'location_address_l3'] as $address_field) {
+          if (isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
+            $node_data['field_location_address'][] = [
+              'value' => $row[$csv_map[$address_field]],
+              'format' => 'plain_text',
+            ];
+          }
+        }
+      }
+
+      // Add special handling for quantity fields.
+      $node_data['field_qty_nest_egg_destroyed'] = [];
+      foreach (['qty_nest_egg_destroyed_mar', 'qty_nest_egg_destroyed_apr', 'qty_nest_egg_destroyed_may', 'qty_nest_egg_destroyed_jun', 'qty_nest_egg_destroyed_tot'] as $qty_field) {
+        if (isset($row[$csv_map[$qty_field]]) && $row[$csv_map[$qty_field]] !== '') {
+          $node_data['field_qty_nest_egg_destroyed'][] = [
+            'value' => (int) $row[$csv_map[$qty_field]],
+          ];
+        }
+      }
+
+      // Add special handling for boolean field.
+      if (isset($row[$csv_map['isLocationCertified']]) && $row[$csv_map['isLocationCertified']] !== '') {
+        $node_data['field_is_location_certified'] = (bool) $row[$csv_map['isLocationCertified']];
+      }
+
       // Add taxonomy reference fields.
       foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
@@ -715,6 +760,46 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         }
       }
 
+      // Update special fields
+      // Update location address fields.
+      if ($node->hasField('field_location_address')) {
+        $address_values = [];
+        foreach (['location_address_l1', 'location_address_l2', 'location_address_l3'] as $address_field) {
+          if (isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
+            $address_values[] = [
+              'value' => $row[$csv_map[$address_field]],
+              'format' => 'plain_text',
+            ];
+          }
+        }
+        if (!empty($address_values)) {
+          $node->set('field_location_address', $address_values);
+          $updated_fields++;
+        }
+      }
+
+      // Update quantity fields.
+      if ($node->hasField('field_qty_nest_egg_destroyed')) {
+        $qty_values = [];
+        foreach (['qty_nest_egg_destroyed_mar', 'qty_nest_egg_destroyed_apr', 'qty_nest_egg_destroyed_may', 'qty_nest_egg_destroyed_jun', 'qty_nest_egg_destroyed_tot'] as $qty_field) {
+          if (isset($row[$csv_map[$qty_field]]) && $row[$csv_map[$qty_field]] !== '') {
+            $qty_values[] = [
+              'value' => (int) $row[$csv_map[$qty_field]],
+            ];
+          }
+        }
+        if (!empty($qty_values)) {
+          $node->set('field_qty_nest_egg_destroyed', $qty_values);
+          $updated_fields++;
+        }
+      }
+
+      // Update boolean field.
+      if ($node->hasField('field_is_location_certified') && isset($row[$csv_map['isLocationCertified']]) && $row[$csv_map['isLocationCertified']] !== '') {
+        $node->set('field_is_location_certified', (bool) $row[$csv_map['isLocationCertified']]);
+        $updated_fields++;
+      }
+
       // Update taxonomy reference fields.
       foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
@@ -765,7 +850,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     }
   }
   catch (\Exception $e) {
-    $logger->error('Error processing permit node: ' . $permit_no . '. Error: ' . $e->getMessage());
+    $logger->error('Error processing permit ' . $permit_no . ': ' . $e->getMessage());
     $errors++;
   }
 
