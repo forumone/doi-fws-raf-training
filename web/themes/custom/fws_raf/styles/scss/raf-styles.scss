@@ -6,17 +6,14 @@
 @forward 'layout/footer';
 @forward 'layout/layout';
 
-@forward 'user/user';
+@forward 'components/blocks';
+@forward 'components/forms';
+@forward 'components/quiz';
+@forward 'components/user';
 
-@forward 'blocks/blocks';
-
-@forward 'forms/form-components';
-@forward 'forms/node-forms';
-
+@forward 'nodes/author';
 @forward 'nodes/node';
 @forward 'nodes/species';
-
-@forward 'quiz/quiz';
 
 @forward 'views/views';
 @forward 'views/tracking';

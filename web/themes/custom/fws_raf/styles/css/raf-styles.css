@@ -543,13 +543,6 @@ body.mobile-menu-open {
   margin: 0 auto;
 }
 
-.path-user .main-container {
-  max-width: 900px;
-}
-.path-user .main-container .field {
-  margin-bottom: 1rem;
-}
-
 .block-aerial-species-block {
   margin-bottom: 20px;
 }
@@ -979,163 +972,6 @@ input.form-autocomplete {
   color: #595959;
 }
 
-.page-node-edit .geolocation-map-control .form-item label,
-.page-node-edit .geolocation-map-control .form-item .description,
-.page-node-add .geolocation-map-control .form-item label,
-.page-node-add .geolocation-map-control .form-item .description {
-  display: none;
-}
-.page-node-edit .form-type-vertical-tabs,
-.page-node-add .form-type-vertical-tabs {
-  padding-top: 20px;
-}
-.page-node-edit .form-item.form-inline label,
-.page-node-add .form-item.form-inline label {
-  display: inline;
-  margin-right: 3px;
-}
-.page-node-edit .form-item label,
-.page-node-add .form-item label {
-  display: block;
-}
-.page-node-edit .form-item label.ck.ck-voice-label,
-.page-node-add .form-item label.ck.ck-voice-label {
-  display: none !important;
-}
-.page-node-edit .field-multiple-table .label,
-.page-node-add .field-multiple-table .label {
-  font-size: initial;
-}
-.page-node-edit .select-wrapper,
-.page-node-add .select-wrapper {
-  width: 300px;
-}
-.page-node-edit .main-container,
-.page-node-add .main-container {
-  max-width: 900px;
-}
-.page-node-edit .form-text,
-.page-node-add .form-text {
-  width: 500px;
-}
-.page-node-edit .form-required:after,
-.page-node-add .form-required:after {
-  margin-left: 3px;
-}
-.page-node-edit .text-format-wrapper .form-type-select .select-wrapper:after,
-.page-node-add .text-format-wrapper .form-type-select .select-wrapper:after {
-  z-index: 1;
-  top: 24px;
-  right: 0;
-}
-.page-node-edit .text-format-wrapper .form-type-select .select-wrapper select,
-.page-node-add .text-format-wrapper .form-type-select .select-wrapper select {
-  min-height: initial;
-}
-.page-node-edit .form-item .description,
-.page-node-edit .form-item .help-block,
-.page-node-edit .form-item .summary,
-.page-node-edit .tabbable .description,
-.page-node-edit .tabbable .help-block,
-.page-node-edit .tabbable .summary,
-.page-node-edit .draggable .description,
-.page-node-edit .draggable .help-block,
-.page-node-edit .draggable .summary,
-.page-node-add .form-item .description,
-.page-node-add .form-item .help-block,
-.page-node-add .form-item .summary,
-.page-node-add .tabbable .description,
-.page-node-add .tabbable .help-block,
-.page-node-add .tabbable .summary,
-.page-node-add .draggable .description,
-.page-node-add .draggable .help-block,
-.page-node-add .draggable .summary {
-  color: #1b1c1a;
-}
-
-.node-confirm-form {
-  margin-bottom: 30px;
-}
-.node-confirm-form .form-actions {
-  margin-top: 20px;
-}
-
-.dropbutton-wrapper .dropbutton {
-  padding-left: 0;
-  list-style-type: none;
-}
-.dropbutton-wrapper .dropbutton__item {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-.location-consent-message {
-  margin-bottom: 20px;
-}
-
-/*
- * Clean up the tabledrag handle display.
- */
-.js .field--widget-paragraphs .draggable .tabledrag-handle {
-  padding-top: 2px;
-  width: 33px;
-}
-
-.field--name-field-file {
-  margin-top: 20px;
-}
-
-.panel-primary .panel-title {
-  color: #fff;
-}
-
-.field--name-body a {
-  font-size: inherit;
-}
-.field--name-body .book-covers img {
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  max-height: 300px;
-}
-.field--name-body .sample-pages img {
-  max-height: 250px;
-  margin-bottom: 10px;
-}
-.field--name-body .survey-techniques img {
-  max-height: 210px;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  margin-bottom: 10px;
-}
-.field--name-body .estimate-flock img {
-  max-height: 180px;
-  margin-bottom: 10px;
-}
-
-.page-node-type-species .main-container {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
-
-.species-search-results .results-count {
-  margin: 10px;
-}
-.species-search-results .form-type-select .select-wrapper {
-  width: 200px;
-}
-.species-search-results .form-type-select .select-wrapper select {
-  cursor: pointer;
-}
-.species-search-results .form-type-select .select-wrapper::after {
-  top: 31px;
-  right: 3px;
-  z-index: 10;
-}
-
-#node-species-edit-form {
-  margin-bottom: 50px;
-}
-
 @keyframes aerialView {
   0% {
     transform: scale(1.1) translate(-3.5%, 0);
@@ -1296,6 +1132,170 @@ input.form-autocomplete {
 }
 .fws-quiz .manual-play-button:hover {
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+.path-user .main-container {
+  max-width: 900px;
+}
+.path-user .main-container .field {
+  margin-bottom: 1rem;
+}
+
+.page-node-edit .geolocation-map-control .form-item label,
+.page-node-edit .geolocation-map-control .form-item .description,
+.page-node-add .geolocation-map-control .form-item label,
+.page-node-add .geolocation-map-control .form-item .description {
+  display: none;
+}
+.page-node-edit .form-type-vertical-tabs,
+.page-node-add .form-type-vertical-tabs {
+  padding-top: 20px;
+}
+.page-node-edit .form-item.form-inline label,
+.page-node-add .form-item.form-inline label {
+  display: inline;
+  margin-right: 3px;
+}
+.page-node-edit .form-item label,
+.page-node-add .form-item label {
+  display: block;
+}
+.page-node-edit .form-item label.ck.ck-voice-label,
+.page-node-add .form-item label.ck.ck-voice-label {
+  display: none !important;
+}
+.page-node-edit .field-multiple-table .label,
+.page-node-add .field-multiple-table .label {
+  font-size: initial;
+}
+.page-node-edit .select-wrapper,
+.page-node-add .select-wrapper {
+  width: 300px;
+}
+.page-node-edit .main-container,
+.page-node-add .main-container {
+  max-width: 900px;
+}
+.page-node-edit .form-text,
+.page-node-add .form-text {
+  width: 500px;
+}
+.page-node-edit .form-required:after,
+.page-node-add .form-required:after {
+  margin-left: 3px;
+}
+.page-node-edit .text-format-wrapper .form-type-select .select-wrapper:after,
+.page-node-add .text-format-wrapper .form-type-select .select-wrapper:after {
+  z-index: 1;
+  top: 24px;
+  right: 0;
+}
+.page-node-edit .text-format-wrapper .form-type-select .select-wrapper select,
+.page-node-add .text-format-wrapper .form-type-select .select-wrapper select {
+  min-height: initial;
+}
+.page-node-edit .form-item .description,
+.page-node-edit .form-item .help-block,
+.page-node-edit .form-item .summary,
+.page-node-edit .tabbable .description,
+.page-node-edit .tabbable .help-block,
+.page-node-edit .tabbable .summary,
+.page-node-edit .draggable .description,
+.page-node-edit .draggable .help-block,
+.page-node-edit .draggable .summary,
+.page-node-add .form-item .description,
+.page-node-add .form-item .help-block,
+.page-node-add .form-item .summary,
+.page-node-add .tabbable .description,
+.page-node-add .tabbable .help-block,
+.page-node-add .tabbable .summary,
+.page-node-add .draggable .description,
+.page-node-add .draggable .help-block,
+.page-node-add .draggable .summary {
+  color: #1b1c1a;
+}
+
+.node-confirm-form {
+  margin-bottom: 30px;
+}
+.node-confirm-form .form-actions {
+  margin-top: 20px;
+}
+
+.dropbutton-wrapper .dropbutton {
+  padding-left: 0;
+  list-style-type: none;
+}
+.dropbutton-wrapper .dropbutton__item {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.location-consent-message {
+  margin-bottom: 20px;
+}
+
+/*
+ * Clean up the tabledrag handle display.
+ */
+.js .field--widget-paragraphs .draggable .tabledrag-handle {
+  padding-top: 2px;
+  width: 33px;
+}
+
+.field--name-field-file {
+  margin-top: 20px;
+}
+
+.panel-primary .panel-title {
+  color: #fff;
+}
+
+.field--name-body a {
+  font-size: inherit;
+}
+.field--name-body .book-covers img {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  max-height: 300px;
+}
+.field--name-body .sample-pages img {
+  max-height: 250px;
+  margin-bottom: 10px;
+}
+.field--name-body .survey-techniques img {
+  max-height: 210px;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin-bottom: 10px;
+}
+.field--name-body .estimate-flock img {
+  max-height: 180px;
+  margin-bottom: 10px;
+}
+
+.page-node-type-species .main-container {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.species-search-results .results-count {
+  margin: 10px;
+}
+.species-search-results .form-type-select .select-wrapper {
+  width: 200px;
+}
+.species-search-results .form-type-select .select-wrapper select {
+  cursor: pointer;
+}
+.species-search-results .form-type-select .select-wrapper::after {
+  top: 31px;
+  right: 3px;
+  z-index: 10;
+}
+
+#node-species-edit-form {
+  margin-bottom: 50px;
 }
 
 .release-filter-form .panel,
