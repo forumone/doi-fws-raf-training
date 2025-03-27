@@ -210,12 +210,6 @@ function get_region_name_by_state($state_code, array $state_region_mappings, arr
 
 /**
  * Formats a datetime string for Drupal storage.
- *
- * @param string $datetime_string
- *   The datetime string from CSV.
- *
- * @return string
- *   A properly formatted datetime string for Drupal.
  */
 function format_datetime_for_drupal($datetime_string) {
   // Handle empty or invalid values.
@@ -225,10 +219,12 @@ function format_datetime_for_drupal($datetime_string) {
 
   try {
     // Parse the datetime string and format it for Drupal.
-    $datetime = new \DateTime($datetime_string);
+    $datetime = new \DateTime(trim($datetime_string, '"'));
     return $datetime->format('Y-m-d\TH:i:s');
   }
   catch (\Exception $e) {
+    global $_rcgr_import_permits_logger;
+    $_rcgr_import_permits_logger->warning("Could not parse date: {$datetime_string}");
     return NULL;
   }
 }
@@ -413,38 +409,44 @@ if ($handle === FALSE) {
 // Read the header row and map column names to indices.
 $header = fgetcsv($handle);
 $csv_map = [
-  'permit_no' => 0,
-  'version_no' => 1,
-  'dt_create' => 2,
-  'create_by' => 3,
-  'dt_update' => 4,
-  'update_by' => 5,
-  'xml_cd' => 6,
-  'rcf_cd' => 7,
-  'hid' => 8,
-  'site_id' => 9,
-  'control_site_id' => 10,
-  'program_id' => 11,
-  'region' => 12,
-  'control_program_id' => 13,
-  'control_region' => 14,
-  'registrant_type_cd' => 15,
-  'permit_status_cd' => 16,
-  'applicant_state' => 17,
-  'bi_cd' => 18,
-  'location_address_l1' => 19,
-  'location_address_l2' => 20,
-  'location_address_l3' => 21,
-  'location_city' => 22,
-  'location_county' => 23,
-  'location_state' => 24,
-  'qty_nest_egg_destroyed_mar' => 25,
-  'qty_nest_egg_destroyed_apr' => 26,
-  'qty_nest_egg_destroyed_may' => 27,
-  'qty_nest_egg_destroyed_jun' => 28,
-  'qty_nest_egg_destroyed_tot' => 29,
-  'isLocationCertified' => 30,
-  'ca_access_key' => 31,
+  'permit_no' => array_search('permit_no', $header),
+  'version_no' => array_search('version_no', $header),
+  'dt_create' => array_search('dt_create', $header),
+  'create_by' => array_search('create_by', $header),
+  'dt_update' => array_search('dt_update', $header),
+  'update_by' => array_search('update_by', $header),
+  'xml_cd' => array_search('xml_cd', $header),
+  'rcf_cd' => array_search('rcf_cd', $header),
+  'hid' => array_search('hid', $header),
+  'site_id' => array_search('site_id', $header),
+  'control_site_id' => array_search('control_site_id', $header),
+  'program_id' => array_search('program_id', $header),
+  'region' => array_search('region', $header),
+  'control_program_id' => array_search('control_program_id', $header),
+  'control_region' => array_search('control_region', $header),
+  'registrant_type_cd' => array_search('registrant_type_cd', $header),
+  'permit_status_cd' => array_search('permit_status_cd', $header),
+  'applicant_state' => array_search('applicant_state', $header),
+  'applicant_email_address' => array_search('applicant_email_address', $header),
+  'applicant_business_name' => array_search('applicant_business_name', $header),
+  'applicant_address_l1' => array_search('applicant_address_l1', $header),
+  'applicant_address_l2' => array_search('applicant_address_l2', $header),
+  'applicant_address_l3' => array_search('applicant_address_l3', $header),
+  'applicant_city' => array_search('applicant_city', $header),
+  'applicant_zip' => array_search('applicant_zip', $header),
+  'applicant_home_phone' => array_search('applicant_home_phone', $header),
+  'applicant_work_phone' => array_search('applicant_work_phone', $header),
+  'dt_signed' => array_search('dt_signed', $header),
+  'dt_permit_request' => array_search('dt_permit_request', $header),
+  'dt_permit_issued' => array_search('dt_permit_issued', $header),
+  'dt_effective' => array_search('dt_effective', $header),
+  'dt_expired' => array_search('dt_expired', $header),
+  'dt_applicant_signed' => array_search('dt_applicant_signed', $header),
+  'dt_application_received' => array_search('dt_application_received', $header),
+  'applicant_agreement1' => array_search('applicant_agreement1', $header),
+  'applicant_agreement2' => array_search('applicant_agreement2', $header),
+  'applicant_agreement3' => array_search('applicant_agreement3', $header),
+  'applicant_signed' => array_search('applicant_signed', $header),
 ];
 
 // Define field mappings.
@@ -458,15 +460,36 @@ $field_mappings = [
   'hid' => 'field_hid',
   'site_id' => 'field_site_id',
   'control_site_id' => 'field_control_site_id',
-  'bi_cd' => 'field_bi_cd',
-  'location_city' => 'field_location_city',
-  'ca_access_key' => 'field_ca_access_key',
+  'control_program_id' => 'field_control_program_id',
+  'control_region' => 'field_control_region',
+  'applicant_email_address' => 'field_bi_cd',
+  'applicant_city' => 'field_location_city',
+  'applicant_business_name' => 'field_business_name',
+  'applicant_zip' => 'field_zip',
+  'applicant_home_phone' => 'field_home_phone',
+  'applicant_work_phone' => 'field_work_phone',
+];
+
+// Define special field mappings that need to be validated.
+$special_field_mappings = [
+  'applicant_address_l1' => 'field_location_address',
+  'applicant_address_l2' => 'field_location_address',
+  'applicant_address_l3' => 'field_location_address',
+// Using this as a proxy for certification.
+  'applicant_signed' => 'field_is_location_certified',
 ];
 
 // Define date field mappings.
 $date_field_mappings = [
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
+  'dt_signed' => 'field_dt_signed',
+  'dt_permit_request' => 'field_dt_permit_request',
+  'dt_permit_issued' => 'field_dt_permit_issued',
+  'dt_effective' => 'field_dt_effective',
+  'dt_expired' => 'field_dt_expired',
+  'dt_applicant_signed' => 'field_dt_applicant_signed',
+  'dt_application_received' => 'field_dt_application_received',
 ];
 
 // Define value mappings for known values like 'U' and 'A'.
@@ -597,130 +620,84 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     if (empty($nids)) {
       $logger->notice('Creating new permit node for: ' . $permit_no);
 
-      // Prepare node data.
-      $node_data = [
+      // Create a new node.
+      $node = Node::create([
         'type' => 'permit',
         'title' => 'Permit: ' . $permit_no,
         'status' => 1,
-        'field_permit_no' => $permit_no,
-      ];
+      ]);
 
-      // Add regular fields.
+      // Set regular field values.
       foreach ($field_mappings as $csv_field => $drupal_field) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $node_data[$drupal_field] = $row[$csv_map[$csv_field]];
+          $node->set($drupal_field, trim($row[$csv_map[$csv_field]], '"'));
         }
       }
 
-      // Add date fields.
+      // Set date field values.
       foreach ($date_field_mappings as $csv_field => $drupal_field) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $formatted_date = format_datetime_for_drupal($row[$csv_map[$csv_field]]);
-          if ($formatted_date) {
-            $node_data[$drupal_field] = $formatted_date;
+          $datetime = format_datetime_for_drupal(trim($row[$csv_map[$csv_field]], '"'));
+          if ($datetime !== FALSE) {
+            $node->set($drupal_field, $datetime);
           }
         }
       }
 
-      // Add special handling for location address fields.
-      if (isset($row[$csv_map['location_address_l1']]) || isset($row[$csv_map['location_address_l2']]) || isset($row[$csv_map['location_address_l3']])) {
-        $node_data['field_location_address'] = [];
-        foreach (['location_address_l1', 'location_address_l2', 'location_address_l3'] as $address_field) {
-          if (isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
-            $node_data['field_location_address'][] = [
-              'value' => $row[$csv_map[$address_field]],
-              'format' => 'plain_text',
-            ];
-          }
-        }
-      }
-
-      // Add special handling for quantity fields.
-      $node_data['field_qty_nest_egg_destroyed'] = [];
-      foreach (['qty_nest_egg_destroyed_mar', 'qty_nest_egg_destroyed_apr', 'qty_nest_egg_destroyed_may', 'qty_nest_egg_destroyed_jun', 'qty_nest_egg_destroyed_tot'] as $qty_field) {
-        if (isset($row[$csv_map[$qty_field]]) && $row[$csv_map[$qty_field]] !== '') {
-          $node_data['field_qty_nest_egg_destroyed'][] = [
-            'value' => (int) $row[$csv_map[$qty_field]],
+      // Handle special field mappings.
+      $address_lines = [];
+      foreach (['applicant_address_l1', 'applicant_address_l2', 'applicant_address_l3'] as $address_field) {
+        if (isset($csv_map[$address_field]) && isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
+          $address_lines[] = [
+            'value' => trim($row[$csv_map[$address_field]], '"'),
+            'format' => 'plain_text',
           ];
         }
       }
-
-      // Add special handling for boolean field.
-      if (isset($row[$csv_map['isLocationCertified']]) && $row[$csv_map['isLocationCertified']] !== '') {
-        $node_data['field_is_location_certified'] = (bool) $row[$csv_map['isLocationCertified']];
+      if (!empty($address_lines)) {
+        $node->set('field_location_address', $address_lines);
       }
 
-      // Add taxonomy reference fields.
-      foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $term_value = $row[$csv_map[$csv_field]];
+      // Handle location certification.
+      if (isset($csv_map['applicant_signed']) && isset($row[$csv_map['applicant_signed']])) {
+        $is_certified = (int) trim($row[$csv_map['applicant_signed']], '"') === 1;
+        $node->set('field_is_location_certified', $is_certified);
+      }
 
-          // Validate and potentially transform the value if a validation function is provided.
+      // Handle taxonomy field values.
+      foreach ($taxonomy_field_mappings as $mapping) {
+        $csv_field = array_search($mapping['field'], array_column($taxonomy_field_mappings, 'field'));
+        if ($csv_field !== FALSE && isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
+          $value = trim($row[$csv_map[$csv_field]], '"');
+
+          // Apply validation if provided.
           if (isset($mapping['validate'])) {
-            $validated_value = $mapping['validate']($term_value, $row);
-            if ($validated_value === FALSE) {
-              if (!empty($mapping['log_missing'])) {
-                $logger->warning("Invalid {$csv_field} value '{$term_value}' for permit {$permit_no}");
-              }
-              continue;
-            }
-            $term_value = $validated_value;
+            $value = $mapping['validate']($value, $row);
           }
 
-          // Transform the value if a transform function is provided.
-          if (isset($mapping['transform'])) {
-            $term_value = $mapping['transform']($term_value);
-          }
-
-          // Check if we should force a new term.
-          $force_new_term = FALSE;
-          if (isset($mapping['force_new_term'])) {
-            if (is_callable($mapping['force_new_term'])) {
-              $force_new_term = $mapping['force_new_term']($term_value, $row);
-            }
-            else {
-              $force_new_term = (bool) $mapping['force_new_term'];
-            }
-          }
-
+          // Get or create the taxonomy term.
           $tid = get_taxonomy_term_id(
-            $term_value,
+            $value,
             $mapping['vocabulary'],
             TRUE,
             $term_cache,
-            $taxonomy_value_mappings,
-            $force_new_term
+            $taxonomy_value_mappings
           );
 
           if ($tid) {
-            $node_data[$mapping['field']] = ['target_id' => $tid];
-            $logger->notice("Set {$mapping['field']} to term ID {$tid} for permit {$permit_no}");
-          }
-          else {
-            if (!empty($mapping['log_missing'])) {
-              $logger->warning("Could not find or create term '{$term_value}' in vocabulary '{$mapping['vocabulary']}' for permit {$permit_no}");
-            }
-          }
-        }
-        else {
-          if (!empty($mapping['log_missing'])) {
-            $logger->warning("Missing value for {$csv_field} in permit {$permit_no}");
+            $node->set($mapping['field'], ['target_id' => $tid]);
           }
         }
       }
 
-      // Create and save the node.
-      $node = Node::create($node_data);
-      $node->save();
-      $logger->notice('Created permit node: ' . $permit_no);
-      $created++;
-      $processed++;
-      $logger->notice("Processing progress: {$processed} of " . ($limit === PHP_INT_MAX ? "all" : $limit) . " records processed");
-
-      // Check if we've reached the limit for processed nodes.
-      if ($limit > 0 && $processed >= $limit) {
-        $logger->notice("Reached limit of {$limit} processed records. Stopping import.");
-        break;
+      try {
+        $node->save();
+        $processed++;
+        $logger->notice("Created permit node {$node->id()} for permit number: {$permit_no}");
+      }
+      catch (\Exception $e) {
+        $logger->error("Failed to create permit node for permit number {$permit_no}: " . $e->getMessage());
+        $errors++;
       }
     }
     else {
@@ -736,7 +713,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
           if ($node->hasField($drupal_field)) {
             $current_value = $node->get($drupal_field)->value;
-            $new_value = $row[$csv_map[$csv_field]];
+            $new_value = trim($row[$csv_map[$csv_field]], '"');
 
             if ($current_value !== $new_value) {
               $node->set($drupal_field, $new_value);
@@ -764,10 +741,10 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       // Update location address fields.
       if ($node->hasField('field_location_address')) {
         $address_values = [];
-        foreach (['location_address_l1', 'location_address_l2', 'location_address_l3'] as $address_field) {
+        foreach (['applicant_address_l1', 'applicant_address_l2', 'applicant_address_l3'] as $address_field) {
           if (isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
             $address_values[] = [
-              'value' => $row[$csv_map[$address_field]],
+              'value' => trim($row[$csv_map[$address_field]], '"'),
               'format' => 'plain_text',
             ];
           }
@@ -778,25 +755,21 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         }
       }
 
-      // Update quantity fields.
-      if ($node->hasField('field_qty_nest_egg_destroyed')) {
-        $qty_values = [];
-        foreach (['qty_nest_egg_destroyed_mar', 'qty_nest_egg_destroyed_apr', 'qty_nest_egg_destroyed_may', 'qty_nest_egg_destroyed_jun', 'qty_nest_egg_destroyed_tot'] as $qty_field) {
-          if (isset($row[$csv_map[$qty_field]]) && $row[$csv_map[$qty_field]] !== '') {
-            $qty_values[] = [
-              'value' => (int) $row[$csv_map[$qty_field]],
-            ];
-          }
+      // Update phone fields.
+      if (field_exists_for_permit('field_home_phone') || field_exists_for_permit('field_work_phone')) {
+        if (field_exists_for_permit('field_home_phone') && isset($csv_map['applicant_home_phone']) && isset($row[$csv_map['applicant_home_phone']]) && $row[$csv_map['applicant_home_phone']] !== '') {
+          $node->set('field_home_phone', trim($row[$csv_map['applicant_home_phone']], '"'));
+          $updated_fields++;
         }
-        if (!empty($qty_values)) {
-          $node->set('field_qty_nest_egg_destroyed', $qty_values);
+        if (field_exists_for_permit('field_work_phone') && isset($csv_map['applicant_work_phone']) && isset($row[$csv_map['applicant_work_phone']]) && $row[$csv_map['applicant_work_phone']] !== '') {
+          $node->set('field_work_phone', trim($row[$csv_map['applicant_work_phone']], '"'));
           $updated_fields++;
         }
       }
 
-      // Update boolean field.
-      if ($node->hasField('field_is_location_certified') && isset($row[$csv_map['isLocationCertified']]) && $row[$csv_map['isLocationCertified']] !== '') {
-        $node->set('field_is_location_certified', (bool) $row[$csv_map['isLocationCertified']]);
+      // Update zip code.
+      if (field_exists_for_permit('field_zip') && isset($csv_map['applicant_zip']) && isset($row[$csv_map['applicant_zip']]) && $row[$csv_map['applicant_zip']] !== '') {
+        $node->set('field_zip', trim($row[$csv_map['applicant_zip']], '"'));
         $updated_fields++;
       }
 
