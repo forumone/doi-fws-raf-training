@@ -1,0 +1,54 @@
+@use '../utils/typography' as *;
+@use '../utils/colors' as *;
+
+.btn {
+  @include font--primary(700);
+  font-size: 1.15em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  line-height: 1;
+  letter-spacing: 0.015em;
+  transition: all 0.25s ease-out;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    transition: all 0.125s ease-out;
+  }
+
+  &-default,
+  &--default {
+    color: $gray-dark;
+    border: 2px solid $gray-medium;
+
+    &:focus,
+    &:hover {
+      color: $black;
+      background: $gray-light;
+      border: 2px solid $gray-darker;
+    }
+  }
+
+  &-primary,
+  &--primary {
+    background: $blue-medium;
+    border: 2px solid rgba($blue-dark, 0.5);
+
+    &:focus,
+    &:hover {
+      background: $blue-dark;
+    }
+  }
+
+  &-secondary,
+  &--secondary {
+    color: $blue-medium;
+    border: 2px solid $blue-medium;
+
+    &:focus,
+    &:hover {
+      color: $blue-dark;
+      border: 2px solid $blue-dark;
+    }
+  }
+}
