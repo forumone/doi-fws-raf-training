@@ -1,0 +1,19 @@
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_qty_nest_egg_destroyed
+field_name: field_qty_nest_egg_destroyed
+entity_type: node
+type: integer
+settings:
+  unsigned: TRUE
+  size: normal
+module: core
+locked: FALSE
+cardinality: 5
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

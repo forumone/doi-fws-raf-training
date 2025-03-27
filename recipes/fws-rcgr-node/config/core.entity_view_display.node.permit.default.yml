@@ -24,6 +24,12 @@ dependencies:
     - field.field.node.permit.field_registrant_type_cd
     - field.field.node.permit.field_permit_status_cd
     - field.field.node.permit.field_applicant_state
+    - field.field.node.permit.field_bi_cd
+    - field.field.node.permit.field_location_address
+    - field.field.node.permit.field_location_city
+    - field.field.node.permit.field_qty_nest_egg_destroyed
+    - field.field.node.permit.field_is_location_certified
+    - field.field.node.permit.field_ca_access_key
     - node.type.permit
   module:
     - datetime
@@ -215,6 +221,56 @@ content:
       link: true
     third_party_settings: {  }
     weight: 22
+    region: content
+  field_bi_cd:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_location_address:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_location_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_qty_nest_egg_destroyed:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_is_location_certified:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_ca_access_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 28
     region: content
   links:
     settings: {  }
