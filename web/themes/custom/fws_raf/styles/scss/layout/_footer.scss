@@ -1,9 +1,13 @@
 @use 'utils/breakpoints' as *;
 @use 'utils/colors' as *;
-.footer {
+
+footer.footer {
   margin-top: 50px;
 
-  .menu a {
+  .menu.nav > li > a {
+    min-height: 44px;
+    padding: 10px 15px;
+    margin: 0;
 
     &:focus-visible {
       border-radius: 4px;
@@ -15,10 +19,14 @@
 
 .footer-slogan {
 
+  @include breakpoint(md) {
+    padding: 10px 0 0;
+  }
+
   p {
 
     @include breakpoint(md) {
-      margin: 0 15px;
+      margin: 0 10px 0 20px;
     }
   }
 

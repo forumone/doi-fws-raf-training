@@ -132,6 +132,7 @@ header#navbar {
   .menu--utility li a {
     @include breakpoint(lg) {
       @include menuUnderline();
+      padding: 15px;
     }
   }
 

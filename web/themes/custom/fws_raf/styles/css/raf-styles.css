@@ -238,6 +238,7 @@ header#navbar .navbar-header .navbar-toggle {
     position: relative;
     text-decoration: none;
     transition: all 0.25s ease-out;
+    padding: 15px;
   }
   header#navbar .menu--utility li a:after {
     transform: scale(0);
@@ -506,18 +507,28 @@ body.mobile-menu-open {
   border-top: 1px solid #F3F3F5;
 }
 
-.footer {
+footer.footer {
   margin-top: 50px;
 }
-.footer .menu a:focus-visible {
+footer.footer .menu.nav > li > a {
+  min-height: 44px;
+  padding: 10px 15px;
+  margin: 0;
+}
+footer.footer .menu.nav > li > a:focus-visible {
   border-radius: 4px;
   box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   transition: all 0.125s ease-out;
 }
 
 @media (min-width: 768px) {
+  .footer-slogan {
+    padding: 10px 0 0;
+  }
+}
+@media (min-width: 768px) {
   .footer-slogan p {
-    margin: 0 15px;
+    margin: 0 10px 0 20px;
   }
 }
 .footer-slogan .image-wrapper img {
