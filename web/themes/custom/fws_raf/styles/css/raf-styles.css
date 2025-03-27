@@ -239,6 +239,7 @@ header#navbar .navbar-header .navbar-toggle {
     text-decoration: none;
     transition: all 0.25s ease-out;
     padding: 15px;
+    min-width: 44px;
   }
   header#navbar .menu--utility li a:after {
     transform: scale(0);
@@ -599,6 +600,18 @@ footer.footer .menu.nav > li > a:focus-visible {
 .btn-secondary:focus, .btn-secondary:hover, .btn--secondary:focus, .btn--secondary:hover {
   color: #021d44;
   border: 2px solid #021d44;
+}
+
+.btn-success {
+  background-color: #2E7D32;
+}
+
+.btn-danger {
+  background-color: #C41E3A;
+}
+
+.btn-info {
+  background-color: #205493;
 }
 
 input[type=text],
@@ -1006,20 +1019,45 @@ input.form-autocomplete {
   display: inline-block;
 }
 
-.btn-success {
-  background-color: #2E7D32;
-}
-
-.btn-danger {
-  background-color: #C41E3A;
-}
-
-.btn-info {
-  background-color: #0277BD;
-}
-
 .panel-title {
   color: #595959;
+}
+
+.messages__wrapper {
+  color: #202022;
+}
+.messages__wrapper .alert {
+  border-width: 2px;
+  background: #F3F3F5;
+}
+.messages__wrapper .alert-success {
+  border-color: #2E7D32;
+}
+.messages__wrapper .alert-error, .messages__wrapper .alert-warning {
+  border-color: #C41E3A;
+}
+.messages__wrapper p {
+  color: #202022;
+}
+.messages__wrapper button.close {
+  opacity: 1;
+  color: #FFFFFF;
+  background: #205493;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  top: -4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  text-shadow: none;
+  transition: all 0.25s ease-out;
+}
+.messages__wrapper button.close:hover, .messages__wrapper button.close:focus {
+  color: #FFFFFF;
+  background: #011430;
+  transition: all 0.125s ease-out;
 }
 
 @keyframes aerialView {

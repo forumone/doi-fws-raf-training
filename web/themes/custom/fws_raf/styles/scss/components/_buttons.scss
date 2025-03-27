@@ -52,3 +52,16 @@
     }
   }
 }
+
+// Legacy accessible color overrides from Jay
+.btn-success {
+  background-color: $green-medium;
+}
+
+.btn-danger {
+  background-color: $red-medium;
+}
+
+.btn-info {
+  background-color: $blue-medium;
+}

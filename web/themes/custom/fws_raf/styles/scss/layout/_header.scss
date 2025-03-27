@@ -133,6 +133,7 @@ header#navbar {
     @include breakpoint(lg) {
       @include menuUnderline();
       padding: 15px;
+      min-width: 44px;
     }
   }
 

@@ -1,0 +1,46 @@
+@use 'utils/colors' as *;
+
+.messages__wrapper {
+  color: $gray-darker;
+
+  .alert {
+    border-width: 2px;
+    background: $gray-light;
+
+    &-success {
+      border-color: $green-medium;
+    }
+
+    &-error,
+    &-warning {
+      border-color: $red-medium;
+    }
+  }
+
+  p {
+    color: $gray-darker;
+  }
+
+  button.close {
+    opacity: 1;
+    color: $white;
+    background: $blue-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    top: -4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    text-shadow: none;
+    transition: all .25s ease-out;
+
+    &:hover,
+    &:focus {
+      color: $white;
+      background: $blue-darker;
+      transition: all .125s ease-out;
+    }
+  }
+}
