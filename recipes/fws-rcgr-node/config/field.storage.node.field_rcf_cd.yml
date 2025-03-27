@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: TRUE
 dependencies:
   module:
     - node
@@ -10,19 +10,10 @@ entity_type: node
 type: entity_reference
 settings:
   target_type: taxonomy_term
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      status: status
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
 module: core
-locked: false
+locked: FALSE
 cardinality: 1
-translatable: true
+translatable: TRUE
 indexes: {  }
-persist_with_no_fields: false
-custom_storage: false
+persist_with_no_fields: FALSE
+custom_storage: FALSE

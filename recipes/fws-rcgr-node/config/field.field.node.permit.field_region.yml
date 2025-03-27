@@ -4,13 +4,13 @@ dependencies:
   config:
     - field.storage.node.field_region
     - node.type.permit
-    - taxonomy.vocabulary.states
+    - taxonomy.vocabulary.region
 id: node.permit.field_region
 field_name: field_region
 entity_type: node
 bundle: permit
 label: 'Region'
-description: ''
+description: 'The FWS region associated with this permit.'
 required: false
 translatable: true
 default_value: {  }
@@ -19,7 +19,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      states: states
+      region: region
     sort:
       field: name
       direction: asc

@@ -1,0 +1,7 @@
+langcode: en
+status: TRUE
+dependencies: {  }
+name: 'RCF Code'
+vid: rcf_cd
+description: 'Regional Control Facility codes.'
+weight: 0
