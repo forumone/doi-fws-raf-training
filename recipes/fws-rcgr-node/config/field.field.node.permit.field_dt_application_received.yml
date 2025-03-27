@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_dt_application_received
+    - node.type.permit
+  module:
+    - datetime
+id: node.permit.field_dt_application_received
+field_name: field_dt_application_received
+entity_type: node
+bundle: permit
+label: 'Application Received Date'
+description: 'The date when the permit application was received.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

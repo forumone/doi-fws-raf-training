@@ -1,0 +1,19 @@
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_dt_permit_issued
+field_name: field_dt_permit_issued
+entity_type: node
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

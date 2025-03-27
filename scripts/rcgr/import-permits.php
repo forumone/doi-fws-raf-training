@@ -199,7 +199,6 @@ function get_region_name_by_state($state_code, array $state_region_mappings, arr
   if (isset($state_region_mappings[$state_code])) {
     $region_number = $state_region_mappings[$state_code];
     if (isset($fws_regions[$region_number])) {
-      $_rcgr_import_logger->notice("Mapped state {$state_code} to region: {$fws_regions[$region_number]['name']}");
       return $fws_regions[$region_number]['name'];
     }
   }
@@ -218,8 +217,12 @@ function format_datetime_for_drupal($datetime_string) {
   }
 
   try {
+    // Remove milliseconds if present and trim quotes.
+    $datetime_string = trim($datetime_string, '"');
+    $datetime_string = preg_replace('/\.\d+/', '', $datetime_string);
+
     // Parse the datetime string and format it for Drupal.
-    $datetime = new \DateTime(trim($datetime_string, '"'));
+    $datetime = new \DateTime($datetime_string);
     return $datetime->format('Y-m-d\TH:i:s');
   }
   catch (\Exception $e) {
@@ -259,13 +262,12 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 
   // Skip empty values.
   if (empty($name)) {
-    $_rcgr_import_logger->notice("Empty value provided for vocabulary '{$vocabulary}'");
+    $_rcgr_import_logger->warning("Empty value provided for vocabulary '{$vocabulary}'");
     return NULL;
   }
 
   // Check if we need to map the value to a proper term name.
   if (isset($value_mappings[$name])) {
-    $_rcgr_import_logger->notice("Mapping value '{$name}' to term name '{$value_mappings[$name]}'");
     $name = $value_mappings[$name];
   }
 
@@ -274,12 +276,10 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
     // If it's region "9", keep it as "Legacy Region 9".
     if ($name === '9') {
       $name = 'Legacy Region 9';
-      $_rcgr_import_logger->notice("Using legacy region name: {$name}");
     }
     // If it's a numeric region, convert to descriptive name.
     elseif (is_numeric($name) && isset($fws_regions[$name])) {
       $name = $fws_regions[$name]['name'];
-      $_rcgr_import_logger->notice("Using descriptive region name: {$name}");
     }
   }
 
@@ -291,7 +291,6 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 
   // Check cache first, unless we're forcing a new term.
   if (!$force_new_term && isset($term_cache[$cache_key])) {
-    $_rcgr_import_logger->notice("Found cached term ID for '{$name}' in vocabulary '{$vocabulary}'");
     return $term_cache[$cache_key];
   }
 
@@ -307,7 +306,6 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 
     if (!empty($tids)) {
       $tid = reset($tids);
-      $_rcgr_import_logger->notice("Found existing term '{$name}' in vocabulary '{$vocabulary}' with ID {$tid}");
       $term_cache[$cache_key] = $tid;
       return $tid;
     }
@@ -346,7 +344,6 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
     $term = Term::create($term_data);
     $term->save();
     $tid = $term->id();
-    $_rcgr_import_logger->notice("Created new term '{$name}' in vocabulary '{$vocabulary}' with ID {$tid}");
     $term_cache[$cache_key] = $tid;
   }
 
@@ -693,7 +690,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       try {
         $node->save();
         $processed++;
-        $logger->notice("Created permit node {$node->id()} for permit number: {$permit_no}");
+        $created++;
       }
       catch (\Exception $e) {
         $logger->error("Failed to create permit node for permit number {$permit_no}: " . $e->getMessage());
@@ -805,10 +802,8 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       // Save the node if fields were updated.
       if ($updated_fields > 0) {
         $node->save();
-        $logger->notice('Updated permit node: ' . $permit_no . ' with ' . $updated_fields . ' field changes');
         $updated++;
         $processed++;
-        $logger->notice("Processing progress: {$processed} of " . ($limit === PHP_INT_MAX ? "all" : $limit) . " records processed");
 
         // Check if we've reached the limit for processed nodes.
         if ($limit > 0 && $processed >= $limit) {
@@ -817,7 +812,6 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         }
       }
       else {
-        $logger->notice('No changes needed for permit: ' . $permit_no);
         $skipped++;
       }
     }
@@ -825,6 +819,11 @@ while (($row = fgetcsv($handle)) !== FALSE) {
   catch (\Exception $e) {
     $logger->error('Error processing permit ' . $permit_no . ': ' . $e->getMessage());
     $errors++;
+  }
+
+  // Progress update every 100 records.
+  if ($processed % 100 === 0) {
+    $logger->notice("Processing progress: {$processed} records processed");
   }
 
   // Check again at the end of each iteration if we've reached the limit.
