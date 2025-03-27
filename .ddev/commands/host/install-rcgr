@@ -23,9 +23,34 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/install-cleanup.php
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-content
+ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-taxonomy
 ddev drush -l $SITE_URI cr
 
 # Run import scripts
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-users.php 10
+
+# Import states and flyways vocabularies in the correct order
+echo "Importing states vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php states 1000 1
+
+echo "Importing flyways vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php flyways 1000 1
+
+# Run states again to update with flyway references that now exist
+echo "Updating states with flyway references..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php states 1000 1
+
+# Import other vocabularies
+echo "Importing application_status vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php application_status 1000 1
+
+echo "Importing applicant_request_type vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php applicant_request_type 1000 1
+
+echo "Importing country vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php country 1000 1
+
+echo "Importing registrant_type vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php registrant_type 1000 1
 
 ddev drush -l $SITE_URI uli

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Restricted Counties'
+vid: restricted_counties
+description: 'Taxonomy for restricted counties.'
+weight: 0

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_dt_update
+    - taxonomy.vocabulary.applicant_request_type
+  module:
+    - datetime
+id: taxonomy_term.applicant_request_type.field_dt_update
+field_name: field_dt_update
+entity_type: taxonomy_term
+bundle: applicant_request_type
+label: 'Update Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

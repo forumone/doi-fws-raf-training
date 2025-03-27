@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_flyway
+field_name: field_flyway
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+  handler: default
+  handler_settings:
+    target_bundles:
+      flyways: flyways
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

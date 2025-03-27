@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Registrant Type'
+vid: registrant_type
+description: 'Taxonomy for registrant types.'
+weight: 0

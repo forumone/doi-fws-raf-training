@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'States'
+vid: states
+description: 'Taxonomy for states.'
+weight: 0

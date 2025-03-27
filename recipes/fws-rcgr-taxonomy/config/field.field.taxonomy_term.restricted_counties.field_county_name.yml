@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_county_name
+    - taxonomy.vocabulary.restricted_counties
+id: taxonomy_term.restricted_counties.field_county_name
+field_name: field_county_name
+entity_type: taxonomy_term
+bundle: restricted_counties
+label: 'County Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.flyways.field_program_id
+    - field.field.taxonomy_term.flyways.field_st
+    - field.field.taxonomy_term.flyways.field_states_ref
+    - taxonomy.vocabulary.flyways
+  module:
+    - text
+id: taxonomy_term.flyways.default
+targetEntityType: taxonomy_term
+bundle: flyways
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {}
+    weight: 0
+    third_party_settings: {}
+    region: content
+  field_program_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    weight: 1
+    third_party_settings: {}
+    region: content
+  field_states_ref:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    weight: 2
+    third_party_settings: {}
+    region: content
+hidden:
+  field_st: true

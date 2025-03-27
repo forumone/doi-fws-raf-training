@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Flyways'
+vid: flyways
+description: 'Taxonomy for flyways.'
+weight: 0
