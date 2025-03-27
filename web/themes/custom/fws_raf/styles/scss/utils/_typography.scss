@@ -29,10 +29,10 @@ html, body {
 @mixin h1 {
   @include font--primary(600);
   color: $blue-medium;
-  font-size: 32px;
+  font-size: 2em;
 
   @include breakpoint(lg) {
-    font-size: 44px;
+    font-size: 2.75em;
   }
 }
 
@@ -43,10 +43,10 @@ h1, .h1.h1 {
 @mixin h2 {
   @include font--primary(600);
   color: $blue-medium;
-  font-size: 28px;
+  font-size: 1.75em;
 
   @include breakpoint(lg) {
-    font-size: 34px;
+    font-size: 2.125em;
   }
 }
 
@@ -57,10 +57,10 @@ h2, .h2.h2 {
 @mixin h3 {
   @include font--primary(600);
   color: $blue-medium;
-  font-size: 20px;
+  font-size: 1.25em;
 
   @include breakpoint(lg) {
-    font-size: 24px;
+    font-size: 1.5em;
   }
 }
 
@@ -71,10 +71,10 @@ h3, .h3.h3 {
 @mixin h4 {
   @include font--primary(600);
   color: $blue-medium;
-  font-size: 18px;
+  font-size: 1.125em;
 
   @include breakpoint(lg) {
-    font-size: 20px;
+    font-size: 1.25em;
   }
 }
 
@@ -85,10 +85,10 @@ h4, .h4.h4 {
 @mixin h5 {
   @include font--primary(800);
   color: $blue-medium;
-  font-size: 16px;
+  font-size: 1em;
 
   @include breakpoint(lg) {
-    font-size: 18px;
+    font-size: 1.125em;
   }
 }
 
@@ -99,7 +99,7 @@ h5, .h5.h5 {
 @mixin h6 {
   @include font--primary(800);
   color: $blue-medium;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 h6, .h6.h6 {
@@ -109,34 +109,46 @@ h6, .h6.h6 {
 p, .p1.p1 {
   @include font--primary;
   color: $gray-dark;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 .p2.p2 {
   @include font--primary;
   color: $gray-dark;
-  font-size: 14px;
+  font-size: 0.875em;
 }
 
 .p3.p3 {
   @include font--primary;
   color: $gray-dark;
-  font-size: 10px;
+  font-size: 0.625em;
 }
 
-.disclaimer {
-  font-size: 14px;
+a {
+  color: $blue-medium;
 
-  +.disclaimer {
-    padding: 15px 0 0;
+  &:hover,
+  &:focus {
+    color: $blue-dark;
   }
 }
 
-ul, ol {
-  padding: 0 0 0 20px;
-  margin: 0;
+.field--name-body {
+  ul, ol {
+    padding: 0 0 0 20px;
+    margin: 0;
 
-  li + li {
-    padding-top: 20px;
+    li + li {
+      padding-top: 20px;
+    }
+  }
+}
+
+
+.disclaimer {
+  font-size: 0.875em;
+
+  +.disclaimer {
+    padding: 15px 0 0;
   }
 }
