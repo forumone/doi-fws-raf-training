@@ -20,14 +20,15 @@ $logger = Drush::logger();
 
 // Log the limit if specified.
 if ($limit < PHP_INT_MAX) {
-  $logger->notice("Limiting import to {$limit} records");
+  $logger->warning("Limiting import to {$limit} records");
 }
 else {
-  $logger->notice("No limit specified - will import all records");
+  $logger->warning("No limit specified - will import all records");
 }
 
 // Define FWS region names and descriptions.
-$fws_regions = [
+global $_rcgr_fws_regions;
+$_rcgr_fws_regions = [
   '1' => [
     'name' => 'Pacific Coast (CA, ID, NV, OR, WA)',
     'description' => 'FWS Region 1: Pacific Coast states including California, Idaho, Nevada, Oregon, and Washington.',
@@ -59,7 +60,8 @@ $fws_regions = [
 ];
 
 // Define state to region mappings.
-$state_region_mappings = [
+global $_rcgr_state_region_mappings;
+$_rcgr_state_region_mappings = [
   // Region 1: Pacific Coast.
   'CA' => '1',
   'ID' => '1',
@@ -130,51 +132,18 @@ $processed = 0;
 // Initialize taxonomy term cache.
 $term_cache = [];
 
-// Load region reference data.
-$region_reference_file = dirname(__FILE__) . '/data/rcgr_ref_states_202503031405.csv';
-$logger->notice('Loading region reference data from: ' . $region_reference_file);
-$region_handle = fopen($region_reference_file, 'r');
-
-if ($region_handle === FALSE) {
-  $logger->error('Could not open region reference file: ' . $region_reference_file);
-  return;
-}
-
-// Skip header row.
-fgetcsv($region_handle);
-
-// Build region mapping.
+// Use our predefined state_region_mappings.
+$state_to_region = $_rcgr_state_region_mappings;
 $valid_regions = [];
-$state_to_region = [];
-while (($row = fgetcsv($region_handle)) !== FALSE) {
-  if (!empty($row[2]) && !empty($row[0])) {
-    $region_number = trim($row[2], '"');
-    $state_code = trim($row[0], '"');
-    // Skip header and empty rows.
-    if ($region_number === 'Region' || $region_number === 'A' || empty($state_code)) {
-      continue;
-    }
-    if (!isset($valid_regions[$region_number])) {
-      $valid_regions[$region_number] = [];
-    }
-    $valid_regions[$region_number][] = $state_code;
-    $state_to_region[$state_code] = $region_number;
-  }
-}
-fclose($region_handle);
-
-// Use our predefined state_region_mappings instead of the CSV data.
-$state_to_region = $state_region_mappings;
-$valid_regions = [];
-foreach ($state_region_mappings as $state => $region) {
+foreach ($_rcgr_state_region_mappings as $state => $region) {
   if (!isset($valid_regions[$region])) {
     $valid_regions[$region] = [];
   }
   $valid_regions[$region][] = $state;
 }
 
-$logger->notice('Using official FWS region mappings for ' . count($state_region_mappings) . ' states');
-$logger->notice('Valid FWS regions: ' . implode(', ', array_keys($fws_regions)));
+$logger->warning('Using official FWS region mappings for ' . count($_rcgr_state_region_mappings) . ' states');
+$logger->warning('Valid FWS regions: ' . implode(', ', array_keys($_rcgr_fws_regions)));
 
 /**
  * Get the proper region name based on state code.
@@ -257,8 +226,8 @@ $_rcgr_import_logger = $logger;
  */
 function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
   global $_rcgr_import_logger;
-  global $fws_regions;
-  global $state_region_mappings;
+  global $_rcgr_fws_regions;
+  global $_rcgr_state_region_mappings;
 
   // Skip empty values.
   if (empty($name)) {
@@ -273,13 +242,21 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 
   // Special handling for region terms.
   if ($vocabulary === 'region') {
-    // If it's region "9", keep it as "Legacy Region 9".
-    if ($name === '9') {
-      $name = 'Legacy Region 9';
-    }
     // If it's a numeric region, convert to descriptive name.
-    elseif (is_numeric($name) && isset($fws_regions[$name])) {
-      $name = $fws_regions[$name]['name'];
+    if (is_numeric($name)) {
+      if (isset($_rcgr_fws_regions[$name])) {
+        $name = $_rcgr_fws_regions[$name]['name'];
+      }
+      else {
+        $_rcgr_import_logger->warning("Numeric region '{$name}' not found in FWS regions");
+        return NULL;
+      }
+    }
+    // If the name doesn't match any FWS region name, return NULL.
+    $valid_region_names = array_column($_rcgr_fws_regions, 'name');
+    if (!in_array($name, $valid_region_names)) {
+      $_rcgr_import_logger->warning("Region name '{$name}' not found in FWS regions");
+      return NULL;
     }
   }
 
@@ -321,22 +298,14 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 
     // Add description for region terms.
     if ($vocabulary === 'region') {
-      if ($name === 'Legacy Region 9') {
-        $term_data['description'] = [
-          'value' => 'Legacy region code - not a valid FWS region',
-          'format' => 'plain_text',
-        ];
-      }
-      else {
-        // Find the region number by matching the name.
-        foreach ($fws_regions as $region_number => $region_data) {
-          if ($region_data['name'] === $name) {
-            $term_data['description'] = [
-              'value' => $region_data['description'],
-              'format' => 'plain_text',
-            ];
-            break;
-          }
+      // Find the region number by matching the name.
+      foreach ($_rcgr_fws_regions as $region_number => $region_data) {
+        if ($region_data['name'] === $name) {
+          $term_data['description'] = [
+            'value' => $region_data['description'],
+            'format' => 'plain_text',
+          ];
+          break;
         }
       }
     }
@@ -391,11 +360,11 @@ foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
 $taxonomy_field_mappings = $valid_taxonomy_fields;
 
 // Log the start of the import.
-$logger->notice('Starting import with properly fixed taxonomy reference handling.');
+$logger->warning('Starting import with properly fixed taxonomy reference handling.');
 
 // Open the CSV file.
 $csv_file = dirname(__FILE__) . '/data/rcgr_permit_app_mast_202503031405.csv';
-$logger->notice('Opening CSV file: ' . $csv_file);
+$logger->warning('Opening CSV file: ' . $csv_file);
 $handle = fopen($csv_file, 'r');
 
 if ($handle === FALSE) {
@@ -506,38 +475,18 @@ $taxonomy_field_mappings = [
   'region' => [
     'field' => 'field_region',
     'vocabulary' => 'region',
-    'validate' => function ($value, $row) use ($fws_regions, $state_region_mappings, $logger) {
+    'validate' => function ($value, $row) use ($_rcgr_fws_regions, $_rcgr_state_region_mappings, $logger) {
       global $_rcgr_import_csv_map;
       // Get the state from the row data.
       $state = trim($row[$_rcgr_import_csv_map['applicant_state']], '"');
 
       // Look up the region number for this state.
-      if (isset($state_region_mappings[$state])) {
-        $region_number = $state_region_mappings[$state];
-        $logger->notice("Mapped state {$state} to region {$region_number}");
-
+      if (isset($_rcgr_state_region_mappings[$state])) {
+        $region_number = $_rcgr_state_region_mappings[$state];
         // Get the region name from fws_regions.
-        if (isset($fws_regions[$region_number])) {
-          $region_name = $fws_regions[$region_number]['name'];
-          $logger->notice("Using region {$region_number}: {$region_name}");
-
-          // Query for the existing taxonomy term.
-          $query = \Drupal::entityQuery('taxonomy_term')
-            ->condition('vid', 'region')
-            ->condition('name', $region_name)
-            ->accessCheck(FALSE)
-            ->range(0, 1);
-          $tids = $query->execute();
-
-          if (!empty($tids)) {
-            $tid = reset($tids);
-            $logger->notice("Found existing region term ID: {$tid} for name: {$region_name}");
-            return $region_name;
-          }
-          else {
-            $logger->warning("No existing taxonomy term found for region name: {$region_name}");
-            return NULL;
-          }
+        if (isset($_rcgr_fws_regions[$region_number])) {
+          $region_name = $_rcgr_fws_regions[$region_number]['name'];
+          return $region_name;
         }
       }
       else {
@@ -599,12 +548,14 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
   // Skip empty rows.
   if (empty($row) || (count($row) === 1 && empty($row[0]))) {
+    $skipped++;
     continue;
   }
 
   // Get permit number.
   $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']]);
   if (empty($permit_no)) {
+    $skipped++;
     continue;
   }
 
@@ -618,8 +569,6 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     $nids = $query->execute();
 
     if (empty($nids)) {
-      $logger->notice('Creating new permit node for: ' . $permit_no);
-
       // Create a new node.
       $node = Node::create([
         'type' => 'permit',
@@ -674,25 +623,32 @@ while (($row = fgetcsv($handle)) !== FALSE) {
             $value = $mapping['validate']($value, $row);
           }
 
-          // Get or create the taxonomy term.
-          $tid = get_taxonomy_term_id(
-            $value,
-            $mapping['vocabulary'],
-            TRUE,
-            $term_cache,
-            $taxonomy_value_mappings
-          );
+          // Only get/create taxonomy term if we have a valid value.
+          if ($value !== NULL) {
+            // Get or create the taxonomy term.
+            $tid = get_taxonomy_term_id(
+              $value,
+              $mapping['vocabulary'],
+              TRUE,
+              $term_cache,
+              $taxonomy_value_mappings
+            );
 
-          if ($tid) {
-            $node->set($mapping['field'], ['target_id' => $tid]);
+            if ($tid) {
+              $node->set($mapping['field'], ['target_id' => $tid]);
+            }
+          }
+          else {
+            // Clear the field if validation returned NULL.
+            $node->set($mapping['field'], NULL);
           }
         }
       }
 
       try {
         $node->save();
-        $processed++;
         $created++;
+        $processed++;
       }
       catch (\Exception $e) {
         $logger->error("Failed to create permit node for permit number {$permit_no}: " . $e->getMessage());
@@ -700,8 +656,6 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       }
     }
     else {
-      $logger->notice('Permit already exists: ' . $permit_no . '. Updating fields.');
-
       // Load the existing node.
       $nid = reset($nids);
       $node = Node::load($nid);
@@ -803,29 +757,31 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       // Save the node if fields were updated.
       if ($updated_fields > 0) {
-        $node->save();
-        $updated++;
-        $processed++;
-
-        // Check if we've reached the limit for processed nodes.
-        if ($limit > 0 && $processed >= $limit) {
-          $logger->notice("Reached limit of {$limit} processed records. Stopping import.");
-          break;
+        try {
+          $node->save();
+          $updated++;
+          $processed++;
+        }
+        catch (\Exception $e) {
+          $logger->error("Failed to update permit node for permit number {$permit_no}: " . $e->getMessage());
+          $errors++;
         }
       }
       else {
         $skipped++;
+        $processed++;
       }
     }
   }
   catch (\Exception $e) {
     $logger->error('Error processing permit ' . $permit_no . ': ' . $e->getMessage());
     $errors++;
+    $processed++;
   }
 
   // Progress update every 100 records.
   if ($processed % 100 === 0) {
-    $logger->notice("Processing progress: {$processed} records processed");
+    $logger->warning("Processing progress: {$processed} records processed (Created: {$created}, Updated: {$updated}, Skipped: {$skipped}, Errors: {$errors})");
   }
 
   // Check again at the end of each iteration if we've reached the limit.
@@ -851,4 +807,4 @@ if ($previous_autoindex !== NULL) {
 }
 
 // Log the final statistics.
-$logger->notice('Import complete. Total read: ' . $total . ', Created: ' . $created . ', Updated: ' . $updated . ', Skipped: ' . $skipped . ', Errors: ' . $errors);
+$logger->warning('Import complete. Total read: ' . $total . ', Created: ' . $created . ', Updated: ' . $updated . ', Skipped: ' . $skipped . ', Errors: ' . $errors);
