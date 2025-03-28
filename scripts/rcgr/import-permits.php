@@ -405,7 +405,8 @@ if ($handle === FALSE) {
 
 // Read the header row and map column names to indices.
 $header = fgetcsv($handle);
-$csv_map = [
+global $_rcgr_import_csv_map;
+$_rcgr_import_csv_map = [
   'permit_no' => array_search('permit_no', $header),
   'version_no' => array_search('version_no', $header),
   'dt_create' => array_search('dt_create', $header),
@@ -498,67 +499,69 @@ $taxonomy_value_mappings = [
 
 // Define taxonomy field mappings.
 $taxonomy_field_mappings = [
-  [
+  'applicant_state' => [
     'field' => 'field_applicant_state',
     'vocabulary' => 'state',
-    'validate' => function ($value) use ($state_region_mappings, $logger) {
-      $state_code = strtoupper(trim($value, '"'));
-      if (isset($state_region_mappings[$state_code])) {
-        $logger->notice("Valid state code: {$state_code}");
-      }
-      else {
-        $logger->warning("State code {$state_code} not found in region mappings");
-      }
-      return $state_code;
-    },
   ],
-  [
+  'region' => [
     'field' => 'field_region',
     'vocabulary' => 'region',
-    'validate' => function ($value, $row = NULL) use ($fws_regions, $state_region_mappings, $csv_map, $logger) {
-      // Always try to map based on state first.
-      if ($row !== NULL && isset($csv_map['applicant_state'])) {
-        $state_index = $csv_map['applicant_state'];
-        if (!empty($row[$state_index])) {
-          $state_code = strtoupper(trim($row[$state_index], '"'));
-          if (isset($state_region_mappings[$state_code])) {
-            $region_number = $state_region_mappings[$state_code];
-            $region_name = $fws_regions[$region_number]['name'];
-            $logger->notice("Mapped state {$state_code} to region: {$region_name}");
+    'validate' => function ($value, $row) use ($fws_regions, $state_region_mappings, $logger) {
+      global $_rcgr_import_csv_map;
+      // Get the state from the row data.
+      $state = trim($row[$_rcgr_import_csv_map['applicant_state']], '"');
+
+      // Look up the region number for this state.
+      if (isset($state_region_mappings[$state])) {
+        $region_number = $state_region_mappings[$state];
+        $logger->notice("Mapped state {$state} to region {$region_number}");
+
+        // Get the region name from fws_regions.
+        if (isset($fws_regions[$region_number])) {
+          $region_name = $fws_regions[$region_number]['name'];
+          $logger->notice("Using region {$region_number}: {$region_name}");
+
+          // Query for the existing taxonomy term.
+          $query = \Drupal::entityQuery('taxonomy_term')
+            ->condition('vid', 'region')
+            ->condition('name', $region_name)
+            ->accessCheck(FALSE)
+            ->range(0, 1);
+          $tids = $query->execute();
+
+          if (!empty($tids)) {
+            $tid = reset($tids);
+            $logger->notice("Found existing region term ID: {$tid} for name: {$region_name}");
             return $region_name;
           }
           else {
-            $logger->warning("State {$state_code} not found in region mappings");
+            $logger->warning("No existing taxonomy term found for region name: {$region_name}");
+            return NULL;
           }
         }
       }
-
-      // If we couldn't map by state, handle numeric regions.
-      if (is_numeric($value)) {
-        $value = trim($value, '"');
-        if (isset($fws_regions[$value])) {
-          $region_name = $fws_regions[$value]['name'];
-          $logger->notice("Using region {$value}: {$region_name}");
-          return $region_name;
-        }
-        $logger->warning("Invalid region value: {$value}. Using Legacy Region 9.");
+      else {
+        $logger->warning("Could not map state {$state} to a region");
       }
 
-      // For any other values, use Legacy Region 9.
-      return 'Legacy Region 9';
+      return NULL;
     },
   ],
-  [
+  'program_id' => [
     'field' => 'field_program_id',
     'vocabulary' => 'program',
   ],
-  [
+  'registrant_type_cd' => [
     'field' => 'field_registrant_type_cd',
     'vocabulary' => 'registrant_type',
   ],
-  [
+  'permit_status_cd' => [
     'field' => 'field_permit_status_cd',
-    'vocabulary' => 'permit_status',
+    'vocabulary' => 'application_status',
+  ],
+  'rcf_cd' => [
+    'field' => 'field_rcf_cd',
+    'vocabulary' => 'rcf',
   ],
 ];
 
@@ -600,7 +603,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
   }
 
   // Get permit number.
-  $permit_no = trim($row[$csv_map['permit_no']]);
+  $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']]);
   if (empty($permit_no)) {
     continue;
   }
@@ -626,15 +629,15 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       // Set regular field values.
       foreach ($field_mappings as $csv_field => $drupal_field) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $node->set($drupal_field, trim($row[$csv_map[$csv_field]], '"'));
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
+          $node->set($drupal_field, trim($row[$_rcgr_import_csv_map[$csv_field]], '"'));
         }
       }
 
       // Set date field values.
       foreach ($date_field_mappings as $csv_field => $drupal_field) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $datetime = format_datetime_for_drupal(trim($row[$csv_map[$csv_field]], '"'));
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
+          $datetime = format_datetime_for_drupal(trim($row[$_rcgr_import_csv_map[$csv_field]], '"'));
           if ($datetime !== FALSE) {
             $node->set($drupal_field, $datetime);
           }
@@ -644,9 +647,9 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       // Handle special field mappings.
       $address_lines = [];
       foreach (['applicant_address_l1', 'applicant_address_l2', 'applicant_address_l3'] as $address_field) {
-        if (isset($csv_map[$address_field]) && isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
+        if (isset($_rcgr_import_csv_map[$address_field]) && isset($row[$_rcgr_import_csv_map[$address_field]]) && $row[$_rcgr_import_csv_map[$address_field]] !== '') {
           $address_lines[] = [
-            'value' => trim($row[$csv_map[$address_field]], '"'),
+            'value' => trim($row[$_rcgr_import_csv_map[$address_field]], '"'),
             'format' => 'plain_text',
           ];
         }
@@ -656,16 +659,15 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       }
 
       // Handle location certification.
-      if (isset($csv_map['applicant_signed']) && isset($row[$csv_map['applicant_signed']])) {
-        $is_certified = (int) trim($row[$csv_map['applicant_signed']], '"') === 1;
+      if (isset($_rcgr_import_csv_map['applicant_signed']) && isset($row[$_rcgr_import_csv_map['applicant_signed']])) {
+        $is_certified = (int) trim($row[$_rcgr_import_csv_map['applicant_signed']], '"') === 1;
         $node->set('field_is_location_certified', $is_certified);
       }
 
       // Handle taxonomy field values.
-      foreach ($taxonomy_field_mappings as $mapping) {
-        $csv_field = array_search($mapping['field'], array_column($taxonomy_field_mappings, 'field'));
-        if ($csv_field !== FALSE && isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $value = trim($row[$csv_map[$csv_field]], '"');
+      foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
+          $value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
 
           // Apply validation if provided.
           if (isset($mapping['validate'])) {
@@ -707,10 +709,10 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       // Update regular fields.
       foreach ($field_mappings as $csv_field => $drupal_field) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
           if ($node->hasField($drupal_field)) {
             $current_value = $node->get($drupal_field)->value;
-            $new_value = trim($row[$csv_map[$csv_field]], '"');
+            $new_value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
 
             if ($current_value !== $new_value) {
               $node->set($drupal_field, $new_value);
@@ -722,8 +724,8 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       // Update date fields.
       foreach ($date_field_mappings as $csv_field => $drupal_field) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
-          $formatted_date = format_datetime_for_drupal($row[$csv_map[$csv_field]]);
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
+          $formatted_date = format_datetime_for_drupal($row[$_rcgr_import_csv_map[$csv_field]]);
           if ($formatted_date && $node->hasField($drupal_field)) {
             $current_value = $node->get($drupal_field)->value;
             if ($current_value !== $formatted_date) {
@@ -739,9 +741,9 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       if ($node->hasField('field_location_address')) {
         $address_values = [];
         foreach (['applicant_address_l1', 'applicant_address_l2', 'applicant_address_l3'] as $address_field) {
-          if (isset($row[$csv_map[$address_field]]) && $row[$csv_map[$address_field]] !== '') {
+          if (isset($row[$_rcgr_import_csv_map[$address_field]]) && $row[$_rcgr_import_csv_map[$address_field]] !== '') {
             $address_values[] = [
-              'value' => trim($row[$csv_map[$address_field]], '"'),
+              'value' => trim($row[$_rcgr_import_csv_map[$address_field]], '"'),
               'format' => 'plain_text',
             ];
           }
@@ -754,27 +756,27 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       // Update phone fields.
       if (field_exists_for_permit('field_home_phone') || field_exists_for_permit('field_work_phone')) {
-        if (field_exists_for_permit('field_home_phone') && isset($csv_map['applicant_home_phone']) && isset($row[$csv_map['applicant_home_phone']]) && $row[$csv_map['applicant_home_phone']] !== '') {
-          $node->set('field_home_phone', trim($row[$csv_map['applicant_home_phone']], '"'));
+        if (field_exists_for_permit('field_home_phone') && isset($_rcgr_import_csv_map['applicant_home_phone']) && isset($row[$_rcgr_import_csv_map['applicant_home_phone']]) && $row[$_rcgr_import_csv_map['applicant_home_phone']] !== '') {
+          $node->set('field_home_phone', trim($row[$_rcgr_import_csv_map['applicant_home_phone']], '"'));
           $updated_fields++;
         }
-        if (field_exists_for_permit('field_work_phone') && isset($csv_map['applicant_work_phone']) && isset($row[$csv_map['applicant_work_phone']]) && $row[$csv_map['applicant_work_phone']] !== '') {
-          $node->set('field_work_phone', trim($row[$csv_map['applicant_work_phone']], '"'));
+        if (field_exists_for_permit('field_work_phone') && isset($_rcgr_import_csv_map['applicant_work_phone']) && isset($row[$_rcgr_import_csv_map['applicant_work_phone']]) && $row[$_rcgr_import_csv_map['applicant_work_phone']] !== '') {
+          $node->set('field_work_phone', trim($row[$_rcgr_import_csv_map['applicant_work_phone']], '"'));
           $updated_fields++;
         }
       }
 
       // Update zip code.
-      if (field_exists_for_permit('field_zip') && isset($csv_map['applicant_zip']) && isset($row[$csv_map['applicant_zip']]) && $row[$csv_map['applicant_zip']] !== '') {
-        $node->set('field_zip', trim($row[$csv_map['applicant_zip']], '"'));
+      if (field_exists_for_permit('field_zip') && isset($_rcgr_import_csv_map['applicant_zip']) && isset($row[$_rcgr_import_csv_map['applicant_zip']]) && $row[$_rcgr_import_csv_map['applicant_zip']] !== '') {
+        $node->set('field_zip', trim($row[$_rcgr_import_csv_map['applicant_zip']], '"'));
         $updated_fields++;
       }
 
       // Update taxonomy reference fields.
       foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
-        if (isset($csv_map[$csv_field]) && isset($row[$csv_map[$csv_field]]) && $row[$csv_map[$csv_field]] !== '') {
+        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
           if ($node->hasField($mapping['field'])) {
-            $term_value = $row[$csv_map[$csv_field]];
+            $term_value = $row[$_rcgr_import_csv_map[$csv_field]];
             $tid = get_taxonomy_term_id(
               $term_value,
               $mapping['vocabulary'],
