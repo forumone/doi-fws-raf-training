@@ -1,0 +1,28 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_rcf_cd
+    - node.type.permit
+    - taxonomy.vocabulary.rcf_cd
+id: node.permit.field_rcf_cd
+field_name: field_rcf_cd
+entity_type: node
+bundle: permit
+label: 'RCF Code'
+description: 'The Regional Control Facility code associated with this permit.'
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      rcf_cd: rcf_cd
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+field_type: entity_reference

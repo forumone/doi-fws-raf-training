@@ -1,0 +1,22 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_is_location_certified
+    - node.type.permit
+id: node.permit.field_is_location_certified
+field_name: field_is_location_certified
+entity_type: node
+bundle: permit
+label: 'Location Certified'
+description: 'Indicates whether the location is certified.'
+required: FALSE
+translatable: FALSE
+default_value:
+  -
+    value: FALSE
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

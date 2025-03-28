@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_update_by
+    - node.type.permit
+id: node.permit.field_update_by
+field_name: field_update_by
+entity_type: node
+bundle: permit
+label: 'Updated By'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
