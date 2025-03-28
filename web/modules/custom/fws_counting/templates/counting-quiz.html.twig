@@ -50,9 +50,9 @@
             </form>
           </div>
 
-          <div class="quiz__answer">
-            <div class="quiz__feedback quiz__correct alert alert-success">{{ 'That is correct!'|t }}</div>
-            <div class="quiz__feedback quiz__incorrect alert alert-warning">{{ 'Sorry, that is incorrect.'|t }}</div>
+          <div class="quiz__answer messages__wrapper">
+            <div class="quiz__feedback quiz__correct alert alert-success"><p>{{ 'That is correct!'|t }}</p></div>
+            <div class="quiz__feedback quiz__incorrect alert alert-warning"><p>{{ 'Sorry, that is incorrect.'|t }}</p></div>
             <div class="quiz__results">
               <p class="quiz__result"><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
               <p class="quiz__result"><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>
