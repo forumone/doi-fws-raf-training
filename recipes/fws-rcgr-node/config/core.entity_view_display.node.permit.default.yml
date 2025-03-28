@@ -277,9 +277,72 @@ content:
     third_party_settings: {  }
     weight: 28
     region: content
+  field_dt_signed:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 29
+    region: content
+  field_dt_application_received:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 30
+    region: content
+  field_dt_applicant_signed:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 31
+    region: content
+  field_dt_expired:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 32
+    region: content
+  field_dt_effective:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 33
+    region: content
+  field_dt_permit_issued:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 34
+    region: content
+  field_dt_permit_request:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 35
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 29
+    weight: 36
     region: content
 hidden: {  }
