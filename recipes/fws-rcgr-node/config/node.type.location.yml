@@ -1,0 +1,17 @@
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Location
+type: location
+description: 'Stores location information for RCGR locations.'
+help: ''
+new_revision: TRUE
+preview_mode: 1
+display_submitted: TRUE

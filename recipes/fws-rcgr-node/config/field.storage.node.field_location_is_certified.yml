@@ -1,0 +1,17 @@
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_location_is_certified
+field_name: field_location_is_certified
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE
