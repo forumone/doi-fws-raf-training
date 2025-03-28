@@ -4,8 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_location_address
     - node.type.permit
-  module:
-    - text
 id: node.permit.field_location_address
 field_name: field_location_address
 entity_type: node
@@ -17,4 +15,4 @@ translatable: FALSE
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: text_long
+field_type: string

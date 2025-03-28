@@ -57,11 +57,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_location_address:
-    type: text_textarea
+    type: string_textfield
     weight: 2
     region: content
     settings:
-      rows: 3
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_location_city:

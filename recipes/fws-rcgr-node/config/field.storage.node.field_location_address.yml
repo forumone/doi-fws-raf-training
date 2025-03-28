@@ -3,13 +3,15 @@ status: TRUE
 dependencies:
   module:
     - node
-    - text
 id: node.field_location_address
 field_name: field_location_address
 entity_type: node
-type: text_long
-settings: {  }
-module: text
+type: string
+settings:
+  max_length: 255
+  case_sensitive: FALSE
+  is_ascii: FALSE
+module: core
 locked: FALSE
 cardinality: 3
 translatable: TRUE
