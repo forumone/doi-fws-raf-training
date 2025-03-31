@@ -1,0 +1,16 @@
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Name
+type: name
+description: 'A person or organization associated with a permit.'
+help: ''
+new_revision: TRUE
+preview_mode: 1
+display_submitted: FALSE

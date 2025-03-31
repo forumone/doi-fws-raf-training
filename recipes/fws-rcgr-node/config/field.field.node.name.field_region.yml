@@ -1,0 +1,27 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_region
+    - node.type.name
+id: node.name.field_region
+field_name: field_region
+entity_type: node
+bundle: name
+label: Region
+description: 'The region associated with this name.'
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      region: region
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+field_type: entity_reference
