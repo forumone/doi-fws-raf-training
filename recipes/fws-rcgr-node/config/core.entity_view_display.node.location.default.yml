@@ -32,9 +32,11 @@ dependencies:
     - field.field.node.location.field_version_no
     - field.field.node.location.field_xml_cd
     - node.type.location
+    - field.field.node.location.field_rcf_cd
   module:
     - datetime
     - user
+    - taxonomy
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -45,40 +47,40 @@ content:
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 12
+    third_party_settings: { }
+    weight: 1
     region: content
   field_control_program_id:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 13
+    third_party_settings: { }
+    weight: 2
     region: content
   field_control_region:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 14
+    third_party_settings: { }
+    weight: 3
     region: content
   field_control_site_id:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 15
+    third_party_settings: { }
+    weight: 4
     region: content
   field_create_by:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 16
+    third_party_settings: { }
+    weight: 5
     region: content
   field_dt_create:
     type: datetime_default
@@ -86,8 +88,8 @@ content:
     settings:
       format_type: medium
       timezone_override: ''
-    third_party_settings: {  }
-    weight: 24
+    third_party_settings: { }
+    weight: 6
     region: content
   field_dt_update:
     type: datetime_default
@@ -95,80 +97,129 @@ content:
     settings:
       format_type: medium
       timezone_override: ''
-    third_party_settings: {  }
-    weight: 25
+    third_party_settings: { }
+    weight: 7
     region: content
   field_hid:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 17
+    third_party_settings: { }
+    weight: 8
     region: content
   field_location_address:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 5
+    third_party_settings: { }
+    weight: 9
     region: content
   field_location_city:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 6
+    third_party_settings: { }
+    weight: 10
     region: content
   field_location_county:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 8
+    third_party_settings: { }
+    weight: 11
     region: content
   field_location_is_certified:
     type: boolean
     label: above
     settings:
-      format: true-false
-    third_party_settings: {  }
-    weight: 15
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: { }
+    weight: 12
     region: content
   field_location_is_removed:
     type: boolean
     label: above
     settings:
-      format: true-false
-    third_party_settings: {  }
-    weight: 1
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: { }
+    weight: 13
     region: content
   field_location_permit_no:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 3
+    third_party_settings: { }
+    weight: 14
     region: content
   field_location_program_ref:
     type: entity_reference_label
     label: above
     settings:
       link: TRUE
-    third_party_settings: {  }
+    third_party_settings: { }
+    weight: 15
+    region: content
+  field_location_qty_nest_egg_apr:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: { }
+    weight: 16
+    region: content
+  field_location_qty_nest_egg_jun:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: { }
+    weight: 17
+    region: content
+  field_location_qty_nest_egg_mar:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: { }
     weight: 18
+    region: content
+  field_location_qty_nest_egg_may:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: { }
+    weight: 19
+    region: content
+  field_location_qty_nest_egg_tot:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: { }
+    weight: 20
     region: content
   field_location_region_ref:
     type: entity_reference_label
     label: above
     settings:
       link: TRUE
-    third_party_settings: {  }
-    weight: 19
+    third_party_settings: { }
+    weight: 21
     region: content
   field_location_report_year:
     type: number_integer
@@ -176,16 +227,24 @@ content:
     settings:
       thousand_separator: ''
       prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 10
+    third_party_settings: { }
+    weight: 22
     region: content
   field_location_state_ref:
     type: entity_reference_label
     label: above
     settings:
       link: TRUE
-    third_party_settings: {  }
-    weight: 9
+    third_party_settings: { }
+    weight: 23
+    region: content
+  field_rcf_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: { }
+    weight: 24
     region: content
   field_recno:
     type: number_integer
@@ -193,24 +252,24 @@ content:
     settings:
       thousand_separator: ''
       prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 1
+    third_party_settings: { }
+    weight: 25
     region: content
   field_site_id:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 20
+    third_party_settings: { }
+    weight: 26
     region: content
   field_update_by:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 21
+    third_party_settings: { }
+    weight: 27
     region: content
   field_version_no:
     type: number_integer
@@ -218,20 +277,20 @@ content:
     settings:
       thousand_separator: ''
       prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 16
+    third_party_settings: { }
+    weight: 28
     region: content
   field_xml_cd:
     type: string
     label: above
     settings:
       link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 22
+    third_party_settings: { }
+    weight: 29
     region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
     weight: 0
     region: content
-hidden: {  }
+hidden: { }
