@@ -15,24 +15,23 @@ dependencies:
     - field.field.node.location.field_location_county
     - field.field.node.location.field_location_is_certified
     - field.field.node.location.field_location_is_removed
-    - field.field.node.location.field_location_permit_no
-    - field.field.node.location.field_location_program_ref
     - field.field.node.location.field_location_qty_nest_egg_apr
     - field.field.node.location.field_location_qty_nest_egg_jun
     - field.field.node.location.field_location_qty_nest_egg_mar
     - field.field.node.location.field_location_qty_nest_egg_may
     - field.field.node.location.field_location_qty_nest_egg_tot
-    - field.field.node.location.field_location_rcf_cd_ref
-    - field.field.node.location.field_location_region_ref
     - field.field.node.location.field_location_report_year
     - field.field.node.location.field_location_state_ref
+    - field.field.node.location.field_permit_no
+    - field.field.node.location.field_program_id
+    - field.field.node.location.field_rcf_cd
     - field.field.node.location.field_recno
+    - field.field.node.location.field_region
     - field.field.node.location.field_site_id
     - field.field.node.location.field_update_by
     - field.field.node.location.field_version_no
     - field.field.node.location.field_xml_cd
     - node.type.location
-    - field.field.node.location.field_rcf_cd
   module:
     - datetime
     - user
@@ -152,22 +151,6 @@ content:
     third_party_settings: { }
     weight: 13
     region: content
-  field_location_permit_no:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: { }
-    weight: 14
-    region: content
-  field_location_program_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: { }
-    weight: 15
-    region: content
   field_location_qty_nest_egg_apr:
     type: number_integer
     label: above
@@ -213,14 +196,6 @@ content:
     third_party_settings: { }
     weight: 20
     region: content
-  field_location_region_ref:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: { }
-    weight: 21
-    region: content
   field_location_report_year:
     type: number_integer
     label: above
@@ -238,6 +213,22 @@ content:
     third_party_settings: { }
     weight: 23
     region: content
+  field_permit_no:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: { }
+    weight: 14
+    region: content
+  field_program_id:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: { }
+    weight: 15
+    region: content
   field_rcf_cd:
     type: entity_reference_label
     label: above
@@ -254,6 +245,14 @@ content:
       prefix_suffix: TRUE
     third_party_settings: { }
     weight: 25
+    region: content
+  field_region:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: { }
+    weight: 21
     region: content
   field_site_id:
     type: string

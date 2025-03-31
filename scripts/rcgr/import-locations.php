@@ -56,7 +56,7 @@ if ($header === FALSE) {
 $field_mapping = [
   'recno' => 'field_recno',
   'isRemoved' => 'field_location_is_removed',
-  'permit_no' => 'field_location_permit_no',
+  'permit_no' => 'field_permit_no',
   'location_address_l1' => 'field_location_address',
   'location_county' => 'field_location_county',
   'location_city' => 'field_location_city',
@@ -71,8 +71,8 @@ $field_mapping = [
   'ca_access_key' => 'field_ca_access_key',
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
-  'program_id' => 'field_location_program_ref',
-  'region' => 'field_location_region_ref',
+  'program_id' => 'field_program_id',
+  'region' => 'field_region',
   'site_id' => 'field_site_id',
   'control_program_id' => 'field_control_program_id',
   'control_region' => 'field_control_region',
@@ -362,8 +362,8 @@ while (($row = fgetcsv($handle)) !== FALSE) {
           break;
 
         case 'field_location_state_ref':
-        case 'field_location_program_ref':
-        case 'field_location_region_ref':
+        case 'field_program_id':
+        case 'field_region':
         case 'field_rcf_cd':
           // These are entity references - we'll need to look up the target ID.
           if (!empty($value)) {
@@ -377,11 +377,11 @@ while (($row = fgetcsv($handle)) !== FALSE) {
                 $bundle = 'states';
                 break;
 
-              case 'field_location_program_ref':
+              case 'field_program_id':
                 $bundle = 'program';
                 break;
 
-              case 'field_location_region_ref':
+              case 'field_region':
                 $bundle = 'region';
                 // Region logic: Determine region name based on state.
                 $state_value = $data['location_state'] ?? NULL;
@@ -417,7 +417,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
                 break;
 
               case 'field_rcf_cd':
-                $bundle = 'rcf';
+                $bundle = 'rcf_cd';
                 break;
             }
 
@@ -429,11 +429,11 @@ while (($row = fgetcsv($handle)) !== FALSE) {
                 $node->set($drupal_field, $tid);
               }
               else {
-                // Log warning if term ID couldn't be found/created (already handled in get_taxonomy_term_id)
-                // \Drupal::logger('rcgr')->warning('Could not find or create @type term with name @name', [
-                //   '@type' => $bundle,
-                //   '@name' => $value,
-                // ]);.
+                // Log warning if term ID couldn't be found/created.
+                \Drupal::logger('rcgr')->warning('Could not find or create @type term with name @name', [
+                  '@type' => $bundle,
+                  '@name' => $value,
+                ]);
               }
             }
           }
