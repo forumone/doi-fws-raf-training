@@ -1,0 +1,18 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_location_county
+    - node.type.location
+id: node.location.field_location_county
+field_name: field_location_county
+entity_type: node
+bundle: location
+label: 'County'
+description: 'The county where this location is situated.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

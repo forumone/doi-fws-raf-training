@@ -9,20 +9,15 @@ id: node.location.field_location_state_ref
 field_name: field_location_state_ref
 entity_type: node
 bundle: location
-label: State
-description: 'The state where the location is situated.'
-required: TRUE
+label: 'State'
+description: 'The state where the location is located.'
+required: FALSE
 translatable: TRUE
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: default
   handler_settings:
     target_bundles:
       states: states
-    sort:
-      field: name
-      direction: asc
-    auto_create: FALSE
-    auto_create_bundle: ''
 field_type: entity_reference

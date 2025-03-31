@@ -1,0 +1,18 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_location_qty_nest_egg_mar
+    - node.type.location
+id: node.location.field_location_qty_nest_egg_mar
+field_name: field_location_qty_nest_egg_mar
+entity_type: node
+bundle: location
+label: 'March Quantity'
+description: 'Number of nests and eggs destroyed in March.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: integer

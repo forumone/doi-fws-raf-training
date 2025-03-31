@@ -7,9 +7,7 @@ id: node.field_location_report_year
 field_name: field_location_report_year
 entity_type: node
 type: integer
-settings:
-  unsigned: FALSE
-  size: normal
+settings: {  }
 module: core
 locked: FALSE
 cardinality: 1

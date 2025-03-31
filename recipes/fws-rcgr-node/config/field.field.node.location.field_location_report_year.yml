@@ -1,0 +1,18 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_location_report_year
+    - node.type.location
+id: node.location.field_location_report_year
+field_name: field_location_report_year
+entity_type: node
+bundle: location
+label: 'Report Year'
+description: 'The year of the report.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: integer
