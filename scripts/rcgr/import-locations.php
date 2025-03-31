@@ -57,6 +57,7 @@ $field_mapping = [
   'recno' => 'field_recno',
   'isRemoved' => 'field_location_is_removed',
   'permit_no' => 'field_permit_no',
+  'bi_cd' => 'field_bi_cd',
   'location_address_l1' => 'field_location_address',
   'location_county' => 'field_location_county',
   'location_city' => 'field_location_city',
@@ -346,8 +347,23 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       'status' => 1,
     ]);
 
+    // Handle combined address fields first.
+    $address = $data['location_address_l1'];
+    if (!empty($data['location_address_l2'])) {
+      $address .= "\n" . $data['location_address_l2'];
+    }
+    if (!empty($data['location_address_l3'])) {
+      $address .= "\n" . $data['location_address_l3'];
+    }
+    $node->set('field_location_address', $address);
+
     // Map and set field values.
     foreach ($field_mapping as $csv_field => $drupal_field) {
+      // Skip address fields as we've already handled them.
+      if ($drupal_field === 'field_location_address') {
+        continue;
+      }
+
       if (!isset($data[$csv_field])) {
         continue;
       }

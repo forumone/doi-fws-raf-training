@@ -8,8 +8,8 @@ id: node.permit.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
 bundle: permit
-label: 'Business Identifier Code'
-description: 'The business identifier code associated with this permit.'
+label: 'BI Code'
+description: 'The BI code associated with this permit.'
 required: FALSE
 translatable: FALSE
 default_value: {  }
