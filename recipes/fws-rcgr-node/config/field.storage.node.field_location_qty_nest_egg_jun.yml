@@ -3,13 +3,13 @@ status: TRUE
 dependencies:
   module:
     - node
-id: node.field_control_program_id
-field_name: field_control_program_id
+id: node.field_location_qty_nest_egg_jun
+field_name: field_location_qty_nest_egg_jun
 entity_type: node
-type: string
+type: integer
 settings:
-  max_length: 255
-  case_sensitive: FALSE
+  unsigned: FALSE
+  size: normal
 module: core
 locked: FALSE
 cardinality: 1

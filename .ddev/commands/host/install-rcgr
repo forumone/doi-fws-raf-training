@@ -63,4 +63,7 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/import-regions.php
 echo "Importing permits..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-permits.php 1000
 
+echo "Importing locations..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-locations.php 1000
+
 ddev drush -l $SITE_URI uli

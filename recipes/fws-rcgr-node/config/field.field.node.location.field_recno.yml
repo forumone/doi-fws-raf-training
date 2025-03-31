@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_recno
+    - node.type.location
+  module:
+    - text
+id: node.location.field_recno
+field_name: field_recno
+entity_type: node
+bundle: location
+label: 'Record Number'
+description: 'The record number for this location.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,28 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_region
+    - node.type.location
+    - taxonomy.vocabulary.region
+id: node.location.field_region
+field_name: field_region
+entity_type: node
+bundle: location
+label: 'Region'
+description: 'Reference to the FWS region taxonomy term.'
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      region: region
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+field_type: entity_reference

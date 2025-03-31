@@ -3,12 +3,13 @@ status: TRUE
 dependencies:
   module:
     - node
-id: node.field_control_program_id
-field_name: field_control_program_id
+id: node.field_location_county
+field_name: field_location_county
 entity_type: node
 type: string
 settings:
   max_length: 255
+  is_ascii: FALSE
   case_sensitive: FALSE
 module: core
 locked: FALSE

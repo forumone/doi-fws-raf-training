@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_control_site_id
+    - node.type.location
+  module:
+    - text
+id: node.location.field_control_site_id
+field_name: field_control_site_id
+entity_type: node
+bundle: location
+label: 'Control Site ID'
+description: 'The control site identifier associated with this location.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

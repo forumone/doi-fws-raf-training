@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_ca_access_key
+    - node.type.location
+  module:
+    - text
+id: node.location.field_ca_access_key
+field_name: field_ca_access_key
+entity_type: node
+bundle: location
+label: 'CA Access Key'
+description: 'The CA access key for this location.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

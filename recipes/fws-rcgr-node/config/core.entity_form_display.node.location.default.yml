@@ -1,0 +1,344 @@
+uuid: 971a1812-0916-4eee-9c7a-b64a913230e6
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.field.node.location.field_bi_cd
+    - field.field.node.location.field_ca_access_key
+    - field.field.node.location.field_control_program_id
+    - field.field.node.location.field_control_region
+    - field.field.node.location.field_control_site_id
+    - field.field.node.location.field_create_by
+    - field.field.node.location.field_dt_create
+    - field.field.node.location.field_dt_update
+    - field.field.node.location.field_hid
+    - field.field.node.location.field_location_address
+    - field.field.node.location.field_location_city
+    - field.field.node.location.field_location_county
+    - field.field.node.location.field_location_is_certified
+    - field.field.node.location.field_location_is_removed
+    - field.field.node.location.field_location_qty_nest_egg_apr
+    - field.field.node.location.field_location_qty_nest_egg_jun
+    - field.field.node.location.field_location_qty_nest_egg_mar
+    - field.field.node.location.field_location_qty_nest_egg_may
+    - field.field.node.location.field_location_qty_nest_egg_tot
+    - field.field.node.location.field_location_report_year
+    - field.field.node.location.field_location_state_ref
+    - field.field.node.location.field_permit_no
+    - field.field.node.location.field_program_id
+    - field.field.node.location.field_rcf_cd
+    - field.field.node.location.field_recno
+    - field.field.node.location.field_region
+    - field.field.node.location.field_site_id
+    - field.field.node.location.field_update_by
+    - field.field.node.location.field_version_no
+    - field.field.node.location.field_xml_cd
+    - node.type.location
+  module:
+    - datetime
+    - path
+_core:
+  default_config_hash: uH7mTfpiqOuvA2VC4E5y7RaYQXNbNkovCcXB9dsNsDI
+id: node.location.default
+targetEntityType: node
+bundle: location
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bi_cd:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ca_access_key:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_control_program_id:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_control_region:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_control_site_id:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_create_by:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_dt_create:
+    type: datetime_default
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_dt_update:
+    type: datetime_default
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_hid:
+    type: string_textfield
+    weight: 18
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_address:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_city:
+    type: string_textfield
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_county:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_is_certified:
+    type: boolean_checkbox
+    weight: 22
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  field_location_is_removed:
+    type: boolean_checkbox
+    weight: 23
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  field_location_qty_nest_egg_apr:
+    type: number
+    weight: 26
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_qty_nest_egg_jun:
+    type: number
+    weight: 27
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_qty_nest_egg_mar:
+    type: number
+    weight: 28
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_qty_nest_egg_may:
+    type: number
+    weight: 29
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_qty_nest_egg_tot:
+    type: number
+    weight: 30
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_report_year:
+    type: number
+    weight: 32
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_state_ref:
+    type: entity_reference_autocomplete
+    weight: 33
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_permit_no:
+    type: string_textfield
+    weight: 24
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_program_id:
+    type: entity_reference_autocomplete
+    weight: 25
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_rcf_cd:
+    type: entity_reference_autocomplete
+    weight: 34
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_recno:
+    type: number
+    weight: 35
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_region:
+    type: entity_reference_autocomplete
+    weight: 31
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_site_id:
+    type: string_textfield
+    weight: 36
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_update_by:
+    type: string_textfield
+    weight: 37
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_version_no:
+    type: number
+    weight: 38
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_xml_cd:
+    type: string_textfield
+    weight: 39
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: TRUE
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 40
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 41
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 42
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 43
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
