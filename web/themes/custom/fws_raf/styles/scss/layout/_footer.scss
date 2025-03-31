@@ -1,6 +1,6 @@
 @use 'utils/breakpoints' as *;
 @use 'utils/colors' as *;
-
+@use 'utils/typography' as *;
 footer.footer {
   margin-top: 50px;
 
@@ -15,18 +15,44 @@ footer.footer {
       transition: all .125s ease-out;
     }
   }
+
+  .footer-top__content {
+    position: relative;
+  }
+
+  .footer-menus {
+
+    .region-footer-menus {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0 0;
+      margin: 0 -15px;
+
+      @include breakpoint(md) {
+        padding: 60px 0 0;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
 }
 
 .footer-slogan {
+  max-width: 525px;
+  margin: 0 auto;
 
   @include breakpoint(md) {
     padding: 10px 0 0;
+    margin: 0;
   }
 
   p {
+    text-align: center;
 
     @include breakpoint(md) {
       margin: 0 10px 0 20px;
+      text-align: left;
     }
   }
 
@@ -39,12 +65,55 @@ footer.footer {
   }
 }
 
+.footer-copyright.footer-copyright {
+  @include font--primary(700);
+  color: $white;
+  margin: 25px 0 0;
+
+  @include breakpoint(md) {
+    margin: 0;
+  }
+}
+
+.footer-bottom__content {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  @include breakpoint(md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
 .social-media-links--platforms.horizontal {
   overflow: visible;
+  display: flex;
+  justify-content: center;
+  padding: 0;
 
-  a:focus-visible {
-    border-radius: 4px;
-    box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
-    transition: all .125s ease-out;
+  @include breakpoint(md) {
+    justify-content: flex-end;
+  }
+
+  a {
+
+    &:focus,
+    &:hover {
+      color: $blue-lighter;
+    }
+
+    &:focus-visible {
+      border-radius: 4px;
+      box-shadow: 0 0 0 2px $white, 0 0 0 6px rgba($white, .25);
+      transition: all .125s ease-out;
+    }
+  }
+}
+
+// Reverting this unique case from sub-theme
+.menu--footer-menu-employment {
+  > li {
+    text-transform: none;
   }
 }

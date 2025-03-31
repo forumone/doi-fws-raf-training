@@ -183,31 +183,19 @@
   </div>
 {% endif %}
 
-{% if page.footer_left or page.footer_right_left or page.footer_right_middle or page.footer_right_right %}
+{% if page.footer_top or page.footer_menus %}
     <footer class="footer" role="contentinfo">
       <div class="footer-top">
         <div class="{{ container }}">
-          <div class="row">
-            <div class="col-sm-6 first">
-              {% block footer_left %}
-                {{ page.footer_left }}
-              {% endblock %}
-            </div>
-            <div class="col-sm-2">
-              {% block footer_right_left %}
-                {{ page.footer_right_left }}
-              {% endblock %}
-            </div>
-            <div class="col-sm-2">
-              {% block footer_right_middle %}
-                {{ page.footer_right_middle }}
-              {% endblock %}
-            </div>
-            <div class="col-sm-2 last">
-              {% block footer_right_right %}
-                {{ page.footer_right_right }}
-              {% endblock %}
-            </div>
+          <div class="footer-top__content">
+            {% block footer_top %}
+              {{ page.footer_top }}
+            {% endblock %}
+          </div>
+          <div class="footer-menus">
+            {% block footer_menus %}
+              {{ page.footer_menus }}
+            {% endblock %}
           </div>
         </div>
       </div>
@@ -215,8 +203,9 @@
           <div class="footer-bottom">
             <div class="{{ container }}">
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 footer-bottom__content">
                   {% block footer_bottom %}
+                    <p class="footer-copyright">U.S. Fish and Wildlife Service. {{ "now"|date("Y") }}.</p>
                     {{ page.footer_bottom }}
                   {% endblock %}
                 </div>
