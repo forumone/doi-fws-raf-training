@@ -31,9 +31,20 @@ function fws_counting_theme() {
         'images' => [],
         'viewing_time' => NULL,
         'results_node_id' => NULL,
+        'base_path' => NULL,
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_counting_quiz().
+ */
+function fws_counting_preprocess_counting_quiz(&$variables) {
+  // Ensure base_path is available in the template.
+  if (!isset($variables['base_path'])) {
+    $variables['base_path'] = base_path();
+  }
 }
 
 /**
