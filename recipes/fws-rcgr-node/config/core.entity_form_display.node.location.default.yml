@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.location.field_dt_update
     - field.field.node.location.field_hid
     - field.field.node.location.field_location_address
+    - field.field.node.location.field_location_city
     - field.field.node.location.field_location_county
     - field.field.node.location.field_location_is_certified
     - field.field.node.location.field_location_is_removed
@@ -108,6 +109,14 @@ content:
   field_location_address:
     type: string_textfield
     weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_location_city:
+    type: string_textfield
+    weight: 6
     region: content
     settings:
       size: 60

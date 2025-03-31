@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.location.field_dt_update
     - field.field.node.location.field_hid
     - field.field.node.location.field_location_address
+    - field.field.node.location.field_location_city
     - field.field.node.location.field_location_county
     - field.field.node.location.field_location_is_certified
     - field.field.node.location.field_location_is_removed
@@ -45,7 +46,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 21
+    weight: 12
     region: content
   field_control_program_id:
     type: string
@@ -53,7 +54,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 22
+    weight: 13
     region: content
   field_control_region:
     type: string
@@ -61,7 +62,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 23
+    weight: 14
     region: content
   field_control_site_id:
     type: string
@@ -69,7 +70,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 24
+    weight: 15
     region: content
   field_create_by:
     type: string
@@ -77,7 +78,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 25
+    weight: 16
     region: content
   field_dt_create:
     type: datetime_default
@@ -86,7 +87,7 @@ content:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
-    weight: 29
+    weight: 24
     region: content
   field_dt_update:
     type: datetime_default
@@ -95,7 +96,7 @@ content:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
-    weight: 30
+    weight: 25
     region: content
   field_hid:
     type: string
@@ -103,7 +104,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 26
+    weight: 17
     region: content
   field_location_address:
     type: string
@@ -111,7 +112,15 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 4
+    weight: 5
+    region: content
+  field_location_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_location_county:
     type: string
@@ -119,27 +128,23 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   field_location_is_certified:
     type: boolean
     label: above
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      format: true-false
     third_party_settings: {  }
-    weight: 13
+    weight: 15
     region: content
   field_location_is_removed:
     type: boolean
     label: above
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+      format: true-false
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   field_location_permit_no:
     type: string
@@ -147,7 +152,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_location_program_ref:
     type: entity_reference_label
@@ -155,7 +160,7 @@ content:
     settings:
       link: TRUE
     third_party_settings: {  }
-    weight: 16
+    weight: 18
     region: content
   field_location_region_ref:
     type: entity_reference_label
@@ -163,7 +168,7 @@ content:
     settings:
       link: TRUE
     third_party_settings: {  }
-    weight: 17
+    weight: 19
     region: content
   field_location_report_year:
     type: number_integer
@@ -189,7 +194,7 @@ content:
       thousand_separator: ''
       prefix_suffix: TRUE
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_site_id:
     type: string
@@ -197,7 +202,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 27
+    weight: 20
     region: content
   field_update_by:
     type: string
@@ -205,7 +210,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 28
+    weight: 21
     region: content
   field_version_no:
     type: number_integer
@@ -214,7 +219,7 @@ content:
       thousand_separator: ''
       prefix_suffix: TRUE
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_xml_cd:
     type: string
@@ -222,7 +227,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 14
+    weight: 22
     region: content
   links:
     settings: {  }
