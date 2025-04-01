@@ -26,9 +26,21 @@
   }
 
   .field-multiple-table {
+
+    thead label,
+    thead .label {
+      display: inline-block;
+    }
+  }
+
+  .field-multiple-table {
     .label {
       font-size: initial;
     }
+  }
+
+  .btn-default {
+    font-size: 1.25rem;
   }
 
   .select-wrapper {

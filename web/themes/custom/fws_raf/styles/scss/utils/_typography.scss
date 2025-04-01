@@ -141,13 +141,22 @@ a {
   }
 }
 
+.field--name-field-response,
 .field--name-body {
+
   ul, ol {
     padding: 0 0 0 20px;
     margin: 0;
 
     li + li {
       margin-top: 20px;
+    }
+  }
+
+  ol {
+    ::marker {
+      @include font--primary(700);
+      color: $blue-medium;
     }
   }
 }

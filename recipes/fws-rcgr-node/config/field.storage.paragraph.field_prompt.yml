@@ -1,0 +1,21 @@
+uuid: 72c323b3-92f1-4e8c-ab1f-2b4ae9d36a3c
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_prompt
+field_name: field_prompt
+entity_type: paragraph
+type: string
+settings:
+  max_length: 1000
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
