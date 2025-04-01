@@ -88,7 +88,7 @@
 
           // Save the answer via AJAX
           $.ajax({
-            url: '/test-your-counting-skills/save-answer',
+            url: drupalSettings.fwsCounting.paths.saveAnswer,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({

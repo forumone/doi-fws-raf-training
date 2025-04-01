@@ -13,6 +13,8 @@ dependencies:
     - better_exposed_filters
     - node
     - user
+_core:
+  default_config_hash: FFyYLgNzcdJL5dEuLYN0ILrw6jD97Z5mK1blotS5v4A
 id: species_id_results_table
 label: 'Species ID Results Table'
 module: views
@@ -396,7 +398,7 @@ display:
           settings:
             thousand_separator: ''
             decimal_separator: .
-            scale: 2
+            scale: 0
             prefix_suffix: true
           group_column: value
           group_columns: {  }
@@ -654,7 +656,7 @@ display:
       defaults:
         title: true
       display_extenders: {  }
-      path: aerial/reports/species-id-results
+      path: /reports/species-id-results
       menu:
         type: normal
         title: 'Species ID Results'

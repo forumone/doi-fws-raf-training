@@ -65,41 +65,113 @@ class IdTestResultsService {
     TermInterface $species_group,
     array $questions,
   ) {
-    // Create a new node.
-    $node = $this->entityTypeManager->getStorage('node')->create([
-      'type' => 'species_id_results',
-      'title' => $this->generateTitle($difficulty),
-      'uid' => $this->currentUser->id(),
-      'status' => TRUE,
-    ]);
-
-    // Set the fields.
-    $node->set('field_id_difficulty', $difficulty->id());
-    $node->set('field_region', $region->id());
-    $node->set('field_species_group', $species_group->id());
-
-    // Create paragraph items for each question.
-    $paragraphs = [];
-    foreach ($questions as $question) {
-      // Load the media entity to get the species reference.
-      $media = $this->entityTypeManager->getStorage('media')->load($question['media_id']);
-
-      $paragraph = Paragraph::create([
-        'type' => 'species_id_question',
-        'field_media_reference' => $question['media_id'],
+    try {
+      // Log input parameters.
+      \Drupal::logger('fws_id_test')->notice('Creating results node with: difficulty=@diff, region=@reg, species_group=@sp, questions=@q', [
+        '@diff' => $difficulty->label(),
+        '@reg' => $region->label(),
+        '@sp' => $species_group->label(),
+        '@q' => print_r($questions, TRUE),
       ]);
 
-      $paragraph->save();
-      $paragraphs[] = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
-      ];
+      // Create a new node.
+      $node = $this->entityTypeManager->getStorage('node')->create([
+        'type' => 'species_id_results',
+        'title' => $this->generateTitle($difficulty),
+        'uid' => $this->currentUser->id(),
+        'status' => TRUE,
+      ]);
+
+      // Log node creation.
+      \Drupal::logger('fws_id_test')->notice('Created node with title: @title', [
+        '@title' => $node->getTitle(),
+      ]);
+
+      // Set the fields.
+      $node->set('field_id_difficulty', $difficulty->id());
+      $node->set('field_region', $region->id());
+      $node->set('field_species_group', $species_group->id());
+
+      // Create paragraph items for each question.
+      $paragraphs = [];
+      foreach ($questions as $index => $question) {
+        try {
+          // Load the media entity to get the species reference.
+          $media = $this->entityTypeManager->getStorage('media')->load($question['media_id']);
+          if (!$media) {
+            \Drupal::logger('fws_id_test')->error('Failed to load media entity @id for question @index', [
+              '@id' => $question['media_id'],
+              '@index' => $index,
+            ]);
+            continue;
+          }
+
+          \Drupal::logger('fws_id_test')->notice('Creating paragraph for media @id', [
+            '@id' => $media->id(),
+          ]);
+
+          $paragraph = Paragraph::create([
+            'type' => 'species_id_question',
+            'field_media_reference' => $question['media_id'],
+          ]);
+
+          if (!$paragraph->save()) {
+            \Drupal::logger('fws_id_test')->error('Failed to save paragraph for question @index', [
+              '@index' => $index,
+            ]);
+            continue;
+          }
+
+          \Drupal::logger('fws_id_test')->notice('Created paragraph @pid for question @index', [
+            '@pid' => $paragraph->id(),
+            '@index' => $index,
+          ]);
+
+          $paragraphs[] = [
+            'target_id' => $paragraph->id(),
+            'target_revision_id' => $paragraph->getRevisionId(),
+          ];
+        }
+        catch (\Exception $e) {
+          \Drupal::logger('fws_id_test')->error('Error creating paragraph for question @index: @error', [
+            '@index' => $index,
+            '@error' => $e->getMessage(),
+          ]);
+        }
+      }
+
+      if (empty($paragraphs)) {
+        \Drupal::logger('fws_id_test')->error('No valid paragraphs were created for the quiz');
+        return NULL;
+      }
+
+      \Drupal::logger('fws_id_test')->notice('Setting @count paragraphs to node', [
+        '@count' => count($paragraphs),
+      ]);
+
+      $node->set('field_id_questions', $paragraphs);
+
+      try {
+        $node->save();
+        \Drupal::logger('fws_id_test')->notice('Successfully saved node @nid', [
+          '@nid' => $node->id(),
+        ]);
+      }
+      catch (\Exception $e) {
+        \Drupal::logger('fws_id_test')->error('Failed to save results node: @error', [
+          '@error' => $e->getMessage(),
+        ]);
+        return NULL;
+      }
+
+      return $node;
     }
-
-    $node->set('field_id_questions', $paragraphs);
-    $node->save();
-
-    return $node;
+    catch (\Exception $e) {
+      \Drupal::logger('fws_id_test')->error('Error creating results node: @error', [
+        '@error' => $e->getMessage(),
+      ]);
+      return NULL;
+    }
   }
 
   /**

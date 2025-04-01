@@ -552,7 +552,7 @@ display:
       defaults:
         title: true
       display_extenders: {  }
-      path: aerial/reports/species-counting-results
+      path: /reports/species-counting-results
       menu:
         type: normal
         title: 'Species Counting Results'

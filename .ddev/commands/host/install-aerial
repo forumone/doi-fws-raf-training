@@ -35,7 +35,7 @@ ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-photos.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-videos.php
 # Import sample test data.
-ddev drush -l $SITE_URI scr ../scripts/aerial/import_test_data.php 20
+ddev drush -l $SITE_URI scr ../scripts/aerial/import_test_data.php 100
 ddev drush -l $SITE_URI cr
 
 ddev drush -l $SITE_URI uli

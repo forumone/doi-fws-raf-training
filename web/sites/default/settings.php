@@ -58,6 +58,8 @@
  * implementations with custom ones.
  */
 
+$settings['hide_standard_login'] = TRUE;
+
 /**
  * Database settings:
  *
@@ -623,7 +625,7 @@ $settings['update_free_access'] = FALSE;
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-# $settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = "/tmp";
 
 /**
  * Session write interval:
@@ -935,5 +937,7 @@ $databases['default']['default'] = array (
   'isolation_level' => 'READ COMMITTED',
   'driver' => 'mysql',
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+  'autoload' => 'core/modules/mysql/src/',
 );
+
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;

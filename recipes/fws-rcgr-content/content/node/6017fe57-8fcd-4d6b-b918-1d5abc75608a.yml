@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 6017fe57-8fcd-4d6b-b918-1d5abc75608a
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: FAQ
+  created:
+    -
+      value: 1743522626
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'FAQ | FWS: Resident Canada Goose Registration'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Below you can find common questions about the Resident Canada Goose Nest & Egg Depredation Order.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'Below you can find common questions about the Resident Canada Goose Nest & Egg Depredation Order.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://rcgr.ddev.site/faq'
+  path:
+    -
+      alias: /faq
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>Below you can find common questions about the Resident Canada Goose Nest &amp; Egg Depredation Order.</p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

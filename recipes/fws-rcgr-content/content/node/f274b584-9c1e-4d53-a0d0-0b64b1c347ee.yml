@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: f274b584-9c1e-4d53-a0d0-0b64b1c347ee
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Notices
+  created:
+    -
+      value: 1743451244
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Notices | FWS: Resident Canada Goose Registration'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'PRIVACY ACT STATEMENTGeneral: The information requested is authorized by the following: Migratory Bird Treaty Act (16 U.S.C.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'PRIVACY ACT STATEMENTGeneral: The information requested is authorized by the following: Migratory Bird Treaty Act (16 U.S.C.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://rcgr.ddev.site/notices'
+  path:
+    -
+      alias: /notices
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<h2>PRIVACY ACT STATEMENT</h2><ul><li><strong>General:</strong> The information requested is authorized by the following: Migratory Bird Treaty Act (16 U.S.C. 703-712); 50 CFR 21; General Provisions, 50 CFR 10; General Permit Procedures, 50 CFR 13 and Wildlife Provisions (Import/export/transport), 50 CFR 14.</li><li><strong>Authority:</strong> The collection of information is to establish and verify a registrant’s eligibility to conduct certain activities under the Migratory Bird Treaty Act and to comply with the requirement of the depredation order for resident Canada geese nests and eggs as outlined in 50 CFR 21.50.</li><li><strong>Purposes and Uses:</strong> The contact information will be used to manage and document resident Canada goose population levels and implement actions intended to reduce, manage, and control resident Canada goose populations in the continental United States.</li><li><strong>Effects of Nondisclosure:</strong> Providing the requested information is voluntary. However, submission of information is required to lawfully destroy resident Canada goose nests and eggs under a depredation order.</li></ul><h2>PAPERWORK REDUCTION ACT STATEMENT</h2><p>We are collecting this information subject to the Paperwork Reduction Act (44 U.S.C. 3501) to collect information to establish and verify a registrant’s eligibility to conduct certain activities under the Migratory Bird Treaty Act, and to respond to requests made under the Freedom of Information Act and the Privacy Act of 1974. The information that you provide is required to obtain or retain a benefit; however, failure to provide all required information will negate the registration and make the landowner ineligible to lawfully destroy resident Canada goose nests and eggs under the depredation order. According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless such collection displays a valid OMB control number. OMB has approved this collection of information and assigned Control No. 1018-0146.</p><h2>ESTIMATED BURDEN STATEMENT</h2><p>Public reporting for this collection of information varies with the convenient availability of the requested information. The relevant burden for the Resident Canada Goose Nest and Egg Registration is 30 minutes for initial registration, 15 minutes to renew the registration, and 15 minutes for reporting. These burden estimates includes time for reviewing instructions, gathering and maintaining data and completing and reviewing the form. Direct comments regarding the burden estimate or any other aspect of the form to the Service Information Clearance Officer, Fish and Wildlife Service, U.S. Department of the Interior, 5275 Leesburg Pike, MS: PRB (JAO/3W), Falls Church, VA 22041-3803, or via email to <a href="mailto:Info_Coll@fws.gov">Info_Coll@fws.gov</a>.</p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

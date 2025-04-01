@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 84e7ac2e-9c8a-4d6d-8fab-da42f9987939
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Contact Us'
+  created:
+    -
+      value: 1743451907
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Contact Us | FWS: Resident Canada Goose Registration'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'For support/assistance with this site, please contact us via this form.General Migratory Birds QuestionsIf you have questions about migratory birds that are not related to this website, contact the appropriate Regional Migratory Bird Permit Office.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'For support/assistance with this site, please contact us via this form.General Migratory Birds QuestionsIf you have questions about migratory birds that are not related to this website, contact the appropriate Regional Migratory Bird Permit Office.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://rcgr.ddev.site/contact-us'
+  path:
+    -
+      alias: /contact-us
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: '<p>For support/assistance with this site, please contact us <a href="form/ercgr-contact">via this form</a>.</p><h2>General Migratory Birds Questions</h2><p>If you have questions about migratory birds that are not related to this website, contact the appropriate <a href="/program/migratory-bird-permits/contact-us">Regional Migratory Bird Permit Office</a>.</p>'
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false

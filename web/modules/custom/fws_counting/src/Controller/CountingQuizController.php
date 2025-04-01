@@ -253,6 +253,7 @@ class CountingQuizController extends ControllerBase {
       '#images' => $images,
       '#viewing_time' => $viewing_time,
       '#results_node_id' => $results_node->id(),
+      '#base_path' => base_path(),
       '#attached' => [
         'library' => [
           'fws_counting/quiz',
@@ -261,6 +262,10 @@ class CountingQuizController extends ControllerBase {
           'fwsCounting' => [
             'quizContext' => $quiz_context,
             'resultsNodeId' => $results_node->id(),
+            'paths' => [
+              'saveAnswer' => base_path() . 'test-your-counting-skills/save-answer',
+              'getResults' => base_path() . 'test-your-counting-skills/get-results/',
+            ],
           ],
         ],
       ],

@@ -436,9 +436,6 @@ $settings['update_free_access'] = FALSE;
  * editors/administrators, the Vary header can be omitted. This allows for
  * better caching in HTTP proxies (including reverse proxies), i.e. even if
  * clients send different cookies, they still get content served from the cache.
- * However, authenticated users should access the site directly (i.e. not use an
- * HTTP proxy, and bypass the reverse proxy if one is used) in order to avoid
- * getting cached pages from the proxy.
  */
 # $settings['omit_vary_cookie'] = TRUE;
 
@@ -623,7 +620,7 @@ $settings['file_public_path'] = 'sites/eps/files';
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-# $settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = "/tmp";
 
 /**
  * Session write interval:
@@ -922,3 +919,5 @@ $settings['session.cookie_path'] = '/epsandhill';
 $settings['file_public_path'] = "sites/eps/files";
 $settings['file_private_path'] = "sites/eps/files/private";
 $settings['file_temp_path'] = "/tmp";
+
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
