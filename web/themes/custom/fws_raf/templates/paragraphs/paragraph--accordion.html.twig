@@ -1,13 +1,13 @@
 {% set id = random() %}
-<div class="accordion">
-    <div class="accordion-header" id="heading{{id}}">
+<div class="panel panel-default">
+    <div class="panel-heading" id="heading{{id}}">
         <button type="button" class="text-left accordion-button collapsed" data-toggle="collapse" data-target="#collapse{{id}}" aria-expanded="false" aria-controls="collapse{{id}}">
-            {{content|without('field_response') }}
+            {{content|without('field_response') }} <span class="caret" aria-hidden="true"></span>
         </button>
     </div>
 
     <div id="collapse{{id}}" class="collapse" aria-labelledby="heading{{id}}">
-        <div class="accordion-body">
+        <div class="panel-body">
             {{ content|without('field_prompt') }}
         </div>
     </div>
