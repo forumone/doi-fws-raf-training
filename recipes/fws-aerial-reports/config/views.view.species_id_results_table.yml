@@ -654,7 +654,7 @@ display:
       defaults:
         title: true
       display_extenders: {  }
-      path: aerial/reports/species-id-results
+      path: /reports/species-id-results
       menu:
         type: normal
         title: 'Species ID Results'
