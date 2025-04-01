@@ -2,10 +2,10 @@ langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.storage.node.field_location_report_year
+    - field.storage.node.field_report_year
     - node.type.name
 id: node.name.field_report_year
-field_name: field_location_report_year
+field_name: field_report_year
 entity_type: node
 bundle: name
 label: 'Report Year'

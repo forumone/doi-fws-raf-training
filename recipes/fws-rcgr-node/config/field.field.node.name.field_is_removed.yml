@@ -2,19 +2,19 @@ langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.storage.node.field_location_is_removed
+    - field.storage.node.field_is_removed
     - node.type.name
 id: node.name.field_is_removed
-field_name: field_location_is_removed
+field_name: field_is_removed
 entity_type: node
 bundle: name
 label: 'Is Removed'
-description: 'Indicates if this name record has been removed.'
+description: 'Indicates if this record has been marked as removed.'
 required: FALSE
 translatable: FALSE
 default_value:
   -
-    value: 0
+    value: FALSE
 default_value_callback: ''
 settings:
   on_label: 'Yes'
