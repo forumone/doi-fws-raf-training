@@ -1,0 +1,18 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_dt_create
+    - node.type.location
+id: node.location.field_dt_create
+field_name: field_dt_create
+entity_type: node
+bundle: location
+label: 'Creation Date'
+description: 'The date this record was created.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

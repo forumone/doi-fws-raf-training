@@ -1,0 +1,22 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_location_is_removed
+    - node.type.location
+id: node.location.field_location_is_removed
+field_name: field_location_is_removed
+entity_type: node
+bundle: location
+label: 'Is Removed'
+description: 'Indicates whether this location has been removed.'
+required: FALSE
+translatable: TRUE
+default_value:
+  -
+    value: FALSE
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

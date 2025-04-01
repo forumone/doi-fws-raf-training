@@ -84,8 +84,15 @@
         let currentQuestion = 0;
         let correctAnswers = 0;
         const quizData = drupalSettings.fws_id_test.quiz;
-        // const totalQuestions = quizData.videos.length;
+
+        // Check if we have valid quiz data
+        if (!quizData || !quizData.resultsNodeId) {
+          console.error('Missing quiz data or results node ID');
+          return;
+        }
+
         const resultsNodeId = quizData.resultsNodeId;
+        // const totalQuestions = quizData.videos.length;
 
         // Autoplay the first video when the quiz loads
         const $firstVideo = $('.quiz__item--0', $quizContainer).find('video')[0];
@@ -119,7 +126,7 @@
 
           // Save the answer via AJAX
           $.ajax({
-            url: '/id-test/save-answer',
+            url: drupalSettings.fws_id_test.quiz.paths.saveAnswer,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({

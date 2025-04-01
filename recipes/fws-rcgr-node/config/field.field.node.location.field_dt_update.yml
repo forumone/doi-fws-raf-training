@@ -1,0 +1,18 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_dt_update
+    - node.type.location
+id: node.location.field_dt_update
+field_name: field_dt_update
+entity_type: node
+bundle: location
+label: 'Update Date'
+description: 'The date this record was last updated.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

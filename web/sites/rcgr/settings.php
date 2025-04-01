@@ -927,3 +927,7 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
+
+$settings['hide_standard_login'] = TRUE;
+
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;

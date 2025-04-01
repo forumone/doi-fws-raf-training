@@ -8,10 +8,12 @@ dependencies:
     - system
   theme:
     - fws_raf
+_core:
+  default_config_hash: euNTUIsthYdR06Q5HPuvRNFoCSSH_lhD5RDSTCIWZ_w
 id: fws_raf_footermenusitelinks
 theme: fws_raf
-region: footer_right_middle
-weight: 0
+region: footer_menus
+weight: -7
 provider: null
 plugin: 'system_menu_block:footer-menu-site-links'
 settings:

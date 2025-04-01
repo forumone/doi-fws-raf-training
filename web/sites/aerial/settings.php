@@ -623,7 +623,7 @@ $settings['update_free_access'] = FALSE;
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-# $settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = "/tmp";
 
 /**
  * Session write interval:
@@ -914,3 +914,5 @@ $settings['session.cookie_path'] = '/aerial';
 $settings['file_public_path'] = "sites/aerial/files";
 $settings['file_private_path'] = "sites/aerial/files/private";
 $settings['file_temp_path'] = "/tmp";
+
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;

@@ -533,15 +533,41 @@ footer.footer .menu.nav > li > a:focus-visible {
   box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   transition: all 0.125s ease-out;
 }
+footer.footer .footer-top__content {
+  position: relative;
+}
+footer.footer .footer-menus .region-footer-menus {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 0;
+  margin: 0 -15px;
+}
+@media (min-width: 768px) {
+  footer.footer .footer-menus .region-footer-menus {
+    padding: 60px 0 0;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
 
+.footer-slogan {
+  max-width: 525px;
+  margin: 0 auto;
+}
 @media (min-width: 768px) {
   .footer-slogan {
     padding: 10px 0 0;
+    margin: 0;
   }
+}
+.footer-slogan p {
+  text-align: center;
 }
 @media (min-width: 768px) {
   .footer-slogan p {
     margin: 0 10px 0 20px;
+    text-align: left;
   }
 }
 .footer-slogan .image-wrapper img {
@@ -553,13 +579,52 @@ footer.footer .menu.nav > li > a:focus-visible {
   }
 }
 
+.footer-copyright.footer-copyright {
+  font-weight: 700;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  color: #FFFFFF;
+  margin: 25px 0 0;
+}
+@media (min-width: 768px) {
+  .footer-copyright.footer-copyright {
+    margin: 0;
+  }
+}
+
+.footer-bottom__content {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .footer-bottom__content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
 .social-media-links--platforms.horizontal {
   overflow: visible;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+@media (min-width: 768px) {
+  .social-media-links--platforms.horizontal {
+    justify-content: flex-end;
+  }
+}
+.social-media-links--platforms.horizontal a:focus, .social-media-links--platforms.horizontal a:hover {
+  color: #6194d3;
 }
 .social-media-links--platforms.horizontal a:focus-visible {
   border-radius: 4px;
   box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   transition: all 0.125s ease-out;
+}
+
+.menu--footer-menu-employment > li {
+  text-transform: none;
 }
 
 .field--name-body img {

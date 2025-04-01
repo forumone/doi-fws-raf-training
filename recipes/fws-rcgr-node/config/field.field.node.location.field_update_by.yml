@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_update_by
+    - node.type.location
+  module:
+    - text
+id: node.location.field_update_by
+field_name: field_update_by
+entity_type: node
+bundle: location
+label: 'Updated By'
+description: 'The user who last updated this location.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
