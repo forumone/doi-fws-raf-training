@@ -623,7 +623,7 @@ $settings['update_free_access'] = FALSE;
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-# $settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = "/tmp";
 
 /**
  * Session write interval:
@@ -921,4 +921,8 @@ $settings['file_temp_path'] = "/tmp";
 
 // Enable the custom user profile template.
 $settings['falcon_user_profile_override'] = TRUE;
+
+$settings['hide_standard_login'] = TRUE;
+
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
 
