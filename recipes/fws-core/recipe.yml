@@ -111,7 +111,6 @@ install:
   - views_bulk_operations
   - views_data_export
   - views_year_filter
-  - visualization_charts
   - webform
   - webform_ui
   - webp

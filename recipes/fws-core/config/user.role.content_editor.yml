@@ -24,7 +24,6 @@ dependencies:
     - system
     - taxonomy
     - toolbar
-    - visualization_charts
 _core:
   default_config_hash: 9h68ZISLjAQ3OCXgYI1cpSSb0N1Zy9NivEDCl6FB1K0
 id: content_editor
