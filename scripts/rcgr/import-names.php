@@ -19,10 +19,10 @@ $logger = Drush::logger();
 
 // Log the limit if specified.
 if ($limit < PHP_INT_MAX) {
-  $logger->warning("Limiting import to {$limit} records");
+  $logger->notice("Limiting import to {$limit} records");
 }
 else {
-  $logger->warning("No limit specified - will import all records");
+  $logger->notice("No limit specified - will import all records");
 }
 
 // Set the batch size for processing.
@@ -62,7 +62,6 @@ $field_mapping = [
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
   'program_id' => 'field_program_id',
-  'region' => 'field_region',
   'site_id' => 'field_site_id',
   'control_program_id' => 'field_control_program_id',
   'control_region' => 'field_control_region',
@@ -80,43 +79,8 @@ $processed = 0;
 $skipped = 0;
 $errors = 0;
 
-// Define FWS region names and descriptions.
-global $_rcgr_fws_regions;
-$_rcgr_fws_regions = [
-  '1' => [
-    'name' => 'Pacific Coast (CA, ID, NV, OR, WA)',
-    'description' => 'FWS Region 1: Pacific Coast states including California, Idaho, Nevada, Oregon, and Washington.',
-  ],
-  '2' => [
-    'name' => 'Southwest (AZ, NM, OK, TX)',
-    'description' => 'FWS Region 2: Southwest states including Arizona, New Mexico, Oklahoma, and Texas.',
-  ],
-  '3' => [
-    'name' => 'Great Lakes/Upper Midwest (IA, IL, IN, MI, MN, MO, OH, WI)',
-    'description' => 'FWS Region 3: Great Lakes and Upper Midwest states including Iowa, Illinois, Indiana, Michigan, Minnesota, Missouri, Ohio, and Wisconsin.',
-  ],
-  '4' => [
-    'name' => 'Southeast (AL, AR, FL, GA, KY, LA, MS, NC, SC, TN)',
-    'description' => 'FWS Region 4: Southeast states including Alabama, Arkansas, Florida, Georgia, Kentucky, Louisiana, Mississippi, North Carolina, South Carolina, and Tennessee.',
-  ],
-  '5' => [
-    'name' => 'Northeast (CT, DC, DE, MA, MD, ME, NH, NJ, NY, PA, RI, VA, VT, WV)',
-    'description' => 'FWS Region 5: Northeast states including Connecticut, District of Columbia, Delaware, Massachusetts, Maryland, Maine, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, Virginia, Vermont, and West Virginia.',
-  ],
-  '6' => [
-    'name' => 'Mountain-Prairie (CO, KS, MT, ND, NE, SD, UT, WY)',
-    'description' => 'FWS Region 6: Mountain-Prairie states including Colorado, Kansas, Montana, North Dakota, Nebraska, South Dakota, Utah, and Wyoming.',
-  ],
-  '7' => [
-    'name' => 'Alaska (AK)',
-    'description' => 'FWS Region 7: The state of Alaska.',
-  ],
-];
-
 // Initialize taxonomy term cache.
 $term_cache = [];
-
-$logger->warning('Valid FWS regions: ' . implode(', ', array_keys($_rcgr_fws_regions)));
 
 // Define the logger as a properly named global variable.
 global $_rcgr_import_logger;
@@ -143,8 +107,8 @@ $_rcgr_import_logger = $logger;
  */
 function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
   global $_rcgr_import_logger;
-  global $_rcgr_fws_regions;
-
+  // Remove global region reference since we're not using it
+  // global $_rcgr_fws_regions;.
   // Skip empty values.
   if (empty($name)) {
     $_rcgr_import_logger->warning("Empty value provided for vocabulary '{$vocabulary}'");
@@ -156,19 +120,22 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
     $name = $value_mappings[$name];
   }
 
+  // Remove special handling for region terms.
+  /*
   // Special handling for region terms.
   if ($vocabulary === 'region') {
-    // If it's a numeric region, convert to descriptive name.
-    if (is_numeric($name)) {
-      if (isset($_rcgr_fws_regions[$name])) {
-        $name = $_rcgr_fws_regions[$name]['name'];
-      }
-      else {
-        $_rcgr_import_logger->warning("Invalid region number: {$name}");
-        return NULL;
-      }
-    }
+  // If it's a numeric region, convert to descriptive name.
+  if (is_numeric($name)) {
+  if (isset($_rcgr_fws_regions[$name])) {
+  $name = $_rcgr_fws_regions[$name]['name'];
   }
+  else {
+  $_rcgr_import_logger->warning("Invalid region number: {$name}");
+  return NULL;
+  }
+  }
+  }
+   */
 
   // Check the cache first.
   $cache_key = "{$vocabulary}:{$name}";
@@ -218,7 +185,7 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 while (($data = fgetcsv($handle)) !== FALSE) {
   // Check if we've hit the limit.
   if ($processed >= $limit) {
-    $logger->warning("Reached import limit of {$limit} records");
+    $logger->notice("Reached import limit of {$limit} records");
     break;
   }
 
@@ -233,14 +200,17 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       ->accessCheck(FALSE);
     $nids = $query->execute();
 
+    // Load or create the node.
     if (!empty($nids)) {
-      $logger->warning("Skipping existing name record {$row['recno']}");
-      $skipped++;
-      continue;
+      $nid = reset($nids);
+      $node = Node::load($nid);
+      $logger->notice("Updating existing name record {$row['recno']}");
+    }
+    else {
+      $node = Node::create(['type' => 'name']);
+      $logger->notice("Creating new name record {$row['recno']}");
     }
 
-    // Create a new node.
-    $node = Node::create(['type' => 'name']);
     $node->setTitle($row['person_name']);
 
     // Set simple field values.
@@ -271,7 +241,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         }
 
         // Handle taxonomy reference fields.
-        if (in_array($field_name, ['field_region', 'field_rcf_cd'])) {
+        if (in_array($field_name, ['field_rcf_cd'])) {
           $term_id = get_taxonomy_term_id($value, str_replace('field_', '', $field_name), TRUE, $term_cache);
           if ($term_id) {
             $node->set($field_name, ['target_id' => $term_id]);
@@ -305,7 +275,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Log progress every batch_size records.
     if ($processed % $batch_size === 0) {
-      $logger->warning("Processed {$processed} records");
+      $logger->notice("Processed {$processed} records");
     }
   }
   catch (\Exception $e) {
@@ -318,10 +288,12 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 fclose($handle);
 
 // Log final statistics.
-$logger->warning("Import completed:");
-$logger->warning("- Processed: {$processed}");
-$logger->warning("- Skipped: {$skipped}");
-$logger->warning("- Errors: {$errors}");
+$logger->notice("Import completed:");
+$logger->notice("- Processed: {$processed}");
+$logger->notice("- Skipped: {$skipped}");
+$logger->notice("- Errors: {$errors}");
 
-// Exit with error if there were any errors.
-exit($errors > 0 ? 1 : 0);
+// Only exit explicitly if there were actual errors.
+if ($errors > 0) {
+  exit(1);
+}
