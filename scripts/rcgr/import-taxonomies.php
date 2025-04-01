@@ -48,11 +48,7 @@ $taxonomy_mappings = [
     'name_field' => 'ref_cd',
     'description_field' => 'description',
     'field_mappings' => [
-      'program_id' => 'field_program_id',
-      'region' => 'field_region',
       'site_id' => 'field_site_id',
-      'control_program_id' => 'field_control_program_id',
-      'control_region' => 'field_control_region',
       'control_site_id' => 'field_control_site_id',
       'dt_create' => 'field_dt_create',
       'dt_update' => 'field_dt_update',
@@ -67,7 +63,6 @@ $taxonomy_mappings = [
     'name_field' => 'ref_cd',
     'description_field' => 'description',
     'field_mappings' => [
-      'program_id' => 'field_program_id',
       // Additional fields are the same as applicant_request_type.
     ],
   ],
@@ -85,7 +80,6 @@ $taxonomy_mappings = [
     'description_field' => NULL,
     'field_mappings' => [
       'ST' => 'field_st',
-      'program_id' => 'field_program_id',
     ],
   ],
   'rcgr_ref_registrant_type_202503031405.csv' => [
@@ -93,7 +87,6 @@ $taxonomy_mappings = [
     'name_field' => 'ref_cd',
     'description_field' => 'description',
     'field_mappings' => [
-      'program_id' => 'field_program_id',
       // Additional fields are the same as applicant_request_type.
     ],
   ],
@@ -102,7 +95,6 @@ $taxonomy_mappings = [
     'name_field' => 'ST',
     'description_field' => 'State',
     'field_mappings' => [
-      'Region' => 'field_region',
       'Flyway' => 'field_flyway',
       'tSort' => 'field_tsort',
     ],
@@ -116,7 +108,6 @@ $taxonomy_mappings = [
       // Commenting out state_cd reference field temporarily
       // 'state_cd' => 'field_state_cd',.
       'isCountyRestricted' => 'field_iscountyrestricted',
-      'program_id' => 'field_program_id',
     ],
   ],
 ];
@@ -312,7 +303,8 @@ foreach ($taxonomy_mappings as $csv_file => $mapping) {
 
                 // Try to load and display all matching terms.
                 $query = \Drupal::entityQuery('taxonomy_term')
-                  ->condition('vid', $vocabulary);
+                  ->condition('vid', $vocabulary)
+                  ->accessCheck(FALSE);
                 $tids = $query->execute();
 
                 if (empty($tids)) {

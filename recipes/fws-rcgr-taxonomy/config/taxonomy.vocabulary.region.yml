@@ -1,7 +1,0 @@
-langcode: en
-status: TRUE
-dependencies: {  }
-name: Region
-vid: region
-description: 'FWS Regions'
-weight: 0

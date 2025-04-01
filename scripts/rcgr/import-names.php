@@ -53,7 +53,7 @@ if ($header === FALSE) {
 }
 
 // Map CSV columns to field names.
-$field_mapping = [
+$field_mappings = [
   'recno' => 'field_recno',
   'isRemoved' => 'field_is_removed',
   'permit_no' => 'field_permit_no',
@@ -61,10 +61,7 @@ $field_mapping = [
   'person_name' => 'field_person_name',
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
-  'program_id' => 'field_program_id',
   'site_id' => 'field_site_id',
-  'control_program_id' => 'field_control_program_id',
-  'control_region' => 'field_control_region',
   'control_site_id' => 'field_control_site_id',
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
@@ -81,6 +78,14 @@ $errors = 0;
 
 // Initialize taxonomy term cache.
 $term_cache = [];
+
+// Define value mappings for taxonomy term values that need translation.
+$taxonomy_value_mappings = [
+  'U' => 'Unknown',
+  'A' => 'Active',
+  'C' => 'Complete',
+  'I' => 'Inactive',
+];
 
 // Define the logger as a properly named global variable.
 global $_rcgr_import_logger;
@@ -107,8 +112,7 @@ $_rcgr_import_logger = $logger;
  */
 function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
   global $_rcgr_import_logger;
-  // Remove global region reference since we're not using it
-  // global $_rcgr_fws_regions;.
+
   // Skip empty values.
   if (empty($name)) {
     $_rcgr_import_logger->warning("Empty value provided for vocabulary '{$vocabulary}'");
@@ -120,41 +124,24 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
     $name = $value_mappings[$name];
   }
 
-  // Remove special handling for region terms.
-  /*
-  // Special handling for region terms.
-  if ($vocabulary === 'region') {
-  // If it's a numeric region, convert to descriptive name.
-  if (is_numeric($name)) {
-  if (isset($_rcgr_fws_regions[$name])) {
-  $name = $_rcgr_fws_regions[$name]['name'];
-  }
-  else {
-  $_rcgr_import_logger->warning("Invalid region number: {$name}");
-  return NULL;
-  }
-  }
-  }
-   */
-
   // Check the cache first.
   $cache_key = "{$vocabulary}:{$name}";
   if (!$force_new_term && isset($term_cache[$cache_key])) {
     return $term_cache[$cache_key];
   }
 
-  // Look up the term.
-  $terms = \Drupal::entityTypeManager()
-    ->getStorage('taxonomy_term')
-    ->loadByProperties([
-      'vid' => $vocabulary,
-      'name' => $name,
-    ]);
+  // Check if term already exists.
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', $vocabulary)
+    ->condition('name', $name)
+    ->accessCheck(FALSE);
 
-  if (!empty($terms)) {
-    $term = reset($terms);
-    $term_cache[$cache_key] = $term->id();
-    return $term->id();
+  $tids = $query->execute();
+
+  if (!empty($tids)) {
+    $tid = reset($tids);
+    $term_cache[$cache_key] = $tid;
+    return $tid;
   }
 
   // Create the term if it doesn't exist and we're allowed to.
@@ -164,9 +151,6 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
         'vid' => $vocabulary,
         'name' => $name,
       ]);
-      if ($vocabulary === 'region' && isset($_rcgr_fws_regions[$name])) {
-        $term->set('description', $_rcgr_fws_regions[$name]['description']);
-      }
       $term->save();
       $term_cache[$cache_key] = $term->id();
       $_rcgr_import_logger->warning("Created new {$vocabulary} term: {$name}");
@@ -214,7 +198,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $node->setTitle($row['person_name']);
 
     // Set simple field values.
-    foreach ($field_mapping as $csv_column => $field_name) {
+    foreach ($field_mappings as $csv_column => $field_name) {
       if (isset($row[$csv_column]) && $row[$csv_column] !== '') {
         $value = $row[$csv_column];
 
@@ -242,24 +226,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
         // Handle taxonomy reference fields.
         if (in_array($field_name, ['field_rcf_cd'])) {
-          $term_id = get_taxonomy_term_id($value, str_replace('field_', '', $field_name), TRUE, $term_cache);
+          $term_id = get_taxonomy_term_id($value, str_replace('field_', '', $field_name), TRUE, $term_cache, $taxonomy_value_mappings);
           if ($term_id) {
             $node->set($field_name, ['target_id' => $term_id]);
-          }
-          continue;
-        }
-
-        // Handle entity reference fields.
-        if ($field_name === 'field_program_id') {
-          // Look up the program node by program_id field.
-          $query = \Drupal::entityQuery('node')
-            ->condition('type', 'program')
-            ->condition('field_program_id', $value)
-            ->accessCheck(FALSE);
-          $program_nids = $query->execute();
-
-          if (!empty($program_nids)) {
-            $node->set($field_name, ['target_id' => reset($program_nids)]);
           }
           continue;
         }

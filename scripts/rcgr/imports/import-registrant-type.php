@@ -17,21 +17,13 @@ $mapping = [
   'csv_file' => 'rcgr_ref_registrant_type_202503031405.csv',
   'name_field' => 'ref_cd',
   'description_field' => 'description',
-  'field_mappings' => [
-    'program_id' => 'field_program_id',
-  ],
-  'skip_row_callback' => function ($row, $row_number, $column_indices) {
-    // Skip empty rows or separator rows.
-    if (empty($row) || (count($row) === 1 && empty($row[0]))) {
-      return TRUE;
+  'field_mappings' => [],
+  'callback' => function ($row, $column_indices) {
+    // Skip empty rows or rows with empty request type codes.
+    if (empty($row) || empty($row[$column_indices['ref_cd']])) {
+      return FALSE;
     }
-
-    // Skip rows with empty registrant type codes.
-    if (empty($row[$column_indices['ref_cd']])) {
-      return TRUE;
-    }
-
-    return FALSE;
+    return TRUE;
   },
 ];
 

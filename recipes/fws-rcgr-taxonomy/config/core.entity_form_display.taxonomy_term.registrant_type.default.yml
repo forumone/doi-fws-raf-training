@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.registrant_type.field_program_id
     - taxonomy.vocabulary.registrant_type
   module:
     - options
@@ -16,12 +15,6 @@ content:
     weight: 0
     settings:
       rows: 5
-    third_party_settings: {}
-  field_program_id:
-    type: options_select
-    weight: 1
-    settings:
-      size: 60
     third_party_settings: {}
   name:
     type: string_textfield

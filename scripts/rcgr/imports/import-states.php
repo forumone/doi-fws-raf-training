@@ -20,20 +20,13 @@ $mapping = [
   'field_mappings' => [
     'Region' => 'field_region',
     'Flyway' => 'field_flyway',
-    'tSort' => 'field_tsort',
   ],
-  'skip_row_callback' => function ($row, $row_number, $column_indices) {
-    // Skip specific rows in the states CSV (rows 2, 3, and 6 are separator rows).
-    if (in_array($row_number, [2, 3, 6])) {
-      return TRUE;
+  'callback' => function ($row, $column_indices) {
+    // Skip empty rows or rows with empty state codes.
+    if (empty($row) || empty($row[$column_indices['ST']])) {
+      return FALSE;
     }
-
-    // Skip empty rows or rows with '---' or 'All' in the first column.
-    if (empty($row) || empty($row[0]) || $row[0] === '---' || $row[0] === 'All') {
-      return TRUE;
-    }
-
-    return FALSE;
+    return TRUE;
   },
 ];
 

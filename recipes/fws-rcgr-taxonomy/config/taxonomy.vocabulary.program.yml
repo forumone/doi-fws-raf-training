@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Program
-vid: program
-description: 'Taxonomy of program IDs used across the application'
-weight: 0

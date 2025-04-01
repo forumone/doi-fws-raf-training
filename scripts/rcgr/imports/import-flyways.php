@@ -17,10 +17,15 @@ $mapping = [
   'vid' => 'flyways',
   'csv_file' => 'rcgr_ref_flyways_202503031405.csv',
   'name_field' => 'Flyway',
-  'description_field' => NULL,
-  'field_mappings' => [
-    'program_id' => 'field_program_id',
-  ],
+  'description_field' => '',
+  'field_mappings' => [],
+  'callback' => function ($row, $column_indices) {
+    // Skip empty rows or rows with empty flyway codes.
+    if (empty($row) || empty($row[$column_indices['Flyway']])) {
+      return FALSE;
+    }
+    return TRUE;
+  },
   'skip_row_callback' => function ($row, $row_number, $column_indices) {
     // Skip empty rows or separator rows.
     if (empty($row) || (count($row) === 1 && empty($row[0]))) {
