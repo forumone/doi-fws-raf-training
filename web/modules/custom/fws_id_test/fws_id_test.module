@@ -24,6 +24,7 @@ function fws_id_test_theme() {
         'species_groups' => [],
         'geographic_regions' => [],
         'results_node_id' => NULL,
+        'base_path' => NULL,
       ],
       'template' => 'id-test-quiz',
     ],
@@ -50,5 +51,15 @@ function fws_id_test_preprocess_page(&$variables) {
   if ($node && $node->bundle() === 'species_id_results') {
     // Hide the page title.
     $variables['page']['#title'] = '';
+  }
+}
+
+/**
+ * Implements hook_preprocess_id_test_quiz().
+ */
+function fws_id_test_preprocess_id_test_quiz(&$variables) {
+  // Ensure base_path is available in the template.
+  if (!isset($variables['base_path'])) {
+    $variables['base_path'] = base_path();
   }
 }

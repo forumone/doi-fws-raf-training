@@ -123,16 +123,28 @@ class IdTestController extends ControllerBase {
 
     // Load difficulty term.
     $difficulty_term = $term_storage->load($difficulty);
-    $difficulty_label = $difficulty_term ? $difficulty_term->label() : '';
+    if (!$difficulty_term) {
+      $this->messenger()->addError($this->t('Invalid difficulty level. Please start the test from the beginning.'));
+      return $this->redirect('fws_id_test.start');
+    }
+    $difficulty_label = $difficulty_term->label();
 
     // Load species group terms.
     $species_group_terms = $term_storage->loadMultiple($species_groups);
+    if (empty($species_group_terms)) {
+      $this->messenger()->addError($this->t('Invalid species groups. Please start the test from the beginning.'));
+      return $this->redirect('fws_id_test.start');
+    }
     $species_group_labels = array_map(function ($term) {
       return $term->label();
     }, $species_group_terms);
 
     // Load region terms.
     $region_terms = $term_storage->loadMultiple($regions);
+    if (empty($region_terms)) {
+      $this->messenger()->addError($this->t('Invalid regions. Please start the test from the beginning.'));
+      return $this->redirect('fws_id_test.start');
+    }
     $region_labels = array_map(function ($term) {
       return $term->label();
     }, $region_terms);
@@ -194,34 +206,13 @@ class IdTestController extends ControllerBase {
       }
     }
 
-    // Return the render array.
-    $render_array = [
-      '#theme' => 'id_test_quiz',
-      '#videos' => $prepared_videos,
-      '#experience_level' => $difficulty_label,
-      '#species_groups' => $species_group_labels,
-      '#geographic_regions' => $region_labels,
-      '#attached' => [
-        'library' => [
-          'fws_id_test/id_test',
-        ],
-        'drupalSettings' => [
-          'fws_id_test' => [
-            'quiz' => [
-              'videos' => $prepared_videos,
-            ],
-          ],
-        ],
-      ],
-    ];
-
-    // Create a results node.
+    // Create a results node first.
     $quiz_results_service = \Drupal::service('fws_id_test.quiz_results');
     $results_node = $quiz_results_service->createResultsNode(
       $difficulty_term,
-    // Use the first region term.
+      // Use the first region term.
       reset($region_terms),
-    // Use the first species group term.
+      // Use the first species group term.
       reset($species_group_terms),
       array_map(function ($video) {
         return [
@@ -230,9 +221,38 @@ class IdTestController extends ControllerBase {
       }, $videos)
     );
 
-    // Add the results node ID to the render array.
-    $render_array['#results_node_id'] = $results_node->id();
-    $render_array['#attached']['drupalSettings']['fws_id_test']['quiz']['resultsNodeId'] = $results_node->id();
+    // Check if results node was created successfully.
+    if (!$results_node) {
+      $this->messenger()->addError($this->t('Failed to create results node. Please try again.'));
+      return $this->redirect('fws_id_test.start');
+    }
+
+    // Now create the render array with the results node ID.
+    $render_array = [
+      '#theme' => 'id_test_quiz',
+      '#videos' => $prepared_videos,
+      '#experience_level' => $difficulty_label,
+      '#species_groups' => $species_group_labels,
+      '#geographic_regions' => $region_labels,
+      '#results_node_id' => $results_node->id(),
+      '#base_path' => base_path(),
+      '#attached' => [
+        'library' => [
+          'fws_id_test/id_test',
+        ],
+        'drupalSettings' => [
+          'fws_id_test' => [
+            'quiz' => [
+              'videos' => $prepared_videos,
+              'resultsNodeId' => $results_node->id(),
+              'paths' => [
+                'saveAnswer' => base_path() . 'id-test/save-answer',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
 
     return $render_array;
   }
