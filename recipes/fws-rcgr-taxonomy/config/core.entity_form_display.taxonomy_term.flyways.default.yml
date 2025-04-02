@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.flyways.field_program_id
     - field.field.taxonomy_term.flyways.field_st
     - field.field.taxonomy_term.flyways.field_states_ref
     - taxonomy.vocabulary.flyways
@@ -18,12 +17,6 @@ content:
     weight: 0
     settings:
       rows: 5
-    third_party_settings: {}
-  field_program_id:
-    type: options_select
-    weight: 1
-    settings:
-      size: 60
     third_party_settings: {}
   field_states_ref:
     type: options_buttons

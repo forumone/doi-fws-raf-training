@@ -1,0 +1,24 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_version_no
+    - node.type.name
+id: node.name.field_version_no
+field_name: field_version_no
+entity_type: node
+bundle: name
+label: 'Version Number'
+description: 'The version number of this record.'
+required: FALSE
+translatable: FALSE
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

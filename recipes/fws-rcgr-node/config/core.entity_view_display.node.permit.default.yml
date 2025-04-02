@@ -6,25 +6,31 @@ dependencies:
     - field.field.node.permit.field_bi_cd
     - field.field.node.permit.field_business_name
     - field.field.node.permit.field_ca_access_key
-    - field.field.node.permit.field_control_program_id
-    - field.field.node.permit.field_control_region
     - field.field.node.permit.field_control_site_id
     - field.field.node.permit.field_create_by
+    - field.field.node.permit.field_dt_application_received
+    - field.field.node.permit.field_dt_applicant_signed
     - field.field.node.permit.field_dt_create
+    - field.field.node.permit.field_dt_effective
+    - field.field.node.permit.field_dt_expired
+    - field.field.node.permit.field_dt_permit_issued
+    - field.field.node.permit.field_dt_permit_request
+    - field.field.node.permit.field_dt_signed
     - field.field.node.permit.field_dt_update
     - field.field.node.permit.field_hid
     - field.field.node.permit.field_home_phone
     - field.field.node.permit.field_is_location_certified
+    - field.field.node.permit.field_is_removed
     - field.field.node.permit.field_location_address
     - field.field.node.permit.field_location_city
     - field.field.node.permit.field_permit_no
     - field.field.node.permit.field_permit_status_cd
-    - field.field.node.permit.field_program_id
+    - field.field.node.permit.field_person_name
     - field.field.node.permit.field_qty_nest_egg_destroyed
     - field.field.node.permit.field_rcf_cd
     - field.field.node.permit.field_recno
-    - field.field.node.permit.field_region
     - field.field.node.permit.field_registrant_type_cd
+    - field.field.node.permit.field_report_year
     - field.field.node.permit.field_site_id
     - field.field.node.permit.field_update_by
     - field.field.node.permit.field_version_no
@@ -33,6 +39,7 @@ dependencies:
     - field.field.node.permit.field_zip
     - node.type.permit
   module:
+    - datetime
     - text
     - user
 id: node.permit.default
@@ -40,37 +47,6 @@ targetEntityType: node
 bundle: permit
 mode: default
 content:
-  field_permit_no:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_business_name:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_location_address:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_location_city:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_applicant_state:
     type: entity_reference_label
     label: above
@@ -78,30 +54,6 @@ content:
       link: TRUE
     third_party_settings: {  }
     weight: 4
-    region: content
-  field_zip:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_home_phone:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_work_phone:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 7
     region: content
   field_bi_cd:
     type: string
@@ -111,64 +63,13 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
-  field_region:
-    type: entity_reference_label
+  field_business_name:
+    type: string
     label: above
     settings:
-      link: TRUE
+      link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 9
-    region: content
-  field_program_id:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_registrant_type_cd:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_permit_status_cd:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_rcf_cd:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: TRUE
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  field_is_location_certified:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_FALSE: ''
-      format_custom_TRUE: ''
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_qty_nest_egg_destroyed:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 15
+    weight: 1
     region: content
   field_ca_access_key:
     type: string
@@ -177,22 +78,6 @@ content:
       link_to_entity: FALSE
     third_party_settings: {  }
     weight: 16
-    region: content
-  field_control_program_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_control_region:
-    type: string
-    label: above
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 18
     region: content
   field_control_site_id:
     type: string
@@ -210,6 +95,24 @@ content:
     third_party_settings: {  }
     weight: 20
     region: content
+  field_dt_application_received:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 30
+    region: content
+  field_dt_applicant_signed:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 31
+    region: content
   field_dt_create:
     type: datetime_default
     label: above
@@ -218,6 +121,51 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     weight: 21
+    region: content
+  field_dt_effective:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 33
+    region: content
+  field_dt_expired:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 32
+    region: content
+  field_dt_permit_issued:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 34
+    region: content
+  field_dt_permit_request:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 35
+    region: content
+  field_dt_signed:
+    type: datetime_default
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 29
     region: content
   field_dt_update:
     type: datetime_default
@@ -236,6 +184,90 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
+  field_home_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_is_location_certified:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_is_removed:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_location_address:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_location_city:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_permit_no:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_permit_status_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_person_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_qty_nest_egg_destroyed:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_rcf_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 13
+    region: content
   field_recno:
     type: string
     label: above
@@ -243,6 +275,23 @@ content:
       link_to_entity: FALSE
     third_party_settings: {  }
     weight: 24
+    region: content
+  field_registrant_type_cd:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_report_year:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 22
     region: content
   field_site_id:
     type: string
@@ -269,6 +318,14 @@ content:
     third_party_settings: {  }
     weight: 27
     region: content
+  field_work_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 7
+    region: content
   field_xml_cd:
     type: string
     label: above
@@ -277,68 +334,13 @@ content:
     third_party_settings: {  }
     weight: 28
     region: content
-  field_dt_signed:
-    type: datetime_default
+  field_zip:
+    type: string
     label: above
     settings:
-      format_type: medium
-      timezone_override: ''
+      link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 29
-    region: content
-  field_dt_application_received:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 30
-    region: content
-  field_dt_applicant_signed:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 31
-    region: content
-  field_dt_expired:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 32
-    region: content
-  field_dt_effective:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 33
-    region: content
-  field_dt_permit_issued:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 34
-    region: content
-  field_dt_permit_request:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 35
+    weight: 5
     region: content
   links:
     settings: {  }

@@ -17,9 +17,7 @@ $mapping = [
   'csv_file' => 'rcgr_ref_application_status_202503031405.csv',
   'name_field' => 'ref_cd',
   'description_field' => 'description',
-  'field_mappings' => [
-    'program_id' => 'field_program_id',
-  ],
+  'field_mappings' => [],
   'skip_row_callback' => function ($row, $row_number, $column_indices) {
     // Skip empty rows or separator rows.
     if (empty($row) || (count($row) === 1 && empty($row[0]))) {

@@ -57,13 +57,13 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php registrant_type 100
 echo "Importing restricted_counties vocabulary..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php restricted_counties 1000 1
 
-echo "Importing regions..."
-ddev drush -l $SITE_URI scr ../scripts/rcgr/import-regions.php
-
 echo "Importing permits..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-permits.php 1000
 
 echo "Importing locations..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-locations.php 1000
+
+echo "Importing names..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-names.php 1000
 
 ddev drush -l $SITE_URI uli

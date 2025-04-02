@@ -1,0 +1,22 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_recno
+    - node.type.name
+id: node.name.field_recno
+field_name: field_recno
+entity_type: node
+bundle: name
+label: 'Record Number'
+description: 'The unique record number identifier.'
+required: TRUE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

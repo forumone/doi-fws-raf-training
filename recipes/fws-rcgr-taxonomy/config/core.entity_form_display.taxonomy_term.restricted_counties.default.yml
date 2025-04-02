@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.field.taxonomy_term.restricted_counties.field_county_name
     - field.field.taxonomy_term.restricted_counties.field_iscountyrestricted
-    - field.field.taxonomy_term.restricted_counties.field_program_id
     - field.field.taxonomy_term.restricted_counties.field_recno
     - field.field.taxonomy_term.restricted_counties.field_state_cd
     - taxonomy.vocabulary.restricted_counties
@@ -33,12 +32,6 @@ content:
     weight: 2
     settings:
       display_label: true
-    third_party_settings: {}
-  field_program_id:
-    type: options_select
-    weight: 3
-    settings:
-      size: 60
     third_party_settings: {}
   field_recno:
     type: number
