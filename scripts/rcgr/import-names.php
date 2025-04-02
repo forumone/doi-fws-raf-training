@@ -225,11 +225,11 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (!empty($nids)) {
       $nid = reset($nids);
       $node = Node::load($nid);
-      $logger->notice("Updating existing name record {$row['recno']}");
+      // $logger->notice("Updating existing name record {$row['recno']}");
     }
     else {
       $node = Node::create(['type' => 'name']);
-      $logger->notice("Creating new name record {$row['recno']}");
+      // $logger->notice("Creating new name record {$row['recno']}");
     }
 
     $node->setTitle($row['person_name']);
