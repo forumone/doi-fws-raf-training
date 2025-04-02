@@ -1,22 +1,25 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 6p7q8r9s-0t1u-2v3w-4x5y-6z7a8b9c0d1e
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l: menu_link_content
+    84e7ac2e-9c8a-4d6d-8fab-da42f9987939: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: 'Contact US'
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 84e7ac2e-9c8a-4d6d-8fab-da42f9987939
       title: ''
       options: {  }
   external:
@@ -24,13 +27,16 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -45
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
   revision_translation_affected:
     -
       value: true

@@ -1,22 +1,24 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    7c3e4d85-9e64-6f1b-c5g3-1f8d0e6f7g9h: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: 'Update CA Access codes'
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      uri: 'internal:/activity/ca-access-codes'
       title: ''
       options: {  }
   external:
@@ -27,10 +29,13 @@ default:
       value: true
   weight:
     -
-      value: -45
+      value: 3
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:7c3e4d85-9e64-6f1b-c5g3-1f8d0e6f7g9h'
   revision_translation_affected:
     -
       value: true

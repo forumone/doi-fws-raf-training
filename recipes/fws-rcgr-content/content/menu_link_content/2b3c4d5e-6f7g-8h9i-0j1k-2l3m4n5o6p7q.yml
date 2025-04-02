@@ -1,50 +1,52 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y
+  uuid: 2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    8a1e5d63-7c42-4f9b-a3e1-9d6b8c4f5e7a: menu_link_content
 default:
   enabled:
     -
-      value: TRUE
+      value: true
   title:
     -
-      value: Users Guide
+      value: 'Renew Registration'
   menu_name:
     -
       value: main
   link:
     -
-      uri: 'internal:/resources/users-guide'
+      uri: 'internal:/register/renew'
       title: ''
       options: {  }
   external:
     -
-      value: FALSE
+      value: false
   rediscover:
     -
-      value: FALSE
+      value: true
   weight:
     -
-      value: 1
+      value: 2
   expanded:
     -
-      value: FALSE
+      value: false
   parent:
     -
-      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
+      value: 'menu_link_content:8a1e5d63-7c42-4f9b-a3e1-9d6b8c4f5e7a'
   revision_translation_affected:
     -
-      value: TRUE
+      value: true
   metatag:
     -
       tag: meta
       attributes:
         name: title
-        content: 'Users Guide | FWS: RCGR'
+        content: '| FWS: Resident Canada Goose Registration'
     -
       tag: link
       attributes:
         rel: canonical
-        href: 'internal:/resources/users-guide'
+        href: 'https://rcgr.ddev.site/main'

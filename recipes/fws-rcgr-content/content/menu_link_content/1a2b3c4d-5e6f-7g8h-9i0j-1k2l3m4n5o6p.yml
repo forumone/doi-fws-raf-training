@@ -1,22 +1,24 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    8a1e5d63-7c42-4f9b-a3e1-9d6b8c4f5e7a: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: 'New Registration'
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      uri: 'internal:/register/new'
       title: ''
       options: {  }
   external:
@@ -27,10 +29,13 @@ default:
       value: true
   weight:
     -
-      value: -45
+      value: 1
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:8a1e5d63-7c42-4f9b-a3e1-9d6b8c4f5e7a'
   revision_translation_affected:
     -
       value: true
