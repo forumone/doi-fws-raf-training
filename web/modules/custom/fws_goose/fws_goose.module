@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains fws_goose.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
+    // Make record number read-only.
+    if (isset($form['field_recno'])) {
+      $form['field_recno']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+
+    // Make permit number read-only.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+  }
+}
