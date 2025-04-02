@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_hid
+    - taxonomy.vocabulary.california_access_key
+id: taxonomy_term.california_access_key.field_hid
+field_name: field_hid
+entity_type: taxonomy_term
+bundle: california_access_key
+label: 'HID'
+description: 'Unique identifier for the access key.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

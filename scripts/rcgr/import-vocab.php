@@ -39,6 +39,7 @@ require_once __DIR__ . '/imports/import-base.php';
 $import_scripts = [
   'application_status' => 'import-application-status.php',
   'applicant_request_type' => 'import-applicant-request-type.php',
+  'california_access_key' => 'import-california-access-key.php',
   'country' => 'import-country.php',
   'flyways' => 'import-flyways.php',
   'registrant_type' => 'import-registrant-type.php',
