@@ -19,7 +19,7 @@ $mapping = [
   'name_field' => 'county_name',
   'description_field' => 'description',
   'field_mappings' => [
-    'state_cd' => 'field_state',
+    'state_cd' => 'field_state_cd',
     'isCountyRestricted' => 'field_iscountyrestricted',
     'recno' => 'field_recno',
   ],

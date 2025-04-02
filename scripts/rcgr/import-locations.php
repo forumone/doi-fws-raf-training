@@ -28,29 +28,12 @@ else {
 // Set the batch size for processing.
 $batch_size = 50;
 
-// Get the CSV file path.
-$csv_file = __DIR__ . '/data/rcgr_location_202503031405.csv';
+// Get the CSV file paths.
+$current_csv_file = __DIR__ . '/data/rcgr_location_202503031405.csv';
+$history_csv_file = __DIR__ . '/data/rcgr_location_hist_202503031405.csv';
 
-// Check if file exists.
-if (!file_exists($csv_file)) {
-  \Drupal::logger('rcgr')->error('CSV file not found at @file', ['@file' => $csv_file]);
-  exit(1);
-}
-
-// Open the CSV file.
-$handle = fopen($csv_file, 'r');
-if ($handle === FALSE) {
-  \Drupal::logger('rcgr')->error('Could not open CSV file');
-  exit(1);
-}
-
-// Read the header row.
-$header = fgetcsv($handle);
-if ($header === FALSE) {
-  \Drupal::logger('rcgr')->error('Could not read CSV header');
-  fclose($handle);
-  exit(1);
-}
+// Track processed nodes to handle revisions.
+$processed_nodes = [];
 
 // Map CSV columns to field names.
 $field_mapping = [
@@ -89,6 +72,7 @@ $updated = 0;
 $skipped = 0;
 $errors = 0;
 $processed = 0;
+$revisions_created = 0;
 
 // Initialize taxonomy term cache.
 $term_cache = [];
@@ -104,8 +88,6 @@ $value_mappings = [
 // Define the logger as a properly named global variable.
 global $_rcgr_import_logger;
 $_rcgr_import_logger = $logger;
-
-$logger->warning('Starting import with properly fixed taxonomy reference handling.');
 
 /**
  * Get the taxonomy term ID for a given name and vocabulary.
@@ -185,32 +167,107 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
   return $tid;
 }
 
-// Process each row.
-$row_number = 0;
-while (($row = fgetcsv($handle)) !== FALSE) {
-  $row_number++;
+/**
+ * Find existing node for a given permit number and location.
+ *
+ * @param string $permit_no
+ *   The permit number.
+ * @param string $address
+ *   The location address.
+ *
+ * @return \Drupal\node\NodeInterface|null
+ *   The node if found, null otherwise.
+ */
+function find_existing_node($permit_no, $address) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->condition('field_permit_no', $permit_no)
+    ->condition('field_location_address', $address)
+    ->accessCheck(FALSE)
+    ->range(0, 1);
 
-  // Skip header row.
-  if ($row_number === 1) {
-    continue;
+  $nids = $query->execute();
+
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    return Node::load($nid);
   }
 
-  // Check if we've hit the limit.
-  // +1 because we skipped the header row.
-  if ($row_number > $limit + 1) {
-    $logger->warning("Reached limit of {$limit} records, stopping import");
-    break;
-  }
+  return NULL;
+}
 
-  $data = array_combine($header, $row);
+/**
+ * Process a single row of location data.
+ *
+ * @param array $data
+ *   The row data.
+ * @param array $field_mapping
+ *   The field mapping configuration.
+ * @param array &$term_cache
+ *   Reference to the term cache.
+ * @param array $value_mappings
+ *   Value mappings for taxonomy terms.
+ * @param bool $is_revision
+ *   Whether this is a historical revision.
+ * @param array &$processed_nodes
+ *   Reference to array of processed nodes.
+ *
+ * @return array
+ *   Array containing success status and any messages.
+ */
+function process_location_row(
+  array $data,
+  array $field_mapping,
+  array &$term_cache,
+  array $value_mappings,
+  bool $is_revision,
+  array &$processed_nodes,
+) {
+  global $_rcgr_import_logger;
 
   try {
-    // Create new location node.
-    $node = Node::create([
-      'type' => 'location',
-      'title' => $data['location_address_l1'],
-      'status' => 1,
+    // Log the row being processed.
+    $_rcgr_import_logger->info('Processing @type record: Permit #@permit, Address: @address', [
+      '@type' => $is_revision ? 'historical' : 'current',
+      '@permit' => $data['permit_no'],
+      '@address' => $data['location_address_l1'] ?: '[empty]',
     ]);
+
+    // For revisions, try to find existing node.
+    $existing_node = NULL;
+    if ($is_revision) {
+      $existing_node = find_existing_node($data['permit_no'], $data['location_address_l1']);
+      if (!$existing_node) {
+        return [
+          FALSE,
+          sprintf(
+            'No existing node found for permit %s at %s - skipping revision',
+            $data['permit_no'],
+            $data['location_address_l1']
+          ),
+        ];
+      }
+      $node = $existing_node;
+      $node->setNewRevision(TRUE);
+      $node->revision_log = sprintf(
+        'Historical revision imported from year %s. Created by %s, Updated by %s',
+        $data['report_year'],
+        $data['create_by'],
+        $data['update_by']
+      );
+    }
+    else {
+      // Create new node for current data.
+      // Generate a title that combines permit number and timestamp if address is empty.
+      $title = !empty($data['location_address_l1']) ? $data['location_address_l1'] :
+        sprintf('Location %s (%s)', $data['permit_no'], date('Y-m-d H:i:s'));
+
+      $node = Node::create([
+        'type' => 'location',
+        'title' => $title,
+        'status' => 1,
+      ]);
+    }
 
     // Handle combined address fields first.
     $address = $data['location_address_l1'];
@@ -230,6 +287,10 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       }
 
       if (!isset($data[$csv_field])) {
+        $_rcgr_import_logger->notice('Field @field not found in CSV data for permit #@permit', [
+          '@field' => $csv_field,
+          '@permit' => $data['permit_no'],
+        ]);
         continue;
       }
 
@@ -255,10 +316,9 @@ while (($row = fgetcsv($handle)) !== FALSE) {
               $node->set($drupal_field, ['target_id' => $tid]);
             }
             else {
-              // Log warning if term ID couldn't be found/created.
-              \Drupal::logger('rcgr')->warning('Could not find or create @type term with name @name', [
-                '@type' => $bundle,
-                '@name' => $value,
+              $_rcgr_import_logger->warning('Could not find or create state term for @state (Permit #@permit)', [
+                '@state' => $value,
+                '@permit' => $data['permit_no'],
               ]);
             }
           }
@@ -269,6 +329,11 @@ while (($row = fgetcsv($handle)) !== FALSE) {
           if (!empty($value)) {
             $date = new DrupalDateTime($value);
             $node->set($drupal_field, $date->format('Y-m-d\TH:i:s'));
+
+            // For revisions, also set the revision timestamp.
+            if ($is_revision && $drupal_field === 'field_dt_update') {
+              $node->setRevisionCreationTime($date->getTimestamp());
+            }
           }
           break;
 
@@ -287,7 +352,6 @@ while (($row = fgetcsv($handle)) !== FALSE) {
           break;
 
         case 'field_rcf_cd':
-          // These are entity references - we'll need to look up the target ID.
           if (!empty($value)) {
             $entity_type = 'taxonomy_term';
             $bundle = 'rcf_cd';
@@ -299,10 +363,9 @@ while (($row = fgetcsv($handle)) !== FALSE) {
               $node->set($drupal_field, ['target_id' => $tid]);
             }
             else {
-              // Log warning if term ID couldn't be found/created.
-              \Drupal::logger('rcgr')->warning('Could not find or create @type term with name @name', [
-                '@type' => $bundle,
-                '@name' => $value,
+              $_rcgr_import_logger->warning('Could not find or create RCF code term for @code (Permit #@permit)', [
+                '@code' => $value,
+                '@permit' => $data['permit_no'],
               ]);
             }
           }
@@ -313,29 +376,164 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       }
     }
 
-    // Save the node.
-    $node->save();
-    $processed++;
-
-    \Drupal::logger('rcgr')->info('Created location node @title', ['@title' => $node->getTitle()]);
-
-    // Print progress.
-    if ($processed % $batch_size === 0) {
-      \Drupal::logger('rcgr')->info('Processed @count records...', ['@count' => $processed]);
+    // For revisions, set the revision author if we can find a matching user.
+    if ($is_revision && !empty($data['update_by'])) {
+      $users = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->loadByProperties(['name' => $data['update_by']]);
+      if (!empty($users)) {
+        $user = reset($users);
+        $node->setRevisionUserId($user->id());
+      }
     }
 
+    // Save the node.
+    $node->save();
+
+    // Track processed nodes.
+    $key = $data['permit_no'] . ':' . $data['location_address_l1'];
+    $processed_nodes[$key] = $node->id();
+
+    $_rcgr_import_logger->info('Successfully saved @type node @nid for permit #@permit', [
+      '@type' => $is_revision ? 'historical' : 'current',
+      '@nid' => $node->id(),
+      '@permit' => $data['permit_no'],
+    ]);
+
+    return [TRUE, $is_revision ? "Created revision" : "Created/updated node"];
   }
   catch (Exception $e) {
-    \Drupal::logger('rcgr')->error('Error processing record: @error', ['@error' => $e->getMessage()]);
-    $errors++;
+    return [FALSE, "Error processing record for permit #{$data['permit_no']}: " . $e->getMessage()];
   }
 }
 
-// Close the file.
-fclose($handle);
+/**
+ * Function to load and validate CSV data.
+ */
+function load_csv_data($file_path, $logger) {
+  if (!file_exists($file_path)) {
+    $logger->error('CSV file not found at @file', ['@file' => $file_path]);
+    return [FALSE, NULL];
+  }
+
+  $handle = fopen($file_path, 'r');
+  if ($handle === FALSE) {
+    $logger->error('Could not open CSV file @file', ['@file' => $file_path]);
+    return [FALSE, NULL];
+  }
+
+  $header = fgetcsv($handle);
+  if ($header === FALSE) {
+    $logger->error('Could not read CSV header from @file', ['@file' => $file_path]);
+    fclose($handle);
+    return [FALSE, NULL];
+  }
+
+  return [TRUE, ['handle' => $handle, 'header' => $header]];
+}
+
+// Load both CSV files.
+[$current_success, $current_data] = load_csv_data($current_csv_file, $logger);
+[$history_success, $history_data] = load_csv_data($history_csv_file, $logger);
+
+if (!$current_success) {
+  exit(1);
+}
+
+$logger->warning('Starting import of location data.');
+
+// Read all historical data into memory for faster lookup.
+$historical_records = [];
+if ($history_success) {
+  while (($row = fgetcsv($history_data['handle'])) !== FALSE) {
+    // Skip empty rows.
+    if (count($row) > 0) {
+      $data = array_combine($history_data['header'], $row);
+      $key = $data['permit_no'] . ':' . $data['location_address_l1'];
+      if (!isset($historical_records[$key])) {
+        $historical_records[$key] = [];
+      }
+      $historical_records[$key][] = $data;
+    }
+  }
+  fclose($history_data['handle']);
+  $logger->notice('Loaded ' . count($historical_records) . ' sets of historical records.');
+}
+
+// Process current records and their historical data.
+$row_number = 0;
+
+while ($current_data && ($row = fgetcsv($current_data['handle'])) !== FALSE) {
+  $row_number++;
+
+  // Skip header row.
+  if ($row_number > 1 && $row_number <= $limit + 1) {
+    $data = array_combine($current_data['header'], $row);
+
+    // Process current record.
+    [$success, $message] = process_location_row(
+      $data,
+      $field_mapping,
+      $term_cache,
+      $value_mappings,
+      FALSE,
+      $processed_nodes
+    );
+
+    if ($success) {
+      $processed++;
+      if ($processed % $batch_size === 0) {
+        $logger->info('Processed @count current records...', ['@count' => $processed]);
+      }
+
+      // Look for and process historical records for this location.
+      $key = $data['permit_no'] . ':' . $data['location_address_l1'];
+      if (isset($historical_records[$key])) {
+        foreach ($historical_records[$key] as $hist_data) {
+          [$hist_success, $hist_message] = process_location_row(
+            $hist_data,
+            $field_mapping,
+            $term_cache,
+            $value_mappings,
+            TRUE,
+            $processed_nodes
+          );
+
+          if ($hist_success) {
+            $revisions_created++;
+            if ($revisions_created % $batch_size === 0) {
+              $logger->info('Created @count historical revisions...', ['@count' => $revisions_created]);
+            }
+          }
+          else {
+            if (strpos($hist_message, 'No existing node found') === FALSE) {
+              $logger->error($hist_message);
+              $errors++;
+            }
+            else {
+              $skipped++;
+            }
+          }
+        }
+        // Remove processed historical records to free memory.
+        unset($historical_records[$key]);
+      }
+    }
+    else {
+      $logger->error($message);
+      $errors++;
+    }
+  }
+}
+
+// Close file handles.
+if ($current_data) {
+  fclose($current_data['handle']);
+}
 
 // Print summary.
 echo "\nImport completed:\n";
-echo "Processed: $processed\n";
+echo "Current records processed: $processed\n";
+echo "Historical revisions created: $revisions_created\n";
 echo "Skipped: $skipped\n";
 echo "Errors: $errors\n";
