@@ -18,7 +18,6 @@ $mapping = [
   'name_field' => 'ST',
   'description_field' => 'State',
   'field_mappings' => [
-    'Region' => 'field_region',
     'Flyway' => 'field_flyway',
   ],
   'callback' => function ($row, $column_indices) {

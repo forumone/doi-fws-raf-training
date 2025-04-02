@@ -28,19 +28,55 @@ else {
 // Set the batch size for processing.
 $batch_size = 50;
 
-// Get the CSV file path.
-$csv_file = __DIR__ . '/data/rcgr_name_202503031405.csv';
+// Get the CSV file paths.
+$current_csv_file = __DIR__ . '/data/rcgr_name_202503031405.csv';
+$history_csv_file = __DIR__ . '/data/rcgr_name_hist_202503031405.csv';
 
-// Check if file exists.
-if (!file_exists($csv_file)) {
-  \Drupal::logger('rcgr')->error('CSV file not found at @file', ['@file' => $csv_file]);
+$logger->warning("Starting import of name data.");
+
+// Load historical records into memory for faster lookup.
+$historical_records = [];
+if (file_exists($history_csv_file)) {
+  $logger->warning("Loading historical records from {$history_csv_file}");
+  $history_handle = fopen($history_csv_file, 'r');
+  if ($history_handle === FALSE) {
+    $logger->error('Could not open historical CSV file');
+    exit(1);
+  }
+
+  // Read header row.
+  $history_header = fgetcsv($history_handle);
+  if ($history_header === FALSE) {
+    $logger->error('Could not read historical CSV header');
+    fclose($history_handle);
+    exit(1);
+  }
+
+  // Load all historical records into memory, grouped by permit number.
+  while (($data = fgetcsv($history_handle)) !== FALSE) {
+    $row = array_combine($history_header, $data);
+    if (!empty($row['permit_no'])) {
+      if (!isset($historical_records[$row['permit_no']])) {
+        $historical_records[$row['permit_no']] = [];
+      }
+      $historical_records[$row['permit_no']][] = $row;
+    }
+  }
+  fclose($history_handle);
+
+  $logger->warning("Loaded " . count($historical_records) . " sets of historical records.");
+}
+
+// Check if current data file exists.
+if (!file_exists($current_csv_file)) {
+  $logger->error('Current CSV file not found at @file', ['@file' => $current_csv_file]);
   exit(1);
 }
 
-// Open the CSV file.
-$handle = fopen($csv_file, 'r');
+// Open the current CSV file.
+$handle = fopen($current_csv_file, 'r');
 if ($handle === FALSE) {
-  \Drupal::logger('rcgr')->error('Could not open CSV file');
+  $logger->error('Could not open current CSV file');
   exit(1);
 }
 
@@ -75,6 +111,7 @@ $field_mappings = [
 $processed = 0;
 $skipped = 0;
 $errors = 0;
+$revisions_created = 0;
 
 // Initialize taxonomy term cache.
 $term_cache = [];
@@ -238,9 +275,78 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       }
     }
 
-    // Save the node.
+    // Save the current version of the node.
     $node->save();
     $processed++;
+
+    // Process historical records for this name if they exist.
+    if (!empty($row['permit_no']) && isset($historical_records[$row['permit_no']])) {
+      $historical_set = $historical_records[$row['permit_no']];
+
+      // Sort historical records by dt_update to ensure correct chronological order.
+      usort($historical_set, function ($a, $b) {
+        return strtotime($a['dt_update']) - strtotime($b['dt_update']);
+      });
+
+      foreach ($historical_set as $hist_row) {
+        // Create a new revision.
+        $node->setNewRevision(TRUE);
+        $node->revision_log = "Historical record from " . $hist_row['dt_update'];
+
+        // Update fields with historical data.
+        foreach ($field_mappings as $csv_column => $field_name) {
+          if (isset($hist_row[$csv_column]) && $hist_row[$csv_column] !== '') {
+            $value = $hist_row[$csv_column];
+
+            // Handle boolean fields.
+            if (in_array($field_name, ['field_is_removed'])) {
+              $value = strtolower($value) === 'true' || $value === '1';
+            }
+
+            // Handle date fields.
+            if (in_array($field_name, ['field_dt_create', 'field_dt_update'])) {
+              if (!empty($value)) {
+                try {
+                  $date = new DrupalDateTime($value);
+                  $value = $date->format('Y-m-d\TH:i:s');
+                }
+                catch (\Exception $e) {
+                  $logger->warning("Invalid date format for {$field_name}: {$value}");
+                  continue;
+                }
+              }
+              else {
+                continue;
+              }
+            }
+
+            // Handle taxonomy reference fields.
+            if (in_array($field_name, ['field_rcf_cd'])) {
+              $term_id = get_taxonomy_term_id($value, str_replace('field_', '', $field_name), TRUE, $term_cache, $taxonomy_value_mappings);
+              if ($term_id) {
+                $node->set($field_name, ['target_id' => $term_id]);
+              }
+              continue;
+            }
+
+            // Set the field value.
+            $node->set($field_name, $value);
+          }
+        }
+
+        // Set the revision timestamp to match the historical record's update time.
+        if (!empty($hist_row['dt_update'])) {
+          $node->setRevisionCreationTime(strtotime($hist_row['dt_update']));
+        }
+
+        // Save the historical revision.
+        $node->save();
+        $revisions_created++;
+      }
+
+      // Remove processed historical records to free up memory.
+      unset($historical_records[$row['permit_no']]);
+    }
 
     // Log progress every batch_size records.
     if ($processed % $batch_size === 0) {
@@ -259,6 +365,7 @@ fclose($handle);
 // Log final statistics.
 $logger->notice("Import completed:");
 $logger->notice("- Processed: {$processed}");
+$logger->notice("- Historical revisions created: {$revisions_created}");
 $logger->notice("- Skipped: {$skipped}");
 $logger->notice("- Errors: {$errors}");
 

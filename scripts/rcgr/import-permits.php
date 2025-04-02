@@ -167,6 +167,30 @@ $term_cache = [];
 
 // Open the CSV file.
 $csv_file = dirname(__FILE__) . '/data/rcgr_permit_app_mast_202503031405.csv';
+$hist_csv_file = dirname(__FILE__) . '/data/rcgr_permit_app_mast_hist_202503031405.csv';
+
+// Load historical records into memory for faster lookup.
+$historical_records = [];
+$hist_handle = fopen($hist_csv_file, 'r');
+if ($hist_handle === FALSE) {
+  $logger->error('Could not open historical CSV file: ' . $hist_csv_file);
+}
+else {
+  // Skip header row but store it for column mapping.
+  $hist_header = fgetcsv($hist_handle);
+
+  // Read all historical records into memory.
+  while (($row = fgetcsv($hist_handle)) !== FALSE) {
+    $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']], '"');
+    if (!isset($historical_records[$permit_no])) {
+      $historical_records[$permit_no] = [];
+    }
+    $historical_records[$permit_no][] = $row;
+  }
+  fclose($hist_handle);
+  $logger->notice("Loaded " . count($historical_records) . " historical permits into memory.");
+}
+
 $handle = fopen($csv_file, 'r');
 
 if ($handle === FALSE) {
@@ -307,275 +331,134 @@ catch (\Exception $e) {
   $logger->warning('Could not disable taxonomy index maintenance: ' . $e->getMessage());
 }
 
-// Process each row.
-while (($row = fgetcsv($handle)) !== FALSE) {
-  $stats['total']++;
-
-  // Skip if we've reached the limit.
-  if ($stats['processed'] >= $limit) {
-    $logger->notice("Reached import limit of {$limit} records. Stopping.");
-    break;
-  }
-
-  // Remove quotes from values.
-  $row = array_map(function ($value) {
-    return trim($value, '"');
-  }, $row);
-
-  // Skip empty rows.
-  if (empty($row) || (count($row) === 1 && empty($row[0]))) {
-    $stats['skipped']++;
-    continue;
-  }
-
-  // Get permit number.
-  $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']]);
-  if (empty($permit_no)) {
-    $stats['skipped']++;
-    continue;
-  }
-
+// Process each row in the CSV.
+while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
   try {
-    // Check if a node with this permit number already exists.
-    $query = \Drupal::entityQuery('node')
+    $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']], '"');
+    $title = $permit_no;
+
+    // Skip if required fields are missing.
+    if (empty($permit_no)) {
+      $logger->warning("Skipping row {$stats['total']}: Missing permit number");
+      $stats['skipped']++;
+      continue;
+    }
+
+    // Look for existing node.
+    $query = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->getQuery()
       ->condition('type', 'permit')
       ->condition('field_permit_no', $permit_no)
       ->accessCheck(FALSE);
 
     $nids = $query->execute();
+    $node = NULL;
+    $is_new = TRUE;
 
-    if (empty($nids)) {
-      // Create a new node.
-      $node = Node::create([
-        'type' => 'permit',
-        'title' => 'Permit: ' . $permit_no,
-        'status' => 1,
-      ]);
-
-      // Set regular field values.
-      foreach ($field_mappings as $csv_field => $drupal_field) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          $node->set($drupal_field, trim($row[$_rcgr_import_csv_map[$csv_field]], '"'));
-        }
-      }
-
-      // Set date field values.
-      foreach ($date_field_mappings as $csv_field => $drupal_field) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          $datetime = format_datetime_for_drupal(trim($row[$_rcgr_import_csv_map[$csv_field]], '"'));
-          if ($datetime !== FALSE) {
-            $node->set($drupal_field, $datetime);
-          }
-        }
-      }
-
-      // Handle special field mappings.
-      $address_lines = [];
-      foreach ([
-        'applicant_address_l1',
-        'applicant_address_l2',
-        'applicant_address_l3',
-      ] as $address_field) {
-        if (isset($_rcgr_import_csv_map[$address_field]) && isset($row[$_rcgr_import_csv_map[$address_field]]) && $row[$_rcgr_import_csv_map[$address_field]] !== '') {
-          $address_lines[] = [
-            'value' => trim($row[$_rcgr_import_csv_map[$address_field]], '"'),
-            'format' => 'plain_text',
-          ];
-        }
-      }
-      if (!empty($address_lines)) {
-        $node->set('field_location_address', $address_lines);
-      }
-
-      // Handle location certification.
-      if (isset($_rcgr_import_csv_map['applicant_signed']) && isset($row[$_rcgr_import_csv_map['applicant_signed']])) {
-        $is_certified = (int) trim($row[$_rcgr_import_csv_map['applicant_signed']], '"') === 1;
-        $node->set('field_is_location_certified', $is_certified);
-      }
-
-      // Handle taxonomy field values.
-      foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          $value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
-
-          // Apply validation if provided.
-          if (isset($mapping['validate'])) {
-            $value = $mapping['validate']($value, $row);
-          }
-
-          // Only get/create taxonomy term if we have a valid value.
-          if ($value !== NULL) {
-            // Get or create the taxonomy term.
-            $tid = get_taxonomy_term_id(
-              $value,
-              $mapping['vocabulary'],
-              TRUE,
-              $term_cache,
-              $taxonomy_value_mappings
-            );
-
-            if ($tid) {
-              $node->set($mapping['field'], ['target_id' => $tid]);
-            }
-          }
-          else {
-            // Clear the field if validation returned NULL.
-            $node->set($mapping['field'], NULL);
-          }
-        }
-      }
-
-      try {
-        $node->save();
-        $stats['created']++;
-        $stats['processed']++;
-      }
-      catch (\Exception $e) {
-        $logger->error("Failed to create permit node for permit number {$permit_no}: " . $e->getMessage());
-        $stats['errors']++;
-      }
-    }
-    else {
-      // Load the existing node.
+    if (!empty($nids)) {
       $nid = reset($nids);
       $node = Node::load($nid);
-      $updated_fields = 0;
+      $is_new = FALSE;
+    }
 
-      // Update regular fields.
-      foreach ($field_mappings as $csv_field => $drupal_field) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          if ($node->hasField($drupal_field)) {
-            $current_value = $node->get($drupal_field)->value;
-            $new_value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
+    if ($node === NULL) {
+      $node = Node::create([
+        'type' => 'permit',
+        'title' => $title,
+      ]);
+      $stats['created']++;
+    }
+    else {
+      $stats['updated']++;
+    }
 
-            if ($current_value !== $new_value) {
-              $node->set($drupal_field, $new_value);
-              $updated_fields++;
-            }
+    // Set basic fields.
+    foreach ($field_mappings as $csv_field => $drupal_field) {
+      if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+        $value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
+
+        // Handle date fields.
+        if (isset($date_field_mappings[$csv_field])) {
+          $value = format_datetime_for_drupal($value);
+          if ($value === FALSE) {
+            continue;
           }
         }
+
+        $node->set($drupal_field, $value);
       }
+    }
 
-      // Update date fields.
-      foreach ($date_field_mappings as $csv_field => $drupal_field) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          $formatted_date = format_datetime_for_drupal($row[$_rcgr_import_csv_map[$csv_field]]);
-          if ($formatted_date && $node->hasField($drupal_field)) {
-            $current_value = $node->get($drupal_field)->value;
-            if ($current_value !== $formatted_date) {
-              $node->set($drupal_field, $formatted_date);
-              $updated_fields++;
-            }
-          }
-        }
-      }
+    // Save the current version.
+    $node->setNewRevision(TRUE);
+    $node->revision_log = 'Imported current record from CSV.';
+    $node->save();
 
-      // Update special fields
-      // Update location address fields.
-      if ($node->hasField('field_location_address')) {
-        $address_values = [];
-        foreach ([
-          'applicant_address_l1',
-          'applicant_address_l2',
-          'applicant_address_l3',
-        ] as $address_field) {
-          if (isset($row[$_rcgr_import_csv_map[$address_field]]) && $row[$_rcgr_import_csv_map[$address_field]] !== '') {
-            $address_values[] = [
-              'value' => trim($row[$_rcgr_import_csv_map[$address_field]], '"'),
-              'format' => 'plain_text',
-            ];
-          }
-        }
-        if (!empty($address_values)) {
-          $node->set('field_location_address', $address_values);
-          $updated_fields++;
-        }
-      }
+    // Process historical records for this permit.
+    if (isset($historical_records[$permit_no])) {
+      // Sort historical records by dt_update to ensure proper chronological order.
+      usort($historical_records[$permit_no], function ($a, $b) use ($_rcgr_import_csv_map) {
+        $a_date = strtotime(trim($a[$_rcgr_import_csv_map['dt_update']], '"'));
+        $b_date = strtotime(trim($b[$_rcgr_import_csv_map['dt_update']], '"'));
+        return $a_date - $b_date;
+      });
 
-      // Update phone fields.
-      if (field_exists_for_permit('field_home_phone') || field_exists_for_permit('field_work_phone')) {
-        if (field_exists_for_permit('field_home_phone') && isset($_rcgr_import_csv_map['applicant_home_phone']) && isset($row[$_rcgr_import_csv_map['applicant_home_phone']]) && $row[$_rcgr_import_csv_map['applicant_home_phone']] !== '') {
-          $node->set('field_home_phone', trim($row[$_rcgr_import_csv_map['applicant_home_phone']], '"'));
-          $updated_fields++;
-        }
-        if (field_exists_for_permit('field_work_phone') && isset($_rcgr_import_csv_map['applicant_work_phone']) && isset($row[$_rcgr_import_csv_map['applicant_work_phone']]) && $row[$_rcgr_import_csv_map['applicant_work_phone']] !== '') {
-          $node->set('field_work_phone', trim($row[$_rcgr_import_csv_map['applicant_work_phone']], '"'));
-          $updated_fields++;
-        }
-      }
+      foreach ($historical_records[$permit_no] as $hist_row) {
+        // Create a new revision.
+        $node->setNewRevision(TRUE);
 
-      // Update zip code.
-      if (field_exists_for_permit('field_zip') && isset($_rcgr_import_csv_map['applicant_zip']) && isset($row[$_rcgr_import_csv_map['applicant_zip']]) && $row[$_rcgr_import_csv_map['applicant_zip']] !== '') {
-        $node->set('field_zip', trim($row[$_rcgr_import_csv_map['applicant_zip']], '"'));
-        $updated_fields++;
-      }
+        // Set fields from historical record.
+        foreach ($field_mappings as $csv_field => $drupal_field) {
+          if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+            $value = trim($hist_row[$_rcgr_import_csv_map[$csv_field]], '"');
 
-      // Update taxonomy reference fields.
-      foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
-        if (isset($_rcgr_import_csv_map[$csv_field]) && isset($row[$_rcgr_import_csv_map[$csv_field]]) && $row[$_rcgr_import_csv_map[$csv_field]] !== '') {
-          if ($node->hasField($mapping['field'])) {
-            $term_value = $row[$_rcgr_import_csv_map[$csv_field]];
-            $tid = get_taxonomy_term_id(
-              $term_value,
-              $mapping['vocabulary'],
-              TRUE,
-              $term_cache,
-              $taxonomy_value_mappings,
-              !empty($mapping['force_new_term'])
-            );
-
-            if ($tid) {
-              $current_target_id = NULL;
-              if (!$node->get($mapping['field'])->isEmpty()) {
-                $current_target_id = $node->get($mapping['field'])->target_id;
-              }
-
-              if ($current_target_id != $tid) {
-                $node->set($mapping['field'], ['target_id' => $tid]);
-                $updated_fields++;
+            // Handle date fields.
+            if (isset($date_field_mappings[$csv_field])) {
+              $value = format_datetime_for_drupal($value);
+              if ($value === FALSE) {
+                continue;
               }
             }
+
+            $node->set($drupal_field, $value);
           }
         }
+
+        // Set revision timestamp from historical record's update date.
+        if (isset($_rcgr_import_csv_map['dt_update'])) {
+          $update_date = trim($hist_row[$_rcgr_import_csv_map['dt_update']], '"');
+          if ($update_date) {
+            $timestamp = strtotime($update_date);
+            if ($timestamp !== FALSE) {
+              $node->setRevisionCreationTime($timestamp);
+            }
+          }
+        }
+
+        $node->revision_log = 'Imported historical record from CSV.';
+        $node->save();
       }
 
-      // Save the node if fields were updated.
-      if ($updated_fields > 0) {
-        try {
-          $node->save();
-          $stats['updated']++;
-          $stats['processed']++;
-        }
-        catch (\Exception $e) {
-          $logger->error("Failed to update permit node for permit number {$permit_no}: " . $e->getMessage());
-          $stats['errors']++;
-        }
-      }
-      else {
-        $stats['skipped']++;
-        $stats['processed']++;
-      }
+      // Remove processed historical records to free memory.
+      unset($historical_records[$permit_no]);
+    }
+
+    $stats['processed']++;
+
+    // Log progress every 100 records.
+    if ($stats['processed'] % 100 === 0) {
+      $logger->notice("Processed {$stats['processed']} permits...");
     }
   }
   catch (\Exception $e) {
-    $logger->error('Error processing permit ' . $permit_no . ': ' . $e->getMessage());
+    $logger->error("Error processing row {$stats['total']}: " . $e->getMessage());
     $stats['errors']++;
-    $stats['processed']++;
   }
 
-  // Progress update every 100 records.
-  if ($stats['processed'] % 100 === 0) {
-    $logger->warning("Processing progress: {$stats['processed']} records processed (Created: {$stats['created']}, Updated: {$stats['updated']}, Skipped: {$stats['skipped']}, Errors: {$stats['errors']})");
-  }
-
-  // Check again at the end of each iteration if we've reached the limit.
-  if ($limit > 0 && $stats['processed'] >= $limit) {
-    $logger->notice("Reached limit of {$limit} processed records. Stopping import.");
-    break;
-  }
+  $stats['total']++;
 }
 
-// Close the file handle.
 fclose($handle);
 
 // Restore the autoindex setting.
@@ -590,5 +473,10 @@ if ($previous_autoindex !== NULL) {
   }
 }
 
-// Log the final statistics.
-$logger->warning('Import complete. Total read: ' . $stats['total'] . ', Created: ' . $stats['created'] . ', Updated: ' . $stats['updated'] . ', Skipped: ' . $stats['skipped'] . ', Errors: ' . $stats['errors']);
+// Display final results.
+$logger->notice("Permit import completed.");
+$logger->notice("Total rows processed: {$stats['processed']}");
+$logger->notice("Permits created: {$stats['created']}");
+$logger->notice("Permits updated: {$stats['updated']}");
+$logger->notice("Rows skipped: {$stats['skipped']}");
+$logger->notice("Errors: {$stats['errors']}");
