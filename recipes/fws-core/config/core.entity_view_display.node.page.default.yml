@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.page.body
+    - field.field.node.page.field_accordion
     - field.field.node.page.field_file
     - field.field.node.page.field_media
     - field.field.node.page.field_meta_tags
@@ -12,11 +13,12 @@ dependencies:
     - field.field.node.page.field_thumbnail
     - node.type.page
   module:
+    - entity_reference_revisions
     - file
     - text
     - user
 _core:
-  default_config_hash: 7wjZkhFlWSWnJxz_B-Bs2hCRLejjGMXXPg2SHw8Jsxw
+  default_config_hash: eXcwFLaLxsAOJX0pW5-UFoDYgspFal6snKdIulcoZjQ
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -29,13 +31,22 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_accordion:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_file:
     type: file_default
     label: above
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_media:
     type: entity_reference_entity_view

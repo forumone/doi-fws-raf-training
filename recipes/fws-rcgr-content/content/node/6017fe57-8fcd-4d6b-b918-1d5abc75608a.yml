@@ -60,6 +60,575 @@ default:
       value: '<p>Below you can find common questions about the Resident Canada Goose Nest &amp; Egg Depredation Order.</p>'
       format: basic_html
       summary: ''
+  field_accordion:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 8e43ec5a-4fb2-42b0-83d6-cd48da76ec9e
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743532558
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What are Resident Canada Geese? '
+          field_response:
+            -
+              value: '<p>The U.S. Fish and Wildlife Service (Service) identifies “resident Canada geese” as those nesting within the lower 48 States and the District of Columbia or residing within the lower 48 States and the District of Columbia.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: cdaf7ebc-0cbe-451c-891b-f870d30f66b6
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743532596
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What is a Depredation Order? '
+          field_response:
+            -
+              value: '<p>A depredation order provides regulatory authorization under the Migratory Bird Treaty Act (MBTA) to conduct specific migratory bird depredation management activities without the need for individual Federal permits. The resident Canada goose nest and egg depredation order is codified in Title 50 of the Code of Federal Regulations, part 21, section 21.50 (50 CFR 21.50). The MBTA is administered by the Service.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: bb8b53b4-8f1b-4dcc-83d4-78f202015809
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743532617
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What does the Resident Canada Goose Nest and Egg Depredation Order allow? '
+          field_response:
+            -
+              value: '<p>The resident Canada goose nest and egg depredation order authorizes landowners and local governments who register with the Service to destroy resident Canada goose nests and eggs on property under their jurisdiction when necessary to resolve or prevent injury to people, property, agricultural crops, or other interests. The order does not authorize the killing of any migratory bird species or destruction of any nests or eggs other than those of resident Canada geese.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 8469f4e0-01b4-436c-a5db-f7fbcba3d23f
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535063
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Who may operate under the depredation order? '
+          field_response:
+            -
+              value: '<p>Private and public landowners, managers of public lands, and homeowners’ associations (hereafter referred to as landowners); and village, town, municipalities, and county governments (hereafter referred to as local governments) who register with the Service are eligible to implement the depredation order on lands under their jurisdiction. Landowners must identify in their registration employees or agents who may act on their behalf. Landowners must be at least 18 years of age to register.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 58acadab-eb4f-46da-b9f7-3594ef22d43e
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535083
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What States does the depredation order cover?'
+          field_response:
+            -
+              value: '<p>It covers the lower 48 States and the District of Columbia. It does not include Alaska, Hawaii, Puerto Rico, the U.S. Virgin Islands, or the Pacific Territories.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 2eff6ff3-1505-44bb-995d-52bd31084c90
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535108
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What are the requirements for operating under the depredation order? '
+          field_response:
+            -
+              value: '<ol><li>Before any nests or eggs may be destroyed, landowners must go on-line and register with the Service. Registration is valid for one nesting season. It must be renewed each year before nests and eggs may be destroyed. There is no fee for registration.</li><li>Landowners must use nonlethal goose management techniques as they deem appropriate in order to minimize the need to destroy nests and eggs.</li><li>Landowners must return to the registration website (see <strong>How do I register?</strong> below) and report by October 31 the number of nests and eggs destroyed on their property.</li></ol>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: c86bdfa4-42cd-4aa0-9c2d-0fdba50b5d5e
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535158
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'How do I register?'
+          field_response:
+            -
+              value: '<p>To register, go to <a href="https://epermits.fws.gov/eRCGR ">https://epermits.fws.gov/eRCGR </a>or go to <a href="https://www.fws.gov/permits">www.fws.gov/permits</a> and click on “New: Resident Canada Goose Nest Egg Registration.”</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 9828eb47-b053-4796-b22a-77ee158e640e
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535206
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'When can I register?'
+          field_response:
+            -
+              value: '<p>You must register each year prior to destroying nests/eggs. You may register anytime of the year in which your activity will take place. For instance, you may register for the 2008 nesting season beginning January 1, 2008.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 966dc7eb-750b-4e4f-9cf0-9641442a87fa
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743535229
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'When can resident Canada goose nests and eggs be destroyed under the order? '
+          field_response:
+            -
+              value: '<p>The destruction of resident Canada goose nests and eggs may take place at any time of year.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 460671e0-dc9e-4519-b33b-40b7bc167a90
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537197
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Do I have to comply with other laws and regulations? '
+          field_response:
+            -
+              value: '<p>Although you are no longer required to have a Federal permit, it is important that you check with your State or Tribal wildlife agency to determine if your State or Tribe has additional or stricter requirements for destroying resident Canada goose nests and eggs. You must be in compliance with State or Tribal laws in order to lawfully operate under the depredation order. <strong>Refer to State Wildlife Agency Contacts and Information on Resident Canada Goose Nest and Egg Destruction</strong> posted on this Registration site for information about your State.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 7edd8c5b-cbfe-4d8e-b08e-b7fa5122faab
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537228
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Can a homeowners’ association register on behalf of the association members? '
+          field_response:
+            -
+              value: '<p>Yes. An officer of a homeowners association may register a subdivision, condominium complex, or other homeowner properties under its jurisdiction. Each member landowner does not need to register individually. Landowner permission is not necessary for nest and egg work in common areas, but it is necessary before performing the nest and egg work on an individual’s property.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: d7bf4496-7acc-4303-bef7-35b22fa57551
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537243
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Can a local government register on behalf of its citizens? '
+          field_response:
+            -
+              value: '<p>Yes. An officer of a local government (i.e., village, town, municipality, and county government) may register areas under their jurisdiction. Thus, each landowner within this jurisdiction would not need to register individually. However, landowner permission is necessary before performing the nest and egg work on an individual’s property. In addition, local governments or their agents must be in compliance with all State and local laws and regulations and must register each employee or agent working on their behalf.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 512b07fa-d908-4e71-9d3c-07842ba6e2ae
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537263
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Can a landowner register their property and allow someone else, such as a pest control company or organization, to perform the actual nest and egg destruction? '
+          field_response:
+            -
+              value: '<p>Yes. As long as the landowner has registered their property or properties with the Service for the current nesting season and identified the agent(s) who will be doing the work, those agents are authorized to operate under the depredation order.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: c5126664-d204-4aa6-88d1-cf2854b9146e
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537288
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Can a pest control company register and then conduct the work for their customers under the pest control company’s registration? '
+          field_response:
+            -
+              value: '<p>No. The landowner must be the registrant, However, with the landowner’s permission, a pest control company may create an account on the website and register the landowner on the landowner’s behalf. The registration must be in the landowner’s name with the landowner’s address. With the landowner’s permission, the pest control company should be identified as the Primary Contact in the registrant’s Account Profile, The pest control company’s phone number and email address should be included. The pest control company will receive the Registration Confirmation email. The landowner (registrant) remains responsible for the activities on his or her property.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 8e369710-3321-4e0e-911e-f53da89a2e56
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537310
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'Can a minor perform the nest and egg destruction for a landowner?'
+          field_response:
+            -
+              value: '<p>Yes, as long as they are supervised by the landowner or an adult agent.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: a1ba0949-cc90-4465-b105-4d572da2a9a2
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537332
+          behavior_settings:
+            -
+              value: {  }
+          field_prompt:
+            -
+              value: 'What is the reporting requirement and how do I comply? '
+          field_response:
+            -
+              value: '<p>Each registered landowner must report the number of nests with eggs that were destroyed on their property and the month they were destroyed by October 31 of the registration year. A report is required even if no nests or eggs were destroyed. Landowners cannot re-register in future seasons if they have an outstanding report. The report information is used by the Service to monitor and assess resident Canada goose populations.</p><p>To report, go to <a href="https://epermits.fws.gov/eRCGR">https://epermits.fws.gov/eRCGR</a> or go to <a href="https://www.fws.gov/permits">www.fws.gov/permits</a> and click on “New: Resident Canada Goose Nest Egg Registration.” Log on to the system using your login ID and password. You will be taken to your User Profile to certify the information is still current. You will then be able to report your activity for the year. Please make sure you report the number of nests affected, not the number of individual eggs, and do not leave any fields blank or the system will consider your report incomplete.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: f0038baf-3d0a-4b1b-b657-bd3a744ee69a
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537496
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'What methods are allowed for destroying and disposing of nests and eggs? '
+          field_response:
+            -
+              value: '<p>Eggs may be shaken, punctured, or oiled. Anyone oiling eggs must use 100% corn oil, a substance exempted from regulation by the US EPA under the Federal Insecticide, Fungicide &amp; Rodenticide Act. Destroyed nest material and eggs may be left in the field or disposed of by burial, incineration, or placement in outgoing trash, in accordance with local ordinances. Nests and eggs may not be retained for personal use. No one is authorized to possess, sell, offer for sale, barter, or ship for the purpose of sale or barter nests or eggs taken under the depredation order.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: bccffe6e-9be4-4138-9ea0-e57cc953d361
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537514
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'Are there specific protocols that must be followed for addling resident Canada goose eggs? '
+          field_response:
+            -
+              value: '<p>Numerous publications by State and Federal agencies, university extension services, and humane societies provide protocols for oiling, shaking, or puncturing resident Canada goose eggs, and for destroying eggs and replacing with dummy eggs. The Service does not mandate or endorse one particular protocol. See <strong>Where can I learn more?</strong> at the end of this document for some website references.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: d9eecb83-5e0b-4d69-a353-34cd66d7aaac
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537542
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'What nonlethal goose management techniques should be tried before destroying nests and eggs? '
+          field_response:
+            -
+              value: '<p>Nonlethal suggestions include landscape modification to make the area less attractive to resident geese; harassment and hazing with dogs or lasers; and repellants. Relocation of nests and eggs is <strong>not</strong> permitted.</p>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: e1355274-a294-4da7-8429-39bd6f4e5131
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537578
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'Does all resident Canada goose nest and egg destruction have to be done under this depredation order? '
+          field_response:
+            -
+              value: '<p>No. For at least the next several years, landowners will continue to have the option of applying for a depredation permit. The application for a depredation permit is available at <a href="https://www.fws.gov/forms/3-200- 13.pdf">www.fws.gov/forms/3-200- 13.pdf</a>. There is no fee to register on-line and work under the depredation order. However, there is an application processing fee for a depredation permit ($50 for a homeowner and $100 for a business).</p><p>Other circumstances under which nest and egg destruction will not be done under the depredation order include:</p><ol><li>Landowners in Alaska are still required to obtain Federal permits because the depredation order only covers the lower 48 States.</li><li>State wildlife agencies that hold Federal Special Canada Goose (SPCG) permits under 50 CFR 21.26 are already authorized to manage resident geese throughout their State, including by nest and egg destruction. These States will determine whether they will continue to permit landowners to destroy nests and eggs under the State’s Federal SPCG permit or require that landowners operate under the Service’s nest and egg depredation order. A list with State contact information is posted on the registration website.</li><li>Public and military airports may continue to take nests and eggs under either airport depredation permits or the airport control order (50 CFR 21.49).</li><li>Nests and eggs may be destroyed under the depredation order for resident Canada geese at agricultural facilities (50 CFR 21.51) and the public health depredation order (50 CFR 21.52) if the State has chosen to implement these depredation orders.</li></ol>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: c9230da8-36ac-43f4-a8df-783f58f3b4d0
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537674
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'Where can I learn more?'
+          field_response:
+            -
+              value: '<ul><li>The final rule implementing the nest and egg depredation order can be found by clicking on “Text of Regulation” on the Resident Canada Goose login page.</li><li>Information about the Migratory Bird Treaty Act and other laws administered by the Service can be found at <a href=" www.fws.gov/permits/">www.fws.gov/permits/</a>.</li><li>Information about Canada goose nesting management, including addling protocols, can be found in “Management of Canada Goose Nesting” by the U.S. Department of Agriculture, Animal and Plant Health Inspection Service, Wildlife Services, August 2009, at <a href="http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf">http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf</a>.</li><li>Information about egg addling and other management protocols can be found in the Technical Guide “Managing Canada Geese in Urban Environments” by A. E. Smith, S. R. Craven, and P. D. Curtis, 1999, a publication of Cornell Cooperative Extension, the University of Wisconsin, The Jack H. Berryman Institute, Wildlife Damage Management Working Group, at <a href="http://dspace.library.cornell.edu/handle/1813/66">http://dspace.library.cornell.edu/handle/1813/66</a>.</li><li>The Virginia Cooperative Extension publication 420-203, posted November 2001, Managing Wildlife Damage: Canada Goose (Branta canadensis), by Lisa French, Undergraduate, Department of Fisheries and Wildlife Sciences and Jim Parkhurst, Associate Professor and Extension Wildlife Specialist; Virginia Tech, can be found at <a href="https://www.ext.vt.edu/pubs/wildlife/420-203/420-203.html">www.ext.vt.edu/pubs/wildlife/420-203/420-203.html</a>.</li></ul>'
+              format: basic_html
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 33e6c1df-6ede-4faa-8644-3b6671f0e2ea
+          bundle: accordion
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1743537826
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+          field_prompt:
+            -
+              value: 'If I have further questions about the resident Canada goose nest and egg depredation order, who can I contact? '
+          field_response:
+            -
+              value: '<p>Contact your Regional Fish and Wildlife Service Migratory Bird Permit Office. Contacts can be found at <a href="https://www.fws.gov/migratorybirds/mbpermits/addresses.html">www.fws.gov/migratorybirds/mbpermits/addresses.html</a>.</p>'
+              format: basic_html
   field_private:
     -
       value: false

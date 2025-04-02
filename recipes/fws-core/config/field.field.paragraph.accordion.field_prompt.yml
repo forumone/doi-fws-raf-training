@@ -1,0 +1,21 @@
+uuid: e31e492f-3b48-441f-b473-9e4b112aca0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prompt
+    - paragraphs.paragraphs_type.accordion
+_core:
+  default_config_hash: gEZA2iIN1NhBq3o5wNlG8fo9ry7E_Z7aPKynN4qSjIM
+id: paragraph.accordion.field_prompt
+field_name: field_prompt
+entity_type: paragraph
+bundle: accordion
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
