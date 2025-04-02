@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.storage.paragraph.field_prompt
     - paragraphs.paragraphs_type.accordion
+_core:
+  default_config_hash: gEZA2iIN1NhBq3o5wNlG8fo9ry7E_Z7aPKynN4qSjIM
 id: paragraph.accordion.field_prompt
 field_name: field_prompt
 entity_type: paragraph
 bundle: accordion
-label: Prompt
+label: Title
 description: ''
 required: true
 translatable: false
