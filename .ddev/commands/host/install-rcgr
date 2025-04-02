@@ -25,6 +25,7 @@ ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-content
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-taxonomy
 ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-node
+ddev drush -l $SITE_URI recipe ../recipes/fws-rcgr-reports
 ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI en fws_goose -y
 
