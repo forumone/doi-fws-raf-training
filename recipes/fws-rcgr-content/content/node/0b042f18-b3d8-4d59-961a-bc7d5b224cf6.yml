@@ -16,7 +16,7 @@ default:
       target_id: 1
   title:
     -
-      value: 'Main Page'
+      value: Home
   created:
     -
       value: 1738791559
@@ -26,22 +26,25 @@ default:
   sticky:
     -
       value: false
+  revision_translation_affected:
+    -
+      value: true
   metatag:
     -
       tag: meta
       attributes:
         name: title
-        content: 'Main Page | FWS: Resident Canada Goose Registration'
+        content: 'Home | FWS: Resident Canada Goose Registration'
     -
       tag: meta
       attributes:
         name: description
-        content: 'Welcome to the Resident Canada Goose Nest and Egg Registration Site.'
+        content: 'Resident Canada Goose RegistrationWelcome to the Resident Canada Goose Nest and Egg Registration Site. If you are a landowner, homeowner’s association, public land manager, or local government in the lower 48 states or the District of Columbia, you may register at this site for federal authorization to destroy resident Canada goose nests and eggs on property under your jurisdiction.'
     -
       tag: meta
       attributes:
         name: abstract
-        content: 'Welcome to the Resident Canada Goose Nest and Egg Registration Site.'
+        content: 'Resident Canada Goose RegistrationWelcome to the Resident Canada Goose Nest and Egg Registration Site. If you are a landowner, homeowner’s association, public land manager, or local government in the lower 48 states or the District of Columbia, you may register at this site for federal authorization to destroy resident Canada goose nests and eggs on property under your jurisdiction.'
     -
       tag: link
       attributes:
@@ -54,7 +57,7 @@ default:
       pathauto: 0
   body:
     -
-      value: '<p>Welcome to the Resident Canada Goose Nest and Egg Registration Site. If you are a landowner, homeowner’s association, public land manager, or local government in the lower 48 states or the District of Columbia, you may register at this site for federal authorization to destroy resident Canada goose nests and eggs on property under your jurisdiction.</p><p>You must register each year prior to taking nests and eggs. You must register between January 1 and June 30 of the year in which the nests and eggs will be destroyed. You must also enter the individual names of employees or agents who may conduct the work on your behalf. You must be at least 18 years of age to register.</p><p>Each registrant must return to this site by October 31 to report the number of nests with eggs which were destroyed, for each month and location county. You must report even if you conducted no activity. You will not be able to register for future seasons if you have an outstanding report after 12/31 of the present year.</p>'
+      value: '<h2>Resident Canada Goose Registration</h2><p>Welcome to the Resident Canada Goose Nest and Egg Registration Site. If you are a landowner, homeowner’s association, public land manager, or local government in the lower 48 states or the District of Columbia, you may register at this site for federal authorization to destroy resident Canada goose nests and eggs on property under your jurisdiction.</p><p>You must register each year prior to taking nests and eggs. You must register between January 1 and June 30 of the year in which the nests and eggs will be destroyed. You must also enter the individual names of employees or agents who may conduct the work on your behalf. You must be at least 18 years of age to register.</p><p>Each registrant must return to this site by October 31 to report the number of nests with eggs which were destroyed, for each month and location county. You must report even if you conducted no activity. You will not be able to register for future seasons if you have an outstanding report after 12/31 of the present year.</p>'
       format: full_html
       summary: ''
   field_private:
