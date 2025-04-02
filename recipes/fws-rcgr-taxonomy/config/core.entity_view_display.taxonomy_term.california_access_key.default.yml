@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.california_access_key.field_location_county
+    - field.field.taxonomy_term.california_access_key.field_hid
+    - taxonomy.vocabulary.california_access_key
+  module:
+    - text
+id: taxonomy_term.california_access_key.default
+targetEntityType: taxonomy_term
+bundle: california_access_key
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    weight: 1
+    region: content
+    third_party_settings: {  }
+  field_location_county:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    weight: 2
+    region: content
+    third_party_settings: {  }
+  field_hid:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    weight: 3
+    region: content
+    third_party_settings: {  }
+hidden: {  }

@@ -60,8 +60,6 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
     return trim($value, '"');
   }, $header);
 
-  Drush::logger()->notice("CSV Header columns: " . implode(', ', $header));
-
   // Find the index of the name field in the header.
   $name_field_index = array_search($mapping['name_field'], $header);
   if ($name_field_index === FALSE) {
@@ -87,13 +85,13 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
     // Handle special row skipping logic if defined in the mapping.
     if (isset($mapping['skip_row_callback']) && is_callable($mapping['skip_row_callback'])) {
       if ($mapping['skip_row_callback']($row, $row_number, $column_indices)) {
-        Drush::logger()->warning("Warning: Skipping row based on custom logic");
+        $stats['skipped']++;
         continue;
       }
     }
     // Default skip logic for empty rows or separator rows.
     elseif (empty($row) || (count($row) === 1 && empty($row[0]))) {
-      Drush::logger()->warning("Warning: Skipping empty row");
+      $stats['skipped']++;
       continue;
     }
 
@@ -107,17 +105,8 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
 
     // Skip rows with empty names or special values.
     if (empty($name) || $name === '---' || $name === 'All') {
-      Drush::logger()->warning("Warning: Skipping row with empty or special name");
+      $stats['skipped']++;
       continue;
-    }
-
-    // Log field values being processed.
-    Drush::logger()->notice("Processing field values for term '$name':");
-    foreach ($mapping['field_mappings'] as $csv_column => $field_name) {
-      if (isset($column_indices[$csv_column])) {
-        $value = isset($row[$column_indices[$csv_column]]) ? trim($row[$column_indices[$csv_column]]) : '';
-        Drush::logger()->notice("  $csv_column => $field_name: '$value'");
-      }
     }
 
     // Check if term already exists.
@@ -132,12 +121,9 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
       $term = reset($existing_term);
 
       if (!$update_existing) {
-        Drush::logger()->warning("Term '$name' already exists in {$mapping['vid']} - skipping");
         $stats['skipped']++;
         continue;
       }
-
-      Drush::logger()->notice("Updating existing term '$name' in {$mapping['vid']}");
     }
     else {
       // Create new term.
@@ -154,7 +140,6 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
         !empty($row[$column_indices[$mapping['description_field']]])) {
       $description = trim($row[$column_indices[$mapping['description_field']]]);
       $term->setDescription($description);
-      Drush::logger()->notice("Setting description: '$description'");
     }
 
     // Set field values.
@@ -168,9 +153,6 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
           continue;
         }
 
-        // Debug logs for values.
-        Drush::logger()->notice("Setting field $field_name with value '$value'");
-
         // Handle field values based on field type.
         try {
           // Get the field definition.
@@ -180,28 +162,17 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
             continue;
           }
 
-          // Debug the field type.
-          $field_type = $field_definition->getType();
-          Drush::logger()->notice("Field $field_name is of type: $field_type");
-
           // Set the field value based on its type.
-          switch ($field_type) {
+          switch ($field_definition->getType()) {
             case 'string':
-              // Ensure string values are properly formatted.
-              $value = (string) $value;
-              Drush::logger()->notice("Setting $field_name to string value: '$value'");
-              $term->set($field_name, $value);
+              $term->set($field_name, (string) $value);
               break;
 
             case 'integer':
-              // Handle integer fields.
-              $int_value = (int) $value;
-              Drush::logger()->notice("Setting $field_name integer value: '$int_value'");
-              $term->set($field_name, $int_value);
+              $term->set($field_name, (int) $value);
               break;
 
             case 'entity_reference':
-              // Handle entity references.
               $handler_settings = $field_definition->getSetting('handler_settings');
               $target_bundles = $handler_settings['target_bundles'] ?? [];
               $vocabulary = !empty($target_bundles) ? key($target_bundles) : '';
@@ -210,8 +181,6 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
                 Drush::logger()->warning("Warning: Could not determine target vocabulary for $field_name");
                 continue;
               }
-
-              Drush::logger()->notice("Looking for referenced term '$value' in vocabulary '$vocabulary'");
 
               $referenced_term = \Drupal::entityTypeManager()
                 ->getStorage('taxonomy_term')
@@ -223,7 +192,6 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
               if (!empty($referenced_term)) {
                 $referenced_term = reset($referenced_term);
                 $term->set($field_name, ['target_id' => $referenced_term->id()]);
-                Drush::logger()->notice("Set $field_name reference to term '{$referenced_term->getName()}' (id: {$referenced_term->id()})");
               }
               else {
                 Drush::logger()->warning("Referenced term '$value' not found in $vocabulary vocabulary - skipping field");
@@ -246,34 +214,27 @@ function import_taxonomy_terms(array $mapping, $limit = PHP_INT_MAX, $update_exi
     try {
       $term->save();
       if (!empty($existing_term)) {
-        Drush::logger()->success("Updated term '$name' in {$mapping['vid']} vocabulary");
         $stats['updated']++;
       }
       else {
-        Drush::logger()->success("Created term '$name' in {$mapping['vid']} vocabulary");
         $stats['created']++;
-      }
-
-      // Execute post-save callback if defined.
-      if (isset($mapping['post_save_callback']) && is_callable($mapping['post_save_callback'])) {
-        $mapping['post_save_callback']($term, $row, $column_indices);
       }
     }
     catch (\Exception $e) {
-      Drush::logger()->error("Error saving term '$name' in {$mapping['vid']} vocabulary: " . $e->getMessage());
+      Drush::logger()->error("Error saving term '$name': " . $e->getMessage());
       $stats['errors']++;
     }
   }
 
   fclose($handle);
 
-  // Report statistics for this taxonomy.
-  Drush::logger()->notice("Completed import for {$mapping['vid']}:");
-  Drush::logger()->notice("  Total rows processed: {$stats['processed']}");
-  Drush::logger()->notice("  Terms created: {$stats['created']}");
-  Drush::logger()->notice("  Terms updated: {$stats['updated']}");
-  Drush::logger()->notice("  Terms skipped: {$stats['skipped']}");
-  Drush::logger()->notice("  Errors: {$stats['errors']}");
+  // Log final statistics.
+  Drush::logger()->notice("Import complete for {$mapping['vid']}:");
+  Drush::logger()->notice("- Processed: {$stats['processed']}");
+  Drush::logger()->notice("- Created: {$stats['created']}");
+  Drush::logger()->notice("- Updated: {$stats['updated']}");
+  Drush::logger()->notice("- Skipped: {$stats['skipped']}");
+  Drush::logger()->notice("- Errors: {$stats['errors']}");
 
   return $stats;
 }

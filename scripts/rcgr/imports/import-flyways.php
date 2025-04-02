@@ -44,15 +44,7 @@ $mapping = [
 ];
 
 // Run the import.
-$stats = import_taxonomy_terms($mapping, $limit, $update_existing);
-
-// Display final results.
-Drush::logger()->notice("Flyways taxonomy import completed.");
-Drush::logger()->notice("Total rows processed: {$stats['processed']}");
-Drush::logger()->notice("Terms created: {$stats['created']}");
-Drush::logger()->notice("Terms updated: {$stats['updated']}");
-Drush::logger()->notice("Terms skipped: {$stats['skipped']}");
-Drush::logger()->notice("Errors: {$stats['errors']}");
+import_taxonomy_terms($mapping, $limit, $update_existing);
 
 /**
  * Custom post-save callback for flyways import.
@@ -79,7 +71,6 @@ function post_save_callback(Term $term, array $row, array $column_indices) {
     // Parse the comma-separated list of state codes.
     $codes = explode(',', $state_codes);
     $state_refs = [];
-    $states_count = 0;
 
     foreach ($codes as $code) {
       $code = trim($code);
@@ -100,11 +91,9 @@ function post_save_callback(Term $term, array $row, array $column_indices) {
       if (!empty($states)) {
         $state = reset($states);
         $state_refs[] = ['target_id' => $state->id()];
-        Drush::logger()->notice("Adding state reference to '$code' (id: {$state->id()})");
-        $states_count++;
       }
       else {
-        Drush::logger()->warning("State '$code' not found in states vocabulary - skipping reference");
+        Drush::logger()->warning("State '$code' not found in states vocabulary");
       }
     }
 
@@ -112,7 +101,6 @@ function post_save_callback(Term $term, array $row, array $column_indices) {
     if (!empty($state_refs)) {
       $term->set('field_states_ref', $state_refs);
       $term->save();
-      Drush::logger()->notice("Saved term with $states_count state references");
     }
   }
 }

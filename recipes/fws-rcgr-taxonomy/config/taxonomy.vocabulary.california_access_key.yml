@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'California Access Key'
+vid: california_access_key
+description: 'Special access keys for California locations.'
+weight: 0
