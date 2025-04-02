@@ -1,22 +1,25 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 3m4n5o6p-7q8r-9s0t-1u2v-3w4x5y6z7a8b
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l: menu_link_content
+    e594d464-227f-4949-bdc6-fcb9defe2f8e: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: 'Text of Regulation'
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: e594d464-227f-4949-bdc6-fcb9defe2f8e
       title: ''
       options: {  }
   external:
@@ -24,13 +27,16 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
-      value: -45
+      value: -47
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
   revision_translation_affected:
     -
       value: true

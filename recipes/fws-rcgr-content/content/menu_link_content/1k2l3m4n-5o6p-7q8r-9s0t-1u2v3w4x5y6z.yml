@@ -1,22 +1,25 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6z
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l: menu_link_content
+    6017fe57-8fcd-4d6b-b918-1d5abc75608a: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: FAQ
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 6017fe57-8fcd-4d6b-b918-1d5abc75608a
       title: ''
       options: {  }
   external:
@@ -24,13 +27,16 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
-      value: -45
+      value: -50
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
   revision_translation_affected:
     -
       value: true

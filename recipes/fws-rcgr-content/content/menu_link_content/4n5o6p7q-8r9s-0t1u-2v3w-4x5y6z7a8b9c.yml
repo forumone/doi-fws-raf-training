@@ -1,22 +1,25 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: dac0c8f8-e43a-413f-b934-d4b78fa4e607
+  uuid: 4n5o6p7q-8r9s-0t1u-2v3w-4x5y6z7a8b9c
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l: menu_link_content
+    526226df-f819-4221-9519-b56684b1a1ce: node
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: USA.GOV
+      value: 'State Agency Contacts and Information'
   menu_name:
     -
-      value: footer
+      value: main
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 526226df-f819-4221-9519-b56684b1a1ce
       title: ''
       options: {  }
   external:
@@ -24,13 +27,16 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
-      value: -45
+      value: -48
   expanded:
     -
       value: false
+  parent:
+    -
+      value: 'menu_link_content:6d4f5e96-0f75-7g2c-d6h4-2g9h1i8j0k2l'
   revision_translation_affected:
     -
       value: true

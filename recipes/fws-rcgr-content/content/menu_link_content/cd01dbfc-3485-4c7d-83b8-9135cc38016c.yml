@@ -4,6 +4,8 @@ _meta:
   uuid: cd01dbfc-3485-4c7d-83b8-9135cc38016c
   bundle: menu_link_content
   default_langcode: en
+  depends:
+    6017fe57-8fcd-4d6b-b918-1d5abc75608a: node
 default:
   enabled:
     -
@@ -19,7 +21,7 @@ default:
       value: footer-menu-site-links
   link:
     -
-      uri: 'internal:/'
+      target_uuid: 6017fe57-8fcd-4d6b-b918-1d5abc75608a
       title: ''
       options: {  }
   external:
@@ -27,7 +29,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -49
@@ -42,9 +44,9 @@ default:
       tag: meta
       attributes:
         name: title
-        content: '| FWS: State/Federal Falconry 3-186A Database'
+        content: '| FWS: Resident Canada Goose Registration'
     -
       tag: link
       attributes:
         rel: canonical
-        href: '/page/about-aerial-observer-training'
+        href: 'https://rcgr.ddev.site/main'
