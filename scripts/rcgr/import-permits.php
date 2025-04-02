@@ -106,7 +106,6 @@ function get_taxonomy_term_id($value, $vocabulary, $create_if_missing, array &$t
       $term->save();
       $tid = $term->id();
       $term_cache[$cache_key] = $tid;
-      $logger->notice("Created taxonomy term '$value' in $vocabulary vocabulary with ID: $tid");
       return $tid;
     }
     catch (\Exception $e) {
@@ -115,7 +114,6 @@ function get_taxonomy_term_id($value, $vocabulary, $create_if_missing, array &$t
     }
   }
 
-  $logger->warning("Taxonomy term '$value' not found in $vocabulary vocabulary and not created");
   return NULL;
 }
 
@@ -145,32 +143,30 @@ $input = Drush::input();
 $args = $input->getArguments();
 $limit = isset($args['extra'][1]) ? (int) $args['extra'][1] : PHP_INT_MAX;
 
+// Initialize log output.
 $logger = Drush::logger();
+$logger->notice("Starting permit import");
 
 // Log the limit if specified.
 if ($limit < PHP_INT_MAX) {
-  $logger->warning("Limiting import to {$limit} records");
-}
-else {
-  $logger->warning("No limit specified - will import all records");
+  $logger->notice("Import limit: $limit");
 }
 
 // Initialize counters.
-$total = 0;
-$created = 0;
-$updated = 0;
-$skipped = 0;
-$errors = 0;
-$processed = 0;
+$stats = [
+  'total' => 0,
+  'created' => 0,
+  'updated' => 0,
+  'skipped' => 0,
+  'errors' => 0,
+  'processed' => 0,
+];
 
 // Initialize taxonomy term cache.
 $term_cache = [];
 
-$logger->warning('Starting import with properly fixed taxonomy reference handling.');
-
 // Open the CSV file.
 $csv_file = dirname(__FILE__) . '/data/rcgr_permit_app_mast_202503031405.csv';
-$logger->warning('Opening CSV file: ' . $csv_file);
 $handle = fopen($csv_file, 'r');
 
 if ($handle === FALSE) {
@@ -313,10 +309,10 @@ catch (\Exception $e) {
 
 // Process each row.
 while (($row = fgetcsv($handle)) !== FALSE) {
-  $total++;
+  $stats['total']++;
 
   // Skip if we've reached the limit.
-  if ($processed >= $limit) {
+  if ($stats['processed'] >= $limit) {
     $logger->notice("Reached import limit of {$limit} records. Stopping.");
     break;
   }
@@ -328,14 +324,14 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
   // Skip empty rows.
   if (empty($row) || (count($row) === 1 && empty($row[0]))) {
-    $skipped++;
+    $stats['skipped']++;
     continue;
   }
 
   // Get permit number.
   $permit_no = trim($row[$_rcgr_import_csv_map['permit_no']]);
   if (empty($permit_no)) {
-    $skipped++;
+    $stats['skipped']++;
     continue;
   }
 
@@ -431,12 +427,12 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
       try {
         $node->save();
-        $created++;
-        $processed++;
+        $stats['created']++;
+        $stats['processed']++;
       }
       catch (\Exception $e) {
         $logger->error("Failed to create permit node for permit number {$permit_no}: " . $e->getMessage());
-        $errors++;
+        $stats['errors']++;
       }
     }
     else {
@@ -547,33 +543,33 @@ while (($row = fgetcsv($handle)) !== FALSE) {
       if ($updated_fields > 0) {
         try {
           $node->save();
-          $updated++;
-          $processed++;
+          $stats['updated']++;
+          $stats['processed']++;
         }
         catch (\Exception $e) {
           $logger->error("Failed to update permit node for permit number {$permit_no}: " . $e->getMessage());
-          $errors++;
+          $stats['errors']++;
         }
       }
       else {
-        $skipped++;
-        $processed++;
+        $stats['skipped']++;
+        $stats['processed']++;
       }
     }
   }
   catch (\Exception $e) {
     $logger->error('Error processing permit ' . $permit_no . ': ' . $e->getMessage());
-    $errors++;
-    $processed++;
+    $stats['errors']++;
+    $stats['processed']++;
   }
 
   // Progress update every 100 records.
-  if ($processed % 100 === 0) {
-    $logger->warning("Processing progress: {$processed} records processed (Created: {$created}, Updated: {$updated}, Skipped: {$skipped}, Errors: {$errors})");
+  if ($stats['processed'] % 100 === 0) {
+    $logger->warning("Processing progress: {$stats['processed']} records processed (Created: {$stats['created']}, Updated: {$stats['updated']}, Skipped: {$stats['skipped']}, Errors: {$stats['errors']})");
   }
 
   // Check again at the end of each iteration if we've reached the limit.
-  if ($limit > 0 && $processed >= $limit) {
+  if ($limit > 0 && $stats['processed'] >= $limit) {
     $logger->notice("Reached limit of {$limit} processed records. Stopping import.");
     break;
   }
@@ -595,4 +591,4 @@ if ($previous_autoindex !== NULL) {
 }
 
 // Log the final statistics.
-$logger->warning('Import complete. Total read: ' . $total . ', Created: ' . $created . ', Updated: ' . $updated . ', Skipped: ' . $skipped . ', Errors: ' . $errors);
+$logger->warning('Import complete. Total read: ' . $stats['total'] . ', Created: ' . $stats['created'] . ', Updated: ' . $stats['updated'] . ', Skipped: ' . $stats['skipped'] . ', Errors: ' . $stats['errors']);

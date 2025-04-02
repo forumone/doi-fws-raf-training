@@ -5,8 +5,6 @@
  * Script to import registrant type terms from a CSV file.
  */
 
-use Drush\Drush;
-
 // Get variables from the parent script.
 $limit = $GLOBALS['limit'] ?? PHP_INT_MAX;
 $update_existing = $GLOBALS['update_existing'] ?? FALSE;
@@ -28,12 +26,4 @@ $mapping = [
 ];
 
 // Run the import.
-$stats = import_taxonomy_terms($mapping, $limit, $update_existing);
-
-// Display final results.
-Drush::logger()->notice("Registrant type taxonomy import completed.");
-Drush::logger()->notice("Total rows processed: {$stats['processed']}");
-Drush::logger()->notice("Terms created: {$stats['created']}");
-Drush::logger()->notice("Terms updated: {$stats['updated']}");
-Drush::logger()->notice("Terms skipped: {$stats['skipped']}");
-Drush::logger()->notice("Errors: {$stats['errors']}");
+import_taxonomy_terms($mapping, $limit, $update_existing);

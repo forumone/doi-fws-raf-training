@@ -57,6 +57,9 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php registrant_type 100
 echo "Importing restricted_counties vocabulary..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php restricted_counties 1000 1
 
+echo "Importing california_access_key vocabulary..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php california_access_key 1000 1
+
 echo "Importing permits..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-permits.php 1000
 

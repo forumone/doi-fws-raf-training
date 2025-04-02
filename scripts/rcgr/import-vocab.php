@@ -63,10 +63,13 @@ if (!file_exists($import_script)) {
 }
 
 // Initialize log output.
-Drush::logger()->notice("=== RCGR Taxonomy Import Log ===");
 Drush::logger()->notice("Starting import for vocabulary: $vocabulary");
-Drush::logger()->notice("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit));
-Drush::logger()->notice("Update existing terms: " . ($update_existing ? "Yes" : "No"));
+if ($limit !== PHP_INT_MAX) {
+  Drush::logger()->notice("Import limit: $limit");
+}
+if ($update_existing) {
+  Drush::logger()->notice("Update mode: enabled");
+}
 
 // Run the import.
 require_once $import_script;
