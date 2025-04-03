@@ -5,10 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_permit_no
     - node.type.location
-    - system.menu.main
   module:
     - node
     - user
+_core:
+  default_config_hash: mQWd1bXJ83q88SW6uD_qJjBehPMqG_xTFTSqtSrIhiY
 id: user_locations
 label: 'My Locations'
 module: views
@@ -495,7 +496,7 @@ display:
       display_extenders: {  }
       path: profile/locations-agents
       menu:
-        type: normal
+        type: none
         title: 'My Locations'
         description: ''
         weight: 0

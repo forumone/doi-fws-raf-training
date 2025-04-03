@@ -5,6 +5,7 @@
  * Contains fws_goose.module.
  */
 
+use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -20,6 +21,83 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
     // Make permit number read-only.
     if (isset($form['field_permit_no'])) {
       $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_goose_entity_presave($entity) {
+  // Only process new location nodes.
+  if ($entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'location' || !$entity->isNew()) {
+    return;
+  }
+
+  // Generate record number if not set.
+  if ($entity->hasField('field_recno') && $entity->get('field_recno')->isEmpty()) {
+    // Get the highest record ID from the database.
+    $query = \Drupal::database()->select('node__field_recno', 'r');
+    $query->addExpression('MAX(CAST(r.field_recno_value AS SIGNED))', 'max_recno');
+    $result = $query->execute()->fetchField();
+
+    // Set the new record ID (highest + 1).
+    $next_record_id = $result ? $result + 1 : 1;
+    $entity->set('field_recno', $next_record_id);
+  }
+
+  // Skip permit number generation if already set.
+  if (!$entity->get('field_permit_no')->isEmpty()) {
+    return;
+  }
+
+  // Get or initialize the permit number counter from configuration.
+  $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
+  $next_number = $config->get('permit_number_counter');
+  if ($next_number === NULL) {
+    // Initialize with 1 if no counter exists.
+    $next_number = 1;
+  }
+  else {
+    $next_number++;
+  }
+
+  // Format the permit number (5 digits + 'A').
+  $permit_number = sprintf('%05dA', $next_number);
+
+  // Double check for duplicates.
+  $duplicate_check = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->getQuery()
+    ->condition('type', 'location')
+    ->condition('field_permit_no', $permit_number)
+    ->accessCheck(FALSE)
+    ->count()
+    ->execute();
+
+  if ($duplicate_check > 0) {
+    \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
+    return;
+  }
+
+  // Save the new counter value.
+  $config->set('permit_number_counter', $next_number)
+    ->save(TRUE);
+
+  // Set the permit number on the entity.
+  $entity->set('field_permit_no', $permit_number);
+
+  // Also save the permit number to the user profile.
+  $current_user = \Drupal::currentUser();
+  if ($current_user->id() > 0) {
+    $user = User::load($current_user->id());
+    if ($user && $user->hasField('field_permit_no') && $user->get('field_permit_no')->isEmpty()) {
+      $user->set('field_permit_no', $permit_number);
+      $user->save();
+      \Drupal::logger('fws_goose')->notice('Saved permit number @permit to user @uid', [
+        '@permit' => $permit_number,
+        '@uid' => $current_user->id(),
+      ]);
     }
   }
 }
