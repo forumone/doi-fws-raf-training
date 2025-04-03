@@ -22,6 +22,25 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
     if (isset($form['field_permit_no'])) {
       $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
     }
+
+    if (isset($form['field_ca_county_select']['widget']['#options'])) {
+      $entity_type_manager = \Drupal::entityTypeManager();
+      $term_storage = $entity_type_manager->getStorage('taxonomy_term');
+
+      foreach ($form['field_ca_county_select']['widget']['#options'] as $tid => $label) {
+        if ($tid === '_none') {
+          continue;
+        }
+
+        $term = $term_storage->load($tid);
+        if ($term && $term->hasField('field_iscountyrestricted')) {
+          $is_restricted = $term->get('field_iscountyrestricted')->value;
+          if ($is_restricted === 'Y') {
+            $form['field_ca_county_select']['widget']['#options'][$tid] = $label . ' [Restricted]';
+          }
+        }
+      }
+    }
   }
 }
 
