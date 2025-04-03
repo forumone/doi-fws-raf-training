@@ -24,7 +24,7 @@ third_party_settings:
       label: 'California Only'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 0
       format_type: details
       format_settings:
         classes: ''
@@ -42,7 +42,7 @@ mode: default
 content:
   field_location_address:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
@@ -50,7 +50,7 @@ content:
     third_party_settings: {  }
   field_location_city:
     type: string_textfield
-    weight: 3
+    weight: 2
     region: content
     settings:
       size: 60
@@ -58,7 +58,7 @@ content:
     third_party_settings: {  }
   field_location_county:
     type: string_textfield
-    weight: 4
+    weight: 3
     region: content
     settings:
       size: 60
@@ -66,7 +66,7 @@ content:
     third_party_settings: {  }
   field_location_state_ref:
     type: select2_entity_reference
-    weight: 5
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -77,7 +77,7 @@ content:
     third_party_settings: {  }
   field_permit_no:
     type: string_textfield
-    weight: 6
+    weight: 5
     region: content
     settings:
       size: 60
@@ -86,7 +86,7 @@ content:
     third_party_settings: {  }
   field_recno:
     type: number
-    weight: 7
+    weight: 6
     region: content
     settings:
       placeholder: ''
