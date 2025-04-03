@@ -10,7 +10,7 @@ field_name: field_location_state_ref
 entity_type: node
 bundle: location
 label: 'State'
-description: 'The state where the location is located.'
+description: 'The states not available in this dropdown cannot participate in this activity.'
 required: FALSE
 translatable: TRUE
 default_value: {  }
