@@ -9,10 +9,30 @@ dependencies:
     - field.field.node.location.field_location_state_ref
     - field.field.node.location.field_permit_no
     - field.field.node.location.field_recno
+    - field.field.node.location.field_ca_access_key
     - node.type.location
   module:
     - path
     - select2
+    - field_group
+third_party_settings:
+  field_group:
+    group_california_only:
+      children:
+        - field_ca_county_select
+        - field_ca_access_key
+      label: 'California Only'
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: uH7mTfpiqOuvA2VC4E5y7RaYQXNbNkovCcXB9dsNsDI
 id: node.location.default
@@ -73,10 +93,28 @@ content:
       label: 'System Record Locator'
       description: 'System Record Locator represents a system generated number for internal use only.'
     third_party_settings: {  }
+  field_ca_access_key:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: 'Enter County Access Code'
+    third_party_settings: {  }
+  field_ca_county_select:
+    type: select2_entity_reference
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Select an authorized county'
+      width: 100%
+    third_party_settings: {  }
 hidden:
   created: TRUE
   field_bi_cd: TRUE
-  field_ca_access_key: TRUE
   field_control_site_id: TRUE
   field_create_by: TRUE
   field_dt_create: TRUE

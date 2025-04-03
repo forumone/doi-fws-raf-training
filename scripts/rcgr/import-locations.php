@@ -279,6 +279,27 @@ function process_location_row(
     }
     $node->set('field_location_address', $address);
 
+    // Handle California county selection if this is a CA location.
+    if (!empty($data['location_state']) && $data['location_state'] === 'CA' && !empty($data['location_county'])) {
+      $county_name = trim($data['location_county']);
+      $tid = get_taxonomy_term_id($county_name, 'restricted_counties', FALSE, $term_cache);
+      if ($tid) {
+        $node->set(
+          'field_ca_county_select',
+          ['target_id' => $tid]
+        );
+      }
+      else {
+        $_rcgr_import_logger->warning(
+          'Could not find county term "@county" in restricted_counties vocabulary (Permit #@permit)',
+          [
+            '@county' => $county_name,
+            '@permit' => $data['permit_no'],
+          ]
+        );
+      }
+    }
+
     // Map and set field values.
     foreach ($field_mapping as $csv_field => $drupal_field) {
       // Skip address fields as we've already handled them.
@@ -372,7 +393,31 @@ function process_location_row(
           break;
 
         default:
-          $node->set($drupal_field, $value);
+          // Handle array of field mappings (for fields that map to multiple destinations)
+          if (is_array($drupal_field)) {
+            foreach ($drupal_field as $target_field) {
+              if ($target_field === 'field_ca_county_select' && !empty($value) && $data['location_state'] === 'CA') {
+                // Look up the county in the restricted_counties vocabulary.
+                $tid = get_taxonomy_term_id($value, 'restricted_counties', FALSE, $term_cache);
+                if ($tid) {
+                  $node->set($target_field, ['target_id' => $tid]);
+                }
+                else {
+                  $_rcgr_import_logger->warning('Could not find county term for @county in restricted_counties (Permit #@permit)', [
+                    '@county' => $value,
+                    '@permit' => $data['permit_no'],
+                  ]);
+                }
+              }
+              else {
+                $node->set($target_field, $value);
+              }
+            }
+          }
+          else {
+            $node->set($drupal_field, $value);
+          }
+          break;
       }
     }
 
