@@ -1,0 +1,10 @@
+status: 2
+pattern: '[node:field_location_address:0]'
+escape: false
+preserve_titles: false
+save: false
+chunk: 50
+dependencies:
+  config:
+    - node.type.location
+new_content_behavior: 0

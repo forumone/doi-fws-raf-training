@@ -3,39 +3,36 @@ langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.field.node.location.field_bi_cd
-    - field.field.node.location.field_ca_access_key
-    - field.field.node.location.field_control_site_id
-    - field.field.node.location.field_create_by
-    - field.field.node.location.field_dt_create
-    - field.field.node.location.field_dt_update
-    - field.field.node.location.field_hid
-    - field.field.node.location.field_is_removed
     - field.field.node.location.field_location_address
     - field.field.node.location.field_location_city
     - field.field.node.location.field_location_county
-    - field.field.node.location.field_location_is_certified
-    - field.field.node.location.field_location_is_removed
-    - field.field.node.location.field_location_qty_nest_egg_apr
-    - field.field.node.location.field_location_qty_nest_egg_jun
-    - field.field.node.location.field_location_qty_nest_egg_mar
-    - field.field.node.location.field_location_qty_nest_egg_may
-    - field.field.node.location.field_location_qty_nest_egg_tot
-    - field.field.node.location.field_location_report_year
     - field.field.node.location.field_location_state_ref
     - field.field.node.location.field_permit_no
-    - field.field.node.location.field_person_name
-    - field.field.node.location.field_rcf_cd
     - field.field.node.location.field_recno
-    - field.field.node.location.field_report_year
-    - field.field.node.location.field_site_id
-    - field.field.node.location.field_update_by
-    - field.field.node.location.field_version_no
-    - field.field.node.location.field_xml_cd
+    - field.field.node.location.field_ca_access_key
     - node.type.location
   module:
-    - datetime
     - path
+    - select2
+    - field_group
+third_party_settings:
+  field_group:
+    group_california_only:
+      children:
+        - field_ca_county_select
+        - field_ca_access_key
+      label: 'California Only'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: uH7mTfpiqOuvA2VC4E5y7RaYQXNbNkovCcXB9dsNsDI
 id: node.location.default
@@ -43,23 +40,15 @@ targetEntityType: node
 bundle: location
 mode: default
 content:
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_no:
+  field_location_address:
     type: string_textfield
     weight: 1
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Enter physical address'
     third_party_settings: {  }
-  field_location_address:
+  field_location_city:
     type: string_textfield
     weight: 2
     region: content
@@ -67,7 +56,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_location_city:
+  field_location_county:
     type: string_textfield
     weight: 3
     region: content
@@ -75,240 +64,81 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_location_county:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_location_state_ref:
-    type: entity_reference_autocomplete
-    weight: 5
+    type: select2_entity_reference
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
+      width: 100%
     third_party_settings: {  }
-  field_location_qty_nest_egg_mar:
+  field_permit_no:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      label: 'Registration No.'
+    third_party_settings: {  }
+  field_recno:
     type: number
     weight: 6
     region: content
     settings:
       placeholder: ''
-    third_party_settings: {  }
-  field_location_qty_nest_egg_apr:
-    type: number
-    weight: 7
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_location_qty_nest_egg_may:
-    type: number
-    weight: 8
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_location_qty_nest_egg_jun:
-    type: number
-    weight: 9
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_location_qty_nest_egg_tot:
-    type: number
-    weight: 10
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_location_report_year:
-    type: number
-    weight: 11
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_location_is_certified:
-    type: boolean_checkbox
-    weight: 12
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_location_is_removed:
-    type: boolean_checkbox
-    weight: 13
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_bi_cd:
-    type: entity_reference_autocomplete
-    weight: 14
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      label: 'System Record Locator'
+      description: 'System Record Locator represents a system generated number for internal use only.'
     third_party_settings: {  }
   field_ca_access_key:
     type: string_textfield
-    weight: 15
+    weight: 2
     region: content
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Enter County Access Code'
     third_party_settings: {  }
-  field_control_site_id:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_create_by:
-    type: string_textfield
-    weight: 17
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_dt_create:
-    type: datetime_default
-    weight: 18
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_update:
-    type: datetime_default
-    weight: 19
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 20
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_removed:
-    type: boolean_checkbox
-    weight: 21
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_person_name:
-    type: string_textfield
-    weight: 22
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: entity_reference_autocomplete
-    weight: 23
+  field_ca_county_select:
+    type: select2_entity_reference
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Select an authorized county'
+      width: 100%
     third_party_settings: {  }
-  field_recno:
-    type: number
-    weight: 24
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_report_year:
-    type: number
-    weight: 25
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_site_id:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_update_by:
-    type: string_textfield
-    weight: 27
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_version_no:
-    type: number
-    weight: 28
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_xml_cd:
-    type: string_textfield
-    weight: 29
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  created:
-    type: datetime_timestamp
-    weight: 150
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
-    weight: 151
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 152
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  sticky:
-    type: boolean_checkbox
-    weight: 153
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 154
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  url_redirects:
-    weight: 155
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  created: TRUE
+  field_bi_cd: TRUE
+  field_control_site_id: TRUE
+  field_create_by: TRUE
+  field_dt_create: TRUE
+  field_dt_update: TRUE
+  field_hid: TRUE
+  field_is_removed: TRUE
+  field_location_is_certified: TRUE
+  field_location_is_removed: TRUE
+  field_location_qty_nest_egg_apr: TRUE
+  field_location_qty_nest_egg_jun: TRUE
+  field_location_qty_nest_egg_mar: TRUE
+  field_location_qty_nest_egg_may: TRUE
+  field_location_qty_nest_egg_tot: TRUE
+  field_location_report_year: TRUE
+  field_person_name: TRUE
+  field_rcf_cd: TRUE
+  field_report_year: TRUE
+  field_site_id: TRUE
+  field_update_by: TRUE
+  field_version_no: TRUE
+  field_xml_cd: TRUE
+  path: TRUE
+  promote: TRUE
+  status: TRUE
+  sticky: TRUE
+  title: TRUE
+  uid: TRUE

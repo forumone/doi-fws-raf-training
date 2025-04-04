@@ -1,0 +1,381 @@
+<?php
+
+/**
+ * @file
+ * Contains fws_goose.module.
+ */
+
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\user\Entity\User;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
+    // Make record number read-only.
+    if (isset($form['field_recno'])) {
+      $form['field_recno']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+
+    // Make permit number read-only.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+
+    // Add the validate button after the access key field.
+    $form['field_ca_access_key']['validate_ca'] = [
+      '#type' => 'submit',
+      '#value' => t('Validate Access'),
+      '#name' => 'validate_ca_access',
+      '#validate' => ['_fws_goose_validate_ca_access'],
+      '#submit' => ['_fws_goose_validate_ca_access_submit'],
+      '#limit_validation_errors' => [['field_ca_access_key']],
+      '#weight' => 10,
+    ];
+
+    // Get the validated county from form state if it exists.
+    $validated_county = $form_state->get('ca_validated_county');
+
+    // If we have a validated county, convert state to read-only text field and set to California.
+    if ($validated_county) {
+      // Store the original state value for form processing.
+      $form['field_location_state_ref']['widget']['#validated_state'] = 'CA';
+
+      // Change the state field to a read-only text field.
+      $form['field_location_state_ref']['widget']['#type'] = 'textfield';
+      $form['field_location_state_ref']['widget']['#value'] = 'California';
+      $form['field_location_state_ref']['widget']['#attributes']['readonly'] = TRUE;
+      $form['field_location_state_ref']['widget']['#size'] = 60;
+
+      // Add a hidden field to store the actual state reference value.
+      $state_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties([
+        'vid' => 'states',
+        'name' => 'CA',
+      ]);
+      $state_term = reset($state_terms);
+      if ($state_term) {
+        $form['field_location_state_ref']['widget']['#default_value'] = $state_term->id();
+      }
+    }
+    else {
+      // Add state change handler to clear county when switching to CA.
+      $form['field_location_state_ref']['widget']['#ajax'] = [
+        '#type' => 'select',
+        '#event' => 'change',
+        '#callback' => '_fws_goose_state_changed',
+        '#wrapper' => 'location-county-wrapper',
+      ];
+    }
+
+    // Wrap county field for AJAX updates.
+    $form['field_location_county']['#prefix'] = '<div id="location-county-wrapper">';
+    $form['field_location_county']['#suffix'] = '</div>';
+
+    // Get current state value.
+    $state_value = NULL;
+    $state_values = $form_state->getValue('field_location_state_ref');
+    if (!empty($state_values[0]['target_id'])) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($state_values[0]['target_id']);
+      if ($term) {
+        $state_value = $term->getName();
+      }
+    }
+    // Also check for validated state.
+    elseif (isset($form['field_location_state_ref']['widget']['#validated_state'])) {
+      $state_value = $form['field_location_state_ref']['widget']['#validated_state'];
+    }
+
+    // If state is California, make county read-only and clear it if not from dropdown.
+    if ($state_value === 'CA') {
+      $form['field_location_county']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+
+      // If we have a validated county, set it in both fields.
+      if ($validated_county) {
+        $form['field_location_county']['widget'][0]['value']['#value'] = $validated_county;
+
+        // Find and select the matching county in the dropdown.
+        if (isset($form['field_ca_county_select']['widget']['#options'])) {
+          foreach ($form['field_ca_county_select']['widget']['#options'] as $tid => $label) {
+            if ($tid === '_none') {
+              continue;
+            }
+            $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
+            if ($term && $term->getName() === $validated_county) {
+              $form['field_ca_county_select']['widget']['#default_value'] = $tid;
+              break;
+            }
+          }
+        }
+      }
+      else {
+        // Clear the county field if no validated county.
+        $form['field_location_county']['widget'][0]['value']['#value'] = '';
+      }
+    }
+
+    // If we have a validated county, only enable selection of that county.
+    if ($validated_county && isset($form['field_ca_county_select']['widget']['#options'])) {
+      foreach ($form['field_ca_county_select']['widget']['#options'] as $tid => $label) {
+        if ($tid === '_none') {
+          continue;
+        }
+
+        $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
+        if ($term) {
+          $county_name = $term->getName();
+          // Disable all counties except the validated one.
+          if ($county_name !== $validated_county) {
+            $form['field_ca_county_select']['widget']['#options'][$tid] .= ' [Access Code Required]';
+            $form['field_ca_county_select']['widget']['#disabled_options'][$tid] = TRUE;
+          }
+        }
+      }
+    }
+    // If no county is validated yet, disable all counties.
+    else {
+      foreach ($form['field_ca_county_select']['widget']['#options'] as $tid => $label) {
+        if ($tid !== '_none') {
+          $form['field_ca_county_select']['widget']['#options'][$tid] .= ' [Access Code Required]';
+          $form['field_ca_county_select']['widget']['#disabled_options'][$tid] = TRUE;
+        }
+      }
+    }
+
+    if (isset($form['field_ca_county_select']['widget']['#options'])) {
+      $entity_type_manager = \Drupal::entityTypeManager();
+      $term_storage = $entity_type_manager->getStorage('taxonomy_term');
+
+      foreach ($form['field_ca_county_select']['widget']['#options'] as $tid => $label) {
+        if ($tid === '_none') {
+          continue;
+        }
+
+        $term = $term_storage->load($tid);
+        if ($term && $term->hasField('field_iscountyrestricted')) {
+          $is_restricted = $term->get('field_iscountyrestricted')->value;
+          if ($is_restricted === 'Y') {
+            // Only append [Restricted] if we haven't already appended [Access Code Required].
+            if (strpos($form['field_ca_county_select']['widget']['#options'][$tid], '[Access Code Required]') === FALSE) {
+              $form['field_ca_county_select']['widget']['#options'][$tid] .= ' [Restricted]';
+            }
+          }
+        }
+      }
+    }
+
+    // Add handler for CA county select changes.
+    $form['field_ca_county_select']['widget']['#ajax'] = [
+      '#type' => 'select',
+      '#event' => 'change',
+      '#callback' => '_fws_goose_ca_county_changed',
+      '#wrapper' => 'location-county-wrapper',
+    ];
+  }
+}
+
+/**
+ * AJAX callback for state changes.
+ */
+function _fws_goose_state_changed($form, FormStateInterface $form_state) {
+  $response = new AjaxResponse();
+
+  // Get the selected state.
+  $state_values = $form_state->getValue('field_location_state_ref');
+  if (!empty($state_values[0]['target_id'])) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($state_values[0]['target_id']);
+    if ($term && $term->getName() === 'CA') {
+      // Clear the county field when switching to CA.
+      $form['field_location_county']['widget'][0]['value']['#value'] = '';
+      $response->addCommand(new InvokeCommand(
+        'input[name="field_location_county[0][value]"]',
+        'val',
+        ['']
+      ));
+    }
+  }
+
+  return $response;
+}
+
+/**
+ * AJAX callback for CA county select changes.
+ */
+function _fws_goose_ca_county_changed($form, FormStateInterface $form_state) {
+  $response = new AjaxResponse();
+
+  // Get the selected county.
+  $county_values = $form_state->getValue('field_ca_county_select');
+  if (!empty($county_values[0]['target_id'])) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($county_values[0]['target_id']);
+    if ($term) {
+      // Update the county field with the selected county name.
+      $county_name = $term->getName();
+      $response->addCommand(new InvokeCommand(
+        'input[name="field_location_county[0][value]"]',
+        'val',
+        [$county_name]
+      ));
+    }
+  }
+
+  return $response;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_goose_entity_presave($entity) {
+  // Only process new location nodes.
+  if ($entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'location' || !$entity->isNew()) {
+    return;
+  }
+
+  // Generate record number if not set.
+  if ($entity->hasField('field_recno') && $entity->get('field_recno')->isEmpty()) {
+    // Get the highest record ID from the database.
+    $query = \Drupal::database()->select('node__field_recno', 'r');
+    $query->addExpression('MAX(CAST(r.field_recno_value AS SIGNED))', 'max_recno');
+    $result = $query->execute()->fetchField();
+
+    // Set the new record ID (highest + 1).
+    $next_record_id = $result ? $result + 1 : 1;
+    $entity->set('field_recno', $next_record_id);
+  }
+
+  // Skip permit number generation if already set.
+  if (!$entity->get('field_permit_no')->isEmpty()) {
+    return;
+  }
+
+  // Get or initialize the permit number counter from configuration.
+  $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
+  $next_number = $config->get('permit_number_counter');
+  if ($next_number === NULL) {
+    // Initialize with 1 if no counter exists.
+    $next_number = 1;
+  }
+  else {
+    $next_number++;
+  }
+
+  // Format the permit number (5 digits + 'A').
+  $permit_number = sprintf('%05dA', $next_number);
+
+  // Double check for duplicates.
+  $duplicate_check = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->getQuery()
+    ->condition('type', 'location')
+    ->condition('field_permit_no', $permit_number)
+    ->accessCheck(FALSE)
+    ->count()
+    ->execute();
+
+  if ($duplicate_check > 0) {
+    \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
+    return;
+  }
+
+  // Save the new counter value.
+  $config->set('permit_number_counter', $next_number)
+    ->save(TRUE);
+
+  // Set the permit number on the entity.
+  $entity->set('field_permit_no', $permit_number);
+
+  // Also save the permit number to the user profile.
+  $current_user = \Drupal::currentUser();
+  if ($current_user->id() > 0) {
+    $user = User::load($current_user->id());
+    if ($user && $user->hasField('field_permit_no') && $user->get('field_permit_no')->isEmpty()) {
+      $user->set('field_permit_no', $permit_number);
+      $user->save();
+      \Drupal::logger('fws_goose')->notice('Saved permit number @permit to user @uid', [
+        '@permit' => $permit_number,
+        '@uid' => $current_user->id(),
+      ]);
+    }
+  }
+}
+
+/**
+ * Validation handler for CA access validation.
+ */
+function _fws_goose_validate_ca_access($form, FormStateInterface $form_state) {
+  // Get the access key value, handling possible empty values safely.
+  $access_key_values = $form_state->getValue('field_ca_access_key');
+  $access_key = is_array($access_key_values) && !empty($access_key_values[0]['value'])
+    ? $access_key_values[0]['value']
+    : '';
+
+  if (empty($access_key)) {
+    $form_state->setErrorByName('field_ca_access_key', t('Please enter an access key.'));
+    return;
+  }
+
+  try {
+    // Query the california_access_key taxonomy to find a matching key.
+    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
+      ->condition('vid', 'california_access_key')
+      ->condition('name', $access_key)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    if (!empty($query)) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(reset($query));
+      if ($term && $term->hasField('field_location_county') && !$term->get('field_location_county')->isEmpty()) {
+        $county = $term->get('field_location_county')->value;
+        if (!empty($county)) {
+          // Store the county in temporary storage for the submit handler.
+          $form_state->set('temp_validated_county', $county);
+        }
+        else {
+          $form_state->setErrorByName('field_ca_access_key', t('Invalid access key: no county associated.'));
+        }
+      }
+      else {
+        $form_state->setErrorByName('field_ca_access_key', t('Invalid access key configuration.'));
+      }
+    }
+    else {
+      $form_state->setErrorByName('field_ca_access_key', t('Invalid access key.'));
+    }
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('fws_goose')->error('Error validating CA access key: @error', ['@error' => $e->getMessage()]);
+    $form_state->setErrorByName('field_ca_access_key', t('An error occurred while validating the access key.'));
+  }
+}
+
+/**
+ * Submit handler for CA access validation.
+ */
+function _fws_goose_validate_ca_access_submit($form, FormStateInterface $form_state) {
+  // Get the validated county from temporary storage.
+  $county = $form_state->get('temp_validated_county');
+  if (!empty($county)) {
+    $form_state->set('ca_validated_county', $county);
+
+    // Find and set the California state term ID.
+    $state_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties([
+      'vid' => 'states',
+      'name' => 'CA',
+    ]);
+    $state_term = reset($state_terms);
+
+    if ($state_term) {
+      // Set the state value.
+      $form_state->setValue('field_location_state_ref', [['target_id' => $state_term->id()]]);
+
+      // Set the county value.
+      $form_state->setValue('field_location_county', [['value' => $county]]);
+    }
+
+    \Drupal::messenger()->addMessage(t('Access code validated for @county County.', ['@county' => $county]));
+  }
+
+  $form_state->setRebuild();
+}

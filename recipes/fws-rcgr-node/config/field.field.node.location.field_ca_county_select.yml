@@ -1,0 +1,32 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_ca_county_select
+    - node.type.location
+    - taxonomy.vocabulary.restricted_counties
+id: node.location.field_ca_county_select
+field_name: field_ca_county_select
+entity_type: node
+bundle: location
+label: 'Select an authorized county (for new record only)'
+description: 'Select a California county for this location.'
+required: FALSE
+translatable: TRUE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      restricted_counties: restricted_counties
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+    filter:
+      type: 'target_bundle'
+      conditions:
+        field_state_cd: 'CA'
+field_type: entity_reference
