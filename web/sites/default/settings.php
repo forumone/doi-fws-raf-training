@@ -927,17 +927,4 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
 $config['system.site']['header_links_auth'] = TRUE;
 
 $settings['replace_species_with_manatee'] = TRUE;
-$databases['default']['default'] = array (
-  'database' => 'db',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/',
-);
-
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
