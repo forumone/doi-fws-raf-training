@@ -5,11 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_permit_no
     - node.type.location
+    - user.role.authenticated
   module:
     - node
     - user
 _core:
-  default_config_hash: mQWd1bXJ83q88SW6uD_qJjBehPMqG_xTFTSqtSrIhiY
+  default_config_hash: sEZNM5Unl2jBmTZP4zNkm3GUjiRErw6kcwhn3GnCKFY
 id: user_locations
 label: 'My Locations'
 module: views
@@ -312,9 +313,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -484,7 +486,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_permit_no'
   page_1:
@@ -513,6 +515,6 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_permit_no'
