@@ -2,75 +2,19 @@ langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.field.node.name.field_control_site_id
-    - field.field.node.name.field_create_by
-    - field.field.node.name.field_dt_create
-    - field.field.node.name.field_dt_update
-    - field.field.node.name.field_hid
-    - field.field.node.name.field_is_removed
     - field.field.node.name.field_permit_no
     - field.field.node.name.field_person_name
-    - field.field.node.name.field_rcf_cd
     - field.field.node.name.field_recno
-    - field.field.node.name.field_report_year
-    - field.field.node.name.field_site_id
-    - field.field.node.name.field_update_by
     - field.field.node.name.field_version_no
-    - field.field.node.name.field_xml_cd
     - node.type.name
-  module:
-    - datetime
 id: node.name.default
 targetEntityType: node
 bundle: name
 mode: default
 content:
-  field_control_site_id:
-    type: string_textfield
-    weight: 12
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_create_by:
-    type: string_textfield
-    weight: 13
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_dt_create:
-    type: datetime_default
-    weight: 14
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_update:
-    type: datetime_default
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_removed:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   field_permit_no:
     type: string_textfield
-    weight: 18
+    weight: 1
     region: content
     settings:
       size: 60
@@ -78,76 +22,39 @@ content:
     third_party_settings: {  }
   field_person_name:
     type: string_textfield
-    weight: 19
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: entity_reference_autocomplete
-    weight: 20
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_recno:
-    type: number
-    weight: 21
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_report_year:
-    type: number
-    weight: 22
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_site_id:
-    type: string_textfield
-    weight: 23
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_update_by:
-    type: string_textfield
-    weight: 24
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_version_no:
-    type: number
-    weight: 25
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_xml_cd:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  title:
-    type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_recno:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_version_no:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
-  promote: true
-  status: true
-  sticky: true
+  field_control_site_id: TRUE
+  field_create_by: TRUE
+  field_dt_create: TRUE
+  field_dt_update: TRUE
+  field_hid: TRUE
+  field_is_removed: TRUE
+  field_rcf_cd: TRUE
+  field_report_year: TRUE
+  field_site_id: TRUE
+  field_update_by: TRUE
+  field_xml_cd: TRUE
+  promote: TRUE
+  status: TRUE
+  sticky: TRUE
+  title: TRUE
