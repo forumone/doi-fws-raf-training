@@ -12,6 +12,8 @@ dependencies:
     - better_exposed_filters
     - node
     - user
+_core:
+  default_config_hash: pFqQ_T6rA_bCfetiXSJgYAHTkj6wwnXzrbhsAUDvr4I
 id: species_counting_results_table
 label: 'Species Counting Results Table'
 module: views
@@ -255,7 +257,7 @@ display:
           settings:
             thousand_separator: ','
             decimal_separator: .
-            scale: 2
+            scale: 0
             prefix_suffix: true
           group_column: value
           group_columns: {  }
