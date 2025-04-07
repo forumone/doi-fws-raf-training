@@ -86,6 +86,8 @@ $field_mappings = [
   'rcf_cd' => 'field_rcf_cd',
   'create_by' => 'field_created_by',
   'update_by' => 'field_updated_by',
+  // Field not in CSV but setting default value during import.
+  'applicant_agree_to_certify' => 'field_applicant_agree_to_certify',
 ];
 
 // Open input file.
@@ -313,6 +315,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         }
       }
     }
+
+    // Set default value for certification field which is not in the CSV.
+    $user->set('field_applicant_agree_to_certify', FALSE);
 
     // Save the user.
     $user->save();

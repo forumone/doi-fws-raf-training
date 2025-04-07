@@ -36,6 +36,7 @@ dependencies:
     - field.field.user.user.field_updated_by
     - field.field.user.user.field_version_no
     - field.field.user.user.field_permit_no
+    - field.field.user.user.field_applicant_agree_to_certify
   module:
     - field_group
     - user
@@ -405,6 +406,13 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_applicant_agree_to_certify:
+    type: boolean_checkbox
+    weight: 40
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   language:
     weight: 38

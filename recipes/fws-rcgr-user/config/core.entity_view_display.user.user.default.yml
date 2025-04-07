@@ -16,6 +16,7 @@ dependencies:
     - field.field.user.user.field_applicant_zip
     - field.field.user.user.field_principal_email
     - field.field.user.user.field_permit_no
+    - field.field.user.user.field_applicant_agree_to_certify
   module:
     - user
 id: user.user.default
@@ -133,6 +134,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 20
+    region: content
+  field_applicant_agree_to_certify:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 21
     region: content
 hidden:
   langcode: true

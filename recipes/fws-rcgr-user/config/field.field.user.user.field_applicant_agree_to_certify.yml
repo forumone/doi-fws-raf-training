@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_applicant_agree_to_certify
+  module:
+    - user
+id: user.user.field_applicant_agree_to_certify
+field_name: field_applicant_agree_to_certify
+entity_type: user
+bundle: user
+label: 'I certify that the foregoing information submitted by me is true and correct'
+description: 'By checking this box, you certify that the information provided is accurate.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
