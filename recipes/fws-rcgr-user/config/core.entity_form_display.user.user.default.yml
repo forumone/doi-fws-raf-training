@@ -101,6 +101,7 @@ third_party_settings:
         - field_fax_number
         - field_hid
         - field_phone
+        - field_permit_no
         - field_prim_contact_email
         - field_primary_contact_name
         - field_primary_contact_phone

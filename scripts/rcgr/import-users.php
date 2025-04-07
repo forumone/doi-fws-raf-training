@@ -308,7 +308,20 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       // Only set the field if there's a value in the CSV column.
       if (!empty($row[$csv_column])) {
         try {
-          $user->set($drupal_field, $row[$csv_column]);
+          // Special handling for bi_cd field to ensure it works with list_string field type.
+          if ($drupal_field === 'field_bi_cd') {
+            // Ensure the value is either 'I' or 'B'.
+            $bi_value = strtoupper(trim($row[$csv_column]));
+            if ($bi_value === 'I' || $bi_value === 'B') {
+              $user->set($drupal_field, $bi_value);
+            }
+            else {
+              log_message("Warning: Invalid value '{$row[$csv_column]}' for field_bi_cd, must be 'I' or 'B'", $log_file);
+            }
+          }
+          else {
+            $user->set($drupal_field, $row[$csv_column]);
+          }
         }
         catch (\Exception $e) {
           log_message("Error setting field $drupal_field to '{$row[$csv_column]}': " . $e->getMessage(), $log_file);

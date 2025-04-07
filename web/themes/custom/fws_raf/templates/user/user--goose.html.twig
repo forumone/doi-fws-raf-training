@@ -1,0 +1,281 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to present user data for the RCGR system.
+ *
+ * This template overrides the default user.html.twig template specifically for
+ * the RCGR site when viewing user registration data.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+
+{%
+  set classes = [
+    'registration-form',
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registration Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Registration No. #}
+            <tr>
+              <th class="col-md-3">Registration No.</th>
+              <td class="col-md-9">
+                {% if user.field_permit_no is defined and user.field_permit_no.value is not empty %}
+                  RG-{{ user.field_permit_no.value }}
+                {% else %}
+                  <div class="alert alert-warning">
+                    No registration number assigned.
+                    <a href="/node/add/location">Add a location</a> to receive a registration number.
+                  </div>
+                {% endif %}
+              </td>
+            </tr>
+
+            {# Date of Registration #}
+            <tr>
+              <th class="col-md-3">Date of Registration</th>
+              <td class="col-md-9">{{ user.created.value|date('n/j/Y') }}</td>
+            </tr>
+
+            {# Date Amended #}
+            <tr>
+              <th class="col-md-3">Date Amended</th>
+              <td class="col-md-9">{{ user.changed.value|date('n/j/Y') }}</td>
+            </tr>
+
+            {# Registrant Name #}
+            <tr>
+              <th class="col-md-3">Registrant (Landowner) Name</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_last_name.value or user.field_applicant_first_name.value %}
+                  {% if user.field_applicant_last_name.value %}{{ user.field_applicant_last_name.value }}{% endif %}
+                  {% if user.field_applicant_first_name.value %}, {{ user.field_applicant_first_name.value }}{% endif %}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            {# Registrant Type #}
+            <tr>
+              <th class="col-md-3">Registrant Type</th>
+              <td class="col-md-9">
+                {% if user.field_bi_cd is defined and user.field_bi_cd.value is not empty %}
+                  {% if user.field_bi_cd.value == 'I' %}
+                    Individual
+                  {% elseif user.field_bi_cd.value == 'B' %}
+                    Business
+                  {% else %}
+                    {{ user.field_bi_cd.value }}
+                  {% endif %}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Address and Contact Information #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registrant Address and Contact Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <th class="col-md-3">Address</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_address_l1.value or user.field_applicant_address_l2.value or user.field_applicant_address_l3.value %}
+                  <div>{{ user.field_applicant_address_l1.value }}</div>
+                  {% if user.field_applicant_address_l2.value %}<div>{{ user.field_applicant_address_l2.value }}</div>{% endif %}
+                  {% if user.field_applicant_address_l3.value %}<div>{{ user.field_applicant_address_l3.value }}</div>{% endif %}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              <th class="col-md-3">City</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_city.value %}
+                  {{ user.field_applicant_city.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              <th class="col-md-3">State</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_state.value %}
+                  {{ user.field_applicant_state.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              <th class="col-md-3">ZIP Code</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_zip.value %}
+                  {{ user.field_applicant_zip.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              <th class="col-md-3">Telephone</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_telephone.value %}
+                  {{ user.field_applicant_telephone.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Locations Section #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Location of Properties where Activity will occur</h3>
+    </div>
+    <div class="panel-body">
+      {% set location_count = 0 %}
+      {% set locations = [] %}
+
+      {% if user.id.value %}
+        {% set locations = drupal_entity('node:location', {uid: user.id.value}) %}
+      {% endif %}
+
+      {% if locations is not empty %}
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>County</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>ZIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for location in locations %}
+                {% set location_count = location_count + 1 %}
+                <tr>
+                  <td>{{ location_count }}</td>
+                  <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
+                  <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
+                  <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
+                  <td>{% if location.field_location_state.value %}{{ location.field_location_state.value }}{% endif %}</td>
+                  <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="alert alert-info">
+          No locations have been added yet.
+          <a href="/node/add/location">Add a location</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Agents Section #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Agent/Employee</h3>
+    </div>
+    <div class="panel-body">
+      {% set agent_count = 0 %}
+      {% set agents = [] %}
+
+      {% if user.id.value %}
+        {% set agents = drupal_entity('node:name', {uid: user.id.value}) %}
+      {% endif %}
+
+      {% if agents is not empty %}
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Organization</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for agent in agents %}
+                {% set agent_count = agent_count + 1 %}
+                <tr>
+                  <td>{{ agent_count }}</td>
+                  <td>{% if agent.field_person_first_name.value %}{{ agent.field_person_first_name.value }}{% endif %}</td>
+                  <td>{% if agent.field_person_last_name.value %}{{ agent.field_person_last_name.value }}{% endif %}</td>
+                  <td>{% if agent.field_person_org_name.value %}{{ agent.field_person_org_name.value }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="alert alert-info">
+          No agents have been added yet.
+          <a href="/node/add/name">Add an agent</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Conditions #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Conditions</h3>
+    </div>
+    <div class="panel-body">
+      <p>You and your agents or employees must comply with the Resident Canada Goose Nest & Egg Depredation Order Conditions.</p>
+
+      <p>If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.</p>
+
+      <div class="well well-sm signature-line">
+        <p>Signature of Registrant (Landowner): ______________________________________________</p>
+      </div>
+    </div>
+  </div>
+</article>

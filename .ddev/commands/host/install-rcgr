@@ -71,4 +71,6 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/import-locations.php 100
 echo "Importing names..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-names.php 100
 
+ddev drush -l $SITE_URI cr
+
 ddev drush -l $SITE_URI uli
