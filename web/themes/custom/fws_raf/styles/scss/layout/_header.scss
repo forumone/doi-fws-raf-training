@@ -260,16 +260,16 @@ header#navbar {
   }
 }
 
-// body:not(.user-logged-in) {
+body:not(.user-logged-in) {
 
-//   header#navbar .navbar-header .navbar-toggle {
-//     display: none;
-//   }
+  header#navbar .navbar-header .navbar-toggle {
+    display: none;
+  }
 
-//   .navbar {
+  .navbar {
 
-//     @include breakpoint(md) {
-//       padding-bottom: 20px;
-//     }
-//   }
-// }
+    @include breakpoint(md) {
+      padding-bottom: 20px;
+    }
+  }
+}

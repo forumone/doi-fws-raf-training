@@ -421,6 +421,15 @@ header#navbar > .container {
   color: #FFFFFF;
 }
 
+body:not(.user-logged-in) header#navbar .navbar-header .navbar-toggle {
+  display: none;
+}
+@media (min-width: 768px) {
+  body:not(.user-logged-in) .navbar {
+    padding-bottom: 20px;
+  }
+}
+
 body.mobile-menu-open {
   position: fixed;
   width: 100%;
