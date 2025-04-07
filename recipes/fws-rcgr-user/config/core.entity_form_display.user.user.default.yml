@@ -35,6 +35,7 @@ dependencies:
     - field.field.user.user.field_registrant_type_cd
     - field.field.user.user.field_updated_by
     - field.field.user.user.field_version_no
+    - field.field.user.user.field_permit_no
   module:
     - field_group
     - user
@@ -392,6 +393,14 @@ content:
   field_version_no:
     type: string_textfield
     weight: 37
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_permit_no:
+    type: string_textfield
+    weight: 20
     region: content
     settings:
       size: 60

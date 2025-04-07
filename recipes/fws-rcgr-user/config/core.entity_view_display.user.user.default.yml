@@ -15,6 +15,7 @@ dependencies:
     - field.field.user.user.field_applicant_telephone
     - field.field.user.user.field_applicant_zip
     - field.field.user.user.field_principal_email
+    - field.field.user.user.field_permit_no
   module:
     - user
 id: user.user.default
@@ -124,6 +125,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 17
+    region: content
+  field_permit_no:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 20
     region: content
 hidden:
   langcode: true

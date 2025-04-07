@@ -1,17 +1,20 @@
+uuid: 234f5e2c-f842-46d8-9e30-e5270006172f
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_recno
     - node.type.name
+_core:
+  default_config_hash: KasUOjhf_sbnGdLJGdc9M41JEJFJExOiq3fKSeLAo0c
 id: node.name.field_recno
 field_name: field_recno
 entity_type: node
 bundle: name
 label: 'Record Number'
 description: 'The unique record number identifier.'
-required: TRUE
-translatable: FALSE
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

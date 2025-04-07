@@ -14,15 +14,41 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_alter().
  */
 function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
-    // Make record number read-only.
-    if (isset($form['field_recno'])) {
-      $form['field_recno']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
-    }
+  // Handle the name node form separately.
+  if ($form_id === 'node_name_form' || $form_id === 'node_name_edit_form') {
+    // Always make the permit number field disabled.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
 
+      // Try to prefill with user's permit number if available.
+      $current_user = \Drupal::currentUser();
+      if ($current_user->id() > 0) {
+        $user = User::load($current_user->id());
+        if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+          $permit_number = $user->get('field_permit_no')->value;
+          $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
+          $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
+        }
+      }
+    }
+  }
+
+  if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
     // Make permit number read-only.
     if (isset($form['field_permit_no'])) {
       $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+
+      // Try to prefill with user's permit number if available.
+      $current_user = \Drupal::currentUser();
+      if ($current_user->id() > 0) {
+        $user = User::load($current_user->id());
+        if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+          $permit_number = $user->get('field_permit_no')->value;
+          $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
+          $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
+        }
+      }
     }
 
     // Add the validate button after the access key field.
@@ -231,18 +257,6 @@ function fws_goose_entity_presave($entity) {
   // Only process new location nodes.
   if ($entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'location' || !$entity->isNew()) {
     return;
-  }
-
-  // Generate record number if not set.
-  if ($entity->hasField('field_recno') && $entity->get('field_recno')->isEmpty()) {
-    // Get the highest record ID from the database.
-    $query = \Drupal::database()->select('node__field_recno', 'r');
-    $query->addExpression('MAX(CAST(r.field_recno_value AS SIGNED))', 'max_recno');
-    $result = $query->execute()->fetchField();
-
-    // Set the new record ID (highest + 1).
-    $next_record_id = $result ? $result + 1 : 1;
-    $entity->set('field_recno', $next_record_id);
   }
 
   // Skip permit number generation if already set.

@@ -84,15 +84,6 @@ content:
       placeholder: ''
       label: 'Registration No.'
     third_party_settings: {  }
-  field_recno:
-    type: number
-    weight: 6
-    region: content
-    settings:
-      placeholder: ''
-      label: 'System Record Locator'
-      description: 'System Record Locator represents a system generated number for internal use only.'
-    third_party_settings: {  }
   field_ca_access_key:
     type: string_textfield
     weight: 2
@@ -131,6 +122,7 @@ hidden:
   field_location_report_year: TRUE
   field_person_name: TRUE
   field_rcf_cd: TRUE
+  field_recno: TRUE
   field_report_year: TRUE
   field_site_id: TRUE
   field_update_by: TRUE

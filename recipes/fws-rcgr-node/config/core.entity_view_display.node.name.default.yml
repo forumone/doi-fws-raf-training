@@ -1,11 +1,22 @@
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
+    - field.field.node.name.field_control_site_id
+    - field.field.node.name.field_create_by
+    - field.field.node.name.field_dt_create
+    - field.field.node.name.field_dt_update
+    - field.field.node.name.field_hid
+    - field.field.node.name.field_is_removed
     - field.field.node.name.field_permit_no
     - field.field.node.name.field_person_name
+    - field.field.node.name.field_rcf_cd
     - field.field.node.name.field_recno
+    - field.field.node.name.field_report_year
+    - field.field.node.name.field_site_id
+    - field.field.node.name.field_update_by
     - field.field.node.name.field_version_no
+    - field.field.node.name.field_xml_cd
     - node.type.name
 id: node.name.default
 targetEntityType: node
@@ -14,48 +25,32 @@ mode: default
 content:
   field_permit_no:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: FALSE
+      link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
   field_person_name:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: FALSE
+      link_to_entity: false
     third_party_settings: {  }
     weight: 0
     region: content
-  field_recno:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_version_no:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 3
-    region: content
 hidden:
-  field_control_site_id: TRUE
-  field_create_by: TRUE
-  field_dt_create: TRUE
-  field_dt_update: TRUE
-  field_hid: TRUE
-  field_is_removed: TRUE
-  field_rcf_cd: TRUE
-  field_report_year: TRUE
-  field_site_id: TRUE
-  field_update_by: TRUE
-  field_xml_cd: TRUE
-  links: TRUE
+  field_control_site_id: true
+  field_create_by: true
+  field_dt_create: true
+  field_dt_update: true
+  field_hid: true
+  field_is_removed: true
+  field_rcf_cd: true
+  field_recno: true
+  field_report_year: true
+  field_site_id: true
+  field_update_by: true
+  field_version_no: true
+  field_xml_cd: true
+  links: true
