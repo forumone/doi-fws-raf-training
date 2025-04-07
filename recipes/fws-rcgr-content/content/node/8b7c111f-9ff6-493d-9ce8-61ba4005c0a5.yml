@@ -34,22 +34,22 @@ default:
       tag: meta
       attributes:
         name: title
-        content: 'Oops! Page not found | FWS: State/Federal Falconry 3-186A Database'
+        content: 'Oops! Page not found | FWS: Resident Canada Goose Registration'
     -
       tag: meta
       attributes:
         name: description
-        content: "We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage. Return to homepage"
+        content: "We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage.Return to homepage"
     -
       tag: meta
       attributes:
         name: abstract
-        content: "We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage. Return to homepage"
+        content: "We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage.Return to homepage"
     -
       tag: link
       attributes:
         rel: canonical
-        href: '/page-not-found'
+        href: 'https://rcgr.ddev.site/page-not-found'
   path:
     -
       alias: /page-not-found
@@ -57,8 +57,9 @@ default:
       pathauto: 0
   body:
     -
-      value: |-
-        <p>We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage.</p>
-              <a href="/epsandhill">Return to homepage</a>
+      value: '<p>We''re sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage.</p><p><a href="/rcgr">Return to homepage</a></p>'
       format: full_html
       summary: ''
+  field_private:
+    -
+      value: false
