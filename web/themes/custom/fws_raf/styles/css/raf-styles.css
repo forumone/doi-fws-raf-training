@@ -251,6 +251,9 @@ header#navbar #navbar-collapse {
   border-top: 0;
   box-shadow: none;
 }
+header#navbar .navbar-header {
+  margin-bottom: 0;
+}
 header#navbar .navbar-header .navbar-toggle {
   right: 5px;
   top: 5px;
@@ -337,7 +340,7 @@ header#navbar > .container {
 }
 @media (min-width: 768px) {
   .mb-menuwrapper {
-    height: calc(100% - 100px);
+    height: calc(100% - 108px);
     top: 100px;
   }
 }
