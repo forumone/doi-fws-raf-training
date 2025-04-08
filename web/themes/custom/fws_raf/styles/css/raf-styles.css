@@ -1616,6 +1616,10 @@ input.form-autocomplete {
   margin-top: 40px;
 }
 
+.views-data-export-feed .feed-icon {
+  line-height: 0.75;
+}
+
 .view-tracking-other-names .form-actions {
   display: none;
 }
