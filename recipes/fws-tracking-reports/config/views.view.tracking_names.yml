@@ -7,10 +7,14 @@ dependencies:
     - field.storage.paragraph.field_primary
     - paragraphs.paragraphs_type.species_name
   module:
+    - csv_serialization
     - node
     - paragraphs
+    - rest
+    - serialization
+    - views_data_export
 _core:
-  default_config_hash: nryiLBFy28P_nKJ-Zzn-FfL4Bk30pPiyj2sAGDHveqQ
+  default_config_hash: 4wFUK-vv6yglUK4PLsfWbZ6Hxez5jaQ7s9baswkF3Io
 id: tracking_names
 label: 'Species Names'
 module: views
@@ -419,6 +423,47 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+      tags:
+        - 'config:field.storage.paragraph.field_name'
+        - 'config:field.storage.paragraph.field_primary'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/species-names
+      displays:
+        block_1: block_1
+        default: '0'
+      filename: export-species-names.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
       tags:
         - 'config:field.storage.paragraph.field_name'
         - 'config:field.storage.paragraph.field_primary'

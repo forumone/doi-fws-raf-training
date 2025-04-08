@@ -16,14 +16,18 @@ dependencies:
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
+    - csv_serialization
     - datetime
     - node
     - paragraphs
+    - rest
+    - serialization
     - taxonomy
     - text
     - user
+    - views_data_export
 _core:
-  default_config_hash: 3BnfyhTA2utFrOq_fpGyEXV1ZsNVy99y-Bef1yt8oO0
+  default_config_hash: nSg6DzeiRElqND7TbKVtvSp1NkchTTEnr3OGGibG_AI
 id: tracking_deaths
 label: 'Species Deaths'
 module: views
@@ -2212,6 +2216,58 @@ display:
       tags:
         - 'config:field.storage.node.field_death_date'
         - 'config:field.storage.node.field_euthanasia'
+        - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.paragraph.field_name'
+        - 'config:field.storage.taxonomy_term.field_death_location'
+        - 'config:field.storage.taxonomy_term.field_organization'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 3
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/species-deaths
+      auth:
+        - cookie
+      displays:
+        page_1: page_1
+        default: '0'
+        block_1: '0'
+      filename: export-species-deaths.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_death_date'
+        - 'config:field.storage.node.field_euthanasia'
+        - 'config:field.storage.node.field_number'
         - 'config:field.storage.node.field_sex'
         - 'config:field.storage.node.field_species_id'
         - 'config:field.storage.paragraph.field_name'

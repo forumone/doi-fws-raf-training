@@ -15,13 +15,17 @@ dependencies:
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
+    - csv_serialization
     - datetime
     - node
     - paragraphs
+    - rest
+    - serialization
     - taxonomy
     - user
+    - views_data_export
 _core:
-  default_config_hash: _mOnU9xfO8jOz7d1ZhioLth0GRu1SEWB41fk-_jBGlo
+  default_config_hash: FAQ1awJ9Z_4Hy_151QryMQ5MzpWPWf7OwXBKRW_9K6s
 id: tracking_transfer_report
 label: 'Species Transfer Report'
 module: views
@@ -1197,6 +1201,56 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_number'
+        - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_transfer_date'
+        - 'config:field.storage.paragraph.field_name'
+        - 'config:field.storage.taxonomy_term.field_organization'
+        - 'config:field.storage.taxonomy_term.field_transfer_reason'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/species-transfer-report
+      auth:
+        - cookie
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: export-species-transfer-report.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - 'user.node_grants:view'
         - user.permissions
       tags:
