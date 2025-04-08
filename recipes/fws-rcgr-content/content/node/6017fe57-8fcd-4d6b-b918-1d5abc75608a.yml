@@ -479,9 +479,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           field_prompt:
             -
               value: 'What methods are allowed for destroying and disposing of nests and eggs? '
@@ -507,9 +504,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           field_prompt:
             -
               value: 'Are there specific protocols that must be followed for addling resident Canada goose eggs? '
@@ -535,9 +529,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           field_prompt:
             -
               value: 'What nonlethal goose management techniques should be tried before destroying nests and eggs? '
@@ -563,9 +554,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           field_prompt:
             -
               value: 'Does all resident Canada goose nest and egg destruction have to be done under this depredation order? '
@@ -599,7 +587,7 @@ default:
               value: 'Where can I learn more?'
           field_response:
             -
-              value: '<ul><li>The final rule implementing the nest and egg depredation order can be found by clicking on “Text of Regulation” on the Resident Canada Goose login page.</li><li>Information about the Migratory Bird Treaty Act and other laws administered by the Service can be found at <a href=" www.fws.gov/permits/">www.fws.gov/permits/</a>.</li><li>Information about Canada goose nesting management, including addling protocols, can be found in “Management of Canada Goose Nesting” by the U.S. Department of Agriculture, Animal and Plant Health Inspection Service, Wildlife Services, August 2009, at <a href="http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf">http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf</a>.</li><li>Information about egg addling and other management protocols can be found in the Technical Guide “Managing Canada Geese in Urban Environments” by A. E. Smith, S. R. Craven, and P. D. Curtis, 1999, a publication of Cornell Cooperative Extension, the University of Wisconsin, The Jack H. Berryman Institute, Wildlife Damage Management Working Group, at <a href="http://dspace.library.cornell.edu/handle/1813/66">http://dspace.library.cornell.edu/handle/1813/66</a>.</li><li>The Virginia Cooperative Extension publication 420-203, posted November 2001, Managing Wildlife Damage: Canada Goose (Branta canadensis), by Lisa French, Undergraduate, Department of Fisheries and Wildlife Sciences and Jim Parkhurst, Associate Professor and Extension Wildlife Specialist; Virginia Tech, can be found at <a href="https://www.ext.vt.edu/pubs/wildlife/420-203/420-203.html">www.ext.vt.edu/pubs/wildlife/420-203/420-203.html</a>.</li></ul>'
+              value: '<ul><li>The final rule implementing the nest and egg depredation order can be found by clicking on “Text of Regulation” on the Resident Canada Goose login page.</li><li>Information about the Migratory Bird Treaty Act and other laws administered by the Service can be found at <a href="https://fwsepermits.servicenowservices.com/fws">https://fwsepermits.servicenowservices.com/fws</a></li><li>Information about Canada goose nesting management, including addling protocols, can be found in “Management of Canada Goose Nesting” by the U.S. Department of Agriculture, Animal and Plant Health Inspection Service, Wildlife Services, August 2009, at <a href="http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf">http://www.aphis.usda.gov/wildlife_damage/downloads/canada_goose.pdf</a>.</li><li>Information about egg addling and other management protocols can be found in the Technical Guide “Managing Canada Geese in Urban Environments” by A. E. Smith, S. R. Craven, and P. D. Curtis, 1999, a publication of Cornell Cooperative Extension, the University of Wisconsin, The Jack H. Berryman Institute, Wildlife Damage Management Working Group, at <a href="http://dspace.library.cornell.edu/handle/1813/66">http://dspace.library.cornell.edu/handle/1813/66</a>.</li><li>The Virginia Cooperative Extension publication 420-203, posted November 2001, Managing Wildlife Damage: Canada Goose (Branta canadensis), by Lisa French, Undergraduate, Department of Fisheries and Wildlife Sciences and Jim Parkhurst, Associate Professor and Extension Wildlife Specialist; Virginia Tech, can be found at <a href="https://www.ext.vt.edu/pubs/wildlife/420-203/420-203.html">www.ext.vt.edu/pubs/wildlife/420-203/420-203.html</a>.</li></ul>'
               format: basic_html
     -
       entity:
@@ -619,9 +607,6 @@ default:
           behavior_settings:
             -
               value: {  }
-          revision_translation_affected:
-            -
-              value: true
           field_prompt:
             -
               value: 'If I have further questions about the resident Canada goose nest and egg depredation order, who can I contact? '
