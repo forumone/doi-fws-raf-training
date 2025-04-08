@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for FWS lock updates.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_node_access().
+ */
+function fws_lock_updates_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Check if the user has the 'bypass node access' permission or not owner.
+  if ($account->hasPermission('bypass node access') || $account->id() !== $node->getOwnerId()) {
+    return AccessResult::neutral();
+  }
+  $creation_timestamp = $node->getCreatedTime();
+  $current_timestamp = \Drupal::time()->getRequestTime();
+  // 30 days in seconds.
+  $time_limit = 30 * 24 * 60 * 60;
+  if ($current_timestamp - $creation_timestamp > $time_limit) {
+    return AccessResult::forbidden();
+  }
+
+  return AccessResult::neutral();
+}
+
