@@ -2805,14 +2805,14 @@ display:
             utf8_bom: '0'
             use_serializer_encode_only: false
       display_extenders: {  }
-      path: export/births
+      path: export/species-births
       auth:
         - cookie
       displays:
         page_1: page_1
         default: '0'
         block_1: '0'
-      filename: export-births.csv
+      filename: export-species-births.csv
       automatic_download: true
       export_method: standard
       export_batch_size: 500
