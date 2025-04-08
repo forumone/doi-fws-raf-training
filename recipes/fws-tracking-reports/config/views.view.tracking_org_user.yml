@@ -2,10 +2,17 @@ uuid: 2d523f81-7c78-4d71-bd2d-e92d016d649a
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.user.field_first_name
+    - field.storage.user.field_last_name
   module:
+    - csv_serialization
+    - rest
+    - serialization
     - user
+    - views_data_export
 _core:
-  default_config_hash: 2DkhTGlwm2lvdh1zJHL3RW-c5seF0ZxG8WUvhNLLfLo
+  default_config_hash: c6KBmwiSg6fH0CESnoyJlM6kNwrIzkMzwqR94W74oGk
 id: tracking_org_user
 label: 'Tracking Org User'
 module: views
@@ -334,6 +341,48 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
+      tags:
+        - 'config:field.storage.user.field_first_name'
+        - 'config:field.storage.user.field_last_name'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/tracking-org-users
+      auth:
+        - cookie
+      displays:
+        default: default
+      filename: export-tracking-org-users.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
         - user.permissions
       tags:
         - 'config:field.storage.user.field_first_name'
