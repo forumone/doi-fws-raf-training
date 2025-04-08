@@ -148,7 +148,7 @@ a:hover, a:focus {
 .field--name-field-response ul, .field--name-field-response ol,
 .field--name-body ul,
 .field--name-body ol {
-  padding: 0 0 0 20px;
+  padding: 0 0 0 30px;
   margin: 0;
 }
 .field--name-field-response ul li + li, .field--name-field-response ol li + li,
