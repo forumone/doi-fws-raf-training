@@ -1597,6 +1597,13 @@ input.form-autocomplete {
   margin-right: 5px;
 }
 
+.view-user-locations .view-header {
+  margin-bottom: 20px;
+}
+.view-user-locations .view-display-id-attachment_1 {
+  margin-top: 40px;
+}
+
 .view-tracking-other-names .form-actions {
   display: none;
 }

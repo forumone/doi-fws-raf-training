@@ -2,16 +2,20 @@ langcode: en
 status: TRUE
 dependencies:
   module:
+    - options
     - user
 id: user.field_bi_cd
 field_name: field_bi_cd
 entity_type: user
-type: string
+type: list_string
 settings:
-  max_length: 255
-  case_sensitive: FALSE
-  is_ascii: FALSE
-module: core
+  allowed_values:
+    - key: 'I'
+      value: 'Individual'
+    - key: 'B'
+      value: 'Business'
+  allowed_values_function: ''
+module: options
 locked: FALSE
 cardinality: 1
 translatable: TRUE

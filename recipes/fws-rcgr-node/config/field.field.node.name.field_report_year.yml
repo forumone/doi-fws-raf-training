@@ -9,8 +9,8 @@ field_name: field_report_year
 entity_type: node
 bundle: name
 label: 'Report Year'
-description: 'The reporting year for this record.'
-required: TRUE
+description: 'The year of the report.'
+required: FALSE
 translatable: FALSE
 default_value: {  }
 default_value_callback: ''

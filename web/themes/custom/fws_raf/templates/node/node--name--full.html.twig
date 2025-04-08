@@ -1,0 +1,82 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a name node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   content.field_name to access a specific field.
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - url: Direct URL of the current node.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+{# Add Back Link #}
+<div class="back-link" style="margin-bottom: 15px;">
+  <a href="/profile/locations-agents">
+    <i class="fa fa-reply"></i> Back to Locations / Agents page
+  </a>
+</div>
+
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+  <header>
+    {{ title_prefix }}
+    {% if not page %}
+      <h2{{ title_attributes }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+    {% endif %}
+    {{ title_suffix }}
+  </header>
+
+  {# Name Information Group #}
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Name Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_person_name|render|trim %}
+            <tr>
+              <th class="col-md-3">Person Name</th>
+              <td class="col-md-9">{{ content.field_person_name }}</td>
+            </tr>
+            {% endif %}
+
+            {% if content.field_permit_no|render|trim %}
+            <tr>
+              <th class="col-md-3">Permit Number</th>
+              <td class="col-md-9">{{ content.field_permit_no }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</article>

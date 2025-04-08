@@ -16,7 +16,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/profile/registration-form'
+      uri: 'internal:/user'
       title: ''
       options: {  }
   external:
@@ -47,4 +47,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: 'internal:/profile/registration-form'
+        href: 'internal:/user'

@@ -150,13 +150,17 @@ function fws_raf_preprocess_page(&$variables) {
  * Implements hook_theme_suggestions_HOOK_alter() for user.
  */
 function fws_raf_theme_suggestions_user_alter(array &$suggestions, array $variables) {
-  // Check if the falcon_user_profile_override setting is enabled.
-  $falcon_user_profile_override = \Drupal::service('settings')->get('falcon_user_profile_override', FALSE);
+  $route = \Drupal::routeMatch()->getRouteName();
 
-  // Add our custom template suggestion if the setting is enabled.
-  if ($falcon_user_profile_override) {
-    // Make sure we're actually viewing a user entity.
-    if (isset($variables['elements']['#user']) && $variables['elements']['#user']->getEntityTypeId() === 'user') {
+  // Make sure we're on a user page.
+  if ($route == 'entity.user.canonical') {
+    // Check if we're on the RCGR site based on current host.
+    $host = \Drupal::request()->getHost();
+    if (strpos($host, 'rcgr') !== FALSE) {
+      $suggestions[] = 'user__goose';
+    }
+    // If we're on the Falcon site.
+    elseif (strpos($host, 'falcon') !== FALSE) {
       $suggestions[] = 'user__falcon';
     }
   }

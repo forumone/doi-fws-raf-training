@@ -1,16 +1,16 @@
 uuid: aecc5566-b67c-41c4-930e-b86869d45c52
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.field.node.location.field_bi_cd
     - field.field.node.location.field_ca_access_key
+    - field.field.node.location.field_ca_county_select
     - field.field.node.location.field_control_site_id
     - field.field.node.location.field_create_by
     - field.field.node.location.field_dt_create
     - field.field.node.location.field_dt_update
     - field.field.node.location.field_hid
-    - field.field.node.location.field_is_removed
     - field.field.node.location.field_location_address
     - field.field.node.location.field_location_city
     - field.field.node.location.field_location_county
@@ -24,279 +24,118 @@ dependencies:
     - field.field.node.location.field_location_report_year
     - field.field.node.location.field_location_state_ref
     - field.field.node.location.field_permit_no
-    - field.field.node.location.field_person_name
     - field.field.node.location.field_rcf_cd
     - field.field.node.location.field_recno
-    - field.field.node.location.field_report_year
     - field.field.node.location.field_site_id
     - field.field.node.location.field_update_by
     - field.field.node.location.field_version_no
     - field.field.node.location.field_xml_cd
     - node.type.location
   module:
-    - datetime
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_california_only:
+      children:
+        - field_ca_county_select
+        - field_ca_access_key
+      label: 'California Only'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
 _core:
-  default_config_hash: nIO9Sf-SoAQmmEyGrirYwcGO7HOzDHSh1r3vzzlVM78
+  default_config_hash: _XPZKCQ7NoGagiODib0qQ2Ghpc5NT_oIq0GkV_WvNno
 id: node.location.default
 targetEntityType: node
 bundle: location
 mode: default
 content:
-  field_bi_cd:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 27
-    region: content
-  field_ca_access_key:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 28
-    region: content
-  field_control_site_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_create_by:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  field_dt_create:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_dt_update:
-    type: datetime_default
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    weight: 15
-    region: content
-  field_hid:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 16
-    region: content
-  field_is_removed:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 17
-    region: content
   field_location_address:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 29
+    weight: 1
     region: content
   field_location_city:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 30
+    weight: 2
     region: content
   field_location_county:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 31
-    region: content
-  field_location_is_certified:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 32
-    region: content
-  field_location_is_removed:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 33
-    region: content
-  field_location_qty_nest_egg_apr:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 34
-    region: content
-  field_location_qty_nest_egg_jun:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 35
-    region: content
-  field_location_qty_nest_egg_mar:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 36
-    region: content
-  field_location_qty_nest_egg_may:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 37
-    region: content
-  field_location_qty_nest_egg_tot:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 38
-    region: content
-  field_location_report_year:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 39
+    weight: 3
     region: content
   field_location_state_ref:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
-    weight: 40
+    weight: 4
     region: content
   field_permit_no:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 18
+    weight: 5
     region: content
-  field_person_name:
+  field_ca_access_key:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 19
+    weight: 2
     region: content
-  field_rcf_cd:
+  field_ca_county_select:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
-    weight: 20
-    region: content
-  field_recno:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 21
-    region: content
-  field_report_year:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 22
-    region: content
-  field_site_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 23
-    region: content
-  field_update_by:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  field_version_no:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 25
-    region: content
-  field_xml_cd:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 26
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
-  langcode: TRUE
-  search_api_excerpt: TRUE
+  field_bi_cd: true
+  field_control_site_id: true
+  field_create_by: true
+  field_dt_create: true
+  field_dt_update: true
+  field_hid: true
+  field_is_removed: true
+  field_location_is_certified: true
+  field_location_is_removed: true
+  field_location_qty_nest_egg_apr: true
+  field_location_qty_nest_egg_jun: true
+  field_location_qty_nest_egg_mar: true
+  field_location_qty_nest_egg_may: true
+  field_location_qty_nest_egg_tot: true
+  field_location_report_year: true
+  field_person_name: true
+  field_rcf_cd: true
+  field_recno: true
+  field_report_year: true
+  field_site_id: true
+  field_update_by: true
+  field_version_no: true
+  field_xml_cd: true
+  links: true

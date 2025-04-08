@@ -35,6 +35,8 @@ dependencies:
     - field.field.user.user.field_registrant_type_cd
     - field.field.user.user.field_updated_by
     - field.field.user.user.field_version_no
+    - field.field.user.user.field_permit_no
+    - field.field.user.user.field_applicant_agree_to_certify
   module:
     - field_group
     - user
@@ -99,6 +101,7 @@ third_party_settings:
         - field_fax_number
         - field_hid
         - field_phone
+        - field_permit_no
         - field_prim_contact_email
         - field_primary_contact_name
         - field_primary_contact_phone
@@ -396,6 +399,21 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_permit_no:
+    type: string_textfield
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_agree_to_certify:
+    type: boolean_checkbox
+    weight: 40
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   language:
     weight: 38

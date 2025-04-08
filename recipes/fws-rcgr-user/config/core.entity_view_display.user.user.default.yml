@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: TRUE
 dependencies:
   config:
     - field.field.user.user.field_applicant_address_l1
@@ -15,117 +15,125 @@ dependencies:
     - field.field.user.user.field_applicant_telephone
     - field.field.user.user.field_applicant_zip
     - field.field.user.user.field_principal_email
+    - field.field.user.user.field_permit_no
+    - field.field.user.user.field_applicant_agree_to_certify
+    - field.field.user.user.field_registrant_type_cd
   module:
     - user
+    - datetime
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
-  field_applicant_last_name:
+  field_permit_no:
     type: string
-    label: above
+    label: inline
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  created:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 2
     region: content
-  field_applicant_first_name:
-    type: string
-    label: above
+  changed:
+    type: timestamp
+    label: inline
     settings:
-      link_to_entity: false
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 3
     region: content
-  field_applicant_middle_name:
+  field_registrant_type_cd:
     type: string
-    label: above
+    label: inline
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 4
-    region: content
-  field_applicant_suffix:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
+    weight: 8
     region: content
   field_applicant_address_l1:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 9
     region: content
   field_applicant_address_l2:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 10
     region: content
   field_applicant_address_l3:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 11
     region: content
   field_applicant_city:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 12
     region: content
   field_applicant_county:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 13
     region: content
   field_applicant_state:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 14
     region: content
   field_applicant_zip:
     type: string
-    label: above
+    label: hidden
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 15
     region: content
   field_applicant_telephone:
     type: string
-    label: above
+    label: inline
     settings:
-      link_to_entity: false
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 16
     region: content
-  field_principal_email:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
-    region: content
 hidden:
-  langcode: true
-  member_for: true
-  search_api_excerpt: true
+  field_applicant_agree_to_certify: TRUE
+  field_applicant_first_name: TRUE
+  field_applicant_last_name: TRUE
+  field_applicant_middle_name: TRUE
+  field_applicant_suffix: TRUE
+  field_principal_email: TRUE
+  langcode: TRUE
+  member_for: TRUE
+  search_api_excerpt: TRUE
+  username: TRUE

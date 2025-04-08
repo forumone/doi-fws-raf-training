@@ -1,18 +1,25 @@
+uuid: e55fb9fd-704b-46e6-bff4-5d9bebd3fda1
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_location_report_year
     - node.type.location
+_core:
+  default_config_hash: uRs-On-RqwoxxRJpaH8Z9VaVnqAGhIHYKrQwiKnCRn0
 id: node.location.field_location_report_year
 field_name: field_location_report_year
 entity_type: node
 bundle: location
 label: 'Report Year'
 description: 'The year of the report.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  min: ''
+  max: ''
+  prefix: ''
+  suffix: ''
 field_type: integer
