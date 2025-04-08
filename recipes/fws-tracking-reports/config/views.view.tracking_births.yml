@@ -18,14 +18,18 @@ dependencies:
     - taxonomy.vocabulary.sex
   module:
     - better_exposed_filters
+    - csv_serialization
     - datetime
     - entity_reference_revisions
     - node
     - paragraphs
+    - rest
+    - serialization
     - taxonomy
     - user
+    - views_data_export
 _core:
-  default_config_hash: cMX3qpQRSBXgrDXFHhH6VolHsH88rDj0k1-MwoNUo3s
+  default_config_hash: fheChayoT-8LK5j8LIiRIEUqonQIXsjEv2ily_6xNLM
 id: tracking_births
 label: 'Species Births'
 module: views
@@ -2766,6 +2770,63 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_birth_date'
+        - 'config:field.storage.node.field_length'
+        - 'config:field.storage.node.field_names'
+        - 'config:field.storage.node.field_number'
+        - 'config:field.storage.node.field_sex'
+        - 'config:field.storage.node.field_species_id'
+        - 'config:field.storage.node.field_weight'
+        - 'config:field.storage.paragraph.field_name'
+        - 'config:field.storage.taxonomy_term.field_conceive_text'
+        - 'config:field.storage.taxonomy_term.field_health_status'
+        - 'config:field.storage.taxonomy_term.field_organization'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 3
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/births
+      auth:
+        - cookie
+      displays:
+        page_1: page_1
+        default: '0'
+        block_1: '0'
+      filename: export-births.csv
+      automatic_download: true
+      export_method: standard
+      export_batch_size: 500
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - 'user.node_grants:view'
         - user.permissions
       tags:
