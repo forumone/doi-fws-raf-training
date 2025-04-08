@@ -124,9 +124,13 @@ header#navbar {
     box-shadow: none;
   }
 
-  .navbar-header .navbar-toggle {
-    right: 5px;
-    top: 5px;
+  .navbar-header {
+    margin-bottom: 0;
+
+    .navbar-toggle {
+      right: 5px;
+      top: 5px;
+    }
   }
 
   .menu--utility li a {
@@ -180,7 +184,7 @@ header#navbar {
   top: 88px;
 
   @include breakpoint(md) {
-    height: calc(100% - 100px);
+    height: calc(100% - 108px);
     top: 100px;
   }
 }
@@ -252,6 +256,20 @@ header#navbar {
           color: $white;
         }
       }
+    }
+  }
+}
+
+body:not(.user-logged-in) {
+
+  header#navbar .navbar-header .navbar-toggle {
+    display: none;
+  }
+
+  .navbar {
+
+    @include breakpoint(md) {
+      padding-bottom: 20px;
     }
   }
 }
