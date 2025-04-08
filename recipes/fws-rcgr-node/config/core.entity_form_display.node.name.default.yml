@@ -1,5 +1,6 @@
+uuid: 13030502-debf-4748-b13a-c082ff4ae0b7
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.field.node.name.field_control_site_id
@@ -19,58 +20,23 @@ dependencies:
     - field.field.node.name.field_xml_cd
     - node.type.name
   module:
-    - datetime
+    - path
+_core:
+  default_config_hash: d-eAUp7Xge0XyXfFSq49JllaIrrsLbgkD2JunZdIxbA
 id: node.name.default
 targetEntityType: node
 bundle: name
 mode: default
 content:
-  field_control_site_id:
-    type: string_textfield
-    weight: 12
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_create_by:
-    type: string_textfield
-    weight: 13
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_dt_create:
-    type: datetime_default
-    weight: 14
+  created:
+    type: datetime_timestamp
+    weight: 4
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_dt_update:
-    type: datetime_default
-    weight: 15
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_removed:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_permit_no:
     type: string_textfield
-    weight: 18
+    weight: 1
     region: content
     settings:
       size: 60
@@ -78,15 +44,28 @@ content:
     third_party_settings: {  }
   field_person_name:
     type: string_textfield
-    weight: 19
+    weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_rcf_cd:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
     type: entity_reference_autocomplete
-    weight: 20
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -94,60 +73,26 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_recno:
-    type: number
-    weight: 21
+  url_redirects:
+    weight: 6
     region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_report_year:
-    type: number
-    weight: 22
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_site_id:
-    type: string_textfield
-    weight: 23
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_update_by:
-    type: string_textfield
-    weight: 24
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_version_no:
-    type: number
-    weight: 25
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_xml_cd:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden:
+  field_control_site_id: true
+  field_create_by: true
+  field_dt_create: true
+  field_dt_update: true
+  field_hid: true
+  field_is_removed: true
+  field_rcf_cd: true
+  field_recno: true
+  field_report_year: true
+  field_site_id: true
+  field_update_by: true
+  field_version_no: true
+  field_xml_cd: true
   promote: true
   status: true
   sticky: true
+  title: true

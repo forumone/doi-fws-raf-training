@@ -1,0 +1,7 @@
+fws_goose.profile_update:
+  path: '/profile/update'
+  defaults:
+    _controller: '\Drupal\fws_goose\Controller\GooseProfileController::redirectToUserEdit'
+    _title: 'Update Profile'
+  requirements:
+    _user_is_logged_in: 'TRUE'

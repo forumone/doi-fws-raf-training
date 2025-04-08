@@ -9,7 +9,7 @@ field_name: field_permit_no
 entity_type: node
 bundle: location
 label: 'Permit Number'
-description: 'The permit number associated with this location.'
+description: 'The auto-generated permit number associated with this location.'
 required: FALSE
 translatable: FALSE
 default_value: {  }

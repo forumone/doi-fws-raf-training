@@ -123,6 +123,7 @@ install:
   - fws_gov
   - fws_private_pages
   - fws_raf
+  - fws_lock_updates
 
 config:
   import:

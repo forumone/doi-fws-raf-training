@@ -11,7 +11,7 @@ entity_type: node
 bundle: location
 label: 'State'
 description: 'The states not available in this dropdown cannot participate in this activity.'
-required: FALSE
+required: TRUE
 translatable: TRUE
 default_value: {  }
 default_value_callback: ''

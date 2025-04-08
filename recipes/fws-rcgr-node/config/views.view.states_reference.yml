@@ -1,25 +1,20 @@
-uuid: 2d523f81-7c78-4d71-bd2d-e92d016d649a
+uuid: 96d597a3-168f-4acc-8393-ac22b71b4b4a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_first_name
-    - field.storage.user.field_last_name
+    - taxonomy.vocabulary.states
   module:
-    - csv_serialization
-    - rest
-    - serialization
+    - taxonomy
+    - text
     - user
-    - views_data_export
-_core:
-  default_config_hash: c6KBmwiSg6fH0CESnoyJlM6kNwrIzkMzwqR94W74oGk
-id: tracking_org_user
-label: 'Tracking Org User'
+id: states_reference
+label: 'States reference'
 module: views
-description: 'Organization user autocomplete for reference fields.'
+description: 'States entity reference.'
 tag: ''
-base_table: users_field_data
-base_field: uid
+base_table: taxonomy_term_field_data
+base_field: tid
 display:
   default:
     id: default
@@ -30,14 +25,14 @@ display:
       fields:
         name:
           id: name
-          table: users_field_data
+          table: taxonomy_term_field_data
           field: name
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: user
+          entity_type: taxonomy_term
           entity_field: name
-          plugin_id: field
+          plugin_id: term_name
           label: ''
           exclude: true
           alter:
@@ -80,7 +75,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: user_name
+          type: string
           settings:
             link_to_entity: true
           group_column: value
@@ -93,13 +88,16 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_first_name:
-          id: field_first_name
-          table: user__field_first_name
-          field: field_first_name
+          convert_spaces: false
+        description__value:
+          id: description__value
+          table: taxonomy_term_field_data
+          field: description__value
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: description
           plugin_id: field
           label: ''
           exclude: false
@@ -143,72 +141,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_last_name:
-          id: field_last_name
-          table: user__field_last_name
-          field: field_last_name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -251,35 +185,53 @@ display:
       access:
         type: perm
         options:
-          perm: 'access user profiles'
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
       empty: {  }
-      sorts: {  }
+      sorts:
+        description__value:
+          id: description__value
+          table: taxonomy_term_field_data
+          field: description__value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: description
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments: {  }
       filters:
         status:
           id: status
-          table: users_field_data
+          table: taxonomy_term_field_data
           field: status
-          entity_type: user
+          entity_type: taxonomy_term
           entity_field: status
           plugin_id: boolean
           value: '1'
           group: 1
           expose:
             operator: ''
-        field_first_name_value:
-          id: field_first_name_value
-          table: user__field_first_name
-          field: field_first_name_value
+        vid:
+          id: vid
+          table: taxonomy_term_field_data
+          field: vid
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: string
-          operator: 'not empty'
-          value: ''
+          entity_type: taxonomy_term
+          entity_field: vid
+          plugin_id: bundle
+          operator: in
+          value:
+            states: states
           group: 1
           exposed: false
           expose:
@@ -296,7 +248,7 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -342,54 +294,10 @@ display:
         - 'languages:language_interface'
         - url.query_args
         - user.permissions
-      tags:
-        - 'config:field.storage.user.field_first_name'
-        - 'config:field.storage.user.field_last_name'
-  data_export_1:
-    id: data_export_1
-    display_title: 'Data export'
-    display_plugin: data_export
-    position: 2
-    display_options:
-      style:
-        type: data_export
-        options:
-          formats:
-            csv: csv
-          csv_settings:
-            delimiter: ','
-            enclosure: '"'
-            escape_char: \
-            strip_tags: true
-            trim: true
-            encoding: utf8
-            utf8_bom: '0'
-            use_serializer_encode_only: false
-      display_extenders: {  }
-      path: export/tracking-org-users
-      auth:
-        - cookie
-      displays:
-        default: default
-      filename: export-tracking-org-users.csv
-      automatic_download: true
-      store_in_public_file_directory: null
-      custom_redirect_path: false
-      redirect_to_display: none
-      include_query_params: false
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - user.permissions
-      tags:
-        - 'config:field.storage.user.field_first_name'
-        - 'config:field.storage.user.field_last_name'
+      tags: {  }
   entity_reference_1:
     id: entity_reference_1
-    display_title: 'User ER'
+    display_title: 'Entity Reference'
     display_plugin: entity_reference
     position: 1
     display_options:
@@ -398,18 +306,7 @@ display:
         options:
           search_fields:
             name: name
-            field_first_name: field_first_name
-            field_last_name: field_last_name
-      row:
-        type: entity_reference
-        options:
-          default_field_elements: true
-          inline:
-            field_first_name: field_first_name
-            field_last_name: field_last_name
-          separator: ''
-          hide_empty: false
-      display_description: ''
+            description__value: description__value
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -417,6 +314,4 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - user.permissions
-      tags:
-        - 'config:field.storage.user.field_first_name'
-        - 'config:field.storage.user.field_last_name'
+      tags: {  }
