@@ -87,6 +87,10 @@ function fws_raf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_species_id'])) {
       $form['field_species_id']['widget'][0]['target_id']['#title'] = 'Manatee Animal ID';
     }
+
+    if (\Drupal::service('settings')->get('replace_species_with_manatee') === TRUE && isset($form['field_names'])) {
+      $form['field_names']['widget']['#description'] = 'Given name of manatee.';
+    }
   }
 }
 
