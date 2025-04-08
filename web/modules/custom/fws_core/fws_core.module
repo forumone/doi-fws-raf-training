@@ -135,12 +135,12 @@ function fws_core_mail($key, &$message, $params) {
       $message['body'][] = t('The entity has been updated. View it here: @url', [
         '@url' => $params['url'],
       ]);
+      // Add changed fields to the email body if available.
+      if (!empty($params['changed_fields'])) {
+        $message['body'][] = t('Changed fields: @fields', [
+          '@fields' => implode(', ', $params['changed_fields']),
+        ]);
+      }
       break;
-  }
-  // Add changed fields to the email body if available.
-  if (!empty($params['changed_fields'])) {
-    $message['body'][] = t('Changed fields: @fields', [
-      '@fields' => implode(', ', $params['changed_fields']),
-    ]);
   }
 }
