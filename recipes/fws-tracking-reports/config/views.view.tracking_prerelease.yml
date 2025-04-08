@@ -9,11 +9,15 @@ dependencies:
     - field.storage.node.field_waterway
     - node.type.species_prerelease
   module:
+    - csv_serialization
     - datetime
     - node
+    - rest
+    - serialization
     - user
+    - views_data_export
 _core:
-  default_config_hash: 9DjdG0KD2jkxhLCO8EQOcisZR-3DMFOPmo9vbkfEm_Y
+  default_config_hash: ihwQLIjuakR-Ym-OqROuRZe8pbcGQLmmm59Ry6hLE4A
 id: tracking_prerelease
 label: 'Species Prerelease'
 module: views
@@ -725,6 +729,53 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_org'
+        - 'config:field.storage.node.field_release_date'
+        - 'config:field.storage.node.field_release_site'
+        - 'config:field.storage.node.field_waterway'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/species-prereleases
+      auth:
+        - cookie
+      displays:
+        block_1: block_1
+        default: '0'
+      filename: export-species-prereleases.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - 'user.node_grants:view'
         - user.permissions
       tags:
