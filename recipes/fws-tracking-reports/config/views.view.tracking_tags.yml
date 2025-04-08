@@ -10,12 +10,16 @@ dependencies:
     - field.storage.taxonomy_term.field_tag_type_text
     - node.type.species_tag
   module:
+    - csv_serialization
     - datetime
     - node
+    - rest
+    - serialization
     - taxonomy
     - user
+    - views_data_export
 _core:
-  default_config_hash: WvZXyvRvdFOPWNycCvKOeqPYkZ_vRRhDP15WrSeNzw8
+  default_config_hash: UHqrYY-3SnWMg0h3QqWmbM-BErACJh1xXI1HKtQImbc
 id: tracking_tags
 label: 'Species Tags'
 module: views
@@ -817,6 +821,54 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_date_applied'
+        - 'config:field.storage.node.field_event'
+        - 'config:field.storage.node.field_event_date'
+        - 'config:field.storage.node.field_tag_id'
+        - 'config:field.storage.taxonomy_term.field_tag_type_text'
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders: {  }
+      path: export/species-tags
+      auth:
+        - cookie
+      displays:
+        block_1: block_1
+        default: '0'
+      filename: export-species-tags.csv
+      automatic_download: true
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - 'user.node_grants:view'
         - user.permissions
       tags:
