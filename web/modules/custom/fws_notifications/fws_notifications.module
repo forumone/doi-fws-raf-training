@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides core functionalities and integrations for the fws_core module.
+ * Provides core functionalities and integrations for the fws_notifications module.
  */
 
 use Drupal\Core\Entity\EntityInterface;
@@ -11,19 +11,19 @@ use Drupal\Core\Url;
 /**
  * Implements hook_entity_presave().
  */
-function fws_core_entity_presave(EntityInterface $entity) {
+function fws_notifications_entity_presave(EntityInterface $entity) {
   if ($entity->isNew()) {
     return;
   }
 
-  _fws_core_send_notification($entity, 'updated');
+  _fws_notifications_send_notification($entity, 'updated');
 }
 
 /**
  * Implements hook_entity_insert().
  */
-function fws_core_entity_insert(EntityInterface $entity) {
-  _fws_core_send_notification($entity, 'created');
+function fws_notifications_entity_insert(EntityInterface $entity) {
+  _fws_notifications_send_notification($entity, 'created');
 }
 
 /**
@@ -34,7 +34,7 @@ function fws_core_entity_insert(EntityInterface $entity) {
  * @param string $operation
  *   Operation type (created or updated).
  */
-function _fws_core_send_notification(EntityInterface $entity, $operation) {
+function _fws_notifications_send_notification(EntityInterface $entity, $operation) {
   // Check if the entity is of the type we want to notify about.
   if ($entity->getEntityTypeId() !== 'node') {
     return;
@@ -105,7 +105,7 @@ function _fws_core_send_notification(EntityInterface $entity, $operation) {
 
   $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $mailManager = \Drupal::service('plugin.manager.mail');
-  $module = 'fws_core';
+  $module = 'fws_notifications';
   $result = $mailManager->mail($module, $operation, implode(',', $admin_emails), $language, $notification_data, NULL, TRUE);
   if ($result['result'] !== TRUE) {
     \Drupal::logger($module)->error('There was a problem sending the notification email.');
@@ -115,7 +115,7 @@ function _fws_core_send_notification(EntityInterface $entity, $operation) {
 /**
  * Implements hook_mail().
  */
-function fws_core_mail($key, &$message, $params) {
+function fws_notifications_mail($key, &$message, $params) {
   switch ($key) {
     case 'created':
       $message['subject'] = t('New entity created: @entity_type @entity_id', [
