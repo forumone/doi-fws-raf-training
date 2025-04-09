@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * @file
+ * Provides core functionalities and integrations for the fws_notifications module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fws_notifications_entity_presave(EntityInterface $entity) {
+  if ($entity->isNew()) {
+    return;
+  }
+
+  _fws_notifications_send_notification($entity, 'updated');
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function fws_notifications_entity_insert(EntityInterface $entity) {
+  _fws_notifications_send_notification($entity, 'created');
+}
+
+/**
+ * Prepare data and send notification.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ * @param string $operation
+ *   Operation type (created or updated).
+ */
+function _fws_notifications_send_notification(EntityInterface $entity, $operation) {
+  // Check if the entity is of the type we want to notify about.
+  if ($entity->getEntityTypeId() !== 'node') {
+    return;
+  }
+
+  if ($operation === 'updated' && $entity->getEntityType()->isRevisionable()) {
+    // List all fields changes.
+    $changed_fields = [];
+    foreach ($entity->getFields() as $field_name => $property) {
+      if (!str_starts_with($field_name, 'field_') && $field_name !== 'title') {
+        continue;
+      }
+
+      if (!$entity->original->hasField($field_name)) {
+        continue;
+      }
+
+      $field_definition = $entity->getFieldDefinition($field_name);
+      if ($field_definition->getType() === 'entity_reference') {
+        // Check if the field is an entity reference and compare the target IDs.
+        $original_target_ids = $entity->original->get($field_name)->referencedEntities();
+        $current_target_ids = $entity->get($field_name)->referencedEntities();
+
+        if (count($original_target_ids) !== count($current_target_ids)) {
+          $changed_fields[] = $field_name;
+          continue;
+        }
+
+        foreach ($original_target_ids as $key => $original_entity) {
+          if ($original_entity->id() !== $current_target_ids[$key]->id()) {
+            $changed_fields[] = $field_name;
+            break;
+          }
+        }
+      }
+      elseif ($property->getValue() != $entity->original->get($field_name)->getValue()) {
+        $changed_fields[] = $field_name;
+      }
+    }
+
+    // Log message to revision_log with changed fields if not set.
+    if (!$entity->getRevisionLogMessage() && !empty($changed_fields)) {
+      $entity->setRevisionLogMessage(t('Updated fields: @fields', ['@fields' => implode(', ', $changed_fields)]));
+    }
+  }
+
+  // Prepare the notification data.
+  $notification_data = [
+    'entity_type' => $entity->getEntityTypeId(),
+    'entity_id' => $entity->id(),
+    'operation' => $operation,
+    'url' => Url::fromRoute('entity.node.canonical', ['node' => $entity->id()], ['absolute' => TRUE])->toString(),
+    'changed_fields' => $changed_fields ?? [],
+  ];
+
+  // Get the admin email addresses.
+  $user_storage = \Drupal::entityTypeManager()->getStorage('user');
+  $uids = $user_storage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('status', 1)
+    ->condition('roles', 'administrator')
+    ->execute();
+  $users = $user_storage->loadMultiple($uids);
+  $admin_emails = [];
+  foreach ($users as $user) {
+    $admin_emails[] = $user->getEmail();
+  }
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'fws_notifications';
+  $result = $mailManager->mail($module, $operation, implode(',', $admin_emails), $language, $notification_data, NULL, TRUE);
+  if ($result['result'] !== TRUE) {
+    \Drupal::logger($module)->error('There was a problem sending the notification email.');
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fws_notifications_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'created':
+      $message['subject'] = t('New entity created: @entity_type @entity_id', [
+        '@entity_type' => $params['entity_type'],
+        '@entity_id' => $params['entity_id'],
+      ]);
+      $message['body'][] = t('A new entity has been created. View it here: @url', [
+        '@url' => $params['url'],
+      ]);
+      break;
+
+    case 'updated':
+      $message['subject'] = t('Entity updated: @entity_type @entity_id', [
+        '@entity_type' => $params['entity_type'],
+        '@entity_id' => $params['entity_id'],
+      ]);
+      $message['body'][] = t('The entity has been updated. View it here: @url', [
+        '@url' => $params['url'],
+      ]);
+      // Add changed fields to the email body if available.
+      if (!empty($params['changed_fields'])) {
+        $message['body'][] = t('Changed fields: @fields', [
+          '@fields' => implode(', ', $params['changed_fields']),
+        ]);
+      }
+      break;
+  }
+}

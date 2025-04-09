@@ -1,0 +1,5 @@
+name: 'FWS Notifications'
+description: 'FWS Notify admin user when entity created or updated.'
+type: 'Site'
+install:
+  - fws_notifications

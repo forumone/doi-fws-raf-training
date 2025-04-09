@@ -1,0 +1,6 @@
+name: FWS Notifcation
+type: module
+description: 'Notify Manatee admin users whenever any new entry is added or existing entry is updated.'
+core_version_requirement: ^8 || ^9 || ^10
+package: Custom
+version: 1.0
