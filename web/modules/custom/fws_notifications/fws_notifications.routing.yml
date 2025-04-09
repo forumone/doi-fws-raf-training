@@ -1,0 +1,7 @@
+fws_notifications.settings:
+  path: /admin/config/content/fws-notifications
+  defaults:
+    _form: Drupal\fws_notifications\Form\NotificationSettingsForm
+    _title: 'FWS Notification settings'
+  requirements:
+    _permission: 'administer fws notifications'
