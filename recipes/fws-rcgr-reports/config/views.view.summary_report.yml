@@ -4,6 +4,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_applicant_state
+    - field.storage.node.field_location_qty_nest_egg_apr
+    - field.storage.node.field_location_qty_nest_egg_jun
+    - field.storage.node.field_location_qty_nest_egg_mar
+    - field.storage.node.field_location_qty_nest_egg_may
+    - field.storage.node.field_location_qty_nest_egg_tot
     - field.storage.node.field_report_year
     - field.storage.user.field_applicant_first_name
     - field.storage.user.field_applicant_last_name
@@ -13,6 +18,8 @@ dependencies:
     - better_exposed_filters
     - node
     - user
+_core:
+  default_config_hash: notPAnQpGCLTJXXUjxGJIck1XN1g81QUoZ3uEzMy7zg
 id: summary_report
 label: 'Summary Report'
 module: views
@@ -394,6 +401,326 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_location_qty_nest_egg_mar:
+          id: field_location_qty_nest_egg_mar
+          table: node__field_location_qty_nest_egg_mar
+          field: field_location_qty_nest_egg_mar
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'March Quantity'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_location_qty_nest_egg_apr:
+          id: field_location_qty_nest_egg_apr
+          table: node__field_location_qty_nest_egg_apr
+          field: field_location_qty_nest_egg_apr
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'April Quantity'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_location_qty_nest_egg_may:
+          id: field_location_qty_nest_egg_may
+          table: node__field_location_qty_nest_egg_may
+          field: field_location_qty_nest_egg_may
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'May Quantity'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_location_qty_nest_egg_jun:
+          id: field_location_qty_nest_egg_jun
+          table: node__field_location_qty_nest_egg_jun
+          field: field_location_qty_nest_egg_jun
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'June Quantity'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_location_qty_nest_egg_tot:
+          id: field_location_qty_nest_egg_tot
+          table: node__field_location_qty_nest_egg_tot
+          field: field_location_qty_nest_egg_tot
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Total Quantity'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_report_year:
           id: field_report_year
           table: node__field_report_year
@@ -593,7 +920,13 @@ display:
             field_applicant_last_name: field_applicant_last_name
             mail: mail
             field_applicant_state: field_applicant_state
-          default: '-1'
+            field_location_qty_nest_egg_mar: field_location_qty_nest_egg_mar
+            field_location_qty_nest_egg_apr: field_location_qty_nest_egg_apr
+            field_location_qty_nest_egg_may: field_location_qty_nest_egg_may
+            field_location_qty_nest_egg_jun: field_location_qty_nest_egg_jun
+            field_location_qty_nest_egg_tot: field_location_qty_nest_egg_tot
+            field_report_year: field_report_year
+          default: title
           info:
             title:
               sortable: true
@@ -631,6 +964,48 @@ display:
               empty_column: false
               responsive: ''
             field_applicant_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_qty_nest_egg_mar:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_qty_nest_egg_apr:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_qty_nest_egg_may:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_qty_nest_egg_jun:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_qty_nest_egg_tot:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_report_year:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -680,6 +1055,11 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_applicant_state'
+        - 'config:field.storage.node.field_location_qty_nest_egg_apr'
+        - 'config:field.storage.node.field_location_qty_nest_egg_jun'
+        - 'config:field.storage.node.field_location_qty_nest_egg_mar'
+        - 'config:field.storage.node.field_location_qty_nest_egg_may'
+        - 'config:field.storage.node.field_location_qty_nest_egg_tot'
         - 'config:field.storage.node.field_report_year'
         - 'config:field.storage.user.field_applicant_first_name'
         - 'config:field.storage.user.field_applicant_last_name'
@@ -703,6 +1083,11 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_applicant_state'
+        - 'config:field.storage.node.field_location_qty_nest_egg_apr'
+        - 'config:field.storage.node.field_location_qty_nest_egg_jun'
+        - 'config:field.storage.node.field_location_qty_nest_egg_mar'
+        - 'config:field.storage.node.field_location_qty_nest_egg_may'
+        - 'config:field.storage.node.field_location_qty_nest_egg_tot'
         - 'config:field.storage.node.field_report_year'
         - 'config:field.storage.user.field_applicant_first_name'
         - 'config:field.storage.user.field_applicant_last_name'
