@@ -240,6 +240,13 @@ $_rcgr_import_csv_map = [
   'applicant_agreement2' => array_search('applicant_agreement2', $header),
   'applicant_agreement3' => array_search('applicant_agreement3', $header),
   'applicant_signed' => array_search('applicant_signed', $header),
+  'principal_name' => array_search('principal_name', $header),
+  'principal_first_name' => array_search('principal_first_name', $header),
+  'principal_middle_name' => array_search('principal_middle_name', $header),
+  'principal_last_name' => array_search('principal_last_name', $header),
+  'principal_suffix' => array_search('principal_suffix', $header),
+  'principal_title' => array_search('principal_title', $header),
+  'principal_telephone' => array_search('principal_telephone', $header),
 ];
 
 // Define field mappings.
@@ -255,6 +262,13 @@ $field_mappings = [
   'control_site_id' => 'field_control_site_id',
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
+  'principal_name' => 'field_principal_name',
+  'principal_first_name' => 'field_principal_first_name',
+  'principal_middle_name' => 'field_principal_middle_name',
+  'principal_last_name' => 'field_principal_last_name',
+  'principal_suffix' => 'field_principal_suffix',
+  'principal_title' => 'field_principal_title',
+  'principal_telephone' => 'field_principal_telephone',
 ];
 
 // Define special field mappings that need to be validated.
@@ -262,7 +276,7 @@ $special_field_mappings = [
   'applicant_address_l1' => 'field_location_address',
   'applicant_address_l2' => 'field_location_address',
   'applicant_address_l3' => 'field_location_address',
-// Using this as a proxy for certification.
+  // Using this as a proxy for certification.
   'applicant_signed' => 'field_is_location_certified',
 ];
 

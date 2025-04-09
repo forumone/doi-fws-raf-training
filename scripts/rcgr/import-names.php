@@ -225,11 +225,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (!empty($nids)) {
       $nid = reset($nids);
       $node = Node::load($nid);
-      // $logger->notice("Updating existing name record {$row['recno']}");
     }
     else {
       $node = Node::create(['type' => 'name']);
-      // $logger->notice("Creating new name record {$row['recno']}");
     }
 
     $node->setTitle($row['person_name']);
@@ -283,15 +281,37 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (!empty($row['permit_no']) && isset($historical_records[$row['permit_no']])) {
       $historical_set = $historical_records[$row['permit_no']];
 
-      // Sort historical records by dt_update to ensure correct chronological order.
+      // Sort historical records by report year (oldest first), then version number (lowest first).
       usort($historical_set, function ($a, $b) {
-        return strtotime($a['dt_update']) - strtotime($b['dt_update']);
+        // First sort by report_year (oldest first)
+        $year_a = isset($a['report_year']) ? (int) $a['report_year'] : 0;
+        $year_b = isset($b['report_year']) ? (int) $b['report_year'] : 0;
+
+        if ($year_a !== $year_b) {
+          return $year_a - $year_b;
+        }
+
+        // Then sort by version_no (lowest first)
+        $version_a = isset($a['version_no']) ? (int) $a['version_no'] : 0;
+        $version_b = isset($b['version_no']) ? (int) $b['version_no'] : 0;
+
+        return $version_a - $version_b;
       });
 
       foreach ($historical_set as $hist_row) {
+        // Skip if this is the current version (already saved above)
+        $is_duplicate = isset($hist_row['recno']) && isset($row['recno']) &&
+            $hist_row['recno'] === $row['recno'] &&
+            isset($hist_row['version_no']) && isset($row['version_no']) &&
+            $hist_row['version_no'] === $row['version_no'];
+
+        if ($is_duplicate) {
+          continue;
+        }
+
         // Create a new revision.
         $node->setNewRevision(TRUE);
-        $node->revision_log = "Historical record from " . $hist_row['dt_update'];
+        $node->revision_log = "Historical record from " . ($hist_row['dt_update'] ?? $hist_row['dt_create']);
 
         // Update fields with historical data.
         foreach ($field_mappings as $csv_column => $field_name) {
@@ -338,10 +358,85 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         if (!empty($hist_row['dt_update'])) {
           $node->setRevisionCreationTime(strtotime($hist_row['dt_update']));
         }
+        elseif (!empty($hist_row['dt_create'])) {
+          $node->setRevisionCreationTime(strtotime($hist_row['dt_create']));
+        }
 
         // Save the historical revision.
         $node->save();
         $revisions_created++;
+      }
+
+      // Find the latest revision with the latest report year.
+      $latest_revision_id = NULL;
+      $latest_revision_year = 0;
+
+      // Get all revisions for this node.
+      $revisions = \Drupal::database()->query("
+        SELECT r.vid, r.revision_timestamp, ry.field_report_year_value
+        FROM node_revision r
+        JOIN node_revision__field_report_year ry ON r.vid = ry.revision_id
+        WHERE r.nid = :nid
+        ORDER BY ry.field_report_year_value DESC, r.revision_timestamp DESC
+      ", [':nid' => $node->id()])->fetchAll();
+
+      if (!empty($revisions)) {
+        // The first revision in our sorted list should be the latest year with latest timestamp.
+        $latest = reset($revisions);
+        $latest_revision_id = $latest->vid;
+        $latest_revision_year = $latest->field_report_year_value;
+
+        // Check if we need to update the default revision.
+        $current_default_revision_id = \Drupal::database()->query("SELECT vid FROM node_field_data WHERE nid = :nid", [':nid' => $node->id()])->fetchField();
+        $current_default_revision_year = \Drupal::database()->query("SELECT field_report_year_value FROM node_revision__field_report_year WHERE revision_id = :vid", [':vid' => $current_default_revision_id])->fetchField();
+
+        if ($latest_revision_year > $current_default_revision_year) {
+          // Update the node_field_data table to point to the latest revision.
+          \Drupal::database()->update('node_field_data')
+            ->fields(['vid' => $latest_revision_id])
+            ->condition('nid', $node->id())
+            ->execute();
+
+          // Also ensure the field tables are updated:
+          // First, delete any existing values in node__field_* tables.
+          foreach ($field_mappings as $csv_column => $field_name) {
+            $table_name = 'node__' . $field_name;
+            \Drupal::database()->delete($table_name)
+              ->condition('entity_id', $node->id())
+              ->execute();
+
+            // Now copy values from the revision table.
+            $revision_table = 'node_revision__' . $field_name;
+            $field_column_name = $field_name . '_value';
+
+            // Check if the table exists before attempting to query it.
+            $table_exists = \Drupal::database()->schema()->tableExists($revision_table);
+
+            if ($table_exists) {
+              // Get the fields for this revision.
+              $fields = \Drupal::database()->select($revision_table, 'r')
+                ->fields('r')
+                ->condition('entity_id', $node->id())
+                ->condition('revision_id', $latest_revision_id)
+                ->execute()
+                ->fetchAssoc();
+
+              // If fields exist, insert them into the main table.
+              if (!empty($fields)) {
+                // Replace revision_id with the latest.
+                $fields['revision_id'] = $latest_revision_id;
+
+                // Insert into the main table.
+                \Drupal::database()->insert($table_name)
+                  ->fields($fields)
+                  ->execute();
+              }
+            }
+          }
+
+          // Clear any caches for this node.
+          \Drupal::entityTypeManager()->getStorage('node')->resetCache([$node->id()]);
+        }
       }
 
       // Remove processed historical records to free up memory.

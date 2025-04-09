@@ -26,6 +26,13 @@ dependencies:
     - field.field.node.permit.field_permit_no
     - field.field.node.permit.field_permit_status_cd
     - field.field.node.permit.field_person_name
+    - field.field.node.permit.field_principal_name
+    - field.field.node.permit.field_principal_first_name
+    - field.field.node.permit.field_principal_middle_name
+    - field.field.node.permit.field_principal_last_name
+    - field.field.node.permit.field_principal_suffix
+    - field.field.node.permit.field_principal_title
+    - field.field.node.permit.field_principal_telephone
     - field.field.node.permit.field_qty_nest_egg_destroyed
     - field.field.node.permit.field_rcf_cd
     - field.field.node.permit.field_recno
@@ -250,6 +257,62 @@ content:
       link_to_entity: FALSE
     third_party_settings: {  }
     weight: 18
+    region: content
+  field_principal_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 36
+    region: content
+  field_principal_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 37
+    region: content
+  field_principal_middle_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 38
+    region: content
+  field_principal_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 39
+    region: content
+  field_principal_suffix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 40
+    region: content
+  field_principal_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 41
+    region: content
+  field_principal_telephone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 42
     region: content
   field_qty_nest_egg_destroyed:
     type: number_integer
