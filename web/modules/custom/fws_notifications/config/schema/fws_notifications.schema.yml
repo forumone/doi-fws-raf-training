@@ -1,0 +1,10 @@
+fws_notifications.settings:
+  type: config_object
+  label: 'FWS Notifications settings'
+  mapping:
+    notification_emails:
+      type: sequence
+      label: 'Notification email addresses'
+      sequence:
+        type: string
+        label: 'Email address'

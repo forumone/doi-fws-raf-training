@@ -90,25 +90,18 @@ function _fws_notifications_send_notification(EntityInterface $entity, $operatio
     'changed_fields' => $changed_fields ?? [],
   ];
 
-  // Get the admin email addresses.
-  $user_storage = \Drupal::entityTypeManager()->getStorage('user');
-  $uids = $user_storage->getQuery()
-    ->accessCheck(FALSE)
-    ->condition('status', 1)
-    ->condition('roles', 'administrator')
-    ->execute();
-  $users = $user_storage->loadMultiple($uids);
-  $admin_emails = [];
-  foreach ($users as $user) {
-    $admin_emails[] = $user->getEmail();
-  }
+  // Get configured notification emails
+  $config = \Drupal::config('fws_notifications.settings');
+  $notification_emails = $config->get('notification_emails');
 
-  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-  $mailManager = \Drupal::service('plugin.manager.mail');
-  $module = 'fws_notifications';
-  $result = $mailManager->mail($module, $operation, implode(',', $admin_emails), $language, $notification_data, NULL, TRUE);
-  if ($result['result'] !== TRUE) {
-    \Drupal::logger($module)->error('There was a problem sending the notification email.');
+  if (!empty($notification_emails)) {
+    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'fws_notifications';
+    $result = $mailManager->mail($module, $operation, implode(',', $notification_emails), $language, $notification_data, NULL, TRUE);
+    if ($result['result'] !== TRUE) {
+      \Drupal::logger($module)->error('There was a problem sending the notification email.');
+    }
   }
 }
 
