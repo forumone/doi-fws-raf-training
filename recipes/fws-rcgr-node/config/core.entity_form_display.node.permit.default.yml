@@ -26,6 +26,13 @@ dependencies:
     - field.field.node.permit.field_permit_no
     - field.field.node.permit.field_permit_status_cd
     - field.field.node.permit.field_person_name
+    - field.field.node.permit.field_principal_name
+    - field.field.node.permit.field_principal_first_name
+    - field.field.node.permit.field_principal_middle_name
+    - field.field.node.permit.field_principal_last_name
+    - field.field.node.permit.field_principal_suffix
+    - field.field.node.permit.field_principal_title
+    - field.field.node.permit.field_principal_telephone
     - field.field.node.permit.field_qty_nest_egg_destroyed
     - field.field.node.permit.field_rcf_cd
     - field.field.node.permit.field_recno
@@ -309,6 +316,62 @@ content:
     region: content
     settings:
       size: 10
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_name:
+    type: string_textfield
+    weight: 36
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_first_name:
+    type: string_textfield
+    weight: 37
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_middle_name:
+    type: string_textfield
+    weight: 38
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_last_name:
+    type: string_textfield
+    weight: 39
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_suffix:
+    type: string_textfield
+    weight: 40
+    region: content
+    settings:
+      size: 20
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_title:
+    type: string_textfield
+    weight: 41
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_telephone:
+    type: string_textfield
+    weight: 42
+    region: content
+    settings:
+      size: 20
       placeholder: ''
     third_party_settings: {  }
   path:
