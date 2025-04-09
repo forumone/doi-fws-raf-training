@@ -1,0 +1,286 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to present permit_3186a data in print view mode.
+ *
+ * This template overrides the default node.html.twig template specifically for
+ * the permit_3186a node type to display fields from field groups 1-6 in a
+ * print-friendly format.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'.
+ * - attributes: HTML attributes for the container element.
+ * - node: A Drupal Node entity.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{%
+  set classes = [
+    'permit-information',
+    'permit-information--print',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+
+  {# Header with permit info #}
+  <div class="permit-header">
+    <h1>U.S. Fish and Wildlife Service</h1>
+    <h2>Form 3-186A</h2>
+    <p class="permit-number">Record Number: {{ content.field_recno }}</p>
+  </div>
+
+  {# Species Info - Group 1 #}
+  <div class="permit-section">
+    <h3>1. Species Information</h3>
+    <div class="section-content">
+      <table class="permit-table">
+
+        <tbody>
+          {% if content.field_species_name %}
+          <tr>
+            <th>Species Name</th>
+            <td>{{ content.field_species_name }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_cd %}
+          <tr>
+            <th>Species Code</th>
+            <td>{{ content.field_species_cd }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_band_no %}
+          <tr>
+            <th>Band Number</th>
+            <td>{{ content.field_species_band_no }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_sex %}
+          <tr>
+            <th>Sex</th>
+            <td>{{ content.field_species_sex }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_age %}
+          <tr>
+            <th>Age</th>
+            <td>{{ content.field_species_age }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_hatch_year %}
+          <tr>
+            <th>Hatch Year</th>
+            <td>{{ content.field_species_hatch_year }}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# Sender Info - Group 2 #}
+  <div class="permit-section">
+    <h3>2. Sender Information (person transferring bird)</h3>
+    <div class="section-content">
+      <table class="permit-table">
+        <tbody>
+          {% if content.field_sender_permit_no %}
+          <tr>
+            <th>Permit Number</th>
+            <td>{{ content.field_sender_permit_no }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_sender_first_name or content.field_sender_middle_name or content.field_sender_last_name %}
+          <tr>
+            <th>Name</th>
+            <td>
+              {{ content.field_sender_first_name }}
+              {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
+              {{ content.field_sender_last_name }}
+            </td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_sender_dt_transfer %}
+          <tr>
+            <th>Transfer Date</th>
+            <td>{{ content.field_sender_dt_transfer }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_sender_street_address %}
+          <tr>
+            <th>Street Address</th>
+            <td>{{ content.field_sender_street_address }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_sender_city or content.field_sender_st_cd or content.field_sender_zip_cd %}
+          <tr>
+            <th>City, State, ZIP</th>
+            <td>
+              {{ content.field_sender_city }}, {{ content.field_sender_st_cd }} {{ content.field_sender_zip_cd }}
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# Recipient Info - Group 3 #}
+  <div class="permit-section">
+    <h3>3. Recipient Information (person acquiring bird)</h3>
+    <div class="section-content">
+      <table class="permit-table">
+        <tbody>
+          {% if content.field_recipient_permit_no %}
+          <tr>
+            <th>Permit Number</th>
+            <td>{{ content.field_recipient_permit_no }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_recipient_first_name or content.field_recipient_middle_name or content.field_recipient_last_name %}
+          <tr>
+            <th>Name</th>
+            <td>
+              {{ content.field_recipient_first_name }}
+              {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
+              {{ content.field_recipient_last_name }}
+            </td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_recipient_dt_acquired %}
+          <tr>
+            <th>Date Acquired</th>
+            <td>{{ content.field_recipient_dt_acquired }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_recipient_street_address %}
+          <tr>
+            <th>Street Address</th>
+            <td>{{ content.field_recipient_street_address }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_recipient_city or content.field_recipient_st_cd or content.field_recipient_zip_cd %}
+          <tr>
+            <th>City, State, ZIP</th>
+            <td>
+              {{ content.field_recipient_city }}, {{ content.field_recipient_st_cd }} {{ content.field_recipient_zip_cd }}
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# Capture or Recapture - Group 4 #}
+  <div class="permit-section">
+    <h3>4. Capture or Recapture (If bird taken from the wild)</h3>
+    <div class="section-content">
+      <table class="permit-table">
+        <tbody>
+          {% if content.field_capture_recapture_cd %}
+          <tr>
+            <th>Capture/Recapture Code</th>
+            <td>{{ content.field_capture_recapture_cd }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_state_of_trap_location %}
+          <tr>
+            <th>State of Trap Location</th>
+            <td>{{ content.field_state_of_trap_location }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_trap_county %}
+          <tr>
+            <th>Trap County</th>
+            <td>{{ content.field_trap_county }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_latitude_num or content.field_longitude_num %}
+          <tr>
+            <th>Coordinates</th>
+            <td>
+              {% if content.field_latitude_num %}Lat: {{ content.field_latitude_num }}{% endif %}
+              {% if content.field_longitude_num %}Lon: {{ content.field_longitude_num }}{% endif %}
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# Rebanding - Group 5 #}
+  <div class="permit-section">
+    <h3>5. Re-banding</h3>
+    <div class="section-content">
+      <table class="permit-table">
+        <tbody>
+          {% if content.field_species_band_old_no %}
+          <tr>
+            <th>Old Band Number</th>
+            <td>{{ content.field_species_band_old_no }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_species_band_new_no %}
+          <tr>
+            <th>New Band Number</th>
+            <td>{{ content.field_species_band_new_no }}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# Certification - Group 6 #}
+  <div class="permit-section">
+    <h3>6. Certification</h3>
+    <div class="section-content">
+      <table class="permit-table">
+        <tbody>
+          {% if content.field_falc_applicant_name %}
+          <tr>
+            <th>Applicant Name</th>
+            <td>{{ content.field_falc_applicant_name }}</td>
+          </tr>
+          {% endif %}
+
+          {% if content.field_falc_dt_signed %}
+          <tr>
+            <th>Date Signed</th>
+            <td>{{ content.field_falc_dt_signed }}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</article>

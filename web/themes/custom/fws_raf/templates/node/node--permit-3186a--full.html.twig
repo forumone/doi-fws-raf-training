@@ -30,6 +30,12 @@
 
 <article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
 
+  <div class="node__operations">
+    <a role="button" class="btn btn-primary" href="/node/{{ node.id }}/print">
+      <i class="fas fa-print" aria-hidden="true"></i> Print Form
+    </a>
+  </div>
+
   {# Species Info - Group 1 #}
   <div class="panel panel-primary">
     <div class="panel-heading">

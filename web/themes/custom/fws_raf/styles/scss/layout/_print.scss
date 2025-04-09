@@ -1,0 +1,119 @@
+/* Print-specific styles for permit forms */
+@media print {
+  /* Hide unnecessary elements */
+  .page-header,
+  .breadcrumb,
+  .tabs,
+  .action-links,
+  .messages,
+  .block-system-main-block .block-title,
+  .block-system-main-block .block-content > .view-header,
+  .block-system-main-block .block-content > .view-empty,
+  .block-system-main-block .block-content > .view-footer,
+  .block-system-main-block .block-content > .view-attachment-before,
+  .block-system-main-block .block-content > .view-attachment-after,
+  .block-system-main-block .block-content > .view-filters,
+  .block-system-main-block .block-content > .view-exposed-form,
+  .block-system-main-block .block-content > .view-pager,
+  .block-system-main-block .block-content > .view-more-link,
+  .block-system-main-block .block-content > .view-attachment-before,
+  .block-system-main-block .block-content > .view-attachment-after,
+  .block-system-main-block .block-content > .view-filters,
+  .block-system-main-block .block-content > .view-exposed-form,
+  .block-system-main-block .block-content > .view-pager,
+  .block-system-main-block .block-content > .view-more-link {
+    display: none !important;
+  }
+
+  /* Permit form specific styles */
+  .permit-information--print {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .permit-header {
+    text-align: center;
+    margin-bottom: 2em;
+    page-break-after: avoid;
+  }
+
+  .permit-header h1 {
+    font-size: 24pt;
+    margin: 0;
+  }
+
+  .permit-header h2 {
+    font-size: 18pt;
+    margin: 0.5em 0;
+  }
+
+  .permit-header .permit-number {
+    font-size: 14pt;
+    margin: 0;
+  }
+
+  .permit-section {
+    margin-bottom: 2em;
+    page-break-inside: avoid;
+  }
+
+  .permit-section h3 {
+    font-size: 14pt;
+    margin: 0 0 1em 0;
+    padding: 0.5em;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+  }
+
+  .permit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+
+  .permit-table th,
+  .permit-table td {
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    vertical-align: top;
+  }
+
+  .permit-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    width: 30%;
+  }
+
+  /* Ensure proper page breaks */
+  .permit-section {
+    page-break-inside: avoid;
+  }
+
+  /* Remove any background colors or images */
+  * {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000 !important;
+  }
+
+  /* Ensure links are visible */
+  a {
+    text-decoration: underline;
+  }
+
+  /* Remove any box shadows */
+  * {
+    box-shadow: none !important;
+  }
+
+  /* Ensure proper margins */
+  @page {
+    margin: 1cm;
+  }
+
+  /* Hide any print-specific buttons or controls */
+  .no-print {
+    display: none !important;
+  }
+}
