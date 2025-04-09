@@ -1,0 +1,6 @@
+print-body-class:
+  version: 1.x
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

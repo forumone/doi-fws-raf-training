@@ -31,256 +31,405 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-
-  {# Header with permit info #}
+  {# Form Header #}
   <div class="permit-header">
-    <h1>U.S. Fish and Wildlife Service</h1>
-    <h2>Form 3-186A</h2>
-    <p class="permit-number">Record Number: {{ content.field_recno }}</p>
-  </div>
+    <div class="permit-header-content">
+      <div class="form-title-container">
+        <div class="form-number">FWS Form 3-186a (Rev. 01/2020)</div>
+        <div class="department">U.S. Department of the Interior</div>
+        <h1 class="form-title">FEDERAL FISH AND WILDLIFE PERMIT APPLICATION FORM</h1>
+        <h2 class="form-subtitle">Migratory Bird Acquisition and Disposition</h2>
+        <div class="form-citation">(Migratory Bird Treaty Act, 50 CFR 21.29, 21.30)</div>
+        <div class="form-agency">U.S. Fish and Wildlife Service</div>
+        <div class="form-division">Division of Migratory Bird Management</div>
+      </div>
+      <div class="form-logos">
+        <div class="logo-left">
+          <!-- Logo content rendered as background in CSS -->
+        </div>
+        <div class="logo-right">
+          <!-- Logo content rendered as background in CSS -->
+        </div>
+      </div>
+      <div class="form-control">
+        <div class="omb-number">OMB Control No. 1018-00</div>
+        <div class="expiration">Expires 08/21/{{ "now"|date("Y") }}</div>
+      </div>
+    </div>
 
-  {# Species Info - Group 1 #}
-  <div class="permit-section">
-    <h3>1. Species Information</h3>
-    <div class="section-content">
-      <table class="permit-table">
-
-        <tbody>
-          {% if content.field_species_name %}
-          <tr>
-            <th>Species Name</th>
-            <td>{{ content.field_species_name }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_cd %}
-          <tr>
-            <th>Species Code</th>
-            <td>{{ content.field_species_cd }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_band_no %}
-          <tr>
-            <th>Band Number</th>
-            <td>{{ content.field_species_band_no }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_sex %}
-          <tr>
-            <th>Sex</th>
-            <td>{{ content.field_species_sex }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_age %}
-          <tr>
-            <th>Age</th>
-            <td>{{ content.field_species_age }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_hatch_year %}
-          <tr>
-            <th>Hatch Year</th>
-            <td>{{ content.field_species_hatch_year }}</td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
+    <div class="office-use-section">
+      <div class="office-use-label">USFWS Use Only</div>
+      <div class="office-use-fields">
+        <span>Received in Regional Office on</span>
+        <span class="blank-line">_____/_____/_____</span>
+        <span>Initials:</span>
+        <span class="blank-line">_____</span>
+      </div>
     </div>
   </div>
 
-  {# Sender Info - Group 2 #}
-  <div class="permit-section">
-    <h3>2. Sender Information (person transferring bird)</h3>
-    <div class="section-content">
-      <table class="permit-table">
-        <tbody>
-          {% if content.field_sender_permit_no %}
-          <tr>
-            <th>Permit Number</th>
-            <td>{{ content.field_sender_permit_no }}</td>
-          </tr>
-          {% endif %}
+  <div class="permit-form-container">
+    {# Section 1: Species Information #}
+    <div class="permit-section section-1">
+      <div class="section-number">1</div>
+      <div class="section-content">
+        <div class="field-row">
+          <div class="field-label">SPECIES:</div>
+          <div class="field-value">{{ content.field_species_name }}</div>
+          <div class="field-label right-aligned">USFWS Band Number:</div>
+          <div class="field-value">{{ content.field_species_band_no }}</div>
+        </div>
 
-          {% if content.field_sender_first_name or content.field_sender_middle_name or content.field_sender_last_name %}
-          <tr>
-            <th>Name</th>
-            <td>
-              {{ content.field_sender_first_name }}
-              {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
-              {{ content.field_sender_last_name }}
-            </td>
-          </tr>
-          {% endif %}
+        <div class="field-row">
+          <div class="field-label">Sex:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_species_sex|render|trim == 'Female' %}
+              <span class="checkbox checked">☑</span> Female
+            {% else %}
+              <span class="checkbox">☐</span> Female
+            {% endif %}
+            {% if content.field_species_sex|render|trim == 'Male' %}
+              <span class="checkbox checked">☑</span> Male
+            {% else %}
+              <span class="checkbox">☐</span> Male
+            {% endif %}
+            {% if content.field_species_sex|render|trim == 'Unknown' %}
+              <span class="checkbox checked">☑</span> Unknown
+            {% else %}
+              <span class="checkbox">☐</span> Unknown
+            {% endif %}
+          </div>
 
-          {% if content.field_sender_dt_transfer %}
-          <tr>
-            <th>Transfer Date</th>
-            <td>{{ content.field_sender_dt_transfer }}</td>
-          </tr>
-          {% endif %}
+          <div class="field-label right-aligned">Source:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_species_source|render|trim == 'Wild' %}
+              <span class="checkbox checked">☑</span> Wild
+            {% else %}
+              <span class="checkbox">☐</span> Wild
+            {% endif %}
+            {% if content.field_species_source|render|trim == 'Captive-bred' %}
+              <span class="checkbox checked">☑</span> Captive-bred
+            {% else %}
+              <span class="checkbox">☐</span> Captive-bred
+            {% endif %}
+          </div>
 
-          {% if content.field_sender_street_address %}
-          <tr>
-            <th>Street Address</th>
-            <td>{{ content.field_sender_street_address }}</td>
-          </tr>
-          {% endif %}
+          <div class="field-label right-aligned">Wild Microchip Number:</div>
+          <div class="field-value">{{ content.field_species_microchip_no }}</div>
+        </div>
 
-          {% if content.field_sender_city or content.field_sender_st_cd or content.field_sender_zip_cd %}
-          <tr>
-            <th>City, State, ZIP</th>
-            <td>
-              {{ content.field_sender_city }}, {{ content.field_sender_st_cd }} {{ content.field_sender_zip_cd }}
-            </td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
+        <div class="field-row">
+          <div class="field-label">Age:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_species_age|render|trim == 'Adult' %}
+              <span class="checkbox checked">☑</span> Adult
+            {% else %}
+              <span class="checkbox">☐</span> Adult
+            {% endif %}
+            {% if content.field_species_age|render|trim == 'Juvenile' %}
+              <span class="checkbox checked">☑</span> Juvenile
+            {% else %}
+              <span class="checkbox">☐</span> Juvenile
+            {% endif %}
+            {% if content.field_species_age|render|trim == 'Unknown' %}
+              <span class="checkbox checked">☑</span> Unknown
+            {% else %}
+              <span class="checkbox">☐</span> Unknown
+            {% endif %}
+          </div>
+
+          <div class="field-label right-aligned">Year of Hatch:</div>
+          <div class="field-value">{{ content.field_species_hatch_year }}</div>
+        </div>
+      </div>
+    </div>
+
+    {# Section 2: Sender Information #}
+    <div class="permit-section section-2">
+      <div class="section-number">2</div>
+      <div class="section-content">
+        <div class="section-title">SENDER <span class="title-note">(person transferring bird)</span></div>
+
+        <div class="field-row">
+          <div class="field-label">Name:</div>
+          <div class="field-value">
+            {{ content.field_sender_first_name }}
+            {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
+            {{ content.field_sender_last_name }}
+          </div>
+
+          <div class="field-label right-aligned">USFWS Permit No.:</div>
+          <div class="field-value">{{ content.field_sender_permit_no }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Address:</div>
+          <div class="field-value">{{ content.field_sender_street_address }}</div>
+
+          <div class="field-label right-aligned">Date of Transfer (or other action):</div>
+          <div class="field-value">{{ content.field_sender_dt_transfer }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">City:</div>
+          <div class="field-value">{{ content.field_sender_city }}</div>
+
+          <div class="field-label mid-aligned">State:</div>
+          <div class="field-value">{{ content.field_sender_st_cd }}</div>
+
+          <div class="field-label mid-aligned">Zip:</div>
+          <div class="field-value">{{ content.field_sender_zip_cd }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">E-Mail Address:</div>
+          <div class="field-value">{{ content.field_sender_email }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Permit:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_sender_permit_type|render|trim == 'Captive Breeding' %}
+              <span class="checkbox checked">☑</span> Captive Breeding
+            {% else %}
+              <span class="checkbox">☐</span> Captive Breeding
+            {% endif %}
+            {% if content.field_sender_permit_type|render|trim == 'Falconry' %}
+              <span class="checkbox checked">☑</span> Falconry
+            {% else %}
+              <span class="checkbox">☐</span> Falconry
+            {% endif %}
+            {% if content.field_sender_permit_type|render|trim == 'Raptor Propagation' %}
+              <span class="checkbox checked">☑</span> Raptor Propagation
+            {% else %}
+              <span class="checkbox">☐</span> Raptor Propagation
+            {% endif %}
+            {% if content.field_sender_permit_type|render|trim == 'Other' %}
+              <span class="checkbox checked">☑</span> Other
+            {% else %}
+              <span class="checkbox">☐</span> Other
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Transfer:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_sender_transfer_type|render|trim == 'Gift' %}
+              <span class="checkbox checked">☑</span> Gift
+            {% else %}
+              <span class="checkbox">☐</span> Gift
+            {% endif %}
+            {% if content.field_sender_transfer_type|render|trim == 'Purchase/Sale/Barter' %}
+              <span class="checkbox checked">☑</span> Purchase/Sale/Barter
+            {% else %}
+              <span class="checkbox">☐</span> Purchase/Sale/Barter
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">If Release or Loss:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_species_loss_type|render|trim == 'Loss' %}
+              <span class="checkbox checked">☑</span>
+            {% else %}
+              <span class="checkbox">☐</span>
+            {% endif %}
+          </div>
+
+          <div class="field-label right-aligned">-- Cause of Death:</div>
+          <div class="field-value">{{ content.field_cause_of_death }}</div>
+        </div>
+      </div>
+    </div>
+
+    {# Section 3: Recipient Information #}
+    <div class="permit-section section-3">
+      <div class="section-number">3</div>
+      <div class="section-content">
+        <div class="section-title">RECIPIENT <span class="title-note">(person acquiring bird)</span></div>
+
+        <div class="field-row">
+          <div class="field-label">Name:</div>
+          <div class="field-value">
+            {{ content.field_recipient_first_name }}
+            {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
+            {{ content.field_recipient_last_name }}
+          </div>
+
+          <div class="field-label right-aligned">USFWS Permit No.:</div>
+          <div class="field-value">{{ content.field_recipient_permit_no }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Address:</div>
+          <div class="field-value">{{ content.field_recipient_street_address }}</div>
+
+          <div class="field-label right-aligned">Date of Acquisition:</div>
+          <div class="field-value">{{ content.field_recipient_dt_acquired }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">City:</div>
+          <div class="field-value">{{ content.field_recipient_city }}</div>
+
+          <div class="field-label mid-aligned">State:</div>
+          <div class="field-value">{{ content.field_recipient_st_cd }}</div>
+
+          <div class="field-label mid-aligned">Zip:</div>
+          <div class="field-value">{{ content.field_recipient_zip_cd }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">E-Mail Address:</div>
+          <div class="field-value">{{ content.field_recipient_email }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Permit:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_recipient_permit_type|render|trim == 'Captive Breeding' %}
+              <span class="checkbox checked">☑</span> Captive Breeding
+            {% else %}
+              <span class="checkbox">☐</span> Captive Breeding
+            {% endif %}
+            {% if content.field_recipient_permit_type|render|trim == 'Falconry' %}
+              <span class="checkbox checked">☑</span> Falconry
+            {% else %}
+              <span class="checkbox">☐</span> Falconry
+            {% endif %}
+            {% if content.field_recipient_permit_type|render|trim == 'Raptor Propagation' %}
+              <span class="checkbox checked">☑</span> Raptor Propagation
+            {% else %}
+              <span class="checkbox">☐</span> Raptor Propagation
+            {% endif %}
+            {% if content.field_recipient_permit_type|render|trim == 'Other' %}
+              <span class="checkbox checked">☑</span> Other
+            {% else %}
+              <span class="checkbox">☐</span> Other
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Type of Acquisition:</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_recipient_acquisition_type|render|trim == 'Gift' %}
+              <span class="checkbox checked">☑</span> Gift
+            {% else %}
+              <span class="checkbox">☐</span> Gift
+            {% endif %}
+            {% if content.field_recipient_acquisition_type|render|trim == 'Purchase/Sale/Barter' %}
+              <span class="checkbox checked">☑</span> Purchase/Sale/Barter
+            {% else %}
+              <span class="checkbox">☐</span> Purchase/Sale/Barter
+            {% endif %}
+          </div>
+
+          <div class="field-note right-aligned">(complete section 4 if Capture/ReCapture)</div>
+        </div>
+      </div>
+    </div>
+
+    {# Section 4: Capture or Recapture #}
+    <div class="permit-section section-4">
+      <div class="section-number">4</div>
+      <div class="section-content">
+        <div class="section-title">CAPTURE OR RECAPTURE <span class="title-note">bird taken from the wild; provide band number in Section 1</span></div>
+
+        <div class="field-row">
+          <div class="field-value checkbox-field right-aligned">
+            {% if content.field_capture_recapture_cd|render|trim == 'Re-Capture' %}
+              <span class="checkbox checked">☑</span> Re-Capture
+            {% else %}
+              <span class="checkbox">☐</span> Re-Capture
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">For all species, County (or comparable subdivision) and State of trapping location:</div>
+          <div class="field-value">{{ content.field_trap_county }} {{ content.field_state_of_trap_location }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">If you captured a gyrfalcon, what color is it?</div>
+          <div class="field-value checkbox-field">
+            {% if content.field_gyrfalcon_color|render|trim != '' %}
+              <span class="checkbox checked">☑</span>
+            {% else %}
+              <span class="checkbox">☐</span>
+            {% endif %}
+            {{ content.field_gyrfalcon_color }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# Section 5: Re-banding #}
+    <div class="permit-section section-5">
+      <div class="section-number">5</div>
+      <div class="section-content">
+        <div class="section-title">RE-BANDING <span class="title-note">(to report the re-banding of a wild or captive-bred bird)</span></div>
+        <div class="field-note right-aligned">REQUIRED: Old bands returned to Migratory Bird Permit Office</div>
+
+        <div class="field-row">
+          <div class="field-label">Old Number:</div>
+          <div class="field-value">{{ content.field_species_band_old_no }}</div>
+
+          <div class="field-value checkbox-field right-aligned">
+            {% if content.field_reband_microchip|render|trim == '1' %}
+              <span class="checkbox checked">☑</span> Microchip
+            {% else %}
+              <span class="checkbox">☐</span> Microchip
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">New Number:</div>
+          <div class="field-value">{{ content.field_species_band_new_no }}</div>
+
+          <div class="field-value checkbox-field right-aligned">
+            {% if content.field_reband_black_plastic|render|trim == '1' %}
+              <span class="checkbox checked">☑</span> Black Plastic
+            {% else %}
+              <span class="checkbox">☐</span> Black Plastic
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# Section 6: Certification #}
+    <div class="permit-section section-6">
+      <div class="section-number">6</div>
+      <div class="section-content">
+        <div class="section-title">CERTIFICATION.</div>
+        <div class="certification-text">I certify that the information submitted above is true and correct to the best of my knowledge. I understand that making a false statement may subject me to the criminal penalties of 18 U.S.C. 1001.</div>
+
+        <div class="field-row">
+          <div class="field-label">Print name:</div>
+          <div class="field-value">{{ content.field_falc_applicant_name }}</div>
+
+          <div class="field-label right-aligned">Phone Number (with area code):</div>
+          <div class="field-value">{{ content.field_falc_phone_number }}</div>
+        </div>
+
+        <div class="field-row signature-row">
+          <div class="field-label">Signature of Permittee/Principal Officer:</div>
+          <div class="field-value signature-field"></div>
+
+          <div class="field-label right-aligned">Date of Signature:</div>
+          <div class="field-value">{{ content.field_falc_dt_signed }}</div>
+        </div>
+
+        <div class="field-row signature-note">
+          <div class="field-label">(No stamped signatures. Electronic signatures</div>
+          <div class="field-label right-aligned">(mm/dd/yyyy)</div>
+        </div>
+      </div>
     </div>
   </div>
-
-  {# Recipient Info - Group 3 #}
-  <div class="permit-section">
-    <h3>3. Recipient Information (person acquiring bird)</h3>
-    <div class="section-content">
-      <table class="permit-table">
-        <tbody>
-          {% if content.field_recipient_permit_no %}
-          <tr>
-            <th>Permit Number</th>
-            <td>{{ content.field_recipient_permit_no }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_recipient_first_name or content.field_recipient_middle_name or content.field_recipient_last_name %}
-          <tr>
-            <th>Name</th>
-            <td>
-              {{ content.field_recipient_first_name }}
-              {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
-              {{ content.field_recipient_last_name }}
-            </td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_recipient_dt_acquired %}
-          <tr>
-            <th>Date Acquired</th>
-            <td>{{ content.field_recipient_dt_acquired }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_recipient_street_address %}
-          <tr>
-            <th>Street Address</th>
-            <td>{{ content.field_recipient_street_address }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_recipient_city or content.field_recipient_st_cd or content.field_recipient_zip_cd %}
-          <tr>
-            <th>City, State, ZIP</th>
-            <td>
-              {{ content.field_recipient_city }}, {{ content.field_recipient_st_cd }} {{ content.field_recipient_zip_cd }}
-            </td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  {# Capture or Recapture - Group 4 #}
-  <div class="permit-section">
-    <h3>4. Capture or Recapture (If bird taken from the wild)</h3>
-    <div class="section-content">
-      <table class="permit-table">
-        <tbody>
-          {% if content.field_capture_recapture_cd %}
-          <tr>
-            <th>Capture/Recapture Code</th>
-            <td>{{ content.field_capture_recapture_cd }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_state_of_trap_location %}
-          <tr>
-            <th>State of Trap Location</th>
-            <td>{{ content.field_state_of_trap_location }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_trap_county %}
-          <tr>
-            <th>Trap County</th>
-            <td>{{ content.field_trap_county }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_latitude_num or content.field_longitude_num %}
-          <tr>
-            <th>Coordinates</th>
-            <td>
-              {% if content.field_latitude_num %}Lat: {{ content.field_latitude_num }}{% endif %}
-              {% if content.field_longitude_num %}Lon: {{ content.field_longitude_num }}{% endif %}
-            </td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  {# Rebanding - Group 5 #}
-  <div class="permit-section">
-    <h3>5. Re-banding</h3>
-    <div class="section-content">
-      <table class="permit-table">
-        <tbody>
-          {% if content.field_species_band_old_no %}
-          <tr>
-            <th>Old Band Number</th>
-            <td>{{ content.field_species_band_old_no }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_species_band_new_no %}
-          <tr>
-            <th>New Band Number</th>
-            <td>{{ content.field_species_band_new_no }}</td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  {# Certification - Group 6 #}
-  <div class="permit-section">
-    <h3>6. Certification</h3>
-    <div class="section-content">
-      <table class="permit-table">
-        <tbody>
-          {% if content.field_falc_applicant_name %}
-          <tr>
-            <th>Applicant Name</th>
-            <td>{{ content.field_falc_applicant_name }}</td>
-          </tr>
-          {% endif %}
-
-          {% if content.field_falc_dt_signed %}
-          <tr>
-            <th>Date Signed</th>
-            <td>{{ content.field_falc_dt_signed }}</td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
 </article>

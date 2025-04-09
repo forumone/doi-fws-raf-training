@@ -1,105 +1,262 @@
-/* Print-specific styles for permit forms */
-@media print {
+@use '../utils/colors' as *;
+
+.node-page--print {
+  padding: 0;
+  margin: 0;
+
   /* Hide unnecessary elements */
-  .page-header,
-  .breadcrumb,
-  .tabs,
-  .action-links,
-  .messages,
-  .block-system-main-block .block-title,
-  .block-system-main-block .block-content > .view-header,
-  .block-system-main-block .block-content > .view-empty,
-  .block-system-main-block .block-content > .view-footer,
-  .block-system-main-block .block-content > .view-attachment-before,
-  .block-system-main-block .block-content > .view-attachment-after,
-  .block-system-main-block .block-content > .view-filters,
-  .block-system-main-block .block-content > .view-exposed-form,
-  .block-system-main-block .block-content > .view-pager,
-  .block-system-main-block .block-content > .view-more-link,
-  .block-system-main-block .block-content > .view-attachment-before,
-  .block-system-main-block .block-content > .view-attachment-after,
-  .block-system-main-block .block-content > .view-filters,
-  .block-system-main-block .block-content > .view-exposed-form,
-  .block-system-main-block .block-content > .view-pager,
-  .block-system-main-block .block-content > .view-more-link {
+  header,
+  footer,
+  .skip-link,
+  #toolbar-bar,
+  #drupal-live-announce {
     display: none !important;
   }
 
-  /* Permit form specific styles */
+  .region-content {
+    padding: 20px;
+
+    > article {
+      border: 1px solid $gray-dark;
+      background: $gray-light;
+      padding: 20px;
+      color: $black;
+    }
+  }
+
+  /* PERMIT FORM SPECIFIC STYLES */
   .permit-information--print {
     max-width: 100%;
     margin: 0;
     padding: 0;
+    border: 2px solid #000;
+    box-shadow: none !important;
+    background-color: white;
   }
 
+  /* Header Styles */
   .permit-header {
+    position: relative;
+    border-bottom: 1px solid #000;
+    padding: 10px;
+  }
+
+  .permit-header-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-title-container {
+    flex: 3;
     text-align: center;
-    margin-bottom: 2em;
-    page-break-after: avoid;
   }
 
-  .permit-header h1 {
-    font-size: 24pt;
-    margin: 0;
+  .form-number, .department {
+    font-size: 9pt;
+    margin-bottom: 5px;
   }
 
-  .permit-header h2 {
-    font-size: 18pt;
-    margin: 0.5em 0;
-  }
-
-  .permit-header .permit-number {
+  .form-title {
     font-size: 14pt;
-    margin: 0;
-  }
-
-  .permit-section {
-    margin-bottom: 2em;
-    page-break-inside: avoid;
-  }
-
-  .permit-section h3 {
-    font-size: 14pt;
-    margin: 0 0 1em 0;
-    padding: 0.5em;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-  }
-
-  .permit-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
-  }
-
-  .permit-table th,
-  .permit-table td {
-    padding: 0.5em;
-    border: 1px solid #ddd;
-    vertical-align: top;
-  }
-
-  .permit-table th {
-    background-color: #f5f5f5;
     font-weight: bold;
-    width: 30%;
+    margin: 5px 0;
+  }
+
+  .form-subtitle {
+    font-size: 12pt;
+    font-weight: bold;
+    font-style: italic;
+    margin: 5px 0;
+  }
+
+  .form-citation {
+    font-size: 9pt;
+    margin: 5px 0;
+  }
+
+  .form-agency, .form-division {
+    font-size: 11pt;
+    margin: 3px 0;
+  }
+
+  .form-logos {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .logo-left, .logo-right {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+  }
+
+  .form-control {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    font-size: 9pt;
+  }
+
+  .office-use-section {
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
+  }
+
+  .office-use-label {
+    font-weight: bold;
+    font-size: 9pt;
+  }
+
+  .office-use-fields {
+    font-size: 9pt;
+  }
+
+  .blank-line {
+    border-bottom: 1px solid #000;
+    display: inline-block;
+    width: 80px;
+    margin: 0 5px;
+  }
+
+  /* Form Container */
+  .permit-form-container {
+    padding: 0;
+  }
+
+  /* Section Styles */
+  .permit-section {
+    display: flex;
+    border-bottom: 1px solid #000;
+    page-break-inside: avoid;
+    min-height: 85px; /* Ensure consistent section heights */
+  }
+
+  .section-1, .section-2, .section-3 {
+    min-height: 120px; /* Make top sections taller */
+  }
+
+  .section-number {
+    width: 30px;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    border-right: 1px solid #000;
+    padding: 10px 5px;
+    background-color: #f7f7f7;
+  }
+
+  .section-content {
+    flex: 1;
+    padding: 10px;
+    position: relative;
+  }
+
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .title-note {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 9pt;
+  }
+
+  /* Field Styles */
+  .field-row {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .field-label {
+    font-weight: bold;
+    min-width: 100px;
+    padding-right: 10px;
+  }
+
+  .field-label.right-aligned {
+    width: auto;
+    margin-left: 20px;
+  }
+
+  .field-label.mid-aligned {
+    width: auto;
+    margin-left: 10px;
+  }
+
+  .field-value {
+    border-bottom: 1px dotted #999;
+    min-height: 18px;
+    padding-bottom: 2px;
+  }
+
+  .checkbox-field .field-value {
+    border-bottom: none;
+  }
+
+  /* Checkbox Styles */
+  .checkbox-field {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #000;
+    margin-right: 5px;
+    text-align: center;
+    line-height: 12px;
+    font-size: 12px;
+  }
+
+  .checkbox.checked {
+    font-weight: bold;
+  }
+
+  /* Field Notes */
+  .field-note {
+    font-style: italic;
+    font-size: 9pt;
+  }
+
+  /* Certification Section */
+  .certification-text {
+    margin-bottom: 15px;
+    font-size: 9pt;
+  }
+
+  .signature-row {
+    margin-top: 20px;
+  }
+
+  .signature-field {
+    border-bottom: 1px solid #000;
+    height: 20px;
+  }
+
+  .signature-note {
+    font-size: 8pt;
+    font-style: italic;
   }
 
   /* Ensure proper page breaks */
-  .permit-section {
-    page-break-inside: avoid;
+  @page {
+    size: letter portrait;
+    margin: 0.5cm;
   }
 
-  /* Remove any background colors or images */
-  * {
-    background-color: transparent !important;
-    background-image: none !important;
-    color: #000 !important;
-  }
-
-  /* Ensure links are visible */
+  /* Ensure links are readable */
   a {
-    text-decoration: underline;
+    color: #000 !important;
+    text-decoration: none !important;
   }
 
   /* Remove any box shadows */
@@ -107,13 +264,42 @@
     box-shadow: none !important;
   }
 
-  /* Ensure proper margins */
-  @page {
-    margin: 1cm;
-  }
-
   /* Hide any print-specific buttons or controls */
   .no-print {
     display: none !important;
+  }
+
+  /* Custom Logo Backgrounds */
+  .logo-left {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='14' text-anchor='middle' fill='%23000'%3EUSFWS%3C/text%3E%3Ctext x='50' y='70' font-family='Arial' font-size='8' text-anchor='middle' fill='%23000'%3Eemblem%3C/text%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .logo-right {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Cpath d='M40,30 L60,30 L70,50 L60,70 L40,70 L30,50 Z' fill='%23fff' stroke='%23000' stroke-width='1'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='10' text-anchor='middle' fill='%23000'%3EBird%3C/text%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  /* Add vertical lines for visual separation in some sections */
+  .section-1::after,
+  .section-2::after,
+  .section-3::after {
+    content: "";
+    position: absolute;
+    top: 35px;
+    bottom: 10px;
+    width: 1px;
+    background-color: #ddd;
+    left: 55%;
   }
 }
