@@ -32,39 +32,30 @@
 
 <article{{ attributes.addClass(classes) }}>
   {# Form Header #}
-  <div class="permit-header">
-    <div class="permit-header-content">
-      <div class="form-title-container">
-        <div class="form-number">FWS Form 3-186a (Rev. 01/2020)</div>
-        <div class="department">U.S. Department of the Interior</div>
-        <h1 class="form-title">FEDERAL FISH AND WILDLIFE PERMIT APPLICATION FORM</h1>
-        <h2 class="form-subtitle">Migratory Bird Acquisition and Disposition</h2>
-        <div class="form-citation">(Migratory Bird Treaty Act, 50 CFR 21.29, 21.30)</div>
-        <div class="form-agency">U.S. Fish and Wildlife Service</div>
-        <div class="form-division">Division of Migratory Bird Management</div>
-      </div>
-      <div class="form-logos">
-        <div class="logo-left">
-          <!-- Logo content rendered as background in CSS -->
-        </div>
-        <div class="logo-right">
-          <!-- Logo content rendered as background in CSS -->
-        </div>
-      </div>
-      <div class="form-control">
-        <div class="omb-number">OMB Control No. 1018-00</div>
-        <div class="expiration">Expires 08/21/{{ "now"|date("Y") }}</div>
-      </div>
-    </div>
+  <div class="permit__header">
 
-    <div class="office-use-section">
+    <div class="permit__column permit__column--left">
+      <div class="form-number">FWS Form 3-186a (Rev. 01/2020)</div>
+      <div class="department">U.S. Department of the Interior</div>
+      BADGE
       <div class="office-use-label">USFWS Use Only</div>
-      <div class="office-use-fields">
-        <span>Received in Regional Office on</span>
-        <span class="blank-line">_____/_____/_____</span>
-        <span>Initials:</span>
-        <span class="blank-line">_____</span>
-      </div>
+      <span>Received in Regional Office on</span>
+      <span>_______/_______/_______</span>
+      <br>
+      <span>Initials:</span>
+      <span>_______</span>
+    </div>
+    <div class="permit__column permit__column--center">
+      <h1 class="form-title">FEDERAL FISH AND WILDLIFE PERMIT APPLICATION FORM</h1>
+      <h2 class="form-subtitle">Migratory Bird Acquisition and Disposition</h2>
+      <div class="form-citation">(Migratory Bird Treaty Act, 50 CFR 21.29, 21.30)</div>
+      <div class="form-agency">U.S. Fish and Wildlife Service</div>
+      <div class="form-division">Division of Migratory Bird Management</div>
+    </div>
+    <div class="permit__column permit__column--right">
+      <div class="omb-number">OMB Control No. 1018-00</div>
+      <div class="expiration">Expires {{ "now"|date_modify("+1 year")|date("m/d/Y") }}</div>
+      BADGE
     </div>
   </div>
 
@@ -74,71 +65,51 @@
       <div class="section-number">1</div>
       <div class="section-content">
         <div class="field-row">
-          <div class="field-label">SPECIES:</div>
+          <div class="field-label">Species:</div>
           <div class="field-value">{{ content.field_species_name }}</div>
-          <div class="field-label right-aligned">USFWS Band Number:</div>
-          <div class="field-value">{{ content.field_species_band_no }}</div>
         </div>
 
         <div class="field-row">
           <div class="field-label">Sex:</div>
           <div class="field-value checkbox-field">
-            {% if content.field_species_sex|render|trim == 'Female' %}
-              <span class="checkbox checked">☑</span> Female
-            {% else %}
-              <span class="checkbox">☐</span> Female
-            {% endif %}
-            {% if content.field_species_sex|render|trim == 'Male' %}
-              <span class="checkbox checked">☑</span> Male
-            {% else %}
-              <span class="checkbox">☐</span> Male
-            {% endif %}
-            {% if content.field_species_sex|render|trim == 'Unknown' %}
-              <span class="checkbox checked">☑</span> Unknown
-            {% else %}
-              <span class="checkbox">☐</span> Unknown
-            {% endif %}
+            {% set species_sex = content.field_species_sex|field_value.0['#plain_text']|default('') %}
+            <span class="checkbox {% if species_sex == 'FEMALE' %}checked{% endif %}">{% if species_sex == 'FEMALE' %}☑{% else %}☐{% endif %}</span> Female
+            <span class="checkbox {% if species_sex == 'MALE' %}checked{% endif %}">{% if species_sex == 'MALE' %}☑{% else %}☐{% endif %}</span> Male
+            <span class="checkbox {% if species_sex == 'Unknown' or species_sex == '' %}checked{% endif %}">{% if species_sex == 'Unknown' or species_sex == '' %}☑{% else %}☐{% endif %}</span> Unknown
           </div>
+        </div>
 
-          <div class="field-label right-aligned">Source:</div>
+        <div class="field-row">
+          <div class="field-label">Source:</div>
           <div class="field-value checkbox-field">
-            {% if content.field_species_source|render|trim == 'Wild' %}
-              <span class="checkbox checked">☑</span> Wild
-            {% else %}
-              <span class="checkbox">☐</span> Wild
-            {% endif %}
-            {% if content.field_species_source|render|trim == 'Captive-bred' %}
-              <span class="checkbox checked">☑</span> Captive-bred
-            {% else %}
-              <span class="checkbox">☐</span> Captive-bred
-            {% endif %}
+            {% set species_source = content.field_species_source|field_value.0['#plain_text']|default('') %}
+            <span class="checkbox {% if species_source == 'WILD' %}checked{% endif %}">{% if species_source == 'WILD' %}☑{% else %}☐{% endif %}</span> Wild
+            <span class="checkbox {% if species_source == 'CAPTIVE_BRED' %}checked{% endif %}">{% if species_source == 'CAPTIVE-BRED' %}☑{% else %}☐{% endif %}</span> Captive-bred
           </div>
-
-          <div class="field-label right-aligned">Wild Microchip Number:</div>
-          <div class="field-value">{{ content.field_species_microchip_no }}</div>
         </div>
 
         <div class="field-row">
           <div class="field-label">Age:</div>
           <div class="field-value checkbox-field">
-            {% if content.field_species_age|render|trim == 'Adult' %}
-              <span class="checkbox checked">☑</span> Adult
-            {% else %}
-              <span class="checkbox">☐</span> Adult
-            {% endif %}
-            {% if content.field_species_age|render|trim == 'Juvenile' %}
-              <span class="checkbox checked">☑</span> Juvenile
-            {% else %}
-              <span class="checkbox">☐</span> Juvenile
-            {% endif %}
-            {% if content.field_species_age|render|trim == 'Unknown' %}
-              <span class="checkbox checked">☑</span> Unknown
-            {% else %}
-              <span class="checkbox">☐</span> Unknown
-            {% endif %}
+            {% set species_age = content.field_species_age|field_value.0['#plain_text']|default('') %}
+            <span class="checkbox {% if species_age == 'ADULT' %}checked{% endif %}">{% if species_age == 'ADULT' %}☑{% else %}☐{% endif %}</span> Adult
+            <span class="checkbox {% if species_age == 'JUVENILE' %}checked{% endif %}">{% if species_age == 'JUVENILE' %}☑{% else %}☐{% endif %}</span> Juvenile
+            <span class="checkbox {% if species_age == 'Unknown' or species_age == '' %}checked{% endif %}">{% if species_age == 'Unknown' or species_age == '' %}☑{% else %}☐{% endif %}</span> Unknown
           </div>
+        </div>
 
-          <div class="field-label right-aligned">Year of Hatch:</div>
+        <div class="field-row">
+          <div class="field-label">USFWS Band Number:</div>
+          <div class="field-value">{{ content.field_species_band_no }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Wild Microchip Number:</div>
+          <div class="field-value">{{ content.field_species_microchip_no ? content.field_species_microchip_no : 'Unknown' }}</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-label">Year of Hatch:</div>
           <div class="field-value">{{ content.field_species_hatch_year }}</div>
         </div>
       </div>

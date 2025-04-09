@@ -657,21 +657,18 @@ footer.footer .footer-menus .region-footer-menus {
 .node-page--print {
   padding: 0;
   margin: 0;
-  /* Hide unnecessary elements */
-  /* PERMIT FORM SPECIFIC STYLES */
-  /* Header Styles */
   /* Form Container */
   /* Section Styles */
   /* Field Styles */
   /* Checkbox Styles */
   /* Field Notes */
   /* Certification Section */
-  /* Ensure proper page breaks */
-  /* Ensure links are readable */
-  /* Remove any box shadows */
-  /* Hide any print-specific buttons or controls */
-  /* Custom Logo Backgrounds */
-  /* Add vertical lines for visual separation in some sections */
+}
+@page {
+  .node-page--print {
+    size: letter portrait;
+    margin: 0.5cm;
+  }
 }
 .node-page--print header,
 .node-page--print footer,
@@ -693,56 +690,35 @@ footer.footer .footer-menus .region-footer-menus {
   max-width: 100%;
   margin: 0;
   padding: 0;
-  border: 2px solid #000;
+  border: 2px solid #000000;
   box-shadow: none !important;
   background-color: white;
 }
-.node-page--print .permit-header {
+.node-page--print h1, .node-page--print h2, .node-page--print h3,
+.node-page--print h4, .node-page--print h5, .node-page--print h6 {
+  color: #000000;
+  font-size: 13px;
+  margin: 0;
+}
+.node-page--print .permit__header {
   position: relative;
-  border-bottom: 1px solid #000;
-  padding: 10px;
-}
-.node-page--print .permit-header-content {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #000000;
+  padding: 0 0 20px;
+  font-size: 11px;
 }
-.node-page--print .form-title-container {
-  flex: 3;
+.node-page--print .permit__column {
+  width: 25%;
+}
+.node-page--print .permit__column--center {
+  width: 50%;
   text-align: center;
 }
-.node-page--print .form-number, .node-page--print .department {
-  font-size: 9pt;
-  margin-bottom: 5px;
-}
-.node-page--print .form-title {
-  font-size: 14pt;
-  font-weight: bold;
-  margin: 5px 0;
-}
-.node-page--print .form-subtitle {
-  font-size: 12pt;
-  font-weight: bold;
-  font-style: italic;
-  margin: 5px 0;
-}
-.node-page--print .form-citation {
-  font-size: 9pt;
-  margin: 5px 0;
-}
-.node-page--print .form-agency, .node-page--print .form-division {
-  font-size: 11pt;
-  margin: 3px 0;
-}
-.node-page--print .form-logos {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-}
-.node-page--print .logo-left, .node-page--print .logo-right {
-  width: 60px;
-  height: 60px;
-  border: 1px solid #ccc;
-  border-radius: 50%;
+.node-page--print .permit__column--right {
+  text-align: right;
 }
 .node-page--print .form-control {
   position: absolute;
@@ -751,42 +727,21 @@ footer.footer .footer-menus .region-footer-menus {
   text-align: right;
   font-size: 9pt;
 }
-.node-page--print .office-use-section {
-  margin-top: 15px;
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-}
-.node-page--print .office-use-label {
-  font-weight: bold;
-  font-size: 9pt;
-}
-.node-page--print .office-use-fields {
-  font-size: 9pt;
-}
-.node-page--print .blank-line {
-  border-bottom: 1px solid #000;
-  display: inline-block;
-  width: 80px;
-  margin: 0 5px;
-}
 .node-page--print .permit-form-container {
   padding: 0;
 }
 .node-page--print .permit-section {
   display: flex;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000000;
   page-break-inside: avoid;
   min-height: 85px; /* Ensure consistent section heights */
-}
-.node-page--print .section-1, .node-page--print .section-2, .node-page--print .section-3 {
-  min-height: 120px; /* Make top sections taller */
 }
 .node-page--print .section-number {
   width: 30px;
   font-size: 14pt;
   font-weight: bold;
   text-align: center;
-  border-right: 1px solid #000;
+  border-right: 1px solid #000000;
   padding: 10px 5px;
   background-color: #f7f7f7;
 }
@@ -812,7 +767,6 @@ footer.footer .footer-menus .region-footer-menus {
 }
 .node-page--print .field-label {
   font-weight: bold;
-  min-width: 100px;
   padding-right: 10px;
 }
 .node-page--print .field-label.right-aligned {
@@ -839,11 +793,14 @@ footer.footer .footer-menus .region-footer-menus {
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 1.5px solid #000;
+  border: 1.5px solid #000000;
   margin-right: 5px;
   text-align: center;
   line-height: 12px;
   font-size: 12px;
+}
+.node-page--print .checkbox + .checkbox {
+  margin-left: 10px;
 }
 .node-page--print .checkbox.checked {
   font-weight: bold;
@@ -860,57 +817,12 @@ footer.footer .footer-menus .region-footer-menus {
   margin-top: 20px;
 }
 .node-page--print .signature-field {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000000;
   height: 20px;
 }
 .node-page--print .signature-note {
   font-size: 8pt;
   font-style: italic;
-}
-@page {
-  .node-page--print {
-    size: letter portrait;
-    margin: 0.5cm;
-  }
-}
-.node-page--print a {
-  color: #000 !important;
-  text-decoration: none !important;
-}
-.node-page--print * {
-  box-shadow: none !important;
-}
-.node-page--print .no-print {
-  display: none !important;
-}
-.node-page--print .logo-left {
-  width: 60px;
-  height: 60px;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='14' text-anchor='middle' fill='%23000'%3EUSFWS%3C/text%3E%3Ctext x='50' y='70' font-family='Arial' font-size='8' text-anchor='middle' fill='%23000'%3Eemblem%3C/text%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.node-page--print .logo-right {
-  width: 60px;
-  height: 60px;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Cpath d='M40,30 L60,30 L70,50 L60,70 L40,70 L30,50 Z' fill='%23fff' stroke='%23000' stroke-width='1'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='10' text-anchor='middle' fill='%23000'%3EBird%3C/text%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.node-page--print .section-1::after,
-.node-page--print .section-2::after,
-.node-page--print .section-3::after {
-  content: "";
-  position: absolute;
-  top: 35px;
-  bottom: 10px;
-  width: 1px;
-  background-color: #ddd;
-  left: 55%;
 }
 
 .field--name-field-accordion {

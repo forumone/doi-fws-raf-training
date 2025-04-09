@@ -1,10 +1,16 @@
 @use '../utils/colors' as *;
-
+@use '../utils/typography' as *;
 .node-page--print {
   padding: 0;
   margin: 0;
 
-  /* Hide unnecessary elements */
+  // Ensure proper page breaks
+  @page {
+    size: letter portrait;
+    margin: 0.5cm;
+  }
+
+  // Hide unnecessary elements
   header,
   footer,
   .skip-link,
@@ -24,72 +30,43 @@
     }
   }
 
-  /* PERMIT FORM SPECIFIC STYLES */
   .permit-information--print {
     max-width: 100%;
     margin: 0;
     padding: 0;
-    border: 2px solid #000;
+    border: 2px solid $black;
     box-shadow: none !important;
     background-color: white;
   }
 
-  /* Header Styles */
-  .permit-header {
+  @include headings {
+    color: $black;
+    font-size: 13px;
+    margin: 0
+  }
+
+  .permit__header {
     position: relative;
-    border-bottom: 1px solid #000;
-    padding: 10px;
-  }
-
-  .permit-header-content {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid $black;
+    padding: 0 0 20px;
+    font-size: 11px;
   }
 
-  .form-title-container {
-    flex: 3;
-    text-align: center;
-  }
+  .permit__column {
+    width: 25%;
 
-  .form-number, .department {
-    font-size: 9pt;
-    margin-bottom: 5px;
-  }
+    &--center {
+      width: 50%;
+      text-align: center;
+    }
 
-  .form-title {
-    font-size: 14pt;
-    font-weight: bold;
-    margin: 5px 0;
-  }
-
-  .form-subtitle {
-    font-size: 12pt;
-    font-weight: bold;
-    font-style: italic;
-    margin: 5px 0;
-  }
-
-  .form-citation {
-    font-size: 9pt;
-    margin: 5px 0;
-  }
-
-  .form-agency, .form-division {
-    font-size: 11pt;
-    margin: 3px 0;
-  }
-
-  .form-logos {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-  }
-
-  .logo-left, .logo-right {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
+    &--right {
+      text-align: right;
+    }
   }
 
   .form-control {
@@ -100,28 +77,6 @@
     font-size: 9pt;
   }
 
-  .office-use-section {
-    margin-top: 15px;
-    border-top: 1px solid #ccc;
-    padding-top: 5px;
-  }
-
-  .office-use-label {
-    font-weight: bold;
-    font-size: 9pt;
-  }
-
-  .office-use-fields {
-    font-size: 9pt;
-  }
-
-  .blank-line {
-    border-bottom: 1px solid #000;
-    display: inline-block;
-    width: 80px;
-    margin: 0 5px;
-  }
-
   /* Form Container */
   .permit-form-container {
     padding: 0;
@@ -130,13 +85,9 @@
   /* Section Styles */
   .permit-section {
     display: flex;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid $black;
     page-break-inside: avoid;
     min-height: 85px; /* Ensure consistent section heights */
-  }
-
-  .section-1, .section-2, .section-3 {
-    min-height: 120px; /* Make top sections taller */
   }
 
   .section-number {
@@ -144,7 +95,7 @@
     font-size: 14pt;
     font-weight: bold;
     text-align: center;
-    border-right: 1px solid #000;
+    border-right: 1px solid $black;
     padding: 10px 5px;
     background-color: #f7f7f7;
   }
@@ -176,7 +127,6 @@
 
   .field-label {
     font-weight: bold;
-    min-width: 100px;
     padding-right: 10px;
   }
 
@@ -210,11 +160,15 @@
     display: inline-block;
     width: 14px;
     height: 14px;
-    border: 1.5px solid #000;
+    border: 1.5px solid $black;
     margin-right: 5px;
     text-align: center;
     line-height: 12px;
     font-size: 12px;
+
+    + .checkbox {
+      margin-left: 10px;
+    }
   }
 
   .checkbox.checked {
@@ -238,68 +192,12 @@
   }
 
   .signature-field {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid $black;
     height: 20px;
   }
 
   .signature-note {
     font-size: 8pt;
     font-style: italic;
-  }
-
-  /* Ensure proper page breaks */
-  @page {
-    size: letter portrait;
-    margin: 0.5cm;
-  }
-
-  /* Ensure links are readable */
-  a {
-    color: #000 !important;
-    text-decoration: none !important;
-  }
-
-  /* Remove any box shadows */
-  * {
-    box-shadow: none !important;
-  }
-
-  /* Hide any print-specific buttons or controls */
-  .no-print {
-    display: none !important;
-  }
-
-  /* Custom Logo Backgrounds */
-  .logo-left {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='14' text-anchor='middle' fill='%23000'%3EUSFWS%3C/text%3E%3Ctext x='50' y='70' font-family='Arial' font-size='8' text-anchor='middle' fill='%23000'%3Eemblem%3C/text%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .logo-right {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23fff' stroke='%23000' stroke-width='2'/%3E%3Cpath d='M40,30 L60,30 L70,50 L60,70 L40,70 L30,50 Z' fill='%23fff' stroke='%23000' stroke-width='1'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='10' text-anchor='middle' fill='%23000'%3EBird%3C/text%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  /* Add vertical lines for visual separation in some sections */
-  .section-1::after,
-  .section-2::after,
-  .section-3::after {
-    content: "";
-    position: absolute;
-    top: 35px;
-    bottom: 10px;
-    width: 1px;
-    background-color: #ddd;
-    left: 55%;
   }
 }
