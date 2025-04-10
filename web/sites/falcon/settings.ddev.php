@@ -48,3 +48,6 @@ $config['symfony_mailer.mailer_transport.sendmail']['configuration']['port'] = '
 // Enable verbose logging for errors.
 // https://www.drupal.org/forum/support/post-installation/2018-07-18/enable-drupal-8-backend-errorlogdebugging-mode
 $config['system.logging']['error_level'] = 'verbose';
+
+// Disable clamvav because we don't have a local clamav.
+$config['clamav.settings']['enabled'] = false;
