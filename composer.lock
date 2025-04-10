@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7eaf9680288f287110ea60a78313206",
+    "content-hash": "d6c1ff6802da6d3bce7a4e5a0c3219d9",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -4584,6 +4584,66 @@
             }
         },
         {
+            "name": "drupal/image_popup",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/image_popup.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/image_popup-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "3394805c32225170378fc960173f7abbe1263c0c"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1692947045",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "aditya_anurag",
+                    "homepage": "https://www.drupal.org/user/2672183"
+                },
+                {
+                    "name": "c7bamford",
+                    "homepage": "https://www.drupal.org/user/3541163"
+                },
+                {
+                    "name": "JayKandari",
+                    "homepage": "https://www.drupal.org/user/2876519"
+                },
+                {
+                    "name": "manojapare",
+                    "homepage": "https://www.drupal.org/user/2825053"
+                },
+                {
+                    "name": "rakesh.gectcr",
+                    "homepage": "https://www.drupal.org/user/1177822"
+                }
+            ],
+            "description": "This module gives the popup field formatter for the image field types.",
+            "homepage": "https://www.drupal.org/project/image_popup",
+            "support": {
+                "source": "https://git.drupalcode.org/project/image_popup"
+            }
+        },
+        {
             "name": "drupal/inline_entity_form",
             "version": "3.0.0-rc20",
             "source": {
@@ -5015,63 +5075,6 @@
             "homepage": "https://www.drupal.org/project/jquery_ui_resizable",
             "support": {
                 "source": "https://git.drupalcode.org/project/jquery_ui_resizable"
-            }
-        },
-        {
-            "name": "drupal/juicebox",
-            "version": "4.0.0-alpha2",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/juicebox.git",
-                "reference": "4.0.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/juicebox-4.0.0-alpha2.zip",
-                "reference": "4.0.0-alpha2",
-                "shasum": "d227565b7be0ce785d2b7bd09fe553ea23ebe4f5"
-            },
-            "require": {
-                "drupal/core": "^10.3 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "4.0.0-alpha2",
-                    "datestamp": "1734574878",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "fkelly12054@gmail.com",
-                    "homepage": "https://www.drupal.org/user/2412630"
-                },
-                {
-                    "name": "luke.leber",
-                    "homepage": "https://www.drupal.org/user/3509746"
-                },
-                {
-                    "name": "neslee canil pinto",
-                    "homepage": "https://www.drupal.org/user/3580850"
-                },
-                {
-                    "name": "rjacobs",
-                    "homepage": "https://www.drupal.org/user/422459"
-                }
-            ],
-            "description": "Provides an integration between the Juicebox HTML5 responsive gallery library and Drupal.",
-            "homepage": "https://www.drupal.org/project/juicebox",
-            "support": {
-                "source": "https://git.drupalcode.org/project/juicebox",
-                "issues": "https://www.drupal.org/project/issues/juicebox"
             }
         },
         {
@@ -9306,18 +9309,6 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
-        },
-        {
-            "name": "maxstrim/juicebox",
-            "version": "1.5.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/maxstrim/juicebox/archive/1.5.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "drupal-library"
         },
         {
             "name": "mck89/peast",
@@ -19893,7 +19884,6 @@
         "drupal/components": 10,
         "drupal/default_content": 15,
         "drupal/inline_entity_form": 5,
-        "drupal/juicebox": 15,
         "drupal/login_destination": 10,
         "drupal/node_revision_delete": 5,
         "drupal/viewfield": 10,
