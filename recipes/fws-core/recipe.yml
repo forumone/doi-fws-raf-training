@@ -78,6 +78,7 @@ install:
   - geolocation
   - geolocation_leaflet
   - inline_entity_form
+  - image_popup
   - jquery_ui_draggable
   - jquery_ui_resizable
   - key
