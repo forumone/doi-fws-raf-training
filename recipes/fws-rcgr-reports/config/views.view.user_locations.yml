@@ -11,7 +11,7 @@ dependencies:
     - node
     - user
 _core:
-  default_config_hash: Cooi83y3d0xL0mBHAacHyCzttK6MHsajEs-mJ4XzMsM
+  default_config_hash: '-x4fyantS0oFNLrnw41L_7DjK7g4iBnUbkGGzOONEpU'
 id: user_locations
 label: 'My Locations'
 module: views
@@ -504,7 +504,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: true
-          content: "<a href=\"/node/add/location\" class=\"btn btn-primary\">Add Location</a>\r\n"
+          content: "<div class=\"alert alert-info\">When you have completed adding locations and agents, please proceed to the <a href=\"/user\">View Registration Form</a> page to review and certify your registration.</div>\r\n<a href=\"/node/add/location\" class=\"btn btn-primary\">Add Location</a>"
           tokenize: false
       footer: {  }
       display_extenders: {  }

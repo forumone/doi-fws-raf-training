@@ -58,7 +58,7 @@
                 {% if user.field_permit_no is defined and user.field_permit_no.value is not empty %}
                   RG-{{ user.field_permit_no.value }}
                 {% else %}
-                  <div class="alert alert-warning">
+                  <div class="alert alert-info">
                     No registration number assigned.
                     <a href="/node/add/location">Add a location</a> to receive a registration number.
                   </div>
