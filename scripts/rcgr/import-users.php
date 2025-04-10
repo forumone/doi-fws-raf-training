@@ -46,37 +46,36 @@ log_message("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit), $log_
 log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_file);
 
 // Define field mappings from CSV to user fields.
-$field_mappings = [
-// Will be used for username.
-  'userid' => NULL,
+$field_map = [
   'applicant_business_name' => 'field_applicant_business_name',
-  'applicant_last_name' => 'field_applicant_last_name',
-  'applicant_first_name' => 'field_applicant_first_name',
-  'applicant_middle_name' => 'field_applicant_middle_name',
-  'applicant_prefix' => 'field_applicant_prefix',
-  'applicant_suffix' => 'field_applicant_suffix',
-  'applicant_address_l1' => 'field_applicant_address_l1',
-  'applicant_address_l2' => 'field_applicant_address_l2',
-  'applicant_address_l3' => 'field_applicant_address_l3',
-  'applicant_county' => 'field_applicant_county',
+  'applicant_address_line_1' => 'field_applicant_address_l1',
+  'applicant_address_line_2' => 'field_applicant_address_l2',
+  'applicant_address_line_3' => 'field_applicant_address_l3',
   'applicant_city' => 'field_applicant_city',
   'applicant_state' => 'field_applicant_state',
+  'applicant_county' => 'field_applicant_county',
+  'applicant_country' => 'field_applicant_country',
   'applicant_zip' => 'field_applicant_zip',
-  'applicant_home_phone' => 'field_applicant_home_phone',
+  'applicant_first_name' => 'field_applicant_first_name',
+  'applicant_middle_name' => 'field_applicant_middle_name',
+  'applicant_last_name' => 'field_applicant_last_name',
+  'applicant_prefix' => 'field_applicant_prefix',
+  'applicant_suffix' => 'field_applicant_suffix',
+  'applicant_telephone' => 'field_applicant_telephone',
   'applicant_work_phone' => 'field_applicant_work_phone',
-  'applicant_fax_number' => 'field_fax_number',
-// Will be used as email.
-  'applicant_email_address' => NULL,
-  'principal_name' => 'field_principal_name',
-  'principal_last_name' => 'field_principal_last_name',
+  'applicant_home_phone' => 'field_applicant_home_phone',
+  'fax_number' => 'field_fax_number',
   'principal_first_name' => 'field_principal_first_name',
   'principal_middle_name' => 'field_principal_middle_name',
+  'principal_last_name' => 'field_principal_last_name',
   'principal_suffix' => 'field_principal_suffix',
+  'principal_name' => 'field_principal_name',
   'principal_title' => 'field_principal_title',
-  'principal_email_address' => 'field_principal_email',
   'principal_telephone' => 'field_principal_telephone',
+  'principal_email_address' => 'field_principal_email',
+  'permit_no' => 'field_permit_no',
   'primary_contact_name' => 'field_primary_contact_name',
-  'primary_contact_telephone' => 'field_primary_contact_phone',
+  'primary_contact_phone' => 'field_primary_contact_phone',
   'primary_contact_email_address' => 'field_primary_contact_email',
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
@@ -86,6 +85,7 @@ $field_mappings = [
   'rcf_cd' => 'field_rcf_cd',
   'create_by' => 'field_created_by',
   'update_by' => 'field_updated_by',
+  'userid' => 'field_legacy_userid',
   // Field not in CSV but setting default value during import.
   'applicant_agree_to_certify' => 'field_applicant_agree_to_certify',
 ];
@@ -299,7 +299,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
 
     // Set user fields.
-    foreach ($field_mappings as $csv_column => $drupal_field) {
+    foreach ($field_map as $csv_column => $drupal_field) {
       // Skip null mappings.
       if ($drupal_field == NULL) {
         continue;

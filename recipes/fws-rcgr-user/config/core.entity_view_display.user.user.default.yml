@@ -15,6 +15,7 @@ dependencies:
     - field.field.user.user.field_applicant_telephone
     - field.field.user.user.field_applicant_zip
     - field.field.user.user.field_principal_email
+    - field.field.user.user.field_legacy_userid
     - field.field.user.user.field_permit_no
     - field.field.user.user.field_applicant_agree_to_certify
     - field.field.user.user.field_registrant_type_cd
@@ -26,6 +27,14 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
+  field_legacy_userid:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_permit_no:
     type: string
     label: inline
