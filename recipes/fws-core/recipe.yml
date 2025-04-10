@@ -65,6 +65,7 @@ install:
   - charts_highcharts_maps
   - components
   - csv_serialization
+  - clamav
   - datatables
   - default_content
   - eca
@@ -77,6 +78,7 @@ install:
   - geolocation
   - geolocation_leaflet
   - inline_entity_form
+  - image_popup
   - jquery_ui_draggable
   - jquery_ui_resizable
   - key
