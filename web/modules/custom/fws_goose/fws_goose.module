@@ -420,3 +420,39 @@ function fws_goose_preprocess_page_title(&$variables) {
     $variables['title'] = t('View Registration Form');
   }
 }
+
+/**
+ * Implements hook_preprocess_user().
+ */
+function fws_goose_preprocess_user(&$variables) {
+  // Get the user entity from the variables.
+  $user = $variables['user'];
+
+  // Only proceed if we have a valid user ID.
+  if ($user && $user->id()) {
+    // Load location nodes for this user.
+    $location_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'location',
+        'uid' => $user->id(),
+        'status' => 1,
+      ]);
+    $variables['locations'] = $location_nodes;
+
+    // Load agent/name nodes for this user.
+    $agent_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'name',
+        'uid' => $user->id(),
+        'status' => 1,
+      ]);
+    $variables['agents'] = $agent_nodes;
+  }
+  else {
+    // Initialize empty arrays if no user.
+    $variables['locations'] = [];
+    $variables['agents'] = [];
+  }
+}
