@@ -1,17 +1,38 @@
+uuid: 85a8f8f2-006f-4cf7-b666-10c9882726a8
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
 third_party_settings:
   menu_ui:
     available_menus:
       - main
     parent: 'main:'
+  node_revision_delete:
+    amount:
+      status: false
+      settings:
+        amount: 0
+    created:
+      status: false
+      settings:
+        age: 1
+    drafts:
+      status: false
+      settings:
+        age: 1
+    only_drafts:
+      status: false
+      settings:
+        age: 0
+_core:
+  default_config_hash: gVoHX1hRgm8iT8AO6A1xU11QNRQMgi45nAiEpEuGnvU
 name: Location
 type: location
 description: 'Stores location information for RCGR locations.'
-help: ''
-new_revision: TRUE
-preview_mode: 1
-display_submitted: TRUE
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

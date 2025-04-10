@@ -25,7 +25,25 @@
 %}
 
 <article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+  {% if user.field_applicant_agree_to_certify.value %}
+    <div class="alert alert-success">
+      <strong>You have now completed your registration.</strong> This registration is valid ONLY from March 1 – June 30, 2025 for control activities.
+    </div>
+  {% endif %}
+
+  {# Certification Section - Moved to the very top #}
   <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registrant Certification</h3>
+    </div>
+    <div class="panel-body">
+      <p>I hereby certify that I have read and am familiar with the regulations contained in Title 50, Part 21, section 50, of the Code of Federal Regulations (50 CFR 21.50), and that the information submitted in this registration is complete and accurate to the best of my knowledge and belief. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>
+
+      {{ drupal_block('certification_form_block') }}
+    </div>
+  </div>
+
+  <div class="panel panel-primary mt-3">
     <div class="panel-heading">
       <h3 class="panel-title">Registration Information</h3>
     </div>
@@ -40,7 +58,7 @@
                 {% if user.field_permit_no is defined and user.field_permit_no.value is not empty %}
                   RG-{{ user.field_permit_no.value }}
                 {% else %}
-                  <div class="alert alert-warning">
+                  <div class="alert alert-info">
                     No registration number assigned.
                     <a href="/node/add/location">Add a location</a> to receive a registration number.
                   </div>
@@ -174,11 +192,6 @@
     </div>
     <div class="panel-body">
       {% set location_count = 0 %}
-      {% set locations = [] %}
-
-      {% if user.id.value %}
-        {% set locations = drupal_entity('node:location', {uid: user.id.value}) %}
-      {% endif %}
 
       {% if locations is not empty %}
         <div class="table-responsive">
@@ -224,11 +237,6 @@
     </div>
     <div class="panel-body">
       {% set agent_count = 0 %}
-      {% set agents = [] %}
-
-      {% if user.id.value %}
-        {% set agents = drupal_entity('node:name', {uid: user.id.value}) %}
-      {% endif %}
 
       {% if agents is not empty %}
         <div class="table-responsive">
@@ -236,9 +244,7 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Organization</th>
+                <th>Name</th>
               </tr>
             </thead>
             <tbody>
@@ -246,9 +252,7 @@
                 {% set agent_count = agent_count + 1 %}
                 <tr>
                   <td>{{ agent_count }}</td>
-                  <td>{% if agent.field_person_first_name.value %}{{ agent.field_person_first_name.value }}{% endif %}</td>
-                  <td>{% if agent.field_person_last_name.value %}{{ agent.field_person_last_name.value }}{% endif %}</td>
-                  <td>{% if agent.field_person_org_name.value %}{{ agent.field_person_org_name.value }}{% endif %}</td>
+                  <td>{{ agent.label }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -269,7 +273,7 @@
       <h3 class="panel-title">Conditions</h3>
     </div>
     <div class="panel-body">
-      <p>You and your agents or employees must comply with the Resident Canada Goose Nest & Egg Depredation Order Conditions.</p>
+      <p>You and your agents or employees must comply with the <a href="/resident-canada-goose-nest-egg-depredation-order-conditions">Resident Canada Goose Nest & Egg Depredation Order Conditions</a>.</p>
 
       <p>If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.</p>
 
@@ -277,5 +281,11 @@
         <p>Signature of Registrant (Landowner): ______________________________________________</p>
       </div>
     </div>
+  </div>
+
+  <div class="text-center" style="margin-top: 30px; margin-bottom: 20px;">
+    <a href="/resident-canada-goose-nest-egg-depredation-order-conditions" class="">
+      Proceed to Resident Canada Goose Nest &amp; Egg Depredation Order Conditions
+    </a>
   </div>
 </article>

@@ -265,9 +265,11 @@ function _fws_goose_validate_ca_access($form, FormStateInterface $form_state) {
   // Look up the access key in taxonomy.
   $entity_type_manager = \Drupal::entityTypeManager();
   $term_storage = $entity_type_manager->getStorage('taxonomy_term');
+
+  // First try exact match on name.
   $query = $term_storage->getQuery()
-    ->condition('vid', 'counties')
-    ->condition('field_access_key', $access_key)
+    ->condition('vid', 'california_access_key')
+    ->condition('name', $access_key)
     ->accessCheck(FALSE)
     ->range(0, 1);
   $tids = $query->execute();
@@ -285,7 +287,7 @@ function _fws_goose_validate_ca_access($form, FormStateInterface $form_state) {
     return;
   }
 
-  // Save the county name in form state.
+  // Save the county name in form state - county name is already in the term name.
   $county_name = $term->getName();
   $form_state->set('ca_validated_county', $county_name);
   $form_state->set('ca_validated_county_tid', $tid);
@@ -418,5 +420,41 @@ function fws_goose_preprocess_page_title(&$variables) {
   // For title display on user pages.
   if ($route_name == 'entity.user.canonical') {
     $variables['title'] = t('View Registration Form');
+  }
+}
+
+/**
+ * Implements hook_preprocess_user().
+ */
+function fws_goose_preprocess_user(&$variables) {
+  // Get the user entity from the variables.
+  $user = $variables['user'];
+
+  // Only proceed if we have a valid user ID.
+  if ($user && $user->id()) {
+    // Load location nodes for this user.
+    $location_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'location',
+        'uid' => $user->id(),
+        'status' => 1,
+      ]);
+    $variables['locations'] = $location_nodes;
+
+    // Load agent/name nodes for this user.
+    $agent_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'name',
+        'uid' => $user->id(),
+        'status' => 1,
+      ]);
+    $variables['agents'] = $agent_nodes;
+  }
+  else {
+    // Initialize empty arrays if no user.
+    $variables['locations'] = [];
+    $variables['agents'] = [];
   }
 }

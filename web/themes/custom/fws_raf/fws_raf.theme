@@ -169,3 +169,13 @@ function fws_raf_theme_suggestions_user_alter(array &$suggestions, array $variab
     }
   }
 }
+
+/**
+ * Implements hook_preprocess() to add Twig functions.
+ */
+function fws_raf_preprocess(&$variables, $hook) {
+  // Add CSRF token function.
+  $variables['get_token'] = function ($value) {
+    return \Drupal::csrfToken()->get($value);
+  };
+}

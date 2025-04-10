@@ -1,0 +1,104 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 60034b0b-fc78-4682-b180-e3dfc62a713d
+  bundle: page
+  default_langcode: en
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Resident Canada Goose Nest & Egg Depredation Order Conditions'
+  created:
+    -
+      value: 1743453007
+  promote:
+    -
+      value: false
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: 'Resident Canada Goose Nest & Egg Depredation Order Conditions | FWS: Resident Canada Goose Registration'
+    -
+      tag: meta
+      attributes:
+        name: description
+        content: 'Conditions for the Resident Canada Goose Nest and Egg Depredation Order pursuant to the Migratory Bird Treaty Act and implementing regulations at 50 CFR 21.50.'
+    -
+      tag: meta
+      attributes:
+        name: abstract
+        content: 'Conditions for the Resident Canada Goose Nest and Egg Depredation Order pursuant to the Migratory Bird Treaty Act and implementing regulations at 50 CFR 21.50.'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'https://rcgr.ddev.site/depredation-order-conditions'
+  path:
+    -
+      alias: /depredation-order-conditions
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: |
+        <p>Pursuant to the Migratory Bird Treaty Act and implementing regulations at 50 CFR 21.50 (Depredation order for resident Canada geese nest and eggs), you, as the responsible registrant, are authorized to addle and destroy resident Canada goose (Branta canadensis) nests and eggs subject to the following provisions and conditions:</p>
+
+        <ol>
+        <li>You and your agents or employees may addle or destroy all resident Canada goose eggs in nests found on the property(ies) identified on the registration confirmation. Eggs may be treated by oiling, freezing, shaking, or puncturing and immediately replacing the eggs in the nest, or you may remove, destroy, and dispose of the eggs and nests. Anyone oiling eggs must use 100% corn oil.</li>
+
+        <li>Destroyed nest material and eggs may be left in the field or disposed of by burial, incineration, or placement in outgoing trash, in accordance with local ordinances. Nests and eggs may not be retained for personal use. No one is authorized to sell, offer for sale, barter, or ship for the purpose of sale or barter nests or eggs taken under the order.</li>
+
+        <li>You must incorporate nonlethal goose management techniques, such as habitat manipulation or hazing, to the extent you deem appropriate to discourage nesting.</li>
+
+        <li>You may not take any actions under this depredation order that will adversely affect other migratory birds or species listed under the U.S. Endangered Species Act (ESA). Any take of species protected under the ESA must be immediately reported to the FWS.</li>
+
+        <li>You may not addle or destroy resident Canada goose nests and eggs if it is unlawful under applicable state, county, municipal, or tribal government laws.</li>
+
+        <li>REPORTING REQUIREMENT: You must report the month, number and location (county) of nests with eggs destroyed, by October 31 of the registration year. Go to https://epermits.fws.gov/eRCGR to enter your login and password to access the Resident Canada Goose Registration site. From the RCGR homepage, go to Report of Activity to make your entries. (Note: You only need to report the number of nests with eggs that were addled or destroyed. You do not need to report the number of individual eggs addled or destroyed.) A report is required even if no nests and eggs were destroyed. You cannot re-register for future seasons if you have an outstanding report.</li>
+        </ol>
+
+        <h2>Special Conditions to Protect Federally Listed Threatened and Endangered Species</h2>
+
+        <p><strong>California:</strong> If the property is located in California, any control activities of resident Canada geese in areas used by the following species listed under the Endangered Species Act must be done in coordination with the appropriate local FWS field office (see either the list of California and Nevada Operations Field Offices http://www.fws.gov/cno/es/default.cfm to locate the field office nearest to your activities or the California State map indicating the locations of all FWS offices http://www.fws.gov/pacific/visitor/california.html and in accordance with standard local operating procedures for avoiding adverse effects to the species or its critical habitat:</p>
+
+        <p>(A) Birds: Light-footed clapper rail, Californiaclapper rail, Yuma clapper rail, California least tern, southwestern willow flycatcher, least Bell's vireo, western snowy plover, California gnatcatcher.</p>
+
+        <p>(B) Amphibians: California red-legged frog and California tiger salamander.</p>
+
+        <p>(C) Insects: Valley elderberry longhorn beetle and delta green ground beetle.</p>
+
+        <p>(D) Crustaceans: Vernal pool fairy shrimp, conservancy fairy shrimp, longhorn fairy shrimp, vernal pool tadpole shrimp, San Diego fairy shrimp, and Riverside fairy shrimp.</p>
+
+        <p>(E) Plants: Butte County meadowfoam, large-flowered wooly meadowfoam, Cook's lomatium, Contra Costa goldfields, Hoover's spurge, fleshy owl's clover, Colusa grass, hairy Orcutt grass, Solano grass, Greene's tuctoria, Sacramento Valley Orcutt grass, San Joaquin Valley Orcutt grass, slender Orcutt grass, California Orcutt grass, spreading navarretia, and San Jacinto Valley crownscale.</p>
+
+        <p><strong>California or Arizona:</strong> If the property is located in California or Arizona, contact the Arizona Ecological Services Office (for the Colorado River and Arizona sites http://www.fws.gov/southwest/es/arizona  or the Carlsbad Fish and Wildlife Office (for Salton Sea sites http://www.fws.gov/carlsbad) if control activities are proposed in or around occupied habitats (cattail or cattail bulrush marshes) to discuss the proposed activity and ensure that implementation will not adversely affect clapper rails or their habitats.</p>
+
+        <p><strong>Florida:</strong> If the property is located in Florida, you may not destroy resident Canada goose nests and eggs within 300 meters of a whooping crane nest.</p>
+
+        <p><strong>Mississippi:</strong> If the property is located in Mississippi, you may not destroy resident Canada goose nests and eggs within 300 meters of a Mississippi sandhill crane nest.</p>
+
+        <hr />
+
+        <p>Thank you for registering. You may amend your registration through June 30. You must report your activities, even if you have "no activity", by October 31.</p>
+      format: basic_html
+      summary: ''
+  field_private:
+    -
+      value: false
