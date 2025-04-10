@@ -10,6 +10,9 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drush\Drush;
 use Drupal\taxonomy\Entity\Term;
 
+// Include the user import functions.
+require_once __DIR__ . '/import-users.php';
+
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
 $args = $input->getArguments();
@@ -34,6 +37,12 @@ $history_csv_file = __DIR__ . '/data/rcgr_location_hist_202503031405.csv';
 
 // Track processed nodes to handle revisions.
 $processed_nodes = [];
+
+// Track users not found and imported.
+global $_rcgr_users_not_found;
+global $_rcgr_users_imported;
+$_rcgr_users_not_found = 0;
+$_rcgr_users_imported = 0;
 
 // Map CSV columns to field names.
 $field_mapping = [
@@ -197,6 +206,59 @@ function find_existing_node($permit_no, $address) {
 }
 
 /**
+ * Find a user by legacy user ID. Imports new user if not found.
+ *
+ * @param string $legacy_userid
+ *   The legacy user ID.
+ *
+ * @return int|null
+ *   The user ID, or NULL if not found or created.
+ */
+function find_user_by_legacy_id($legacy_userid) {
+  global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Trim whitespace from the legacy user ID.
+  $legacy_userid = trim($legacy_userid);
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Try to find a user with this legacy ID.
+  $query = \Drupal::entityQuery('user')
+    ->condition('field_legacy_userid', $legacy_userid)
+    ->accessCheck(FALSE);
+  $uids = $query->execute();
+
+  if (!empty($uids)) {
+    $uid = reset($uids);
+    $_rcgr_import_logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
+    return $uid;
+  }
+
+  // Logger callback function for the import process that suppresses output.
+  $log_via_logger = function ($message) {
+    // Don't output anything here to reduce verbosity.
+  };
+
+  // Try to import the user from the original CSV.
+  $user = import_user_by_legacy_id($legacy_userid, NULL, $log_via_logger);
+
+  if ($user) {
+    $_rcgr_users_imported++;
+    $_rcgr_import_logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    return $user->id();
+  }
+
+  $_rcgr_users_not_found++;
+  return NULL;
+}
+
+/**
  * Process a single row of location data.
  *
  * @param array $data
@@ -267,6 +329,15 @@ function process_location_row(
         'title' => $title,
         'status' => 1,
       ]);
+    }
+
+    // Associate the location entity with a user based on legacy userid.
+    if (!empty($data['create_by'])) {
+      $uid = find_user_by_legacy_id($data['create_by']);
+      if ($uid) {
+        // Set the node owner to the user with the matching legacy ID.
+        $node->setOwnerId($uid);
+      }
     }
 
     // Handle combined address fields first.
@@ -582,3 +653,5 @@ echo "Current records processed: $processed\n";
 echo "Historical revisions created: $revisions_created\n";
 echo "Skipped: $skipped\n";
 echo "Errors: $errors\n";
+echo "Users not found for location records: {$_rcgr_users_not_found}\n";
+echo "Users imported on-demand: {$_rcgr_users_imported}\n";

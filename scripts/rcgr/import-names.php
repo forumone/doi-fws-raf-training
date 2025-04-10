@@ -10,6 +10,9 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drush\Drush;
 use Drupal\taxonomy\Entity\Term;
 
+// Include the user import functions.
+require_once __DIR__ . '/import-users.php';
+
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
 $args = $input->getArguments();
@@ -33,6 +36,12 @@ $current_csv_file = __DIR__ . '/data/rcgr_name_202503031405.csv';
 $history_csv_file = __DIR__ . '/data/rcgr_name_hist_202503031405.csv';
 
 $logger->warning("Starting import of name data.");
+
+// Track users not found.
+global $_rcgr_users_not_found;
+global $_rcgr_users_imported;
+$_rcgr_users_not_found = 0;
+$_rcgr_users_imported = 0;
 
 // Load historical records into memory for faster lookup.
 $historical_records = [];
@@ -202,6 +211,59 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
   return NULL;
 }
 
+/**
+ * Find a user by legacy user ID. Creates a new user if not found.
+ *
+ * @param string $legacy_userid
+ *   The legacy user ID.
+ *
+ * @return int|null
+ *   The user ID, or NULL if not found or created.
+ */
+function find_user_by_legacy_id($legacy_userid) {
+  global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Trim whitespace from the legacy user ID.
+  $legacy_userid = trim($legacy_userid);
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Try to find a user with this legacy ID.
+  $query = \Drupal::entityQuery('user')
+    ->condition('field_legacy_userid', $legacy_userid)
+    ->accessCheck(FALSE);
+  $uids = $query->execute();
+
+  if (!empty($uids)) {
+    $uid = reset($uids);
+    $_rcgr_import_logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
+    return $uid;
+  }
+
+  // Logger callback function for the import process that suppresses output.
+  $log_via_logger = function ($message) {
+    // Don't output anything here to reduce verbosity.
+  };
+
+  // Try to import the user from the original CSV.
+  $user = import_user_by_legacy_id($legacy_userid, NULL, $log_via_logger);
+
+  if ($user) {
+    $_rcgr_users_imported++;
+    $_rcgr_import_logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    return $user->id();
+  }
+
+  $_rcgr_users_not_found++;
+  return NULL;
+}
+
 // Process the CSV file.
 while (($data = fgetcsv($handle)) !== FALSE) {
   // Check if we've hit the limit.
@@ -270,6 +332,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
         // Set the field value.
         $node->set($field_name, $value);
+      }
+    }
+
+    // Associate the name entity with a user based on legacy userid.
+    if (!empty($row['create_by'])) {
+      $uid = find_user_by_legacy_id($row['create_by']);
+      if ($uid) {
+        // Set the node owner to the user with the matching legacy ID.
+        $node->setOwnerId($uid);
       }
     }
 
@@ -351,6 +422,16 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
             // Set the field value.
             $node->set($field_name, $value);
+          }
+        }
+
+        // Associate the historical revision with a user based on legacy userid.
+        if (!empty($hist_row['create_by'])) {
+          $uid = find_user_by_legacy_id($hist_row['create_by']);
+          if ($uid) {
+            // Set the revision owner to the user with the matching legacy ID.
+            $node->setOwnerId($uid);
+            $node->setRevisionUserId($uid);
           }
         }
 
@@ -463,6 +544,8 @@ $logger->notice("- Processed: {$processed}");
 $logger->notice("- Historical revisions created: {$revisions_created}");
 $logger->notice("- Skipped: {$skipped}");
 $logger->notice("- Errors: {$errors}");
+$logger->notice("- Users not found for name records: {$_rcgr_users_not_found}");
+$logger->notice("- Users imported on-demand: {$_rcgr_users_imported}");
 
 // Only exit explicitly if there were actual errors.
 if ($errors > 0) {

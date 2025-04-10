@@ -31,10 +31,22 @@ $log_file = NULL;
 
 /**
  * Set up logging.
+ *
+ * @param string $message
+ *   The message to log.
+ * @param string|callable|null $log_file
+ *   The log file path, a callable logger function, or NULL for console output.
  */
 function log_message($message, $log_file) {
   $timestamp = date('Y-m-d H:i:s');
   $log_message = "[{$timestamp}] {$message}\n";
+
+  // If log_file is a callable, use it as a logging function.
+  if (is_callable($log_file)) {
+    $log_file($message);
+    return;
+  }
+
   // Only output to console, no log file.
   echo $log_message;
 }
@@ -45,50 +57,256 @@ log_message("Starting user import from: {$input_file}", $log_file);
 log_message("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit), $log_file);
 log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_file);
 
-// Define field mappings from CSV to user fields.
-$field_map = [
-  'applicant_business_name' => 'field_applicant_business_name',
-  'applicant_address_line_1' => 'field_applicant_address_l1',
-  'applicant_address_line_2' => 'field_applicant_address_l2',
-  'applicant_address_line_3' => 'field_applicant_address_l3',
-  'applicant_city' => 'field_applicant_city',
-  'applicant_state' => 'field_applicant_state',
-  'applicant_county' => 'field_applicant_county',
-  'applicant_country' => 'field_applicant_country',
-  'applicant_zip' => 'field_applicant_zip',
-  'applicant_first_name' => 'field_applicant_first_name',
-  'applicant_middle_name' => 'field_applicant_middle_name',
-  'applicant_last_name' => 'field_applicant_last_name',
-  'applicant_prefix' => 'field_applicant_prefix',
-  'applicant_suffix' => 'field_applicant_suffix',
-  'applicant_telephone' => 'field_applicant_telephone',
-  'applicant_work_phone' => 'field_applicant_work_phone',
-  'applicant_home_phone' => 'field_applicant_home_phone',
-  'fax_number' => 'field_fax_number',
-  'principal_first_name' => 'field_principal_first_name',
-  'principal_middle_name' => 'field_principal_middle_name',
-  'principal_last_name' => 'field_principal_last_name',
-  'principal_suffix' => 'field_principal_suffix',
-  'principal_name' => 'field_principal_name',
-  'principal_title' => 'field_principal_title',
-  'principal_telephone' => 'field_principal_telephone',
-  'principal_email_address' => 'field_principal_email',
-  'permit_no' => 'field_permit_no',
-  'primary_contact_name' => 'field_primary_contact_name',
-  'primary_contact_phone' => 'field_primary_contact_phone',
-  'primary_contact_email_address' => 'field_primary_contact_email',
-  'version_no' => 'field_version_no',
-  'hid' => 'field_hid',
-  'program_id' => 'field_program_id',
-  'registrant_type_cd' => 'field_registrant_type_cd',
-  'bi_cd' => 'field_bi_cd',
-  'rcf_cd' => 'field_rcf_cd',
-  'create_by' => 'field_created_by',
-  'update_by' => 'field_updated_by',
-  'userid' => 'field_legacy_userid',
-  // Field not in CSV but setting default value during import.
-  'applicant_agree_to_certify' => 'field_applicant_agree_to_certify',
-];
+/**
+ * Creates or updates a user from CSV row data.
+ *
+ * @param array $row
+ *   Array containing user data from CSV.
+ * @param bool $update_existing
+ *   Whether to update existing users.
+ * @param string|null $log_file
+ *   Path to log file, or NULL to use console output only.
+ *
+ * @return object|null
+ *   The user object if created/updated successfully, NULL otherwise.
+ */
+function create_or_update_user_from_csv(array $row, $update_existing = FALSE, $log_file = NULL) {
+  // Check if we have minimum required data.
+  if (empty($row['userid'])) {
+    log_message("Warning: Row missing userid - skipping", $log_file);
+    return NULL;
+  }
+
+  if (empty($row['applicant_email_address'])) {
+    // Don't log individual missing emails.
+    return NULL;
+  }
+
+  // Clean and prepare user data.
+  $username = trim($row['userid']);
+  $email = trim($row['applicant_email_address']);
+
+  // Sanitize and validate the email address.
+  $email = sanitize_email($email);
+  if (empty($email)) {
+    // Invalid email.
+    return NULL;
+  }
+
+  // Sanitize username to make it valid for Drupal.
+  $username = sanitize_username($username);
+
+  // Check if user already exists.
+  $existing_user = user_load_by_name($username);
+  $existing_email = user_load_by_mail($email);
+
+  if ($existing_user) {
+    if ($update_existing) {
+      $user = $existing_user;
+      log_message("Updating existing user '{$username}'", $log_file);
+    }
+    else {
+      log_message("User '{$username}' already exists - skipping", $log_file);
+      return NULL;
+    }
+  }
+  elseif ($existing_email) {
+    if ($update_existing) {
+      $user = $existing_email;
+      log_message("Updating existing user with email '{$email}'", $log_file);
+    }
+    else {
+      log_message("Email '{$email}' already in use - skipping user '{$username}'", $log_file);
+      return NULL;
+    }
+  }
+  else {
+    // Create new user object.
+    $user = User::create();
+    $user->enforceIsNew();
+  }
+
+  try {
+    // For new users, set required base fields.
+    if (!$existing_user && !$existing_email) {
+      $user->setUsername($username);
+      $user->setEmail($email);
+      // Random password - users will need to reset.
+      $user->setPassword(\Drupal::service('password_generator')->generate(12));
+      $user->set('init', $email);
+      $user->set('langcode', 'en');
+      // Set status to active.
+      $user->activate();
+    }
+
+    // Only update email for existing users if it doesn't conflict with another user.
+    if ($existing_user && !$existing_email && $existing_user->getEmail() != $email) {
+      // Check if the new email exists for another user.
+      $email_check = user_load_by_mail($email);
+      if (!$email_check) {
+        $user->setEmail($email);
+      }
+      else {
+        log_message("Warning: Cannot update email for user '{$username}' - email '{$email}' is already in use", $log_file);
+      }
+    }
+
+    // Set the account name - prefer business name if available.
+    $account_name = '';
+    if (!empty($row['applicant_business_name'])) {
+      $account_name = $row['applicant_business_name'];
+    }
+    else {
+      // Fall back to applicant name.
+      $first_name = !empty($row['applicant_first_name']) ? $row['applicant_first_name'] : '';
+      $last_name = !empty($row['applicant_last_name']) ? $row['applicant_last_name'] : '';
+      $account_name = trim($first_name . ' ' . $last_name);
+    }
+
+    // Ensure account name is not empty.
+    if (empty($account_name)) {
+      $account_name = $username;
+    }
+
+    // Check if account name is too long and truncate if necessary.
+    if (strlen($account_name) > 60) {
+      $account_name = substr($account_name, 0, 57) . '...';
+    }
+
+    $user->set('name', $username);
+    // Set the display name instead of account_name.
+    $user->set('field_applicant_business_name', $account_name);
+
+    // Set created/changed dates if available.
+    if (!empty($row['dt_create'])) {
+      try {
+        $created_time = strtotime($row['dt_create']);
+        if ($created_time) {
+          $user->set('created', $created_time);
+        }
+      }
+      catch (Exception $e) {
+        log_message("Warning: Invalid creation date format for user '{$username}'", $log_file);
+      }
+    }
+
+    if (!empty($row['dt_update'])) {
+      try {
+        $changed_time = strtotime($row['dt_update']);
+        if ($changed_time) {
+          $user->set('changed', $changed_time);
+        }
+      }
+      catch (Exception $e) {
+        log_message("Warning: Invalid update date format for user '{$username}'", $log_file);
+      }
+    }
+
+    // Get the field map.
+    $field_map = get_field_map();
+
+    // Set user fields.
+    foreach ($field_map as $csv_column => $drupal_field) {
+      // Skip null mappings.
+      if ($drupal_field == NULL) {
+        continue;
+      }
+
+      // Only set the field if there's a value in the CSV column.
+      if (!empty($row[$csv_column])) {
+        try {
+          // Special handling for bi_cd field to ensure it works with list_string field type.
+          if ($drupal_field === 'field_bi_cd') {
+            // Ensure the value is either 'I' or 'B'.
+            $bi_value = strtoupper(trim($row[$csv_column]));
+            if ($bi_value === 'I' || $bi_value === 'B') {
+              $user->set($drupal_field, $bi_value);
+            }
+            else {
+              log_message("Warning: Invalid value '{$row[$csv_file]}' for field_bi_cd, must be 'I' or 'B'", $log_file);
+            }
+          }
+          // Special handling for legacy_userid to ensure all whitespace is trimmed.
+          elseif ($drupal_field === 'field_legacy_userid') {
+            $clean_userid = trim($row[$csv_column]);
+            $user->set($drupal_field, $clean_userid);
+          }
+          else {
+            $user->set($drupal_field, $row[$csv_column]);
+          }
+        }
+        catch (\Exception $e) {
+          log_message("Error setting field $drupal_field to '{$row[$csv_column]}': " . $e->getMessage(), $log_file);
+        }
+      }
+    }
+
+    // Set default value for certification field which is not in the CSV.
+    $user->set('field_applicant_agree_to_certify', FALSE);
+
+    // Save the user.
+    $user->save();
+
+    // Return the user object.
+    return $user;
+  }
+  catch (Exception $e) {
+    log_message("Error importing user '{$username}': " . $e->getMessage(), $log_file);
+    return NULL;
+  }
+}
+
+/**
+ * Returns the field mapping from CSV columns to Drupal fields.
+ *
+ * @return array
+ *   Array of field mappings.
+ */
+function get_field_map() {
+  return [
+    'applicant_business_name' => 'field_applicant_business_name',
+    'applicant_address_line_1' => 'field_applicant_address_l1',
+    'applicant_address_line_2' => 'field_applicant_address_l2',
+    'applicant_address_line_3' => 'field_applicant_address_l3',
+    'applicant_city' => 'field_applicant_city',
+    'applicant_state' => 'field_applicant_state',
+    'applicant_county' => 'field_applicant_county',
+    'applicant_country' => 'field_applicant_country',
+    'applicant_zip' => 'field_applicant_zip',
+    'applicant_first_name' => 'field_applicant_first_name',
+    'applicant_middle_name' => 'field_applicant_middle_name',
+    'applicant_last_name' => 'field_applicant_last_name',
+    'applicant_prefix' => 'field_applicant_prefix',
+    'applicant_suffix' => 'field_applicant_suffix',
+    'applicant_telephone' => 'field_applicant_telephone',
+    'applicant_work_phone' => 'field_applicant_work_phone',
+    'applicant_home_phone' => 'field_applicant_home_phone',
+    'fax_number' => 'field_fax_number',
+    'principal_first_name' => 'field_principal_first_name',
+    'principal_middle_name' => 'field_principal_middle_name',
+    'principal_last_name' => 'field_principal_last_name',
+    'principal_suffix' => 'field_principal_suffix',
+    'principal_name' => 'field_principal_name',
+    'principal_title' => 'field_principal_title',
+    'principal_telephone' => 'field_principal_telephone',
+    'principal_email_address' => 'field_principal_email',
+    'permit_no' => 'field_permit_no',
+    'primary_contact_name' => 'field_primary_contact_name',
+    'primary_contact_phone' => 'field_primary_contact_phone',
+    'primary_contact_email_address' => 'field_primary_contact_email',
+    'version_no' => 'field_version_no',
+    'hid' => 'field_hid',
+    'program_id' => 'field_program_id',
+    'registrant_type_cd' => 'field_registrant_type_cd',
+    'bi_cd' => 'field_bi_cd',
+    'rcf_cd' => 'field_rcf_cd',
+    'create_by' => 'field_created_by',
+    'update_by' => 'field_updated_by',
+    'userid' => 'field_legacy_userid',
+    // Field not in CSV but setting default value during import.
+    'applicant_agree_to_certify' => 'field_applicant_agree_to_certify',
+  ];
+}
 
 // Open input file.
 $handle = fopen($input_file, 'r');
@@ -161,192 +379,20 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   // Create associative array of row data.
   $row = array_combine($header, $data);
 
-  // Check if we have minimum required data.
-  if (empty($row['userid'])) {
-    log_message("Warning: Row {$row_count} missing userid - skipping", $log_file);
-    $skipped_count++;
-    continue;
-  }
+  $user = create_or_update_user_from_csv($row, $update_existing, $log_file);
 
-  if (empty($row['applicant_email_address'])) {
-    // Don't log individual missing emails, just increment skip count.
-    $skipped_count++;
-    continue;
-  }
-
-  // Clean and prepare user data.
-  $username = trim($row['userid']);
-  $email = trim($row['applicant_email_address']);
-
-  // Sanitize and validate the email address.
-  $email = sanitize_email($email);
-  if (empty($email)) {
-    // Don't log individual invalid emails, just increment skip count.
-    $skipped_count++;
-    continue;
-  }
-
-  // Sanitize username to make it valid for Drupal.
-  $username = sanitize_username($username);
-
-  // Check if user already exists.
-  $existing_user = user_load_by_name($username);
-  $existing_email = user_load_by_mail($email);
-
-  if ($existing_user) {
-    if ($update_existing) {
-      $user = $existing_user;
-      log_message("Updating existing user '{$username}'", $log_file);
+  if ($user) {
+    if ($user->isNew()) {
+      $success_count++;
+      log_message("Successfully imported user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
     }
     else {
-      log_message("User '{$username}' already exists - skipping", $log_file);
-      $skipped_count++;
-      continue;
-    }
-  }
-  elseif ($existing_email) {
-    if ($update_existing) {
-      $user = $existing_email;
-      log_message("Updating existing user with email '{$email}'", $log_file);
-    }
-    else {
-      log_message("Email '{$email}' already in use - skipping user '{$username}'", $log_file);
-      $skipped_count++;
-      continue;
+      $updated_count++;
+      log_message("Successfully updated user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
     }
   }
   else {
-    // Create new user object.
-    $user = User::create();
-    $user->enforceIsNew();
-  }
-
-  try {
-    // For new users, set required base fields.
-    if (!$existing_user && !$existing_email) {
-      $user->setUsername($username);
-      $user->setEmail($email);
-      // Random password - users will need to reset.
-      $user->setPassword(\Drupal::service('password_generator')->generate(12));
-      $user->set('init', $email);
-      $user->set('langcode', 'en');
-      // Set status to active.
-      $user->activate();
-    }
-
-    // Only update email for existing users if it doesn't conflict with another user.
-    if ($existing_user && !$existing_email && $existing_user->getEmail() != $email) {
-      // Check if the new email exists for another user.
-      $email_check = user_load_by_mail($email);
-      if (!$email_check) {
-        $user->setEmail($email);
-      }
-      else {
-        log_message("Warning: Cannot update email for user '{$username}' - email '{$email}' is already in use", $log_file);
-      }
-    }
-
-    // Set the account name - prefer business name if available.
-    $account_name = '';
-    if (!empty($row['applicant_business_name'])) {
-      $account_name = $row['applicant_business_name'];
-    }
-    else {
-      // Fall back to applicant name.
-      $first_name = !empty($row['applicant_first_name']) ? $row['applicant_first_name'] : '';
-      $last_name = !empty($row['applicant_last_name']) ? $row['applicant_last_name'] : '';
-      $account_name = trim($first_name . ' ' . $last_name);
-    }
-
-    // Ensure account name is not empty.
-    if (empty($account_name)) {
-      $account_name = $username;
-    }
-
-    // Check if account name is too long and truncate if necessary.
-    if (strlen($account_name) > 60) {
-      $original_name = $account_name;
-      $account_name = substr($account_name, 0, 57) . '...';
-    }
-
-    $user->set('name', $username);
-    // Set the display name instead of account_name.
-    $user->set('field_applicant_business_name', $account_name);
-
-    // Set created/changed dates if available.
-    if (!empty($row['dt_create'])) {
-      try {
-        $created_time = strtotime($row['dt_create']);
-        if ($created_time) {
-          $user->set('created', $created_time);
-        }
-      }
-      catch (Exception $e) {
-        log_message("Warning: Invalid creation date format for user '{$username}'", $log_file);
-      }
-    }
-
-    if (!empty($row['dt_update'])) {
-      try {
-        $changed_time = strtotime($row['dt_update']);
-        if ($changed_time) {
-          $user->set('changed', $changed_time);
-        }
-      }
-      catch (Exception $e) {
-        log_message("Warning: Invalid update date format for user '{$username}'", $log_file);
-      }
-    }
-
-    // Set user fields.
-    foreach ($field_map as $csv_column => $drupal_field) {
-      // Skip null mappings.
-      if ($drupal_field == NULL) {
-        continue;
-      }
-
-      // Only set the field if there's a value in the CSV column.
-      if (!empty($row[$csv_column])) {
-        try {
-          // Special handling for bi_cd field to ensure it works with list_string field type.
-          if ($drupal_field === 'field_bi_cd') {
-            // Ensure the value is either 'I' or 'B'.
-            $bi_value = strtoupper(trim($row[$csv_column]));
-            if ($bi_value === 'I' || $bi_value === 'B') {
-              $user->set($drupal_field, $bi_value);
-            }
-            else {
-              log_message("Warning: Invalid value '{$row[$csv_column]}' for field_bi_cd, must be 'I' or 'B'", $log_file);
-            }
-          }
-          else {
-            $user->set($drupal_field, $row[$csv_column]);
-          }
-        }
-        catch (\Exception $e) {
-          log_message("Error setting field $drupal_field to '{$row[$csv_column]}': " . $e->getMessage(), $log_file);
-        }
-      }
-    }
-
-    // Set default value for certification field which is not in the CSV.
-    $user->set('field_applicant_agree_to_certify', FALSE);
-
-    // Save the user.
-    $user->save();
-
-    if ($existing_user || $existing_email) {
-      $updated_count++;
-      log_message("Successfully updated user '{$username}' (UID: {$user->id()})", $log_file);
-    }
-    else {
-      $success_count++;
-      log_message("Successfully imported user '{$username}' (UID: {$user->id()})", $log_file);
-    }
-  }
-  catch (Exception $e) {
-    log_message("Error importing user '{$username}': " . $e->getMessage(), $log_file);
-    $error_count++;
+    $skipped_count++;
   }
 
   // Provide progress update every 100 records.
@@ -526,4 +572,82 @@ function sanitize_email($email) {
   }
 
   return $email;
+}
+
+/**
+ * Imports a specific user by legacy user ID from the CSV file.
+ *
+ * @param string $legacy_userid
+ *   The legacy user ID to find and import.
+ * @param string|null $csv_file
+ *   Optional path to the CSV file. If NULL, uses the default.
+ * @param string|callable|null $log_file
+ *   The log file path or callable logger.
+ *
+ * @return \Drupal\user\UserInterface|null
+ *   The user object if found and imported successfully, NULL otherwise.
+ */
+function import_user_by_legacy_id($legacy_userid, $csv_file = NULL, $log_file = NULL) {
+  if (empty($legacy_userid)) {
+    log_message("Error: No legacy user ID provided", $log_file);
+    return NULL;
+  }
+
+  // Trim whitespace from the legacy ID.
+  $legacy_userid = trim($legacy_userid);
+
+  // Use default CSV path if none provided.
+  if (empty($csv_file)) {
+    $csv_file = __DIR__ . '/data/rcgr_userprofile_no_passwords_202503211115.csv';
+  }
+
+  // Check if the CSV file exists.
+  if (!file_exists($csv_file)) {
+    log_message("Error: CSV file not found: {$csv_file}", $log_file);
+    return NULL;
+  }
+
+  // Open the CSV file.
+  $handle = fopen($csv_file, 'r');
+  if (!$handle) {
+    log_message("Error: Could not open CSV file", $log_file);
+    return NULL;
+  }
+
+  // Get the header row.
+  $header = fgetcsv($handle);
+  if (!$header) {
+    log_message("Error: Could not read header row from CSV", $log_file);
+    fclose($handle);
+    return NULL;
+  }
+
+  // Check if userid column exists.
+  if (!in_array('userid', $header)) {
+    log_message("Error: Required column 'userid' not found in CSV header", $log_file);
+    fclose($handle);
+    return NULL;
+  }
+
+  // Process data rows to find the user.
+  while (($data = fgetcsv($handle)) !== FALSE) {
+    $row = array_combine($header, $data);
+
+    // Skip if userid doesn't match.
+    if (empty($row['userid']) || trim($row['userid']) !== $legacy_userid) {
+      continue;
+    }
+
+    // Found matching user, close the file.
+    fclose($handle);
+
+    // Create or update user from the row data.
+    log_message("Found user with legacy ID {$legacy_userid} in CSV, importing...", $log_file);
+    return create_or_update_user_from_csv($row, TRUE, $log_file);
+  }
+
+  // No matching user found.
+  fclose($handle);
+  log_message("No user with legacy ID {$legacy_userid} found in the CSV file", $log_file);
+  return NULL;
 }
