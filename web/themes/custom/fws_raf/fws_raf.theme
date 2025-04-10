@@ -24,6 +24,10 @@ function fws_raf_preprocess_node(&$variables) {
     // Add it to the variables array.
     $variables['primary_species_id'] = $primary_species_id;
   }
+
+  if ($node->getType() === 'species_id_results' && $variables['view_mode'] === 'full') {
+    $variables['base_path'] = base_path();
+  }
 }
 
 /**
