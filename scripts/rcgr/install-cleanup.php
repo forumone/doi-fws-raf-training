@@ -8,6 +8,8 @@
  * then creates the necessary file_managed entries with correct UUIDs.
  */
 
+use Drupal\user\Entity\User;
+
 // Small cleanup to delete erroneous folder.
 if (file_exists('public:') && is_writable('public:')) {
   rmdir('public:');
@@ -98,4 +100,33 @@ try {
 }
 catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
+}
+
+// Create users with specific roles if they don't already exist.
+$users = [
+  'daniel@prometsource.com' => 'administrator',
+];
+
+foreach ($users as $username => $role) {
+  // Check if user already exists.
+  $existing_user = \Drupal::entityTypeManager()
+    ->getStorage('user')
+    ->loadByProperties(['name' => $username]);
+
+  if (empty($existing_user)) {
+    $user = User::create([
+      'name' => $username,
+      'mail' => match($username) {
+        'daniel@prometsource.com' => 'daniel@prometsource.com',
+        default => $username . '@example.com'
+      },
+      'status' => 1,
+      'roles' => [$role],
+    ]);
+    $user->save();
+    echo "User '$username' with role '$role' has been created.\n";
+  }
+  else {
+    echo "User '$username' already exists, skipping creation.\n";
+  }
 }
