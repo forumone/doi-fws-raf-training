@@ -25,7 +25,25 @@
 %}
 
 <article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+  {% if user.field_applicant_agree_to_certify.value %}
+    <div class="alert alert-success">
+      <strong>You have now completed your registration.</strong> This registration is valid ONLY from March 1 – June 30, 2025 for control activities.
+    </div>
+  {% endif %}
+
+  {# Certification Section - Moved to the very top #}
   <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registrant Certification</h3>
+    </div>
+    <div class="panel-body">
+      <p>I hereby certify that I have read and am familiar with the regulations contained in Title 50, Part 21, section 50, of the Code of Federal Regulations (50 CFR 21.50), and that the information submitted in this registration is complete and accurate to the best of my knowledge and belief. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>
+
+      {{ drupal_block('certification_form_block') }}
+    </div>
+  </div>
+
+  <div class="panel panel-primary mt-3">
     <div class="panel-heading">
       <h3 class="panel-title">Registration Information</h3>
     </div>
