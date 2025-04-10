@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50ba757d987a254db33323bb814a7c55",
+    "content-hash": "b7eaf9680288f287110ea60a78313206",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -9306,6 +9306,18 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "maxstrim/juicebox",
+            "version": "1.5.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/maxstrim/juicebox/archive/1.5.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "mck89/peast",

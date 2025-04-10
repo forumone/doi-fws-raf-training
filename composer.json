@@ -77,6 +77,7 @@
         "drush/drush": "^11 || ^12 || ^13",
         "highcharts/maps": "11.1.0",
         "kenwheeler/slick": "^1.8.1",
+        "maxstrim/juicebox": "^1.5.1",
         "oomphinc/composer-installers-extender": "^2.0",
         "owlcarousel2/owlcarousel2": "^2.3.4",
         "select2/select2": "4.0.10",
@@ -151,6 +152,21 @@
                 "dist": {
                     "type": "file",
                     "url": "https://code.highcharts.com/maps/11.1.0/modules/map.js"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "maxstrim/juicebox",
+                "version": "1.5.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/maxstrim/juicebox/archive/1.5.1.zip",
+                    "type": "zip"
+                },
+                "require": {
+                    "composer/installers": "^1.0 || ^2.0"
                 }
             }
         }
