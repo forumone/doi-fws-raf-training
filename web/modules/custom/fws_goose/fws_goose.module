@@ -265,9 +265,11 @@ function _fws_goose_validate_ca_access($form, FormStateInterface $form_state) {
   // Look up the access key in taxonomy.
   $entity_type_manager = \Drupal::entityTypeManager();
   $term_storage = $entity_type_manager->getStorage('taxonomy_term');
+
+  // First try exact match on name.
   $query = $term_storage->getQuery()
-    ->condition('vid', 'counties')
-    ->condition('field_access_key', $access_key)
+    ->condition('vid', 'california_access_key')
+    ->condition('name', $access_key)
     ->accessCheck(FALSE)
     ->range(0, 1);
   $tids = $query->execute();
@@ -285,7 +287,7 @@ function _fws_goose_validate_ca_access($form, FormStateInterface $form_state) {
     return;
   }
 
-  // Save the county name in form state.
+  // Save the county name in form state - county name is already in the term name.
   $county_name = $term->getName();
   $form_state->set('ca_validated_county', $county_name);
   $form_state->set('ca_validated_county_tid', $tid);
