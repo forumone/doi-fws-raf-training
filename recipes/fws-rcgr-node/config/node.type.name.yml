@@ -1,16 +1,37 @@
+uuid: 47695923-7a51-42a5-8512-5f31d72ab462
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
 third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
+  node_revision_delete:
+    amount:
+      status: false
+      settings:
+        amount: 0
+    created:
+      status: false
+      settings:
+        age: 1
+    drafts:
+      status: false
+      settings:
+        age: 1
+    only_drafts:
+      status: false
+      settings:
+        age: 0
+_core:
+  default_config_hash: pkUIAcNfLdwjq2TXHhrlEk7i61ij8ictJEzICA1zaug
 name: Name
 type: name
 description: 'A person or organization associated with a permit.'
-help: ''
-new_revision: TRUE
-preview_mode: 1
-display_submitted: FALSE
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false
