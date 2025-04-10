@@ -55,6 +55,7 @@
     {# just the image #}
     {{ content.field_media_image }}
 
+    {# just in case the media image has only field_image field #}
     {{ content.field_image }}
 
         {% if attribution is not empty %}

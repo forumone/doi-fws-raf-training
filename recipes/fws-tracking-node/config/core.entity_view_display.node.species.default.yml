@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.species.field_dam
+    - field.field.node.species.field_image
     - field.field.node.species.field_names
     - field.field.node.species.field_number
     - field.field.node.species.field_rearing
@@ -13,9 +14,10 @@ dependencies:
     - node.type.species
   module:
     - entity_reference_revisions
+    - juicebox
     - user
 _core:
-  default_config_hash: Mq0XZ1HXCCXO3-SE2uRANT8-46igHfJ5CUT9Ov4doFU
+  default_config_hash: yeuIr2mfqX5sBaZ6-yFKLYsy78i_ANhd6b1gTRs01HY
 id: node.species.default
 targetEntityType: node
 bundle: species
@@ -28,6 +30,33 @@ content:
       link: true
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_image:
+    type: juicebox_formatter
+    label: hidden
+    settings:
+      image_style: juicebox_medium
+      thumb_style: juicebox_square_thumb
+      caption_source: ''
+      title_source: filename
+      jlib_galleryWidth: 100%
+      jlib_galleryHeight: 100%
+      jlib_backgroundColor: '#222222'
+      jlib_textColor: 'rgba(255,255,255,1)'
+      jlib_thumbFrameColor: 'rgba(255,255,255,.5)'
+      jlib_showOpenButton: true
+      jlib_showExpandButton: true
+      jlib_showThumbsButton: true
+      jlib_useThumbDots: false
+      jlib_useFullscreenExpand: '0'
+      manual_config: ''
+      custom_parent_classes: ''
+      apply_markup_filter: true
+      linkurl_source: ''
+      linkurl_target: _blank
+      incompatible_file_action: show_icon_and_link
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_names:
     type: entity_reference_revisions_entity_view

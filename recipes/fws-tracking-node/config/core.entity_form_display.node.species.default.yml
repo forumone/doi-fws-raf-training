@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.species.field_dam
+    - field.field.node.species.field_image
     - field.field.node.species.field_names
     - field.field.node.species.field_number
     - field.field.node.species.field_rearing
@@ -13,6 +14,7 @@ dependencies:
     - node.type.species
   module:
     - field_group
+    - media_library
     - paragraphs
     - select2
 third_party_settings:
@@ -25,6 +27,7 @@ third_party_settings:
         - field_sire
         - field_rearing
         - field_studbook
+        - field_image
       label: 'Basic Information'
       region: content
       parent_name: ''
@@ -39,7 +42,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: dVce2dILOoKfUCUkiOLBI1BuLNgIjYpLCgnThpkUaGQ
+  default_config_hash: G0kfFtUI-sk-sSxzjdGRVRZm_cVqckKl9q817x0SNy8
 id: node.species.default
 targetEntityType: node
 bundle: species
@@ -54,6 +57,13 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 8
+    region: content
+    settings:
+      media_types: {  }
     third_party_settings: {  }
   field_names:
     type: entity_reference_paragraphs
