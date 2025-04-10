@@ -40,6 +40,7 @@
         "drupal/geolocation": "^3.14",
         "drupal/image_effects": "^4.0",
         "drupal/inline_entity_form": "^3.0@RC",
+        "drupal/juicebox": "^4.0@alpha",
         "drupal/linkit": "^6.1",
         "drupal/login_destination": "^2.0@beta",
         "drupal/login_gov": "^1.1",
@@ -223,6 +224,9 @@
             },
             "drupal/we_megamenu": {
                 "Issue #3282040: Attempt to modify property \"col_content\" on null": "https://www.drupal.org/files/issues/2024-04-10/3282040_7_0.patch"
+            },
+            "drupal/juicebox": {
+                "Issue #3518338: Call to a member function isDisplayed() on null": "https://www.drupal.org/files/issues/2025-04-09/get-image-field-dynamically-3518338-1.patch"
             }
         }
     },

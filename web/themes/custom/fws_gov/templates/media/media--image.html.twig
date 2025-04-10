@@ -34,9 +34,9 @@
 
 {#
 /**
- * This custom template is used to add in some standard markup for the stying of image credits. 
- * The first key piece is the addition of the class "image-with-credit" and the view mode as 
- * a class. Second is the markup that surrounds the credit link with a class of "attribution". That 
+ * This custom template is used to add in some standard markup for the stying of image credits.
+ * The first key piece is the addition of the class "image-with-credit" and the view mode as
+ * a class. Second is the markup that surrounds the credit link with a class of "attribution". That
  * is set in the fws_media.module in a preprocess_media.
  *
  * However, when an image is captioned, there is a template called filter-caption.html.twig that is executed before this
@@ -44,7 +44,7 @@
  * the alignment (left, right) gets hoisted in to that template, and we needed the same to happen w/ the view mode, so we wrote
  * a template_preprocess_filter_caption in the fws_media.module. It's commented pretty well and explains that when images are captioned
  * the view mode attribute is stripped off, which then leaves this code falling back on the default view mode set in the ckeditor config
- * for the Embed Media filter. 
+ * for the Embed Media filter.
 #}
 
 
@@ -54,6 +54,8 @@
 
     {# just the image #}
     {{ content.field_media_image }}
+
+    {{ content.field_image }}
 
         {% if attribution is not empty %}
             <div class="attribution">
