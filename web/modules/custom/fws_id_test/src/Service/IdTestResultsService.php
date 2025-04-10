@@ -48,10 +48,10 @@ class IdTestResultsService {
    *
    * @param \Drupal\taxonomy\TermInterface $difficulty
    *   The difficulty level term.
-   * @param \Drupal\taxonomy\TermInterface $region
-   *   The region term.
-   * @param \Drupal\taxonomy\TermInterface $species_group
-   *   The species group term.
+   * @param \Drupal\taxonomy\TermInterface[] $region_terms
+   *   The region terms.
+   * @param \Drupal\taxonomy\TermInterface[] $species_group_terms
+   *   The species group terms.
    * @param array $questions
    *   The questions used in the quiz, each containing:
    *   - media_id: The media entity ID.
@@ -61,16 +61,28 @@ class IdTestResultsService {
    */
   public function createResultsNode(
     TermInterface $difficulty,
-    TermInterface $region,
-    TermInterface $species_group,
+    array $region_terms,
+    array $species_group_terms,
     array $questions,
   ) {
     try {
+      $region_ids = array_map(
+        function ($region) {
+          return $region->id();
+        },
+        $region_terms);
+
+      $species_group_ids = array_map(
+        function ($species_group) {
+          return $species_group->id();
+        },
+        $species_group_terms);
+
       // Log input parameters.
       \Drupal::logger('fws_id_test')->notice('Creating results node with: difficulty=@diff, region=@reg, species_group=@sp, questions=@q', [
         '@diff' => $difficulty->label(),
-        '@reg' => $region->label(),
-        '@sp' => $species_group->label(),
+        '@reg' => print_r($region_ids, TRUE),
+        '@sp' => print_r($species_group_ids, TRUE),
         '@q' => print_r($questions, TRUE),
       ]);
 
@@ -89,8 +101,8 @@ class IdTestResultsService {
 
       // Set the fields.
       $node->set('field_id_difficulty', $difficulty->id());
-      $node->set('field_region', $region->id());
-      $node->set('field_species_group', $species_group->id());
+      $node->set('field_region', $region_terms);
+      $node->set('field_species_group', $species_group_terms);
 
       // Create paragraph items for each question.
       $paragraphs = [];

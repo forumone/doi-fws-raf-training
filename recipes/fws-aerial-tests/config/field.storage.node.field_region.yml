@@ -6,5 +6,5 @@ type: entity_reference
 settings:
   target_type: taxonomy_term
 module: core
-cardinality: 1
+cardinality: -1
 translatable: true
