@@ -11,6 +11,9 @@ use Drupal\node\Entity\Node;
 use Drush\Drush;
 use Drupal\taxonomy\Entity\Term;
 
+// Include the user import functions.
+require_once __DIR__ . '/import-users.php';
+
 /**
  * Formats a datetime string for Drupal storage.
  *
@@ -138,6 +141,60 @@ function field_exists_for_permit($field_name) {
   return isset($field_definitions[$field_name]);
 }
 
+/**
+ * Find a user by legacy user ID. Imports new user if not found.
+ *
+ * @param string $legacy_userid
+ *   The legacy user ID.
+ *
+ * @return int|null
+ *   The user ID, or NULL if not found or created.
+ */
+function find_user_by_legacy_id($legacy_userid) {
+  global $_rcgr_users_not_found, $_rcgr_users_imported;
+  $logger = Drush::logger();
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Trim whitespace from the legacy user ID.
+  $legacy_userid = trim($legacy_userid);
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Try to find a user with this legacy ID.
+  $query = \Drupal::entityQuery('user')
+    ->condition('field_legacy_userid', $legacy_userid)
+    ->accessCheck(FALSE);
+  $uids = $query->execute();
+
+  if (!empty($uids)) {
+    $uid = reset($uids);
+    $logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
+    return $uid;
+  }
+
+  // Logger callback function for the import process that suppresses output.
+  $log_via_logger = function ($message) {
+    // Don't output anything here to reduce verbosity.
+  };
+
+  // Try to import the user from the original CSV.
+  $user = import_user_by_legacy_id($legacy_userid, NULL, $log_via_logger);
+
+  if ($user) {
+    $_rcgr_users_imported++;
+    $logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    return $user->id();
+  }
+
+  $_rcgr_users_not_found++;
+  return NULL;
+}
+
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
 $args = $input->getArguments();
@@ -151,6 +208,12 @@ $logger->notice("Starting permit import");
 if ($limit < PHP_INT_MAX) {
   $logger->notice("Import limit: $limit");
 }
+
+// Track users not found and imported.
+global $_rcgr_users_not_found;
+global $_rcgr_users_imported;
+$_rcgr_users_not_found = 0;
+$_rcgr_users_imported = 0;
 
 // Initialize counters.
 $stats = [
@@ -387,6 +450,18 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
       $stats['updated']++;
     }
 
+    // Associate the permit entity with a user based on legacy userid.
+    if (isset($_rcgr_import_csv_map['create_by'])) {
+      $legacy_userid = trim($row[$_rcgr_import_csv_map['create_by']], '"');
+      if (!empty($legacy_userid)) {
+        $uid = find_user_by_legacy_id($legacy_userid);
+        if ($uid) {
+          // Set the node owner to the user with the matching legacy ID.
+          $node->setOwnerId($uid);
+        }
+      }
+    }
+
     // Set basic fields.
     foreach ($field_mappings as $csv_field => $drupal_field) {
       if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
@@ -421,6 +496,18 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
       foreach ($historical_records[$permit_no] as $hist_row) {
         // Create a new revision.
         $node->setNewRevision(TRUE);
+
+        // Associate the historical revision with a user based on legacy userid.
+        if (isset($_rcgr_import_csv_map['create_by'])) {
+          $legacy_userid = trim($hist_row[$_rcgr_import_csv_map['create_by']], '"');
+          if (!empty($legacy_userid)) {
+            $uid = find_user_by_legacy_id($legacy_userid);
+            if ($uid) {
+              // Set the revision owner to the user with the matching legacy ID.
+              $node->setRevisionUserId($uid);
+            }
+          }
+        }
 
         // Set fields from historical record.
         foreach ($field_mappings as $csv_field => $drupal_field) {
@@ -494,3 +581,5 @@ $logger->notice("Permits created: {$stats['created']}");
 $logger->notice("Permits updated: {$stats['updated']}");
 $logger->notice("Rows skipped: {$stats['skipped']}");
 $logger->notice("Errors: {$stats['errors']}");
+$logger->notice("Users not found for permit records: {$_rcgr_users_not_found}");
+$logger->notice("Users imported on-demand: {$_rcgr_users_imported}");
