@@ -1325,41 +1325,26 @@ function fws_goose_can_register_or_renew($uid) {
 }
 
 /**
- * Implements hook_form_alter() for user registration/profile forms.
+ * Implements hook_form_alter() for user profile forms.
  */
 function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check if this is a registration or profile edit form.
-  if ($form_id == 'user_register_form' || $form_id == 'user_form') {
-    // For new registrations.
-    if ($form_id == 'user_register_form') {
-      $registration_check = fws_goose_can_register_or_renew(0);
-      if (!$registration_check['allowed']) {
-        \Drupal::messenger()->addError($registration_check['message']);
-        // Redirect back to front page.
-        $form['#access'] = FALSE;
-        $response = new RedirectResponse(Url::fromRoute('<front>')->toString());
-        $response->send();
-        exit;
+  // Only apply to user edit forms (not registration)
+  if ($form_id == 'user_form') {
+    $uid = \Drupal::routeMatch()->getParameter('user')->id();
+    $registration_check = fws_goose_can_register_or_renew($uid);
+    if (!$registration_check['allowed']) {
+      \Drupal::messenger()->addError($registration_check['message']);
+      // If the reason is missing activity report, add a link to submit it.
+      if (strpos($registration_check['message'], 'activity report') !== FALSE) {
+        \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
+          '@url' => Url::fromRoute('node.add', ['node_type' => 'goose_activity'])->toString(),
+        ]));
       }
-    }
-    // For existing users (renewal).
-    else {
-      $uid = \Drupal::routeMatch()->getParameter('user')->id();
-      $registration_check = fws_goose_can_register_or_renew($uid);
-      if (!$registration_check['allowed']) {
-        \Drupal::messenger()->addError($registration_check['message']);
-        // If the reason is missing activity report, add a link to submit it.
-        if (strpos($registration_check['message'], 'activity report') !== FALSE) {
-          \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
-            '@url' => Url::fromRoute('node.add', ['node_type' => 'goose_activity'])->toString(),
-          ]));
-        }
-        // Redirect back to user page.
-        $form['#access'] = FALSE;
-        $response = new RedirectResponse(Url::fromRoute('entity.user.canonical', ['user' => $uid])->toString());
-        $response->send();
-        exit;
-      }
+      // Redirect back to user page.
+      $form['#access'] = FALSE;
+      $response = new RedirectResponse(Url::fromRoute('entity.user.canonical', ['user' => $uid])->toString());
+      $response->send();
+      exit;
     }
   }
 }
