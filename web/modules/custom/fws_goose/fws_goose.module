@@ -501,6 +501,7 @@ function fws_goose_send_certification_notification(EntityInterface $entity) {
     'email' => $user_email,
     'operation' => 'certified',
     'url' => Url::fromRoute('entity.user.canonical', ['user' => $entity->id()], ['absolute' => TRUE])->toString(),
+    'user_id' => $entity->id(),
   ];
 
   // Add any additional user fields that might be relevant.
@@ -574,30 +575,365 @@ function fws_goose_mail($key, &$message, $params) {
   switch ($key) {
     case 'certified':
       // Email to the user who certified.
-      $message['subject'] = t('Your certification has been confirmed');
-      $message['body'][] = t('Dear @username,', [
-        '@username' => $params['username'],
-      ]);
-      $message['body'][] = t('Thank you for completing your certification. Your registration is now complete.');
-      $message['body'][] = t('You can view your registration details here: @url', [
-        '@url' => $params['url'],
-      ]);
+      $message['subject'] = t('Canada Goose Registration Confirmation');
 
-      // Include permit number if available.
+      // Get the user entity to access more fields.
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($params['user_id']);
+
+      // Create the email body in the same format as the example.
+      $body = [];
+      $body[] = t('This is confirmation that your registration has been received.');
+      $body[] = '';
+
+      // Track content sections to avoid empty sections.
+      $has_permit_info = FALSE;
+      $has_registrant_info = FALSE;
+      $has_address_info = FALSE;
+      $has_locations = FALSE;
+      $has_agents = FALSE;
+
+      // Permit/registration information.
       if (!empty($params['permit_number'])) {
-        $message['body'][] = t('Your permit number: @permit', [
-          '@permit' => $params['permit_number'],
-        ]);
+        $body[] = t('Registration No. @permit', ['@permit' => $params['permit_number']]);
+        $has_permit_info = TRUE;
       }
 
-      // Include business name if available.
-      if (!empty($params['business_name'])) {
-        $message['body'][] = t('Business name: @business', [
-          '@business' => $params['business_name'],
-        ]);
+      // Date information.
+      $body[] = t('Date of Registration: @date', ['@date' => \Drupal::service('date.formatter')->format(time(), 'custom', 'n/j/Y')]);
+
+      // Date of Amendment - only if different than registration date.
+      // This could be added if there's a field tracking amendment dates.
+      // Registrant information.
+      $registrant_name = '';
+      if ($user && $user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+        $last_name = $user->get('field_applicant_last_name')->value;
+        $first_name = '';
+        if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
+          $first_name = $user->get('field_applicant_first_name')->value;
+        }
+
+        $registrant_name = trim("$last_name, $first_name");
+        if (!empty($registrant_name)) {
+          $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
+          $has_registrant_info = TRUE;
+        }
+      }
+      elseif (!empty($params['business_name'])) {
+        $registrant_name = $params['business_name'];
+        $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
+        $has_registrant_info = TRUE;
+      }
+      elseif (!empty($params['username'])) {
+        $registrant_name = $params['username'];
+        $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
+        $has_registrant_info = TRUE;
       }
 
-      $message['body'][] = t('Thank you for registering with our system.');
+      // Registrant type.
+      if ($user && $user->hasField('field_registrant_type_cd') && !$user->get('field_registrant_type_cd')->isEmpty()) {
+        $reg_type = $user->get('field_registrant_type_cd')->value;
+        if (!empty($reg_type)) {
+          $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
+          $has_registrant_info = TRUE;
+        }
+      }
+      elseif ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty()) {
+        $bi_type = $user->get('field_bi_cd')->value;
+        if (!empty($bi_type)) {
+          $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
+          $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
+          $has_registrant_info = TRUE;
+        }
+      }
+
+      // Only add spacing if we actually have registrant info.
+      if ($has_permit_info || $has_registrant_info) {
+        $body[] = '';
+      }
+
+      // Address section - only add if we have address information.
+      $address_lines = [];
+      if ($user && $user->hasField('field_applicant_address_l1') && !$user->get('field_applicant_address_l1')->isEmpty()) {
+        $line = trim($user->get('field_applicant_address_l1')->value);
+        if (!empty($line)) {
+          $address_lines[] = $line;
+          $has_address_info = TRUE;
+        }
+      }
+
+      if ($user && $user->hasField('field_applicant_address_l2') && !$user->get('field_applicant_address_l2')->isEmpty()) {
+        $line = trim($user->get('field_applicant_address_l2')->value);
+        if (!empty($line)) {
+          $address_lines[] = $line;
+          $has_address_info = TRUE;
+        }
+      }
+
+      if ($user && $user->hasField('field_applicant_address_l3') && !$user->get('field_applicant_address_l3')->isEmpty()) {
+        $line = trim($user->get('field_applicant_address_l3')->value);
+        if (!empty($line)) {
+          $address_lines[] = $line;
+          $has_address_info = TRUE;
+        }
+      }
+
+      $city = '';
+      if ($user && $user->hasField('field_applicant_city') && !$user->get('field_applicant_city')->isEmpty()) {
+        $city = trim($user->get('field_applicant_city')->value);
+        if (!empty($city)) {
+          $has_address_info = TRUE;
+        }
+      }
+
+      $county = '';
+      if ($user && $user->hasField('field_applicant_county') && !$user->get('field_applicant_county')->isEmpty()) {
+        $county = trim($user->get('field_applicant_county')->value);
+        if (!empty($county)) {
+          $has_address_info = TRUE;
+        }
+      }
+
+      $state = '';
+      if ($user && $user->hasField('field_applicant_state') && !$user->get('field_applicant_state')->isEmpty()) {
+        $state = trim($user->get('field_applicant_state')->value);
+        if (!empty($state)) {
+          $has_address_info = TRUE;
+        }
+      }
+
+      $zip = '';
+      if ($user && $user->hasField('field_applicant_zip') && !$user->get('field_applicant_zip')->isEmpty()) {
+        $zip = trim($user->get('field_applicant_zip')->value);
+        if (!empty($zip)) {
+          $has_address_info = TRUE;
+        }
+      }
+
+      // Phone information.
+      $phone = '';
+      if ($user && $user->hasField('field_applicant_telephone') && !$user->get('field_applicant_telephone')->isEmpty()) {
+        $phone = trim($user->get('field_applicant_telephone')->value);
+        if (!empty($phone)) {
+          $has_address_info = TRUE;
+        }
+      }
+      elseif ($user && $user->hasField('field_phone') && !$user->get('field_phone')->isEmpty()) {
+        $phone = trim($user->get('field_phone')->value);
+        if (!empty($phone)) {
+          $has_address_info = TRUE;
+        }
+      }
+
+      // Only add the address section if we actually have address info.
+      if ($has_address_info) {
+        $body[] = t('Registrant Address and Contact Information:');
+        $body[] = '';
+
+        foreach ($address_lines as $line) {
+          $body[] = $line;
+        }
+
+        if (!empty($county)) {
+          $body[] = $county;
+        }
+
+        if (!empty($city) || !empty($state) || !empty($zip)) {
+          $location_str = '';
+          if (!empty($city)) {
+            $location_str = $city;
+          }
+
+          if (!empty($state)) {
+            if (!empty($location_str)) {
+              $location_str .= ".  $state";
+            }
+            else {
+              $location_str = $state;
+            }
+          }
+
+          if (!empty($zip)) {
+            if (!empty($location_str)) {
+              $location_str .= "  $zip";
+            }
+            else {
+              $location_str = $zip;
+            }
+          }
+
+          if (!empty($location_str)) {
+            $body[] = $location_str;
+          }
+        }
+
+        if (!empty($phone)) {
+          $body[] = '';
+          $body[] = t('Telephone: @phone', ['@phone' => $phone]);
+        }
+
+        $body[] = '';
+      }
+
+      // Get locations for this user.
+      if ($user) {
+        $locations = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->loadByProperties([
+            'type' => 'location',
+            'uid' => $user->id(),
+            'status' => 1,
+          ]);
+
+        if (!empty($locations)) {
+          $location_lines = [];
+          $count = 1;
+
+          foreach ($locations as $location) {
+            $location_address = [];
+
+            if ($location->hasField('field_location_address') && !$location->get('field_location_address')->isEmpty()) {
+              $address = trim($location->get('field_location_address')->value);
+              if (!empty($address)) {
+                $location_address[] = $address;
+              }
+            }
+
+            $location_city = '';
+            if ($location->hasField('field_location_city') && !$location->get('field_location_city')->isEmpty()) {
+              $location_city = trim($location->get('field_location_city')->value);
+            }
+
+            $location_county = '';
+            if ($location->hasField('field_location_county') && !$location->get('field_location_county')->isEmpty()) {
+              $location_county = trim($location->get('field_location_county')->value);
+            }
+
+            $location_state = '';
+            if ($location->hasField('field_location_state_ref') && !$location->get('field_location_state_ref')->isEmpty()) {
+              $target_id = $location->get('field_location_state_ref')->target_id;
+              $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_id);
+              if ($term) {
+                $location_state = trim($term->getName());
+              }
+            }
+
+            $location_desc = '';
+            if (empty($location_address)) {
+              if ($location->hasField('field_location_description') && !$location->get('field_location_description')->isEmpty()) {
+                $location_desc = trim($location->get('field_location_description')->value);
+              }
+            }
+
+            // Only add this location if we have any content.
+            if (!empty($location_county) || !empty($location_address) || !empty($location_desc) ||
+                !empty($location_city) || !empty($location_state)) {
+
+              $location_line = "   $count) ";
+              if (!empty($location_county)) {
+                $location_line .= "$location_county, ";
+              }
+
+              if (!empty($location_address)) {
+                $location_line .= implode(', ', $location_address);
+              }
+              elseif (!empty($location_desc)) {
+                $location_line .= $location_desc;
+              }
+
+              if (!empty($location_city) || !empty($location_state)) {
+                $location_line .= ",  ";
+                if (!empty($location_city)) {
+                  $location_line .= $location_city;
+                }
+                if (!empty($location_state)) {
+                  $location_line .= ",  $location_state";
+                }
+              }
+
+              $location_lines[] = $location_line;
+              $count++;
+              $has_locations = TRUE;
+            }
+          }
+
+          if ($has_locations) {
+            $body[] = t('Location of Properties where Activity will occur:');
+            $body[] = '';
+
+            foreach ($location_lines as $line) {
+              $body[] = $line;
+            }
+
+            $body[] = '';
+          }
+        }
+      }
+
+      // Get agents/employees for this user.
+      if ($user) {
+        $agents = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->loadByProperties([
+            'type' => 'name',
+            'uid' => $user->id(),
+            'status' => 1,
+          ]);
+
+        if (!empty($agents)) {
+          $agent_lines = [];
+          $count = 1;
+
+          foreach ($agents as $agent) {
+            $agent_name = '';
+            if ($agent->hasField('title') && !$agent->get('title')->isEmpty()) {
+              $agent_name = trim($agent->get('title')->value);
+            }
+
+            $agent_organization = '';
+            if ($agent->hasField('field_organization_name') && !$agent->get('field_organization_name')->isEmpty()) {
+              $agent_organization = trim($agent->get('field_organization_name')->value);
+            }
+
+            // Only add this agent if we have any content.
+            if (!empty($agent_name) || !empty($agent_organization)) {
+              $agent_line = "   $count) ";
+
+              if (!empty($agent_name)) {
+                $agent_line .= $agent_name;
+              }
+
+              if (!empty($agent_organization)) {
+                $agent_line .= " ($agent_organization)";
+              }
+
+              $agent_lines[] = $agent_line;
+              $count++;
+              $has_agents = TRUE;
+            }
+          }
+
+          if ($has_agents) {
+            $body[] = t('Agent/Employee:');
+            $body[] = '';
+
+            foreach ($agent_lines as $line) {
+              $body[] = $line;
+            }
+
+            $body[] = '';
+          }
+        }
+      }
+
+      // Add the conditions and signature section.
+      $body[] = t('Conditions: You and your agents or employees must comply with the Resident Canada Goose Nest & Egg Depredation Order Conditions.');
+      $body[] = '';
+      $body[] = t('If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.');
+      $body[] = '';
+      $body[] = t('Signature of Registrant (Landowner):  ______________________________________________');
+
+      // Set the message body.
+      $message['body'] = $body;
       break;
 
     case 'certified_admin':
@@ -605,26 +941,25 @@ function fws_goose_mail($key, &$message, $params) {
       $message['subject'] = t('User account certified: @username', [
         '@username' => $params['username'],
       ]);
-      $message['body'][] = t('A user account has been certified. View it here: @url', [
+
+      $body = [];
+      $body[] = t('A user account has been certified. View it here: @url', [
         '@url' => $params['url'],
       ]);
-      $message['body'][] = t('User email: @email', [
-        '@email' => $params['email'],
-      ]);
+      $body[] = '';
 
-      // Include permit number if available.
+      $body[] = t('User: @username', ['@username' => $params['username']]);
+      $body[] = t('Email: @email', ['@email' => $params['email']]);
+
       if (!empty($params['permit_number'])) {
-        $message['body'][] = t('Permit number: @permit', [
-          '@permit' => $params['permit_number'],
-        ]);
+        $body[] = t('Permit number: @permit', ['@permit' => $params['permit_number']]);
       }
 
-      // Include business name if available.
       if (!empty($params['business_name'])) {
-        $message['body'][] = t('Business name: @business', [
-          '@business' => $params['business_name'],
-        ]);
+        $body[] = t('Business name: @business', ['@business' => $params['business_name']]);
       }
+
+      $message['body'] = $body;
       break;
   }
 }
