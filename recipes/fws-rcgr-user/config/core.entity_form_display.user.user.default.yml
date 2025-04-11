@@ -60,7 +60,7 @@ third_party_settings:
       label: Address
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -71,7 +71,6 @@ third_party_settings:
     group_business_account:
       children:
         - field_applicant_business_name
-        - field_bi_cd
         - field_principal_last_name
         - field_principal_first_name
         - field_principal_middle_name
@@ -85,7 +84,7 @@ third_party_settings:
       label: 'Business data'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -105,7 +104,7 @@ third_party_settings:
       label: 'Personal data'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -116,7 +115,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: X9lRTZeFl1Qwhie39Dg9LP71et_Y0iXc6IjOqV_2lb0
+  default_config_hash: M2GNmL9tak4uH_0Gpsvwy5FK7T2-XipFHhXj5KWwyVY
 id: user.user.default
 targetEntityType: user
 bundle: user
@@ -233,7 +232,7 @@ content:
     third_party_settings: {  }
   field_bi_cd:
     type: options_buttons
-    weight: 15
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
