@@ -1,0 +1,9 @@
+uuid: ebd55f40-0ea3-4202-b572-48d3362e4d75
+langcode: en
+status: true
+dependencies: {  }
+id: processor
+label: Processor
+weight: 5
+is_admin: null
+permissions: {  }
