@@ -605,7 +605,124 @@ function fws_goose_mail($key, &$message, $params) {
       // This could be added if there's a field tracking amendment dates.
       // Registrant information.
       $registrant_name = '';
-      if ($user && $user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+      if ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty() && $user->get('field_bi_cd')->value == 'B') {
+        // Business registrant.
+        if ($user->hasField('field_applicant_business_name') && !$user->get('field_applicant_business_name')->isEmpty()) {
+          $registrant_name = trim($user->get('field_applicant_business_name')->value);
+          if (!empty($registrant_name)) {
+            $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
+            $has_registrant_info = TRUE;
+          }
+
+          // Add contact person if available.
+          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+            $last_name = trim($user->get('field_applicant_last_name')->value);
+            $first_name = '';
+            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
+              $first_name = trim($user->get('field_applicant_first_name')->value);
+            }
+
+            $contact_name = trim("$last_name, $first_name");
+            if (!empty($contact_name)) {
+              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
+              $has_registrant_info = TRUE;
+            }
+          }
+
+          // Additional business information section.
+          $has_business_info = FALSE;
+          $business_fields = [];
+
+          // Primary Contact Information.
+          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
+            $business_fields[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
+            $business_fields[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
+            $business_fields[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          // Principal Information.
+          $principal_name = '';
+          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
+            $principal_last_name = trim($user->get('field_principal_last_name')->value);
+            $principal_first_name = '';
+            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
+              $principal_first_name = trim($user->get('field_principal_first_name')->value);
+            }
+
+            $principal_middle_name = '';
+            if ($user->hasField('field_principal_middle_name') && !$user->get('field_principal_middle_name')->isEmpty()) {
+              $principal_middle_name = trim($user->get('field_principal_middle_name')->value);
+            }
+
+            $principal_suffix = '';
+            if ($user->hasField('field_principal_suffix') && !$user->get('field_principal_suffix')->isEmpty()) {
+              $principal_suffix = trim($user->get('field_principal_suffix')->value);
+            }
+
+            $principal_name_parts = [];
+            if (!empty($principal_last_name)) {
+              $principal_name_parts[] = $principal_last_name;
+            }
+
+            if (!empty($principal_first_name)) {
+              $principal_name_parts[] = $principal_first_name;
+            }
+
+            if (!empty($principal_middle_name)) {
+              $principal_name_parts[] = $principal_middle_name;
+            }
+
+            if (!empty($principal_suffix)) {
+              $principal_name_parts[] = $principal_suffix;
+            }
+
+            if (!empty($principal_name_parts)) {
+              $principal_name = implode(', ', $principal_name_parts);
+              $business_fields[] = t('Principal Name: @name', ['@name' => $principal_name]);
+              $has_business_info = TRUE;
+            }
+          }
+
+          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
+            $business_fields[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
+            $business_fields[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_email') && !$user->get('field_principal_email')->isEmpty()) {
+            $business_fields[] = t('Principal Email: @email', ['@email' => trim($user->get('field_principal_email')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          // Add the business information section if we have any business fields.
+          if ($has_business_info) {
+            $body[] = '';
+            $body[] = t('Additional Business Information:');
+            $body[] = '';
+
+            foreach ($business_fields as $field) {
+              $body[] = $field;
+            }
+
+            $body[] = '';
+          }
+        }
+      }
+      elseif ($user && $user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+        // Individual registrant.
         $last_name = $user->get('field_applicant_last_name')->value;
         $first_name = '';
         if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
@@ -639,10 +756,71 @@ function fws_goose_mail($key, &$message, $params) {
       }
       elseif ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty()) {
         $bi_type = $user->get('field_bi_cd')->value;
-        if (!empty($bi_type)) {
-          $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
-          $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
-          $has_registrant_info = TRUE;
+        $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
+        $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
+
+        if ($bi_type == 'B' && $user->hasField('field_applicant_business_name') &&
+            !$user->get('field_applicant_business_name')->isEmpty()) {
+          $business_name = trim($user->get('field_applicant_business_name')->value);
+          $body[] = t('Business name: @business', ['@business' => $business_name]);
+
+          // Business Contact Person.
+          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+            $last_name = trim($user->get('field_applicant_last_name')->value);
+            $first_name = '';
+            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
+              $first_name = trim($user->get('field_applicant_first_name')->value);
+            }
+
+            $contact_name = trim("$last_name, $first_name");
+            if (!empty($contact_name)) {
+              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
+            }
+          }
+
+          // Additional business details.
+          $has_business_info = FALSE;
+
+          // Primary Contact Information.
+          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
+            $body[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
+            $body[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
+            $body[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          // Principal Information.
+          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
+            $principal_name_parts = [];
+            $principal_last_name = trim($user->get('field_principal_last_name')->value);
+            $principal_name_parts[] = $principal_last_name;
+
+            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
+              $principal_name_parts[] = trim($user->get('field_principal_first_name')->value);
+            }
+
+            $principal_name = implode(', ', $principal_name_parts);
+            $body[] = t('Principal Name: @name', ['@name' => $principal_name]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
+            $body[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
+            $body[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
+            $has_business_info = TRUE;
+          }
         }
       }
 
@@ -948,15 +1126,84 @@ function fws_goose_mail($key, &$message, $params) {
       ]);
       $body[] = '';
 
+      // Get the user entity to access more fields.
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($params['user_id']);
+
       $body[] = t('User: @username', ['@username' => $params['username']]);
       $body[] = t('Email: @email', ['@email' => $params['email']]);
 
-      if (!empty($params['permit_number'])) {
-        $body[] = t('Permit number: @permit', ['@permit' => $params['permit_number']]);
+      if ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty()) {
+        $bi_type = $user->get('field_bi_cd')->value;
+        $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
+        $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
+
+        if ($bi_type == 'B' && $user->hasField('field_applicant_business_name') &&
+            !$user->get('field_applicant_business_name')->isEmpty()) {
+          $business_name = trim($user->get('field_applicant_business_name')->value);
+          $body[] = t('Business name: @business', ['@business' => $business_name]);
+
+          // Business Contact Person.
+          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
+            $last_name = trim($user->get('field_applicant_last_name')->value);
+            $first_name = '';
+            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
+              $first_name = trim($user->get('field_applicant_first_name')->value);
+            }
+
+            $contact_name = trim("$last_name, $first_name");
+            if (!empty($contact_name)) {
+              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
+            }
+          }
+
+          // Additional business details.
+          $has_business_info = FALSE;
+
+          // Primary Contact Information.
+          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
+            $body[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
+            $body[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
+            $body[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          // Principal Information.
+          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
+            $principal_name_parts = [];
+            $principal_last_name = trim($user->get('field_principal_last_name')->value);
+            $principal_name_parts[] = $principal_last_name;
+
+            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
+              $principal_name_parts[] = trim($user->get('field_principal_first_name')->value);
+            }
+
+            $principal_name = implode(', ', $principal_name_parts);
+            $body[] = t('Principal Name: @name', ['@name' => $principal_name]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
+            $body[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
+            $has_business_info = TRUE;
+          }
+
+          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
+            $body[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
+            $has_business_info = TRUE;
+          }
+        }
       }
 
-      if (!empty($params['business_name'])) {
-        $body[] = t('Business name: @business', ['@business' => $params['business_name']]);
+      if (!empty($params['permit_number'])) {
+        $body[] = t('Permit number: @permit', ['@permit' => $params['permit_number']]);
       }
 
       $message['body'] = $body;
