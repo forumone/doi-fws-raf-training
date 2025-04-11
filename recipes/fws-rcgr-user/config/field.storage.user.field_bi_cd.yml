@@ -1,24 +1,29 @@
+uuid: b93c3671-17e9-460d-840f-ba23be6d52fa
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - options
     - user
+_core:
+  default_config_hash: jxis68d_BWHCC-SQiIlOGZ-bmVH3deVghV-3rkorXTg
 id: user.field_bi_cd
 field_name: field_bi_cd
 entity_type: user
 type: list_string
 settings:
   allowed_values:
-    - key: 'I'
-      value: 'Individual'
-    - key: 'B'
-      value: 'Business'
+    -
+      value: I
+      label: Individual
+    -
+      value: B
+      label: Business
   allowed_values_function: ''
 module: options
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false

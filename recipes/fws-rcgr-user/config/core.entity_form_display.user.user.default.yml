@@ -45,8 +45,6 @@ dependencies:
     - field.field.user.user.field_version_no
   module:
     - field_group
-    - path
-    - select2
     - user
 third_party_settings:
   field_group:
@@ -70,36 +68,10 @@ third_party_settings:
         open: false
         description: ''
         required_fields: true
-    group_administrative:
-      children:
-        - field_bi_cd
-        - field_created_by
-        - field_fax_number
-        - field_permit_no
-        - field_hid
-        - field_legacy_userid
-        - field_phone
-        - field_principal_name
-        - field_principal_email
-        - field_program_id
-        - field_rcf_cd
-        - field_registrant_type_cd
-        - field_updated_by
-        - field_version_no
-      label: Administrative
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: details
-      format_settings:
-        classes: ''
-        id: ''
-        open: false
-        description: ''
-        required_fields: true
     group_business_account:
       children:
         - field_applicant_business_name
+        - field_bi_cd
         - field_principal_last_name
         - field_principal_first_name
         - field_principal_middle_name
@@ -109,6 +81,7 @@ third_party_settings:
         - field_primary_contact_name
         - field_primary_contact_phone
         - field_primary_contact_email
+        - field_registrant_type_cd
       label: 'Business data'
       region: content
       parent_name: ''
@@ -143,7 +116,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: iT45vidz4vVBeTTRg68HNFxuOwZ0Ko8Nyd2qyle6yPw
+  default_config_hash: X9lRTZeFl1Qwhie39Dg9LP71et_Y0iXc6IjOqV_2lb0
 id: user.user.default
 targetEntityType: user
 bundle: user
@@ -177,13 +150,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_applicant_agree_to_certify:
-    type: boolean_checkbox
-    weight: 7
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_applicant_business_name:
     type: string_textfield
@@ -266,71 +232,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_bi_cd:
-    type: select2
-    weight: 18
+    type: options_buttons
+    weight: 15
     region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_created_by:
-    type: string_textfield
-    weight: 19
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_fax_number:
-    type: string_textfield
-    weight: 20
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_hid:
-    type: string_textfield
-    weight: 22
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_legacy_userid:
-    type: string_textfield
-    weight: 23
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_no:
-    type: string_textfield
-    weight: 21
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_phone:
-    type: string_textfield
-    weight: 24
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_prim_contact_email:
-    type: email_default
-    weight: 24
-    region: content
-    settings:
-      placeholder: ''
-      size: 60
+    settings: {  }
     third_party_settings: {  }
   field_primary_contact_email:
     type: email_default
-    weight: 22
+    weight: 24
     region: content
     settings:
       placeholder: ''
@@ -338,7 +247,7 @@ content:
     third_party_settings: {  }
   field_primary_contact_name:
     type: string_textfield
-    weight: 20
+    weight: 22
     region: content
     settings:
       size: 60
@@ -346,53 +255,13 @@ content:
     third_party_settings: {  }
   field_primary_contact_phone:
     type: string_textfield
-    weight: 21
+    weight: 23
     region: content
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_principal_email:
-    type: email_default
-    weight: 26
-    region: content
-    settings:
-      placeholder: ''
-      size: 60
     third_party_settings: {  }
   field_principal_first_name:
-    type: string_textfield
-    weight: 15
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_last_name:
-    type: string_textfield
-    weight: 14
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_middle_name:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_name:
-    type: string_textfield
-    weight: 25
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_suffix:
     type: string_textfield
     weight: 17
     region: content
@@ -400,15 +269,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_principal_telephone:
+  field_principal_last_name:
     type: string_textfield
-    weight: 19
+    weight: 16
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_principal_title:
+  field_principal_middle_name:
     type: string_textfield
     weight: 18
     region: content
@@ -416,64 +285,51 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_program_id:
+  field_principal_suffix:
     type: string_textfield
-    weight: 27
+    weight: 19
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_rcf_cd:
-    type: select2
-    weight: 28
-    region: content
-    settings:
-      width: 100%
-    third_party_settings: {  }
-  field_registrant_type_cd:
+  field_principal_telephone:
     type: string_textfield
-    weight: 29
+    weight: 21
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_updated_by:
+  field_principal_title:
     type: string_textfield
-    weight: 30
+    weight: 20
     region: content
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_version_no:
-    type: number
-    weight: 31
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  language:
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  timezone:
-    weight: 8
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   contact: true
+  field_applicant_agree_to_certify: true
   field_applicant_home_phone: true
   field_applicant_prefix: true
   field_applicant_work_phone: true
+  field_created_by: true
+  field_fax_number: true
+  field_hid: true
+  field_legacy_userid: true
+  field_permit_no: true
+  field_phone: true
+  field_principal_email: true
+  field_principal_name: true
+  field_program_id: true
+  field_rcf_cd: true
+  field_registrant_type_cd: true
+  field_updated_by: true
+  field_version_no: true
   langcode: true
+  language: true
   openid_connect: true
+  path: true
+  timezone: true

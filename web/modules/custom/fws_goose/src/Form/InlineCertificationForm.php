@@ -91,6 +91,11 @@ class InlineCertificationForm extends FormBase {
       $user->set('field_applicant_agree_to_certify', TRUE);
       $user->save();
 
+      // Send notification email using the fws_goose notification system.
+      if (function_exists('fws_goose_send_certification_notification')) {
+        fws_goose_send_certification_notification($user);
+      }
+
       $this->messenger->addStatus($this->t('Your certification has been recorded. Your registration is now complete.'));
     }
     else {

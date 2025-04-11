@@ -10,6 +10,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -456,5 +457,174 @@ function fws_goose_preprocess_user(&$variables) {
     // Initialize empty arrays if no user.
     $variables['locations'] = [];
     $variables['agents'] = [];
+  }
+}
+
+/**
+ * Sends an email notification about certified user account.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The user entity.
+ */
+function fws_goose_send_certification_notification(EntityInterface $entity) {
+  // Initialize the logger.
+  $logger = \Drupal::logger('fws_goose');
+  $logger->notice('Starting certification notification process for entity ID: @id', ['@id' => $entity->id()]);
+
+  // Check if this is actually a user entity.
+  if ($entity->getEntityTypeId() !== 'user') {
+    $logger->warning('Attempted to send certification notification for non-user entity: @type, ID: @id', [
+      '@type' => $entity->getEntityTypeId(),
+      '@id' => $entity->id(),
+    ]);
+    return;
+  }
+
+  // Get the user's email address.
+  $user_email = $entity->getEmail();
+  if (empty($user_email)) {
+    $logger->error('Cannot send certification email - user has no email address (ID: @id)', [
+      '@id' => $entity->id(),
+    ]);
+    return;
+  }
+
+  $logger->info('Processing certification notification for user: @name (ID: @id, Email: @email)', [
+    '@name' => $entity->getAccountName(),
+    '@id' => $entity->id(),
+    '@email' => $user_email,
+  ]);
+
+  // Prepare the notification data.
+  $notification_data = [
+    'username' => $entity->getAccountName(),
+    'email' => $user_email,
+    'operation' => 'certified',
+    'url' => Url::fromRoute('entity.user.canonical', ['user' => $entity->id()], ['absolute' => TRUE])->toString(),
+  ];
+
+  // Add any additional user fields that might be relevant.
+  if ($entity->hasField('field_permit_no') && !$entity->get('field_permit_no')->isEmpty()) {
+    $notification_data['permit_number'] = $entity->get('field_permit_no')->value;
+    $logger->info('User has permit number: @permit', ['@permit' => $notification_data['permit_number']]);
+  }
+  else {
+    $logger->info('No permit number available for this user.');
+  }
+
+  if ($entity->hasField('field_applicant_business_name') && !$entity->get('field_applicant_business_name')->isEmpty()) {
+    $notification_data['business_name'] = $entity->get('field_applicant_business_name')->value;
+    $logger->info('User has business name: @business', ['@business' => $notification_data['business_name']]);
+  }
+  else {
+    $logger->info('No business name available for this user.');
+  }
+
+  // Log the complete notification data.
+  $logger->debug('Notification data: @data', ['@data' => print_r($notification_data, TRUE)]);
+
+  $logger->info('Sending certification confirmation to user email: @email', ['@email' => $user_email]);
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'fws_goose';
+
+  $logger->info('About to send mail via @module module using key "certified"', ['@module' => $module]);
+  $result = $mailManager->mail($module, 'certified', $user_email, $language, $notification_data, NULL, TRUE);
+
+  if ($result['result'] !== TRUE) {
+    $logger->error('Error sending certification confirmation email. Mail system reported: @error', [
+      '@error' => $result['error'] ?? 'Unknown error',
+    ]);
+  }
+  else {
+    $logger->info('Successfully sent certification confirmation email to user.');
+  }
+
+  // Also send notification to administrators if configured.
+  $config = \Drupal::config('fws_notifications.settings');
+  $admin_emails = $config->get('notification_emails');
+
+  if (!empty($admin_emails)) {
+    $emails_string = implode(', ', $admin_emails);
+    $logger->info('Also sending admin notification to: @emails', ['@emails' => $emails_string]);
+
+    $result = $mailManager->mail($module, 'certified_admin', implode(',', $admin_emails), $language, $notification_data, NULL, TRUE);
+
+    if ($result['result'] !== TRUE) {
+      $logger->error('Error sending admin notification email. Mail system reported: @error', [
+        '@error' => $result['error'] ?? 'Unknown error',
+      ]);
+    }
+    else {
+      $logger->info('Successfully sent admin notification email.');
+    }
+  }
+
+  $logger->notice('Completed certification notification process for user: @name (ID: @id)', [
+    '@name' => $entity->getAccountName(),
+    '@id' => $entity->id(),
+  ]);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fws_goose_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'certified':
+      // Email to the user who certified.
+      $message['subject'] = t('Your certification has been confirmed');
+      $message['body'][] = t('Dear @username,', [
+        '@username' => $params['username'],
+      ]);
+      $message['body'][] = t('Thank you for completing your certification. Your registration is now complete.');
+      $message['body'][] = t('You can view your registration details here: @url', [
+        '@url' => $params['url'],
+      ]);
+
+      // Include permit number if available.
+      if (!empty($params['permit_number'])) {
+        $message['body'][] = t('Your permit number: @permit', [
+          '@permit' => $params['permit_number'],
+        ]);
+      }
+
+      // Include business name if available.
+      if (!empty($params['business_name'])) {
+        $message['body'][] = t('Business name: @business', [
+          '@business' => $params['business_name'],
+        ]);
+      }
+
+      $message['body'][] = t('Thank you for registering with our system.');
+      break;
+
+    case 'certified_admin':
+      // Notification to administrators.
+      $message['subject'] = t('User account certified: @username', [
+        '@username' => $params['username'],
+      ]);
+      $message['body'][] = t('A user account has been certified. View it here: @url', [
+        '@url' => $params['url'],
+      ]);
+      $message['body'][] = t('User email: @email', [
+        '@email' => $params['email'],
+      ]);
+
+      // Include permit number if available.
+      if (!empty($params['permit_number'])) {
+        $message['body'][] = t('Permit number: @permit', [
+          '@permit' => $params['permit_number'],
+        ]);
+      }
+
+      // Include business name if available.
+      if (!empty($params['business_name'])) {
+        $message['body'][] = t('Business name: @business', [
+          '@business' => $params['business_name'],
+        ]);
+      }
+      break;
   }
 }
