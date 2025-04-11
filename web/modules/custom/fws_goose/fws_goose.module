@@ -1210,3 +1210,172 @@ function fws_goose_mail($key, &$message, $params) {
       break;
   }
 }
+
+/**
+ * Determines if the current date is within the registration period.
+ *
+ * Registration can only occur from January 1st to end of June.
+ *
+ * @return bool
+ *   TRUE if within registration period, FALSE otherwise.
+ */
+function fws_goose_is_registration_period() {
+  $date = new \DateTime();
+  $month = (int) $date->format('n');
+
+  // Check if month is between January (1) and June (6) inclusive.
+  return ($month >= 1 && $month <= 6);
+}
+
+/**
+ * Determines if the current date is within the activity logging period.
+ *
+ * Activity can be logged only from January to end of October.
+ *
+ * @return bool
+ *   TRUE if within activity logging period, FALSE otherwise.
+ */
+function fws_goose_is_activity_logging_period() {
+  $date = new \DateTime();
+  $month = (int) $date->format('n');
+
+  // Check if month is between January (1) and October (10) inclusive.
+  return ($month >= 1 && $month <= 10);
+}
+
+/**
+ * Checks if a user's registration has expired due to missing activity reports.
+ *
+ * @param int $uid
+ *   The user ID to check.
+ *
+ * @return bool
+ *   TRUE if registration is expired, FALSE otherwise.
+ */
+function fws_goose_is_registration_expired($uid) {
+  // Get user entity.
+  $user = User::load($uid);
+  if (!$user) {
+    return TRUE;
+  }
+
+  // Get current year and previous year.
+  $current_year = (int) date('Y');
+  $previous_year = $current_year - 1;
+
+  // Only check for expiration if we're in a new year.
+  // This implements the "Check we are in next year" part of the logic.
+  $current_month = (int) date('n');
+  if ($current_month >= 1) {
+    // Check if user has reported activity for previous year.
+    // This would need to be adjusted based on how activity reports are stored.
+    $activity_reported = \Drupal::database()->select('node_field_data', 'n')
+      ->fields('n', ['nid'])
+      ->condition('n.type', 'location', '=')
+      ->condition('n.uid', $uid, '=')
+      ->condition('n.created', [
+        strtotime("$previous_year-01-01 00:00:00"),
+        strtotime("$previous_year-12-31 23:59:59"),
+      ], 'BETWEEN')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+
+    // If no activity was reported last year, registration is expired.
+    if ($activity_reported == 0) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Checks if a user can register or renew registration.
+ *
+ * @param int $uid
+ *   The user ID to check.
+ *
+ * @return array
+ *   An array with keys:
+ *   - allowed: bool indicating if registration/renewal is allowed
+ *   - message: string message explaining why if not allowed
+ */
+function fws_goose_can_register_or_renew($uid) {
+  $result = [
+    'allowed' => TRUE,
+    'message' => '',
+  ];
+
+  // Check registration period.
+  if (!fws_goose_is_registration_period()) {
+    $result['allowed'] = FALSE;
+    $result['message'] = t('Registration and renewal are only available from January 1st to June 30th as per federal regulations.');
+    return $result;
+  }
+
+  // Check if registration is expired due to missing activity reports.
+  if (fws_goose_is_registration_expired($uid)) {
+    $result['allowed'] = FALSE;
+    $result['message'] = t('Your registration has expired because you have not reported your activity for the previous season. Please submit your activity report before renewing your registration.');
+    return $result;
+  }
+
+  return $result;
+}
+
+/**
+ * Implements hook_form_alter() for user registration/profile forms.
+ */
+function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if this is a registration or profile edit form.
+  if ($form_id == 'user_register_form' || $form_id == 'user_form') {
+    // For new registrations.
+    if ($form_id == 'user_register_form') {
+      $registration_check = fws_goose_can_register_or_renew(0);
+      if (!$registration_check['allowed']) {
+        \Drupal::messenger()->addError($registration_check['message']);
+        // Redirect back to front page.
+        $form['#access'] = FALSE;
+        $response = new RedirectResponse(Url::fromRoute('<front>')->toString());
+        $response->send();
+        exit;
+      }
+    }
+    // For existing users (renewal).
+    else {
+      $uid = \Drupal::routeMatch()->getParameter('user')->id();
+      $registration_check = fws_goose_can_register_or_renew($uid);
+      if (!$registration_check['allowed']) {
+        \Drupal::messenger()->addError($registration_check['message']);
+        // If the reason is missing activity report, add a link to submit it.
+        if (strpos($registration_check['message'], 'activity report') !== FALSE) {
+          \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
+            '@url' => Url::fromRoute('node.add', ['node_type' => 'goose_activity'])->toString(),
+          ]));
+        }
+        // Redirect back to user page.
+        $form['#access'] = FALSE;
+        $response = new RedirectResponse(Url::fromRoute('entity.user.canonical', ['user' => $uid])->toString());
+        $response->send();
+        exit;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave() for user entities.
+ */
+function fws_goose_user_presave(EntityInterface $entity) {
+  // Skip if not a user entity.
+  if ($entity->getEntityTypeId() !== 'user') {
+    return;
+  }
+
+  // Set registration status field if it exists.
+  if ($entity->hasField('field_registration_status')) {
+    $expired = fws_goose_is_registration_expired($entity->id());
+    $entity->set('field_registration_status', $expired ? 'expired' : 'issued');
+  }
+}
