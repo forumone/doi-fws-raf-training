@@ -1337,7 +1337,7 @@ function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, 
       // If the reason is missing activity report, add a link to submit it.
       if (strpos($registration_check['message'], 'activity report') !== FALSE) {
         \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
-          '@url' => Url::fromRoute('node.add', ['node_type' => 'goose_activity'])->toString(),
+          '@url' => Url::fromRoute('node.add', ['node_type' => 'location'])->toString(),
         ]));
       }
       // Redirect back to user page.
@@ -1346,21 +1346,5 @@ function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, 
       $response->send();
       exit;
     }
-  }
-}
-
-/**
- * Implements hook_entity_presave() for user entities.
- */
-function fws_goose_user_presave(EntityInterface $entity) {
-  // Skip if not a user entity.
-  if ($entity->getEntityTypeId() !== 'user') {
-    return;
-  }
-
-  // Set registration status field if it exists.
-  if ($entity->hasField('field_registration_status')) {
-    $expired = fws_goose_is_registration_expired($entity->id());
-    $entity->set('field_registration_status', $expired ? 'expired' : 'issued');
   }
 }
