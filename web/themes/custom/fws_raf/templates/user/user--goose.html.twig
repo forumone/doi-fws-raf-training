@@ -82,7 +82,9 @@
             <tr>
               <th class="col-md-3">Registrant (Landowner) Name</th>
               <td class="col-md-9">
-                {% if user.field_applicant_last_name.value or user.field_applicant_first_name.value %}
+                {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' and user.field_applicant_business_name.value is not empty %}
+                  {{ user.field_applicant_business_name.value }}
+                {% elseif user.field_applicant_last_name.value or user.field_applicant_first_name.value %}
                   {% if user.field_applicant_last_name.value %}{{ user.field_applicant_last_name.value }}{% endif %}
                   {% if user.field_applicant_first_name.value %}, {{ user.field_applicant_first_name.value }}{% endif %}
                 {% else %}
@@ -90,6 +92,17 @@
                 {% endif %}
               </td>
             </tr>
+
+            {# Business Contact Person - only shown for business registrants #}
+            {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' and (user.field_applicant_last_name.value or user.field_applicant_first_name.value) %}
+            <tr>
+              <th class="col-md-3">Business Contact Person</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_last_name.value %}{{ user.field_applicant_last_name.value }}{% endif %}
+                {% if user.field_applicant_first_name.value %}, {{ user.field_applicant_first_name.value }}{% endif %}
+              </td>
+            </tr>
+            {% endif %}
 
             {# Registrant Type #}
             <tr>
@@ -113,6 +126,90 @@
       </div>
     </div>
   </div>
+
+  {# Business Information - only shown for business registrants #}
+  {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' %}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Business Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Primary Contact Information #}
+            {% if user.field_primary_contact_name.value is not empty or user.field_primary_contact_phone.value is not empty or user.field_primary_contact_email.value is not empty %}
+            <tr>
+              <th class="col-md-3">Primary Contact Name</th>
+              <td class="col-md-9">
+                {% if user.field_primary_contact_name.value %}
+                  {{ user.field_primary_contact_name.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th class="col-md-3">Primary Contact Phone</th>
+              <td class="col-md-9">
+                {% if user.field_primary_contact_phone.value %}
+                  {{ user.field_primary_contact_phone.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th class="col-md-3">Primary Contact Email</th>
+              <td class="col-md-9">
+                {% if user.field_primary_contact_email.value %}
+                  {{ user.field_primary_contact_email.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+            {% endif %}
+
+            {# Principal Information #}
+            {% if user.field_principal_last_name.value is not empty or user.field_principal_first_name.value is not empty %}
+            <tr>
+              <th class="col-md-3">Principal Name</th>
+              <td class="col-md-9">
+                {% if user.field_principal_last_name.value %}{{ user.field_principal_last_name.value }}{% endif %}
+                {% if user.field_principal_first_name.value %}, {{ user.field_principal_first_name.value }}{% endif %}
+                {% if user.field_principal_middle_name.value %} {{ user.field_principal_middle_name.value }}{% endif %}
+                {% if user.field_principal_suffix.value %} {{ user.field_principal_suffix.value }}{% endif %}
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if user.field_principal_title.value is not empty %}
+            <tr>
+              <th class="col-md-3">Principal Title</th>
+              <td class="col-md-9">{{ user.field_principal_title.value }}</td>
+            </tr>
+            {% endif %}
+
+            {% if user.field_principal_telephone.value is not empty %}
+            <tr>
+              <th class="col-md-3">Principal Telephone</th>
+              <td class="col-md-9">{{ user.field_principal_telephone.value }}</td>
+            </tr>
+            {% endif %}
+
+            {% if user.field_principal_email.value is not empty %}
+            <tr>
+              <th class="col-md-3">Principal Email</th>
+              <td class="col-md-9">{{ user.field_principal_email.value }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
   {# Address and Contact Information #}
   <div class="panel panel-primary mt-3">
