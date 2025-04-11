@@ -1,3 +1,4 @@
+uuid: 49fc79ad-7607-4600-ab2f-98b546c12250
 langcode: en
 status: true
 dependencies:
@@ -5,25 +6,31 @@ dependencies:
     - field.field.user.user.field_applicant_address_l1
     - field.field.user.user.field_applicant_address_l2
     - field.field.user.user.field_applicant_address_l3
+    - field.field.user.user.field_applicant_agree_to_certify
+    - field.field.user.user.field_applicant_business_name
     - field.field.user.user.field_applicant_city
     - field.field.user.user.field_applicant_county
     - field.field.user.user.field_applicant_first_name
+    - field.field.user.user.field_applicant_home_phone
     - field.field.user.user.field_applicant_last_name
     - field.field.user.user.field_applicant_middle_name
+    - field.field.user.user.field_applicant_prefix
     - field.field.user.user.field_applicant_state
     - field.field.user.user.field_applicant_suffix
     - field.field.user.user.field_applicant_telephone
+    - field.field.user.user.field_applicant_work_phone
     - field.field.user.user.field_applicant_zip
-    - field.field.user.user.field_principal_email
     - field.field.user.user.field_bi_cd
     - field.field.user.user.field_created_by
     - field.field.user.user.field_fax_number
     - field.field.user.user.field_hid
     - field.field.user.user.field_legacy_userid
+    - field.field.user.user.field_permit_no
     - field.field.user.user.field_phone
-    - field.field.user.user.field_prim_contact_email
+    - field.field.user.user.field_primary_contact_email
     - field.field.user.user.field_primary_contact_name
     - field.field.user.user.field_primary_contact_phone
+    - field.field.user.user.field_principal_email
     - field.field.user.user.field_principal_first_name
     - field.field.user.user.field_principal_last_name
     - field.field.user.user.field_principal_middle_name
@@ -36,30 +43,13 @@ dependencies:
     - field.field.user.user.field_registrant_type_cd
     - field.field.user.user.field_updated_by
     - field.field.user.user.field_version_no
-    - field.field.user.user.field_permit_no
-    - field.field.user.user.field_applicant_agree_to_certify
   module:
     - field_group
+    - path
+    - select2
     - user
 third_party_settings:
   field_group:
-    group_name:
-      children:
-        - field_applicant_last_name
-        - field_applicant_first_name
-        - field_applicant_middle_name
-        - field_applicant_suffix
-      parent_name: ''
-      weight: 1
-      format_type: details
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-        open: true
-      label: Name
     group_address:
       children:
         - field_applicant_address_l1
@@ -69,67 +59,91 @@ third_party_settings:
         - field_applicant_county
         - field_applicant_state
         - field_applicant_zip
-      parent_name: ''
-      weight: 2
-      format_type: details
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-        open: false
       label: Address
-    group_personal_data:
-      children:
-        - field_applicant_telephone
-        - field_principal_email
+      region: content
       parent_name: ''
       weight: 3
       format_type: details
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        open: false
-      label: 'Personal Data'
     group_administrative:
       children:
         - field_bi_cd
         - field_created_by
         - field_fax_number
+        - field_permit_no
         - field_hid
         - field_legacy_userid
         - field_phone
-        - field_permit_no
-        - field_prim_contact_email
-        - field_primary_contact_name
-        - field_primary_contact_phone
-        - field_principal_first_name
-        - field_principal_last_name
-        - field_principal_middle_name
         - field_principal_name
-        - field_principal_suffix
-        - field_principal_telephone
-        - field_principal_title
+        - field_principal_email
         - field_program_id
         - field_rcf_cd
         - field_registrant_type_cd
         - field_updated_by
         - field_version_no
+      label: Administrative
+      region: content
       parent_name: ''
       weight: 4
       format_type: details
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
+    group_business_account:
+      children:
+        - field_applicant_business_name
+        - field_principal_last_name
+        - field_principal_first_name
+        - field_principal_middle_name
+        - field_principal_suffix
+        - field_principal_title
+        - field_principal_telephone
+        - field_primary_contact_name
+        - field_primary_contact_phone
+        - field_primary_contact_email
+      label: 'Business data'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
         open: false
-      label: 'Administrative'
+        description: ''
+        required_fields: true
+    group_individual_account:
+      children:
+        - field_applicant_last_name
+        - field_applicant_first_name
+        - field_applicant_middle_name
+        - field_applicant_suffix
+        - field_applicant_telephone
+      label: 'Personal data'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: iT45vidz4vVBeTTRg68HNFxuOwZ0Ko8Nyd2qyle6yPw
 id: user.user.default
 targetEntityType: user
 bundle: user
@@ -139,38 +153,6 @@ content:
     weight: 0
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_applicant_last_name:
-    type: string_textfield
-    weight: 2
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_applicant_first_name:
-    type: string_textfield
-    weight: 3
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_applicant_middle_name:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_applicant_suffix:
-    type: string_textfield
-    weight: 5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_applicant_address_l1:
     type: string_textfield
@@ -196,6 +178,21 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_applicant_agree_to_certify:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_applicant_business_name:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_applicant_city:
     type: string_textfield
     weight: 12
@@ -212,11 +209,53 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_applicant_first_name:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_last_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_middle_name:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_applicant_state:
-    type: options_select
+    type: string_textfield
     weight: 14
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_suffix:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_applicant_telephone:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_applicant_zip:
     type: string_textfield
@@ -226,29 +265,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_applicant_telephone:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_email:
-    type: email_default
-    weight: 17
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_bi_cd:
-    type: string_textfield
+    type: select2
     weight: 18
     region: content
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
     third_party_settings: {  }
   field_created_by:
     type: string_textfield
@@ -268,7 +290,7 @@ content:
     third_party_settings: {  }
   field_hid:
     type: string_textfield
-    weight: 21
+    weight: 22
     region: content
     settings:
       size: 60
@@ -276,7 +298,15 @@ content:
     third_party_settings: {  }
   field_legacy_userid:
     type: string_textfield
-    weight: 22
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_permit_no:
+    type: string_textfield
+    weight: 21
     region: content
     settings:
       size: 60
@@ -284,7 +314,7 @@ content:
     third_party_settings: {  }
   field_phone:
     type: string_textfield
-    weight: 23
+    weight: 24
     region: content
     settings:
       size: 60
@@ -295,122 +325,18 @@ content:
     weight: 24
     region: content
     settings:
-      size: 60
       placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_primary_contact_email:
+    type: email_default
+    weight: 22
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
     third_party_settings: {  }
   field_primary_contact_name:
-    type: string_textfield
-    weight: 25
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_primary_contact_phone:
-    type: string_textfield
-    weight: 26
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_first_name:
-    type: string_textfield
-    weight: 27
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_last_name:
-    type: string_textfield
-    weight: 28
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_middle_name:
-    type: string_textfield
-    weight: 29
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_name:
-    type: string_textfield
-    weight: 30
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_suffix:
-    type: string_textfield
-    weight: 31
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_telephone:
-    type: string_textfield
-    weight: 32
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_title:
-    type: string_textfield
-    weight: 33
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_program_id:
-    type: string_textfield
-    weight: 34
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: string_textfield
-    weight: 35
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_registrant_type_cd:
-    type: string_textfield
-    weight: 36
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_updated_by:
-    type: string_textfield
-    weight: 37
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_version_no:
-    type: string_textfield
-    weight: 38
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_no:
     type: string_textfield
     weight: 20
     region: content
@@ -418,25 +344,136 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_applicant_agree_to_certify:
-    type: boolean_checkbox
-    weight: 40
+  field_primary_contact_phone:
+    type: string_textfield
+    weight: 21
     region: content
     settings:
-      display_label: true
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_email:
+    type: email_default
+    weight: 26
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_principal_first_name:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_last_name:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_middle_name:
+    type: string_textfield
+    weight: 16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_name:
+    type: string_textfield
+    weight: 25
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_suffix:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_telephone:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_principal_title:
+    type: string_textfield
+    weight: 18
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_program_id:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_rcf_cd:
+    type: select2
+    weight: 28
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_registrant_type_cd:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_updated_by:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_version_no:
+    type: number
+    weight: 31
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   language:
-    weight: 39
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   timezone:
-    weight: 40
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   contact: true
-  language: true
+  field_applicant_home_phone: true
+  field_applicant_prefix: true
+  field_applicant_work_phone: true
+  langcode: true
   openid_connect: true
-  timezone: true
