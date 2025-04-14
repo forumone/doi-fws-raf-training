@@ -210,10 +210,8 @@ class IdTestController extends ControllerBase {
     $quiz_results_service = \Drupal::service('fws_id_test.quiz_results');
     $results_node = $quiz_results_service->createResultsNode(
       $difficulty_term,
-      // Use the first region term.
-      reset($region_terms),
-      // Use the first species group term.
-      reset($species_group_terms),
+      $region_terms,
+      $species_group_terms,
       array_map(function ($video) {
         return [
           'media_id' => $video->id(),

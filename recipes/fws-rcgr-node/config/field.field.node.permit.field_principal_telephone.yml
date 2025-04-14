@@ -1,0 +1,20 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_principal_telephone
+    - node.type.permit
+id: node.permit.field_principal_telephone
+field_name: field_principal_telephone
+entity_type: node
+bundle: permit
+label: 'Principal Telephone'
+description: 'Telephone number of the principal contact.'
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  case_sensitive: FALSE
+field_type: string

@@ -1,17 +1,38 @@
+uuid: efc5f9b6-7f8e-4a5b-8472-41b411700600
 langcode: en
 status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
 third_party_settings:
   menu_ui:
     available_menus:
       - main
     parent: 'main:'
+  node_revision_delete:
+    amount:
+      status: false
+      settings:
+        amount: 0
+    created:
+      status: false
+      settings:
+        age: 1
+    drafts:
+      status: false
+      settings:
+        age: 1
+    only_drafts:
+      status: false
+      settings:
+        age: 0
+_core:
+  default_config_hash: XmD-jtJsb-hzCo04iE2k36JC1lL6BcxjjgInJ467ggI
 name: Permit
 type: permit
 description: 'Content type for storing permit information from the RCGR system.'
-help: ''
+help: null
 new_revision: true
-preview_mode: 1
+preview_mode: 0
 display_submitted: true

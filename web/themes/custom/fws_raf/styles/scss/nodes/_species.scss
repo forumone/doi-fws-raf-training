@@ -1,6 +1,17 @@
 .page-node-type-species .main-container {
   padding-top: 70px;
   padding-bottom: 30px;
+
+  .field--name-field-image {
+    > .field--item {
+      display:  inline-block;
+      margin-right: 10px;
+
+      img {
+        height: 158px;
+      }
+    }
+  }
 }
 
 .species-search-results {
@@ -26,3 +37,4 @@
 #node-species-edit-form {
   margin-bottom: 50px;
 }
+

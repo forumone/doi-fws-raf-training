@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/register/renew'
+      uri: 'internal:/profile/locations-agents'
       title: ''
       options: {  }
   external:

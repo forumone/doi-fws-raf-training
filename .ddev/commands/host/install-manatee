@@ -14,12 +14,11 @@ ddev drush recipe ../recipes/fws-tracking-reports
 ddev drush recipe ../recipes/fws-tracking-blocks
 ddev drush recipe ../recipes/fws-tracking-user
 ddev drush recipe ../recipes/fws-manatee-content
+ddev drush recipe ../recipes/fws-notifications
 
 # Import taxonomy and nodes.
 ./scripts/manatee/import-taxonomy.sh && ./scripts/manatee/import-nodes.sh
 
-# Keep this recipe here so that it doesn't trigger email notification while nodes being imported in the above step.
-ddev drush recipe ../recipes/fws-notifications
 # ddev drush webform-libraries-download
 
 ddev drush uli

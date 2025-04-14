@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_legacy_userid
+  module:
+    - user
+id: user.user.field_legacy_userid
+field_name: field_legacy_userid
+entity_type: user
+bundle: user
+label: 'Legacy User ID'
+description: 'The original user ID from the legacy system'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

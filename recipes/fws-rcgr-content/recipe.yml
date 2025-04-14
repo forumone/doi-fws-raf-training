@@ -7,5 +7,5 @@ config:
     system.site:
       simple_config_update:
         page.front: /node/7
-        page.403: /node/9
-        page.404: /node/8
+        page.403: /node/10
+        page.404: /node/9

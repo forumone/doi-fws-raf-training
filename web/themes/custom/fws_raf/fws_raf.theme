@@ -24,6 +24,10 @@ function fws_raf_preprocess_node(&$variables) {
     // Add it to the variables array.
     $variables['primary_species_id'] = $primary_species_id;
   }
+
+  if ($node->getType() === 'species_id_results' && $variables['view_mode'] === 'full') {
+    $variables['base_path'] = base_path();
+  }
 }
 
 /**
@@ -168,4 +172,14 @@ function fws_raf_theme_suggestions_user_alter(array &$suggestions, array $variab
       $suggestions[] = 'user__falcon';
     }
   }
+}
+
+/**
+ * Implements hook_preprocess() to add Twig functions.
+ */
+function fws_raf_preprocess(&$variables, $hook) {
+  // Add CSRF token function.
+  $variables['get_token'] = function ($value) {
+    return \Drupal::csrfToken()->get($value);
+  };
 }

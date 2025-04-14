@@ -10,6 +10,9 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drush\Drush;
 use Drupal\taxonomy\Entity\Term;
 
+// Include the user import functions.
+require_once __DIR__ . '/import-users.php';
+
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
 $args = $input->getArguments();
@@ -33,6 +36,12 @@ $current_csv_file = __DIR__ . '/data/rcgr_name_202503031405.csv';
 $history_csv_file = __DIR__ . '/data/rcgr_name_hist_202503031405.csv';
 
 $logger->warning("Starting import of name data.");
+
+// Track users not found.
+global $_rcgr_users_not_found;
+global $_rcgr_users_imported;
+$_rcgr_users_not_found = 0;
+$_rcgr_users_imported = 0;
 
 // Load historical records into memory for faster lookup.
 $historical_records = [];
@@ -202,6 +211,59 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
   return NULL;
 }
 
+/**
+ * Find a user by legacy user ID. Creates a new user if not found.
+ *
+ * @param string $legacy_userid
+ *   The legacy user ID.
+ *
+ * @return int|null
+ *   The user ID, or NULL if not found or created.
+ */
+function find_user_by_legacy_id($legacy_userid) {
+  global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Trim whitespace from the legacy user ID.
+  $legacy_userid = trim($legacy_userid);
+
+  if (empty($legacy_userid)) {
+    return NULL;
+  }
+
+  // Try to find a user with this legacy ID.
+  $query = \Drupal::entityQuery('user')
+    ->condition('field_legacy_userid', $legacy_userid)
+    ->accessCheck(FALSE);
+  $uids = $query->execute();
+
+  if (!empty($uids)) {
+    $uid = reset($uids);
+    $_rcgr_import_logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
+    return $uid;
+  }
+
+  // Logger callback function for the import process that suppresses output.
+  $log_via_logger = function ($message) {
+    // Don't output anything here to reduce verbosity.
+  };
+
+  // Try to import the user from the original CSV.
+  $user = import_user_by_legacy_id($legacy_userid, NULL, $log_via_logger);
+
+  if ($user) {
+    $_rcgr_users_imported++;
+    $_rcgr_import_logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    return $user->id();
+  }
+
+  $_rcgr_users_not_found++;
+  return NULL;
+}
+
 // Process the CSV file.
 while (($data = fgetcsv($handle)) !== FALSE) {
   // Check if we've hit the limit.
@@ -225,11 +287,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (!empty($nids)) {
       $nid = reset($nids);
       $node = Node::load($nid);
-      // $logger->notice("Updating existing name record {$row['recno']}");
     }
     else {
       $node = Node::create(['type' => 'name']);
-      // $logger->notice("Creating new name record {$row['recno']}");
     }
 
     $node->setTitle($row['person_name']);
@@ -275,6 +335,15 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       }
     }
 
+    // Associate the name entity with a user based on legacy userid.
+    if (!empty($row['create_by'])) {
+      $uid = find_user_by_legacy_id($row['create_by']);
+      if ($uid) {
+        // Set the node owner to the user with the matching legacy ID.
+        $node->setOwnerId($uid);
+      }
+    }
+
     // Save the current version of the node.
     $node->save();
     $processed++;
@@ -283,15 +352,37 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     if (!empty($row['permit_no']) && isset($historical_records[$row['permit_no']])) {
       $historical_set = $historical_records[$row['permit_no']];
 
-      // Sort historical records by dt_update to ensure correct chronological order.
+      // Sort historical records by report year (oldest first), then version number (lowest first).
       usort($historical_set, function ($a, $b) {
-        return strtotime($a['dt_update']) - strtotime($b['dt_update']);
+        // First sort by report_year (oldest first)
+        $year_a = isset($a['report_year']) ? (int) $a['report_year'] : 0;
+        $year_b = isset($b['report_year']) ? (int) $b['report_year'] : 0;
+
+        if ($year_a !== $year_b) {
+          return $year_a - $year_b;
+        }
+
+        // Then sort by version_no (lowest first)
+        $version_a = isset($a['version_no']) ? (int) $a['version_no'] : 0;
+        $version_b = isset($b['version_no']) ? (int) $b['version_no'] : 0;
+
+        return $version_a - $version_b;
       });
 
       foreach ($historical_set as $hist_row) {
+        // Skip if this is the current version (already saved above)
+        $is_duplicate = isset($hist_row['recno']) && isset($row['recno']) &&
+            $hist_row['recno'] === $row['recno'] &&
+            isset($hist_row['version_no']) && isset($row['version_no']) &&
+            $hist_row['version_no'] === $row['version_no'];
+
+        if ($is_duplicate) {
+          continue;
+        }
+
         // Create a new revision.
         $node->setNewRevision(TRUE);
-        $node->revision_log = "Historical record from " . $hist_row['dt_update'];
+        $node->revision_log = "Historical record from " . ($hist_row['dt_update'] ?? $hist_row['dt_create']);
 
         // Update fields with historical data.
         foreach ($field_mappings as $csv_column => $field_name) {
@@ -334,14 +425,99 @@ while (($data = fgetcsv($handle)) !== FALSE) {
           }
         }
 
+        // Associate the historical revision with a user based on legacy userid.
+        if (!empty($hist_row['create_by'])) {
+          $uid = find_user_by_legacy_id($hist_row['create_by']);
+          if ($uid) {
+            // Set the revision owner to the user with the matching legacy ID.
+            $node->setOwnerId($uid);
+            $node->setRevisionUserId($uid);
+          }
+        }
+
         // Set the revision timestamp to match the historical record's update time.
         if (!empty($hist_row['dt_update'])) {
           $node->setRevisionCreationTime(strtotime($hist_row['dt_update']));
+        }
+        elseif (!empty($hist_row['dt_create'])) {
+          $node->setRevisionCreationTime(strtotime($hist_row['dt_create']));
         }
 
         // Save the historical revision.
         $node->save();
         $revisions_created++;
+      }
+
+      // Find the latest revision with the latest report year.
+      $latest_revision_id = NULL;
+      $latest_revision_year = 0;
+
+      // Get all revisions for this node.
+      $revisions = \Drupal::database()->query("
+        SELECT r.vid, r.revision_timestamp, ry.field_report_year_value
+        FROM node_revision r
+        JOIN node_revision__field_report_year ry ON r.vid = ry.revision_id
+        WHERE r.nid = :nid
+        ORDER BY ry.field_report_year_value DESC, r.revision_timestamp DESC
+      ", [':nid' => $node->id()])->fetchAll();
+
+      if (!empty($revisions)) {
+        // The first revision in our sorted list should be the latest year with latest timestamp.
+        $latest = reset($revisions);
+        $latest_revision_id = $latest->vid;
+        $latest_revision_year = $latest->field_report_year_value;
+
+        // Check if we need to update the default revision.
+        $current_default_revision_id = \Drupal::database()->query("SELECT vid FROM node_field_data WHERE nid = :nid", [':nid' => $node->id()])->fetchField();
+        $current_default_revision_year = \Drupal::database()->query("SELECT field_report_year_value FROM node_revision__field_report_year WHERE revision_id = :vid", [':vid' => $current_default_revision_id])->fetchField();
+
+        if ($latest_revision_year > $current_default_revision_year) {
+          // Update the node_field_data table to point to the latest revision.
+          \Drupal::database()->update('node_field_data')
+            ->fields(['vid' => $latest_revision_id])
+            ->condition('nid', $node->id())
+            ->execute();
+
+          // Also ensure the field tables are updated:
+          // First, delete any existing values in node__field_* tables.
+          foreach ($field_mappings as $csv_column => $field_name) {
+            $table_name = 'node__' . $field_name;
+            \Drupal::database()->delete($table_name)
+              ->condition('entity_id', $node->id())
+              ->execute();
+
+            // Now copy values from the revision table.
+            $revision_table = 'node_revision__' . $field_name;
+            $field_column_name = $field_name . '_value';
+
+            // Check if the table exists before attempting to query it.
+            $table_exists = \Drupal::database()->schema()->tableExists($revision_table);
+
+            if ($table_exists) {
+              // Get the fields for this revision.
+              $fields = \Drupal::database()->select($revision_table, 'r')
+                ->fields('r')
+                ->condition('entity_id', $node->id())
+                ->condition('revision_id', $latest_revision_id)
+                ->execute()
+                ->fetchAssoc();
+
+              // If fields exist, insert them into the main table.
+              if (!empty($fields)) {
+                // Replace revision_id with the latest.
+                $fields['revision_id'] = $latest_revision_id;
+
+                // Insert into the main table.
+                \Drupal::database()->insert($table_name)
+                  ->fields($fields)
+                  ->execute();
+              }
+            }
+          }
+
+          // Clear any caches for this node.
+          \Drupal::entityTypeManager()->getStorage('node')->resetCache([$node->id()]);
+        }
       }
 
       // Remove processed historical records to free up memory.
@@ -368,6 +544,8 @@ $logger->notice("- Processed: {$processed}");
 $logger->notice("- Historical revisions created: {$revisions_created}");
 $logger->notice("- Skipped: {$skipped}");
 $logger->notice("- Errors: {$errors}");
+$logger->notice("- Users not found for name records: {$_rcgr_users_not_found}");
+$logger->notice("- Users imported on-demand: {$_rcgr_users_imported}");
 
 // Only exit explicitly if there were actual errors.
 if ($errors > 0) {

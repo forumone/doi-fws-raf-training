@@ -1,23 +1,27 @@
+uuid: 9f3735e4-6657-4eab-9566-d3c86b8ae2af
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_location_state_ref
     - node.type.location
-    - taxonomy.vocabulary.states
+_core:
+  default_config_hash: ac3ohixpWXTGwS2hn23XlA0gAdmBoZ0l3BMw8uCITHU
 id: node.location.field_location_state_ref
 field_name: field_location_state_ref
 entity_type: node
 bundle: location
-label: 'State'
+label: State
 description: 'The states not available in this dropdown cannot participate in this activity.'
-required: TRUE
-translatable: TRUE
+required: true
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: default
+  handler: views
   handler_settings:
-    target_bundles:
-      states: states
+    view:
+      view_name: states_reference
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

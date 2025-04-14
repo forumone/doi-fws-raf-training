@@ -1,0 +1,24 @@
+uuid: 06d41ed7-5400-4816-be2f-f4e1d41d4120
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.location
+    - node.type.name
+    - node.type.page
+    - node.type.permit
+  module:
+    - node
+id: applicant
+label: Applicant
+weight: 4
+is_admin: null
+permissions:
+  - 'create location content'
+  - 'create name content'
+  - 'create page content'
+  - 'create permit content'
+  - 'edit own location content'
+  - 'edit own name content'
+  - 'edit own page content'
+  - 'edit own permit content'

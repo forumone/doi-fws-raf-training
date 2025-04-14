@@ -1,0 +1,4 @@
+administer fws notifications:
+  title: 'Administer FWS notifications'
+  description: 'Configure notification settings for content changes.'
+  restrict access: true

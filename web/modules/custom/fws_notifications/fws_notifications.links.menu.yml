@@ -1,0 +1,5 @@
+fws_notifications.settings:
+  title: 'FWS Notification settings'
+  description: 'Configure email addresses for content notifications.'
+  parent: system.admin_config_content
+  route_name: fws_notifications.settings
