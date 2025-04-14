@@ -655,3 +655,273 @@ echo "Skipped: $skipped\n";
 echo "Errors: $errors\n";
 echo "Users not found for location records: {$_rcgr_users_not_found}\n";
 echo "Users imported on-demand: {$_rcgr_users_imported}\n";
+
+/**
+ * Import a location by permit number.
+ *
+ * This function allows on-demand importing of a location from the CSV
+ * file when it's needed by another script (like import-permits).
+ *
+ * @param string $permit_no
+ *   The permit number to find in the CSV file.
+ * @param string $csv_file
+ *   Optional path to the CSV file. If NULL, uses the default file.
+ * @param callable $logger
+ *   Optional callback for logging. If NULL, uses Drush logger.
+ *
+ * @return \Drupal\node\NodeInterface|null
+ *   The imported location node, or NULL if not found or not imported.
+ */
+function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $logger = NULL) {
+  // Setup logger - either use the one provided or create a simple one.
+  if ($logger === NULL) {
+    // Use Drush logger or define a simple closure that outputs messages.
+    if (class_exists('\Drush\Drush')) {
+      $drush_logger = Drush::logger();
+      $logger = function ($message, $variables = []) use ($drush_logger) {
+        $drush_logger->notice($message, $variables);
+      };
+    }
+    else {
+      $logger = function ($message, $variables = []) {
+        // Replace variables in message.
+        foreach ($variables as $key => $value) {
+          $message = str_replace($key, $value, $message);
+        }
+        echo $message . "\n";
+      };
+    }
+  }
+
+  // Set default CSV file if not provided.
+  if ($csv_file === NULL) {
+    $csv_file = __DIR__ . '/data/rcgr_location_202503031405.csv';
+  }
+
+  $logger("Looking for location with permit #$permit_no in CSV: $csv_file");
+
+  // Check if the file exists.
+  if (!file_exists($csv_file)) {
+    $logger("CSV file not found: $csv_file");
+    return NULL;
+  }
+
+  // Open the CSV file.
+  $handle = fopen($csv_file, 'r');
+  if ($handle === FALSE) {
+    $logger("Could not open CSV file: $csv_file");
+    return NULL;
+  }
+
+  // Process the header row.
+  $header = fgetcsv($handle);
+  if ($header === FALSE) {
+    $logger("CSV file is empty or incorrectly formatted: $csv_file");
+    fclose($handle);
+    return NULL;
+  }
+
+  // Find the permit number column index.
+  $permit_col_index = array_search('permit_no', $header);
+  if ($permit_col_index === FALSE) {
+    $logger("Could not find 'permit_no' column in CSV header");
+    fclose($handle);
+    return NULL;
+  }
+
+  // Search for the location with the given permit number.
+  $found_row = NULL;
+  while (($row = fgetcsv($handle)) !== FALSE) {
+    if (isset($row[$permit_col_index]) && trim($row[$permit_col_index]) === $permit_no) {
+      $found_row = array_combine($header, $row);
+      break;
+    }
+  }
+
+  fclose($handle);
+
+  // If not found in CSV, return NULL.
+  if ($found_row === NULL) {
+    $logger("No location found with permit #$permit_no in CSV file");
+    return NULL;
+  }
+
+  $logger("Found location for permit #$permit_no in CSV, importing...");
+
+  // Setup necessary components for processing.
+  $term_cache = [];
+  $processed_nodes = [];
+  $value_mappings = [
+    'U' => 'Unknown',
+    'A' => 'Active',
+    'C' => 'Complete',
+    'I' => 'Inactive',
+  ];
+
+  // Define the field mapping.
+  $field_mapping = [
+    'recno' => 'field_recno',
+    'isRemoved' => 'field_location_is_removed',
+    'permit_no' => 'field_permit_no',
+    'bi_cd' => 'field_bi_cd',
+    'location_address_l1' => 'field_location_address',
+    'location_county' => 'field_location_county',
+    'location_city' => 'field_location_city',
+    'location_state' => 'field_location_state_ref',
+    'report_year' => 'field_location_report_year',
+    'qty_nest_egg_destroyed_mar' => 'field_location_qty_nest_egg_mar',
+    'qty_nest_egg_destroyed_apr' => 'field_location_qty_nest_egg_apr',
+    'qty_nest_egg_destroyed_may' => 'field_location_qty_nest_egg_may',
+    'qty_nest_egg_destroyed_jun' => 'field_location_qty_nest_egg_jun',
+    'qty_nest_egg_destroyed_tot' => 'field_location_qty_nest_egg_tot',
+    'isLocationCertified' => 'field_location_is_certified',
+    'ca_access_key' => 'field_ca_access_key',
+    'version_no' => 'field_version_no',
+    'hid' => 'field_hid',
+    'site_id' => 'field_site_id',
+    'control_site_id' => 'field_control_site_id',
+    'dt_create' => 'field_dt_create',
+    'dt_update' => 'field_dt_update',
+    'create_by' => 'field_create_by',
+    'update_by' => 'field_update_by',
+    'xml_cd' => 'field_xml_cd',
+    'rcf_cd' => 'field_rcf_cd',
+  ];
+
+  // Save the logger in the global variable for process_location_row.
+  global $_rcgr_import_logger;
+  $_rcgr_import_logger = new class($logger) {
+    /**
+     * The logger callback function.
+     *
+     * @var callable
+     */
+    private $logger;
+
+    /**
+     * Constructor.
+     *
+     * @param callable $logger
+     *   The logger callback function.
+     */
+    public function __construct(callable $logger) {
+      $this->logger = $logger;
+    }
+
+    /**
+     * Log a notice message.
+     *
+     * @param string $message
+     *   The message to log.
+     * @param array $context
+     *   Context variables for the message.
+     *
+     * @return mixed
+     *   The result of the logger call.
+     */
+    public function notice(string $message, array $context = []) {
+      return $this->logger($message, $context);
+    }
+
+    /**
+     * Log an info message.
+     *
+     * @param string $message
+     *   The message to log.
+     * @param array $context
+     *   Context variables for the message.
+     *
+     * @return mixed
+     *   The result of the logger call.
+     */
+    public function info(string $message, array $context = []) {
+      return $this->logger($message, $context);
+    }
+
+    /**
+     * Log a warning message.
+     *
+     * @param string $message
+     *   The message to log.
+     * @param array $context
+     *   Context variables for the message.
+     *
+     * @return mixed
+     *   The result of the logger call.
+     */
+    public function warning(string $message, array $context = []) {
+      return $this->logger($message, $context);
+    }
+
+    /**
+     * Log an error message.
+     *
+     * @param string $message
+     *   The message to log.
+     * @param array $context
+     *   Context variables for the message.
+     *
+     * @return mixed
+     *   The result of the logger call.
+     */
+    public function error(string $message, array $context = []) {
+      return $this->logger($message, $context);
+    }
+
+    /**
+     * Log a debug message.
+     *
+     * @param string $message
+     *   The message to log.
+     * @param array $context
+     *   Context variables for the message.
+     *
+     * @return mixed
+     *   The result of the logger call.
+     */
+    public function debug(string $message, array $context = []) {
+      return $this->logger($message, $context);
+    }
+
+  };
+
+  // Check if the location already exists (to avoid duplicates).
+  $existing_node = find_existing_node($permit_no, $found_row['location_address_l1']);
+  if ($existing_node) {
+    $logger("Location for permit #$permit_no already exists (NID: {$existing_node->id()})");
+    return $existing_node;
+  }
+
+  // Process the location row.
+  [$success, $message] = process_location_row(
+    $found_row,
+    $field_mapping,
+    $term_cache,
+    $value_mappings,
+    FALSE,
+    $processed_nodes
+  );
+
+  if (!$success) {
+    $logger("Failed to import location for permit #$permit_no: $message");
+    return NULL;
+  }
+
+  // Get the node ID from the processed nodes array.
+  $key = $permit_no . ':' . $found_row['location_address_l1'];
+  if (!isset($processed_nodes[$key])) {
+    $logger("Location was processed but not recorded in processed nodes array");
+    return NULL;
+  }
+
+  $nid = $processed_nodes[$key];
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+
+  if (!$node) {
+    $logger("Could not load the newly created location node with NID: $nid");
+    return NULL;
+  }
+
+  $logger("Successfully imported location for permit #$permit_no (NID: {$node->id()})");
+  return $node;
+}

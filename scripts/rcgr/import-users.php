@@ -12,6 +12,7 @@
 use Drupal\user\Entity\User;
 use Drush\Drush;
 
+// Check if this script is being included by another script or run directly.
 // Get the limit and update parameters from command line arguments if provided.
 $input = Drush::input();
 $args = $input->getArguments();
@@ -51,11 +52,126 @@ function log_message($message, $log_file) {
   echo $log_message;
 }
 
-// Initialize log output.
-echo "=== RCGR User Import Log ===\n";
-log_message("Starting user import from: {$input_file}", $log_file);
-log_message("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit), $log_file);
-log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_file);
+// Check if this script is being directly executed (not included).
+// If debug_backtrace() has only one item in the array, then this script
+// is the entry point. Otherwise it was included by another script.
+$is_main_script = count(debug_backtrace()) <= 1;
+
+// Only run the main import code if this is being executed directly.
+if ($is_main_script) {
+  // Initialize log output.
+  echo "=== RCGR User Import Log ===\n";
+  log_message("Starting user import from: {$input_file}", $log_file);
+  log_message("Import limit: " . ($limit === PHP_INT_MAX ? "none" : $limit), $log_file);
+  log_message("Update existing users: " . ($update_existing ? "Yes" : "No"), $log_file);
+
+  // Open input file.
+  $handle = fopen($input_file, 'r');
+  if (!$handle) {
+    log_message("Error: Could not open input file {$input_file}", $log_file);
+    exit(1);
+  }
+
+  // Get header row.
+  $header = fgetcsv($handle);
+  if (!$header) {
+    log_message("Error: Could not read header row from CSV", $log_file);
+    fclose($handle);
+    exit(1);
+  }
+
+  // Check if required columns exist.
+  $required_columns = [
+    'userid',
+    'applicant_email_address',
+    'applicant_first_name',
+    'applicant_last_name',
+  ];
+  foreach ($required_columns as $column) {
+    if (!in_array($column, $header)) {
+      log_message("Error: Required column '{$column}' not found in CSV header", $log_file);
+      fclose($handle);
+      exit(1);
+    }
+  }
+
+  // Initialize counters.
+  $row_count = 0;
+  $success_count = 0;
+  $updated_count = 0;
+  $error_count = 0;
+  $skipped_count = 0;
+
+  /**
+   * Check if we're still under our limit.
+   */
+  function check_limit_reached($success_count, $updated_count, $limit, $limit_type) {
+    if ($limit === PHP_INT_MAX) {
+      return FALSE;
+    }
+
+    switch ($limit_type) {
+      case 'imported_only':
+        return $success_count >= $limit;
+
+      case 'updated_only':
+        return $updated_count >= $limit;
+
+      case 'combined':
+      default:
+        return ($success_count + $updated_count) >= $limit;
+    }
+  }
+
+  // Process data rows.
+  while (($data = fgetcsv($handle)) !== FALSE) {
+    $row_count++;
+
+    // Check if we've hit our limit of successful imports + updates before processing more.
+    if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
+      log_message("Import limit of {$limit} reached. Stopping.", $log_file);
+      break;
+    }
+
+    // Create associative array of row data.
+    $row = array_combine($header, $data);
+
+    $user = create_or_update_user_from_csv($row, $update_existing, $log_file);
+
+    if ($user) {
+      if ($user->isNew()) {
+        $success_count++;
+        log_message("Successfully imported user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
+      }
+      else {
+        $updated_count++;
+        log_message("Successfully updated user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
+      }
+    }
+    else {
+      $skipped_count++;
+    }
+
+    // Provide progress update every 100 records.
+    if ($row_count % 100 === 0) {
+      log_message("Progress: Processed {$row_count} users so far", $log_file);
+    }
+  }
+
+  // Close the input file.
+  fclose($handle);
+
+  // Log final statistics.
+  log_message("Import completed. Total rows processed: {$row_count}", $log_file);
+  log_message("Successfully imported: {$success_count}", $log_file);
+  log_message("Successfully updated: {$updated_count}", $log_file);
+  log_message("Errors: {$error_count}", $log_file);
+  log_message("Skipped: {$skipped_count}", $log_file);
+
+  if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
+    log_message("Import LIMIT REACHED ($limit users)", $log_file);
+  }
+}
 
 /**
  * Creates or updates a user from CSV row data.
@@ -306,113 +422,6 @@ function get_field_map() {
     // Field not in CSV but setting default value during import.
     'applicant_agree_to_certify' => 'field_applicant_agree_to_certify',
   ];
-}
-
-// Open input file.
-$handle = fopen($input_file, 'r');
-if (!$handle) {
-  log_message("Error: Could not open input file {$input_file}", $log_file);
-  exit(1);
-}
-
-// Get header row.
-$header = fgetcsv($handle);
-if (!$header) {
-  log_message("Error: Could not read header row from CSV", $log_file);
-  fclose($handle);
-  exit(1);
-}
-
-// Check if required columns exist.
-$required_columns = [
-  'userid',
-  'applicant_email_address',
-  'applicant_first_name',
-  'applicant_last_name',
-];
-foreach ($required_columns as $column) {
-  if (!in_array($column, $header)) {
-    log_message("Error: Required column '{$column}' not found in CSV header", $log_file);
-    fclose($handle);
-    exit(1);
-  }
-}
-
-// Initialize counters.
-$row_count = 0;
-$success_count = 0;
-$updated_count = 0;
-$error_count = 0;
-$skipped_count = 0;
-
-/**
- * Check if we're still under our limit.
- */
-function check_limit_reached($success_count, $updated_count, $limit, $limit_type) {
-  if ($limit === PHP_INT_MAX) {
-    return FALSE;
-  }
-
-  switch ($limit_type) {
-    case 'imported_only':
-      return $success_count >= $limit;
-
-    case 'updated_only':
-      return $updated_count >= $limit;
-
-    case 'combined':
-    default:
-      return ($success_count + $updated_count) >= $limit;
-  }
-}
-
-// Process data rows.
-while (($data = fgetcsv($handle)) !== FALSE) {
-  $row_count++;
-
-  // Check if we've hit our limit of successful imports + updates before processing more.
-  if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
-    log_message("Import limit of {$limit} reached. Stopping.", $log_file);
-    break;
-  }
-
-  // Create associative array of row data.
-  $row = array_combine($header, $data);
-
-  $user = create_or_update_user_from_csv($row, $update_existing, $log_file);
-
-  if ($user) {
-    if ($user->isNew()) {
-      $success_count++;
-      log_message("Successfully imported user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
-    }
-    else {
-      $updated_count++;
-      log_message("Successfully updated user '{$user->getAccountName()}' (UID: {$user->id()})", $log_file);
-    }
-  }
-  else {
-    $skipped_count++;
-  }
-
-  // Provide progress update every 100 records.
-  if ($row_count % 100 === 0) {
-    log_message("Progress: Processed {$row_count} users so far", $log_file);
-  }
-}
-
-// Close the input file.
-fclose($handle);
-
-// Log final statistics.
-log_message("Import completed. Total rows processed: {$row_count}", $log_file);
-log_message("Successfully imported: {$success_count}", $log_file);
-log_message("Successfully updated: {$updated_count}", $log_file);
-log_message("Errors: {$error_count}", $log_file);
-log_message("Skipped: {$skipped_count}", $log_file);
-
-if (check_limit_reached($success_count, $updated_count, $limit, $limit_type)) {
-  log_message("Import LIMIT REACHED ($limit users)", $log_file);
 }
 
 /**

@@ -13,6 +13,7 @@
  * Where [limit] is an optional number to limit the number of records processed.
  */
 
+use Drush\Log\DrushLoggerManager;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drush\Drush;
@@ -20,6 +21,8 @@ use Drupal\taxonomy\Entity\Term;
 
 // Include the user import functions.
 require_once __DIR__ . '/import-users.php';
+// Include the permit import functions.
+require_once __DIR__ . '/import-permits.php';
 
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
@@ -183,11 +186,13 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
  *
  * @param string $legacy_userid
  *   The legacy user ID.
+ * @param bool $import_if_not_found
+ *   Whether to import the user if not found.
  *
  * @return int|null
  *   The user ID, or NULL if not found or created.
  */
-function find_user_by_legacy_id($legacy_userid) {
+function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
 
   if (empty($legacy_userid)) {
@@ -211,6 +216,13 @@ function find_user_by_legacy_id($legacy_userid) {
     $uid = reset($uids);
     $_rcgr_import_logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
     return $uid;
+  }
+
+  // If we shouldn't import users, just log that we didn't find it and return NULL.
+  if (!$import_if_not_found) {
+    $_rcgr_users_not_found++;
+    $_rcgr_import_logger->debug("User with legacy ID {$legacy_userid} not found and auto-import disabled");
+    return NULL;
   }
 
   // Logger callback function for the import process that suppresses output.
@@ -261,6 +273,68 @@ function find_existing_report($permit_no, $report_year) {
 }
 
 /**
+ * Ensure permit exists and import it if necessary.
+ *
+ * @param string $permit_no
+ *   The permit number.
+ * @param \Drush\Log\DrushLoggerManager $logger
+ *   Logger object for messages.
+ *
+ * @return bool
+ *   TRUE if permit exists or was created, FALSE otherwise.
+ */
+function ensure_permit_exists(string $permit_no, DrushLoggerManager $logger): bool {
+  if (empty($permit_no)) {
+    return FALSE;
+  }
+
+  // Track permits we've already verified to avoid duplicate lookups.
+  static $verified_permits = [];
+
+  if (isset($verified_permits[$permit_no])) {
+    return TRUE;
+  }
+
+  // First, check if the permit already exists.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'permit')
+    ->condition('field_permit_no', $permit_no)
+    ->accessCheck(FALSE)
+    ->range(0, 1);
+
+  $nids = $query->execute();
+
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    $logger->notice(sprintf('Found existing permit %s with node ID %d', $permit_no, $nid));
+    $verified_permits[$permit_no] = TRUE;
+    return TRUE;
+  }
+
+  // If we get here, no existing permit was found, so we need to import it.
+  $logger->notice(sprintf('No existing permit found for %s, attempting to create it directly...', $permit_no));
+
+  // Create a minimal permit node.
+  try {
+    $node = Node::create([
+      'type' => 'permit',
+      'title' => $permit_no,
+      'field_permit_no' => $permit_no,
+      'status' => 1,
+    ]);
+
+    $node->save();
+    $logger->notice(sprintf('Successfully created basic permit %s (NID: %d)', $permit_no, $node->id()));
+    $verified_permits[$permit_no] = TRUE;
+    return TRUE;
+  }
+  catch (\Exception $e) {
+    $logger->error(sprintf('Error creating basic permit %s: %s', $permit_no, $e->getMessage()));
+    return FALSE;
+  }
+}
+
+/**
  * Process a single row of report data.
  *
  * @param array $data
@@ -291,11 +365,20 @@ function process_report_row(
 
   try {
     // Log the row being processed.
-    $_rcgr_import_logger->info('Processing @type report: Permit #@permit, Year: @year', [
-      '@type' => $is_revision ? 'historical' : 'current',
-      '@permit' => $data['permit_no'],
-      '@year' => $data['report_year'],
-    ]);
+    $_rcgr_import_logger->info(sprintf('Processing %s report: Permit #%s, Year: %s',
+      $is_revision ? 'historical' : 'current',
+      $data['permit_no'],
+      $data['report_year']
+    ));
+
+    // Check if the referenced permit exists, import it if not.
+    if (!empty($data['permit_no']) && !$is_revision) {
+      if (!ensure_permit_exists($data['permit_no'], $_rcgr_import_logger)) {
+        $_rcgr_import_logger->warning(sprintf('Missing permit %s for report, but continuing with import',
+          $data['permit_no']
+        ));
+      }
+    }
 
     // For revisions, try to find existing node.
     $existing_node = NULL;
@@ -327,9 +410,9 @@ function process_report_row(
           $node->setRevisionCreationTime($date->getTimestamp());
         }
         catch (\Exception $e) {
-          $_rcgr_import_logger->warning('Could not parse date from @date for revision', [
-            '@date' => $data['dt_update'],
-          ]);
+          $_rcgr_import_logger->warning(sprintf('Could not parse date from %s for revision',
+            $data['dt_update']
+          ));
         }
       }
     }
@@ -343,11 +426,11 @@ function process_report_row(
         $is_update = TRUE;
 
         // If the report exists, update it rather than creating a new one.
-        $_rcgr_import_logger->info('Updating existing report (NID: @nid) for permit #@permit, year @year', [
-          '@nid' => $node->id(),
-          '@permit' => $data['permit_no'],
-          '@year' => $data['report_year'],
-        ]);
+        $_rcgr_import_logger->info(sprintf('Updating existing report (NID: %d) for permit #%s, year %s',
+          $node->id(),
+          $data['permit_no'],
+          $data['report_year']
+        ));
       }
       else {
         // Generate a title that combines permit number and year.
@@ -360,10 +443,10 @@ function process_report_row(
           'status' => 1,
         ]);
 
-        $_rcgr_import_logger->info('Creating new report for permit #@permit, year @year', [
-          '@permit' => $data['permit_no'],
-          '@year' => $data['report_year'],
-        ]);
+        $_rcgr_import_logger->info(sprintf('Creating new report for permit #%s, year %s',
+          $data['permit_no'],
+          $data['report_year']
+        ));
 
         // Set creation time if dt_create is available.
         if (!empty($data['dt_create'])) {
@@ -372,9 +455,9 @@ function process_report_row(
             $node->setCreatedTime($date->getTimestamp());
           }
           catch (\Exception $e) {
-            $_rcgr_import_logger->warning('Could not parse creation date from @date', [
-              '@date' => $data['dt_create'],
-            ]);
+            $_rcgr_import_logger->warning(sprintf('Could not parse creation date from %s',
+              $data['dt_create']
+            ));
           }
         }
       }
@@ -386,16 +469,16 @@ function process_report_row(
           $node->setChangedTime($date->getTimestamp());
         }
         catch (\Exception $e) {
-          $_rcgr_import_logger->warning('Could not parse update date from @date', [
-            '@date' => $data['dt_update'],
-          ]);
+          $_rcgr_import_logger->warning(sprintf('Could not parse update date from %s',
+            $data['dt_update']
+          ));
         }
       }
     }
 
     // Associate the report entity with a user based on legacy userid.
     if (!empty($data['create_by'])) {
-      $uid = find_user_by_legacy_id($data['create_by']);
+      $uid = find_user_by_legacy_id($data['create_by'], FALSE);
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
@@ -407,10 +490,10 @@ function process_report_row(
       if (!isset($data[$csv_field])) {
         // Skip non-existent fields without logging for historical revisions.
         if (!$is_revision) {
-          $_rcgr_import_logger->notice('Field @field not found in CSV data for permit #@permit', [
-            '@field' => $csv_field,
-            '@permit' => $data['permit_no'],
-          ]);
+          $_rcgr_import_logger->notice(sprintf('Field %s not found in CSV data for permit #%s',
+            $csv_field,
+            $data['permit_no']
+          ));
         }
         continue;
       }
@@ -445,7 +528,7 @@ function process_report_row(
 
     // For revisions, set the revision author if we can find a matching user.
     if ($is_revision && !empty($data['update_by'])) {
-      $uid = find_user_by_legacy_id($data['update_by']);
+      $uid = find_user_by_legacy_id($data['update_by'], FALSE);
       if ($uid) {
         $node->setRevisionUserId($uid);
       }
@@ -521,7 +604,7 @@ function load_csv_data($file_path, $logger) {
 [$history_success, $history_data] = load_csv_data($history_csv_file, $logger);
 
 if (!$current_success) {
-  $_rcgr_import_logger->error('Failed to load current CSV file: @file', ['@file' => $current_csv_file]);
+  $_rcgr_import_logger->error(sprintf('Failed to load current CSV file: %s', $current_csv_file));
   exit(1);
 }
 
@@ -542,7 +625,7 @@ if ($history_success) {
     }
   }
   fclose($history_data['handle']);
-  $_rcgr_import_logger->notice('Loaded @count sets of historical records.', ['@count' => count($historical_records)]);
+  $_rcgr_import_logger->notice(sprintf('Loaded %d sets of historical records.', count($historical_records)));
 }
 else {
   $_rcgr_import_logger->warning('History CSV file not found or could not be read. Only current records will be imported.');
@@ -635,19 +718,21 @@ if ($current_data) {
 }
 
 // Log the final statistics.
-$_rcgr_import_logger->notice('Import complete. Processed @total records: @created created/updated, @revisions revisions, @skipped skipped, @errors errors.', [
-  '@total' => $total,
-  '@created' => $created,
-  '@revisions' => $revisions_created,
-  '@skipped' => $skipped,
-  '@errors' => $errors,
-]);
+$_rcgr_import_logger->notice(sprintf(
+  'Import complete. Processed %d records: %d created/updated, %d revisions, %d skipped, %d errors.',
+  $total,
+  $created,
+  $revisions_created,
+  $skipped,
+  $errors
+));
 
 if ($_rcgr_users_imported > 0 || $_rcgr_users_not_found > 0) {
-  $_rcgr_import_logger->notice('User statistics: @imported imported, @not_found not found.', [
-    '@imported' => $_rcgr_users_imported,
-    '@not_found' => $_rcgr_users_not_found,
-  ]);
+  $_rcgr_import_logger->notice(sprintf(
+    'User statistics: %d imported, %d not found.',
+    $_rcgr_users_imported,
+    $_rcgr_users_not_found
+  ));
 }
 
 /**
@@ -659,11 +744,13 @@ if ($_rcgr_users_imported > 0 || $_rcgr_users_not_found > 0) {
  *   The path to the source CSV file.
  * @param array $field_mapping
  *   The field mapping configuration.
+ * @param bool $suppress_not_found_warnings
+ *   Whether to suppress "Node not found" warnings.
  *
  * @return array
  *   An array containing audit results.
  */
-function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
+function perform_data_audit(array $processed_nodes, string $csv_file, array $field_mapping, bool $suppress_not_found_warnings = FALSE): array {
   global $_rcgr_import_logger;
 
   $audit_results = [
@@ -672,26 +759,27 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
     'mismatched' => 0,
     'errors' => 0,
     'mismatches' => [],
+    'not_found' => 0,
   ];
 
   $_rcgr_import_logger->notice('Starting data audit to verify imported data against source CSV.');
 
   // Load CSV data.
   if (!file_exists($csv_file)) {
-    $_rcgr_import_logger->error('CSV file not found: @file', ['@file' => $csv_file]);
+    $_rcgr_import_logger->error(sprintf('CSV file not found: %s', $csv_file));
     return $audit_results;
   }
 
   $handle = fopen($csv_file, 'r');
   if ($handle === FALSE) {
-    $_rcgr_import_logger->error('Could not open CSV file: @file', ['@file' => $csv_file]);
+    $_rcgr_import_logger->error(sprintf('Could not open CSV file: %s', $csv_file));
     return $audit_results;
   }
 
   // Process the header row.
   $header = fgetcsv($handle);
   if ($header === FALSE) {
-    $_rcgr_import_logger->error('CSV file is empty or improperly formatted: @file', ['@file' => $csv_file]);
+    $_rcgr_import_logger->error(sprintf('CSV file is empty or improperly formatted: %s', $csv_file));
     fclose($handle);
     return $audit_results;
   }
@@ -713,10 +801,13 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
 
     // Check if this node was processed.
     if (!isset($processed_nodes[$key])) {
-      $_rcgr_import_logger->warning('Node not found for permit @permit, year @year', [
-        '@permit' => $data['permit_no'],
-        '@year' => $data['report_year'],
-      ]);
+      if (!$suppress_not_found_warnings) {
+        $_rcgr_import_logger->warning(sprintf('Node not found for permit %s, year %s',
+          $data['permit_no'],
+          $data['report_year']
+        ));
+      }
+      $audit_results['not_found']++;
       continue;
     }
 
@@ -725,11 +816,11 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
     $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
 
     if (!$node) {
-      $_rcgr_import_logger->error('Could not load node @nid for permit @permit, year @year', [
-        '@nid' => $nid,
-        '@permit' => $data['permit_no'],
-        '@year' => $data['report_year'],
-      ]);
+      $_rcgr_import_logger->error(sprintf('Could not load node %d for permit %s, year %s',
+        $nid,
+        $data['permit_no'],
+        $data['report_year']
+      ));
       $audit_results['errors']++;
       continue;
     }
@@ -752,10 +843,10 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
 
       // Get the node value.
       if (!$node->hasField($drupal_field)) {
-        $_rcgr_import_logger->warning('Field @field does not exist on node @nid', [
-          '@field' => $drupal_field,
-          '@nid' => $nid,
-        ]);
+        $_rcgr_import_logger->warning(sprintf('Field %s does not exist on node %d',
+          $drupal_field,
+          $nid
+        ));
         continue;
       }
 
@@ -810,29 +901,30 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
   fclose($handle);
 
   // Log audit results.
-  $_rcgr_import_logger->notice('Data audit complete. Processed @total records: @matched matched, @mismatched mismatched, @errors errors.', [
-    '@total' => $audit_results['total'],
-    '@matched' => $audit_results['matched'],
-    '@mismatched' => $audit_results['mismatched'],
-    '@errors' => $audit_results['errors'],
-  ]);
+  $_rcgr_import_logger->notice(sprintf(
+    'Data audit complete. Processed %d records: %d matched, %d mismatched, %d errors.',
+    $audit_results['total'],
+    $audit_results['matched'],
+    $audit_results['mismatched'],
+    $audit_results['errors']
+  ));
 
   // Log details of mismatches for troubleshooting.
   if ($audit_results['mismatched'] > 0) {
     $_rcgr_import_logger->warning('Data mismatches found. See details below:');
     foreach ($audit_results['mismatches'] as $mismatch) {
-      $_rcgr_import_logger->warning('Mismatch for node @nid (Permit: @permit, Year: @year):', [
-        '@nid' => $mismatch['nid'],
-        '@permit' => $mismatch['permit'],
-        '@year' => $mismatch['year'],
-      ]);
+      $_rcgr_import_logger->warning(sprintf('Mismatch for node %d (Permit: %s, Year: %s):',
+        $mismatch['nid'],
+        $mismatch['permit'],
+        $mismatch['year']
+      ));
 
       foreach ($mismatch['mismatches'] as $field => $values) {
-        $_rcgr_import_logger->warning('  - Field @field: CSV=\'@csv\', Node=\'@node\'', [
-          '@field' => $field,
-          '@csv' => $values['csv'],
-          '@node' => $values['node'],
-        ]);
+        $_rcgr_import_logger->warning(sprintf('  - Field %s: CSV=\'%s\', Node=\'%s\'',
+          $field,
+          $values['csv'],
+          $values['node']
+        ));
       }
     }
   }
@@ -844,7 +936,7 @@ function perform_data_audit($processed_nodes, $csv_file, $field_mapping) {
 // Perform data audit if records were successfully processed.
 if ($processed > 0) {
   $_rcgr_import_logger->notice('Starting data audit to verify imported data.');
-  $audit_results = perform_data_audit($processed_nodes, $current_csv_file, $field_mapping);
+  $audit_results = perform_data_audit($processed_nodes, $current_csv_file, $field_mapping, TRUE);
 
   // Output audit summary.
   echo "\nData Audit Results:\n";
@@ -852,4 +944,5 @@ if ($processed > 0) {
   echo "Records matched: {$audit_results['matched']}\n";
   echo "Records with mismatches: {$audit_results['mismatched']}\n";
   echo "Errors: {$audit_results['errors']}\n";
+  echo "Not found: {$audit_results['not_found']}\n";
 }
