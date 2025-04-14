@@ -1,0 +1,140 @@
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.field.node.report.field_control_program_id
+    - field.field.node.report.field_control_region
+    - field.field.node.report.field_control_site_id
+    - field.field.node.report.field_create_by
+    - field.field.node.report.field_dt_create
+    - field.field.node.report.field_dt_update
+    - field.field.node.report.field_hid
+    - field.field.node.report.field_location_county
+    - field.field.node.report.field_location_state
+    - field.field.node.report.field_permit_no
+    - field.field.node.report.field_program_id
+    - field.field.node.report.field_qty_nest_egg_destroyed_apr
+    - field.field.node.report.field_qty_nest_egg_destroyed_jun
+    - field.field.node.report.field_qty_nest_egg_destroyed_mar
+    - field.field.node.report.field_qty_nest_egg_destroyed_may
+    - field.field.node.report.field_qty_nest_egg_destroyed_tot
+    - field.field.node.report.field_rcf_cd
+    - field.field.node.report.field_recno
+    - field.field.node.report.field_region
+    - field.field.node.report.field_report_year
+    - field.field.node.report.field_site_id
+    - field.field.node.report.field_update_by
+    - field.field.node.report.field_version_no
+    - field.field.node.report.field_xml_cd
+    - node.type.report
+  module:
+    - datetime
+    - user
+id: node.report.default
+targetEntityType: node
+bundle: report
+mode: default
+content:
+  field_permit_no:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_report_year:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_location_state:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_location_county:
+    type: string
+    label: above
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_qty_nest_egg_destroyed_mar:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_qty_nest_egg_destroyed_apr:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_qty_nest_egg_destroyed_may:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_qty_nest_egg_destroyed_jun:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_qty_nest_egg_destroyed_tot:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_version_no:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  field_control_program_id: TRUE
+  field_control_region: TRUE
+  field_control_site_id: TRUE
+  field_create_by: TRUE
+  field_dt_create: TRUE
+  field_dt_update: TRUE
+  field_hid: TRUE
+  field_program_id: TRUE
+  field_rcf_cd: TRUE
+  field_recno: TRUE
+  field_region: TRUE
+  field_site_id: TRUE
+  field_update_by: TRUE
+  field_xml_cd: TRUE
+  links: TRUE
