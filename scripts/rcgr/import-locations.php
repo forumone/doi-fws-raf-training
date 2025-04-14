@@ -208,7 +208,11 @@ $field_mapping = [
   'ca_access_key' => 'field_ca_access_key',
   'version_no' => 'field_version_no',
   'hid' => 'field_hid',
+  'program_id' => 'field_program_id',
+  'region' => 'field_region',
   'site_id' => 'field_site_id',
+  'control_program_id' => 'field_control_program_id',
+  'control_region' => 'field_control_region',
   'control_site_id' => 'field_control_site_id',
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
@@ -593,7 +597,14 @@ function process_location_row(
         case 'field_location_qty_nest_egg_may':
         case 'field_location_qty_nest_egg_jun':
         case 'field_location_qty_nest_egg_tot':
-          $node->set($drupal_field, (int) $value);
+          // For quantity fields, add extra debugging.
+          $int_value = (int) $value;
+          $_rcgr_import_logger->notice('Setting @field to @value (raw: "@raw")', [
+            '@field' => $drupal_field,
+            '@value' => $int_value,
+            '@raw' => $value,
+          ]);
+          $node->set($drupal_field, $int_value);
           break;
 
         case 'field_rcf_cd':
@@ -829,7 +840,11 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
     'ca_access_key' => 'field_ca_access_key',
     'version_no' => 'field_version_no',
     'hid' => 'field_hid',
+    'program_id' => 'field_program_id',
+    'region' => 'field_region',
     'site_id' => 'field_site_id',
+    'control_program_id' => 'field_control_program_id',
+    'control_region' => 'field_control_region',
     'control_site_id' => 'field_control_site_id',
     'dt_create' => 'field_dt_create',
     'dt_update' => 'field_dt_update',

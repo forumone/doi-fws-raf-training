@@ -275,6 +275,35 @@ $_rcgr_permit_field_mapping = [
   'registrant_type_cd' => 'field_registrant_type_cd',
   'permit_status_cd' => 'field_permit_status_cd',
   'version_no' => 'field_version_no',
+  'bi_cd' => 'field_bi_cd',
+  'permit_type_cd' => 'field_permit_type_cd',
+
+  // Business info.
+  'applicant_business_name' => 'field_business_name',
+  'applicant_business_desc' => 'field_applicant_business_desc',
+
+  // Applicant info.
+  'applicant_last_name' => 'field_applicant_last_name',
+  'applicant_first_name' => 'field_applicant_first_name',
+  'applicant_middle_name' => 'field_applicant_middle_name',
+  'applicant_prefix' => 'field_applicant_prefix',
+  'applicant_suffix' => 'field_applicant_suffix',
+
+  // Applicant contact.
+  'applicant_home_phone' => 'field_home_phone',
+  'applicant_work_phone' => 'field_work_phone',
+  'applicant_email_address' => 'field_applicant_email_address',
+
+  // Applicant address.
+  'applicant_address_l1' => 'field_applicant_address_l1',
+  'applicant_address_l2' => 'field_applicant_address_l2',
+  'applicant_address_l3' => 'field_applicant_address_l3',
+  'applicant_county' => 'field_applicant_county',
+  'applicant_city' => 'field_applicant_city',
+  'applicant_state' => 'field_applicant_state',
+  'applicant_zip' => 'field_zip',
+
+  // Principal information.
   'principal_name' => 'field_principal_name',
   'principal_first_name' => 'field_principal_first_name',
   'principal_middle_name' => 'field_principal_middle_name',
@@ -282,6 +311,19 @@ $_rcgr_permit_field_mapping = [
   'principal_suffix' => 'field_principal_suffix',
   'principal_title' => 'field_principal_title',
   'principal_telephone' => 'field_principal_telephone',
+
+  // Primary contact.
+  'primary_contact_name' => 'field_primary_contact_name',
+  'primary_contact_telephone' => 'field_primary_contact_phone',
+  'primary_contact_email_address' => 'field_primary_contact_email',
+
+  // Agreements and signature.
+  'applicant_agreement1' => 'field_applicant_agreement1',
+  'applicant_agreement2' => 'field_applicant_agreement2',
+  'applicant_agreement3' => 'field_applicant_agreement3',
+  'applicant_signed' => 'field_applicant_signed',
+
+  // Dates.
   'dt_signed' => 'field_dt_signed',
   'dt_permit_request' => 'field_dt_permit_request',
   'dt_permit_issued' => 'field_dt_permit_issued',
@@ -289,15 +331,22 @@ $_rcgr_permit_field_mapping = [
   'dt_expired' => 'field_dt_expired',
   'dt_applicant_signed' => 'field_dt_applicant_signed',
   'dt_application_received' => 'field_dt_application_received',
-  'create_by' => 'field_create_by',
-  'update_by' => 'field_update_by',
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
+
+  // Other fields.
+  'applicant_request_type' => 'field_applicant_request_type',
+  'create_by' => 'field_create_by',
+  'update_by' => 'field_update_by',
   'xml_cd' => 'field_xml_cd',
   'rcf_cd' => 'field_rcf_cd',
   'hid' => 'field_hid',
   'site_id' => 'field_site_id',
   'control_site_id' => 'field_control_site_id',
+  'program_id' => 'field_program_id',
+  'region' => 'field_region',
+  'control_program_id' => 'field_control_program_id',
+  'control_region' => 'field_control_region',
 ];
 
 /**
@@ -610,14 +659,18 @@ function import_permit_by_id($permit_no, $csv_file = NULL, ?callable $logger = N
     ->range(0, 1);
   $nids = $query->execute();
 
+  $node = NULL;
+
   if (!empty($nids)) {
     $nid = reset($nids);
-    $logger("Permit for ID $permit_no already exists (NID: $nid)");
-    return Node::load($nid);
+    $logger("Permit for ID $permit_no already exists (NID: $nid), updating it.");
+    $node = Node::load($nid);
+    if (!$node) {
+      $logger("Error: Could not load existing permit node $nid");
+      return NULL;
+    }
   }
-
-  // Create a new permit node.
-  try {
+  else {
     // Check if we have the principal_name field for the title.
     $has_principal_name = isset($found_row['principal_name']) && !empty($found_row['principal_name']);
 
@@ -625,19 +678,73 @@ function import_permit_by_id($permit_no, $csv_file = NULL, ?callable $logger = N
       sprintf('Permit %s - %s', $permit_no, $found_row['principal_name']) :
       "Permit $permit_no";
 
+    // Create a new permit node.
     $node = Node::create([
       'type' => 'permit',
       'title' => $title,
       'field_permit_no' => $permit_no,
       'status' => 1,
     ]);
+    $logger("Creating new permit node for ID $permit_no");
+  }
 
-    // Map and set field values based on the permit_field_mapping.
+  // Map and set field values based on the permit_field_mapping.
+  try {
     global $_rcgr_permit_field_mapping;
+
+    // Define vocabulary fields that need special handling.
+    $taxonomy_fields = [
+      'permit_status_cd' => 'permit_status_cd',
+      'registrant_type_cd' => 'registrant_type_cd',
+    ];
+
     foreach ($_rcgr_permit_field_mapping as $csv_field => $drupal_field) {
       if (isset($found_row[$csv_field]) && $found_row[$csv_field] !== '') {
         try {
-          $node->set($drupal_field, $found_row[$csv_field]);
+          // Check if the field exists on the node.
+          if (!$node->hasField($drupal_field)) {
+            $logger("Warning: Field '$drupal_field' does not exist on permit node for CSV field '$csv_field'");
+            continue;
+          }
+
+          // Handle taxonomy reference fields differently.
+          if (isset($taxonomy_fields[$csv_field])) {
+            $vocabulary = $taxonomy_fields[$csv_field];
+            $value = $found_row[$csv_field];
+
+            // Look up the term by name.
+            $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+            $terms = $term_storage->loadByProperties([
+              'vid' => $vocabulary,
+              'name' => $value,
+            ]);
+
+            if (!empty($terms)) {
+              $term = reset($terms);
+              $logger("Setting taxonomy field $drupal_field to term ID {$term->id()} ({$term->getName()})");
+              $node->set($drupal_field, ['target_id' => $term->id()]);
+            }
+            else {
+              // Create the term if it doesn't exist.
+              try {
+                $term = Term::create([
+                  'vid' => $vocabulary,
+                  'name' => $value,
+                ]);
+                $term->save();
+                $logger("Created new taxonomy term '{$term->getName()}' and setting field $drupal_field");
+                $node->set($drupal_field, ['target_id' => $term->id()]);
+              }
+              catch (\Exception $e) {
+                $logger("Warning: Could not create taxonomy term for $value: " . $e->getMessage());
+              }
+            }
+          }
+          else {
+            // For regular fields, just set the value directly.
+            $logger("Setting field $drupal_field to: " . $found_row[$csv_field]);
+            $node->set($drupal_field, $found_row[$csv_field]);
+          }
         }
         catch (\Exception $field_error) {
           $logger("Warning: Could not set field '$drupal_field' for permit $permit_no: " . $field_error->getMessage());
@@ -646,12 +753,19 @@ function import_permit_by_id($permit_no, $csv_file = NULL, ?callable $logger = N
       }
     }
 
+    // Update the title if principal_name was found and this is an existing node.
+    if (!empty($nids) && isset($found_row['principal_name']) && !empty($found_row['principal_name'])) {
+      $title = sprintf('Permit %s - %s', $permit_no, $found_row['principal_name']);
+      $node->setTitle($title);
+      $logger("Updated node title to: $title");
+    }
+
     $node->save();
-    $logger("Successfully imported permit for ID $permit_no (NID: {$node->id()})");
+    $logger("Successfully imported/updated permit for ID $permit_no (NID: {$node->id()})");
     return $node;
   }
   catch (\Exception $e) {
-    $error_msg = "Error creating permit for ID $permit_no: " . $e->getMessage();
+    $error_msg = "Error creating/updating permit for ID $permit_no: " . $e->getMessage();
     $logger($error_msg);
     if (class_exists('\Drush\Drush')) {
       Drush::logger()->error($error_msg);
