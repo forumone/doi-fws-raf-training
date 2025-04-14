@@ -37,7 +37,7 @@
     <div class="permit__column permit__column--left">
       <div class="form-number">FWS Form 3-186a (Rev. 01/2020)</div>
       <div class="department">U.S. Department of the Interior</div>
-      BADGE
+      [INSERT BADGE]
       <div class="office-use-label">USFWS Use Only</div>
       <span>Received in Regional Office on</span>
       <span>_______/_______/_______</span>
@@ -55,7 +55,7 @@
     <div class="permit__column permit__column--right">
       <div class="omb-number">OMB Control No. 1018-00</div>
       <div class="expiration">Expires {{ "now"|date_modify("+1 year")|date("m/d/Y") }}</div>
-      BADGE
+      [INSERT BADGE]
     </div>
   </div>
 
@@ -65,53 +65,60 @@
       <div class="section-number">1</div>
       <div class="section-content">
 
-        <div class="field-row field-row--species">
-          <div class="field-label">Species:</div>
-          <div class="field-value">{{ content.field_species_name }}</div>
-        </div>
+        <div class="section-groups">
+          <div class="section-group">
 
-        <div class="field-row field-row--sex">
-          <div class="field-label">Sex:</div>
-          <div class="field-value checkbox-field">
-            {% set species_sex = content.field_species_sex|field_value.0['#plain_text']|default('') %}
-            <span class="checkbox {% if species_sex == 'FEMALE' %}checked{% endif %}">{% if species_sex == 'FEMALE' %}☑{% else %}☐{% endif %}</span> Female
-            <span class="checkbox {% if species_sex == 'MALE' %}checked{% endif %}">{% if species_sex == 'MALE' %}☑{% else %}☐{% endif %}</span> Male
-            <span class="checkbox {% if species_sex == 'Unknown' or species_sex == '' %}checked{% endif %}">{% if species_sex == 'Unknown' or species_sex == '' %}☑{% else %}☐{% endif %}</span> Unknown
+            <div class="field-row field-row--species">
+              <div class="field-label">Species:</div>
+              <div class="field-value">{{ content.field_species_name }}</div>
+            </div>
+
+            <div class="field-row field-row--sex">
+              <div class="field-label">Sex:</div>
+              <div class="field-value checkbox-field">
+                {% set species_sex = content.field_species_sex|field_value.0['#plain_text']|default('') %}
+                <span class="checkbox {% if species_sex == 'FEMALE' %}checked{% endif %}"></span><span>Female</span>
+                <span class="checkbox {% if species_sex == 'MALE' %}checked{% endif %}"></span><span>Male</span>
+                <span class="checkbox {% if species_sex == 'UNKNOWN' or species_sex == '' %}checked{% endif %}"></span><span>Unknown</span>
+              </div>
+            </div>
+
+            <div class="field-row field-row--source">
+              <div class="field-label">Source:</div>
+              <div class="field-value checkbox-field">
+                {% set species_source = content.field_species_source|field_value.0['#plain_text']|default('') %}
+                <span class="checkbox {% if species_source == 'WILD' %}checked{% endif %}"></span><span>Wild</span>
+                <span class="checkbox {% if species_source == 'CAPTIVE-BRED' %}checked{% endif %}"></span><span>Captive-bred</span>
+              </div>
+            </div>
+
+            <div class="field-row field-row--age">
+              <div class="field-label">Age:</div>
+              <div class="field-value checkbox-field">
+                {% set species_age = content.field_species_age|field_value.0['#plain_text']|default('') %}
+                <span class="checkbox {% if species_age == 'ADULT' %}checked{% endif %}"></span><span>Adult</span>
+                <span class="checkbox {% if species_age == 'JUVENILE' %}checked{% endif %}"></span><span>Juvenile</span>
+                <span class="checkbox {% if species_age == 'UNKNOWN' or species_age == '' %}checked{% endif %}"></span><span>Unknown</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="field-row field-row--source">
-          <div class="field-label">Source:</div>
-          <div class="field-value checkbox-field">
-            {% set species_source = content.field_species_source|field_value.0['#plain_text']|default('') %}
-            <span class="checkbox {% if species_source == 'WILD' %}checked{% endif %}">{% if species_source == 'WILD' %}☑{% else %}☐{% endif %}</span> Wild
-            <span class="checkbox {% if species_source == 'CAPTIVE_BRED' %}checked{% endif %}">{% if species_source == 'CAPTIVE-BRED' %}☑{% else %}☐{% endif %}</span> Captive-bred
+          <div class="section-group">
+          <div class="field-row field-row--band-number">
+            <div class="field-label">USFWS Band Number:</div>
+            <div class="field-value">{{ content.field_species_band_no }}</div>
+            </div>
+
+            <div class="field-row field-row--wild-microchip-number">
+              <div class="field-label">Wild Microchip Number:</div>
+              <div class="field-value">{{ content.field_species_microchip_no ? content.field_species_microchip_no : 'Unknown' }}</div>
+            </div>
+
+            <div class="field-row field-row--hatch-year">
+              <div class="field-label">Year of Hatch:</div>
+              <div class="field-value">{{ content.field_species_hatch_year }}</div>
+            </div>
           </div>
-        </div>
-
-        <div class="field-row field-row--age">
-          <div class="field-label">Age:</div>
-          <div class="field-value checkbox-field">
-            {% set species_age = content.field_species_age|field_value.0['#plain_text']|default('') %}
-            <span class="checkbox {% if species_age == 'ADULT' %}checked{% endif %}">{% if species_age == 'ADULT' %}☑{% else %}☐{% endif %}</span> Adult
-            <span class="checkbox {% if species_age == 'JUVENILE' %}checked{% endif %}">{% if species_age == 'JUVENILE' %}☑{% else %}☐{% endif %}</span> Juvenile
-            <span class="checkbox {% if species_age == 'Unknown' or species_age == '' %}checked{% endif %}">{% if species_age == 'Unknown' or species_age == '' %}☑{% else %}☐{% endif %}</span> Unknown
-          </div>
-        </div>
-
-        <div class="field-row field-row--band-number">
-          <div class="field-label">USFWS Band Number:</div>
-          <div class="field-value">{{ content.field_species_band_no }}</div>
-        </div>
-
-        <div class="field-row field-row--wild-microchip-number">
-          <div class="field-label">Wild Microchip Number:</div>
-          <div class="field-value">{{ content.field_species_microchip_no ? content.field_species_microchip_no : 'Unknown' }}</div>
-        </div>
-
-        <div class="field-row field-row--hatch-year">
-          <div class="field-label">Year of Hatch:</div>
-          <div class="field-value">{{ content.field_species_hatch_year }}</div>
         </div>
       </div>
     </div>
@@ -122,104 +129,110 @@
       <div class="section-content">
         <div class="section-title">SENDER <span class="title-note">(person transferring bird)</span></div>
 
-        <div class="field-row field-row--group field-row--name">
-          <div class="field-label">Name:</div>
-          <div class="field-value">
-            {{ content.field_sender_first_name }}
-            {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
-            {{ content.field_sender_last_name }}
+        <div class="section-groups">
+          <div class="section-group">
+            <div class="field-row field-row--group field-row--name">
+              <div class="field-label">Name:</div>
+              <div class="field-value">
+                {{ content.field_sender_first_name }}
+                {% if content.field_sender_middle_name %} {{ content.field_sender_middle_name }} {% endif %}
+                {{ content.field_sender_last_name }}
+              </div>
+            </div>
+
+            <div class="field-row field-row--usfws-permit-no">
+              <div class="field-label">USFWS Permit No.:</div>
+              <div class="field-value">{{ content.field_sender_permit_no }}</div>
+            </div>
+
+            <div class="field-row field-row--date-of-transfer">
+              <div class="field-label">Date of Transfer (or other action):</div>
+              <div class="field-value">{{ content.field_sender_dt_transfer }}</div>
+            </div>
+
+            <div class="field-row field-row--address">
+              <div class="field-label">Address:</div>
+              <div class="field-value">{{ content.field_sender_street_address }}</div>
+            </div>
+
+            <div class="field-row field-row--city">
+              <div class="field-label">City:</div>
+              <div class="field-value">{{ content.field_sender_city }}</div>
+
+              <div class="field-label mid-aligned">State:</div>
+              <div class="field-value">{{ content.field_sender_st_cd }}</div>
+
+              <div class="field-label mid-aligned">Zip:</div>
+              <div class="field-value">{{ content.field_sender_zip_cd }}</div>
+            </div>
+          </div>
+
+          <div class="section-group">
+            <div class="field-row field-row--email">
+              <div class="field-label">E-Mail Address:</div>
+              <div class="field-value">{{ content.field_sender_email_address }}</div>
+            </div>
+
+            <div class="field-row field-row--permit">
+              <div class="field-label">Permit:</div>
+              <div class="field-value checkbox-field">
+                {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'CAPTIVE-BREEDING' %}
+                  <span class="checkbox checked"></span><span>Captive Breeding</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Captive Breeding</span>
+                {% endif %}
+                {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'FALCONRY' %}
+                  <span class="checkbox checked"></span><span>Falconry</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Falconry</span>
+                {% endif %}
+                {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'RAPTOR-PROPAGATION' %}
+                  <span class="checkbox checked"></span><span>Raptor Propagation</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Raptor Propagation</span>
+                {% endif %}
+                {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'OTHER' %}
+                  <span class="checkbox checked"></span><span>Other</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Other</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="field-row field-row--transfer">
+              <div class="field-label">Transfer:</div>
+              <div class="field-value checkbox-field">
+                {% if content.field_sender_transfer_type_cd|field_value.0['#plain_text']|default('') == 'GIFT' %}
+                  <span class="checkbox checked"></span><span>Gift</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Gift</span>
+                {% endif %}
+                {% if content.field_sender_transfer_type_cd|field_value.0['#plain_text']|default('') == 'PURCHASE-SALE-BARTER' %}
+                  <span class="checkbox checked"></span><span>Purchase/Sale/Barter</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Purchase/Sale/Barter</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="field-row field-row--release-loss">
+              <div class="field-label">If Release or Loss:</div>
+              <div class="field-value checkbox-field">
+                {% if content.field_sender_release_cd|field_value.0['#plain_text']|default('') == 'LOSS' or 'RELEASE' %}
+                  <span class="checkbox checked"></span>
+                {% else %}
+                  <span class="checkbox"></span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="field-row field-row--cause-of-death">
+              <div class="field-label">Cause of Death:</div>
+              <div class="field-value">{{ content.field_sender_cause_of_death }}</div>
+            </div>
+
           </div>
         </div>
-
-        <div class="field-row field-row--usfws-permit-no">
-          <div class="field-label">USFWS Permit No.:</div>
-          <div class="field-value">{{ content.field_sender_permit_no }}</div>
-        </div>
-
-        <div class="field-row field-row--date-of-transfer">
-          <div class="field-label">Date of Transfer (or other action):</div>
-          <div class="field-value">{{ content.field_sender_dt_transfer }}</div>
-        </div>
-
-        <div class="field-row field-row--address">
-          <div class="field-label">Address:</div>
-          <div class="field-value">{{ content.field_sender_street_address }}</div>
-        </div>
-
-        <div class="field-row field-row--city">
-          <div class="field-label">City:</div>
-          <div class="field-value">{{ content.field_sender_city }}</div>
-
-          <div class="field-label mid-aligned">State:</div>
-          <div class="field-value">{{ content.field_sender_st_cd }}</div>
-
-          <div class="field-label mid-aligned">Zip:</div>
-          <div class="field-value">{{ content.field_sender_zip_cd }}</div>
-        </div>
-
-        <div class="field-row field-row--email">
-          <div class="field-label">E-Mail Address:</div>
-          <div class="field-value">{{ content.field_sender_email_address }}</div>
-        </div>
-
-        <div class="field-row field-row--permit">
-          <div class="field-label">Permit:</div>
-          <div class="field-value checkbox-field">
-            {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'CAPTIVE-BREEDING' %}
-              <span class="checkbox checked">☑</span> Captive Breeding
-            {% else %}
-              <span class="checkbox">☐</span> Captive Breeding
-            {% endif %}
-            {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'FALCONRY' %}
-              <span class="checkbox checked">☑</span> Falconry
-            {% else %}
-              <span class="checkbox">☐</span> Falconry
-            {% endif %}
-            {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'RAPTOR-PROPAGATION' %}
-              <span class="checkbox checked">☑</span> Raptor Propagation
-            {% else %}
-              <span class="checkbox">☐</span> Raptor Propagation
-            {% endif %}
-            {% if content.field_sender_permit_type_cd|field_value.0['#plain_text']|default('') == 'OTHER' %}
-              <span class="checkbox checked">☑</span> Other
-            {% else %}
-              <span class="checkbox">☐</span> Other
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="field-row field-row--transfer">
-          <div class="field-label">Transfer:</div>
-          <div class="field-value checkbox-field">
-            {% if content.field_sender_transfer_type_cd|field_value.0['#plain_text']|default('') == 'GIFT' %}
-              <span class="checkbox checked">☑</span> Gift
-            {% else %}
-              <span class="checkbox">☐</span> Gift
-            {% endif %}
-            {% if content.field_sender_transfer_type_cd|field_value.0['#plain_text']|default('') == 'PURCHASE-SALE-BARTER' %}
-              <span class="checkbox checked">☑</span> Purchase/Sale/Barter
-            {% else %}
-              <span class="checkbox">☐</span> Purchase/Sale/Barter
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="field-row field-row--release-loss">
-          <div class="field-label">If Release or Loss:</div>
-          <div class="field-value checkbox-field">
-            {% if content.field_sender_release_cd|field_value.0['#plain_text']|default('') == 'LOSS' or 'RELEASE' %}
-              <span class="checkbox checked">☑</span>
-            {% else %}
-              <span class="checkbox">☐</span>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="field-row field-row--cause-of-death">
-          <div class="field-label">Cause of Death:</div>
-          <div class="field-value">{{ content.field_sender_cause_of_death }}</div>
-        </div>
-
       </div>
     </div>
 
@@ -229,85 +242,92 @@
       <div class="section-content">
         <div class="section-title">RECIPIENT <span class="title-note">(person acquiring bird)</span></div>
 
-        <div class="field-row field-row--group field-row--name">
-          <div class="field-label">Name:</div>
-          <div class="field-value">
-            {{ content.field_recipient_first_name }}
-            {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
-            {{ content.field_recipient_last_name }}
+        <div class="section-groups">
+          <div class="section-group">
+            <div class="field-row field-row--group field-row--name">
+              <div class="field-label">Name:</div>
+              <div class="field-value">
+                {{ content.field_recipient_first_name }}
+                {% if content.field_recipient_middle_name %} {{ content.field_recipient_middle_name }} {% endif %}
+                {{ content.field_recipient_last_name }}
+              </div>
+            </div>
+
+            <div class="field-row field-row--usfws-permit-no">
+              <div class="field-label">USFWS Permit No.:</div>
+              <div class="field-value">{{ content.field_recipient_permit_no }}</div>
+            </div>
+
+            <div class="field-row field-row--date-of-acquisition">
+              <div class="field-label">Date of Acquisition:</div>
+              <div class="field-value">{{ content.field_recipient_dt_acquired }}</div>
+            </div>
+
+            <div class="field-row field-row--address">
+              <div class="field-label">Address:</div>
+              <div class="field-value">{{ content.field_recipient_street_address }}</div>
+            </div>
+
+            <div class="field-row field-row--city">
+              <div class="field-label">City:</div>
+              <div class="field-value">{{ content.field_recipient_city }}</div>
+
+              <div class="field-label mid-aligned">State:</div>
+              <div class="field-value">{{ content.field_recipient_st_cd }}</div>
+
+              <div class="field-label mid-aligned">Zip:</div>
+              <div class="field-value">{{ content.field_recipient_zip_cd }}</div>
+            </div>
           </div>
-        </div>
 
-        <div class="field-row field-row--usfws-permit-no">
-          <div class="field-label">USFWS Permit No.:</div>
-          <div class="field-value">{{ content.field_recipient_permit_no }}</div>
-        </div>
+          <div class="section-group">
+            <div class="field-row field-row--email">
+              <div class="field-label">E-Mail Address:</div>
+              <div class="field-value">{{ content.field_recipient_email_address }}</div>
+            </div>
 
-        <div class="field-row field-row--date-of-acquisition">
-          <div class="field-label">Date of Acquisition:</div>
-          <div class="field-value">{{ content.field_recipient_dt_acquired }}</div>
-        </div>
+            <div class="field-row field-row--permit">
+              <div class="field-label">Permit:</div>
+              <div class="field-value checkbox-field">
+                {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'CAPTIVE-BREEDING' %}
+                  <span class="checkbox checked"></span><span>Captive Breeding</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Captive Breeding</span>
+                {% endif %}
+                {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'FALCONRY' %}
+                  <span class="checkbox checked"></span><span>Falconry</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Falconry</span>
+                {% endif %}
+                {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'RAPTOR-PROPAGATION' %}
+                  <span class="checkbox checked"></span><span>Raptor Propagation</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Raptor Propagation</span>
+                {% endif %}
+                {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'OTHER' %}
+                  <span class="checkbox checked"></span><span>Other</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Other</span>
+                {% endif %}
+              </div>
+            </div>
 
-        <div class="field-row field-row--address">
-          <div class="field-label">Address:</div>
-          <div class="field-value">{{ content.field_recipient_street_address }}</div>
-        </div>
+            <div class="field-row field-row--acquisition">
+              <div class="field-label">Type of Acquisition:</div>
+              <div class="field-value checkbox-field">
+                {% if content.field_recipient_trans_type_cd|field_value.0['#plain_text']|default('') == 'GIFT' %}
+                  <span class="checkbox checked"></span><span>Gift</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Gift</span>
+                {% endif %}
+                {% if content.field_recipient_trans_type_cd|field_value.0['#plain_text']|default('') == 'PURCHASE-SALE-BARTER' %}
+                  <span class="checkbox checked"></span><span>Purchase/Sale/Barter</span>
+                {% else %}
+                  <span class="checkbox"></span><span>Purchase/Sale/Barter</span>
+                {% endif %}
+              </div>
 
-        <div class="field-row field-row--city">
-          <div class="field-label">City:</div>
-          <div class="field-value">{{ content.field_recipient_city }}</div>
-
-          <div class="field-label mid-aligned">State:</div>
-          <div class="field-value">{{ content.field_recipient_st_cd }}</div>
-
-          <div class="field-label mid-aligned">Zip:</div>
-          <div class="field-value">{{ content.field_recipient_zip_cd }}</div>
-        </div>
-
-        <div class="field-row field-row--email">
-          <div class="field-label">E-Mail Address:</div>
-          <div class="field-value">{{ content.field_recipient_email_address }}</div>
-        </div>
-
-        <div class="field-row field-row--permit">
-          <div class="field-label">Permit:</div>
-          <div class="field-value checkbox-field">
-            {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'CAPTIVE-BREEDING' %}
-              <span class="checkbox checked">☑</span> Captive Breeding
-            {% else %}
-              <span class="checkbox">☐</span> Captive Breeding
-            {% endif %}
-            {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'FALCONRY' %}
-              <span class="checkbox checked">☑</span> Falconry
-            {% else %}
-              <span class="checkbox">☐</span> Falconry
-            {% endif %}
-            {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'RAPTOR-PROPAGATION' %}
-              <span class="checkbox checked">☑</span> Raptor Propagation
-            {% else %}
-              <span class="checkbox">☐</span> Raptor Propagation
-            {% endif %}
-            {% if content.field_recipient_permit_type_cd|field_value.0['#plain_text']|default('') == 'OTHER' %}
-              <span class="checkbox checked">☑</span> Other
-            {% else %}
-              <span class="checkbox">☐</span> Other
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="field-row field-row--acquisition">
-          <div class="field-label">Type of Acquisition:</div>
-          <div class="field-value checkbox-field">
-            {% if content.field_recipient_trans_type_cd|field_value.0['#plain_text']|default('') == 'GIFT' %}
-              <span class="checkbox checked">☑</span> Gift
-            {% else %}
-              <span class="checkbox">☐</span> Gift
-            {% endif %}
-            {% if content.field_recipient_trans_type_cd|field_value.0['#plain_text']|default('') == 'PURCHASE-SALE-BARTER' %}
-              <span class="checkbox checked">☑</span> Purchase/Sale/Barter
-            {% else %}
-              <span class="checkbox">☐</span> Purchase/Sale/Barter
-            {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -326,14 +346,14 @@
           <div class="field-label">Method:</div>
           <div class="field-value checkbox-field">
             {% if content.field_capture_recapture_cd|field_value.0['#plain_text']|default('') == 'CAPTURE' %}
-              <span class="checkbox checked">☑</span> Capture
+              <span class="checkbox checked"></span><span>Capture</span>
             {% else %}
-              <span class="checkbox">☐</span> Capture
+              <span class="checkbox"></span><span>Capture</span>
             {% endif %}
             {% if content.field_capture_recapture_cd|field_value.0['#plain_text']|default('') == 'RE-CAPTURE' %}
-              <span class="checkbox checked">☑</span> Re-Capture
+              <span class="checkbox checked"></span><span>Re-Capture</span>
             {% else %}
-              <span class="checkbox">☐</span> Re-Capture
+              <span class="checkbox"></span><span>Re-Capture</span>
             {% endif %}
           </div>
         </div>
@@ -376,27 +396,32 @@
     <div class="permit-section section-6">
       <div class="section-number">6</div>
       <div class="section-content">
-        <div class="section-title">CERTIFICATION</div>
-        <div class="certification-text">I certify that the information submitted above is true and correct to the best of my knowledge. I understand that making a false statement may subject me to the criminal penalties of 18 U.S.C. 1001.</div>
+        <div class="certification-text"><b>CERTIFICATION:</b> I certify that the information submitted above is true and correct to the best of my knowledge. I understand that making a false statement may subject me to the criminal penalties of 18 U.S.C. 1001.</div>
 
-        <div class="field-row field-row--applicant">
-          <div class="field-label">Full Name:</div>
-          <div class="field-value">{{ content.field_falc_applicant_name }}</div>
-        </div>
+        <div class="section-groups">
+          <div class="section-group">
+            <div class="field-row field-row--applicant">
+              <div class="field-label">Full Name:</div>
+              <div class="field-value">{{ content.field_falc_applicant_name }}</div>
+            </div>
 
-        <div class="field-row field-row--phone-number">
-          <div class="field-label">Phone Number (with area code):</div>
-          <div class="field-value">{{ content.field_falc_phone_number }}</div>
-        </div>
+            <div class="field-row field-row--phone-number">
+              <div class="field-label">Phone Number (with area code):</div>
+              <div class="field-value">{{ content.field_falc_phone_number }}</div>
+            </div>
+          </div>
 
-        <div class="field-row signature-row field-row--signature">
-          <div class="field-label">Signature of Permittee/Principal Officer:</div>
-          <div class="field-value field--placeholder">__________________________</div>
-        </div>
+          <div class="section-group">
+            <div class="field-row signature-row field-row--signature">
+              <div class="field-label">Signature of Permittee/Principal Officer:</div>
+              <div class="field-value field--placeholder">__________________________</div>
+            </div>
 
-        <div class="field-row field-row--date-of-signature">
-          <div class="field-label">Date of Signature:</div>
-          <div class="field-value">{{ content.field_falc_dt_signed }}</div>
+            <div class="field-row field-row--date-of-signature">
+              <div class="field-label">Date of Signature:</div>
+              <div class="field-value">{{ content.field_falc_dt_signed }}</div>
+            </div>
+          </div>
         </div>
 
         <div class="field-row signature-note field-row--signature-note">
