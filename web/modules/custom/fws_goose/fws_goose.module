@@ -94,6 +94,22 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       '#required' => TRUE,
     ];
 
+    // If this is an edit form with a permit number, add a helpful message.
+    $node = $form_state->getFormObject()->getEntity();
+    if ($node->id() && $node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+      $permit_number = $node->get('field_permit_no')->value;
+      $form['location_selector']['#description'] .= ' ' . t('Locations are filtered to match permit number @permit.', ['@permit' => $permit_number]);
+    }
+
+    // Disable the location selector if the county field already has a value when editing.
+    if ($form_id === 'node_report_edit_form' && $node->hasField('field_location_county') &&
+        !$node->get('field_location_county')->isEmpty()) {
+      $form['location_selector']['#disabled'] = TRUE;
+      $form['location_selector']['#description'] .= ' ' . t('This field is disabled because location information is already set.');
+      // If we're disabling the selector, it shouldn't be required.
+      $form['location_selector']['#required'] = FALSE;
+    }
+
     // Store the selected location ID as a hidden field.
     $form['selected_location_id'] = [
       '#type' => 'hidden',
@@ -1545,6 +1561,7 @@ function _fws_goose_get_user_locations() {
   $form_object = \Drupal::routeMatch()->getRouteObject()->getDefault('_entity_form');
   $node = NULL;
   $uid = NULL;
+  $permit_number = NULL;
 
   // Check if this is an edit form.
   if ($form_object && strpos($form_object, 'edit_form') !== FALSE) {
@@ -1552,6 +1569,11 @@ function _fws_goose_get_user_locations() {
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node && $node->getOwnerId()) {
       $uid = $node->getOwnerId();
+
+      // Get permit number from the node being edited if available.
+      if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+        $permit_number = $node->get('field_permit_no')->value;
+      }
     }
   }
 
@@ -1562,6 +1584,14 @@ function _fws_goose_get_user_locations() {
       return $options;
     }
     $uid = $current_user->id();
+
+    // If no permit number from the node, try to get it from the user.
+    if (!$permit_number) {
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
+      if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+        $permit_number = $user->get('field_permit_no')->value;
+      }
+    }
   }
 
   // Query for location nodes owned by the determined user.
@@ -1571,6 +1601,11 @@ function _fws_goose_get_user_locations() {
     ->condition('status', 1)
     ->sort('title', 'ASC')
     ->accessCheck(TRUE);
+
+  // Filter by permit number if available.
+  if ($permit_number) {
+    $query->condition('field_permit_no', $permit_number);
+  }
 
   $nids = $query->execute();
 
@@ -1617,7 +1652,18 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
       $state = '';
       $county = '';
 
-      if ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
+      // Handle state value - check state_ref field first.
+      if ($location_node->hasField('field_location_state_ref') && !$location_node->get('field_location_state_ref')->isEmpty()) {
+        $target_id = $location_node->get('field_location_state_ref')->target_id;
+        $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_id);
+        if ($term) {
+          $state = $term->getName();
+          // Set the value in the form.
+          $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
+        }
+      }
+      // Fallback to direct state field if present.
+      elseif ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
         $state = $location_node->get('field_location_state')->value;
         // Set the value in the form.
         $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
@@ -1631,6 +1677,6 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
     }
   }
 
-  // Return the wrapped form fields.
-  return $form['location_fields_wrapper_start'] . $form['field_location_state'] . $form['field_location_county'] . $form['location_fields_wrapper_end'];
+  // Return the AjaxResponse object.
+  return $response;
 }
