@@ -706,6 +706,18 @@ footer.footer .footer-menus .region-footer-menus {
   padding: 0 0 20px;
   font-size: 0.5rem;
 }
+.node-page--print .form-citation {
+  padding-bottom: 5px;
+}
+.node-page--print .form-agency,
+.node-page--print .form-division {
+  font-weight: bold;
+  font-size: 0.625rem;
+}
+.node-page--print .badge {
+  width: 60px;
+  padding: 10px 0;
+}
 .node-page--print .permit__column {
   width: 25%;
 }

@@ -37,7 +37,7 @@
     <div class="permit__column permit__column--left">
       <div class="form-number">FWS Form 3-186a (Rev. 01/2020)</div>
       <div class="department">U.S. Department of the Interior</div>
-      [INSERT BADGE]
+      <img src="/modules/custom/fws_print/images/badge--doi.png" alt="Fish and Wildlife Service Badge" class="badge">
       <div class="office-use-label">USFWS Use Only</div>
       <span>Received in Regional Office on</span>
       <span>_______/_______/_______</span>
@@ -55,7 +55,7 @@
     <div class="permit__column permit__column--right">
       <div class="omb-number">OMB Control No. 1018-00</div>
       <div class="expiration">Expires {{ "now"|date_modify("+1 year")|date("m/d/Y") }}</div>
-      [INSERT BADGE]
+      <img src="/modules/custom/fws_print/images/badge--fws.png" alt="Fish and Wildlife Service Badge" class="badge">
     </div>
   </div>
 
@@ -407,7 +407,7 @@
 
             <div class="field-row field-row--phone-number">
               <div class="field-label">Phone Number (with area code):</div>
-              <div class="field-value">{{ content.field_falc_phone_number }}</div>
+              <div class="field-value">{{ content.field_falc_applicant_phone }}</div>
             </div>
           </div>
 
