@@ -714,7 +714,7 @@ footer.footer .footer-menus .region-footer-menus {
   font-weight: bold;
   font-size: 0.625rem;
 }
-.node-page--print .badge {
+.node-page--print .permit__badge {
   width: 60px;
   padding: 10px 0;
 }
