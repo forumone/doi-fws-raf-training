@@ -691,8 +691,6 @@ footer.footer .footer-menus .region-footer-menus {
   margin: 0;
   padding: 0;
   border: 2px solid #000000;
-  box-shadow: none !important;
-  background-color: white;
 }
 .node-page--print h1, .node-page--print h2, .node-page--print h3,
 .node-page--print h4, .node-page--print h5, .node-page--print h6 {
@@ -720,6 +718,12 @@ footer.footer .footer-menus .region-footer-menus {
 .node-page--print .permit__column--right {
   text-align: right;
 }
+.node-page--print .field-row--group .field-value {
+  display: flex;
+}
+.node-page--print .field-row--group .field + .field {
+  margin-left: 5px;
+}
 .node-page--print .form-control {
   position: absolute;
   top: 10px;
@@ -743,7 +747,6 @@ footer.footer .footer-menus .region-footer-menus {
   text-align: center;
   border-right: 1px solid #000000;
   padding: 10px 5px;
-  background-color: #f7f7f7;
 }
 .node-page--print .section-content {
   flex: 1;
@@ -753,6 +756,12 @@ footer.footer .footer-menus .region-footer-menus {
 .node-page--print .section-title {
   font-weight: bold;
   margin-bottom: 10px;
+}
+.node-page--print .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 .node-page--print .title-note {
   font-weight: normal;
@@ -769,18 +778,16 @@ footer.footer .footer-menus .region-footer-menus {
   font-weight: bold;
   padding-right: 10px;
 }
-.node-page--print .field-label.right-aligned {
-  width: auto;
-  margin-left: 20px;
-}
 .node-page--print .field-label.mid-aligned {
   width: auto;
   margin-left: 10px;
 }
 .node-page--print .field-value {
-  border-bottom: 1px dotted #999;
   min-height: 18px;
   padding-bottom: 2px;
+}
+.node-page--print .field-value:not(.field--placeholder) {
+  border-bottom: 1px dotted #999;
 }
 .node-page--print .checkbox-field .field-value {
   border-bottom: none;
@@ -800,7 +807,7 @@ footer.footer .footer-menus .region-footer-menus {
   font-size: 12px;
 }
 .node-page--print .checkbox + .checkbox {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .node-page--print .checkbox.checked {
   font-weight: bold;
@@ -812,13 +819,6 @@ footer.footer .footer-menus .region-footer-menus {
 .node-page--print .certification-text {
   margin-bottom: 15px;
   font-size: 9pt;
-}
-.node-page--print .signature-row {
-  margin-top: 20px;
-}
-.node-page--print .signature-field {
-  border-bottom: 1px solid #000000;
-  height: 20px;
 }
 .node-page--print .signature-note {
   font-size: 8pt;

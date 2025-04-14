@@ -35,8 +35,6 @@
     margin: 0;
     padding: 0;
     border: 2px solid $black;
-    box-shadow: none !important;
-    background-color: white;
   }
 
   @include headings {
@@ -69,6 +67,20 @@
     }
   }
 
+  .field-row {
+
+    &--group {
+
+      .field-value {
+        display: flex;
+      }
+
+      .field + .field {
+        margin-left: 5px;
+      }
+    }
+  }
+
   .form-control {
     position: absolute;
     top: 10px;
@@ -97,7 +109,6 @@
     text-align: center;
     border-right: 1px solid $black;
     padding: 10px 5px;
-    background-color: #f7f7f7;
   }
 
   .section-content {
@@ -109,6 +120,14 @@
   .section-title {
     font-weight: bold;
     margin-bottom: 10px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
   }
 
   .title-note {
@@ -130,20 +149,18 @@
     padding-right: 10px;
   }
 
-  .field-label.right-aligned {
-    width: auto;
-    margin-left: 20px;
-  }
-
   .field-label.mid-aligned {
     width: auto;
     margin-left: 10px;
   }
 
   .field-value {
-    border-bottom: 1px dotted #999;
     min-height: 18px;
     padding-bottom: 2px;
+
+    &:not(.field--placeholder) {
+      border-bottom: 1px dotted #999;
+    }
   }
 
   .checkbox-field .field-value {
@@ -167,7 +184,7 @@
     font-size: 12px;
 
     + .checkbox {
-      margin-left: 10px;
+      margin-left: 20px;
     }
   }
 
@@ -185,15 +202,6 @@
   .certification-text {
     margin-bottom: 15px;
     font-size: 9pt;
-  }
-
-  .signature-row {
-    margin-top: 20px;
-  }
-
-  .signature-field {
-    border-bottom: 1px solid $black;
-    height: 20px;
   }
 
   .signature-note {
