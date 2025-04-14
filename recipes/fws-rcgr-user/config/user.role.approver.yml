@@ -1,9 +1,13 @@
 uuid: 54239faf-dd5d-499a-ae3c-0af0acce5db7
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - publishcontent
 id: approver
 label: Approver
 weight: 6
 is_admin: null
-permissions: {  }
+permissions:
+  - 'publish any content'
+  - 'unpublish any content'
