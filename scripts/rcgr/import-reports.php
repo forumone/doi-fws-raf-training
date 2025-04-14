@@ -13,7 +13,6 @@
  * Where [limit] is an optional number to limit the number of records processed.
  */
 
-use Drush\Log\DrushLoggerManager;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drush\Drush;
@@ -23,6 +22,8 @@ use Drupal\taxonomy\Entity\Term;
 require_once __DIR__ . '/import-users.php';
 // Include the permit import functions.
 require_once __DIR__ . '/import-permits.php';
+// Include the location import functions.
+require_once __DIR__ . '/import-locations.php';
 
 // Get the limit parameter from command line arguments if provided.
 $input = Drush::input();
@@ -273,17 +274,17 @@ function find_existing_report($permit_no, $report_year) {
 }
 
 /**
- * Ensure permit exists and import it if necessary.
+ * Ensure a permit exists, creating a minimal one if necessary.
  *
  * @param string $permit_no
  *   The permit number.
- * @param \Drush\Log\DrushLoggerManager $logger
+ * @param mixed $logger
  *   Logger object for messages.
  *
  * @return bool
  *   TRUE if permit exists or was created, FALSE otherwise.
  */
-function ensure_permit_exists(string $permit_no, DrushLoggerManager $logger): bool {
+function ensure_permit_exists(string $permit_no, $logger): bool {
   if (empty($permit_no)) {
     return FALSE;
   }
@@ -335,6 +336,65 @@ function ensure_permit_exists(string $permit_no, DrushLoggerManager $logger): bo
 }
 
 /**
+ * Ensure location exists and import it if necessary.
+ *
+ * @param string $permit_no
+ *   The permit number associated with the location.
+ * @param mixed $logger
+ *   Logger object for messages.
+ *
+ * @return bool
+ *   TRUE if location exists or was created, FALSE otherwise.
+ */
+function ensure_location_exists(string $permit_no, $logger): bool {
+  if (empty($permit_no)) {
+    return FALSE;
+  }
+
+  // Track locations we've already verified to avoid duplicate lookups.
+  static $verified_locations = [];
+
+  if (isset($verified_locations[$permit_no])) {
+    return TRUE;
+  }
+
+  // First, check if a location already exists for this permit.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->condition('field_permit_no', $permit_no)
+    ->accessCheck(FALSE)
+    ->range(0, 1);
+
+  $nids = $query->execute();
+
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    $logger->notice(sprintf('Found existing location for permit %s with node ID %d', $permit_no, $nid));
+    $verified_locations[$permit_no] = TRUE;
+    return TRUE;
+  }
+
+  // If we get here, no existing location was found, so we need to import it.
+  $logger->notice(sprintf('No existing location found for permit %s, attempting to import it...', $permit_no));
+
+  // Use the import_location_by_permit_id function to import the location.
+  $log_via_logger = function ($message) use ($logger) {
+    $logger->info($message);
+  };
+
+  $node = import_location_by_permit_id($permit_no, NULL, $log_via_logger);
+
+  if ($node) {
+    $logger->notice(sprintf('Successfully imported location for permit %s (NID: %d)', $permit_no, $node->id()));
+    $verified_locations[$permit_no] = TRUE;
+    return TRUE;
+  }
+
+  $logger->warning(sprintf('Could not import location for permit %s', $permit_no));
+  return FALSE;
+}
+
+/**
  * Process a single row of report data.
  *
  * @param array $data
@@ -375,6 +435,13 @@ function process_report_row(
     if (!empty($data['permit_no']) && !$is_revision) {
       if (!ensure_permit_exists($data['permit_no'], $_rcgr_import_logger)) {
         $_rcgr_import_logger->warning(sprintf('Missing permit %s for report, but continuing with import',
+          $data['permit_no']
+        ));
+      }
+
+      // Now check if the location exists for this permit, import it if not.
+      if (!ensure_location_exists($data['permit_no'], $_rcgr_import_logger)) {
+        $_rcgr_import_logger->warning(sprintf('Missing location for permit %s, but continuing with import',
           $data['permit_no']
         ));
       }

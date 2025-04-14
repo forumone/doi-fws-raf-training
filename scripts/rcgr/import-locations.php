@@ -20,12 +20,156 @@ $limit = isset($args['extra'][1]) ? (int) $args['extra'][1] : PHP_INT_MAX;
 
 $logger = Drush::logger();
 
-// Log the limit if specified.
-if ($limit < PHP_INT_MAX) {
-  $logger->warning("Limiting import to {$limit} records");
-}
-else {
-  $logger->warning("No limit specified - will import all records");
+// Check if this script is being directly executed (not included).
+// If debug_backtrace() has only one item in the array, then this script
+// is the entry point. Otherwise it was included by another script.
+$is_main_script = count(debug_backtrace()) <= 1;
+
+// Only run the main import code if this is being executed directly.
+if ($is_main_script) {
+  // Log the limit if specified.
+  if ($limit < PHP_INT_MAX) {
+    $logger->warning("Limiting import to {$limit} records");
+  }
+  else {
+    $logger->warning("No limit specified - will import all records");
+  }
+
+  // Load both CSV files.
+  [$current_success, $current_data] = locations_load_csv_data($current_csv_file, $logger);
+  [$history_success, $history_data] = locations_load_csv_data($history_csv_file, $logger);
+
+  if (!$current_success) {
+    $_rcgr_import_logger->error(sprintf('Failed to load current CSV file: %s', $current_csv_file));
+    exit(1);
+  }
+
+  $_rcgr_import_logger->notice('Starting import of location data.');
+
+  // Read all historical data into memory for faster lookup.
+  $historical_records = [];
+  if ($history_success) {
+    while (($row = fgetcsv($history_data['handle'])) !== FALSE) {
+      // Skip empty rows.
+      if (count($row) > 0) {
+        $data = array_combine($history_data['header'], $row);
+        $key = $data['permit_no'] . ':' . $data['location_address_l1'];
+        if (!isset($historical_records[$key])) {
+          $historical_records[$key] = [];
+        }
+        $historical_records[$key][] = $data;
+      }
+    }
+    fclose($history_data['handle']);
+    $_rcgr_import_logger->notice(sprintf('Loaded %d sets of historical records.', count($historical_records)));
+  }
+  else {
+    $_rcgr_import_logger->warning('History CSV file not found or could not be read. Only current records will be imported.');
+  }
+
+  // Process current records and their historical data.
+  $row_number = 0;
+
+  while ($current_data && ($row = fgetcsv($current_data['handle'])) !== FALSE) {
+    $row_number++;
+    $total++;
+
+    // Skip empty rows.
+    if (count($row) <= 1 && empty($row[0])) {
+      $skipped++;
+      continue;
+    }
+
+    // Only process up to the limit.
+    if ($processed >= $limit) {
+      break;
+    }
+
+    // Combine header with row data to create an associative array.
+    $data = array_combine($current_data['header'], $row);
+
+    // Process current record.
+    [$success, $message] = process_location_row(
+      $data,
+      $field_mapping,
+      $term_cache,
+      $value_mappings,
+      FALSE,
+      $processed_nodes
+    );
+
+    if ($success) {
+      $processed++;
+      $created++;
+      $_rcgr_import_logger->info($message);
+
+      if ($processed % $batch_size === 0) {
+        $_rcgr_import_logger->notice('Processed @count current records...', ['@count' => $processed]);
+      }
+
+      // Look for and process historical records for this location.
+      $key = $data['permit_no'] . ':' . $data['location_address_l1'];
+      if (isset($historical_records[$key])) {
+        foreach ($historical_records[$key] as $hist_data) {
+          [$hist_success, $hist_message] = process_location_row(
+            $hist_data,
+            $field_mapping,
+            $term_cache,
+            $value_mappings,
+            TRUE,
+            $processed_nodes
+          );
+
+          if ($hist_success) {
+            $revisions_created++;
+            $_rcgr_import_logger->info($hist_message);
+
+            if ($revisions_created % $batch_size === 0) {
+              $_rcgr_import_logger->notice('Created @count historical revisions...', ['@count' => $revisions_created]);
+            }
+          }
+          else {
+            if (strpos($hist_message, 'No existing node found') === FALSE) {
+              $_rcgr_import_logger->error($hist_message);
+              $errors++;
+            }
+            else {
+              $skipped++;
+            }
+          }
+        }
+        // Remove processed historical records to free memory.
+        unset($historical_records[$key]);
+      }
+    }
+    else {
+      $_rcgr_import_logger->error($message);
+      $errors++;
+    }
+  }
+
+  // Close file handles.
+  if ($current_data) {
+    fclose($current_data['handle']);
+  }
+
+  // Log the final statistics.
+  $_rcgr_import_logger->notice(sprintf(
+    'Import complete. Processed %d records: %d created/updated, %d revisions, %d skipped, %d errors.',
+    $total,
+    $created,
+    $revisions_created,
+    $skipped,
+    $errors
+  ));
+
+  if ($_rcgr_users_imported > 0 || $_rcgr_users_not_found > 0) {
+    $_rcgr_import_logger->notice(sprintf(
+      'User statistics: %d imported, %d not found.',
+      $_rcgr_users_imported,
+      $_rcgr_users_not_found
+    ));
+  }
 }
 
 // Set the batch size for processing.
@@ -117,7 +261,7 @@ $_rcgr_import_logger = $logger;
  * @return int|null
  *   The term ID, or NULL if not found and not creating.
  */
-function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
+function locations_get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
   global $_rcgr_import_logger;
 
   // Skip empty values.
@@ -210,11 +354,13 @@ function find_existing_node($permit_no, $address) {
  *
  * @param string $legacy_userid
  *   The legacy user ID.
+ * @param bool $import_if_not_found
+ *   Whether to import the user if not found.
  *
  * @return int|null
  *   The user ID, or NULL if not found or created.
  */
-function find_user_by_legacy_id($legacy_userid) {
+function locations_find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
 
   if (empty($legacy_userid)) {
@@ -238,6 +384,13 @@ function find_user_by_legacy_id($legacy_userid) {
     $uid = reset($uids);
     $_rcgr_import_logger->debug("Found user {$uid} with legacy ID {$legacy_userid}");
     return $uid;
+  }
+
+  // If we shouldn't import users, just log that we didn't find it and return NULL.
+  if (!$import_if_not_found) {
+    $_rcgr_users_not_found++;
+    $_rcgr_import_logger->debug("User with legacy ID {$legacy_userid} not found and auto-import disabled");
+    return NULL;
   }
 
   // Logger callback function for the import process that suppresses output.
@@ -333,7 +486,7 @@ function process_location_row(
 
     // Associate the location entity with a user based on legacy userid.
     if (!empty($data['create_by'])) {
-      $uid = find_user_by_legacy_id($data['create_by']);
+      $uid = locations_find_user_by_legacy_id($data['create_by'], FALSE);
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
@@ -353,7 +506,7 @@ function process_location_row(
     // Handle California county selection if this is a CA location.
     if (!empty($data['location_state']) && $data['location_state'] === 'CA' && !empty($data['location_county'])) {
       $county_name = trim($data['location_county']);
-      $tid = get_taxonomy_term_id($county_name, 'restricted_counties', FALSE, $term_cache);
+      $tid = locations_get_taxonomy_term_id($county_name, 'restricted_counties', FALSE, $term_cache);
       if ($tid) {
         $node->set(
           'field_ca_county_select',
@@ -402,7 +555,7 @@ function process_location_row(
             $bundle = 'states';
 
             $state_code = trim(strtoupper($value));
-            $tid = get_taxonomy_term_id($state_code, $bundle, TRUE, $term_cache, $value_mappings);
+            $tid = locations_get_taxonomy_term_id($state_code, $bundle, TRUE, $term_cache, $value_mappings);
 
             if ($tid) {
               $node->set($drupal_field, ['target_id' => $tid]);
@@ -449,7 +602,7 @@ function process_location_row(
             $bundle = 'rcf_cd';
 
             $rcf_code = trim(strtoupper($value));
-            $tid = get_taxonomy_term_id($rcf_code, $bundle, TRUE, $term_cache, $value_mappings);
+            $tid = locations_get_taxonomy_term_id($rcf_code, $bundle, TRUE, $term_cache, $value_mappings);
 
             if ($tid) {
               $node->set($drupal_field, ['target_id' => $tid]);
@@ -469,7 +622,7 @@ function process_location_row(
             foreach ($drupal_field as $target_field) {
               if ($target_field === 'field_ca_county_select' && !empty($value) && $data['location_state'] === 'CA') {
                 // Look up the county in the restricted_counties vocabulary.
-                $tid = get_taxonomy_term_id($value, 'restricted_counties', FALSE, $term_cache);
+                $tid = locations_get_taxonomy_term_id($value, 'restricted_counties', FALSE, $term_cache);
                 if ($tid) {
                   $node->set($target_field, ['target_id' => $tid]);
                 }
@@ -519,14 +672,17 @@ function process_location_row(
     return [TRUE, $is_revision ? "Created revision" : "Created/updated node"];
   }
   catch (Exception $e) {
-    return [FALSE, "Error processing record for permit #{$data['permit_no']}: " . $e->getMessage()];
+    return [
+      FALSE,
+      "Error processing record for permit #{$data['permit_no']}: " . $e->getMessage(),
+    ];
   }
 }
 
 /**
  * Function to load and validate CSV data.
  */
-function load_csv_data($file_path, $logger) {
+function locations_load_csv_data($file_path, $logger) {
   if (!file_exists($file_path)) {
     $logger->error('CSV file not found at @file', ['@file' => $file_path]);
     return [FALSE, NULL];
@@ -545,132 +701,27 @@ function load_csv_data($file_path, $logger) {
     return [FALSE, NULL];
   }
 
-  return [TRUE, ['handle' => $handle, 'header' => $header]];
+  return [
+    TRUE,
+    [
+      'handle' => $handle,
+      'header' => $header,
+    ],
+  ];
 }
-
-// Load both CSV files.
-[$current_success, $current_data] = load_csv_data($current_csv_file, $logger);
-[$history_success, $history_data] = load_csv_data($history_csv_file, $logger);
-
-if (!$current_success) {
-  exit(1);
-}
-
-$logger->warning('Starting import of location data.');
-
-// Read all historical data into memory for faster lookup.
-$historical_records = [];
-if ($history_success) {
-  while (($row = fgetcsv($history_data['handle'])) !== FALSE) {
-    // Skip empty rows.
-    if (count($row) > 0) {
-      $data = array_combine($history_data['header'], $row);
-      $key = $data['permit_no'] . ':' . $data['location_address_l1'];
-      if (!isset($historical_records[$key])) {
-        $historical_records[$key] = [];
-      }
-      $historical_records[$key][] = $data;
-    }
-  }
-  fclose($history_data['handle']);
-  $logger->notice('Loaded ' . count($historical_records) . ' sets of historical records.');
-}
-
-// Process current records and their historical data.
-$row_number = 0;
-
-while ($current_data && ($row = fgetcsv($current_data['handle'])) !== FALSE) {
-  $row_number++;
-
-  // Skip header row.
-  if ($row_number > 1 && $row_number <= $limit + 1) {
-    $data = array_combine($current_data['header'], $row);
-
-    // Process current record.
-    [$success, $message] = process_location_row(
-      $data,
-      $field_mapping,
-      $term_cache,
-      $value_mappings,
-      FALSE,
-      $processed_nodes
-    );
-
-    if ($success) {
-      $processed++;
-      if ($processed % $batch_size === 0) {
-        $logger->info('Processed @count current records...', ['@count' => $processed]);
-      }
-
-      // Look for and process historical records for this location.
-      $key = $data['permit_no'] . ':' . $data['location_address_l1'];
-      if (isset($historical_records[$key])) {
-        foreach ($historical_records[$key] as $hist_data) {
-          [$hist_success, $hist_message] = process_location_row(
-            $hist_data,
-            $field_mapping,
-            $term_cache,
-            $value_mappings,
-            TRUE,
-            $processed_nodes
-          );
-
-          if ($hist_success) {
-            $revisions_created++;
-            if ($revisions_created % $batch_size === 0) {
-              $logger->info('Created @count historical revisions...', ['@count' => $revisions_created]);
-            }
-          }
-          else {
-            if (strpos($hist_message, 'No existing node found') === FALSE) {
-              $logger->error($hist_message);
-              $errors++;
-            }
-            else {
-              $skipped++;
-            }
-          }
-        }
-        // Remove processed historical records to free memory.
-        unset($historical_records[$key]);
-      }
-    }
-    else {
-      $logger->error($message);
-      $errors++;
-    }
-  }
-}
-
-// Close file handles.
-if ($current_data) {
-  fclose($current_data['handle']);
-}
-
-// Print summary.
-echo "\nImport completed:\n";
-echo "Current records processed: $processed\n";
-echo "Historical revisions created: $revisions_created\n";
-echo "Skipped: $skipped\n";
-echo "Errors: $errors\n";
-echo "Users not found for location records: {$_rcgr_users_not_found}\n";
-echo "Users imported on-demand: {$_rcgr_users_imported}\n";
 
 /**
- * Import a location by permit number.
- *
- * This function allows on-demand importing of a location from the CSV
- * file when it's needed by another script (like import-permits).
+ * Function to import a location by permit ID from the CSV.
  *
  * @param string $permit_no
- *   The permit number to find in the CSV file.
- * @param string $csv_file
- *   Optional path to the CSV file. If NULL, uses the default file.
- * @param callable $logger
- *   Optional callback for logging. If NULL, uses Drush logger.
+ *   The permit number to look for.
+ * @param string|null $csv_file
+ *   Optional path to the CSV file. If NULL, uses the default.
+ * @param callable|null $logger
+ *   Optional logger callback function.
  *
  * @return \Drupal\node\NodeInterface|null
- *   The imported location node, or NULL if not found or not imported.
+ *   The node if found and imported successfully, NULL otherwise.
  */
 function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $logger = NULL) {
   // Setup logger - either use the one provided or create a simple one.
@@ -820,7 +871,7 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
      *   The result of the logger call.
      */
     public function notice(string $message, array $context = []) {
-      return $this->logger($message, $context);
+      return call_user_func($this->logger, $message, $context);
     }
 
     /**
@@ -835,7 +886,7 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
      *   The result of the logger call.
      */
     public function info(string $message, array $context = []) {
-      return $this->logger($message, $context);
+      return call_user_func($this->logger, $message, $context);
     }
 
     /**
@@ -850,7 +901,7 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
      *   The result of the logger call.
      */
     public function warning(string $message, array $context = []) {
-      return $this->logger($message, $context);
+      return call_user_func($this->logger, $message, $context);
     }
 
     /**
@@ -865,7 +916,7 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
      *   The result of the logger call.
      */
     public function error(string $message, array $context = []) {
-      return $this->logger($message, $context);
+      return call_user_func($this->logger, $message, $context);
     }
 
     /**
@@ -880,7 +931,7 @@ function import_location_by_permit_id($permit_no, $csv_file = NULL, ?callable $l
      *   The result of the logger call.
      */
     public function debug(string $message, array $context = []) {
-      return $this->logger($message, $context);
+      return call_user_func($this->logger, $message, $context);
     }
 
   };
