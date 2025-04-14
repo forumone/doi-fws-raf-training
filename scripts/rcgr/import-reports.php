@@ -197,6 +197,7 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
 
   if (empty($legacy_userid)) {
+    $_rcgr_import_logger->debug("Empty legacy_userid provided to find_user_by_legacy_id");
     return NULL;
   }
 
@@ -204,6 +205,7 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   $legacy_userid = trim($legacy_userid);
 
   if (empty($legacy_userid)) {
+    $_rcgr_import_logger->debug("Legacy user ID is empty after trimming whitespace");
     return NULL;
   }
 
@@ -226,9 +228,11 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
     return NULL;
   }
 
+  $_rcgr_import_logger->notice("Attempting to import user with legacy ID {$legacy_userid}");
+
   // Logger callback function for the import process that suppresses output.
-  $log_via_logger = function ($message) {
-    // Don't output anything here to reduce verbosity.
+  $log_via_logger = function ($message) use ($_rcgr_import_logger) {
+    $_rcgr_import_logger->debug($message);
   };
 
   // Try to import the user from the original CSV.
@@ -236,11 +240,26 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
 
   if ($user) {
     $_rcgr_users_imported++;
-    $_rcgr_import_logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    $_rcgr_import_logger->notice("Imported user {$user->id()} for legacy ID {$legacy_userid}");
     return $user->id();
   }
 
+  // Try one more time with a different file if the first attempt failed.
+  $_rcgr_import_logger->notice("First import attempt failed. Trying alternate CSV file for legacy ID {$legacy_userid}");
+  $alternate_csv = __DIR__ . '/data/rcgr_userprofile_no_passwords_202503031405.csv';
+
+  if (file_exists($alternate_csv)) {
+    $user = import_user_by_legacy_id($legacy_userid, $alternate_csv, $log_via_logger);
+
+    if ($user) {
+      $_rcgr_users_imported++;
+      $_rcgr_import_logger->notice("Imported user {$user->id()} from alternate CSV for legacy ID {$legacy_userid}");
+      return $user->id();
+    }
+  }
+
   $_rcgr_users_not_found++;
+  $_rcgr_import_logger->warning("Could not find or import user with legacy ID {$legacy_userid}");
   return NULL;
 }
 
@@ -549,7 +568,23 @@ function process_report_row(
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
+        $_rcgr_import_logger->info(sprintf('Set owner for report to user %d (legacy ID: %s)',
+          $uid,
+          $data['create_by']
+        ));
       }
+      else {
+        // If we couldn't find the user, default to user 1 (admin) instead of leaving it unattributed.
+        $_rcgr_import_logger->warning(sprintf('Could not find user with legacy ID %s. Setting owner to admin user.',
+          $data['create_by']
+        ));
+        $node->setOwnerId(1);
+      }
+    }
+    else {
+      // If no create_by is specified, set to admin (user 1)
+      $_rcgr_import_logger->notice('No create_by specified for report. Setting owner to admin user.');
+      $node->setOwnerId(1);
     }
 
     // Map and set field values.
@@ -603,6 +638,48 @@ function process_report_row(
 
     // Save the node.
     $node->save();
+
+    // Also update the related permit with the same owner.
+    if (!$is_revision && !empty($data['permit_no'])) {
+      try {
+        // Find the permit node.
+        $permit_query = \Drupal::entityQuery('node')
+          ->condition('type', 'permit')
+          ->condition('field_permit_no', $data['permit_no'])
+          ->accessCheck(FALSE)
+          ->range(0, 1);
+
+        $permit_nids = $permit_query->execute();
+
+        if (!empty($permit_nids)) {
+          $permit_nid = reset($permit_nids);
+          $permit = Node::load($permit_nid);
+
+          if ($permit) {
+            // Set the permit owner to the same as the report if the current owner is anonymous or admin.
+            $current_permit_owner = $permit->getOwnerId();
+            if ($current_permit_owner == 0 || $current_permit_owner == 1) {
+              $report_owner = $node->getOwnerId();
+              if ($report_owner > 0) {
+                $permit->setOwnerId($report_owner);
+                $permit->save();
+                $_rcgr_import_logger->notice(sprintf('Updated permit %s (NID: %d) owner to match report owner (UID: %d)',
+                  $data['permit_no'],
+                  $permit_nid,
+                  $report_owner
+                ));
+              }
+            }
+          }
+        }
+      }
+      catch (\Exception $e) {
+        $_rcgr_import_logger->warning(sprintf('Error updating permit owner for %s: %s',
+          $data['permit_no'],
+          $e->getMessage()
+        ));
+      }
+    }
 
     // Track processed nodes.
     $key = $data['permit_no'] . ':' . $data['report_year'];

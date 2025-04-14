@@ -470,6 +470,14 @@ function process_location_row(
         $data['create_by'],
         $data['update_by']
       );
+
+      // For revisions, set the revision author if we can find a matching user.
+      if (!empty($data['update_by'])) {
+        $uid = locations_find_user_by_legacy_id($data['update_by'], TRUE);
+        if ($uid) {
+          $node->setRevisionUserId($uid);
+        }
+      }
     }
     else {
       // Create new node for current data.
@@ -486,7 +494,7 @@ function process_location_row(
 
     // Associate the location entity with a user based on legacy userid.
     if (!empty($data['create_by'])) {
-      $uid = locations_find_user_by_legacy_id($data['create_by'], FALSE);
+      $uid = locations_find_user_by_legacy_id($data['create_by'], TRUE);
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
@@ -642,17 +650,6 @@ function process_location_row(
             $node->set($drupal_field, $value);
           }
           break;
-      }
-    }
-
-    // For revisions, set the revision author if we can find a matching user.
-    if ($is_revision && !empty($data['update_by'])) {
-      $users = \Drupal::entityTypeManager()
-        ->getStorage('user')
-        ->loadByProperties(['name' => $data['update_by']]);
-      if (!empty($users)) {
-        $user = reset($users);
-        $node->setRevisionUserId($user->id());
       }
     }
 
