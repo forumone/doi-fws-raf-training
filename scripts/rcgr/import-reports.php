@@ -545,7 +545,7 @@ function process_report_row(
 
     // Associate the report entity with a user based on legacy userid.
     if (!empty($data['create_by'])) {
-      $uid = find_user_by_legacy_id($data['create_by'], FALSE);
+      $uid = find_user_by_legacy_id($data['create_by'], TRUE);
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
@@ -595,7 +595,7 @@ function process_report_row(
 
     // For revisions, set the revision author if we can find a matching user.
     if ($is_revision && !empty($data['update_by'])) {
-      $uid = find_user_by_legacy_id($data['update_by'], FALSE);
+      $uid = find_user_by_legacy_id($data['update_by'], TRUE);
       if ($uid) {
         $node->setRevisionUserId($uid);
       }
