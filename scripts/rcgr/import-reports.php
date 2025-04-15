@@ -293,7 +293,7 @@ function find_existing_report($permit_no, $report_year) {
 }
 
 /**
- * Ensure a permit exists, creating a minimal one if necessary.
+ * Ensure a permit exists, creating a complete one if necessary.
  *
  * @param string $permit_no
  *   The permit number.
@@ -310,6 +310,7 @@ function ensure_permit_exists(string $permit_no, $logger): bool {
 
   // Track permits we've already verified to avoid duplicate lookups.
   static $verified_permits = [];
+  static $permit_csv_data = NULL;
 
   if (isset($verified_permits[$permit_no])) {
     return TRUE;
@@ -332,9 +333,202 @@ function ensure_permit_exists(string $permit_no, $logger): bool {
   }
 
   // If we get here, no existing permit was found, so we need to import it.
-  $logger->notice(sprintf('No existing permit found for %s, attempting to create it directly...', $permit_no));
+  $logger->notice(sprintf('No existing permit found for %s, attempting to create it from CSV...', $permit_no));
 
-  // Create a minimal permit node.
+  // Load CSV data if not already loaded.
+  if ($permit_csv_data === NULL) {
+    $csv_file = __DIR__ . '/data/rcgr_permit_app_mast_202503031405.csv';
+    if (!file_exists($csv_file)) {
+      $logger->error(sprintf('Permit CSV file not found: %s', $csv_file));
+
+      // Fall back to creating a minimal permit if CSV not found.
+      return create_minimal_permit($permit_no, $logger);
+    }
+
+    $handle = fopen($csv_file, 'r');
+    if (!$handle) {
+      $logger->error(sprintf('Could not open permit CSV file: %s', $csv_file));
+      return create_minimal_permit($permit_no, $logger);
+    }
+
+    $header = fgetcsv($handle);
+    if (!$header) {
+      $logger->error('Could not read header from permit CSV file');
+      fclose($handle);
+      return create_minimal_permit($permit_no, $logger);
+    }
+
+    // Read all permits into memory indexed by permit number.
+    $permit_csv_data = [];
+    while (($row = fgetcsv($handle)) !== FALSE) {
+      if (count($row) > 1) {
+        $data = array_combine($header, $row);
+        if (!empty($data['permit_no'])) {
+          $permit_csv_data[$data['permit_no']] = $data;
+        }
+      }
+    }
+
+    fclose($handle);
+    $logger->notice(sprintf('Loaded %d permits from CSV', count($permit_csv_data)));
+  }
+
+  // Try to find the permit in the CSV data.
+  if (isset($permit_csv_data[$permit_no])) {
+    // Create a complete permit with all CSV data.
+    try {
+      $csv_data = $permit_csv_data[$permit_no];
+
+      // Define field mappings.
+      $field_mapping = [
+        'permit_no' => 'field_permit_no',
+        'version_no' => 'field_version_no',
+        'site_id' => 'field_site_id',
+        'control_site_id' => 'field_control_site_id',
+        'create_by' => 'field_create_by',
+        'update_by' => 'field_update_by',
+        'dt_create' => 'field_dt_create',
+        'dt_update' => 'field_dt_update',
+        'dt_applicant_signed' => 'field_dt_applicant_signed',
+        'dt_permit_request' => 'field_dt_permit_request',
+        'dt_permit_issued' => 'field_dt_permit_issued',
+        'dt_effective' => 'field_dt_effective',
+        'dt_expired' => 'field_dt_expired',
+        'dt_application_received' => 'field_dt_application_received',
+        'dt_signed' => 'field_dt_signed',
+        'principal_name' => 'field_principal_name',
+        'principal_first_name' => 'field_principal_first_name',
+        'principal_middle_name' => 'field_principal_middle_name',
+        'principal_last_name' => 'field_principal_last_name',
+        'principal_suffix' => 'field_principal_suffix',
+        'principal_title' => 'field_principal_title',
+        'principal_telephone' => 'field_principal_telephone',
+        'applicant_state' => 'field_applicant_state',
+        'registrant_type_cd' => 'field_registrant_type_cd',
+        'permit_status_cd' => 'field_permit_status_cd',
+        'rcf_cd' => 'field_rcf_cd',
+        'xml_cd' => 'field_xml_cd',
+        'hid' => 'field_hid',
+      ];
+
+      // Define date fields.
+      $date_fields = [
+        'field_dt_create',
+        'field_dt_update',
+        'field_dt_applicant_signed',
+        'field_dt_permit_request',
+        'field_dt_permit_issued',
+        'field_dt_effective',
+        'field_dt_expired',
+        'field_dt_application_received',
+        'field_dt_signed',
+      ];
+
+      // Define taxonomy fields.
+      $taxonomy_fields = [
+        'field_applicant_state' => 'states',
+        'field_registrant_type_cd' => 'registrant_type',
+        'field_permit_status_cd' => 'application_status',
+        'field_rcf_cd' => 'restricted_counties',
+      ];
+
+      // Create node.
+      $node = Node::create([
+        'type' => 'permit',
+        'title' => $permit_no,
+        'status' => 1,
+      ]);
+
+      // Set creation time.
+      if (!empty($csv_data['dt_create'])) {
+        try {
+          $date = new \DateTime($csv_data['dt_create']);
+          $node->setCreatedTime($date->getTimestamp());
+        }
+        catch (\Exception $e) {
+          $logger->warning(sprintf('Could not parse creation date: %s', $csv_data['dt_create']));
+        }
+      }
+
+      // Set owner based on create_by.
+      if (!empty($csv_data['create_by'])) {
+        $uid = find_user_by_legacy_id($csv_data['create_by'], TRUE);
+        if ($uid) {
+          $node->setOwnerId($uid);
+        }
+        else {
+          $node->setOwnerId(1);
+        }
+      }
+      else {
+        $node->setOwnerId(1);
+      }
+
+      // Term cache for taxonomy lookups.
+      $term_cache = [];
+
+      // Set field values.
+      foreach ($field_mapping as $csv_field => $drupal_field) {
+        if (!isset($csv_data[$csv_field]) || !$node->hasField($drupal_field)) {
+          continue;
+        }
+
+        $value = $csv_data[$csv_field];
+
+        // Skip empty values.
+        if (empty($value)) {
+          continue;
+        }
+
+        // Handle different field types.
+        if (in_array($drupal_field, $date_fields)) {
+          try {
+            $date = new \DateTime($value);
+            $formatted_date = $date->format('Y-m-d\TH:i:s');
+            $node->set($drupal_field, $formatted_date);
+          }
+          catch (\Exception $e) {
+            $logger->warning(sprintf('Could not parse date %s for field %s', $value, $drupal_field));
+          }
+        }
+        elseif (isset($taxonomy_fields[$drupal_field])) {
+          $vocab = $taxonomy_fields[$drupal_field];
+          $tid = get_taxonomy_term_id($value, $vocab, TRUE, $term_cache);
+          if ($tid) {
+            $node->set($drupal_field, $tid);
+          }
+        }
+        else {
+          $node->set($drupal_field, $value);
+        }
+      }
+
+      // Save the node.
+      $node->save();
+
+      $logger->notice(sprintf('Successfully created complete permit %s (NID: %d) from CSV data',
+        $permit_no, $node->id()));
+      $verified_permits[$permit_no] = TRUE;
+
+      return TRUE;
+    }
+    catch (\Exception $e) {
+      $logger->error(sprintf('Error creating permit %s from CSV: %s', $permit_no, $e->getMessage()));
+      // Fall back to minimal permit.
+      return create_minimal_permit($permit_no, $logger);
+    }
+  }
+  else {
+    $logger->warning(sprintf('No data found in CSV for permit %s', $permit_no));
+    // Fall back to minimal permit.
+    return create_minimal_permit($permit_no, $logger);
+  }
+}
+
+/**
+ * Create a minimal permit node with just the permit number.
+ */
+function create_minimal_permit($permit_no, $logger) {
   try {
     $node = Node::create([
       'type' => 'permit',
@@ -345,7 +539,6 @@ function ensure_permit_exists(string $permit_no, $logger): bool {
 
     $node->save();
     $logger->notice(sprintf('Successfully created basic permit %s (NID: %d)', $permit_no, $node->id()));
-    $verified_permits[$permit_no] = TRUE;
     return TRUE;
   }
   catch (\Exception $e) {
