@@ -47,6 +47,9 @@
     {{ title }}
   {% endif %}
   {{ title_suffix }}
+  {% if header and exposed %}
+    <div class="view-header--hybrid">
+  {% endif %}
   {% if header %}
     <div class="view-header">
       {{ header }}
@@ -70,6 +73,9 @@
           </div>
         </div>
       </div>
+    </div>
+  {% endif %}
+  {% if header and exposed %}
     </div>
   {% endif %}
   {% if feed_icons %}
