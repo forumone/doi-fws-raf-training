@@ -43,7 +43,7 @@
         {% endif %}
         {# Check if link is external and add aria-label if it is #}
         {% if item.url.isExternal() %}
-          {% set link_attributes = link_attributes.setAttribute('aria-label', link_title ~ ' (opens in new window)') %}
+          {% set link_attributes = link_attributes.setAttribute('aria-label', link_title ~ ' (opens in new window)').setAttribute('target', '_blank') %}
         {% endif %}
         {# Must use link() here so it triggers hook_link_alter(). #}
         {{ link(link_title, item.url, link_attributes.addClass(item.in_active_trail ? 'active-trail')) }}

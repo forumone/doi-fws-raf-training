@@ -11,7 +11,7 @@ id: node.species_prerelease.field_display_type
 field_name: field_display_type
 entity_type: node
 bundle: species_prerelease
-label: 'Display Water Type'
+label: 'Fresh/Salt'
 description: ''
 required: false
 translatable: true
