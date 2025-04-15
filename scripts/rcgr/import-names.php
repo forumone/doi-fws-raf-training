@@ -378,18 +378,18 @@ function import_names_for_permit($permit_no, $report_year, $logger) {
       // Associate the name entity with a user based on legacy userid.
       if (!empty($data['create_by'])) {
         $uid = find_user_by_legacy_id($data['create_by'], TRUE);
-        if ($uid) {
+        if ($uid > 0) {
           // Set the node owner to the user with the matching legacy ID.
           $node->setOwnerId($uid);
         }
         else {
-          // If we couldn't find the user, default to user 1 (admin).
-          $node->setOwnerId(1);
+          // If we couldn't find the user, default to anonymous user (0).
+          $node->setOwnerId(0);
         }
       }
       else {
-        // If no create_by is specified, set to admin (user 1).
-        $node->setOwnerId(1);
+        // If no create_by is specified, set to anonymous user (0).
+        $node->setOwnerId(0);
       }
 
       // Set creation time if dt_create is available.
@@ -466,9 +466,13 @@ function import_names_for_permit($permit_no, $report_year, $logger) {
 function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
 
+  // Cache of failed lookups to avoid repeatedly trying to import the same non-existent user.
+  static $failed_lookups = [];
+
   if (empty($legacy_userid)) {
     $_rcgr_import_logger->debug("Empty legacy_userid provided to find_user_by_legacy_id");
-    return NULL;
+    // Return anonymous user (0) for empty IDs.
+    return 0;
   }
 
   // Trim whitespace from the legacy user ID.
@@ -476,7 +480,14 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
 
   if (empty($legacy_userid)) {
     $_rcgr_import_logger->debug("Legacy user ID is empty after trimming whitespace");
-    return NULL;
+    // Return anonymous user (0) for empty IDs after trimming.
+    return 0;
+  }
+
+  // If we've already tried and failed to import this user, don't try again.
+  if (isset($failed_lookups[$legacy_userid])) {
+    // Return anonymous user (0) for previously failed lookups.
+    return 0;
   }
 
   // Try to find a user with this legacy ID.
@@ -491,11 +502,12 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
     return $uid;
   }
 
-  // If we shouldn't import users, just log that we didn't find it and return NULL.
+  // If we shouldn't import users, just log that we didn't find it and return anonymous.
   if (!$import_if_not_found) {
     $_rcgr_users_not_found++;
     $_rcgr_import_logger->debug("User with legacy ID {$legacy_userid} not found and auto-import disabled");
-    return NULL;
+    $failed_lookups[$legacy_userid] = TRUE;
+    return 0;
   }
 
   $_rcgr_import_logger->notice("Attempting to import user with legacy ID {$legacy_userid}");
@@ -528,9 +540,13 @@ function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
     }
   }
 
+  // Mark this user as a failed lookup so we don't keep trying.
+  $failed_lookups[$legacy_userid] = TRUE;
+
   $_rcgr_users_not_found++;
-  $_rcgr_import_logger->warning("Could not find or import user with legacy ID {$legacy_userid}");
-  return NULL;
+  $_rcgr_import_logger->warning("Could not find or import user with legacy ID {$legacy_userid}, using anonymous user instead");
+  // Return anonymous user (0) for failed imports.
+  return 0;
 }
 
 // Process the CSV file.
@@ -607,7 +623,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     // Associate the name entity with a user based on legacy userid.
     if (!empty($row['create_by'])) {
       $uid = find_user_by_legacy_id($row['create_by'], TRUE);
-      if ($uid) {
+      if ($uid > 0) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
       }
@@ -697,7 +713,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         // Associate the historical revision with a user based on legacy userid.
         if (!empty($hist_row['create_by'])) {
           $uid = find_user_by_legacy_id($hist_row['create_by'], TRUE);
-          if ($uid) {
+          if ($uid > 0) {
             // Set the revision owner to the user with the matching legacy ID.
             $node->setOwnerId($uid);
             $node->setRevisionUserId($uid);
