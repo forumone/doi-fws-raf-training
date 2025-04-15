@@ -212,18 +212,262 @@ function get_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, arr
 }
 
 /**
+ * Import names from CSV for a specific permit number.
+ *
+ * @param string $permit_no
+ *   The permit number to import names for.
+ * @param string $report_year
+ *   The report year.
+ * @param object $logger
+ *   The logger object.
+ *
+ * @return array
+ *   Array with count of names created/updated.
+ */
+function import_names_for_permit($permit_no, $report_year, $logger) {
+  // Track which permits we've already processed to avoid duplicates.
+  static $_rcgr_imported_permits = [];
+
+  // If we've already imported names for this permit, skip.
+  if (isset($_rcgr_imported_permits[$permit_no])) {
+    return ['created' => 0, 'updated' => 0, 'skipped' => 0];
+  }
+
+  $result = [
+    'created' => 0,
+    'updated' => 0,
+    'skipped' => 0,
+  ];
+
+  $logger->notice(sprintf('Importing names for permit %s, year %s', $permit_no, $report_year));
+
+  // Set the path to the names CSV file.
+  $names_csv_file = __DIR__ . '/data/rcgr_name_202503031405.csv';
+
+  // Check if names CSV file exists.
+  if (!file_exists($names_csv_file)) {
+    $logger->error(sprintf('Names CSV file not found: %s', $names_csv_file));
+    return $result;
+  }
+
+  // Open CSV file.
+  $handle = fopen($names_csv_file, 'r');
+  if (!$handle) {
+    $logger->error(sprintf('Could not open names CSV file: %s', $names_csv_file));
+    return $result;
+  }
+
+  // Read header row.
+  $header = fgetcsv($handle);
+  if (!$header) {
+    $logger->error('Could not read header row from names CSV');
+    fclose($handle);
+    return $result;
+  }
+
+  // Map CSV columns to field names.
+  $field_mappings = [
+    'recno' => 'field_recno',
+    'isRemoved' => 'field_is_removed',
+    'permit_no' => 'field_permit_no',
+    'report_year' => 'field_report_year',
+    'person_name' => 'field_person_name',
+    'version_no' => 'field_version_no',
+    'hid' => 'field_hid',
+    'site_id' => 'field_site_id',
+    'control_site_id' => 'field_control_site_id',
+    'dt_create' => 'field_dt_create',
+    'dt_update' => 'field_dt_update',
+    'create_by' => 'field_create_by',
+    'update_by' => 'field_update_by',
+    'xml_cd' => 'field_xml_cd',
+    'rcf_cd' => 'field_rcf_cd',
+  ];
+
+  // Define value mappings for taxonomy term values.
+  $taxonomy_value_mappings = [
+    'U' => 'Unknown',
+    'A' => 'Active',
+    'C' => 'Complete',
+    'I' => 'Inactive',
+  ];
+
+  // Term cache for taxonomy lookups.
+  $term_cache = [];
+
+  // Process CSV rows.
+  while (($row = fgetcsv($handle)) !== FALSE) {
+    // Skip empty rows.
+    if (count($row) <= 1 && empty($row[0])) {
+      continue;
+    }
+
+    // Create associative array.
+    $data = array_combine($header, $row);
+
+    // Skip if not matching permit number.
+    if (empty($data['permit_no']) || $data['permit_no'] !== $permit_no) {
+      continue;
+    }
+
+    try {
+      // Check if a node with this recno already exists.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'name')
+        ->condition('field_recno', $data['recno'])
+        ->accessCheck(FALSE);
+      $nids = $query->execute();
+
+      // Load or create the node.
+      if (!empty($nids)) {
+        $nid = reset($nids);
+        $node = Node::load($nid);
+        $is_new = FALSE;
+        $result['updated']++;
+      }
+      else {
+        $node = Node::create(['type' => 'name']);
+        $is_new = TRUE;
+        $result['created']++;
+      }
+
+      // Set the title to the person's name.
+      $node->setTitle($data['person_name']);
+
+      // Set simple field values.
+      foreach ($field_mappings as $csv_column => $field_name) {
+        if (isset($data[$csv_column]) && $data[$csv_column] !== '') {
+          $value = $data[$csv_column];
+
+          // Handle boolean fields.
+          if (in_array($field_name, ['field_is_removed'])) {
+            $value = strtolower($value) === 'true' || $value === '1';
+          }
+
+          // Handle date fields.
+          if (in_array($field_name, ['field_dt_create', 'field_dt_update'])) {
+            if (!empty($value)) {
+              try {
+                $date = new DrupalDateTime($value);
+                $value = $date->format('Y-m-d\TH:i:s');
+              }
+              catch (\Exception $e) {
+                $logger->warning(sprintf('Invalid date format for %s: %s', $field_name, $value));
+                continue;
+              }
+            }
+            else {
+              continue;
+            }
+          }
+
+          // Handle taxonomy reference fields.
+          if (in_array($field_name, ['field_rcf_cd'])) {
+            $term_id = get_taxonomy_term_id($value, str_replace('field_', '', $field_name), TRUE, $term_cache, $taxonomy_value_mappings);
+            if ($term_id) {
+              $node->set($field_name, ['target_id' => $term_id]);
+            }
+            continue;
+          }
+
+          // Set the field value.
+          $node->set($field_name, $value);
+        }
+      }
+
+      // Associate the name entity with a user based on legacy userid.
+      if (!empty($data['create_by'])) {
+        $uid = find_user_by_legacy_id($data['create_by'], TRUE);
+        if ($uid) {
+          // Set the node owner to the user with the matching legacy ID.
+          $node->setOwnerId($uid);
+        }
+        else {
+          // If we couldn't find the user, default to user 1 (admin).
+          $node->setOwnerId(1);
+        }
+      }
+      else {
+        // If no create_by is specified, set to admin (user 1).
+        $node->setOwnerId(1);
+      }
+
+      // Set creation time if dt_create is available.
+      if (!empty($data['dt_create'])) {
+        try {
+          $date = new DrupalDateTime($data['dt_create']);
+          $node->setCreatedTime($date->getTimestamp());
+        }
+        catch (\Exception $e) {
+          $logger->warning(sprintf('Could not parse creation date from %s', $data['dt_create']));
+        }
+      }
+
+      // Set changed time if dt_update is available.
+      if (!empty($data['dt_update'])) {
+        try {
+          $date = new DrupalDateTime($data['dt_update']);
+          $node->setChangedTime($date->getTimestamp());
+        }
+        catch (\Exception $e) {
+          $logger->warning(sprintf('Could not parse update date from %s', $data['dt_update']));
+        }
+      }
+
+      // Save the node.
+      $node->save();
+
+      $logger->notice(sprintf(
+        '%s name node for permit %s: %s (NID: %d)',
+        $is_new ? 'Created' : 'Updated',
+        $permit_no,
+        $data['person_name'],
+        $node->id()
+      ));
+    }
+    catch (\Exception $e) {
+      $logger->error(sprintf(
+        'Error processing name for permit %s, person %s: %s',
+        $permit_no,
+        $data['person_name'] ?? 'unknown',
+        $e->getMessage()
+      ));
+      $result['skipped']++;
+    }
+  }
+
+  fclose($handle);
+
+  // Mark this permit as processed.
+  $_rcgr_imported_permits[$permit_no] = TRUE;
+
+  $logger->notice(sprintf(
+    'Finished importing names for permit %s. Created: %d, Updated: %d, Skipped: %d',
+    $permit_no,
+    $result['created'],
+    $result['updated'],
+    $result['skipped']
+  ));
+
+  return $result;
+}
+
+/**
  * Find a user by legacy user ID. Creates a new user if not found.
  *
  * @param string $legacy_userid
  *   The legacy user ID.
+ * @param bool $import_if_not_found
+ *   Whether to import the user if they're not found.
  *
  * @return int|null
  *   The user ID, or NULL if not found or created.
  */
-function find_user_by_legacy_id($legacy_userid) {
+function find_user_by_legacy_id($legacy_userid, $import_if_not_found = FALSE) {
   global $_rcgr_import_logger, $_rcgr_users_not_found, $_rcgr_users_imported;
 
   if (empty($legacy_userid)) {
+    $_rcgr_import_logger->debug("Empty legacy_userid provided to find_user_by_legacy_id");
     return NULL;
   }
 
@@ -231,6 +475,7 @@ function find_user_by_legacy_id($legacy_userid) {
   $legacy_userid = trim($legacy_userid);
 
   if (empty($legacy_userid)) {
+    $_rcgr_import_logger->debug("Legacy user ID is empty after trimming whitespace");
     return NULL;
   }
 
@@ -246,9 +491,18 @@ function find_user_by_legacy_id($legacy_userid) {
     return $uid;
   }
 
+  // If we shouldn't import users, just log that we didn't find it and return NULL.
+  if (!$import_if_not_found) {
+    $_rcgr_users_not_found++;
+    $_rcgr_import_logger->debug("User with legacy ID {$legacy_userid} not found and auto-import disabled");
+    return NULL;
+  }
+
+  $_rcgr_import_logger->notice("Attempting to import user with legacy ID {$legacy_userid}");
+
   // Logger callback function for the import process that suppresses output.
-  $log_via_logger = function ($message) {
-    // Don't output anything here to reduce verbosity.
+  $log_via_logger = function ($message) use ($_rcgr_import_logger) {
+    $_rcgr_import_logger->debug($message);
   };
 
   // Try to import the user from the original CSV.
@@ -256,11 +510,26 @@ function find_user_by_legacy_id($legacy_userid) {
 
   if ($user) {
     $_rcgr_users_imported++;
-    $_rcgr_import_logger->debug("Imported user {$user->id()} for legacy ID {$legacy_userid}");
+    $_rcgr_import_logger->notice("Imported user {$user->id()} for legacy ID {$legacy_userid}");
     return $user->id();
   }
 
+  // Try one more time with a different file if the first attempt failed.
+  $_rcgr_import_logger->notice("First import attempt failed. Trying alternate CSV file for legacy ID {$legacy_userid}");
+  $alternate_csv = __DIR__ . '/data/rcgr_userprofile_no_passwords_202503031405.csv';
+
+  if (file_exists($alternate_csv)) {
+    $user = import_user_by_legacy_id($legacy_userid, $alternate_csv, $log_via_logger);
+
+    if ($user) {
+      $_rcgr_users_imported++;
+      $_rcgr_import_logger->notice("Imported user {$user->id()} from alternate CSV for legacy ID {$legacy_userid}");
+      return $user->id();
+    }
+  }
+
   $_rcgr_users_not_found++;
+  $_rcgr_import_logger->warning("Could not find or import user with legacy ID {$legacy_userid}");
   return NULL;
 }
 
@@ -337,7 +606,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
     // Associate the name entity with a user based on legacy userid.
     if (!empty($row['create_by'])) {
-      $uid = find_user_by_legacy_id($row['create_by']);
+      $uid = find_user_by_legacy_id($row['create_by'], TRUE);
       if ($uid) {
         // Set the node owner to the user with the matching legacy ID.
         $node->setOwnerId($uid);
@@ -427,7 +696,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
         // Associate the historical revision with a user based on legacy userid.
         if (!empty($hist_row['create_by'])) {
-          $uid = find_user_by_legacy_id($hist_row['create_by']);
+          $uid = find_user_by_legacy_id($hist_row['create_by'], TRUE);
           if ($uid) {
             // Set the revision owner to the user with the matching legacy ID.
             $node->setOwnerId($uid);

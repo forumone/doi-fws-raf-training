@@ -61,9 +61,10 @@ ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php restricted_counties
 echo "Importing california_access_key vocabulary..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php california_access_key 100 1
 
-echo "Importing permits..."
-ddev drush -l $SITE_URI scr scripts/rcgr/import-permits.php -- --with-all --limit=100
+# echo "Importing permits..."
+ddev drush -l $SITE_URI scr ../scripts/rcgr/import-reports.php 100
 
-echo ddev drush -l $SITE_URI cr
+# Clear the cache to ensure all entities are properly registered
+ddev drush -l $SITE_URI cr
 
 ddev drush -l $SITE_URI uli
