@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *:focus,
 a:focus {
   outline: none;
@@ -645,6 +646,210 @@ footer.footer .footer-menus .region-footer-menus {
   margin: 0 auto;
 }
 
+.node-page--print {
+  padding: 0;
+  margin: 0;
+  font-size: 0.625rem;
+  /* Form Container */
+  /* Section Styles */
+  /* Field Styles */
+  /* Checkbox Styles */
+  /* Label styling for checkbox text */
+}
+@page {
+  .node-page--print {
+    size: letter portrait;
+    margin: 0.5cm;
+  }
+}
+.node-page--print header,
+.node-page--print footer,
+.node-page--print .skip-link,
+.node-page--print #toolbar-bar,
+.node-page--print #drupal-live-announce {
+  display: none !important;
+}
+.node-page--print .region-content > article {
+  border: 1px solid #3F3E46;
+  background: #F3F3F5;
+  padding: 20px;
+  color: #000000;
+}
+.node-page--print .permit-information--print {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #000000;
+}
+.node-page--print h1, .node-page--print h2, .node-page--print h3,
+.node-page--print h4, .node-page--print h5, .node-page--print h6 {
+  color: #000000;
+  font-size: 0.675rem;
+  margin: 0;
+}
+.node-page--print .permit__header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #000000;
+  padding: 0 0 20px;
+  font-size: 0.5rem;
+}
+.node-page--print .form-citation {
+  padding-bottom: 5px;
+}
+.node-page--print .form-agency,
+.node-page--print .form-division {
+  font-weight: bold;
+  font-size: 0.625rem;
+}
+.node-page--print .permit__badge {
+  width: 60px;
+  padding: 10px 0;
+}
+.node-page--print .permit__column {
+  width: 25%;
+}
+.node-page--print .permit__column--center {
+  width: 50%;
+  text-align: center;
+}
+.node-page--print .permit__column--right {
+  text-align: right;
+}
+.node-page--print .field-row:last-of-type {
+  margin-bottom: 0;
+}
+.node-page--print .field-row--group .field-value {
+  display: flex;
+}
+.node-page--print .field-row--group .field + .field {
+  margin-left: 3px;
+}
+.node-page--print .form-control {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-align: right;
+  font-size: 0.75rem;
+}
+.node-page--print .permit-form-container {
+  padding: 0;
+}
+.node-page--print .permit-section {
+  display: flex;
+  border-bottom: 1px solid #000000;
+  page-break-inside: avoid;
+}
+.node-page--print .section-number {
+  width: 22px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  border-right: 1px solid #000000;
+  padding: 10px 5px;
+}
+.node-page--print .section-content {
+  flex: 1;
+  padding: 10px;
+  position: relative;
+}
+.node-page--print .section-groups {
+  display: flex;
+  gap: 20px;
+}
+.node-page--print .section-group {
+  width: 40%;
+}
+.node-page--print .section-group + .section-group {
+  width: 60%;
+}
+.node-page--print .section-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.node-page--print .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.node-page--print .title-note {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 0.5rem;
+}
+.node-page--print .field-row {
+  display: flex;
+  margin-bottom: 8px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.node-page--print .field-label {
+  font-weight: bold;
+  padding-right: 5px;
+}
+.node-page--print .field-label.mid-aligned {
+  width: auto;
+  margin-left: 10px;
+}
+.node-page--print .field-value {
+  padding-bottom: 2px;
+}
+.node-page--print .checkbox-field .field-value {
+  border-bottom: none;
+}
+.node-page--print .checkbox-field {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.node-page--print .checkbox {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #000000;
+  text-align: center;
+  line-height: 1;
+  font-size: 0.675rem;
+  position: relative;
+  background-color: white;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+.node-page--print .checkbox + .checkbox {
+  margin-left: 25px;
+}
+.node-page--print .checkbox.checked {
+  font-weight: bold;
+  color: #000000;
+}
+.node-page--print .checkbox.checked:after {
+  content: "✔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.625rem;
+  font-weight: bold;
+  color: #000000;
+}
+.node-page--print .checkbox-field > .checkbox + span {
+  margin-right: 10px;
+  font-weight: 500;
+}
+.node-page--print .field-note,
+.node-page--print .signature-note {
+  font-style: italic;
+  font-size: 0.4rem;
+}
+.node-page--print .certification-text {
+  margin-bottom: 6px;
+}
+
 .field--name-field-accordion {
   padding: 30px 0 0;
 }
@@ -724,6 +929,9 @@ footer.footer .footer-menus .region-footer-menus {
 .btn-secondary:focus, .btn-secondary:hover, .btn--secondary:focus, .btn--secondary:hover {
   color: #021d44;
   border: 2px solid #021d44;
+}
+.btn i {
+  margin-right: 8px;
 }
 
 .btn-success {
@@ -1467,6 +1675,12 @@ input.form-autocomplete {
 
 .field--name-field-file {
   margin-top: 20px;
+}
+
+.node__operations {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
 }
 
 .panel-primary .panel-title {

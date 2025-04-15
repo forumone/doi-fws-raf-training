@@ -1,0 +1,98 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.print
+    - field.field.node.permit_3186a.field_3186a_address
+    - field.field.node.permit_3186a.field_3186a_applicant_name
+    - field.field.node.permit_3186a.field_3186a_city
+    - field.field.node.permit_3186a.field_3186a_date_issued
+    - field.field.node.permit_3186a.field_3186a_date_received
+    - field.field.node.permit_3186a.field_3186a_description
+    - field.field.node.permit_3186a.field_3186a_permit_number
+    - field.field.node.permit_3186a.field_3186a_state
+    - field.field.node.permit_3186a.field_3186a_zip
+    - node.type.permit_3186a
+  module:
+    - datetime
+    - user
+id: node.permit_3186a.print
+targetEntityType: node
+bundle: permit_3186a
+mode: print
+content:
+  field_3186a_address:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_3186a_applicant_name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_3186a_city:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_3186a_date_issued:
+    type: datetime_default
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_3186a_date_received:
+    type: datetime_default
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_3186a_description:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_3186a_permit_number:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_3186a_state:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_3186a_zip:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+hidden:
+  links: true

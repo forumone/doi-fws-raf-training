@@ -1,0 +1,259 @@
+@use '../utils/colors' as *;
+@use '../utils/typography' as *;
+
+.node-page--print {
+  padding: 0;
+  margin: 0;
+  font-size: .625rem;
+
+  // Ensure proper page breaks
+  @page {
+    size: letter portrait;
+    margin: 0.5cm;
+  }
+
+  // Hide unnecessary elements
+  header,
+  footer,
+  .skip-link,
+  #toolbar-bar,
+  #drupal-live-announce {
+    display: none !important;
+  }
+
+  .region-content {
+    // padding: 20px;
+
+    > article {
+      border: 1px solid $gray-dark;
+      background: $gray-light;
+      padding: 20px;
+      color: $black;
+    }
+  }
+
+  .permit-information--print {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 2px solid $black;
+  }
+
+  @include headings {
+    color: $black;
+    font-size: 0.675rem;
+    margin: 0
+  }
+
+  .permit__header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid $black;
+    padding: 0 0 20px;
+    font-size: 0.5rem;
+  }
+
+  .form-citation {
+    padding-bottom: 5px;
+  }
+
+  .form-agency,
+  .form-division {
+    font-weight: bold;
+    font-size: 0.625rem;
+  }
+
+  .permit__badge {
+    width: 60px;
+    padding: 10px 0;
+  }
+
+  .permit__column {
+    width: 25%;
+
+    &--center {
+      width: 50%;
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+
+  .field-row {
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &--group {
+
+      .field-value {
+        display: flex;
+      }
+
+      .field + .field {
+        margin-left: 3px;
+      }
+    }
+  }
+
+  .form-control {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    font-size: 0.75rem;
+  }
+
+  /* Form Container */
+  .permit-form-container {
+    padding: 0;
+  }
+
+  /* Section Styles */
+  .permit-section {
+    display: flex;
+    border-bottom: 1px solid $black;
+    page-break-inside: avoid;
+  }
+
+  .section-number {
+    width: 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border-right: 1px solid $black;
+    padding: 10px 5px;
+  }
+
+  .section-content {
+    flex: 1;
+    padding: 10px;
+    position: relative;
+  }
+
+  .section-groups {
+    display: flex;
+    gap: 20px;
+  }
+
+  .section-group {
+    width: 40%;
+
+    + .section-group {
+      width: 60%;
+    }
+  }
+
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+  }
+
+  .title-note {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.5rem;
+  }
+
+  /* Field Styles */
+  .field-row {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .field-label {
+    font-weight: bold;
+    padding-right: 5px;
+  }
+
+  .field-label.mid-aligned {
+    width: auto;
+    margin-left: 10px;
+  }
+
+  .field-value {
+    padding-bottom: 2px;
+
+    &:not(.field--placeholder) {
+      // border-bottom: 1px dotted $gray-medium;
+    }
+  }
+
+  .checkbox-field .field-value {
+    border-bottom: none;
+  }
+
+  /* Checkbox Styles */
+  .checkbox-field {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .checkbox {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border: 1px solid $black;
+    text-align: center;
+    line-height: 1;
+    font-size: 0.675rem;
+    position: relative;
+    background-color: white;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+
+    + .checkbox {
+      margin-left: 25px;
+    }
+  }
+
+  .checkbox.checked {
+    font-weight: bold;
+    color: $black;
+
+    &:after {
+      content: '✔';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.625rem;
+      font-weight: bold;
+      color: $black;
+    }
+  }
+
+  /* Label styling for checkbox text */
+  .checkbox-field > .checkbox + span {
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  .field-note,
+  .signature-note {
+    font-style: italic;
+    font-size: 0.4rem;
+  }
+
+  .certification-text {
+    margin-bottom: 6px;
+  }
+}

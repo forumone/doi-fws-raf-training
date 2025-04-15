@@ -1,3 +1,6 @@
 name: 'FWS Falcon Node'
 description: 'FWS falcon node configuration for the falconry project.'
 type: 'Site'
+
+install:
+  - fws_print
