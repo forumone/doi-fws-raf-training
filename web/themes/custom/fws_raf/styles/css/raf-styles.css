@@ -422,15 +422,6 @@ header#navbar > .container {
   color: #FFFFFF;
 }
 
-body:not(.user-logged-in) header#navbar .navbar-header .navbar-toggle {
-  display: none;
-}
-@media (min-width: 768px) {
-  body:not(.user-logged-in) .navbar {
-    padding-bottom: 20px;
-  }
-}
-
 body.mobile-menu-open {
   position: fixed;
   width: 100%;
@@ -1750,6 +1741,39 @@ input.form-autocomplete {
   margin-bottom: 50px;
 }
 
+.view .view-header--hybrid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+@media (min-width: 768px) {
+  .view .view-header--hybrid {
+    flex-direction: row-reverse;
+  }
+}
+.view .view-header--hybrid .btn {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .view .view-header--hybrid .btn {
+    width: auto;
+  }
+}
+.view .view-header--hybrid .view-header,
+.view .view-header--hybrid .panel-group {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .view .view-header--hybrid .view-header {
+    width: auto;
+  }
+}
+.view .views-data-export-feed .feed-icon {
+  line-height: 0.75;
+}
+
 .release-filter-form .panel,
 .views-element-container .panel {
   box-shadow: none;
@@ -1774,7 +1798,7 @@ input.form-autocomplete {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 15px 20px;
   color: #3F3E46;
   background: #FAFAFC;
   border: 1px solid #8E8C99;
@@ -1835,10 +1859,6 @@ input.form-autocomplete {
 }
 .view-user-locations .view-display-id-attachment_1 {
   margin-top: 40px;
-}
-
-.views-data-export-feed .feed-icon {
-  line-height: 0.75;
 }
 
 .view-tracking-other-names .form-actions {

@@ -140,6 +140,41 @@
 
   Drupal.behaviors.keepViewsFilters = {
     attach: function (context, settings) {
+      // Add mutation observer to remove aria-expanded from panels
+      once('panel-collapse-observer', 'body', context).forEach(function (element) {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'aria-expanded') {
+              if ($(mutation.target).hasClass('panel-collapse')) {
+                $(mutation.target).removeAttr('aria-expanded');
+              }
+            }
+
+            // Check for newly added panel-collapse elements
+            if (mutation.type === 'childList') {
+              mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) { // Element node
+                  const $newPanels = $(node).find('.panel-collapse').addBack('.panel-collapse');
+                  $newPanels.each(function() {
+                    observer.observe(this, { attributes: true });
+                    $(this).removeAttr('aria-expanded');
+                  });
+                }
+              });
+            }
+          });
+        });
+
+        // Observe all panel-collapse elements for attribute changes
+        $('.panel-collapse').each(function() {
+          observer.observe(this, { attributes: true });
+          $(this).removeAttr('aria-expanded');
+        });
+
+        // Also observe the body for new elements
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+
       // Handle form submission
       once('views-filter-submit', 'form.views-exposed-form', context).forEach(function (element) {
         $(element).on('submit', function (e) {
@@ -148,7 +183,8 @@
 
           $panel
             .addClass('in')
-            .css('height', '');
+            .css('height', '')
+            .removeAttr('aria-expanded');
 
           $toggle
             .removeClass('collapsed')
@@ -165,7 +201,8 @@
 
             $panel
               .addClass('in')
-              .css('height', '');
+              .css('height', '')
+              .removeAttr('aria-expanded');
 
             $toggle
               .removeClass('collapsed')

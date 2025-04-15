@@ -259,17 +259,3 @@ header#navbar {
     }
   }
 }
-
-body:not(.user-logged-in) {
-
-  header#navbar .navbar-header .navbar-toggle {
-    display: none;
-  }
-
-  .navbar {
-
-    @include breakpoint(md) {
-      padding-bottom: 20px;
-    }
-  }
-}

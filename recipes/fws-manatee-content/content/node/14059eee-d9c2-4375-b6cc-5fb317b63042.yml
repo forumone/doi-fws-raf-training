@@ -8,6 +8,9 @@ default:
   revision_uid:
     -
       target_id: 1
+  revision_log:
+    -
+      value: 'Updated fields: field_accordion, field_meta_tags'
   status:
     -
       value: true
@@ -39,12 +42,12 @@ default:
       tag: meta
       attributes:
         name: description
-        content: 'How do I log on to the system?What internet browsers are supported?What information is in the system?Why is some text underlined?How can I see more information?What information is required?What if my choice is not in the drop-down box?How is this system organized?How'
+        content: 'Frequently asked questions about the Captive Manatee System.'
     -
       tag: meta
       attributes:
         name: abstract
-        content: 'How do I log on to the system?What internet browsers are supported?What information is in the system?Why is some text underlined?How can I see more information?What information is required?What if my choice is not in the drop-down box?How is this system organized?How'
+        content: 'Frequently asked questions about the Captive Manatee System.'
     -
       tag: link
       attributes:
@@ -279,12 +282,15 @@ default:
           behavior_settings:
             -
               value: {  }
+          revision_translation_affected:
+            -
+              value: true
           field_prompt:
             -
               value: 'How can I get help?'
           field_response:
             -
-              value: '<p>Terri Calleson, USFWS Florida Manatee Recovery Lead<br>Nadia Lentz, FWC Marine Mammal Assistant Research Scientist</p>'
+              value: '<p><a href="mailto:teresa_calleson@fws.gov">Terri Calleson</a>, USFWS Florida Manatee Recovery Lead: <strong>teresa_calleson@fws.gov</strong><br><a href="mailto:Nadia.Lentz@MyFWC.com">Nicole Adimey</a>, FWS Manatee Recovery Lead: <strong>Nadia.Lentz@MyFWC.com</strong></p>'
               format: basic_html
     -
       entity:
@@ -334,7 +340,7 @@ default:
               value: 'How do I enter a rescue for an animal that has never been rescued before?'
           field_response:
             -
-              value: '<p>Menu Options are listed in Italics:</p><p><em>Enter Manatee Data</em><br><em>Rescue</em></p><p>You will see the Search Manatee Information. You must enter some identifying information for this manatee to check that it is not in the database. If the animal had a Pit Tag prior to rescue, enter the Pit tag in the Tag ID box. Double check the entry. If the animal did not have a Pit Tag prior to rescue, enter the Animal ID or Manatee Name to make certain that no one else has input this animal''s rescue already.</p><p>If the animal is in the database, it will be listed in the box. Click on the radio button and then select Go. If the animal is not in the database, then select <em>Enter a new manatee</em>.</p>'
+              value: "<p>Menu Options are listed in Italics:</p><p><em>Enter Manatee Data</em><br><em>Rescue</em></p><p>You will see the Search Manatee Information. You must enter some identifying information for this manatee to check that it is not in the database. If the animal had a Pit Tag prior to rescue, enter the Pit tag in the Tag ID box. Double check the entry. If the animal did not have a Pit Tag prior to rescue, enter the Animal ID or Manatee Name to make certain that no one else has input this animal's rescue already.</p><p>If the animal is in the database, it will be listed in the box. Click on the radio button and then select Go. If the animal is not in the database, then select <em>Enter a new manatee</em>.</p>"
               format: basic_html
     -
       entity:
@@ -459,7 +465,7 @@ default:
               value: 'Hints for searching for an animal'
           field_response:
             -
-              value: '<p>If a search for an animal does not produce the manatee of interest:</p><ol><li>Try entering only part of the name such as Ros, or part of the Animal ID such as SWFTm08, the system will find all animals that have ros anywhere in the name, so Rose, Rosie, and also Frosty are displayed or all animals that have SWFTm08 in their ID.</li><li>Try using the Search for a list of manatees under Advanced Search if you know the month and year of rescue.</li><li>If the animal is currently located in a facility, search by selecting Current Captives by Facility under Database Search.</li><li>Make sure that you enter only one criteria in Search for an Individual Manatee. The system will try to find an animal that has all the criteria you list, so if one is mis-typed, then it won''t match any animal.</li><li>Check that you are entering the Rescue Id from a previous rescue. The system will not have the new Rescue ID listed.</li><li>If you still can''t find the animal, try entering a different piece of information. If you can''t find the animal by name, try entering an ID or perhaps the Pit Tag number or go to Advanced Search.</li></ol>'
+              value: "<p>If a search for an animal does not produce the manatee of interest:</p><ol><li>Try entering only part of the name such as Ros, or part of the Animal ID such as SWFTm08, the system will find all animals that have ros anywhere in the name, so Rose, Rosie, and also Frosty are displayed or all animals that have SWFTm08 in their ID.</li><li>Try using the Search for a list of manatees under Advanced Search if you know the month and year of rescue.</li><li>If the animal is currently located in a facility, search by selecting Current Captives by Facility under Database Search.</li><li>Make sure that you enter only one criteria in Search for an Individual Manatee. The system will try to find an animal that has all the criteria you list, so if one is mis-typed, then it won't match any animal.</li><li>Check that you are entering the Rescue Id from a previous rescue. The system will not have the new Rescue ID listed.</li><li>If you still can't find the animal, try entering a different piece of information. If you can't find the animal by name, try entering an ID or perhaps the Pit Tag number or go to Advanced Search.</li></ol>"
               format: basic_html
     -
       entity:
@@ -581,7 +587,7 @@ default:
               value: {  }
           field_prompt:
             -
-              value: 'Why can''t I enter a status record?'
+              value: "Why can't I enter a status record?"
           field_response:
             -
               value: '<p>Status Updates should be entered twice a year, before the April and September FWS meetings. Only one status update can be entered in each half of the year. If you get a message that you cannot enter a status update, go to the Manatee Information screen for this animal and click on the status tab. Check to see if a status record was already entered for this half of the year (1 = Jan - June and 2 = July - December). If the status information is entered, but is incorrect, contact your System Administrator with the corrections.</p>'
