@@ -25,7 +25,7 @@ function fws_raf_preprocess_node(&$variables) {
     $variables['primary_species_id'] = $primary_species_id;
   }
 
-  if ($node->getType() === 'species_id_results' && $variables['view_mode'] === 'full') {
+  if (in_array($node->getType(), ['species_counting_results', 'species_id_results']) && $variables['view_mode'] === 'full') {
     $variables['base_path'] = base_path();
   }
 }
