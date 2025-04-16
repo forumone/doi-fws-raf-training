@@ -1,0 +1,7 @@
+fws_lock_updates.settings:
+  path: '/admin/config/content/fws-lock-updates'
+  defaults:
+    _form: '\Drupal\fws_lock_updates\Form\LockUpdatesSettingsForm'
+    _title: 'FWS Lock Updates Settings'
+  requirements:
+    _permission: 'administer site configuration'
