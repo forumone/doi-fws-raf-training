@@ -1492,6 +1492,9 @@ input.form-autocomplete {
 .fws-quiz .quiz__guess .form-type-radios {
   padding: 0 0 20px;
 }
+.fws-quiz .quiz__guess legend {
+  border: 0;
+}
 .fws-quiz .quiz__answer i {
   margin-right: 4px;
 }
