@@ -1,0 +1,20 @@
+uuid: 8df9e5a3-4ab8-4d93-a88c-3b1e2ed3c4d7
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_qty_nest_egg_destroyed_may
+field_name: field_qty_nest_egg_destroyed_may
+entity_type: node
+type: integer
+settings:
+  unsigned: FALSE
+  size: normal
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

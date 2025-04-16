@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Implements hook_form_alter().
  */
 function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
   // Handle the name node form separately.
   if ($form_id === 'node_name_form' || $form_id === 'node_name_edit_form') {
     // Always make the permit number field disabled.
@@ -35,6 +36,162 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
         }
       }
     }
+  }
+
+  // Add handling for report node form.
+  if ($form_id === 'node_report_form' || $form_id === 'node_report_edit_form') {
+    // Add instructions at the top of the form using Bootstrap alert info box.
+    $form['form_instructions'] = [
+      '#type' => 'markup',
+      '#markup' => '
+        <div class="alert alert-info" role="alert">
+          <div class="alert-heading">
+            <h4>Report Compilation Note</h4>
+          </div>
+          <p>Sum the nests across all locations in a county for each month. Enter these totals in the Report of Activity Detail section for each county (or equivalent) and month.</p>
+
+          <hr>
+
+          <h4>Tips for Entering Report of Activity:</h4>
+          <ol>
+            <li>In the Report of Activity Detail section, select the appropriate county from the County list. If work occurred in multiple counties, start with one county; the system will auto-display the first county.</li>
+            <li>After entering data, check "I Certify," then click "Save" to proceed to the next county. The system will total the monthly entries.</li>
+            <li>Enter the number of nests with eggs destroyed per month in each county (or equivalent). Do not include individual eggs added or destroyed. Enter 0 if there was no activity in a county.</li>
+            <li>Note: Use the "Save" button next to "I Certify" to save data without exiting, allowing edits for the next county before clicking "Submit and Home" to return to the home page.</li>
+          </ol>
+        </div>
+      ',
+      '#weight' => -100,
+    ];
+
+    // Make permit number read-only.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+
+      // Try to prefill with user's permit number if available.
+      $current_user = \Drupal::currentUser();
+      if ($current_user->id() > 0) {
+        $user = User::load($current_user->id());
+        if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+          $permit_number = $user->get('field_permit_no')->value;
+          $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
+          $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
+        }
+      }
+    }
+
+    // Make the report year, state, and county fields read-only.
+    if (isset($form['field_report_year'])) {
+      $form['field_report_year']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_report_year']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+
+      // Default to current year if creating a new node.
+      if ($form_id === 'node_report_form') {
+        $form['field_report_year']['widget'][0]['value']['#value'] = date('Y');
+        $form['field_report_year']['widget'][0]['value']['#default_value'] = date('Y');
+      }
+    }
+
+    if (isset($form['field_location_state'])) {
+      $form['field_location_state']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_location_state']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    }
+
+    if (isset($form['field_location_county'])) {
+      $form['field_location_county']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_location_county']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+    }
+
+    // Add the location dropdown at the top of the form.
+    $form['location_selector'] = [
+      '#type' => 'select',
+      '#title' => t('Select Location'),
+      '#description' => t('Select a location to pre-fill state and county information.'),
+      '#options' => _fws_goose_get_user_locations(),
+      '#weight' => -10,
+      '#ajax' => [
+        'callback' => '_fws_goose_location_selected',
+        'wrapper' => 'report-location-fields-wrapper',
+        'event' => 'change',
+      ],
+      '#required' => FALSE,
+    ];
+
+    // If this is an edit form with a permit number, add a helpful message.
+    $node = $form_state->getFormObject()->getEntity();
+    if ($node->id() && $node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+      $permit_number = $node->get('field_permit_no')->value;
+      $form['location_selector']['#description'] .= ' ' . t('Locations are filtered to match permit number @permit.', ['@permit' => $permit_number]);
+    }
+
+    // Disable the location selector if the county field already has a value when editing.
+    if ($form_id === 'node_report_edit_form' && $node->hasField('field_location_county') &&
+        !$node->get('field_location_county')->isEmpty()) {
+      $form['location_selector']['#disabled'] = TRUE;
+      $form['location_selector']['#description'] .= ' ' . t('This field is disabled because location information is already set.');
+      // If we're disabling the selector, it shouldn't be required.
+      $form['location_selector']['#required'] = FALSE;
+    }
+
+    // Store the selected location ID as a hidden field.
+    $form['selected_location_id'] = [
+      '#type' => 'hidden',
+      '#default_value' => '',
+    ];
+
+    // Wrap the location fields for Ajax updates.
+    $form['location_fields_wrapper_start'] = [
+      '#markup' => '<div id="report-location-fields-wrapper">',
+      '#weight' => -5,
+    ];
+
+    $form['location_fields_wrapper_end'] = [
+      '#markup' => '</div>',
+      '#weight' => 20,
+    ];
+
+    // Add certification section with styling similar to the image.
+    $form['certification_wrapper'] = [
+      '#type' => 'container',
+      '#weight' => 90,
+      '#attributes' => [
+        'class' => ['certification-container'],
+        'style' => 'border: 1px solid #ddd; padding: 15px; background-color: #f8f8f8; margin-top: 20px;',
+      ],
+    ];
+
+    $form['certification_wrapper']['title'] = [
+      '#markup' => '<h2 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Certification</h2>',
+    ];
+
+    $form['certification_wrapper']['subtitle'] = [
+      '#markup' => '<h3 style="font-weight: bold; margin-bottom: 10px;">Registrant Certification</h3>',
+    ];
+
+    $form['certification_wrapper']['certification_text'] = [
+      '#markup' => '<p style="margin-bottom: 15px;">I certify that the information in this report is true and correct to the best of my knowledge. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>',
+    ];
+
+    $form['certification_wrapper']['certification_container'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'style' => 'display: flex; align-items: center;',
+      ],
+    ];
+
+    $form['certification_wrapper']['certification_container']['certification_checkbox'] = [
+      '#type' => 'checkbox',
+      '#title' => t('I Certify'),
+      '#required' => TRUE,
+      '#attributes' => [
+        'style' => 'margin-right: 10px;',
+      ],
+    ];
+
+    // Add custom validation and submit handlers.
+    $form['#validate'][] = '_fws_goose_report_validate';
+    $form['#submit'][] = '_fws_goose_report_submit';
   }
 
   if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
@@ -251,6 +408,90 @@ function _fws_goose_ca_county_changed($form, FormStateInterface $form_state) {
   }
 
   return $response;
+}
+
+/**
+ * Validation function for report node form.
+ */
+function _fws_goose_report_validate($form, FormStateInterface $form_state) {
+  // Get the raw form values to check the certification checkbox.
+  $all_values = $form_state->getValues();
+
+  // Try different paths to find the certification checkbox value.
+  $certification = FALSE;
+  if (isset($all_values['certification_wrapper']['certification_container']['certification_checkbox'])) {
+    $certification = $all_values['certification_wrapper']['certification_container']['certification_checkbox'];
+  }
+  elseif ($form_state->hasValue(['certification_wrapper', 'certification_container', 'certification_checkbox'])) {
+    $certification = $form_state->getValue(['certification_wrapper', 'certification_container', 'certification_checkbox']);
+  }
+  elseif (isset($all_values['certification_checkbox'])) {
+    $certification = $all_values['certification_checkbox'];
+  }
+
+  if (empty($certification)) {
+    $form_state->setErrorByName('certification_wrapper][certification_container][certification_checkbox', t('You must certify that the information in this report is true and correct.'));
+  }
+
+  // Check if location data is present when not using the selector.
+  if (empty($form_state->getValue('location_selector'))) {
+    // Make sure state and county are not empty if location selector is not used.
+    if (empty($form_state->getValue('field_location_state')[0]['value']) ||
+        empty($form_state->getValue('field_location_county')[0]['value'])) {
+      $form_state->setErrorByName('location_selector', t('You must either select a location or manually enter state and county information.'));
+    }
+  }
+}
+
+/**
+ * Submit handler for the report node form.
+ */
+function _fws_goose_report_submit($form, FormStateInterface $form_state) {
+  // Get the selected location ID.
+  $location_nid = $form_state->getValue('location_selector');
+
+  if (empty($location_nid)) {
+    return;
+  }
+
+  // Get the node object being saved.
+  $node = $form_state->getFormObject()->getEntity();
+
+  // Get the location node.
+  $location_node = \Drupal::entityTypeManager()->getStorage('node')->load($location_nid);
+
+  if (!$location_node) {
+    return;
+  }
+
+  // Set the permit number from the user's information.
+  $current_user = \Drupal::currentUser();
+  if ($current_user->id() > 0) {
+    $user = User::load($current_user->id());
+    if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+      $permit_number = $user->get('field_permit_no')->value;
+      $node->set('field_permit_no', $permit_number);
+    }
+  }
+
+  // Copy location fields to the report node.
+  if ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
+    $state = $location_node->get('field_location_state')->value;
+    $node->set('field_location_state', $state);
+  }
+
+  if ($location_node->hasField('field_location_county') && !$location_node->get('field_location_county')->isEmpty()) {
+    $county = $location_node->get('field_location_county')->value;
+    $node->set('field_location_county', $county);
+  }
+
+  // Set the report year to the current year if not already set.
+  if ($node->get('field_report_year')->isEmpty()) {
+    $node->set('field_report_year', date('Y'));
+  }
+
+  // Save the node again with the correct values.
+  $node->save();
 }
 
 /**
@@ -1347,4 +1588,136 @@ function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, 
       exit;
     }
   }
+}
+
+/**
+ * Get the user's locations for use in dropdown selector.
+ *
+ * @return array
+ *   An array of location options for the select form element.
+ */
+function _fws_goose_get_user_locations() {
+  $options = ['' => t('- Select a location -')];
+
+  $form_object = \Drupal::routeMatch()->getRouteObject()->getDefault('_entity_form');
+  $node = NULL;
+  $uid = NULL;
+  $permit_number = NULL;
+
+  // Check if this is an edit form.
+  if ($form_object && strpos($form_object, 'edit_form') !== FALSE) {
+    // Get the node being edited.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node->getOwnerId()) {
+      $uid = $node->getOwnerId();
+
+      // Get permit number from the node being edited if available.
+      if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+        $permit_number = $node->get('field_permit_no')->value;
+      }
+    }
+  }
+
+  // If no uid from node, use current user.
+  if (!$uid) {
+    $current_user = \Drupal::currentUser();
+    if ($current_user->id() <= 0) {
+      return $options;
+    }
+    $uid = $current_user->id();
+
+    // If no permit number from the node, try to get it from the user.
+    if (!$permit_number) {
+      $user = \Drupal::entityTypeManager()->getStorage('user')->load($uid);
+      if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+        $permit_number = $user->get('field_permit_no')->value;
+      }
+    }
+  }
+
+  // Query for location nodes owned by the determined user.
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'location')
+    ->condition('uid', $uid)
+    ->condition('status', 1)
+    ->sort('title', 'ASC')
+    ->accessCheck(TRUE);
+
+  // Filter by permit number if available.
+  if ($permit_number) {
+    $query->condition('field_permit_no', $permit_number);
+  }
+
+  $nids = $query->execute();
+
+  // Load the nodes and populate options.
+  if (!empty($nids)) {
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($nids);
+    foreach ($nodes as $nid => $node) {
+      // Create a descriptive label with county information.
+      $county = '';
+      if ($node->hasField('field_location_county') && !$node->get('field_location_county')->isEmpty()) {
+        $county = $node->get('field_location_county')->value;
+      }
+
+      $label = $node->getTitle();
+      if (!empty($county)) {
+        $label .= ' - ' . $county;
+      }
+
+      $options[$nid] = $label;
+    }
+  }
+
+  return $options;
+}
+
+/**
+ * Ajax callback for when location is selected.
+ */
+function _fws_goose_location_selected($form, FormStateInterface $form_state) {
+  $response = new AjaxResponse();
+
+  // Get the selected location node ID.
+  $location_nid = $form_state->getValue('location_selector');
+
+  if (!empty($location_nid)) {
+    // Set the selected location ID in the hidden field.
+    $response->addCommand(new InvokeCommand('input[name="selected_location_id"]', 'val', [$location_nid]));
+
+    // Load the selected location node.
+    $location_node = \Drupal::entityTypeManager()->getStorage('node')->load($location_nid);
+
+    if ($location_node) {
+      // Extract state and county values.
+      $state = '';
+      $county = '';
+
+      // Handle state value - check state_ref field first.
+      if ($location_node->hasField('field_location_state_ref') && !$location_node->get('field_location_state_ref')->isEmpty()) {
+        $target_id = $location_node->get('field_location_state_ref')->target_id;
+        $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_id);
+        if ($term) {
+          $state = $term->getName();
+          // Set the value in the form.
+          $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
+        }
+      }
+      // Fallback to direct state field if present.
+      elseif ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
+        $state = $location_node->get('field_location_state')->value;
+        // Set the value in the form.
+        $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
+      }
+
+      if ($location_node->hasField('field_location_county') && !$location_node->get('field_location_county')->isEmpty()) {
+        $county = $location_node->get('field_location_county')->value;
+        // Set the value in the form.
+        $response->addCommand(new InvokeCommand('input[name="field_location_county[0][value]"]', 'val', [$county]));
+      }
+    }
+  }
+
+  // Return the AjaxResponse object.
+  return $response;
 }

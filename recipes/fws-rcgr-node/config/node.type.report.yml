@@ -1,0 +1,36 @@
+uuid: 83a4f9c7-b19a-48e6-a472-5bf985e1f42d
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - menu_ui
+    - node_revision_delete
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  node_revision_delete:
+    amount:
+      status: FALSE
+      settings:
+        amount: 0
+    created:
+      status: FALSE
+      settings:
+        age: 1
+    drafts:
+      status: FALSE
+      settings:
+        age: 1
+    only_drafts:
+      status: FALSE
+      settings:
+        age: 0
+name: Report
+type: report
+description: 'Stores Canada Goose reporting data for RCGR permits.'
+help: null
+new_revision: TRUE
+preview_mode: 0
+display_submitted: TRUE

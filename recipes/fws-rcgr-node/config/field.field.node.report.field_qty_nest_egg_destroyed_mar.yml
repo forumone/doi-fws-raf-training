@@ -1,0 +1,25 @@
+uuid: 99a53e6e-a3b2-4d87-9ffd-432af9a1bae4
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_qty_nest_egg_destroyed_mar
+    - node.type.report
+id: node.report.field_qty_nest_egg_destroyed_mar
+field_name: field_qty_nest_egg_destroyed_mar
+entity_type: node
+bundle: report
+label: 'March'
+description: 'Number of nests and eggs destroyed during March.'
+required: FALSE
+translatable: FALSE
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

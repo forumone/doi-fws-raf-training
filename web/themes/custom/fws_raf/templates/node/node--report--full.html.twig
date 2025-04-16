@@ -1,0 +1,118 @@
+{#
+/**
+ * @file
+ * Theme override to display a Report node using Bootstrap 3 classes.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_permit_no'.
+ * - attributes: HTML attributes for the container.
+ */
+#}
+
+{%
+  set classes = [
+    'report-node',
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+
+{# Hide all labels in the content array #}
+{% set content = content|without('links') %}
+{% for key, item in content %}
+  {% if key|first != '#' %}
+    {% set content = content|merge({
+      (key): content[key]|merge({'#label_display': 'hidden'})
+    }) %}
+  {% endif %}
+{% endfor %}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="container-fluid">
+
+    <!-- Report Information Panel -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">Report Information</h2>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th class="col-md-3">Permit Number</th>
+                <td class="col-md-9">{{ content.field_permit_no|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>Report Year</th>
+                <td>{{ content.field_report_year|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>State</th>
+                <td>{{ content.field_location_state|default('N/A') }}</td>
+              </tr>
+              <tr>
+                <th>County</th>
+                <td>{{ content.field_location_county|default('N/A') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Activity Panel -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h2 class="panel-title">Activity Report</h2>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Nests/Eggs Destroyed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>March</th>
+                <td>{{ content.field_qty_nest_egg_destroyed_mar|default('0') }}</td>
+              </tr>
+              <tr>
+                <th>April</th>
+                <td>{{ content.field_qty_nest_egg_destroyed_apr|default('0') }}</td>
+              </tr>
+              <tr>
+                <th>May</th>
+                <td>{{ content.field_qty_nest_egg_destroyed_may|default('0') }}</td>
+              </tr>
+              <tr>
+                <th>June</th>
+                <td>{{ content.field_qty_nest_egg_destroyed_jun|default('0') }}</td>
+              </tr>
+              <tr class="info">
+                <th>Total</th>
+                <td><strong>{{ content.field_qty_nest_egg_destroyed_tot|default('0') }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Actions Link -->
+    {% if logged_in %}
+      <div class="text-right">
+        <a href="{{ path('entity.node.edit_form', {'node': node.id}) }}" class="btn btn-primary">Edit Report</a>
+      </div>
+    {% endif %}
+  </div>
+</article>

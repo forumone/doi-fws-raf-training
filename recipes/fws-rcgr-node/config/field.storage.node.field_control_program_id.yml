@@ -1,0 +1,21 @@
+uuid: ddf9e5a8-9ab8-4d93-a88c-8b1e2ed3c4dc
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_control_program_id
+field_name: field_control_program_id
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: FALSE
+  is_ascii: FALSE
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

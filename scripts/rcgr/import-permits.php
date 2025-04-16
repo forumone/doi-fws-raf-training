@@ -42,52 +42,52 @@ function format_datetime_for_drupal($datetime_string) {
 }
 
 /**
- * Gets or creates a taxonomy term ID for the given value.
+ * Get the taxonomy term ID for a given name and vocabulary.
  *
- * @param string $value
- *   The term name to look up.
+ * @param string $name
+ *   The term name.
  * @param string $vocabulary
- *   The vocabulary ID.
+ *   The vocabulary machine name.
  * @param bool $create_if_missing
  *   Whether to create the term if it doesn't exist.
  * @param array &$term_cache
- *   A cache array to store terms we've already looked up.
+ *   Reference to the term cache array.
  * @param array $value_mappings
- *   Optional value mappings to apply.
- * @param bool $force_new
- *   Whether to force creation of a new term.
+ *   Mappings from special values to proper term names.
+ * @param bool $force_new_term
+ *   Whether to force creation of a new term even if one exists.
  *
  * @return int|null
- *   The term ID or NULL if not found and not created.
+ *   The term ID, or NULL if not found and not creating.
  */
-function get_taxonomy_term_id($value, $vocabulary, $create_if_missing, array &$term_cache, array $value_mappings = [], $force_new = FALSE) {
+function get_permit_taxonomy_term_id($name, $vocabulary, $create_if_missing = TRUE, array &$term_cache = [], array $value_mappings = [], $force_new_term = FALSE) {
   $logger = Drush::logger();
 
-  if (empty($value)) {
+  if (empty($name)) {
     return NULL;
   }
 
   // Apply value mapping if exists.
-  if (isset($value_mappings[$value])) {
-    $value = $value_mappings[$value];
+  if (isset($value_mappings[$name])) {
+    $name = $value_mappings[$name];
   }
 
   // Create a cache key for this term.
-  $cache_key = $vocabulary . ':' . $value;
+  $cache_key = $vocabulary . ':' . $name;
 
   // Check if we've already looked up this term.
-  if (!$force_new && isset($term_cache[$cache_key])) {
+  if (!$force_new_term && isset($term_cache[$cache_key])) {
     return $term_cache[$cache_key];
   }
 
   // Look up the term.
-  if (!$force_new) {
+  if (!$force_new_term) {
     // Create an entity query with explicit access checking disabled.
     $query = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->getQuery()
       ->condition('vid', $vocabulary)
-      ->condition('name', $value)
+      ->condition('name', $name)
       ->accessCheck(FALSE);
 
     $tids = $query->execute();
@@ -104,7 +104,7 @@ function get_taxonomy_term_id($value, $vocabulary, $create_if_missing, array &$t
     try {
       $term = Term::create([
         'vid' => $vocabulary,
-        'name' => $value,
+        'name' => $name,
       ]);
       $term->save();
       $tid = $term->id();
@@ -112,7 +112,7 @@ function get_taxonomy_term_id($value, $vocabulary, $create_if_missing, array &$t
       return $tid;
     }
     catch (\Exception $e) {
-      $logger->error("Error creating taxonomy term '$value' in $vocabulary vocabulary: " . $e->getMessage());
+      $logger->error("Error creating taxonomy term '$name' in $vocabulary vocabulary: " . $e->getMessage());
       return NULL;
     }
   }
@@ -150,7 +150,7 @@ function field_exists_for_permit($field_name) {
  * @return int|null
  *   The user ID, or NULL if not found or created.
  */
-function find_user_by_legacy_id($legacy_userid) {
+function permits_find_user_by_legacy_id($legacy_userid) {
   global $_rcgr_users_not_found, $_rcgr_users_imported;
   $logger = Drush::logger();
 
@@ -193,6 +193,199 @@ function find_user_by_legacy_id($legacy_userid) {
 
   $_rcgr_users_not_found++;
   return NULL;
+}
+
+/**
+ * Find a permit by permit number. Imports new permit if not found.
+ *
+ * @param string $permit_no
+ *   The permit number.
+ * @param string $csv_file
+ *   Optional CSV file path. If NULL, uses the default CSV file.
+ * @param callable|null $logger
+ *   Optional logger callback function.
+ *
+ * @return \Drupal\node\NodeInterface|null
+ *   The node if found or created, NULL otherwise.
+ */
+function find_permit_by_permit_no($permit_no, $csv_file = NULL, ?callable $logger = NULL) {
+  global $_rcgr_import_logger;
+
+  // Use the global logger if none provided.
+  if ($logger === NULL && isset($_rcgr_import_logger)) {
+    $logger = $_rcgr_import_logger;
+  }
+  elseif ($logger === NULL) {
+    // Create a simple logger that writes to the Drush log.
+    $logger = function ($message, $vars = []) {
+      if (!empty($vars)) {
+        $message = strtr($message, $vars);
+      }
+      Drush::logger()->notice($message);
+    };
+  }
+
+  if (empty($permit_no)) {
+    $logger("Empty permit number provided");
+    return NULL;
+  }
+
+  // Trim whitespace from the permit number.
+  $permit_no = trim($permit_no);
+
+  if (empty($permit_no)) {
+    $logger("Permit number is empty after trimming");
+    return NULL;
+  }
+
+  // Try to find a node with this permit number.
+  $query = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->getQuery()
+    ->condition('type', 'permit')
+    ->condition('field_permit_no', $permit_no)
+    ->accessCheck(FALSE);
+  $nids = $query->execute();
+
+  if (!empty($nids)) {
+    $nid = reset($nids);
+    $logger("Found permit node {$nid} with permit number {$permit_no}");
+    return Node::load($nid);
+  }
+
+  // If no CSV file is provided, try to use the default one.
+  if ($csv_file === NULL) {
+    $csv_file = __DIR__ . '/data/rcgr_permit_app_mast_202503031405.csv';
+    $logger("Using default permit CSV file: {$csv_file}");
+
+    if (!file_exists($csv_file)) {
+      $logger("Default permit CSV file not found at {$csv_file}");
+      return NULL;
+    }
+  }
+
+  // Try to import the permit from the CSV.
+  $logger("Attempting to import permit {$permit_no} from CSV");
+
+  // Open the CSV file.
+  $handle = fopen($csv_file, 'r');
+  if ($handle === FALSE) {
+    $logger("Could not open CSV file {$csv_file}");
+    return NULL;
+  }
+
+  // Get the header row.
+  $header = fgetcsv($handle);
+  if ($header === FALSE) {
+    $logger("Could not read header from CSV file");
+    fclose($handle);
+    return NULL;
+  }
+
+  $logger("CSV header has " . count($header) . " columns");
+
+  // Map column names to indices.
+  $column_map = [];
+  foreach ($header as $index => $name) {
+    $column_map[$name] = $index;
+  }
+
+  // Check if permit_no column exists.
+  if (!isset($column_map['permit_no'])) {
+    $logger("CSV file does not contain 'permit_no' column");
+    $logger("Available columns: " . implode(", ", $header));
+    fclose($handle);
+    return NULL;
+  }
+
+  $logger("Searching for permit {$permit_no} in CSV file");
+  $logger("permit_no column index: " . $column_map['permit_no']);
+
+  // Search for the permit in the CSV.
+  $permit_row = NULL;
+  $row_count = 0;
+  while (($row = fgetcsv($handle)) !== FALSE) {
+    $row_count++;
+    if (isset($row[$column_map['permit_no']])) {
+      $current_permit_no = trim($row[$column_map['permit_no']], '"');
+
+      if ($row_count <= 5 || $row_count % 1000 === 0) {
+        $logger("Row {$row_count}: Checking permit '{$current_permit_no}' against '{$permit_no}'");
+      }
+
+      if ($current_permit_no === $permit_no) {
+        $permit_row = $row;
+        $logger("Found permit {$permit_no} at row {$row_count}");
+        break;
+      }
+    }
+    else {
+      $logger("Row {$row_count} doesn't have enough columns to access permit_no index");
+    }
+  }
+
+  fclose($handle);
+
+  if ($permit_row === NULL) {
+    $logger("Permit {$permit_no} not found in CSV file after checking {$row_count} rows");
+    return NULL;
+  }
+
+  // Create the permit node.
+  $data = array_combine($header, $permit_row);
+
+  $node = Node::create([
+    'type' => 'permit',
+    'title' => $permit_no,
+  ]);
+
+  // Define field mappings based on the global mapping if available.
+  $field_mappings = [
+    'permit_no' => 'field_permit_no',
+    // Add other field mappings that are essential for a permit.
+    'status' => 'field_status',
+    'permit_type' => 'field_permit_type',
+    'issued_date' => 'field_issued_date',
+    'expiry_date' => 'field_expiry_date',
+  ];
+
+  // Set basic fields.
+  foreach ($field_mappings as $csv_field => $drupal_field) {
+    if (isset($data[$csv_field]) && field_exists_for_permit($drupal_field)) {
+      $value = trim($data[$csv_field], '"');
+
+      // Handle date fields.
+      if ($drupal_field === 'field_issued_date' || $drupal_field === 'field_expiry_date') {
+        $value = format_datetime_for_drupal($value);
+        if ($value === FALSE) {
+          continue;
+        }
+      }
+
+      $node->set($drupal_field, $value);
+    }
+  }
+
+  // Associate the permit with a user if possible.
+  if (isset($data['create_by'])) {
+    $legacy_userid = trim($data['create_by'], '"');
+    if (!empty($legacy_userid)) {
+      $uid = permits_find_user_by_legacy_id($legacy_userid);
+      if ($uid) {
+        $node->setOwnerId($uid);
+      }
+    }
+  }
+
+  try {
+    $node->save();
+    $logger("Created new permit node {$node->id()} for permit number {$permit_no}");
+    return $node;
+  }
+  catch (\Exception $e) {
+    $logger("Error creating permit node for {$permit_no}: " . $e->getMessage());
+    return NULL;
+  }
 }
 
 // Get the limit parameter from command line arguments if provided.
@@ -454,7 +647,7 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
     if (isset($_rcgr_import_csv_map['create_by'])) {
       $legacy_userid = trim($row[$_rcgr_import_csv_map['create_by']], '"');
       if (!empty($legacy_userid)) {
-        $uid = find_user_by_legacy_id($legacy_userid);
+        $uid = permits_find_user_by_legacy_id($legacy_userid);
         if ($uid) {
           // Set the node owner to the user with the matching legacy ID.
           $node->setOwnerId($uid);
@@ -501,7 +694,7 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
         if (isset($_rcgr_import_csv_map['create_by'])) {
           $legacy_userid = trim($hist_row[$_rcgr_import_csv_map['create_by']], '"');
           if (!empty($legacy_userid)) {
-            $uid = find_user_by_legacy_id($legacy_userid);
+            $uid = permits_find_user_by_legacy_id($legacy_userid);
             if ($uid) {
               // Set the revision owner to the user with the matching legacy ID.
               $node->setRevisionUserId($uid);

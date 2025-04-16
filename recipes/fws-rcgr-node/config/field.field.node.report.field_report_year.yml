@@ -1,0 +1,23 @@
+uuid: 96a53e6b-a3b2-4d87-9ffd-432af9a1bae1
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_report_year
+    - node.type.report
+id: node.report.field_report_year
+field_name: field_report_year
+entity_type: node
+bundle: report
+label: 'Report Year'
+description: 'The year this report applies to.'
+required: TRUE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1900
+  max: 2100
+  prefix: ''
+  suffix: ''
+field_type: integer

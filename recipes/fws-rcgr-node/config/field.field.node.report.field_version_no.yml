@@ -1,0 +1,25 @@
+uuid: a4a53e73-a3b2-4d87-9ffd-432af9a1bae9
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_version_no
+    - node.type.report
+id: node.report.field_version_no
+field_name: field_version_no
+entity_type: node
+bundle: report
+label: 'Version Number'
+description: 'The version number of this report record.'
+required: FALSE
+translatable: FALSE
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
