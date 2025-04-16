@@ -40,6 +40,17 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
 
   // Add handling for report node form.
   if ($form_id === 'node_report_form' || $form_id === 'node_report_edit_form') {
+    // Log when we're setting up the form for debugging.
+    \Drupal::logger('fws_goose')->notice('Setting up form for @form_id', ['@form_id' => $form_id]);
+
+    // Debug the form object structure.
+    if (function_exists('kint')) {
+      kint($form_state->getFormObject()->getEntity()->getEntityTypeId());
+      kint($form_state->getFormObject()->getEntity()->bundle());
+      kint($form['actions']);
+      kint($form['#submit']);
+    }
+
     // Add instructions at the top of the form using Bootstrap alert info box.
     $form['form_instructions'] = [
       '#type' => 'markup',
@@ -191,7 +202,26 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
 
     // Add custom validation and submit handlers.
     $form['#validate'][] = '_fws_goose_report_validate';
-    $form['#submit'][] = '_fws_goose_report_submit';
+    // Don't add to the form's submit handlers, as they may not be called.
+    // Instead, add our submit handler directly to the save button.
+    if (isset($form['actions']['submit'])) {
+      \Drupal::logger('fws_goose')->notice('Adding submit handler directly to save button');
+      if (!isset($form['actions']['submit']['#submit'])) {
+        $form['actions']['submit']['#submit'] = [];
+      }
+      $form['actions']['submit']['#submit'][] = '_fws_goose_report_submit';
+
+      // Debug the submit handlers on the button.
+      if (function_exists('kint')) {
+        kint($form['actions']['submit']['#submit']);
+      }
+    }
+    else {
+      \Drupal::logger('fws_goose')->error('Save button not found on form');
+    }
+
+    // Log the submit handlers for debugging.
+    \Drupal::logger('fws_goose')->notice('Submit handlers: @handlers', ['@handlers' => print_r($form['#submit'] ?? [], TRUE)]);
   }
 
   if ($form_id === 'node_location_form' || $form_id === 'node_location_edit_form') {
@@ -414,19 +444,49 @@ function _fws_goose_ca_county_changed($form, FormStateInterface $form_state) {
  * Validation function for report node form.
  */
 function _fws_goose_report_validate($form, FormStateInterface $form_state) {
+  // Add debug log statement.
+  \Drupal::logger('fws_goose')->notice('_fws_goose_report_validate handler called');
+
   // Get the raw form values to check the certification checkbox.
   $all_values = $form_state->getValues();
+
+  // Debug the structure of form values.
+  \Drupal::logger('fws_goose')->notice('Form values structure: @structure',
+    ['@structure' => print_r(array_keys($all_values), TRUE)]);
+
+  if (isset($all_values['certification_wrapper'])) {
+    \Drupal::logger('fws_goose')->notice('certification_wrapper structure: @structure',
+      ['@structure' => print_r($all_values['certification_wrapper'], TRUE)]);
+  }
 
   // Try different paths to find the certification checkbox value.
   $certification = FALSE;
   if (isset($all_values['certification_wrapper']['certification_container']['certification_checkbox'])) {
     $certification = $all_values['certification_wrapper']['certification_container']['certification_checkbox'];
+    \Drupal::logger('fws_goose')->notice('Found certification in path 1: @value', ['@value' => $certification]);
   }
-  elseif ($form_state->hasValue(['certification_wrapper', 'certification_container', 'certification_checkbox'])) {
-    $certification = $form_state->getValue(['certification_wrapper', 'certification_container', 'certification_checkbox']);
+  elseif ($form_state->hasValue([
+    'certification_wrapper',
+    'certification_container',
+    'certification_checkbox',
+  ])) {
+    $certification = $form_state->getValue([
+      'certification_wrapper',
+      'certification_container',
+      'certification_checkbox',
+    ]);
+    \Drupal::logger('fws_goose')->notice('Found certification in path 2: @value', ['@value' => $certification]);
   }
   elseif (isset($all_values['certification_checkbox'])) {
     $certification = $all_values['certification_checkbox'];
+    \Drupal::logger('fws_goose')->notice('Found certification in path 3: @value', ['@value' => $certification]);
+  }
+  else {
+    \Drupal::logger('fws_goose')->notice('Certification checkbox not found in any expected path');
+    // Debug the structure of the form.
+    if (function_exists('kint_require')) {
+      \Drupal::logger('fws_goose')->notice('Form values dump: @values', ['@values' => print_r($all_values, TRUE)]);
+    }
   }
 
   if (empty($certification)) {
@@ -447,21 +507,29 @@ function _fws_goose_report_validate($form, FormStateInterface $form_state) {
  * Submit handler for the report node form.
  */
 function _fws_goose_report_submit($form, FormStateInterface $form_state) {
-  // Get the selected location ID.
-  $location_nid = $form_state->getValue('location_selector');
-
-  if (empty($location_nid)) {
-    return;
-  }
-
   // Get the node object being saved.
   $node = $form_state->getFormObject()->getEntity();
 
-  // Get the location node.
-  $location_node = \Drupal::entityTypeManager()->getStorage('node')->load($location_nid);
+  // Get the selected location ID.
+  $location_nid = $form_state->getValue('location_selector');
 
-  if (!$location_node) {
-    return;
+  // Only process location data if a location was selected.
+  if (!empty($location_nid)) {
+    // Get the location node.
+    $location_node = \Drupal::entityTypeManager()->getStorage('node')->load($location_nid);
+
+    if ($location_node) {
+      // Copy location fields to the report node.
+      if ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
+        $state = $location_node->get('field_location_state')->value;
+        $node->set('field_location_state', $state);
+      }
+
+      if ($location_node->hasField('field_location_county') && !$location_node->get('field_location_county')->isEmpty()) {
+        $county = $location_node->get('field_location_county')->value;
+        $node->set('field_location_county', $county);
+      }
+    }
   }
 
   // Set the permit number from the user's information.
@@ -474,17 +542,6 @@ function _fws_goose_report_submit($form, FormStateInterface $form_state) {
     }
   }
 
-  // Copy location fields to the report node.
-  if ($location_node->hasField('field_location_state') && !$location_node->get('field_location_state')->isEmpty()) {
-    $state = $location_node->get('field_location_state')->value;
-    $node->set('field_location_state', $state);
-  }
-
-  if ($location_node->hasField('field_location_county') && !$location_node->get('field_location_county')->isEmpty()) {
-    $county = $location_node->get('field_location_county')->value;
-    $node->set('field_location_county', $county);
-  }
-
   // Set the report year to the current year if not already set.
   if ($node->get('field_report_year')->isEmpty()) {
     $node->set('field_report_year', date('Y'));
@@ -492,6 +549,95 @@ function _fws_goose_report_submit($form, FormStateInterface $form_state) {
 
   // Save the node again with the correct values.
   $node->save();
+
+  // Check if certification checkbox was checked.
+  $certification = FALSE;
+  $all_values = $form_state->getValues();
+
+  if (isset($all_values['certification_wrapper']['certification_container']['certification_checkbox'])) {
+    $certification = $all_values['certification_wrapper']['certification_container']['certification_checkbox'];
+  }
+  elseif ($form_state->hasValue([
+    'certification_wrapper',
+    'certification_container',
+    'certification_checkbox',
+  ])) {
+    $certification = $form_state->getValue([
+      'certification_wrapper',
+      'certification_container',
+      'certification_checkbox',
+    ]);
+  }
+  elseif (isset($all_values['certification_checkbox'])) {
+    $certification = $all_values['certification_checkbox'];
+  }
+
+  // Send email notification if the form was certified.
+  if ($certification) {
+    // Send email notification to the user.
+    $current_user = \Drupal::currentUser();
+    if ($current_user->id() > 0) {
+      $user = User::load($current_user->id());
+      if ($user) {
+        $user_email = $user->getEmail();
+
+        if (!empty($user_email)) {
+          // Prepare notification data.
+          $notification_data = [
+            'username' => $user->getAccountName(),
+            'email' => $user_email,
+            'operation' => 'report_certified',
+            'user_id' => $user->id(),
+            'node_id' => $node->id(),
+            'node_title' => $node->getTitle(),
+          ];
+
+          // Add state and county if available.
+          if ($node->hasField('field_location_state') && !$node->get('field_location_state')->isEmpty()) {
+            $notification_data['state'] = $node->get('field_location_state')->value;
+          }
+
+          if ($node->hasField('field_location_county') && !$node->get('field_location_county')->isEmpty()) {
+            $notification_data['county'] = $node->get('field_location_county')->value;
+          }
+
+          // Add report year if available.
+          if ($node->hasField('field_report_year') && !$node->get('field_report_year')->isEmpty()) {
+            $notification_data['report_year'] = $node->get('field_report_year')->value;
+          }
+
+          // Add egg count data.
+          $egg_count_fields = [
+            'field_qty_nest_egg_destroyed_mar',
+            'field_qty_nest_egg_destroyed_apr',
+            'field_qty_nest_egg_destroyed_may',
+            'field_qty_nest_egg_destroyed_jun',
+            'field_qty_nest_egg_destroyed_tot',
+          ];
+
+          foreach ($egg_count_fields as $field) {
+            if ($node->hasField($field)) {
+              $notification_data[$field] = $node->get($field)->isEmpty() ? 0 : $node->get($field)->value;
+            }
+            else {
+              $notification_data[$field] = 0;
+            }
+          }
+
+          // Send the email.
+          $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+          $mailManager = \Drupal::service('plugin.manager.mail');
+          $module = 'fws_goose';
+
+          $result = $mailManager->mail($module, 'report_certified', $user_email, $language, $notification_data, NULL, TRUE);
+
+          if (!$result['result']) {
+            \Drupal::logger('fws_goose')->error('Failed to send report_certified email');
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -1447,6 +1593,69 @@ function fws_goose_mail($key, &$message, $params) {
         $body[] = t('Permit number: @permit', ['@permit' => $params['permit_number']]);
       }
 
+      $message['body'] = $body;
+      break;
+
+    case 'report_certified':
+      // Email to the user who submitted a certified report.
+      $message['subject'] = t('Canada Goose Report Submission Confirmation');
+
+      // Create the email body.
+      $body = [];
+      $body[] = t('This is confirmation that your report has been submitted and certified.');
+      $body[] = '';
+
+      // Add report details.
+      if (!empty($params['node_title'])) {
+        $body[] = t('Report Title: @title', ['@title' => $params['node_title']]);
+      }
+
+      // Add report year if available.
+      if (!empty($params['report_year'])) {
+        $body[] = t('Report Year: @year', ['@year' => $params['report_year']]);
+      }
+
+      // Add location information if available.
+      if (!empty($params['county']) || !empty($params['state'])) {
+        $body[] = '';
+        $body[] = t('Location Information:');
+
+        if (!empty($params['county'])) {
+          $body[] = t('County: @county', ['@county' => $params['county']]);
+        }
+
+        if (!empty($params['state'])) {
+          $body[] = t('State: @state', ['@state' => $params['state']]);
+        }
+      }
+
+      // Add egg count information.
+      $body[] = '';
+      $body[] = t('Nests with Eggs Destroyed:');
+
+      // Get egg count values with defaults of 0.
+      $march = $params['field_qty_nest_egg_destroyed_mar'] ?? 0;
+      $april = $params['field_qty_nest_egg_destroyed_apr'] ?? 0;
+      $may = $params['field_qty_nest_egg_destroyed_may'] ?? 0;
+      $june = $params['field_qty_nest_egg_destroyed_jun'] ?? 0;
+      $total = $params['field_qty_nest_egg_destroyed_tot'] ?? 0;
+
+      // Add egg count details to the email.
+      $body[] = t('March: @count', ['@count' => $march]);
+      $body[] = t('April: @count', ['@count' => $april]);
+      $body[] = t('May: @count', ['@count' => $may]);
+      $body[] = t('June: @count', ['@count' => $june]);
+      $body[] = t('Total: @count', ['@count' => $total]);
+
+      // Add certification timestamp.
+      $body[] = '';
+      $body[] = t('Date of Submission: @date', ['@date' => \Drupal::service('date.formatter')->format(time(), 'custom', 'n/j/Y')]);
+
+      // Reminder about annual reporting requirements.
+      $body[] = '';
+      $body[] = t('Reminder: Annual reporting is required to maintain your registration status. Thank you for your submission.');
+
+      // Set the message body.
       $message['body'] = $body;
       break;
   }
