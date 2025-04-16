@@ -115,7 +115,7 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
         'wrapper' => 'report-location-fields-wrapper',
         'event' => 'change',
       ],
-      '#required' => TRUE,
+      '#required' => FALSE,
     ];
 
     // If this is an edit form with a permit number, add a helpful message.
@@ -414,15 +414,32 @@ function _fws_goose_ca_county_changed($form, FormStateInterface $form_state) {
  * Validation function for report node form.
  */
 function _fws_goose_report_validate($form, FormStateInterface $form_state) {
-  // Check if the certification checkbox is checked.
-  $certification = $form_state->getValue(['certification_wrapper', 'certification_container', 'certification_checkbox']);
+  // Get the raw form values to check the certification checkbox.
+  $all_values = $form_state->getValues();
+
+  // Try different paths to find the certification checkbox value.
+  $certification = FALSE;
+  if (isset($all_values['certification_wrapper']['certification_container']['certification_checkbox'])) {
+    $certification = $all_values['certification_wrapper']['certification_container']['certification_checkbox'];
+  }
+  elseif ($form_state->hasValue(['certification_wrapper', 'certification_container', 'certification_checkbox'])) {
+    $certification = $form_state->getValue(['certification_wrapper', 'certification_container', 'certification_checkbox']);
+  }
+  elseif (isset($all_values['certification_checkbox'])) {
+    $certification = $all_values['certification_checkbox'];
+  }
+
   if (empty($certification)) {
     $form_state->setErrorByName('certification_wrapper][certification_container][certification_checkbox', t('You must certify that the information in this report is true and correct.'));
   }
 
-  // Check if a location is selected.
+  // Check if location data is present when not using the selector.
   if (empty($form_state->getValue('location_selector'))) {
-    $form_state->setErrorByName('location_selector', t('You must select a location for this report.'));
+    // Make sure state and county are not empty if location selector is not used.
+    if (empty($form_state->getValue('field_location_state')[0]['value']) ||
+        empty($form_state->getValue('field_location_county')[0]['value'])) {
+      $form_state->setErrorByName('location_selector', t('You must either select a location or manually enter state and county information.'));
+    }
   }
 }
 
