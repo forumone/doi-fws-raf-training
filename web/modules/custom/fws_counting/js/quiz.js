@@ -27,7 +27,7 @@
         function updateTimerDisplay(secondsLeft, totalSeconds) {
           const $timer = $('.quiz__timer');
           $timer.html(`<div class="timer-circle">
-            <div class="timer-number">${secondsLeft}</div>
+            <timer aria-live="assertive" class="timer-number">${secondsLeft}</timer>
             <svg class="timer-svg">
               <circle r="24" cx="26" cy="26"></circle>
               <circle r="24" cx="26" cy="26"
