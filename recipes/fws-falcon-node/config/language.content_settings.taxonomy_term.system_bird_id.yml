@@ -1,0 +1,11 @@
+uuid: bf9e0eff-5625-430a-a951-2412b46892af
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.system_bird_id
+id: taxonomy_term.system_bird_id
+target_entity_type_id: taxonomy_term
+target_bundle: system_bird_id
+default_langcode: site_default
+language_alterable: false
