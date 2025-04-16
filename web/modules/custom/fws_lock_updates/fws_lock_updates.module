@@ -19,12 +19,13 @@ function fws_lock_updates_node_access(NodeInterface $node, $op, AccountInterface
   }
   $creation_timestamp = $node->getCreatedTime();
   $current_timestamp = \Drupal::time()->getRequestTime();
-  // 30 days in seconds.
-  $time_limit = 30 * 24 * 60 * 60;
+
+  // Get the configured number of seconds before content is locked.
+  $config = \Drupal::config('fws_lock_updates.settings');
+  $time_limit = $config->get('lock_seconds') ?: 2592000; // Default: 30 days in seconds
   if ($current_timestamp - $creation_timestamp > $time_limit) {
     return AccessResult::forbidden();
   }
 
   return AccessResult::neutral();
 }
-

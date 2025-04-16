@@ -1,0 +1,6 @@
+fws_lock_updates.settings:
+  title: 'FWS Lock Updates Settings'
+  description: 'Configure settings for the FWS Lock Updates module.'
+  parent: system.admin_config_content
+  route_name: fws_lock_updates.settings
+  weight: 100
