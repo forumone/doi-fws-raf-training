@@ -8,6 +8,8 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_theme().
@@ -57,7 +59,7 @@ function fws_falcon_permit_form_alter(&$form, FormStateInterface $form_state, $f
  * Implements hook_entity_presave().
  */
 function fws_falcon_permit_entity_presave(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'permit_3186a') {
+  if ($entity->getEntityTypeId() === 'node' && $entity instanceof NodeInterface && $entity->bundle() === 'permit_3186a') {
     // Handle Record ID if it's a new node.
     if ($entity->isNew() && $entity->hasField('field_recno')) {
       // Get the highest record ID from the database.
@@ -85,6 +87,81 @@ function fws_falcon_permit_entity_presave(EntityInterface $entity) {
         $current_trans = $entity->get('field_question_no')->value;
         $entity->set('field_question_no', $current_trans + 1);
       }
+    }
+
+    _fws_falcon_permit_generate_system_bird_id($entity);
+
+  }
+}
+
+/**
+ * Generate System Bird ID for new permit_3186a node
+ * For now this will be unique to the Falconer but not the system as its not clear how to identify the bird is unique system-wide
+ */
+function _fws_falcon_permit_generate_system_bird_id(EntityInterface $entity) {
+  if ($entity->isNew() && $entity instanceof NodeInterface && ($entity->bundle() === 'permit_3186a')  && $entity->hasField('field_system_bird_id')) {
+    // Skip if the field already has a value
+    if (!$entity->get('field_system_bird_id')->isEmpty()) {
+      return;
+    }
+
+    // Get the current user (Falconer)
+    $current_user = \Drupal::currentUser();
+    $falconer_id = $current_user->id();
+
+    $database = \Drupal::database();
+
+    // Query existing bird IDs for this Falconer from node references
+    $highest_numeric = 0;
+
+    // First check existing nodes for this falconer
+    if ($database->schema()->tableExists('node__field_system_bird_id')) {
+      $query = $database->select('node__field_system_bird_id', 'b');
+      $query->join('node_field_data', 'n', 'b.entity_id = n.nid');
+      $query->join('taxonomy_term_field_data', 't', 'b.field_system_bird_id_target_id = t.tid');
+      $query->fields('t', ['name'])
+        ->condition('n.uid', $falconer_id)
+        ->condition('t.name', 'B%', 'LIKE')
+        ->condition('t.vid', 'system_bird_id');
+
+      $results = $query->execute()->fetchAll();
+
+      foreach ($results as $row) {
+        $term_name = $row->name;
+        if (substr($term_name, 0, 1) === 'B') {
+          $numeric = (int) substr($term_name, 1);
+          if ($numeric > $highest_numeric) {
+            $highest_numeric = $numeric;
+          }
+        }
+      }
+    }
+
+    // Generate the next number
+    $next_number = $highest_numeric + 1;
+    $new_bird_id = 'B' . str_pad($next_number, 5, '0', STR_PAD_LEFT);
+
+    // Create a new taxonomy term for the bird ID
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+    // Check if a term with this name already exists
+    $existing_terms = $term_storage->loadByProperties([
+      'vid' => 'system_bird_id',
+      'name' => $new_bird_id,
+    ]);
+
+    if (empty($existing_terms)) {
+      // Create new term
+      $term = $term_storage->create([
+        'vid' => 'system_bird_id',
+        'name' => $new_bird_id,
+      ]);
+      $term->save();
+      $entity->set('field_system_bird_id', $term->id());
+    } else {
+      // Use the existing term
+      $term = reset($existing_terms);
+      $entity->set('field_system_bird_id', $term->id());
     }
   }
 }
