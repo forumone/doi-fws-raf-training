@@ -44,15 +44,15 @@
             <form class="quiz-form" onsubmit="return false;">
               <div class="form-item form-type-textfield form-item-guess form-group">
                 <label for="submit-guess--{{ key }}" class="control-label form-required"><span>{{ 'How many birds did you count?'|t }}</span></label>
-                <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" autocomplete="none" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" min="0" inputmode="numeric" pattern="[0-9]*" size="6" maxlength="6" required="required" aria-required="true">
+                <input autocorrect="none" autocapitalize="none" spellcheck="false" autofocus="autofocus" data-drupal-selector="submit-guess" class="form-text required form-control" type="text" id="submit-guess--{{ key }}" name="name" value="" min="0" inputmode="numeric" pattern="[0-9]*" size="6" maxlength="6" required="required" aria-required="true">
               </div>
               <button type="submit" class="btn btn-primary quiz__submit" tabindex="0">{{ 'Submit'|t }}</button>
             </form>
           </div>
 
           <div class="quiz__answer messages__wrapper">
-            <div class="quiz__feedback quiz__correct alert alert-success"><p>{{ 'That is correct!'|t }}</p></div>
-            <div class="quiz__feedback quiz__incorrect alert alert-warning"><p>{{ 'Sorry, that is incorrect.'|t }}</p></div>
+            <div class="quiz__feedback quiz__correct alert alert-success"><p><i class="fas fa-check-circle" role="img" aria-label="Success"></i> {{ 'That is correct!'|t }}</p></div>
+            <div class="quiz__feedback quiz__incorrect alert alert-warning"><p><i class="fas fa-exclamation-triangle" role="img" aria-label="Fail"></i> {{ 'Sorry, that is incorrect.'|t }}</p></div>
             <div class="quiz__results">
               <p class="quiz__result"><b>{{ 'Correct Bird Count:'|t }}</b> <span class="quiz__actual">{{ image.bird_count }}</span></p>
               <p class="quiz__result"><b>{{ 'You Estimated:'|t }}</b> <span class="quiz__submission"></p>

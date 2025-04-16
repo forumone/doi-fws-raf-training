@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for the FWS Print module.
+ */
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Adds the node-view-mode-print class to the body tag when on the print route.
+ */
+function fws_print_preprocess_html(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Log the current route to watchdog for debugging
+  \Drupal::logger('fws_print')->notice('Current route: @route', ['@route' => $route_name]);
+
+  // More direct approach to ensure the route is correctly detected
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (preg_match('#^/node/(\d+)/print$#', $current_path, $matches)) {
+    \Drupal::logger('fws_print')->notice('Detected print path: @path', ['@path' => $current_path]);
+    $variables['attributes']['class'][] = 'direct-path-detection';
+    $variables['attributes']['class'][] = 'node-view-mode-print';
+    return;
+  }
+
+  // Check if we're on the print route
+  if ($route_name === 'fws_print.permit_print') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node) {
+      // Add debug class to easily identify when this code runs
+      $variables['attributes']['class'][] = 'fws-print-debug';
+      $variables['attributes']['class'][] = 'node-page';
+      $variables['attributes']['class'][] = 'node-type-' . $node->bundle();
+      $variables['attributes']['class'][] = 'node-view-mode-print';
+
+      // Log to watchdog that we're setting classes
+      \Drupal::logger('fws_print')->notice('Adding print classes for node type: @type', ['@type' => $node->bundle()]);
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Alternative method to add classes to the body tag.
+ */
+function fws_print_page_attachments(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Check if we're on the print route
+  if ($route_name === 'fws_print.permit_print') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && isset($attachments['#attached']['html_head_link'])) {
+      // Try another approach - add body class via #attached
+      $attachments['#attached']['library'][] = 'core/drupal.dialog.ajax';
+
+      // Use JS to add the class to the body
+      $attachments['#attached']['drupalSettings']['fwsPrint'] = [
+        'addBodyClass' => TRUE,
+      ];
+
+      // Add a custom JS file to add the class
+      $attachments['#attached']['library'][] = 'fws_print/print-body-class';
+
+      // Log that we're trying this approach
+      \Drupal::logger('fws_print')->notice('Using page_attachments hook for print view mode');
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_html_alter().
+ */
+function fws_print_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  // Use path-based detection to add the print template suggestion
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (preg_match('#^/node/(\d+)/print$#', $current_path)) {
+    $suggestions[] = 'html__node__print';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fws_print_theme($existing, $type, $theme, $path) {
+  return [
+    'html__node__print' => [
+      'template' => 'html--node--print',
+      'base hook' => 'html',
+    ],
+  ];
+}

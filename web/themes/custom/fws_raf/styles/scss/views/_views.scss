@@ -1,4 +1,44 @@
 @use 'utils/colors' as *;
+@use 'utils/breakpoints' as *;
+
+.view {
+
+  .view-header--hybrid {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    @include breakpoint(md) {
+      flex-direction: row-reverse;
+    }
+
+    .btn {
+      width: 100%;
+
+      @include breakpoint(md) {
+        width: auto;
+      }
+    };
+
+    .view-header,
+    .panel-group {
+      width: 100%;
+    }
+
+    .view-header {
+
+      @include breakpoint(md) {
+        width: auto;
+      }
+    }
+  }
+
+  .views-data-export-feed .feed-icon {
+    line-height: .75;
+  }
+}
 
 .release-filter-form,
 .views-element-container {
@@ -26,7 +66,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 20px;
+    padding: 15px 20px;
     color: $gray-dark;
     background: $gray-lighter;
     border: 1px solid $gray-medium;
@@ -93,11 +133,7 @@
   }
 
   .view-display-id-attachment_1 {
-
     margin-top: 40px;
   }
 }
 
-.views-data-export-feed .feed-icon {
-  line-height: .75;
-}
