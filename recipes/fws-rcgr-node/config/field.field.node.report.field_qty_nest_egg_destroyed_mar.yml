@@ -9,7 +9,7 @@ id: node.report.field_qty_nest_egg_destroyed_mar
 field_name: field_qty_nest_egg_destroyed_mar
 entity_type: node
 bundle: report
-label: 'Nests/Eggs Destroyed in March'
+label: 'March'
 description: 'Number of nests and eggs destroyed during March.'
 required: FALSE
 translatable: FALSE

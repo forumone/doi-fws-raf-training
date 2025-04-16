@@ -40,6 +40,30 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
 
   // Add handling for report node form.
   if ($form_id === 'node_report_form' || $form_id === 'node_report_edit_form') {
+    // Add instructions at the top of the form using Bootstrap alert info box.
+    $form['form_instructions'] = [
+      '#type' => 'markup',
+      '#markup' => '
+        <div class="alert alert-info" role="alert">
+          <div class="alert-heading">
+            <h4>Report Compilation Note</h4>
+          </div>
+          <p>Sum the nests across all locations in a county for each month. Enter these totals in the Report of Activity Detail section for each county (or equivalent) and month.</p>
+
+          <hr>
+
+          <h4>Tips for Entering Report of Activity:</h4>
+          <ol>
+            <li>In the Report of Activity Detail section, select the appropriate county from the County list. If work occurred in multiple counties, start with one county; the system will auto-display the first county.</li>
+            <li>After entering data, check "I Certify," then click "Save" to proceed to the next county. The system will total the monthly entries.</li>
+            <li>Enter the number of nests with eggs destroyed per month in each county (or equivalent). Do not include individual eggs added or destroyed. Enter 0 if there was no activity in a county.</li>
+            <li>Note: Use the "Save" button next to "I Certify" to save data without exiting, allowing edits for the next county before clicking "Submit and Home" to return to the home page.</li>
+          </ol>
+        </div>
+      ',
+      '#weight' => -100,
+    ];
+
     // Make permit number read-only.
     if (isset($form['field_permit_no'])) {
       $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;

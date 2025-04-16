@@ -9,7 +9,7 @@ id: node.report.field_qty_nest_egg_destroyed_tot
 field_name: field_qty_nest_egg_destroyed_tot
 entity_type: node
 bundle: report
-label: 'Total Nests/Eggs Destroyed'
+label: 'Total'
 description: 'Total number of nests and eggs destroyed across all months.'
 required: FALSE
 translatable: FALSE
