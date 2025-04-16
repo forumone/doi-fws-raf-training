@@ -1,0 +1,4 @@
+services:
+  fws_falcon_permit.search_helder:
+    class: Drupal\fws_falcon_permit\Permit3186ASearchHelper
+    arguments: ['@entity_type.manager']
