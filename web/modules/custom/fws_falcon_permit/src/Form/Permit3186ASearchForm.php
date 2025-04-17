@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\fws_falcon_permit\Permit3186ASearchHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Url;
 
 /**
  * Provides a search form and results.
@@ -236,14 +237,59 @@ class Permit3186ASearchForm extends FormBase {
     $rows = [];
     foreach ($this->entityTypeManager->getStorage('node')->loadMultiple($nids) as $node) {
       $row = [
-        'id' => $node->get('field_recno')->value,
-        'tran_no' => $node->get('field_question_no')->value,
-        'actions' => [
-          'data' => [
-            '#type' => 'operations',
-            '#links' => $this->buildOperations($node),
-          ],
-        ],
+        'id' => $node->field_recno->value,
+        'tran_no' => $node->field_question_no->value,
+        'actions' => [],
+      ];
+
+      // Create operations markup with separators
+      $operations = [];
+
+      // View link
+      $view_url = $node->toUrl('canonical');
+      $operations[] = [
+        '#type' => 'link',
+        '#title' => $this->t('View'),
+        '#url' => $view_url,
+      ];
+
+      // Edit link
+      if ($node->access('update') && $node->hasLinkTemplate('edit-form')) {
+        $edit_url = $node->toUrl('edit-form');
+        $operations[] = [
+          '#type' => 'link',
+          '#title' => $this->t('Edit'),
+          '#url' => $edit_url,
+        ];
+      }
+
+      // Delete link
+      if ($node->access('delete') && $node->hasLinkTemplate('delete-form')) {
+        $delete_url = $node->toUrl('delete-form');
+        $operations[] = [
+          '#type' => 'link',
+          '#title' => $this->t('Delete'),
+          '#url' => $delete_url,
+        ];
+      }
+
+      // Build operations with separators
+      $links_markup = [];
+      foreach ($operations as $i => $operation) {
+        // Add the operation
+        $links_markup[] = $operation;
+
+        // Add separator if not the last item
+        if ($i < count($operations) - 1) {
+          $links_markup[] = [
+            '#markup' => ' | ',
+          ];
+        }
+      }
+
+      // Add links to row
+      $row['actions'] = [
+        'data' => $links_markup,
       ];
 
       $rows[] = $row;
@@ -263,40 +309,6 @@ class Permit3186ASearchForm extends FormBase {
         '#type' => 'pager',
       ],
     ];
-  }
-
-  /**
-   * Builds a renderable list of operation links for the node entity.
-   *
-   * @param \Drupal\node\Entity\NodeInterface $entity
-   *   The node entity on which the linked operations will be performed.
-   *
-   * @return array
-   *   A renderable array of operation links.
-   */
-  protected function buildOperations(NodeInterface $entity) {
-    $operations = [];
-    $view_url = $entity->toUrl('canonical');
-    $operations['view'] = [
-      'title' => $this->t('View'),
-      'url' => $view_url,
-    ];
-    if ($entity->access('update') && $entity->hasLinkTemplate('edit-form')) {
-      $edit_url = $entity->toUrl('edit-form');
-      $operations['edit'] = [
-        'title' => $this->t('Edit'),
-        'url' => $edit_url,
-      ];
-    }
-    if ($entity->access('delete') && $entity->hasLinkTemplate('delete-form')) {
-      $delete_url = $entity->toUrl('delete-form');
-      $operations['delete'] = [
-        'title' => $this->t('Delete'),
-        'url' => $delete_url,
-      ];
-    }
-
-    return $operations;
   }
 
 }
