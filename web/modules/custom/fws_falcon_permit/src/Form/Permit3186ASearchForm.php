@@ -3,6 +3,7 @@
 namespace Drupal\fws_falcon_permit\Form;
 
 use Drupal\Core\Form\FormBase;
+use Drupal\node\NodeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\fws_falcon_permit\Permit3186ASearchHelper;
@@ -49,7 +50,7 @@ class Permit3186ASearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'permit_3186a_search_form';
+    return 'fws_falcon_permit_search';
   }
 
   /**
@@ -235,8 +236,14 @@ class Permit3186ASearchForm extends FormBase {
     $rows = [];
     foreach ($this->entityTypeManager->getStorage('node')->loadMultiple($nids) as $node) {
       $row = [
-        'id' => $node->id(),
-        'link' => $node->toLink(),
+        'id' => $node->get('field_recno')->value,
+        'tran_no' => $node->get('field_question_no')->value,
+        'actions' => [
+          'data' => [
+            '#type' => 'operations',
+            '#links' => $this->buildOperations($node),
+          ],
+        ],
       ];
 
       $rows[] = $row;
@@ -246,8 +253,9 @@ class Permit3186ASearchForm extends FormBase {
       'table' => [
         '#type' => 'table',
         '#header' => [
-          'id' => $this->t('#'),
-          'link' => $this->t('Title'),
+          'id' => $this->t('Record ID'),
+          'tran_no' => $this->t('Trans. Number'),
+          'actions' => $this->t('Operations'),
         ],
         '#rows' => $rows,
       ],
@@ -255,6 +263,40 @@ class Permit3186ASearchForm extends FormBase {
         '#type' => 'pager',
       ],
     ];
+  }
+
+  /**
+   * Builds a renderable list of operation links for the node entity.
+   *
+   * @param \Drupal\node\Entity\NodeInterface $entity
+   *   The node entity on which the linked operations will be performed.
+   *
+   * @return array
+   *   A renderable array of operation links.
+   */
+  protected function buildOperations(NodeInterface $entity) {
+    $operations = [];
+    $view_url = $entity->toUrl('canonical');
+    $operations['view'] = [
+      'title' => $this->t('View'),
+      'url' => $view_url,
+    ];
+    if ($entity->access('update') && $entity->hasLinkTemplate('edit-form')) {
+      $edit_url = $entity->toUrl('edit-form');
+      $operations['edit'] = [
+        'title' => $this->t('Edit'),
+        'url' => $edit_url,
+      ];
+    }
+    if ($entity->access('delete') && $entity->hasLinkTemplate('delete-form')) {
+      $delete_url = $entity->toUrl('delete-form');
+      $operations['delete'] = [
+        'title' => $this->t('Delete'),
+        'url' => $delete_url,
+      ];
+    }
+
+    return $operations;
   }
 
 }

@@ -1,0 +1,37 @@
+{{ attach_library('bootstrap/accordion') }}
+
+<div class="falcon-permit-search-form panel-group">
+  <div class="field-group-details panel panel-default">
+    <div class="panel-heading">
+      <a aria-controls="group-species-info" aria-expanded="false" aria-pressed="false" data-toggle="collapse" role="button" class="panel-title" href="#group-species-info">
+        {{ '1. Species '|t }}<i class="fa fa-caret-down"></i>
+      </a>
+    </div>
+    <div class="panel-body panel-collapse fade collapse" id="group-species-info">
+      {{ form.record_number }}
+      {{ form.authorized }}
+      {{ form.transaction_number }}
+      {{ form.species_code }}
+      {{ form.species_name }}
+      {{ form.species_band_no }}
+      {{ form.species_band_old_no }}
+      {{ form.species_band_new_no }}
+    </div>
+  </div>
+
+  <div class="field-group-details panel panel-default">
+    <div class="panel-heading">
+      <a aria-controls="group-sender-recipient" aria-expanded="false" aria-pressed="false" data-toggle="collapse" role="button" class="panel-title" href="#group-sender-recipient">
+        {{ '2. Sender & Recipient '|t }}<i class="fa fa-caret-down"></i>
+      </a>
+    </div>
+    <div class="panel-body panel-collapse fade collapse" id="group-sender-recipient">
+      {{ form.sender_first_name }}
+      {{ form.sender_last_name }}
+      {{ form.recipient_first_name }}
+      {{ form.recipient_last_name }}
+    </div>
+  </div>
+
+  {{ form|without('record_number', 'authorized', 'transaction_number', 'species_code', 'species_name', 'species_band_no', 'species_band_old_no', 'species_band_new_no', 'sender_first_name', 'sender_last_name', 'recipient_first_name', 'recipient_last_name') }}
+<div>
