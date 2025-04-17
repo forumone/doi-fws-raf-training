@@ -79,6 +79,12 @@ function import_terms_from_csv(string $csv_file_path, string $vocabulary_id, str
       elseif ($csv_type === 'death') {
         // L_Death_Cause.csv: CauseID, DeathCause, DeathCauseDetail, Description.
         [$name, $cause, $cause_detail, $description] = $data;
+        // Skip specific death cause IDs that are known duplicates/conflicts.
+        $ids_to_skip = ['NaBC', 'NaDe', 'Unde'];
+        if (in_array(trim($name), $ids_to_skip, TRUE)) {
+          print("\nSkipping specific death cause ID: $name (from $csv_file_path)");
+          continue;
+        }
       }
       else {
         throw new Exception("Invalid CSV type specified: $csv_type");
@@ -137,8 +143,7 @@ import_terms_from_csv($rescue_csv_file, $vocabulary, 'rescue', $total_rows_proce
 $death_csv_file = '../scripts/manatee/data/L_Death_Cause.csv';
 import_terms_from_csv($death_csv_file, $vocabulary, 'death', $total_rows_processed, $total_success_count, $total_error_count);
 
-
-// Print summary.
+// Print final summary.
 print("\n\nImport completed for both files:");
 print("\nTotal rows processed across both files: $total_rows_processed");
 print("\nSuccessfully imported into $vocabulary: $total_success_count");
