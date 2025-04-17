@@ -320,6 +320,24 @@ function fws_state_access_form_alter(&$form, FormStateInterface $form_state, $fo
       }
     }
   }
+
+  // Allowed update user account status.
+  if ($form_id === 'user_form') {
+    $entity = $form_state->getFormObject()->getEntity();
+    $account = \Drupal::currentUser();
+    if ($account->id() === $entity->id()) {
+      return;
+    }
+
+    $user = User::load($account->id());
+    $user_state = fws_state_access_get_user_state($user);
+    $entity_state = fws_state_access_get_user_state($entity);
+    if (!$user_state || $user_state !== $entity_state) {
+      return;
+    }
+
+    $form['account']['status']['#access'] = TRUE;
+  }
 }
 
 /**
