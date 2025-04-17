@@ -5,3 +5,19 @@ fws_falcon_permit.form_3_186a:
     _form: '\Drupal\fws_falcon_permit\Form\Form3186A'
   requirements:
     _permission: 'access content'
+
+fws_falcon_permit.search:
+  path: '/falcon-permit/search'
+  defaults:
+    _title: 'Search Permit 3-186A Information'
+    _form: '\Drupal\fws_falcon_permit\Form\Permit3186ASearchForm'
+  requirements:
+    _permission: 'access content'
+
+fws_falcon_permit.permit_3186a_autocomplete:
+  path: '/ajax/falcon-permit/permit-3186a-autocomplete/{field}'
+  defaults:
+    _controller: '\Drupal\fws_falcon_permit\Controller\Permit3186AAutocompleteController::handle'
+    _format: 'json'
+  requirements:
+    _permission: 'access content'

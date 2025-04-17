@@ -19,6 +19,9 @@ function fws_falcon_permit_theme() {
     'fws_falcon_permit_3_186a' => [
       'render element' => 'form',
     ],
+    'fws_falcon_permit_search' => [
+      'render element' => 'form',
+    ],
   ];
 }
 
