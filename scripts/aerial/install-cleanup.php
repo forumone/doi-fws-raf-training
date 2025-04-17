@@ -147,6 +147,7 @@ echo "Technique Video files have been copied to the specified location.\n";
 // Create users with specific roles if they don't already exist.
 $users = [
   'daniel@prometsource.com' => 'administrator',
+  'iryna.lemeha@prometsource.com' => 'administrator',
 ];
 
 foreach ($users as $username => $role) {
@@ -160,6 +161,7 @@ foreach ($users as $username => $role) {
       'name' => $username,
       'mail' => match($username) {
         'daniel@prometsource.com' => 'daniel@prometsource.com',
+        'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
         default => $username . '@example.com'
       },
       'status' => 1,

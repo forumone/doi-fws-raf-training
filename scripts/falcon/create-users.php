@@ -10,6 +10,7 @@ use Drupal\user\Entity\User;
 // Create users with specific roles.
 $users = [
   'daniel@prometsource.com' => 'administrator',
+  'iryna.lemeha@prometsource.com' => 'administrator',
   'state_admin' => 'state_admin',
   'state_law' => 'state_law',
   'federal_law' => 'federal_law',
@@ -42,6 +43,7 @@ try {
         'name' => $username,
         'mail' => match($username) {
           'daniel@prometsource.com' => 'daniel@prometsource.com',
+          'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
           default => $username . '@example.com'
         },
         'status' => 1,
