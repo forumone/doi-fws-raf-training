@@ -2,16 +2,18 @@
 
 /**
  * @file
- * Drush script to import L_Rescue_Cause.csv data into rescue_cause taxonomy terms.
+ * Drush script to import L_Death_Cause.csv data into rescue_cause taxonomy terms.
  *
- * Usage: drush scr scripts/import_rescue_cause.php.
+ * This script skips terms where the name (CauseID) already exists in rescue_cause.
+ *
+ * Usage: drush scr scripts/manatee/import-rescue-cause.php.
  */
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
 
-$csv_file = '../scripts/manatee/data/L_Rescue_Cause.csv';
+$csv_file = '../scripts/manatee/data/L_Death_Cause.csv';
 if (!file_exists($csv_file)) {
   exit('CSV file not found at: ' . $csv_file);
 }
@@ -21,15 +23,12 @@ $row_count = 0;
 $success_count = 0;
 $error_count = 0;
 
-// Get the vocabulary.
+// Get the target vocabulary.
 $vocabulary = 'rescue_cause';
 $vid = Vocabulary::load($vocabulary);
 if (!$vid) {
   exit("Vocabulary '$vocabulary' not found.");
 }
-
-// Create array to store parent terms for hierarchy.
-$parent_terms = [];
 
 // Open CSV file.
 $handle = fopen($csv_file, 'r');
@@ -45,31 +44,32 @@ while (($data = fgetcsv($handle)) !== FALSE) {
   $row_count++;
 
   try {
-    // CSV columns: CauseID,RescueCause,RescueCauseDetail,Description.
-    [$cause_id, $rescue_cause, $rescue_cause_detail, $description] = $data;
+    // CSV columns from L_Death_Cause.csv: CauseID, DeathCause, DeathCauseDetail, Description.
+    [$name, $death_cause, $death_cause_detail, $description] = $data;
 
-    // Trim whitespace from IDs.
-    $cause_id = trim($cause_id);
+    // Trim whitespace from name/ID.
+    $name = trim($name);
 
-    // Check if term already exists.
+    // Check if a term with this name already exists in the rescue_cause vocabulary.
     $existing_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadByProperties([
         'vid' => $vocabulary,
-        'name' => $cause_id,
+        'name' => $name,
       ]);
 
     if (!empty($existing_terms)) {
-      print("\nTerm already exists for rescue cause: $cause_id - skipping");
+      print("\nTerm already exists in rescue_cause for name: $name - skipping");
       continue;
     }
 
-    // Create taxonomy term.
+    // Create taxonomy term in rescue_cause vocabulary.
     $term = Term::create([
       'vid' => $vocabulary,
-      'name' => $cause_id,
-      'field_rescue_cause' => $rescue_cause,
-      'field_rescue_cause_detail' => $rescue_cause_detail,
+      'name' => $name,
+      // Map DeathCause fields to RescueCause fields.
+      'field_rescue_cause' => $death_cause,
+      'field_rescue_cause_detail' => $death_cause_detail,
       'description' => [
         'value' => $description,
         'format' => 'basic_html',
@@ -79,14 +79,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term->save();
 
     $success_count++;
-    print("\nImported rescue cause taxonomy term: $cause_id");
+    print("\nImported death cause \"$name\" into rescue cause taxonomy term.");
   }
   catch (EntityStorageException $e) {
-    print("\nError on row $row_count: " . $e->getMessage());
+    print("\nError processing death cause $name (row $row_count): " . $e->getMessage());
     $error_count++;
   }
   catch (Exception $e) {
-    print("\nGeneral error on row $row_count: " . $e->getMessage());
+    print("\nGeneral error processing death cause $name (row $row_count): " . $e->getMessage());
     $error_count++;
   }
 }
@@ -95,6 +95,6 @@ fclose($handle);
 
 // Print summary.
 print("\nImport completed:");
-print("\nTotal rows processed: $row_count");
-print("\nSuccessfully imported: $success_count");
+print("\nTotal death cause rows processed: $row_count");
+print("\nSuccessfully imported into rescue_cause: $success_count");
 print("\nErrors: $error_count\n");

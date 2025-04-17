@@ -4,7 +4,7 @@
  * @file
  * Drush script to import L_Death_Cause.csv data into death cause taxonomy terms.
  *
- * Usage: drush scr scripts/import_death_cause.php
+ * Usage: drush scr scripts/import_death_cause.php.
  */
 
 use Drupal\taxonomy\Entity\Term;
@@ -16,36 +16,36 @@ if (!file_exists($csv_file)) {
   exit('CSV file not found at: ' . $csv_file);
 }
 
-// Initialize counters
+// Initialize counters.
 $row_count = 0;
 $success_count = 0;
 $error_count = 0;
 
-// Get the vocabulary
+// Get the vocabulary.
 $vocabulary = 'death_cause';
 $vid = Vocabulary::load($vocabulary);
 if (!$vid) {
   exit("Vocabulary '$vocabulary' not found.");
 }
 
-// Open CSV file
+// Open CSV file.
 $handle = fopen($csv_file, 'r');
 if (!$handle) {
   exit('Error opening CSV file.');
 }
 
-// Skip header row
+// Skip header row.
 fgetcsv($handle);
 
-// Process each row
+// Process each row.
 while (($data = fgetcsv($handle)) !== FALSE) {
   $row_count++;
 
   try {
-    // CSV columns: CauseID, DeathCause, DeathCauseDetail, Description
-    list($name, $death_cause, $death_cause_detail, $description) = $data;
+    // CSV columns: CauseID, DeathCause, DeathCauseDetail, Description.
+    [$name, $death_cause, $death_cause_detail, $description] = $data;
 
-    // Check if term already exists
+    // Check if term already exists.
     $existing_terms = \Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadByProperties([
@@ -58,7 +58,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
       continue;
     }
 
-    // Create taxonomy term
+    // Create taxonomy term.
     $term = Term::create([
       'vid' => $vocabulary,
       'name' => $name,
@@ -74,10 +74,12 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $term->save();
     $success_count++;
     print("\nImported death cause taxonomy term: $name");
-  } catch (EntityStorageException $e) {
+  }
+  catch (EntityStorageException $e) {
     print("\nError on row $row_count: " . $e->getMessage());
     $error_count++;
-  } catch (Exception $e) {
+  }
+  catch (Exception $e) {
     print("\nGeneral error on row $row_count: " . $e->getMessage());
     $error_count++;
   }
@@ -85,7 +87,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 
 fclose($handle);
 
-// Print summary
+// Print summary.
 print("\nImport completed:");
 print("\nTotal rows processed: $row_count");
 print("\nSuccessfully imported: $success_count");
