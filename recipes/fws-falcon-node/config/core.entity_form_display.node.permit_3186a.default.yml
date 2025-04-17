@@ -66,6 +66,7 @@ dependencies:
     - field.field.node.permit_3186a.field_species_sex
     - field.field.node.permit_3186a.field_species_source
     - field.field.node.permit_3186a.field_state_of_trap_location
+    - field.field.node.permit_3186a.field_system_bird_id
     - field.field.node.permit_3186a.field_trap_county
     - field.field.node.permit_3186a.field_updated_by
     - node.type.permit_3186a
@@ -233,6 +234,7 @@ third_party_settings:
         - field_last_action
         - field_owner_access_cd
         - field_rcf_cd
+        - field_system_bird_id
       label: Administrative
       region: content
       parent_name: ''
@@ -247,7 +249,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: OHT8sM9rxaBMmHxaLHYM91_KLocribsJkBGqzXxPVDw
+  default_config_hash: iREJ6qNGrgVNkcOWeFVnUj7ZL6p2Nq92me5pM93rSlE
 id: node.permit_3186a.default
 targetEntityType: node
 bundle: permit_3186a
@@ -789,6 +791,16 @@ content:
       autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
+    third_party_settings: {  }
+  field_system_bird_id:
+    type: entity_reference_autocomplete
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_trap_county:
     type: select2_entity_reference

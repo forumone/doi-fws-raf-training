@@ -128,6 +128,13 @@
               <td class="col-md-9">{{ content.field_species_hatch_year }}</td>
             </tr>
             {% endif %}
+
+            {% if content.field_system_bird_id %}
+              <tr>
+                <th class="col-md-3">System Bird Id</th>
+                <td class="col-md-9">{{ content.field_system_bird_id }}</td>
+              </tr>
+            {% endif %}
           </tbody>
         </table>
       </div>

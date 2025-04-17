@@ -66,12 +66,15 @@ dependencies:
     - field.field.node.permit_3186a.field_species_sex
     - field.field.node.permit_3186a.field_species_source
     - field.field.node.permit_3186a.field_state_of_trap_location
+    - field.field.node.permit_3186a.field_system_bird_id
     - field.field.node.permit_3186a.field_trap_county
     - field.field.node.permit_3186a.field_updated_by
     - node.type.permit_3186a
   module:
     - datetime
     - user
+_core:
+  default_config_hash: BJUxWkv8YE2-AyEhFTTAW90qOa1LAo1JDyeC7hBrhFY
 id: node.permit_3186a.default
 targetEntityType: node
 bundle: permit_3186a
@@ -584,6 +587,14 @@ content:
       link: false
     third_party_settings: {  }
     weight: 63
+    region: content
+  field_system_bird_id:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 66
     region: content
   field_trap_county:
     type: entity_reference_label
