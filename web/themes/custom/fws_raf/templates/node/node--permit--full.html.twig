@@ -50,8 +50,8 @@
       {% else %}
         <div class="alert alert-success">
           <strong>This permit has been certified.</strong> Your registration is complete.
-          {% if content.field_dt_applicant_signed is defined %}
-            <p>Certified on: {{ content.field_dt_applicant_signed }}</p>
+          {% if node.field_dt_applicant_signed.value %}
+            <p>Certified on: {{ node.field_dt_applicant_signed.value|date('m/d/Y') }}</p>
           {% endif %}
         </div>
       {% endif %}
@@ -73,17 +73,17 @@
             <tr>
               <th class="col-md-3">Date Created</th>
               <td class="col-md-9">
-                {% if content.field_dt_create %}
-                  {{ content.field_dt_create }}
+                {% if node.field_dt_create.value %}
+                  {{ node.field_dt_create.value|date('m/d/Y') }}
                 {% else %}
-                  {{ node.created.value|date('n/j/Y') }}
+                  {{ node.created.value|date('m/d/Y') }}
                 {% endif %}
               </td>
             </tr>
-            <tr><th class="col-md-3">Date Updated</th><td class="col-md-9">{{ node.changed.value|date('n/j/Y') }}</td></tr>
-            {% if content.field_dt_permit_issued %}<tr><th class="col-md-3">Permit Issued Date</th><td class="col-md-9">{{ content.field_dt_permit_issued }}</td></tr>{% endif %}
-            {% if content.field_dt_effective %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ content.field_dt_effective }}</td></tr>{% endif %}
-            {% if content.field_dt_expired %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ content.field_dt_expired }}</td></tr>{% endif %}
+            <tr><th class="col-md-3">Date Updated</th><td class="col-md-9">{{ node.changed.value|date('m/d/Y') }}</td></tr>
+            {% if node.field_dt_permit_issued.value %}<tr><th class="col-md-3">Permit Issued Date</th><td class="col-md-9">{{ node.field_dt_permit_issued.value|date('m/d/Y') }}</td></tr>{% endif %}
+            {% if node.field_dt_effective.value %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ node.field_dt_effective.value|date('m/d/Y') }}</td></tr>{% endif %}
+            {% if node.field_dt_expired.value %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ node.field_dt_expired.value|date('m/d/Y') }}</td></tr>{% endif %}
           </tbody>
         </table>
       </div>
@@ -283,27 +283,7 @@
     </div>
   {% endif %}
 
-  {# NEW Panel: Agreements #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Agreements</h3>
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <tbody>
-            {% if content.field_applicant_agreement1 %}<tr><th class="col-md-3">Agreement 1</th><td class="col-md-9">{{ content.field_applicant_agreement1 }}</td></tr>{% endif %}
-            {% if content.field_applicant_agreement2 %}<tr><th class="col-md-3">Agreement 2</th><td class="col-md-9">{{ content.field_applicant_agreement2 }}</td></tr>{% endif %}
-            {% if content.field_applicant_agreement3 %}<tr><th class="col-md-3">Agreement 3</th><td class="col-md-9">{{ content.field_applicant_agreement3 }}</td></tr>{% endif %}
-            {% if content.field_applicant_signed %}<tr><th class="col-md-3">Applicant Signed (Certified)</th><td class="col-md-9">{{ content.field_applicant_signed }}</td></tr>{% endif %}
-            {% if content.field_dt_applicant_signed %}<tr><th class="col-md-3">Applicant Signed Date</th><td class="col-md-9">{{ content.field_dt_applicant_signed }}</td></tr>{% endif %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  {# Conditions Section (Copied directly, verify links/text) #}
+  {# Conditions Section #}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
       <h3 class="panel-title">Conditions</h3>

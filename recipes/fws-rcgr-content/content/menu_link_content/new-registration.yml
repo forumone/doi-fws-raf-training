@@ -16,8 +16,8 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/register/new'
-      title: ''
+      uri: 'internal:/node/add/permit'
+      title: 'New Registration'
       options: {  }
   external:
     -
