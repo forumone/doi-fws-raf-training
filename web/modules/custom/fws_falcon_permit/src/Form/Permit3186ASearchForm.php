@@ -238,69 +238,66 @@ class Permit3186ASearchForm extends FormBase {
     foreach ($this->entityTypeManager->getStorage('node')->loadMultiple($nids) as $node) {
       $row = [
         'id' => $node->field_recno->value,
-        'tran_no' => $node->field_question_no->value,
+        'state' => $node->field_owner_state->entity ? $node->field_owner_state->entity->label() : '',
+        'species_name' => $node->field_species_name->entity ? $node->field_species_name->entity->label() : '',
+        'sender_first_name' => $node->field_sender_first_name->value,
+        'sender_last_name' => $node->field_sender_last_name->value,
+        'recipient_first_name' => $node->field_recipient_first_name->value,
+        'recipient_last_name' => $node->field_recipient_last_name->value,
+        'date_created' => date('Y-m-d', strtotime($node->field_dt_create->value)),
         'actions' => [],
       ];
 
-      // Create operations markup with separators
-      $operations = [];
-
-      // View link
-      $view_url = $node->toUrl('canonical');
-      $operations[] = [
-        '#type' => 'link',
-        '#title' => $this->t('View'),
-        '#url' => $view_url,
+      // Define operations as options for the select field
+      $operations = [
+        '' => $this->t('- Select operation -'),
+        'view' => $this->t('View'),
       ];
 
-      // Edit link
+      // Add Edit option if user has access
       if ($node->access('update') && $node->hasLinkTemplate('edit-form')) {
-        $edit_url = $node->toUrl('edit-form');
-        $operations[] = [
-          '#type' => 'link',
-          '#title' => $this->t('Edit'),
-          '#url' => $edit_url,
-        ];
+        $operations['edit'] = $this->t('Edit');
       }
 
-      // Delete link
+      // Add Delete option if user has access
       if ($node->access('delete') && $node->hasLinkTemplate('delete-form')) {
-        $delete_url = $node->toUrl('delete-form');
-        $operations[] = [
-          '#type' => 'link',
-          '#title' => $this->t('Delete'),
-          '#url' => $delete_url,
-        ];
+        $operations['delete'] = $this->t('Delete');
       }
 
-      // Build operations with separators
-      $links_markup = [];
-      foreach ($operations as $i => $operation) {
-        // Add the operation
-        $links_markup[] = $operation;
-
-        // Add separator if not the last item
-        if ($i < count($operations) - 1) {
-          $links_markup[] = [
-            '#markup' => ' | ',
-          ];
-        }
-      }
-
-      // Add links to row
-      $row['actions'] = [
-        'data' => $links_markup,
+      // Create a select element
+      $select = [
+        '#type' => 'select',
+        '#title' => $this->t('Operations'),
+        '#title_display' => 'invisible',
+        '#options' => $operations,
+        '#name' => 'operation_' . $node->id(),
+        '#attributes' => [
+          'class' => ['operation-select'],
+          'data-node-id' => $node->id(),
+        ],
       ];
+
+      // Add select to row
+      $row['actions'] = ['data' => $select];
 
       $rows[] = $row;
     }
 
     return [
+      '#attached' => [
+        'library' => ['fws_falcon_permit/permit_operations'],
+      ],
       'table' => [
         '#type' => 'table',
         '#header' => [
-          'id' => $this->t('Record ID'),
-          'tran_no' => $this->t('Trans. Number'),
+          'id' => $this->t('Permit Number'),
+          'state' => $this->t('State'),
+          'species_name' => $this->t('Species Name'),
+          'sender_first_name' => $this->t('Sender First Name'),
+          'sender_last_name' => $this->t('Sender Last Name'),
+          'recipient_first_name' => $this->t('Recipient First Name'),
+          'recipient_last_name' => $this->t('Recipient Last Name'),
+          'date_created' => $this->t('Date'),
           'actions' => $this->t('Operations'),
         ],
         '#rows' => $rows,
