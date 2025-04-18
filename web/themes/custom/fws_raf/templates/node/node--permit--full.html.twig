@@ -45,8 +45,6 @@
           <tbody>
             {# Permit Number #}
             {% if content.field_permit_no %}<tr><th class="col-md-3">Permit No.</th><td class="col-md-9">{{ content.field_permit_no }}</td></tr>{% endif %}
-            {# Record Number #}
-            {% if content.field_recno %}<tr><th class="col-md-3">Record Number</th><td class="col-md-9">{{ content.field_recno }}</td></tr>{% endif %}
             {# Permit Status #}
             {% if content.field_permit_status_cd %}<tr><th class="col-md-3">Status</th><td class="col-md-9">{{ content.field_permit_status_cd }}</td></tr>{% endif %}
             {# Permit Type #}
@@ -220,36 +218,6 @@
     </div>
   {% endif %}
 
-  {# Panel 6: Additional Permit Details #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Additional Permit Details</h3>
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <tbody>
-            {% if content.field_ca_access_key %}<tr><th class="col-md-3">Access Key</th><td class="col-md-9">{{ content.field_ca_access_key }}</td></tr>{% endif %}
-            {% if content.field_control_site_id %}<tr><th class="col-md-3">Control Site ID</th><td class="col-md-9">{{ content.field_control_site_id }}</td></tr>{% endif %}
-            {% if content.field_create_by %}<tr><th class="col-md-3">Created By (Legacy)</th><td class="col-md-9">{{ content.field_create_by }}</td></tr>{% endif %}
-            {% if content.field_update_by %}<tr><th class="col-md-3">Updated By (Legacy)</th><td class="col-md-9">{{ content.field_update_by }}</td></tr>{% endif %}
-            {% if content.field_dt_signed %}<tr><th class="col-md-3">Date Signed</th><td class="col-md-9">{{ content.field_dt_signed }}</td></tr>{% endif %}
-            {% if content.field_dt_update %}<tr><th class="col-md-3">Date DB Updated</th><td class="col-md-9">{{ content.field_dt_update }}</td></tr>{% endif %}
-            {% if content.field_hid %}<tr><th class="col-md-3">HID</th><td class="col-md-9">{{ content.field_hid }}</td></tr>{% endif %}
-            {% if content.field_is_location_certified %}<tr><th class="col-md-3">Location Certified</th><td class="col-md-9">{{ content.field_is_location_certified }}</td></tr>{% endif %}
-            {% if content.field_is_removed %}<tr><th class="col-md-3">Is Removed</th><td class="col-md-9">{{ content.field_is_removed }}</td></tr>{% endif %}
-            {% if content.field_qty_nest_egg_destroyed %}<tr><th class="col-md-3">Nest/Eggs Destroyed Qty</th><td class="col-md-9">{{ content.field_qty_nest_egg_destroyed }}</td></tr>{% endif %}
-            {% if content.field_rcf_cd %}<tr><th class="col-md-3">Restricted County Code</th><td class="col-md-9">{{ content.field_rcf_cd }}</td></tr>{% endif %}
-            {% if content.field_report_year %}<tr><th class="col-md-3">Report Year</th><td class="col-md-9">{{ content.field_report_year }}</td></tr>{% endif %}
-            {% if content.field_site_id %}<tr><th class="col-md-3">Site ID</th><td class="col-md-9">{{ content.field_site_id }}</td></tr>{% endif %}
-            {% if content.field_version_no %}<tr><th class="col-md-3">Version No</th><td class="col-md-9">{{ content.field_version_no }}</td></tr>{% endif %}
-            {% if content.field_xml_cd %}<tr><th class="col-md-3">XML Code</th><td class="col-md-9">{{ content.field_xml_cd }}</td></tr>{% endif %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
   {# Panel 7: Additional Notes #}
   {% if content.field_comments %}
     <div class="panel panel-primary mt-3">
@@ -261,5 +229,107 @@
       </div>
     </div>
   {% endif %}
+
+  {# Locations Section #}
+  {% if locations is defined and locations is not empty %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Location of Properties where Activity will occur</h3>
+      </div>
+      <div class="panel-body">
+        {% set location_count = 0 %}
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>County</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>ZIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for location in locations %}
+                {% set location_count = location_count + 1 %}
+                <tr>
+                  <td>{{ location_count }}</td>
+                  {# Accessing node fields directly is common in preprocess, but check existence #}
+                  <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
+                  <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
+                  <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
+                  <td>{% if location.field_location_state_ref.target_id %}{{ location.field_location_state_ref.entity.label }}{% endif %}</td> {# Assuming state is entity reference #}
+                  <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No locations have been added yet.
+      <a href="/node/add/location">Add a location</a>
+    </div>
+  {% endif %}
+
+  {# Agents Section #}
+  {% if agents is defined and agents is not empty %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Agent/Employee</h3>
+      </div>
+      <div class="panel-body">
+        {% set agent_count = 0 %}
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for agent in agents %}
+                {% set agent_count = agent_count + 1 %}
+                <tr>
+                  <td>{{ agent_count }}</td>
+                  <td>{{ agent.label }}</td> {# Use node label for agent name #}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No agents have been added yet.
+      <a href="/node/add/name">Add an agent</a>
+    </div>
+  {% endif %}
+
+  {# Conditions Section (Copied directly, verify links/text) #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Conditions</h3>
+    </div>
+    <div class="panel-body">
+      <p>You and your agents or employees must comply with the <a href="/resident-canada-goose-nest-egg-depredation-order-conditions">Resident Canada Goose Nest & Egg Depredation Order Conditions</a>.</p>
+      <p>If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.</p>
+      <div class="well well-sm signature-line">
+        <p>Signature of Registrant (Landowner): ______________________________________________</p>
+      </div>
+    </div>
+  </div>
+
+  {# Optional: Link to conditions page, copied directly #}
+  <div class="text-center" style="margin-top: 30px; margin-bottom: 20px;">
+    <a href="/resident-canada-goose-nest-egg-depredation-order-conditions" class="">
+      Proceed to Resident Canada Goose Nest &amp; Egg Depredation Order Conditions
+    </a>
+  </div>
 
 </article>
