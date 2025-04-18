@@ -139,6 +139,8 @@ else {
 $users = [
   'daniel@prometsource.com' => 'administrator',
   'iryna.lemeha@prometsource.com' => 'administrator',
+  'keith_setliff@fws.gov' => 'administrator',
+  'carl_chitwood@fws.gov' => 'administrator',
 ];
 
 foreach ($users as $username => $role) {
@@ -153,6 +155,8 @@ foreach ($users as $username => $role) {
       'mail' => match($username) {
         'daniel@prometsource.com' => 'daniel@prometsource.com',
         'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
+        'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
+        'carl_chitwood@fws.gov' => 'carl_chitwood@fws.gov',
         default => $username . '@example.com'
       },
       'status' => 1,
