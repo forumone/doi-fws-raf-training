@@ -1,20 +1,22 @@
+uuid: 62461810-db13-4719-aa18-3acd00cc2add
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - node
+    - taxonomy
+_core:
+  default_config_hash: TEwrJHNmJIxHoZ9Q894N3miAPWYhttX7LJ6G4V6HHws
 id: node.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: FALSE
-  is_ascii: FALSE
+  target_type: taxonomy_term
 module: core
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false

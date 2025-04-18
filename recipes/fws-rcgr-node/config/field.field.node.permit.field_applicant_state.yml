@@ -1,3 +1,4 @@
+uuid: cdfb16c5-66c5-41be-82be-f0dc4b5cf356
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - field.storage.node.field_applicant_state
     - node.type.permit
     - taxonomy.vocabulary.states
+_core:
+  default_config_hash: EqMunukQRI-xdWu9H3Hj7gWK2Ue5AnY_7EO6nlZj22U
 id: node.permit.field_applicant_state
 field_name: field_applicant_state
 entity_type: node

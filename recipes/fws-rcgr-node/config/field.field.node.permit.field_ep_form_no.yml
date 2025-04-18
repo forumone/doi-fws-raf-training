@@ -1,15 +1,16 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000003
 langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.storage.node.field_location_address
+    - field.storage.node.field_ep_form_no
     - node.type.permit
-id: node.permit.field_location_address
-field_name: field_location_address
+id: node.permit.field_ep_form_no
+field_name: field_ep_form_no
 entity_type: node
 bundle: permit
-label: 'Location Address'
-description: 'The address lines associated with this permit location.'
+label: 'EP Form No'
+description: ''
 required: FALSE
 translatable: FALSE
 default_value: {  }

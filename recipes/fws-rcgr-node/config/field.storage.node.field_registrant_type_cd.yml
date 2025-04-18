@@ -1,24 +1,18 @@
+uuid: 82c4aeff-05e8-481e-a66b-43edf3591eae
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: dYk8x7u8WKeGnZ9PlyWP6fYbUqnrUCIY4plWTH7NLAg
 id: node.field_registrant_type_cd
 field_name: field_registrant_type_cd
 entity_type: node
 type: entity_reference
 settings:
   target_type: taxonomy_term
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      registrant_type: registrant_type
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
 module: core
 locked: false
 cardinality: 1

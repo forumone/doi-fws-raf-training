@@ -1,20 +1,21 @@
+uuid: d47e7065-743a-4ec2-977e-32762d63cb27
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_principal_name
     - node.type.permit
+_core:
+  default_config_hash: qMRlWAEJYFVueAxzUkk0yj6ZfwxrG2AXpjwcvGRrRw8
 id: node.permit.field_principal_name
 field_name: field_principal_name
 entity_type: node
 bundle: permit
 label: 'Principal Name'
 description: 'Full name of the principal contact.'
-required: FALSE
-translatable: FALSE
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 255
-  case_sensitive: FALSE
+settings: {  }
 field_type: string

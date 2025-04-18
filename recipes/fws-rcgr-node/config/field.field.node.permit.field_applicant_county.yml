@@ -1,0 +1,19 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000011
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_applicant_county
+    - node.type.permit
+id: node.permit.field_applicant_county
+field_name: field_applicant_county
+entity_type: node
+bundle: permit
+label: 'Applicant County'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

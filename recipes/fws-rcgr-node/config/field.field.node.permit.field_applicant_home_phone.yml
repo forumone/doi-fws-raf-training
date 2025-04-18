@@ -1,0 +1,21 @@
+uuid: 36d47425-2274-45ff-884d-4212e52aef0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_applicant_home_phone
+    - node.type.permit
+_core:
+  default_config_hash: bHo3sMc590cmEmIWrcdoqqflcVXE-0aLJpNCaTx0OlU
+id: node.permit.field_applicant_home_phone
+field_name: field_applicant_home_phone
+entity_type: node
+bundle: permit
+label: 'Applicant Home Phone'
+description: 'The home phone number associated with the permit.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

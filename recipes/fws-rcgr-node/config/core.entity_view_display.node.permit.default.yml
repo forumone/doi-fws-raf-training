@@ -2,10 +2,16 @@ langcode: en
 status: TRUE
 dependencies:
   config:
+    - field.field.node.permit.field_applicant_address_l1
+    - field.field.node.permit.field_applicant_address_l2
+    - field.field.node.permit.field_applicant_address_l3
+    - field.field.node.permit.field_applicant_business_name
+    - field.field.node.permit.field_applicant_city
+    - field.field.node.permit.field_applicant_home_phone
     - field.field.node.permit.field_applicant_state
+    - field.field.node.permit.field_applicant_work_phone
+    - field.field.node.permit.field_applicant_zip
     - field.field.node.permit.field_bi_cd
-    - field.field.node.permit.field_business_name
-    - field.field.node.permit.field_ca_access_key
     - field.field.node.permit.field_control_site_id
     - field.field.node.permit.field_create_by
     - field.field.node.permit.field_dt_application_received
@@ -18,14 +24,8 @@ dependencies:
     - field.field.node.permit.field_dt_signed
     - field.field.node.permit.field_dt_update
     - field.field.node.permit.field_hid
-    - field.field.node.permit.field_home_phone
-    - field.field.node.permit.field_is_location_certified
-    - field.field.node.permit.field_is_removed
-    - field.field.node.permit.field_location_address
-    - field.field.node.permit.field_location_city
     - field.field.node.permit.field_permit_no
     - field.field.node.permit.field_permit_status_cd
-    - field.field.node.permit.field_person_name
     - field.field.node.permit.field_principal_name
     - field.field.node.permit.field_principal_first_name
     - field.field.node.permit.field_principal_middle_name
@@ -33,17 +33,12 @@ dependencies:
     - field.field.node.permit.field_principal_suffix
     - field.field.node.permit.field_principal_title
     - field.field.node.permit.field_principal_telephone
-    - field.field.node.permit.field_qty_nest_egg_destroyed
     - field.field.node.permit.field_rcf_cd
-    - field.field.node.permit.field_recno
     - field.field.node.permit.field_registrant_type_cd
-    - field.field.node.permit.field_report_year
     - field.field.node.permit.field_site_id
     - field.field.node.permit.field_update_by
     - field.field.node.permit.field_version_no
-    - field.field.node.permit.field_work_phone
     - field.field.node.permit.field_xml_cd
-    - field.field.node.permit.field_zip
     - node.type.permit
   module:
     - datetime
@@ -70,21 +65,13 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
-  field_business_name:
+  field_applicant_business_name:
     type: string
     label: hidden
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_ca_access_key:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 16
     region: content
   field_control_site_id:
     type: string
@@ -200,7 +187,7 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
-  field_home_phone:
+  field_applicant_home_phone:
     type: string
     label: hidden
     settings:
@@ -208,34 +195,31 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_is_location_certified:
-    type: boolean
+  field_applicant_address_l1:
+    type: string
     label: hidden
     settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_is_removed:
-    type: boolean
-    label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  field_location_address:
-    type: text_default
-    label: hidden
-    settings: {  }
+      link_to_entity: FALSE
     third_party_settings: {  }
     weight: 2
     region: content
-  field_location_city:
+  field_applicant_address_l2:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_applicant_address_l3:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_applicant_city:
     type: string
     label: hidden
     settings:
@@ -259,21 +243,13 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  field_person_name:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 18
-    region: content
   field_principal_name:
     type: string
     label: hidden
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 36
+    weight: 10
     region: content
   field_principal_first_name:
     type: string
@@ -321,16 +297,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 42
-    region: content
-  field_qty_nest_egg_destroyed:
-    type: number_integer
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 15
+    weight: 11
     region: content
   field_rcf_cd:
     type: entity_reference_label
@@ -340,30 +307,13 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
-  field_recno:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: FALSE
-    third_party_settings: {  }
-    weight: 24
-    region: content
   field_registrant_type_cd:
     type: entity_reference_label
     label: hidden
     settings:
       link: TRUE
     third_party_settings: {  }
-    weight: 11
-    region: content
-  field_report_year:
-    type: number_integer
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: TRUE
-    third_party_settings: {  }
-    weight: 22
+    weight: 9
     region: content
   field_site_id:
     type: string
@@ -371,7 +321,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 25
+    weight: 18
     region: content
   field_update_by:
     type: string
@@ -379,7 +329,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 26
+    weight: 25
     region: content
   field_version_no:
     type: number_integer
@@ -388,9 +338,9 @@ content:
       thousand_separator: ''
       prefix_suffix: TRUE
     third_party_settings: {  }
-    weight: 27
+    weight: 15
     region: content
-  field_work_phone:
+  field_applicant_work_phone:
     type: string
     label: hidden
     settings:
@@ -399,14 +349,14 @@ content:
     weight: 7
     region: content
   field_xml_cd:
-    type: string
+    type: entity_reference_label
     label: hidden
     settings:
-      link_to_entity: FALSE
+      link: TRUE
     third_party_settings: {  }
-    weight: 28
+    weight: 14
     region: content
-  field_zip:
+  field_applicant_zip:
     type: string
     label: hidden
     settings:
@@ -419,4 +369,6 @@ content:
     third_party_settings: {  }
     weight: 36
     region: content
-hidden: {  }
+hidden:
+  langcode: true
+  links: true

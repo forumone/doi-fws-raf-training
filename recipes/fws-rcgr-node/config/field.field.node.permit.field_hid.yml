@@ -1,14 +1,17 @@
+uuid: f0326835-16b9-4c9d-94cb-ceda6dd2cdbe
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_hid
     - node.type.permit
+_core:
+  default_config_hash: 5fLSPORGzCFH9AiH_o0u_Ug63jw_zmZ9WwtxG2rPc1s
 id: node.permit.field_hid
 field_name: field_hid
 entity_type: node
 bundle: permit
-label: 'HID'
+label: HID
 description: ''
 required: false
 translatable: true

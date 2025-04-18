@@ -1,0 +1,21 @@
+uuid: 3dd161d6-c78f-48d4-a700-b4d46f348c29
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_applicant_work_phone
+    - node.type.permit
+_core:
+  default_config_hash: zwzF5HCjPdA3kpG8LTLkNIi7yZC2S85XDZVOSRsZSaQ
+id: node.permit.field_applicant_work_phone
+field_name: field_applicant_work_phone
+entity_type: node
+bundle: permit
+label: 'Applicant Work Phone'
+description: 'The work phone number associated with the permit.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

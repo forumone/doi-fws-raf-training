@@ -1,3 +1,4 @@
+uuid: 738aa85b-9607-449a-9718-1832ac80b8a3
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - field.storage.node.field_registrant_type_cd
     - node.type.permit
     - taxonomy.vocabulary.registrant_type
+_core:
+  default_config_hash: X_ozHpDjJfP3zbSVOBhT98xofzSylSABLeo3LKYTbaQ
 id: node.permit.field_registrant_type_cd
 field_name: field_registrant_type_cd
 entity_type: node

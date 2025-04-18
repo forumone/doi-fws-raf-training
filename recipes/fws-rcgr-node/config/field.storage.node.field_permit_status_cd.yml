@@ -1,24 +1,18 @@
+uuid: da30f163-4669-448f-9f30-a8383b33da2f
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - taxonomy
+_core:
+  default_config_hash: 5g2Q_ZCxsjmxtIxLmj7fkwOn51cKwpeOd25Ndw1cEfM
 id: node.field_permit_status_cd
 field_name: field_permit_status_cd
 entity_type: node
 type: entity_reference
 settings:
   target_type: taxonomy_term
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      application_status: application_status
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
 module: core
 locked: false
 cardinality: 1

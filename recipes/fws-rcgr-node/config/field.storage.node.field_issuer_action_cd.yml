@@ -1,0 +1,20 @@
+uuid: b1a2c3d4-e5f6-4a7b-8c9d-a00000000023
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_issuer_action_cd
+field_name: field_issuer_action_cd
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

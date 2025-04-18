@@ -1,19 +1,22 @@
+uuid: dada312c-0b13-4028-a1f1-a1b2c9f628c3
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_dt_application_received
     - node.type.permit
   module:
     - datetime
+_core:
+  default_config_hash: HzgtVvzxI7mfEAW03_qeyxEqsLCon6-E5HoafWaMxzE
 id: node.permit.field_dt_application_received
 field_name: field_dt_application_received
 entity_type: node
 bundle: permit
 label: 'Application Received Date'
 description: 'The date when the permit application was received.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

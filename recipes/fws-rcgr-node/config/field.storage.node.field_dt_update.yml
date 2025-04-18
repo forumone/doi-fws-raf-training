@@ -1,9 +1,12 @@
+uuid: 213eed94-d382-4b72-a1ac-98ef046ebac4
 langcode: en
 status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: rqwF3w5iWAfoVSdM9o0t1ZB7hxpR53MSL2Sj8wemN3E
 id: node.field_dt_update
 field_name: field_dt_update
 entity_type: node

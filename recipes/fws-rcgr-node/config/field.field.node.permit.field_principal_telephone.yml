@@ -1,20 +1,21 @@
+uuid: de67d6fd-ee78-49d3-8a23-d4bdef1767ad
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_principal_telephone
     - node.type.permit
+_core:
+  default_config_hash: 8ni20zL7G2ifHTkJ_dPah8YhuvSUDHTdAvUUsRFQ-d4
 id: node.permit.field_principal_telephone
 field_name: field_principal_telephone
 entity_type: node
 bundle: permit
 label: 'Principal Telephone'
 description: 'Telephone number of the principal contact.'
-required: FALSE
-translatable: FALSE
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 255
-  case_sensitive: FALSE
+settings: {  }
 field_type: string

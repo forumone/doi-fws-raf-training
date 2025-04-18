@@ -1,9 +1,14 @@
+uuid: ba5a727c-59dc-4072-bcea-0dabecdb1c3d
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_dt_update
     - node.type.permit
+  module:
+    - datetime
+_core:
+  default_config_hash: 8sAbUPUBYS6LRxm3o_seKRp1chaoPlvjUWA0EWXeC28
 id: node.permit.field_dt_update
 field_name: field_dt_update
 entity_type: node

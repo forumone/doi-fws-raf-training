@@ -1,0 +1,19 @@
+uuid: a1b2c3d4-e5f6-4a7b-8c9d-abcdef123451 # Placeholder UUID
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_applicant_address_l1
+    - node.type.permit
+id: node.permit.field_applicant_address_l1
+field_name: field_applicant_address_l1
+entity_type: node
+bundle: permit
+label: 'Applicant Address Line 1'
+description: 'The first line of the applicant address.'
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

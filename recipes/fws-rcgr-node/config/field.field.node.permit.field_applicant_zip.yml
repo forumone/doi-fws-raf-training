@@ -1,0 +1,21 @@
+uuid: 6837f098-0055-4557-8517-9772d108ee44
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_applicant_zip
+    - node.type.permit
+_core:
+  default_config_hash: OzWEINvXpcaf40E3k5WiyKaNIxnF-CwWburu_hf_iyI
+id: node.permit.field_applicant_zip
+field_name: field_applicant_zip
+entity_type: node
+bundle: permit
+label: 'Applicant ZIP Code'
+description: 'The ZIP code associated with the permit.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

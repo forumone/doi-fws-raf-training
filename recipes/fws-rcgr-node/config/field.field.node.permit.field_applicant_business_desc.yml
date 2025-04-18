@@ -1,0 +1,21 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000010
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_applicant_business_desc
+    - node.type.permit
+  module:
+    - text
+id: node.permit.field_applicant_business_desc
+field_name: field_applicant_business_desc
+entity_type: node
+bundle: permit
+label: 'Applicant Business Description'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

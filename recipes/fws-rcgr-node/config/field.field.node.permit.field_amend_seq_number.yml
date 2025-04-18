@@ -1,0 +1,23 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000027
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_amend_seq_number
+    - node.type.permit
+id: node.permit.field_amend_seq_number
+field_name: field_amend_seq_number
+entity_type: node
+bundle: permit
+label: 'Amendment Sequence Number'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

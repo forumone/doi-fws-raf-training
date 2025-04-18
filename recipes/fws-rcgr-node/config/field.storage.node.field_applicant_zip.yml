@@ -1,0 +1,23 @@
+uuid: 2d93286f-c004-4aae-ad27-3653ae296c61
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: aK66icPXiWPz8j90O9GpQoFZAdNFBShEt-u7Bx_owOo
+id: node.field_applicant_zip
+field_name: field_applicant_zip
+entity_type: node
+type: string
+settings:
+  max_length: 10
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

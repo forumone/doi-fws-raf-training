@@ -1,8 +1,11 @@
+uuid: db5c4c84-61de-4579-8ed9-ae74b7610487
 langcode: en
 status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: hWwXiNj6E6_nylUZvUeT385Yd_4DZ5BISO-4-4firgg
 id: node.field_version_no
 field_name: field_version_no
 entity_type: node

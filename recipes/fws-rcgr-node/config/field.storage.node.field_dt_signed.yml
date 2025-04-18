@@ -1,9 +1,12 @@
+uuid: b1df3e7c-4727-40f8-884b-0cdb48b25fe7
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: sx5MoivIDIDAyvFomCpXq5VW8-sON3_288z5UmpsldU
 id: node.field_dt_signed
 field_name: field_dt_signed
 entity_type: node
@@ -11,9 +14,9 @@ type: datetime
 settings:
   datetime_type: datetime
 module: datetime
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false
