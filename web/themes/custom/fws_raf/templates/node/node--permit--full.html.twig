@@ -1,0 +1,265 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to present permit data.
+ *
+ * This template overrides the default node.html.twig template specifically for
+ * the permit node type to display fields from the permit entity, grouped logically.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields should be rendered
+ *   directly, e.g., {{ content.field_example }}.
+ * - attributes: HTML attributes for the container element.
+ * - node: A Drupal Node entity. Generally, prefer 'content' for field rendering.
+ * - locations: An array of location nodes related to this permit (if available
+ *   from preprocessing).
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{% set classes = [
+  'registration-form',
+  'permit-node-display',
+  'clearfix',
+] %}
+
+<article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
+
+  {# Permit Approval Status Message #}
+  {% if content.field_permit_status_cd is defined and content.field_permit_status_cd|render matches '/APPROVED/i' %}
+    <div class="alert alert-success">
+      <strong>This permit has been approved.</strong> Please check the expiration date for validity information.
+    </div>
+  {% endif %}
+
+  {# Panel 1: Permit Information #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Permit Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Permit Number #}
+            {% if content.field_permit_no %}<tr><th class="col-md-3">Permit No.</th><td class="col-md-9">{{ content.field_permit_no }}</td></tr>{% endif %}
+            {# Record Number #}
+            {% if content.field_recno %}<tr><th class="col-md-3">Record Number</th><td class="col-md-9">{{ content.field_recno }}</td></tr>{% endif %}
+            {# Permit Status #}
+            {% if content.field_permit_status_cd %}<tr><th class="col-md-3">Status</th><td class="col-md-9">{{ content.field_permit_status_cd }}</td></tr>{% endif %}
+            {# Permit Type #}
+            {% if content.field_permit_type %}<tr><th class="col-md-3">Permit Type</th><td class="col-md-9">{{ content.field_permit_type }}</td></tr>{% endif %}
+            {# Date Created #}
+            <tr>
+              <th class="col-md-3">Date Created</th>
+              <td class="col-md-9">
+                {% if content.field_dt_create %}
+                  {{ content.field_dt_create }}
+                {% else %}
+                  {{ node.created.value|date('n/j/Y') }}
+                {% endif %}
+              </td>
+            </tr>
+            {# Date Updated (Node Changed) #}
+            <tr><th class="col-md-3">Date Updated</th><td class="col-md-9">{{ node.changed.value|date('n/j/Y') }}</td></tr>
+            {# Issued Date #}
+            {% if content.field_issued_date %}<tr><th class="col-md-3">Issued Date</th><td class="col-md-9">{{ content.field_issued_date }}</td></tr>{% endif %}
+            {# Effective Date #}
+            {% if content.field_dt_effective %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ content.field_dt_effective }}</td></tr>{% endif %}
+            {# Expiry Date #}
+            {% if content.field_expiry_date %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ content.field_expiry_date }}</td></tr>{% endif %}
+            {# Application Received Date #}
+            {% if content.field_dt_application_received %}<tr><th class="col-md-3">Application Received</th><td class="col-md-9">{{ content.field_dt_application_received }}</td></tr>{% endif %}
+            {# Permit Request Date #}
+            {% if content.field_dt_permit_request %}<tr><th class="col-md-3">Permit Request Date</th><td class="col-md-9">{{ content.field_dt_permit_request }}</td></tr>{% endif %}
+            {# Permit Issued Date #}
+            {% if content.field_dt_permit_issued %}<tr><th class="col-md-3">Permit Issued Date</th><td class="col-md-9">{{ content.field_dt_permit_issued }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Panel 2: Applicant Information #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Applicant Information</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Applicant Name #}
+            <tr>
+              <th class="col-md-3">Applicant Name</th>
+              <td class="col-md-9">
+                {% if content.field_applicant_business_name %}
+                  {{ content.field_applicant_business_name }}
+                {% elseif content.field_applicant_last_name or content.field_applicant_first_name %}
+                  {% set name_parts = [] %}
+                  {% if content.field_applicant_last_name %}{% set name_parts = name_parts|merge([content.field_applicant_last_name|render|striptags|trim]) %}{% endif %}
+                  {% if content.field_applicant_first_name %}{% set name_parts = name_parts|merge([content.field_applicant_first_name|render|striptags|trim]) %}{% endif %}
+                  {{ name_parts|join(', ') }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+            {# Business Name (if different/available) #}
+            {% if content.field_business_name %}<tr><th class="col-md-3">Business Name</th><td class="col-md-9">{{ content.field_business_name }}</td></tr>{% endif %}
+            {# Applicant Type #}
+            {% if content.field_registrant_type_cd %}<tr><th class="col-md-3">Applicant Type</th><td class="col-md-9">{{ content.field_registrant_type_cd }}</td></tr>{% endif %}
+            {# BI Code (Business/Individual?) #}
+            {% if content.field_bi_cd %}<tr><th class="col-md-3">BI Code</th><td class="col-md-9">{{ content.field_bi_cd }}</td></tr>{% endif %}
+            {# Person Name (If different/available) #}
+            {% if content.field_person_name %}<tr><th class="col-md-3">Person Name</th><td class="col-md-9">{{ content.field_person_name }}</td></tr>{% endif %}
+             {# Applicant Signed Date #}
+            {% if content.field_dt_applicant_signed %}<tr><th class="col-md-3">Applicant Signed Date</th><td class="col-md-9">{{ content.field_dt_applicant_signed }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Panel 3: Applicant Address and Contact #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Applicant Address and Contact</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {# Address Information #}
+            {% if content.field_applicant_address_l1 %}<tr><th class="col-md-3">Address</th><td class="col-md-9"><div>{{ content.field_applicant_address_l1 }}</div>{% if content.field_applicant_address_l2 %}<div>{{ content.field_applicant_address_l2 }}</div>{% endif %}{% if content.field_applicant_address_l3 %}<div>{{ content.field_applicant_address_l3 }}</div>{% endif %}</td></tr>{% endif %}
+            {# City #}
+            {% if content.field_applicant_city %}<tr><th class="col-md-3">City</th><td class="col-md-9">{{ content.field_applicant_city }}</td></tr>{% endif %}
+            {# State #}
+            {% if content.field_applicant_state %}<tr><th class="col-md-3">State</th><td class="col-md-9">{{ content.field_applicant_state }}</td></tr>{% endif %}
+            {# ZIP Code #}
+            {% if content.field_applicant_zip %}<tr><th class="col-md-3">ZIP Code</th><td class="col-md-9">{{ content.field_applicant_zip }}</td></tr>{% endif %}
+            {# Applicant Zip (if different) #}
+            {% if content.field_zip %}<tr><th class="col-md-3">Applicant Zip</th><td class="col-md-9">{{ content.field_zip }}</td></tr>{% endif %}
+            {# Telephone #}
+            {% if content.field_applicant_telephone %}<tr><th class="col-md-3">Telephone</th><td class="col-md-9">{{ content.field_applicant_telephone }}</td></tr>{% endif %}
+            {# Home Phone #}
+            {% if content.field_home_phone %}<tr><th class="col-md-3">Home Phone</th><td class="col-md-9">{{ content.field_home_phone }}</td></tr>{% endif %}
+            {# Work Phone #}
+            {% if content.field_work_phone %}<tr><th class="col-md-3">Work Phone</th><td class="col-md-9">{{ content.field_work_phone }}</td></tr>{% endif %}
+            {# Email #}
+            {% if content.field_applicant_email %}<tr><th class="col-md-3">Email</th><td class="col-md-9">{{ content.field_applicant_email }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Panel 4: Principal Information (Conditional) #}
+  {% set is_business = content.field_registrant_type_cd is defined and content.field_registrant_type_cd|render matches '/Business/i' %}
+  {% if is_business %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Principal Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tbody>
+              {% if content.field_principal_name %}<tr><th class="col-md-3">Principal Name</th><td class="col-md-9">{{ content.field_principal_name }}</td></tr>{% endif %}
+              {% if content.field_principal_first_name %}<tr><th class="col-md-3">Principal First Name</th><td class="col-md-9">{{ content.field_principal_first_name }}</td></tr>{% endif %}
+              {% if content.field_principal_middle_name %}<tr><th class="col-md-3">Principal Middle Name</th><td class="col-md-9">{{ content.field_principal_middle_name }}</td></tr>{% endif %}
+              {% if content.field_principal_last_name %}<tr><th class="col-md-3">Principal Last Name</th><td class="col-md-9">{{ content.field_principal_last_name }}</td></tr>{% endif %}
+              {% if content.field_principal_suffix %}<tr><th class="col-md-3">Principal Suffix</th><td class="col-md-9">{{ content.field_principal_suffix }}</td></tr>{% endif %}
+              {% if content.field_principal_title %}<tr><th class="col-md-3">Principal Title</th><td class="col-md-9">{{ content.field_principal_title }}</td></tr>{% endif %}
+              {% if content.field_principal_telephone %}<tr><th class="col-md-3">Principal Telephone</th><td class="col-md-9">{{ content.field_principal_telephone }}</td></tr>{% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Panel 5: Location of Properties #}
+  {% if locations is defined and locations is not empty %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Location of Properties</h3>
+      </div>
+      <div class="panel-body">
+        {% set location_count = 0 %}
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>County</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>ZIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for location in locations %}
+                {% set location_count = location_count + 1 %}
+                <tr>
+                  <td>{{ location_count }}</td>
+                  <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
+                  <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
+                  <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
+                  <td>{% if location.field_location_state.value %}{{ location.field_location_state.value }}{% endif %}</td>
+                  <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Panel 6: Additional Permit Details #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Additional Permit Details</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_ca_access_key %}<tr><th class="col-md-3">Access Key</th><td class="col-md-9">{{ content.field_ca_access_key }}</td></tr>{% endif %}
+            {% if content.field_control_site_id %}<tr><th class="col-md-3">Control Site ID</th><td class="col-md-9">{{ content.field_control_site_id }}</td></tr>{% endif %}
+            {% if content.field_create_by %}<tr><th class="col-md-3">Created By (Legacy)</th><td class="col-md-9">{{ content.field_create_by }}</td></tr>{% endif %}
+            {% if content.field_update_by %}<tr><th class="col-md-3">Updated By (Legacy)</th><td class="col-md-9">{{ content.field_update_by }}</td></tr>{% endif %}
+            {% if content.field_dt_signed %}<tr><th class="col-md-3">Date Signed</th><td class="col-md-9">{{ content.field_dt_signed }}</td></tr>{% endif %}
+            {% if content.field_dt_update %}<tr><th class="col-md-3">Date DB Updated</th><td class="col-md-9">{{ content.field_dt_update }}</td></tr>{% endif %}
+            {% if content.field_hid %}<tr><th class="col-md-3">HID</th><td class="col-md-9">{{ content.field_hid }}</td></tr>{% endif %}
+            {% if content.field_is_location_certified %}<tr><th class="col-md-3">Location Certified</th><td class="col-md-9">{{ content.field_is_location_certified }}</td></tr>{% endif %}
+            {% if content.field_is_removed %}<tr><th class="col-md-3">Is Removed</th><td class="col-md-9">{{ content.field_is_removed }}</td></tr>{% endif %}
+            {% if content.field_qty_nest_egg_destroyed %}<tr><th class="col-md-3">Nest/Eggs Destroyed Qty</th><td class="col-md-9">{{ content.field_qty_nest_egg_destroyed }}</td></tr>{% endif %}
+            {% if content.field_rcf_cd %}<tr><th class="col-md-3">Restricted County Code</th><td class="col-md-9">{{ content.field_rcf_cd }}</td></tr>{% endif %}
+            {% if content.field_report_year %}<tr><th class="col-md-3">Report Year</th><td class="col-md-9">{{ content.field_report_year }}</td></tr>{% endif %}
+            {% if content.field_site_id %}<tr><th class="col-md-3">Site ID</th><td class="col-md-9">{{ content.field_site_id }}</td></tr>{% endif %}
+            {% if content.field_version_no %}<tr><th class="col-md-3">Version No</th><td class="col-md-9">{{ content.field_version_no }}</td></tr>{% endif %}
+            {% if content.field_xml_cd %}<tr><th class="col-md-3">XML Code</th><td class="col-md-9">{{ content.field_xml_cd }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {# Panel 7: Additional Notes #}
+  {% if content.field_comments %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Additional Notes</h3>
+      </div>
+      <div class="panel-body">
+        {{ content.field_comments }}
+      </div>
+    </div>
+  {% endif %}
+
+</article>
