@@ -238,7 +238,13 @@ class Permit3186ASearchForm extends FormBase {
     foreach ($this->entityTypeManager->getStorage('node')->loadMultiple($nids) as $node) {
       $row = [
         'id' => $node->field_recno->value,
-        'tran_no' => $node->field_question_no->value,
+        'state' => $node->field_owner_state->entity ? $node->field_owner_state->entity->label() : '',
+        'species_name' => $node->field_species_name->entity ? $node->field_species_name->entity->label() : '',
+        'sender_first_name' => $node->field_sender_first_name->value,
+        'sender_last_name' => $node->field_sender_last_name->value,
+        'recipient_first_name' => $node->field_recipient_first_name->value,
+        'recipient_last_name' => $node->field_recipient_last_name->value,
+        'date_created' => date('Y-m-d', strtotime($node->field_dt_create->value)),
         'actions' => [],
       ];
 
@@ -284,8 +290,14 @@ class Permit3186ASearchForm extends FormBase {
       'table' => [
         '#type' => 'table',
         '#header' => [
-          'id' => $this->t('Record ID'),
-          'tran_no' => $this->t('Trans. Number'),
+          'id' => $this->t('Permit Number'),
+          'state' => $this->t('State'),
+          'species_name' => $this->t('Species Name'),
+          'sender_first_name' => $this->t('Sender First Name'),
+          'sender_last_name' => $this->t('Sender Last Name'),
+          'recipient_first_name' => $this->t('Recipient First Name'),
+          'recipient_last_name' => $this->t('Recipient Last Name'),
+          'date_created' => $this->t('Date'),
           'actions' => $this->t('Operations'),
         ],
         '#rows' => $rows,
