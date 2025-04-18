@@ -225,6 +225,9 @@
             },
             "drupal/we_megamenu": {
                 "Issue #3282040: Attempt to modify property \"col_content\" on null": "https://www.drupal.org/files/issues/2024-04-10/3282040_7_0.patch"
+            },
+            "drupal/select2": {
+                "Select2 Plugin is not compatible with BEF plugin": "https://www.drupal.org/files/issues/2024-12-06/3482698-8-select2-plugin-bef.patch"
             }
         }
     },
