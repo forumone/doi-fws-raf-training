@@ -326,6 +326,29 @@ class ImportSpecies3186a {
       throw new Exception("Missing required species code for record $record_no (Species code provided: $species_code)");
     }
 
+    // Look up the user ID based on the created_by field
+    if (!empty($row['created_by'])) {
+      $username = trim($row['created_by']);
+
+      // Look up the user by username
+      $users = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->loadByProperties(['name' => $username]);
+
+      if (!empty($users)) {
+        $user = reset($users);
+        $values['uid'] = $user->id();
+      }
+      else {
+        // If user not found, default to admin (uid=1)
+        $values['uid'] = 1;
+      }
+    }
+    else {
+      // If created_by is empty, default to admin (uid=1)
+      $values['uid'] = 1;
+    }
+
     return $values;
   }
 
