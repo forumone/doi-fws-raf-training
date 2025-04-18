@@ -106,7 +106,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 30
@@ -115,7 +116,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 31
@@ -124,7 +126,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 21
@@ -133,7 +136,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 33
@@ -142,7 +146,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 32
@@ -151,7 +156,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 34
@@ -160,7 +166,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 35
@@ -169,7 +176,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 29
@@ -178,7 +186,8 @@ content:
     type: datetime_default
     label: hidden
     settings:
-      format_type: medium
+      format_type: custom
+      custom_format: 'm/d/Y'
       timezone_override: ''
     third_party_settings: {  }
     weight: 22
