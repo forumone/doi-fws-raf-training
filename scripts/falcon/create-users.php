@@ -11,6 +11,8 @@ use Drupal\user\Entity\User;
 $users = [
   'daniel@prometsource.com' => 'administrator',
   'iryna.lemeha@prometsource.com' => 'administrator',
+  'keith_setliff@fws.gov' => 'administrator',
+  'carl_chitwood@fws.gov' => 'administrator',
   'state_admin' => 'state_admin',
   'state_law' => 'state_law',
   'federal_law' => 'federal_law',
@@ -44,6 +46,8 @@ try {
         'mail' => match($username) {
           'daniel@prometsource.com' => 'daniel@prometsource.com',
           'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
+          'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
+          'carl_chitwood@fws.gov' => 'carl_chitwood@fws.gov',
           default => $username . '@example.com'
         },
         'status' => 1,

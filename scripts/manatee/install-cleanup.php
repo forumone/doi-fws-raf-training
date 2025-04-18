@@ -105,6 +105,7 @@ $users = [
   'viewer' => 'viewer',
   'sonal' => 'administrator',
   'keith_setliff@fws.gov' => 'administrator',
+  'carl_chitwood@fws.gov' => 'administrator',
   'Nadia.Lentz@myfwc.com' => 'partner_administrator',
   'daniel@prometsource.com' => 'administrator',
   'iryna.lemeha@prometsource.com' => 'administrator',
@@ -125,6 +126,7 @@ foreach ($users as $username => $role) {
         'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
         'daniel@prometsource.com' => 'daniel@prometsource.com',
         'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
+        'carl_chitwood@fws.gov' => 'carl_chitwood@fws.gov',
         default => $username . '@example.com'
       },
       'status' => 1,
