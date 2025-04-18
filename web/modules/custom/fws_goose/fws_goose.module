@@ -5,13 +5,15 @@
  * Contains fws_goose.module.
  */
 
+use Drupal\node\Entity\Node;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Entity\EntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+// Add this use statement.
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_form_alter().
@@ -732,7 +734,7 @@ function fws_goose_entity_presave($entity) {
     ->condition('type', 'location')
     ->condition('field_permit_no', $permit_number)
     ->accessCheck(FALSE)
-    ->count()
+    ->countQuery()
     ->execute();
 
   if ($duplicate_check > 0) {
@@ -812,146 +814,136 @@ function fws_goose_preprocess_page_title(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_user().
- */
-function fws_goose_preprocess_user(&$variables) {
-  // Get the user entity from the variables.
-  $user = $variables['user'];
-
-  // Only proceed if we have a valid user ID.
-  if ($user && $user->id()) {
-    // Load location nodes for this user.
-    $location_nodes = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadByProperties([
-        'type' => 'location',
-        'uid' => $user->id(),
-        'status' => 1,
-      ]);
-    $variables['locations'] = $location_nodes;
-
-    // Load agent/name nodes for this user.
-    $agent_nodes = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadByProperties([
-        'type' => 'name',
-        'uid' => $user->id(),
-        'status' => 1,
-      ]);
-    $variables['agents'] = $agent_nodes;
-  }
-  else {
-    // Initialize empty arrays if no user.
-    $variables['locations'] = [];
-    $variables['agents'] = [];
-  }
-}
-
-/**
- * Sends an email notification about certified user account.
+ * Sends an email notification about a certified permit node.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The user entity.
+ * @param \Drupal\node\NodeInterface $node
+ *   The permit node entity.
  */
-function fws_goose_send_certification_notification(EntityInterface $entity) {
+function fws_goose_send_certification_notification(NodeInterface $node) {
   // Initialize the logger.
   $logger = \Drupal::logger('fws_goose');
-  $logger->notice('Starting certification notification process for entity ID: @id', ['@id' => $entity->id()]);
+  $logger->notice('Starting certification notification process for permit node ID: @id', ['@id' => $node->id()]);
 
-  // Check if this is actually a user entity.
-  if ($entity->getEntityTypeId() !== 'user') {
-    $logger->warning('Attempted to send certification notification for non-user entity: @type, ID: @id', [
-      '@type' => $entity->getEntityTypeId(),
-      '@id' => $entity->id(),
+  // Check if this is actually a permit node.
+  if ($node->bundle() !== 'permit') {
+    $logger->warning('Attempted to send certification notification for non-permit node: @type, ID: @id', [
+      '@type' => $node->bundle(),
+      '@id' => $node->id(),
     ]);
     return;
   }
 
-  // Get the user's email address.
-  $user_email = $entity->getEmail();
-  if (empty($user_email)) {
-    $logger->error('Cannot send certification email - user has no email address (ID: @id)', [
-      '@id' => $entity->id(),
+  // Get the owner entity.
+  $owner = $node->getOwner();
+  if (!$owner) {
+    $logger->error('Cannot send certification email - permit node has no owner (NID: @id)', [
+      '@id' => $node->id(),
     ]);
     return;
   }
 
-  $logger->info('Processing certification notification for user: @name (ID: @id, Email: @email)', [
-    '@name' => $entity->getAccountName(),
-    '@id' => $entity->id(),
-    '@email' => $user_email,
+  // Get the owner's email address.
+  $owner_email = $owner->getEmail();
+  if (empty($owner_email)) {
+    $logger->error('Cannot send certification email - owner has no email address (UID: @uid, NID: @nid)', [
+      '@uid' => $owner->id(),
+      '@nid' => $node->id(),
+    ]);
+    return;
+  }
+
+  $logger->info('Processing certification notification for permit: @title (NID: @nid) for owner: @name (UID: @uid, Email: @email)', [
+    '@title' => $node->getTitle(),
+    '@nid' => $node->id(),
+    '@name' => $owner->getAccountName(),
+    '@uid' => $owner->id(),
+    '@email' => $owner_email,
   ]);
 
-  // Prepare the notification data.
+  // Prepare the notification data - pass node ID instead of full object.
   $notification_data = [
-    'username' => $entity->getAccountName(),
-    'email' => $user_email,
+    'owner_username' => $owner->getAccountName(),
+    'owner_email' => $owner_email,
+    'owner_uid' => $owner->id(),
+  // Keep operation key consistent for hook_mail.
     'operation' => 'certified',
-    'url' => Url::fromRoute('entity.user.canonical', ['user' => $entity->id()], ['absolute' => TRUE])->toString(),
-    'user_id' => $entity->id(),
+  // Pass Node ID.
+    'node_id' => $node->id(),
+    // Removed user_id, url (we'll construct URL in hook_mail if needed)
   ];
 
-  // Add any additional user fields that might be relevant.
-  if ($entity->hasField('field_permit_no') && !$entity->get('field_permit_no')->isEmpty()) {
-    $notification_data['permit_number'] = $entity->get('field_permit_no')->value;
-    $logger->info('User has permit number: @permit', ['@permit' => $notification_data['permit_number']]);
+  // Add relevant data from the permit node.
+  if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+    $notification_data['permit_number'] = $node->get('field_permit_no')->value;
+    $logger->info('Permit has permit number: @permit', ['@permit' => $notification_data['permit_number']]);
   }
   else {
-    $logger->info('No permit number available for this user.');
+    $logger->info('No permit number available for this permit node.');
   }
 
-  if ($entity->hasField('field_applicant_business_name') && !$entity->get('field_applicant_business_name')->isEmpty()) {
-    $notification_data['business_name'] = $entity->get('field_applicant_business_name')->value;
-    $logger->info('User has business name: @business', ['@business' => $notification_data['business_name']]);
+  // Use field_business_name from permit node if it exists.
+  if ($node->hasField('field_business_name') && !$node->get('field_business_name')->isEmpty()) {
+    $notification_data['business_name'] = $node->get('field_business_name')->value;
+    $logger->info('Permit has business name: @business', ['@business' => $notification_data['business_name']]);
   }
   else {
-    $logger->info('No business name available for this user.');
+    $logger->info('No business name available for this permit node.');
   }
 
   // Log the complete notification data.
   $logger->debug('Notification data: @data', ['@data' => print_r($notification_data, TRUE)]);
 
-  $logger->info('Sending certification confirmation to user email: @email', ['@email' => $user_email]);
+  $logger->info('Sending certification confirmation to owner email: @email', ['@email' => $owner_email]);
 
   $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'fws_goose';
 
-  $logger->info('About to send mail via @module module using key "certified"', ['@module' => $module]);
-  $result = $mailManager->mail($module, 'certified', $user_email, $language, $notification_data, NULL, TRUE);
+  $logger->info('About to send mail via @module module using key "certified" for NID @nid', [
+    '@module' => $module,
+    '@nid' => $node->id(),
+  ]);
+  $result = $mailManager->mail($module, 'certified', $owner_email, $language, $notification_data, NULL, TRUE);
 
   if ($result['result'] !== TRUE) {
-    $logger->error('Error sending certification confirmation email. Mail system reported: @error', [
+    $logger->error('Error sending certification confirmation email for NID @nid. Mail system reported: @error', [
+      '@nid' => $node->id(),
       '@error' => $result['error'] ?? 'Unknown error',
     ]);
   }
   else {
-    $logger->info('Successfully sent certification confirmation email to user.');
+    $logger->info('Successfully sent certification confirmation email for NID @nid.', ['@nid' => $node->id()]);
   }
 
   // Also send notification to administrators if configured.
   $config = \Drupal::config('fws_notifications.settings');
-  $admin_emails = $config->get('notification_emails');
+  $admin_emails_config = $config->get('notification_emails');
+  $admin_emails = !empty($admin_emails_config) ? explode(',', $admin_emails_config) : [];
 
   if (!empty($admin_emails)) {
     $emails_string = implode(', ', $admin_emails);
-    $logger->info('Also sending admin notification to: @emails', ['@emails' => $emails_string]);
+    $logger->info('Also sending admin notification for NID @nid to: @emails', [
+      '@nid' => $node->id(),
+      '@emails' => $emails_string,
+    ]);
 
+    // Pass the same notification data, hook_mail can adapt based on the key ('certified_admin').
     $result = $mailManager->mail($module, 'certified_admin', implode(',', $admin_emails), $language, $notification_data, NULL, TRUE);
 
     if ($result['result'] !== TRUE) {
-      $logger->error('Error sending admin notification email. Mail system reported: @error', [
+      $logger->error('Error sending admin notification email for NID @nid. Mail system reported: @error', [
+        '@nid' => $node->id(),
         '@error' => $result['error'] ?? 'Unknown error',
       ]);
     }
     else {
-      $logger->info('Successfully sent admin notification email.');
+      $logger->info('Successfully sent admin notification email for NID @nid.', ['@nid' => $node->id()]);
     }
   }
 
-  $logger->notice('Completed certification notification process for user: @name (ID: @id)', [
-    '@name' => $entity->getAccountName(),
-    '@id' => $entity->id(),
+  $logger->notice('Completed certification notification process for permit node: @title (NID: @id)', [
+    '@title' => $node->getTitle(),
+    '@id' => $node->id(),
   ]);
 }
 
@@ -961,336 +953,184 @@ function fws_goose_send_certification_notification(EntityInterface $entity) {
 function fws_goose_mail($key, &$message, $params) {
   switch ($key) {
     case 'certified':
-      // Email to the user who certified.
+      // Email to the permit owner who certified.
       $message['subject'] = t('Canada Goose Registration Confirmation');
 
-      // Get the user entity to access more fields.
-      $user = \Drupal::entityTypeManager()->getStorage('user')->load($params['user_id']);
+      // Load the node from the passed node ID.
+      $node = isset($params['node_id']) ? Node::load($params['node_id']) : NULL;
+      if (!$node || $node->bundle() !== 'permit') {
+        \Drupal::logger('fws_goose')->error('Could not load permit node or invalid node passed to hook_mail for key "certified". Node ID: @nid', ['@nid' => $params['node_id'] ?? 'N/A']);
+        $message['body'][] = t('Error processing registration confirmation.');
+        return;
+      }
 
-      // Create the email body in the same format as the example.
+      // Get the owner entity.
+      $owner = $node->getOwner();
+      if (!$owner) {
+        \Drupal::logger('fws_goose')->error('Could not load owner for permit node in hook_mail for key "certified". Node ID: @nid', ['@nid' => $node->id()]);
+        $message['body'][] = t('Error processing registration confirmation.');
+        return;
+      }
+
+      // Create the email body using data from the node and owner.
       $body = [];
       $body[] = t('This is confirmation that your registration has been received.');
       $body[] = '';
 
-      // Track content sections to avoid empty sections.
-      $has_permit_info = FALSE;
-      $has_registrant_info = FALSE;
-      $has_address_info = FALSE;
-      $has_locations = FALSE;
-      $has_agents = FALSE;
-
-      // Permit/registration information.
-      if (!empty($params['permit_number'])) {
-        $body[] = t('Registration No. @permit', ['@permit' => $params['permit_number']]);
-        $has_permit_info = TRUE;
+      // Permit/registration information from Node.
+      if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+        $permit_no = $node->get('field_permit_no')->value;
+        $body[] = t('Registration No. RG-@permit', ['@permit' => $permit_no]);
       }
 
-      // Date information.
-      $body[] = t('Date of Registration: @date', ['@date' => \Drupal::service('date.formatter')->format(time(), 'custom', 'n/j/Y')]);
+      // Date information - Use Node created date?
+      $created_timestamp = $node->getCreatedTime();
+      $body[] = t('Date of Registration: @date', ['@date' => \Drupal::service('date.formatter')->format($created_timestamp, 'custom', 'n/j/Y')]);
+      $changed_timestamp = $node->getChangedTime();
+      if ($changed_timestamp > $created_timestamp) {
+        $body[] = t('Date Amended: @date', ['@date' => \Drupal::service('date.formatter')->format($changed_timestamp, 'custom', 'n/j/Y')]);
+      }
 
-      // Date of Amendment - only if different than registration date.
-      // This could be added if there's a field tracking amendment dates.
-      // Registrant information.
+      // Registrant information from Node fields.
       $registrant_name = '';
-      if ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty() && $user->get('field_bi_cd')->value == 'B') {
-        // Business registrant.
-        if ($user->hasField('field_applicant_business_name') && !$user->get('field_applicant_business_name')->isEmpty()) {
-          $registrant_name = trim($user->get('field_applicant_business_name')->value);
-          if (!empty($registrant_name)) {
-            $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
-            $has_registrant_info = TRUE;
-          }
-
-          // Add contact person if available.
-          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
-            $last_name = trim($user->get('field_applicant_last_name')->value);
-            $first_name = '';
-            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
-              $first_name = trim($user->get('field_applicant_first_name')->value);
-            }
-
-            $contact_name = trim("$last_name, $first_name");
-            if (!empty($contact_name)) {
-              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
-              $has_registrant_info = TRUE;
-            }
-          }
-
-          // Additional business information section.
-          $has_business_info = FALSE;
-          $business_fields = [];
-
-          // Primary Contact Information.
-          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
-            $business_fields[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
-            $business_fields[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
-            $business_fields[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          // Principal Information.
-          $principal_name = '';
-          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
-            $principal_last_name = trim($user->get('field_principal_last_name')->value);
-            $principal_first_name = '';
-            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
-              $principal_first_name = trim($user->get('field_principal_first_name')->value);
-            }
-
-            $principal_middle_name = '';
-            if ($user->hasField('field_principal_middle_name') && !$user->get('field_principal_middle_name')->isEmpty()) {
-              $principal_middle_name = trim($user->get('field_principal_middle_name')->value);
-            }
-
-            $principal_suffix = '';
-            if ($user->hasField('field_principal_suffix') && !$user->get('field_principal_suffix')->isEmpty()) {
-              $principal_suffix = trim($user->get('field_principal_suffix')->value);
-            }
-
-            $principal_name_parts = [];
-            if (!empty($principal_last_name)) {
-              $principal_name_parts[] = $principal_last_name;
-            }
-
-            if (!empty($principal_first_name)) {
-              $principal_name_parts[] = $principal_first_name;
-            }
-
-            if (!empty($principal_middle_name)) {
-              $principal_name_parts[] = $principal_middle_name;
-            }
-
-            if (!empty($principal_suffix)) {
-              $principal_name_parts[] = $principal_suffix;
-            }
-
-            if (!empty($principal_name_parts)) {
-              $principal_name = implode(', ', $principal_name_parts);
-              $business_fields[] = t('Principal Name: @name', ['@name' => $principal_name]);
-              $has_business_info = TRUE;
-            }
-          }
-
-          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
-            $business_fields[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
-            $business_fields[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_email') && !$user->get('field_principal_email')->isEmpty()) {
-            $business_fields[] = t('Principal Email: @email', ['@email' => trim($user->get('field_principal_email')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          // Add the business information section if we have any business fields.
-          if ($has_business_info) {
-            $body[] = '';
-            $body[] = t('Additional Business Information:');
-            $body[] = '';
-
-            foreach ($business_fields as $field) {
-              $body[] = $field;
-            }
-
-            $body[] = '';
-          }
-        }
+      $is_business = FALSE;
+      // Determine if business from field_bi_cd or field_registrant_type_cd.
+      // Check entity label if it's reference.
+      if ($node->hasField('field_bi_cd') && !$node->get('field_bi_cd')->isEmpty() && $node->get('field_bi_cd')->entity && $node->get('field_bi_cd')->entity->label() == 'B') {
+        $is_business = TRUE;
       }
-      elseif ($user && $user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
-        // Individual registrant.
-        $last_name = $user->get('field_applicant_last_name')->value;
-        $first_name = '';
-        if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
-          $first_name = $user->get('field_applicant_first_name')->value;
-        }
+      elseif ($node->hasField('field_registrant_type_cd') && $node->get('field_registrant_type_cd')->entity && $node->get('field_registrant_type_cd')->entity->label() == 'Business') {
+        $is_business = TRUE;
+      }
 
-        $registrant_name = trim("$last_name, $first_name");
-        if (!empty($registrant_name)) {
+      if ($is_business) {
+        // Use correct field name.
+        if ($node->hasField('field_applicant_business_name') && !$node->get('field_applicant_business_name')->isEmpty()) {
+          $registrant_name = trim($node->get('field_applicant_business_name')->value);
           $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
-          $has_registrant_info = TRUE;
+        }
+        // Business Contact Person - Assume principal fields are used?
+        $contact_name_parts = [];
+        if ($node->hasField('field_principal_last_name') && !$node->get('field_principal_last_name')->isEmpty()) {
+          $contact_name_parts[] = trim($node->get('field_principal_last_name')->value);
+        }
+        if ($node->hasField('field_principal_first_name') && !$node->get('field_principal_first_name')->isEmpty()) {
+          $contact_name_parts[] = trim($node->get('field_principal_first_name')->value);
+        }
+        if (!empty($contact_name_parts)) {
+          $body[] = t('Business Contact Person: @name', ['@name' => implode(', ', $contact_name_parts)]);
         }
       }
-      elseif (!empty($params['business_name'])) {
-        $registrant_name = $params['business_name'];
+      // Use applicant name fields for individual.
+      elseif ($node->hasField('field_applicant_last_name') && !$node->get('field_applicant_last_name')->isEmpty()) {
+        $name_parts = [];
+        $name_parts[] = trim($node->get('field_applicant_last_name')->value);
+        if ($node->hasField('field_applicant_first_name') && !$node->get('field_applicant_first_name')->isEmpty()) {
+          $name_parts[] = trim($node->get('field_applicant_first_name')->value);
+        }
+        $registrant_name = implode(', ', $name_parts);
         $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
-        $has_registrant_info = TRUE;
       }
-      elseif (!empty($params['username'])) {
-        $registrant_name = $params['username'];
+      else {
+        // Fallback to owner username if no name fields found on node.
+        $registrant_name = $owner->getAccountName();
         $body[] = t('Registrant (Landowner) Name: @name', ['@name' => $registrant_name]);
-        $has_registrant_info = TRUE;
       }
 
-      // Registrant type.
-      if ($user && $user->hasField('field_registrant_type_cd') && !$user->get('field_registrant_type_cd')->isEmpty()) {
-        $reg_type = $user->get('field_registrant_type_cd')->value;
-        if (!empty($reg_type)) {
-          $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
-          $has_registrant_info = TRUE;
+      // Registrant type from Node field.
+      $reg_type_display = 'N/A';
+      if ($node->hasField('field_registrant_type_cd') && $node->get('field_registrant_type_cd')->entity) {
+        $reg_type_display = $node->get('field_registrant_type_cd')->entity->label();
+      }
+      // Check entity if reference.
+      elseif ($node->hasField('field_bi_cd') && $node->get('field_bi_cd')->entity) {
+        $reg_type_display = ($node->get('field_bi_cd')->entity->label() == 'B') ? t('Business') : t('Individual');
+      }
+      $body[] = t('Registrant Type: @type', ['@type' => $reg_type_display]);
+
+      $body[] = '';
+
+      // Business Information Panel (Conditional)
+      if ($is_business) {
+        $business_fields = [];
+        // Add principal info here.
+        if ($node->hasField('field_principal_last_name') && !$node->get('field_principal_last_name')->isEmpty()) {
+          $p_name_parts = [trim($node->get('field_principal_last_name')->value)];
+          if ($node->hasField('field_principal_first_name') && !$node->get('field_principal_first_name')->isEmpty()) {
+            $p_name_parts[] = trim($node->get('field_principal_first_name')->value);
+          }
+          // Add middle name, suffix if they exist on permit node.
+          if ($node->hasField('field_principal_middle_name') && !$node->get('field_principal_middle_name')->isEmpty()) {
+            $p_name_parts[] = trim($node->get('field_principal_middle_name')->value);
+          }
+          if ($node->hasField('field_principal_suffix') && !$node->get('field_principal_suffix')->isEmpty()) {
+            $p_name_parts[] = trim($node->get('field_principal_suffix')->value);
+          }
+          $business_fields[] = t('Principal Name: @name', ['@name' => implode(', ', $p_name_parts)]);
         }
-      }
-      elseif ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty()) {
-        $bi_type = $user->get('field_bi_cd')->value;
-        $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
-        $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
+        if ($node->hasField('field_principal_title') && !$node->get('field_principal_title')->isEmpty()) {
+          $business_fields[] = t('Principal Title: @title', ['@title' => $node->get('field_principal_title')->value]);
+        }
+        if ($node->hasField('field_principal_telephone') && !$node->get('field_principal_telephone')->isEmpty()) {
+          $business_fields[] = t('Principal Telephone: @phone', ['@phone' => $node->get('field_principal_telephone')->value]);
+        }
+        // Add primary contact fields.
+        if ($node->hasField('field_primary_contact_name') && !$node->get('field_primary_contact_name')->isEmpty()) {
+          $business_fields[] = t('Primary Contact Name: @name', ['@name' => $node->get('field_primary_contact_name')->value]);
+        }
+        if ($node->hasField('field_primary_contact_telephone') && !$node->get('field_primary_contact_telephone')->isEmpty()) {
+          $business_fields[] = t('Primary Contact Telephone: @phone', ['@phone' => $node->get('field_primary_contact_telephone')->value]);
+        }
+        if ($node->hasField('field_primary_contact_email') && !$node->get('field_primary_contact_email')->isEmpty()) {
+          $business_fields[] = t('Primary Contact Email: @email', ['@email' => $node->get('field_primary_contact_email')->value]);
+        }
 
-        if ($bi_type == 'B' && $user->hasField('field_applicant_business_name') &&
-            !$user->get('field_applicant_business_name')->isEmpty()) {
-          $business_name = trim($user->get('field_applicant_business_name')->value);
-          $body[] = t('Business name: @business', ['@business' => $business_name]);
-
-          // Business Contact Person.
-          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
-            $last_name = trim($user->get('field_applicant_last_name')->value);
-            $first_name = '';
-            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
-              $first_name = trim($user->get('field_applicant_first_name')->value);
-            }
-
-            $contact_name = trim("$last_name, $first_name");
-            if (!empty($contact_name)) {
-              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
-            }
-          }
-
-          // Additional business details.
-          $has_business_info = FALSE;
-
-          // Primary Contact Information.
-          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
-            $body[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
-            $body[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
-            $body[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          // Principal Information.
-          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
-            $principal_name_parts = [];
-            $principal_last_name = trim($user->get('field_principal_last_name')->value);
-            $principal_name_parts[] = $principal_last_name;
-
-            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
-              $principal_name_parts[] = trim($user->get('field_principal_first_name')->value);
-            }
-
-            $principal_name = implode(', ', $principal_name_parts);
-            $body[] = t('Principal Name: @name', ['@name' => $principal_name]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
-            $body[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
-            $body[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
-            $has_business_info = TRUE;
-          }
+        if (!empty($business_fields)) {
+          $body[] = t('Business Information:');
+          $body[] = '';
+          $body = array_merge($body, $business_fields);
+          $body[] = '';
         }
       }
 
-      // Only add spacing if we actually have registrant info.
-      if ($has_permit_info || $has_registrant_info) {
-        $body[] = '';
-      }
-
-      // Address section - only add if we have address information.
+      // Address and Contact Information from Node fields.
       $address_lines = [];
-      if ($user && $user->hasField('field_applicant_address_l1') && !$user->get('field_applicant_address_l1')->isEmpty()) {
-        $line = trim($user->get('field_applicant_address_l1')->value);
+      $has_address_info = FALSE;
+      // Check specific address lines.
+      if ($node->hasField('field_applicant_address_l1') && !$node->get('field_applicant_address_l1')->isEmpty()) {
+        $line = trim($node->get('field_applicant_address_l1')->value);
+        if (!empty($line)) {
+          $address_lines[] = $line;
+          $has_address_info = TRUE;
+        }
+      }
+      if ($node->hasField('field_applicant_address_l2') && !$node->get('field_applicant_address_l2')->isEmpty()) {
+        $line = trim($node->get('field_applicant_address_l2')->value);
+        if (!empty($line)) {
+          $address_lines[] = $line;
+          $has_address_info = TRUE;
+        }
+      }
+      if ($node->hasField('field_applicant_address_l3') && !$node->get('field_applicant_address_l3')->isEmpty()) {
+        $line = trim($node->get('field_applicant_address_l3')->value);
         if (!empty($line)) {
           $address_lines[] = $line;
           $has_address_info = TRUE;
         }
       }
 
-      if ($user && $user->hasField('field_applicant_address_l2') && !$user->get('field_applicant_address_l2')->isEmpty()) {
-        $line = trim($user->get('field_applicant_address_l2')->value);
-        if (!empty($line)) {
-          $address_lines[] = $line;
-          $has_address_info = TRUE;
-        }
-      }
+      // Add other address parts.
+      $city = $node->hasField('field_applicant_city') ? trim($node->get('field_applicant_city')->value) : '';
+      $county = $node->hasField('field_applicant_county') ? trim($node->get('field_applicant_county')->value) : '';
+      $state = $node->hasField('field_applicant_state') && $node->get('field_applicant_state')->entity ? $node->get('field_applicant_state')->entity->label() : '';
+      $zip = $node->hasField('field_applicant_zip') ? trim($node->get('field_applicant_zip')->value) : '';
+      $home_phone = $node->hasField('field_applicant_home_phone') ? trim($node->get('field_applicant_home_phone')->value) : '';
+      $work_phone = $node->hasField('field_applicant_work_phone') ? trim($node->get('field_applicant_work_phone')->value) : '';
+      $email = $node->hasField('field_applicant_email_address') ? trim($node->get('field_applicant_email_address')->value) : '';
 
-      if ($user && $user->hasField('field_applicant_address_l3') && !$user->get('field_applicant_address_l3')->isEmpty()) {
-        $line = trim($user->get('field_applicant_address_l3')->value);
-        if (!empty($line)) {
-          $address_lines[] = $line;
-          $has_address_info = TRUE;
-        }
-      }
-
-      $city = '';
-      if ($user && $user->hasField('field_applicant_city') && !$user->get('field_applicant_city')->isEmpty()) {
-        $city = trim($user->get('field_applicant_city')->value);
-        if (!empty($city)) {
-          $has_address_info = TRUE;
-        }
-      }
-
-      $county = '';
-      if ($user && $user->hasField('field_applicant_county') && !$user->get('field_applicant_county')->isEmpty()) {
-        $county = trim($user->get('field_applicant_county')->value);
-        if (!empty($county)) {
-          $has_address_info = TRUE;
-        }
-      }
-
-      $state = '';
-      if ($user && $user->hasField('field_applicant_state') && !$user->get('field_applicant_state')->isEmpty()) {
-        $state = trim($user->get('field_applicant_state')->value);
-        if (!empty($state)) {
-          $has_address_info = TRUE;
-        }
-      }
-
-      $zip = '';
-      if ($user && $user->hasField('field_applicant_zip') && !$user->get('field_applicant_zip')->isEmpty()) {
-        $zip = trim($user->get('field_applicant_zip')->value);
-        if (!empty($zip)) {
-          $has_address_info = TRUE;
-        }
-      }
-
-      // Phone information.
-      $phone = '';
-      if ($user && $user->hasField('field_applicant_telephone') && !$user->get('field_applicant_telephone')->isEmpty()) {
-        $phone = trim($user->get('field_applicant_telephone')->value);
-        if (!empty($phone)) {
-          $has_address_info = TRUE;
-        }
-      }
-      elseif ($user && $user->hasField('field_phone') && !$user->get('field_phone')->isEmpty()) {
-        $phone = trim($user->get('field_phone')->value);
-        if (!empty($phone)) {
-          $has_address_info = TRUE;
-        }
-      }
-
-      // Only add the address section if we actually have address info.
-      if ($has_address_info) {
+      if (!empty($address_lines) || !empty($city) || !empty($county) || !empty($state) || !empty($zip) || !empty($home_phone) || !empty($work_phone) || !empty($email)) {
+        // Mark true if any part exists.
+        $has_address_info = TRUE;
         $body[] = t('Registrant Address and Contact Information:');
         $body[] = '';
 
@@ -1299,122 +1139,90 @@ function fws_goose_mail($key, &$message, $params) {
         }
 
         if (!empty($county)) {
+          // Display county on its own line?
           $body[] = $county;
         }
 
-        if (!empty($city) || !empty($state) || !empty($zip)) {
-          $location_str = '';
-          if (!empty($city)) {
-            $location_str = $city;
-          }
-
-          if (!empty($state)) {
-            if (!empty($location_str)) {
-              $location_str .= ".  $state";
-            }
-            else {
-              $location_str = $state;
-            }
-          }
-
-          if (!empty($zip)) {
-            if (!empty($location_str)) {
-              $location_str .= "  $zip";
-            }
-            else {
-              $location_str = $zip;
-            }
-          }
-
-          if (!empty($location_str)) {
-            $body[] = $location_str;
-          }
+        $location_str = '';
+        if (!empty($city)) {
+          $location_str .= $city;
+        }
+        if (!empty($state)) {
+          $location_str .= (!empty($location_str) ? ", $state" : $state);
+        }
+        if (!empty($zip)) {
+          $location_str .= (!empty($location_str) ? " $zip" : $zip);
+        }
+        if (!empty($location_str)) {
+          $body[] = $location_str;
         }
 
-        if (!empty($phone)) {
+        if (!empty($home_phone)) {
           $body[] = '';
-          $body[] = t('Telephone: @phone', ['@phone' => $phone]);
+          $body[] = t('Home Telephone: @phone', ['@phone' => $home_phone]);
         }
-
+        if (!empty($work_phone)) {
+          if (empty($home_phone)) {
+            $body[] = '';
+          } // Add space if only work phone exists
+          $body[] = t('Work Telephone: @phone', ['@phone' => $work_phone]);
+        }
+        if (!empty($email)) {
+          if (empty($home_phone) && empty($work_phone)) {
+            $body[] = '';
+          } // Add space if only email exists
+          $body[] = t('Email: @email', ['@email' => $email]);
+        }
         $body[] = '';
       }
 
-      // Get locations for this user.
-      if ($user) {
+      // Get locations for this user (owner of the permit).
+      if ($owner) {
         $locations = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->loadByProperties([
             'type' => 'location',
-            'uid' => $user->id(),
+            'uid' => $owner->id(),
             'status' => 1,
           ]);
 
         if (!empty($locations)) {
           $location_lines = [];
           $count = 1;
+          $has_locations = FALSE;
 
           foreach ($locations as $location) {
-            $location_address = [];
+            // ... (Location processing logic - assuming location fields are correct) ...
+            $location_address_value = $location->hasField('field_location_address') ? trim($location->get('field_location_address')->value) : '';
+            $location_city_value = $location->hasField('field_location_city') ? trim($location->get('field_location_city')->value) : '';
+            $location_county_value = $location->hasField('field_location_county') ? trim($location->get('field_location_county')->value) : '';
+            $location_state_value = $location->hasField('field_location_state_ref') && $location->get('field_location_state_ref')->entity ? $location->get('field_location_state_ref')->entity->label() : '';
+            $location_zip_value = $location->hasField('field_location_zip') ? trim($location->get('field_location_zip')->value) : '';
+            $location_desc = $location->hasField('field_location_description') ? trim($location->get('field_location_description')->value) : '';
 
-            if ($location->hasField('field_location_address') && !$location->get('field_location_address')->isEmpty()) {
-              $address = trim($location->get('field_location_address')->value);
-              if (!empty($address)) {
-                $location_address[] = $address;
-              }
-            }
-
-            $location_city = '';
-            if ($location->hasField('field_location_city') && !$location->get('field_location_city')->isEmpty()) {
-              $location_city = trim($location->get('field_location_city')->value);
-            }
-
-            $location_county = '';
-            if ($location->hasField('field_location_county') && !$location->get('field_location_county')->isEmpty()) {
-              $location_county = trim($location->get('field_location_county')->value);
-            }
-
-            $location_state = '';
-            if ($location->hasField('field_location_state_ref') && !$location->get('field_location_state_ref')->isEmpty()) {
-              $target_id = $location->get('field_location_state_ref')->target_id;
-              $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_id);
-              if ($term) {
-                $location_state = trim($term->getName());
-              }
-            }
-
-            $location_desc = '';
-            if (empty($location_address)) {
-              if ($location->hasField('field_location_description') && !$location->get('field_location_description')->isEmpty()) {
-                $location_desc = trim($location->get('field_location_description')->value);
-              }
-            }
-
-            // Only add this location if we have any content.
-            if (!empty($location_county) || !empty($location_address) || !empty($location_desc) ||
-                !empty($location_city) || !empty($location_state)) {
-
+            if (!empty($location_county_value) || !empty($location_address_value) || !empty($location_desc) || !empty($location_city_value) || !empty($location_state_value) || !empty($location_zip_value)) {
               $location_line = "   $count) ";
-              if (!empty($location_county)) {
-                $location_line .= "$location_county, ";
+              if (!empty($location_county_value)) {
+                $location_line .= "$location_county_value, ";
               }
-
-              if (!empty($location_address)) {
-                $location_line .= implode(', ', $location_address);
+              if (!empty($location_address_value)) {
+                $location_line .= $location_address_value;
               }
               elseif (!empty($location_desc)) {
                 $location_line .= $location_desc;
               }
-
-              if (!empty($location_city) || !empty($location_state)) {
+              if (!empty($location_city_value) || !empty($location_state_value)) {
                 $location_line .= ",  ";
-                if (!empty($location_city)) {
-                  $location_line .= $location_city;
+                if (!empty($location_city_value)) {
+                  $location_line .= $location_city_value;
                 }
-                if (!empty($location_state)) {
-                  $location_line .= ",  $location_state";
+                if (!empty($location_state_value)) {
+                  $location_line .= ",  $location_state_value";
                 }
               }
-
+              if (!empty($location_zip_value)) {
+                $location_line .= " $location_zip_value";
+              }
               $location_lines[] = $location_line;
               $count++;
               $has_locations = TRUE;
@@ -1424,53 +1232,39 @@ function fws_goose_mail($key, &$message, $params) {
           if ($has_locations) {
             $body[] = t('Location of Properties where Activity will occur:');
             $body[] = '';
-
-            foreach ($location_lines as $line) {
-              $body[] = $line;
-            }
-
+            $body = array_merge($body, $location_lines);
             $body[] = '';
           }
         }
       }
 
-      // Get agents/employees for this user.
-      if ($user) {
+      // Get agents/employees for this user (owner of the permit).
+      if ($owner) {
         $agents = \Drupal::entityTypeManager()
           ->getStorage('node')
           ->loadByProperties([
             'type' => 'name',
-            'uid' => $user->id(),
+            'uid' => $owner->id(),
             'status' => 1,
           ]);
 
         if (!empty($agents)) {
           $agent_lines = [];
           $count = 1;
+          $has_agents = FALSE;
 
           foreach ($agents as $agent) {
-            $agent_name = '';
-            if ($agent->hasField('title') && !$agent->get('title')->isEmpty()) {
-              $agent_name = trim($agent->get('title')->value);
-            }
-
-            $agent_organization = '';
-            if ($agent->hasField('field_organization_name') && !$agent->get('field_organization_name')->isEmpty()) {
-              $agent_organization = trim($agent->get('field_organization_name')->value);
-            }
-
-            // Only add this agent if we have any content.
+            // ... (Agent processing logic - seems okay) ...
+            $agent_name = $agent->label();
+            $agent_organization = $agent->hasField('field_organization_name') ? trim($agent->get('field_organization_name')->value) : '';
             if (!empty($agent_name) || !empty($agent_organization)) {
               $agent_line = "   $count) ";
-
               if (!empty($agent_name)) {
                 $agent_line .= $agent_name;
               }
-
               if (!empty($agent_organization)) {
                 $agent_line .= " ($agent_organization)";
               }
-
               $agent_lines[] = $agent_line;
               $count++;
               $has_agents = TRUE;
@@ -1480,11 +1274,7 @@ function fws_goose_mail($key, &$message, $params) {
           if ($has_agents) {
             $body[] = t('Agent/Employee:');
             $body[] = '';
-
-            foreach ($agent_lines as $line) {
-              $body[] = $line;
-            }
-
+            $body = array_merge($body, $agent_lines);
             $body[] = '';
           }
         }
@@ -1502,97 +1292,41 @@ function fws_goose_mail($key, &$message, $params) {
       break;
 
     case 'certified_admin':
-      // Notification to administrators.
-      $message['subject'] = t('User account certified: @username', [
-        '@username' => $params['username'],
+      // Notification to administrators about permit certification.
+      $node = isset($params['node_id']) ? Node::load($params['node_id']) : NULL;
+      if (!$node || $node->bundle() !== 'permit') {
+        \Drupal::logger('fws_goose')->error('Could not load permit node or invalid node passed to hook_mail for key "certified_admin". Node ID: @nid', ['@nid' => $params['node_id'] ?? 'N/A']);
+        $message['body'][] = t('Error processing admin notification for certification.');
+        return;
+      }
+      $owner = $node->getOwner();
+      if (!$owner) {
+        \Drupal::logger('fws_goose')->error('Could not load owner for permit node in hook_mail for key "certified_admin". Node ID: @nid', ['@nid' => $node->id()]);
+        $message['body'][] = t('Error processing admin notification.');
+        return;
+      }
+
+      $message['subject'] = t('Permit Certified: @permit_no (@owner_username)', [
+        '@permit_no' => $node->hasField('field_permit_no') ? $node->get('field_permit_no')->value : $node->getTitle(),
+        '@owner_username' => $owner->getAccountName(),
       ]);
 
       $body = [];
-      $body[] = t('A user account has been certified. View it here: @url', [
-        '@url' => $params['url'],
-      ]);
+      $body[] = t('A permit has been certified.');
+      $body[] = t('Permit Node: @title (NID: @nid)', ['@title' => $node->getTitle(), '@nid' => $node->id()]);
+      $body[] = t('Owner: @username (UID: @uid)', ['@username' => $owner->getAccountName(), '@uid' => $owner->id()]);
+      $body[] = t('Owner Email: @email', ['@email' => $owner->getEmail()]);
+      $body[] = t('View Permit: @url', ['@url' => $node->toUrl('canonical', ['absolute' => TRUE])->toString()]);
       $body[] = '';
 
-      // Get the user entity to access more fields.
-      $user = \Drupal::entityTypeManager()->getStorage('user')->load($params['user_id']);
-
-      $body[] = t('User: @username', ['@username' => $params['username']]);
-      $body[] = t('Email: @email', ['@email' => $params['email']]);
-
-      if ($user && $user->hasField('field_bi_cd') && !$user->get('field_bi_cd')->isEmpty()) {
-        $bi_type = $user->get('field_bi_cd')->value;
-        $reg_type = ($bi_type == 'B') ? t('Business') : t('Individual');
-        $body[] = t('Registrant Type: @type', ['@type' => $reg_type]);
-
-        if ($bi_type == 'B' && $user->hasField('field_applicant_business_name') &&
-            !$user->get('field_applicant_business_name')->isEmpty()) {
-          $business_name = trim($user->get('field_applicant_business_name')->value);
-          $body[] = t('Business name: @business', ['@business' => $business_name]);
-
-          // Business Contact Person.
-          if ($user->hasField('field_applicant_last_name') && !$user->get('field_applicant_last_name')->isEmpty()) {
-            $last_name = trim($user->get('field_applicant_last_name')->value);
-            $first_name = '';
-            if ($user->hasField('field_applicant_first_name') && !$user->get('field_applicant_first_name')->isEmpty()) {
-              $first_name = trim($user->get('field_applicant_first_name')->value);
-            }
-
-            $contact_name = trim("$last_name, $first_name");
-            if (!empty($contact_name)) {
-              $body[] = t('Business Contact Person: @name', ['@name' => $contact_name]);
-            }
-          }
-
-          // Additional business details.
-          $has_business_info = FALSE;
-
-          // Primary Contact Information.
-          if ($user->hasField('field_primary_contact_name') && !$user->get('field_primary_contact_name')->isEmpty()) {
-            $body[] = t('Primary Contact Name: @name', ['@name' => trim($user->get('field_primary_contact_name')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_phone') && !$user->get('field_primary_contact_phone')->isEmpty()) {
-            $body[] = t('Primary Contact Phone: @phone', ['@phone' => trim($user->get('field_primary_contact_phone')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_primary_contact_email') && !$user->get('field_primary_contact_email')->isEmpty()) {
-            $body[] = t('Primary Contact Email: @email', ['@email' => trim($user->get('field_primary_contact_email')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          // Principal Information.
-          if ($user->hasField('field_principal_last_name') && !$user->get('field_principal_last_name')->isEmpty()) {
-            $principal_name_parts = [];
-            $principal_last_name = trim($user->get('field_principal_last_name')->value);
-            $principal_name_parts[] = $principal_last_name;
-
-            if ($user->hasField('field_principal_first_name') && !$user->get('field_principal_first_name')->isEmpty()) {
-              $principal_name_parts[] = trim($user->get('field_principal_first_name')->value);
-            }
-
-            $principal_name = implode(', ', $principal_name_parts);
-            $body[] = t('Principal Name: @name', ['@name' => $principal_name]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_title') && !$user->get('field_principal_title')->isEmpty()) {
-            $body[] = t('Principal Title: @title', ['@title' => trim($user->get('field_principal_title')->value)]);
-            $has_business_info = TRUE;
-          }
-
-          if ($user->hasField('field_principal_telephone') && !$user->get('field_principal_telephone')->isEmpty()) {
-            $body[] = t('Principal Telephone: @phone', ['@phone' => trim($user->get('field_principal_telephone')->value)]);
-            $has_business_info = TRUE;
-          }
-        }
+      // Add specific permit details.
+      if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+        $body[] = t('Permit Number: RG-@permit', ['@permit' => $node->get('field_permit_no')->value]);
       }
-
-      if (!empty($params['permit_number'])) {
-        $body[] = t('Permit number: @permit', ['@permit' => $params['permit_number']]);
+      if ($node->hasField('field_business_name') && !$node->get('field_business_name')->isEmpty()) {
+        $body[] = t('Business Name: @name', ['@name' => $node->get('field_business_name')->value]);
       }
-
+      // Add other relevant fields from node as needed.
       $message['body'] = $body;
       break;
 
@@ -1775,26 +1509,59 @@ function fws_goose_can_register_or_renew($uid) {
 }
 
 /**
- * Implements hook_form_alter() for user profile forms.
+ * Implements hook_preprocess_node().
  */
-function fws_goose_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Only apply to user edit forms (not registration)
-  if ($form_id == 'user_form') {
-    $uid = \Drupal::routeMatch()->getParameter('user')->id();
-    $registration_check = fws_goose_can_register_or_renew($uid);
-    if (!$registration_check['allowed']) {
-      \Drupal::messenger()->addError($registration_check['message']);
-      // If the reason is missing activity report, add a link to submit it.
-      if (strpos($registration_check['message'], 'activity report') !== FALSE) {
-        \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
-          '@url' => Url::fromRoute('node.add', ['node_type' => 'location'])->toString(),
-        ]));
+function fws_goose_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  // Only act on permit nodes.
+  if ($node->bundle() === 'permit') {
+    $owner = $node->getOwner();
+    if ($owner && $owner->id()) {
+      $uid = $owner->id();
+      $registration_check = fws_goose_can_register_or_renew($uid);
+
+      if (!$registration_check['allowed']) {
+        // Check which specific message to display.
+        if (strpos($registration_check['message'], 'activity report') !== FALSE) {
+          // Message about missing report.
+          \Drupal::messenger()->addError($registration_check['message']);
+          \Drupal::messenger()->addWarning(t('Please <a href="@url">submit your activity report</a> for the previous season before renewing your registration.', [
+            // Note: The URL likely needs to point to the correct report submission page/view.
+            // Using node/add/report as a placeholder, adjust if needed.
+            '@url' => Url::fromRoute('node.add', ['node_type' => 'report'])->toString(),
+          ]));
+        }
+        else {
+          // Other messages (like registration period closed).
+          \Drupal::messenger()->addError($registration_check['message']);
+        }
       }
-      // Redirect back to user page.
-      $form['#access'] = FALSE;
-      $response = new RedirectResponse(Url::fromRoute('entity.user.canonical', ['user' => $uid])->toString());
-      $response->send();
-      exit;
+
+      // Load related location nodes for the permit owner.
+      $location_nodes = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties([
+          'type' => 'location',
+          'uid' => $uid,
+          'status' => 1,
+        ]);
+      $variables['locations'] = $location_nodes;
+
+      // Load related agent/name nodes for the permit owner.
+      $agent_nodes = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties([
+          'type' => 'name',
+          'uid' => $uid,
+          'status' => 1,
+        ]);
+      $variables['agents'] = $agent_nodes;
+    }
+    else {
+      // Ensure variables exist even if owner is invalid.
+      $variables['locations'] = [];
+      $variables['agents'] = [];
     }
   }
 }

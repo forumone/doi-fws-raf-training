@@ -39,21 +39,56 @@ dependencies:
     - field.field.node.permit.field_update_by
     - field.field.node.permit.field_version_no
     - field.field.node.permit.field_xml_cd
+    - field.field.node.permit.field_agency_tracking_id
+    - field.field.node.permit.field_amend_seq_number
+    - field.field.node.permit.field_applicant_agreement1
+    - field.field.node.permit.field_applicant_agreement2
+    - field.field.node.permit.field_applicant_agreement3
+    - field.field.node.permit.field_applicant_business_desc
+    - field.field.node.permit.field_applicant_county
+    - field.field.node.permit.field_applicant_email_address
+    - field.field.node.permit.field_applicant_first_name
+    - field.field.node.permit.field_applicant_last_name
+    - field.field.node.permit.field_applicant_middle_name
+    - field.field.node.permit.field_applicant_prefix
+    - field.field.node.permit.field_applicant_request_type
+    - field.field.node.permit.field_applicant_signed
+    - field.field.node.permit.field_applicant_suffix
+    - field.field.node.permit.field_biologist_initial
+    - field.field.node.permit.field_control_program_id
+    - field.field.node.permit.field_control_region
+    - field.field.node.permit.field_ep_form_no
+    - field.field.node.permit.field_ep_form_title
+    - field.field.node.permit.field_ep_formid
+    - field.field.node.permit.field_issued_by
+    - field.field.node.permit.field_issuer_action_cd
+    - field.field.node.permit.field_issuing_officer_title
+    - field.field.node.permit.field_offloc_id
+    - field.field.node.permit.field_permit_type_cd
+    - field.field.node.permit.field_primary_contact_email
+    - field.field.node.permit.field_primary_contact_name
+    - field.field.node.permit.field_primary_contact_telephone
+    - field.field.node.permit.field_program_id
+    - field.field.node.permit.field_region
+    - field.field.node.permit.field_wildcard_search_option
     - node.type.permit
   module:
     - datetime
     - field_group
     - path
     - text
+    - email
+    - options
 third_party_settings:
   field_group:
     group_permit_info:
       children:
         - field_permit_no
         - field_permit_status_cd
+        - field_permit_type_cd
+        - field_dt_permit_issued
         - field_dt_effective
         - field_dt_expired
-        - field_dt_permit_issued
       label: 'Permit Information'
       region: content
       parent_name: ''
@@ -65,13 +100,18 @@ third_party_settings:
         open: true
         description: ''
         required_fields: true
-    group_applicant:
+    group_applicant_id:
       children:
         - field_registrant_type_cd
-        - field_applicant_business_name
         - field_bi_cd
-        - field_dt_applicant_signed
-      label: 'Applicant Information'
+        - field_applicant_business_name
+        - field_applicant_last_name
+        - field_applicant_first_name
+        - field_applicant_middle_name
+        - field_applicant_prefix
+        - field_applicant_suffix
+        - field_applicant_business_desc
+      label: 'Applicant Identification'
       region: content
       parent_name: ''
       weight: 2
@@ -89,6 +129,7 @@ third_party_settings:
         - field_applicant_address_l3
         - field_applicant_city
         - field_applicant_state
+        - field_applicant_county
         - field_applicant_zip
       label: 'Applicant Address'
       region: content
@@ -105,6 +146,7 @@ third_party_settings:
       children:
         - field_applicant_home_phone
         - field_applicant_work_phone
+        - field_applicant_email_address
       label: 'Applicant Contact'
       region: content
       parent_name: ''
@@ -136,6 +178,40 @@ third_party_settings:
         open: false
         description: 'Required for Business applicants.'
         required_fields: true
+    group_primary_contact:
+      children:
+        - field_primary_contact_name
+        - field_primary_contact_telephone
+        - field_primary_contact_email
+      label: 'Primary Contact (Business)'
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: details
+      format_settings:
+        classes: ''
+        id: ''
+        open: false
+        description: 'For business registrants.'
+        required_fields: false
+    group_agreements:
+      children:
+        - field_applicant_agreement1
+        - field_applicant_agreement2
+        - field_applicant_agreement3
+        - field_applicant_signed
+        - field_dt_applicant_signed
+      label: Agreements
+      region: content
+      parent_name: ''
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
     group_admin_details:
       children:
         - field_hid
@@ -147,6 +223,22 @@ third_party_settings:
         - field_dt_application_received
         - field_dt_permit_request
         - field_dt_signed
+        - field_agency_tracking_id
+        - field_ep_formid
+        - field_ep_form_no
+        - field_ep_form_title
+        - field_offloc_id
+        - field_applicant_request_type
+        - field_issuer_action_cd
+        - field_issued_by
+        - field_issuing_officer_title
+        - field_biologist_initial
+        - field_amend_seq_number
+        - field_wildcard_search_option
+        - field_program_id
+        - field_region
+        - field_control_program_id
+        - field_control_region
       label: 'Administrative Details'
       region: content
       parent_name: ''
@@ -173,7 +265,7 @@ content:
     third_party_settings: {  }
   field_permit_no:
     type: string_textfield
-    weight: 1
+    weight: 10
     region: content
     settings:
       size: 60
@@ -182,7 +274,7 @@ content:
     group: group_permit_info
   field_permit_status_cd:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 11
     region: content
     settings:
       match_operator: CONTAINS
@@ -191,9 +283,28 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_permit_info
+  field_permit_type_cd:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_permit_info
+  field_dt_permit_issued:
+    type: datetime_default
+    weight: 13
+    region: content
+    settings:
+      date_format: m/d/Y
+    third_party_settings: {  }
+    group: group_permit_info
   field_dt_effective:
     type: datetime_default
-    weight: 4
+    weight: 14
     region: content
     settings:
       date_format: m/d/Y
@@ -201,15 +312,7 @@ content:
     group: group_permit_info
   field_dt_expired:
     type: datetime_default
-    weight: 5
-    region: content
-    settings:
-      date_format: m/d/Y
-    third_party_settings: {  }
-    group: group_permit_info
-  field_dt_permit_issued:
-    type: datetime_default
-    weight: 6
+    weight: 15
     region: content
     settings:
       date_format: m/d/Y
@@ -217,7 +320,7 @@ content:
     group: group_permit_info
   field_registrant_type_cd:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 20
     region: content
     settings:
       match_operator: CONTAINS
@@ -225,19 +328,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    group: group_applicant
-  field_applicant_business_name:
-    type: string_textfield
-    weight: 11
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_applicant
+    group: group_applicant_id
   field_bi_cd:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -245,18 +339,73 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    group: group_applicant
-  field_dt_applicant_signed:
-    type: datetime_default
-    weight: 14
+    group: group_applicant_id
+  field_applicant_business_name:
+    type: string_textfield
+    weight: 22
     region: content
     settings:
-      date_format: m/d/Y
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    group: group_applicant
+    group: group_applicant_id
+  field_applicant_last_name:
+    type: string_textfield
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
+  field_applicant_first_name:
+    type: string_textfield
+    weight: 24
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
+  field_applicant_middle_name:
+    type: string_textfield
+    weight: 25
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
+  field_applicant_prefix:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
+  field_applicant_suffix:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
+  field_applicant_business_desc:
+    type: text_textarea
+    weight: 28
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_id
   field_applicant_address_l1:
     type: string_textfield
-    weight: 20
+    weight: 30
     region: content
     settings:
       size: 60
@@ -265,7 +414,7 @@ content:
     group: group_applicant_address
   field_applicant_address_l2:
     type: string_textfield
-    weight: 21
+    weight: 31
     region: content
     settings:
       size: 60
@@ -274,7 +423,7 @@ content:
     group: group_applicant_address
   field_applicant_address_l3:
     type: string_textfield
-    weight: 22
+    weight: 32
     region: content
     settings:
       size: 60
@@ -283,7 +432,7 @@ content:
     group: group_applicant_address
   field_applicant_city:
     type: string_textfield
-    weight: 23
+    weight: 33
     region: content
     settings:
       size: 60
@@ -292,7 +441,7 @@ content:
     group: group_applicant_address
   field_applicant_state:
     type: entity_reference_autocomplete
-    weight: 24
+    weight: 34
     region: content
     settings:
       match_operator: CONTAINS
@@ -301,36 +450,54 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_applicant_address
-  field_applicant_zip:
+  field_applicant_county:
     type: string_textfield
-    weight: 25
+    weight: 35
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     group: group_applicant_address
-  field_applicant_home_phone:
+  field_applicant_zip:
     type: string_textfield
-    weight: 30
+    weight: 36
     region: content
     settings:
-      size: 60
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_address
+  field_applicant_home_phone:
+    type: string_textfield
+    weight: 40
+    region: content
+    settings:
+      size: 20
       placeholder: ''
     third_party_settings: {  }
     group: group_applicant_contact
   field_applicant_work_phone:
     type: string_textfield
-    weight: 31
+    weight: 41
     region: content
     settings:
-      size: 60
+      size: 20
       placeholder: ''
+    third_party_settings: {  }
+    group: group_applicant_contact
+  field_applicant_email_address:
+    type: email_default
+    weight: 42
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
     third_party_settings: {  }
     group: group_applicant_contact
   field_principal_name:
     type: string_textfield
-    weight: 40
+    weight: 50
     region: content
     settings:
       size: 60
@@ -339,7 +506,7 @@ content:
     group: group_principal_info
   field_principal_first_name:
     type: string_textfield
-    weight: 41
+    weight: 51
     region: content
     settings:
       size: 60
@@ -348,7 +515,7 @@ content:
     group: group_principal_info
   field_principal_middle_name:
     type: string_textfield
-    weight: 42
+    weight: 52
     region: content
     settings:
       size: 60
@@ -357,7 +524,7 @@ content:
     group: group_principal_info
   field_principal_last_name:
     type: string_textfield
-    weight: 43
+    weight: 53
     region: content
     settings:
       size: 60
@@ -366,7 +533,7 @@ content:
     group: group_principal_info
   field_principal_suffix:
     type: string_textfield
-    weight: 44
+    weight: 54
     region: content
     settings:
       size: 20
@@ -375,7 +542,7 @@ content:
     group: group_principal_info
   field_principal_title:
     type: string_textfield
-    weight: 45
+    weight: 55
     region: content
     settings:
       size: 60
@@ -384,16 +551,83 @@ content:
     group: group_principal_info
   field_principal_telephone:
     type: string_textfield
-    weight: 46
+    weight: 56
     region: content
     settings:
       size: 20
       placeholder: ''
     third_party_settings: {  }
     group: group_principal_info
+  field_primary_contact_name:
+    type: string_textfield
+    weight: 60
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_primary_contact
+  field_primary_contact_telephone:
+    type: string_textfield
+    weight: 61
+    region: content
+    settings:
+      size: 20
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_primary_contact
+  field_primary_contact_email:
+    type: email_default
+    weight: 62
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+    group: group_primary_contact
+  field_applicant_agreement1:
+    type: boolean_checkbox
+    weight: 70
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+    group: group_agreements
+  field_applicant_agreement2:
+    type: boolean_checkbox
+    weight: 71
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+    group: group_agreements
+  field_applicant_agreement3:
+    type: boolean_checkbox
+    weight: 72
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+    group: group_agreements
+  field_applicant_signed:
+    type: boolean_checkbox
+    weight: 73
+    region: content
+    settings:
+      display_label: TRUE
+    third_party_settings: {  }
+    group: group_agreements
+  field_dt_applicant_signed:
+    type: datetime_default
+    weight: 74
+    region: content
+    settings:
+      date_format: m/d/Y
+    third_party_settings: {  }
+    group: group_agreements
   field_hid:
     type: string_textfield
-    weight: 101
+    weight: 100
     region: content
     settings:
       size: 60
@@ -402,7 +636,7 @@ content:
     group: group_admin_details
   field_site_id:
     type: string_textfield
-    weight: 102
+    weight: 101
     region: content
     settings:
       size: 60
@@ -411,7 +645,7 @@ content:
     group: group_admin_details
   field_control_site_id:
     type: string_textfield
-    weight: 103
+    weight: 102
     region: content
     settings:
       size: 60
@@ -420,7 +654,7 @@ content:
     group: group_admin_details
   field_xml_cd:
     type: entity_reference_autocomplete
-    weight: 105
+    weight: 103
     region: content
     settings:
       match_operator: CONTAINS
@@ -431,15 +665,26 @@ content:
     group: group_admin_details
   field_version_no:
     type: number
-    weight: 106
+    weight: 104
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
     group: group_admin_details
+  field_rcf_cd:
+    type: entity_reference_autocomplete
+    weight: 105
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
   field_dt_application_received:
     type: datetime_default
-    weight: 111
+    weight: 106
     region: content
     settings:
       date_format: m/d/Y
@@ -447,7 +692,7 @@ content:
     group: group_admin_details
   field_dt_permit_request:
     type: datetime_default
-    weight: 112
+    weight: 107
     region: content
     settings:
       date_format: m/d/Y
@@ -455,15 +700,162 @@ content:
     group: group_admin_details
   field_dt_signed:
     type: datetime_default
-    weight: 113
+    weight: 108
     region: content
     settings:
       date_format: m/d/Y
     third_party_settings: {  }
     group: group_admin_details
+  field_agency_tracking_id:
+    type: string_textfield
+    weight: 109
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_ep_formid:
+    type: string_textfield
+    weight: 110
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_ep_form_no:
+    type: string_textfield
+    weight: 111
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_ep_form_title:
+    type: string_textfield
+    weight: 112
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_offloc_id:
+    type: string_textfield
+    weight: 113
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_applicant_request_type:
+    type: entity_reference_autocomplete
+    weight: 114
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_issuer_action_cd:
+    type: entity_reference_autocomplete
+    weight: 115
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_issued_by:
+    type: string_textfield
+    weight: 116
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_issuing_officer_title:
+    type: string_textfield
+    weight: 117
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_biologist_initial:
+    type: string_textfield
+    weight: 118
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_amend_seq_number:
+    type: number
+    weight: 119
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_wildcard_search_option:
+    type: string_textfield
+    weight: 120
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_program_id:
+    type: string_textfield
+    weight: 121
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_region:
+    type: string_textfield
+    weight: 122
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_control_program_id:
+    type: string_textfield
+    weight: 123
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
+  field_control_region:
+    type: string_textfield
+    weight: 124
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_admin_details
   path:
     type: path
-    weight: 120
+    weight: 130
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -478,3 +870,4 @@ hidden:
   status: true
   sticky: true
   uid: true
+

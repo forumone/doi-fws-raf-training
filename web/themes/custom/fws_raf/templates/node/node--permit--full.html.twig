@@ -14,6 +14,8 @@
  * - node: A Drupal Node entity. Generally, prefer 'content' for field rendering.
  * - locations: An array of location nodes related to this permit (if available
  *   from preprocessing).
+ * - agents: An array of name nodes related to this permit (if available from
+ *   preprocessing).
  *
  * @see template_preprocess_node()
  */
@@ -34,6 +36,28 @@
     </div>
   {% endif %}
 
+  {# Certification Form Section #}
+  {% set is_certified = content.field_applicant_signed is defined and content.field_applicant_signed|render|striptags|trim == '1' %}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Registrant Certification</h3>
+    </div>
+    <div class="panel-body">
+      <p>I certify that the information in this report is true and correct to the best of my knowledge. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>
+
+      {% if not is_certified %}
+        {{ drupal_block('certification_form_block', wrapper=false) }}
+      {% else %}
+        <div class="alert alert-success">
+          <strong>This permit has been certified.</strong> Your registration is complete.
+          {% if content.field_dt_applicant_signed is defined %}
+            <p>Certified on: {{ content.field_dt_applicant_signed }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
   {# Panel 1: Permit Information #}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
@@ -43,13 +67,9 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {# Permit Number #}
             {% if content.field_permit_no %}<tr><th class="col-md-3">Permit No.</th><td class="col-md-9">{{ content.field_permit_no }}</td></tr>{% endif %}
-            {# Permit Status #}
             {% if content.field_permit_status_cd %}<tr><th class="col-md-3">Status</th><td class="col-md-9">{{ content.field_permit_status_cd }}</td></tr>{% endif %}
-            {# Permit Type #}
-            {% if content.field_permit_type %}<tr><th class="col-md-3">Permit Type</th><td class="col-md-9">{{ content.field_permit_type }}</td></tr>{% endif %}
-            {# Date Created #}
+            {% if content.field_permit_type_cd %}<tr><th class="col-md-3">Permit Type</th><td class="col-md-9">{{ content.field_permit_type_cd }}</td></tr>{% endif %}
             <tr>
               <th class="col-md-3">Date Created</th>
               <td class="col-md-9">
@@ -60,61 +80,47 @@
                 {% endif %}
               </td>
             </tr>
-            {# Date Updated (Node Changed) #}
             <tr><th class="col-md-3">Date Updated</th><td class="col-md-9">{{ node.changed.value|date('n/j/Y') }}</td></tr>
-            {# Issued Date #}
-            {% if content.field_issued_date %}<tr><th class="col-md-3">Issued Date</th><td class="col-md-9">{{ content.field_issued_date }}</td></tr>{% endif %}
-            {# Effective Date #}
-            {% if content.field_dt_effective %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ content.field_dt_effective }}</td></tr>{% endif %}
-            {# Expiry Date #}
-            {% if content.field_expiry_date %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ content.field_expiry_date }}</td></tr>{% endif %}
-            {# Application Received Date #}
-            {% if content.field_dt_application_received %}<tr><th class="col-md-3">Application Received</th><td class="col-md-9">{{ content.field_dt_application_received }}</td></tr>{% endif %}
-            {# Permit Request Date #}
-            {% if content.field_dt_permit_request %}<tr><th class="col-md-3">Permit Request Date</th><td class="col-md-9">{{ content.field_dt_permit_request }}</td></tr>{% endif %}
-            {# Permit Issued Date #}
             {% if content.field_dt_permit_issued %}<tr><th class="col-md-3">Permit Issued Date</th><td class="col-md-9">{{ content.field_dt_permit_issued }}</td></tr>{% endif %}
+            {% if content.field_dt_effective %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ content.field_dt_effective }}</td></tr>{% endif %}
+            {% if content.field_dt_expired %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ content.field_dt_expired }}</td></tr>{% endif %}
           </tbody>
         </table>
       </div>
     </div>
   </div>
 
-  {# Panel 2: Applicant Information #}
+  {# Panel 2: Applicant Identification #}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">Applicant Information</h3>
+      <h3 class="panel-title">Applicant Identification</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {# Applicant Name #}
             <tr>
               <th class="col-md-3">Applicant Name</th>
               <td class="col-md-9">
-                {% if content.field_applicant_business_name %}
+                {% if content.field_applicant_business_name is defined and content.field_applicant_business_name|render|striptags|trim %}
                   {{ content.field_applicant_business_name }}
                 {% elseif content.field_applicant_last_name or content.field_applicant_first_name %}
                   {% set name_parts = [] %}
-                  {% if content.field_applicant_last_name %}{% set name_parts = name_parts|merge([content.field_applicant_last_name|render|striptags|trim]) %}{% endif %}
+                  {% if content.field_applicant_prefix %}{% set name_parts = name_parts|merge([content.field_applicant_prefix|render|striptags|trim]) %}{% endif %}
                   {% if content.field_applicant_first_name %}{% set name_parts = name_parts|merge([content.field_applicant_first_name|render|striptags|trim]) %}{% endif %}
-                  {{ name_parts|join(', ') }}
+                  {% if content.field_applicant_middle_name %}{% set name_parts = name_parts|merge([content.field_applicant_middle_name|render|striptags|trim]) %}{% endif %}
+                  {% if content.field_applicant_last_name %}{% set name_parts = name_parts|merge([content.field_applicant_last_name|render|striptags|trim]) %}{% endif %}
+                  {% if content.field_applicant_suffix %}{% set name_parts = name_parts|merge([content.field_applicant_suffix|render|striptags|trim]) %}{% endif %}
+                  {{ name_parts|join(' ') }}
                 {% else %}
                   N/A
                 {% endif %}
               </td>
             </tr>
-            {# Business Name (if different/available) #}
-            {% if content.field_business_name %}<tr><th class="col-md-3">Business Name</th><td class="col-md-9">{{ content.field_business_name }}</td></tr>{% endif %}
-            {# Applicant Type #}
+            {% if content.field_applicant_business_name %}<tr><th class="col-md-3">Business Name</th><td class="col-md-9">{{ content.field_applicant_business_name }}</td></tr>{% endif %}
+            {% if content.field_applicant_business_desc %}<tr><th class="col-md-3">Business Description</th><td class="col-md-9">{{ content.field_applicant_business_desc }}</td></tr>{% endif %}
             {% if content.field_registrant_type_cd %}<tr><th class="col-md-3">Applicant Type</th><td class="col-md-9">{{ content.field_registrant_type_cd }}</td></tr>{% endif %}
-            {# BI Code (Business/Individual?) #}
             {% if content.field_bi_cd %}<tr><th class="col-md-3">BI Code</th><td class="col-md-9">{{ content.field_bi_cd }}</td></tr>{% endif %}
-            {# Person Name (If different/available) #}
-            {% if content.field_person_name %}<tr><th class="col-md-3">Person Name</th><td class="col-md-9">{{ content.field_person_name }}</td></tr>{% endif %}
-             {# Applicant Signed Date #}
-            {% if content.field_dt_applicant_signed %}<tr><th class="col-md-3">Applicant Signed Date</th><td class="col-md-9">{{ content.field_dt_applicant_signed }}</td></tr>{% endif %}
           </tbody>
         </table>
       </div>
@@ -130,24 +136,22 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {# Address Information #}
-            {% if content.field_applicant_address_l1 %}<tr><th class="col-md-3">Address</th><td class="col-md-9"><div>{{ content.field_applicant_address_l1 }}</div>{% if content.field_applicant_address_l2 %}<div>{{ content.field_applicant_address_l2 }}</div>{% endif %}{% if content.field_applicant_address_l3 %}<div>{{ content.field_applicant_address_l3 }}</div>{% endif %}</td></tr>{% endif %}
-            {# City #}
+            {% if content.field_applicant_address_l1 or content.field_applicant_address_l2 or content.field_applicant_address_l3 %}
+            <tr><th class="col-md-3">Address</th>
+                <td class="col-md-9">
+                  {% if content.field_applicant_address_l1 %}<div>{{ content.field_applicant_address_l1 }}</div>{% endif %}
+                  {% if content.field_applicant_address_l2 %}<div>{{ content.field_applicant_address_l2 }}</div>{% endif %}
+                  {% if content.field_applicant_address_l3 %}<div>{{ content.field_applicant_address_l3 }}</div>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
             {% if content.field_applicant_city %}<tr><th class="col-md-3">City</th><td class="col-md-9">{{ content.field_applicant_city }}</td></tr>{% endif %}
-            {# State #}
+            {% if content.field_applicant_county %}<tr><th class="col-md-3">County</th><td class="col-md-9">{{ content.field_applicant_county }}</td></tr>{% endif %}
             {% if content.field_applicant_state %}<tr><th class="col-md-3">State</th><td class="col-md-9">{{ content.field_applicant_state }}</td></tr>{% endif %}
-            {# ZIP Code #}
             {% if content.field_applicant_zip %}<tr><th class="col-md-3">ZIP Code</th><td class="col-md-9">{{ content.field_applicant_zip }}</td></tr>{% endif %}
-            {# Applicant Zip (if different) #}
-            {% if content.field_zip %}<tr><th class="col-md-3">Applicant Zip</th><td class="col-md-9">{{ content.field_zip }}</td></tr>{% endif %}
-            {# Telephone #}
-            {% if content.field_applicant_telephone %}<tr><th class="col-md-3">Telephone</th><td class="col-md-9">{{ content.field_applicant_telephone }}</td></tr>{% endif %}
-            {# Home Phone #}
-            {% if content.field_home_phone %}<tr><th class="col-md-3">Home Phone</th><td class="col-md-9">{{ content.field_home_phone }}</td></tr>{% endif %}
-            {# Work Phone #}
-            {% if content.field_work_phone %}<tr><th class="col-md-3">Work Phone</th><td class="col-md-9">{{ content.field_work_phone }}</td></tr>{% endif %}
-            {# Email #}
-            {% if content.field_applicant_email %}<tr><th class="col-md-3">Email</th><td class="col-md-9">{{ content.field_applicant_email }}</td></tr>{% endif %}
+            {% if content.field_applicant_home_phone %}<tr><th class="col-md-3">Home Phone</th><td class="col-md-9">{{ content.field_applicant_home_phone }}</td></tr>{% endif %}
+            {% if content.field_applicant_work_phone %}<tr><th class="col-md-3">Work Phone</th><td class="col-md-9">{{ content.field_applicant_work_phone }}</td></tr>{% endif %}
+            {% if content.field_applicant_email_address %}<tr><th class="col-md-3">Email</th><td class="col-md-9">{{ content.field_applicant_email_address }}</td></tr>{% endif %}
           </tbody>
         </table>
       </div>
@@ -172,6 +176,26 @@
               {% if content.field_principal_suffix %}<tr><th class="col-md-3">Principal Suffix</th><td class="col-md-9">{{ content.field_principal_suffix }}</td></tr>{% endif %}
               {% if content.field_principal_title %}<tr><th class="col-md-3">Principal Title</th><td class="col-md-9">{{ content.field_principal_title }}</td></tr>{% endif %}
               {% if content.field_principal_telephone %}<tr><th class="col-md-3">Principal Telephone</th><td class="col-md-9">{{ content.field_principal_telephone }}</td></tr>{% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# NEW Panel: Primary Contact (Conditional) #}
+  {% if is_business %}
+    <div class="panel panel-primary mt-3">
+      <div class="panel-heading">
+        <h3 class="panel-title">Primary Contact Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tbody>
+              {% if content.field_primary_contact_name %}<tr><th class="col-md-3">Primary Contact Name</th><td class="col-md-9">{{ content.field_primary_contact_name }}</td></tr>{% endif %}
+              {% if content.field_primary_contact_telephone %}<tr><th class="col-md-3">Primary Contact Telephone</th><td class="col-md-9">{{ content.field_primary_contact_telephone }}</td></tr>{% endif %}
+              {% if content.field_primary_contact_email %}<tr><th class="col-md-3">Primary Contact Email</th><td class="col-md-9">{{ content.field_primary_contact_email }}</td></tr>{% endif %}
             </tbody>
           </table>
         </div>
@@ -207,59 +231,7 @@
                   <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
                   <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
                   <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
-                  <td>{% if location.field_location_state.value %}{{ location.field_location_state.value }}{% endif %}</td>
-                  <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-
-  {# Panel 7: Additional Notes #}
-  {% if content.field_comments %}
-    <div class="panel panel-primary mt-3">
-      <div class="panel-heading">
-        <h3 class="panel-title">Additional Notes</h3>
-      </div>
-      <div class="panel-body">
-        {{ content.field_comments }}
-      </div>
-    </div>
-  {% endif %}
-
-  {# Locations Section #}
-  {% if locations is defined and locations is not empty %}
-    <div class="panel panel-primary mt-3">
-      <div class="panel-heading">
-        <h3 class="panel-title">Location of Properties where Activity will occur</h3>
-      </div>
-      <div class="panel-body">
-        {% set location_count = 0 %}
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>County</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>ZIP</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for location in locations %}
-                {% set location_count = location_count + 1 %}
-                <tr>
-                  <td>{{ location_count }}</td>
-                  {# Accessing node fields directly is common in preprocess, but check existence #}
-                  <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
-                  <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
-                  <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
-                  <td>{% if location.field_location_state_ref.target_id %}{{ location.field_location_state_ref.entity.label }}{% endif %}</td> {# Assuming state is entity reference #}
+                  <td>{% if location.field_location_state_ref.target_id %}{{ location.field_location_state_ref.entity.label }}{% endif %}</td>
                   <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
                 </tr>
               {% endfor %}
@@ -275,7 +247,7 @@
     </div>
   {% endif %}
 
-  {# Agents Section #}
+  {# Panel 6: Agent/Employee #}
   {% if agents is defined and agents is not empty %}
     <div class="panel panel-primary mt-3">
       <div class="panel-heading">
@@ -296,7 +268,7 @@
                 {% set agent_count = agent_count + 1 %}
                 <tr>
                   <td>{{ agent_count }}</td>
-                  <td>{{ agent.label }}</td> {# Use node label for agent name #}
+                  <td>{{ agent.label }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -310,6 +282,26 @@
       <a href="/node/add/name">Add an agent</a>
     </div>
   {% endif %}
+
+  {# NEW Panel: Agreements #}
+  <div class="panel panel-primary mt-3">
+    <div class="panel-heading">
+      <h3 class="panel-title">Agreements</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tbody>
+            {% if content.field_applicant_agreement1 %}<tr><th class="col-md-3">Agreement 1</th><td class="col-md-9">{{ content.field_applicant_agreement1 }}</td></tr>{% endif %}
+            {% if content.field_applicant_agreement2 %}<tr><th class="col-md-3">Agreement 2</th><td class="col-md-9">{{ content.field_applicant_agreement2 }}</td></tr>{% endif %}
+            {% if content.field_applicant_agreement3 %}<tr><th class="col-md-3">Agreement 3</th><td class="col-md-9">{{ content.field_applicant_agreement3 }}</td></tr>{% endif %}
+            {% if content.field_applicant_signed %}<tr><th class="col-md-3">Applicant Signed (Certified)</th><td class="col-md-9">{{ content.field_applicant_signed }}</td></tr>{% endif %}
+            {% if content.field_dt_applicant_signed %}<tr><th class="col-md-3">Applicant Signed Date</th><td class="col-md-9">{{ content.field_dt_applicant_signed }}</td></tr>{% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   {# Conditions Section (Copied directly, verify links/text) #}
   <div class="panel panel-primary mt-3">

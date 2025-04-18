@@ -39,11 +39,45 @@ dependencies:
     - field.field.node.permit.field_update_by
     - field.field.node.permit.field_version_no
     - field.field.node.permit.field_xml_cd
+    - field.field.node.permit.field_agency_tracking_id
+    - field.field.node.permit.field_amend_seq_number
+    - field.field.node.permit.field_applicant_agreement1
+    - field.field.node.permit.field_applicant_agreement2
+    - field.field.node.permit.field_applicant_agreement3
+    - field.field.node.permit.field_applicant_business_desc
+    - field.field.node.permit.field_applicant_county
+    - field.field.node.permit.field_applicant_email_address
+    - field.field.node.permit.field_applicant_first_name
+    - field.field.node.permit.field_applicant_last_name
+    - field.field.node.permit.field_applicant_middle_name
+    - field.field.node.permit.field_applicant_prefix
+    - field.field.node.permit.field_applicant_request_type
+    - field.field.node.permit.field_applicant_signed
+    - field.field.node.permit.field_applicant_suffix
+    - field.field.node.permit.field_biologist_initial
+    - field.field.node.permit.field_control_program_id
+    - field.field.node.permit.field_control_region
+    - field.field.node.permit.field_ep_form_no
+    - field.field.node.permit.field_ep_form_title
+    - field.field.node.permit.field_ep_formid
+    - field.field.node.permit.field_issued_by
+    - field.field.node.permit.field_issuer_action_cd
+    - field.field.node.permit.field_issuing_officer_title
+    - field.field.node.permit.field_offloc_id
+    - field.field.node.permit.field_permit_type_cd
+    - field.field.node.permit.field_primary_contact_email
+    - field.field.node.permit.field_primary_contact_name
+    - field.field.node.permit.field_primary_contact_telephone
+    - field.field.node.permit.field_program_id
+    - field.field.node.permit.field_region
+    - field.field.node.permit.field_wildcard_search_option
     - node.type.permit
   module:
     - datetime
     - text
     - user
+    - options
+    - email
 id: node.permit.default
 targetEntityType: node
 bundle: permit
@@ -58,10 +92,10 @@ content:
     weight: 4
     region: content
   field_bi_cd:
-    type: string
+    type: entity_reference_label
     label: hidden
     settings:
-      link_to_entity: FALSE
+      link: TRUE
     third_party_settings: {  }
     weight: 8
     region: content
@@ -209,7 +243,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_applicant_address_l3:
     type: string
@@ -217,7 +251,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_applicant_city:
     type: string
@@ -225,7 +259,7 @@ content:
     settings:
       link_to_entity: FALSE
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   field_permit_no:
     type: string
@@ -364,10 +398,272 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_agency_tracking_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 42
+    region: content
+  field_amend_seq_number:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: TRUE
+    third_party_settings: {  }
+    weight: 43
+    region: content
+  field_applicant_agreement1:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 44
+    region: content
+  field_applicant_agreement2:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 45
+    region: content
+  field_applicant_agreement3:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 46
+    region: content
+  field_applicant_business_desc:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 47
+    region: content
+  field_applicant_county:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 48
+    region: content
+  field_applicant_email_address:
+    type: email_mailto
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 49
+    region: content
+  field_applicant_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  field_applicant_last_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 51
+    region: content
+  field_applicant_middle_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 52
+    region: content
+  field_applicant_prefix:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 53
+    region: content
+  field_applicant_request_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 54
+    region: content
+  field_applicant_signed:
+    type: boolean
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 55
+    region: content
+  field_applicant_suffix:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 56
+    region: content
+  field_biologist_initial:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 57
+    region: content
+  field_control_program_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 58
+    region: content
+  field_control_region:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 59
+    region: content
+  field_ep_form_no:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 60
+    region: content
+  field_ep_form_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 61
+    region: content
+  field_ep_formid:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 62
+    region: content
+  field_issued_by:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 63
+    region: content
+  field_issuer_action_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 64
+    region: content
+  field_issuing_officer_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  field_offloc_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 66
+    region: content
+  field_permit_type_cd:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: TRUE
+    third_party_settings: {  }
+    weight: 67
+    region: content
+  field_primary_contact_email:
+    type: email_mailto
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 68
+    region: content
+  field_primary_contact_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 69
+    region: content
+  field_primary_contact_telephone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 70
+    region: content
+  field_program_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 71
+    region: content
+  field_region:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 72
+    region: content
+  field_wildcard_search_option:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: FALSE
+    third_party_settings: {  }
+    weight: 73
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 36
+    weight: 100
     region: content
 hidden:
   langcode: true

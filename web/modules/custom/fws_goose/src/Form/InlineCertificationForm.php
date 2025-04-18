@@ -4,12 +4,12 @@ namespace Drupal\fws_goose\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\user\Entity\User;
 use Drupal\Core\Messenger\MessengerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\node\Entity\Node;
 
 /**
- * Provides a simplified certification form for inline use.
+ * Provides a simplified certification form for inline use with permit nodes.
  */
 class InlineCertificationForm extends FormBase {
 
@@ -49,7 +49,7 @@ class InlineCertificationForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $user_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $node_id = NULL) {
     // Don't show any certification text here as it's already displayed in the template.
     $form['certify'] = [
       '#type' => 'checkbox',
@@ -57,9 +57,9 @@ class InlineCertificationForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['user_id'] = [
+    $form['node_id'] = [
       '#type' => 'hidden',
-      '#value' => $user_id ?? $this->currentUser()->id(),
+      '#value' => $node_id,
     ];
 
     $form['actions'] = [
@@ -82,27 +82,65 @@ class InlineCertificationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $user_id = $form_state->getValue('user_id');
+    $node_id = $form_state->getValue('node_id');
 
-    // Load the user account.
-    $user = User::load($user_id);
+    if (empty($node_id)) {
+      $this->messenger->addError($this->t('No permit specified for certification.'));
+      return;
+    }
 
-    if ($user && $user->hasField('field_applicant_agree_to_certify')) {
-      $user->set('field_applicant_agree_to_certify', TRUE);
-      $user->save();
+    $node = Node::load($node_id);
 
-      // Send notification email using the fws_goose notification system.
+    if (!$node || $node->bundle() !== 'permit') {
+      $this->messenger->addError($this->t('Could not load permit to process certification.'));
+      \Drupal::logger('fws_goose')->error('Could not load permit node @nid during certification, or it was not a permit type.', ['@nid' => $node_id]);
+      return;
+    }
+
+    // Update the node's certification field
+    // We'll first check if the field exists before setting it.
+    $was_updated = FALSE;
+
+    // Use the correct field names.
+    if ($node->hasField('field_applicant_signed')) {
+      $node->set('field_applicant_signed', TRUE);
+      $was_updated = TRUE;
+    }
+
+    // Also update the timestamp field if it exists.
+    if ($node->hasField('field_dt_applicant_signed')) {
+      $node->set('field_dt_applicant_signed', \Drupal::time()->getRequestTime());
+      $was_updated = TRUE;
+    }
+
+    if ($was_updated) {
+      $node->save();
+
+      // Get the owner info if needed for messaging.
+      $owner = $node->getOwner();
+      $owner_name = $owner ? $owner->getDisplayName() : $this->t('Unknown');
+
+      // Optionally, also update the user's certification field to maintain backward compatibility.
+      if ($owner && $owner->hasField('field_applicant_agree_to_certify')) {
+        $owner->set('field_applicant_agree_to_certify', TRUE);
+        $owner->save();
+        \Drupal::logger('fws_goose')->notice('Updated user @uid certification status for backward compatibility.', ['@uid' => $owner->id()]);
+      }
+
+      // Send notification email using this node.
       if (function_exists('fws_goose_send_certification_notification')) {
-        fws_goose_send_certification_notification($user);
+        fws_goose_send_certification_notification($node);
       }
 
       $this->messenger->addStatus($this->t('Your certification has been recorded. Your registration is now complete.'));
     }
     else {
-      $this->messenger->addError($this->t('There was a problem updating your certification.'));
+      $this->messenger->addError($this->t('There was a problem updating the permit certification status. Required fields may be missing.'));
+      \Drupal::logger('fws_goose')->error('Permit node @nid does not have expected certification fields.', ['@nid' => $node_id]);
     }
 
-    $form_state->setRedirect('entity.user.canonical', ['user' => $this->currentUser()->id()]);
+    // Redirect to the node page.
+    $form_state->setRedirect('entity.node.canonical', ['node' => $node_id]);
   }
 
   /**
@@ -111,9 +149,22 @@ class InlineCertificationForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
+    // Validate that we have a node ID.
+    if (empty($form_state->getValue('node_id'))) {
+      $form_state->setErrorByName('node_id', $this->t('No permit specified for certification.'));
+      return;
+    }
+
     // Add more specific validation if needed.
     if (!$form_state->getValue('certify')) {
       $form_state->setErrorByName('certify', $this->t('You must check the certification box to complete your registration.'));
+    }
+
+    // Validate that the node exists and is the correct type.
+    $node_id = $form_state->getValue('node_id');
+    $node = Node::load($node_id);
+    if (!$node || $node->bundle() !== 'permit') {
+      $form_state->setErrorByName('node_id', $this->t('Invalid permit selected for certification.'));
     }
   }
 
