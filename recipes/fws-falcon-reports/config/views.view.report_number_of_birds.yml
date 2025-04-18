@@ -22,7 +22,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: c2yAVkmk9huk-oHWfTJOg89xBDVY0EVkRityH8_KSJ8
+  default_config_hash: vIVUgCejbZKe-TGTqvWcvwmnO8S3VhA6OJXATtYgox8
 id: report_number_of_birds
 label: 'Report Permit Submissions'
 module: views
@@ -84,7 +84,7 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: NA
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -147,7 +147,7 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: NA
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -210,7 +210,7 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: NA
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
