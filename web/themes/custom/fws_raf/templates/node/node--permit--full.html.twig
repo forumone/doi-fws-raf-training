@@ -58,20 +58,21 @@
     </div>
   </div>
 
-  {# Panel 1: Permit Information #}
+  {# Panel 1: Registration Information #}
+  {% set is_business = content.field_registrant_type_cd is defined and content.field_registrant_type_cd|render matches '/Business/i' %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">Permit Information</h3>
+      <h3 class="panel-title">Registration Information</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {% if content.field_permit_no %}<tr><th class="col-md-3">Permit No.</th><td class="col-md-9">{{ content.field_permit_no }}</td></tr>{% endif %}
+            {% if content.field_permit_no %}<tr><th class="col-md-3">Registration No.</th><td class="col-md-9">RG-{{ content.field_permit_no }}</td></tr>{% endif %}
             {% if content.field_permit_status_cd %}<tr><th class="col-md-3">Status</th><td class="col-md-9">{{ content.field_permit_status_cd }}</td></tr>{% endif %}
             {% if content.field_permit_type_cd %}<tr><th class="col-md-3">Permit Type</th><td class="col-md-9">{{ content.field_permit_type_cd }}</td></tr>{% endif %}
             <tr>
-              <th class="col-md-3">Date Created</th>
+              <th class="col-md-3">Date of Registration</th>
               <td class="col-md-9">
                 {% if node.field_dt_create.value %}
                   {{ node.field_dt_create.value|date('m/d/Y') }}
@@ -80,27 +81,13 @@
                 {% endif %}
               </td>
             </tr>
-            <tr><th class="col-md-3">Date Updated</th><td class="col-md-9">{{ node.changed.value|date('m/d/Y') }}</td></tr>
+            <tr><th class="col-md-3">Date Amended</th><td class="col-md-9">{{ node.changed.value|date('m/d/Y') }}</td></tr>
             {% if node.field_dt_permit_issued.value %}<tr><th class="col-md-3">Permit Issued Date</th><td class="col-md-9">{{ node.field_dt_permit_issued.value|date('m/d/Y') }}</td></tr>{% endif %}
             {% if node.field_dt_effective.value %}<tr><th class="col-md-3">Effective Date</th><td class="col-md-9">{{ node.field_dt_effective.value|date('m/d/Y') }}</td></tr>{% endif %}
             {% if node.field_dt_expired.value %}<tr><th class="col-md-3">Expiry Date</th><td class="col-md-9">{{ node.field_dt_expired.value|date('m/d/Y') }}</td></tr>{% endif %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 
-  {# Panel 2: Applicant Identification #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Applicant Identification</h3>
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <tbody>
             <tr>
-              <th class="col-md-3">Applicant Name</th>
+              <th class="col-md-3">Registrant (Landowner) Name</th>
               <td class="col-md-9">
                 {% if content.field_applicant_business_name is defined and content.field_applicant_business_name|render|striptags|trim %}
                   {{ content.field_applicant_business_name }}
@@ -117,20 +104,69 @@
                 {% endif %}
               </td>
             </tr>
-            {% if content.field_applicant_business_name %}<tr><th class="col-md-3">Business Name</th><td class="col-md-9">{{ content.field_applicant_business_name }}</td></tr>{% endif %}
-            {% if content.field_applicant_business_desc %}<tr><th class="col-md-3">Business Description</th><td class="col-md-9">{{ content.field_applicant_business_desc }}</td></tr>{% endif %}
-            {% if content.field_registrant_type_cd %}<tr><th class="col-md-3">Applicant Type</th><td class="col-md-9">{{ content.field_registrant_type_cd }}</td></tr>{% endif %}
-            {% if content.field_bi_cd %}<tr><th class="col-md-3">BI Code</th><td class="col-md-9">{{ content.field_bi_cd }}</td></tr>{% endif %}
           </tbody>
         </table>
       </div>
+
+      {# Panel: Business Information (Conditional) #}
+      {% if is_business %}
+        <div class="panel panel-primary mt-3">
+          <div class="panel-heading">
+            <h3 class="panel-title">Business Information</h3>
+          </div>
+          <div class="panel-body">
+            {# Principal Information #}
+            <h4 class="mt-0">Principal Information</h4> {# Removed mt-4, adjusted heading level #}
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  {% if content.field_applicant_business_name %}<tr><th class="col-md-3">Business Name</th><td class="col-md-9">{{ content.field_applicant_business_name }}</td></tr>{% endif %}
+                  {% if content.field_applicant_business_desc %}<tr><th class="col-md-3">Business Description</th><td class="col-md-9">{{ content.field_applicant_business_desc }}</td></tr>{% endif %}
+                  {# Add combined principal name logic if individual fields aren't desired #}
+                  {% if content.field_principal_last_name or content.field_principal_first_name %}
+                    <tr><th class="col-md-3">Principal Name</th>
+                        <td class="col-md-9">
+                          {% set p_name_parts = [] %}
+                          {% if content.field_principal_first_name %}{% set p_name_parts = p_name_parts|merge([content.field_principal_first_name|render|striptags|trim]) %}{% endif %}
+                          {% if content.field_principal_middle_name %}{% set p_name_parts = p_name_parts|merge([content.field_principal_middle_name|render|striptags|trim]) %}{% endif %}
+                          {% if content.field_principal_last_name %}{% set p_name_parts = p_name_parts|merge([content.field_principal_last_name|render|striptags|trim]) %}{% endif %}
+                          {% if content.field_principal_suffix %}{% set p_name_parts = p_name_parts|merge([content.field_principal_suffix|render|striptags|trim]) %}{% endif %}
+                          {{ p_name_parts|join(' ') }}
+                        </td>
+                    </tr>
+                  {% elseif content.field_principal_name %} {# Fallback if combined field exists #}
+                    <tr><th class="col-md-3">Principal Name</th><td class="col-md-9">{{ content.field_principal_name }}</td></tr>
+                  {% endif %}
+                  {% if content.field_principal_title %}<tr><th class="col-md-3">Principal Title</th><td class="col-md-9">{{ content.field_principal_title }}</td></tr>{% endif %}
+                  {% if content.field_principal_telephone %}<tr><th class="col-md-3">Principal Telephone</th><td class="col-md-9">{{ content.field_principal_telephone }}</td></tr>{% endif %}
+                  {# Add Principal Email if it exists on permit node #}
+                  {# {% if content.field_principal_email %}<tr><th class="col-md-3">Principal Email</th><td class="col-md-9">{{ content.field_principal_email }}</td></tr>{% endif %} #}
+                </tbody>
+              </table>
+            </div>
+
+            {# Primary Contact Information #}
+            <h4 class="mt-4">Primary Contact Information</h4> {# Add spacing #}
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  {% if content.field_primary_contact_name %}<tr><th class="col-md-3">Primary Contact Name</th><td class="col-md-9">{{ content.field_primary_contact_name }}</td></tr>{% endif %}
+                  {% if content.field_primary_contact_telephone %}<tr><th class="col-md-3">Primary Contact Telephone</th><td class="col-md-9">{{ content.field_primary_contact_telephone }}</td></tr>{% endif %}
+                  {% if content.field_primary_contact_email %}<tr><th class="col-md-3">Primary Contact Email</th><td class="col-md-9">{{ content.field_primary_contact_email }}</td></tr>{% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
     </div>
   </div>
 
-  {# Panel 3: Applicant Address and Contact #}
+  {# Panel 3: Registrant Address and Contact Information #}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">Applicant Address and Contact</h3>
+      <h3 class="panel-title">Registrant Address and Contact Information</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -157,51 +193,6 @@
       </div>
     </div>
   </div>
-
-  {# Panel 4: Principal Information (Conditional) #}
-  {% set is_business = content.field_registrant_type_cd is defined and content.field_registrant_type_cd|render matches '/Business/i' %}
-  {% if is_business %}
-    <div class="panel panel-primary mt-3">
-      <div class="panel-heading">
-        <h3 class="panel-title">Principal Information</h3>
-      </div>
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <tbody>
-              {% if content.field_principal_name %}<tr><th class="col-md-3">Principal Name</th><td class="col-md-9">{{ content.field_principal_name }}</td></tr>{% endif %}
-              {% if content.field_principal_first_name %}<tr><th class="col-md-3">Principal First Name</th><td class="col-md-9">{{ content.field_principal_first_name }}</td></tr>{% endif %}
-              {% if content.field_principal_middle_name %}<tr><th class="col-md-3">Principal Middle Name</th><td class="col-md-9">{{ content.field_principal_middle_name }}</td></tr>{% endif %}
-              {% if content.field_principal_last_name %}<tr><th class="col-md-3">Principal Last Name</th><td class="col-md-9">{{ content.field_principal_last_name }}</td></tr>{% endif %}
-              {% if content.field_principal_suffix %}<tr><th class="col-md-3">Principal Suffix</th><td class="col-md-9">{{ content.field_principal_suffix }}</td></tr>{% endif %}
-              {% if content.field_principal_title %}<tr><th class="col-md-3">Principal Title</th><td class="col-md-9">{{ content.field_principal_title }}</td></tr>{% endif %}
-              {% if content.field_principal_telephone %}<tr><th class="col-md-3">Principal Telephone</th><td class="col-md-9">{{ content.field_principal_telephone }}</td></tr>{% endif %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-
-  {# NEW Panel: Primary Contact (Conditional) #}
-  {% if is_business %}
-    <div class="panel panel-primary mt-3">
-      <div class="panel-heading">
-        <h3 class="panel-title">Primary Contact Information</h3>
-      </div>
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <tbody>
-              {% if content.field_primary_contact_name %}<tr><th class="col-md-3">Primary Contact Name</th><td class="col-md-9">{{ content.field_primary_contact_name }}</td></tr>{% endif %}
-              {% if content.field_primary_contact_telephone %}<tr><th class="col-md-3">Primary Contact Telephone</th><td class="col-md-9">{{ content.field_primary_contact_telephone }}</td></tr>{% endif %}
-              {% if content.field_primary_contact_email %}<tr><th class="col-md-3">Primary Contact Email</th><td class="col-md-9">{{ content.field_primary_contact_email }}</td></tr>{% endif %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {% endif %}
 
   {# Panel 5: Location of Properties #}
   {% if locations is defined and locations is not empty %}

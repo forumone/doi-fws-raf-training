@@ -104,15 +104,19 @@ class CertificationBlock extends BlockBase implements ContainerFactoryPluginInte
       ];
       // Add certified date if available.
       if ($node->hasField('field_dt_applicant_signed') && !$node->get('field_dt_applicant_signed')->isEmpty()) {
-        $date_value = $node->get('field_dt_applicant_signed')->value;
-        $formatted_date = \Drupal::service('date.formatter')->format(strtotime($date_value), 'medium');
-        $build['content']['#markup'] .= '<br />' . $this->t('Certified on: @date', ['@date' => $formatted_date]);
+        // Get the timestamp directly from the DateTime object.
+        $date_object = $node->get('field_dt_applicant_signed')->date;
+        if ($date_object) {
+          $timestamp = $date_object->getTimestamp();
+          $formatted_date = \Drupal::service('date.formatter')->format($timestamp, 'medium');
+          $build['content']['#markup'] .= '<br />' . $this->t('Certified on: @date', ['@date' => $formatted_date]);
+        }
       }
       return $build;
     }
 
     // Build and return the certification form, passing the NODE ID.
-    $form = $this->formBuilder->getForm('Drupal\fws_goose\Form\InlineCertificationForm', $node->id());
+    $form = $this->formBuilder->getForm('\Drupal\fws_goose\Form\InlineCertificationForm', $node->id());
 
     return [
       'form' => $form,
