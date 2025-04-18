@@ -14,7 +14,6 @@ dependencies:
   module:
     - better_exposed_filters
     - csv_serialization
-    - datetime
     - fws_state_access
     - node
     - rest
@@ -25,9 +24,9 @@ dependencies:
 _core:
   default_config_hash: c2yAVkmk9huk-oHWfTJOg89xBDVY0EVkRityH8_KSJ8
 id: report_number_of_birds
-label: 'Report Number of Birds'
+label: 'Report Permit Submissions'
 module: views
-description: 'Number of Birds Held by each falconer report for a single person or an entire state falconry roll.'
+description: 'Number of Permit Submission Held by each falconer report for a single person or an entire state falconry roll.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -38,8 +37,71 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Report Number of Birds'
+      title: 'Report Permit Submissions'
       fields:
+        field_first_name:
+          id: field_first_name
+          table: user__field_first_name
+          field: field_first_name
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'First Name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_middle_name:
           id: field_middle_name
           table: user__field_middle_name
@@ -49,7 +111,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: 'Middle Name'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -112,73 +174,10 @@ display:
           admin_label: ''
           plugin_id: field
           label: 'Last Name'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_first_name:
-          id: field_first_name
-          table: user__field_first_name
-          field: field_first_name
-          relationship: uid
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Falconer Name'
-          exclude: false
-          alter:
-            alter_text: true
-            text: '{{ field_first_name }} {{ field_middle_name }} {{ field_last_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -367,7 +366,7 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: 'Number of Birds'
+          label: Count
           exclude: false
           alter:
             alter_text: false
@@ -544,53 +543,6 @@ display:
           value:
             permit_3186a: permit_3186a
           group: 1
-        field_permit_no_value:
-          id: field_permit_no_value
-          table: user__field_permit_no
-          field: field_permit_no_value
-          relationship: uid
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_permit_no_value_op
-            label: 'Permit Number'
-            description: ''
-            use_operator: false
-            operator: field_permit_no_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_permit_no_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              content_publisher: '0'
-              anonymous: '0'
-              content_editor: '0'
-              falconer: '0'
-              administrator: '0'
-              state_admin: '0'
-              state_law: '0'
-              federal_law: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         field_state_cd_target_id:
           id: field_state_cd_target_id
           table: user__field_state_cd
@@ -665,6 +617,53 @@ display:
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_first_name_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              falconer: '0'
+              administrator: '0'
+              state_admin: '0'
+              state_law: '0'
+              federal_law: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_middle_name_value:
+          id: field_middle_name_value
+          table: user__field_middle_name
+          field: field_middle_name_value
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_middle_name_value_op
+            label: 'Middle Name'
+            description: ''
+            use_operator: false
+            operator: field_middle_name_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_middle_name_value
             required: false
             remember: false
             multiple: false
@@ -777,59 +776,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_dt_create_value:
-          id: field_dt_create_value
-          table: node__field_dt_create
-          field: field_dt_create_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: datetime
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_dt_create_value_op
-            label: 'Permit Date Created'
-            description: ''
-            use_operator: false
-            operator: field_dt_create_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_dt_create_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              content_publisher: '0'
-              anonymous: '0'
-              content_editor: '0'
-              falconer: '0'
-              administrator: '0'
-              state_admin: '0'
-              state_law: '0'
-              federal_law: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -896,11 +842,11 @@ display:
             utf8_bom: '0'
             use_serializer_encode_only: false
       display_extenders: {  }
-      path: export/number-of-birds-by-facolner-report
+      path: export/permit-submissions
       displays:
         page_1: page_1
         default: '0'
-      filename: export-number-of-birds-by-facolner.csv
+      filename: export-permit-submissions.csv
       automatic_download: true
       store_in_public_file_directory: false
       custom_redirect_path: false
@@ -922,13 +868,13 @@ display:
         - 'config:field.storage.user.field_permit_number'
   page_1:
     id: page_1
-    display_title: 'Number of Birds'
+    display_title: 'Report Permit Submissions'
     display_plugin: page
     position: 1
     display_options:
       display_description: ''
       display_extenders: {  }
-      path: reports/number-of-birds-by-facolner
+      path: reports/permit-submissions
     cache_metadata:
       max-age: -1
       contexts:
