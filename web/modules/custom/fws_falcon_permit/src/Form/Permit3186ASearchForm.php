@@ -187,6 +187,7 @@ class Permit3186ASearchForm extends FormBase {
 
     $form['actions'] = [
       '#type' => 'actions',
+      '#weight' => 100,
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -200,8 +201,25 @@ class Permit3186ASearchForm extends FormBase {
       $form['search_results'] = [
         '#type' => 'container',
         '#attributes' => ['class' => ['search-results-container']],
-        'results' => $this->buildSearchResults($filter_values),
+        '#weight' => 110,
       ];
+
+      // Add Export CSV button at the top of the results table
+      $form['search_results']['actions'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['results-actions']],
+        '#weight' => -10,
+      ];
+
+      $form['search_results']['actions']['export_csv'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Export CSV'),
+        '#submit' => ['::exportCsvSubmit'],
+        '#button_type' => 'secondary',
+        '#attributes' => ['class' => ['button--export-csv']],
+      ];
+
+      $form['search_results']['results'] = $this->buildSearchResults($filter_values);
     }
 
     return $form;
@@ -215,6 +233,115 @@ class Permit3186ASearchForm extends FormBase {
     $values = array_filter($form_state->getValues());
 
     $form_state->setRedirect('<current>', [], ['query' => $values]);
+  }
+
+  /**
+   * Submit handler for the Export CSV button.
+   */
+  public function exportCsvSubmit(array &$form, FormStateInterface $form_state) {
+    $form_state->cleanValues();
+    $filter_values = array_filter($form_state->getValues());
+    $nids = $this->searchHelper->getSearchResults($filter_values);
+
+    $filename = 'permit_3186a_export_' . date('Y-m-d') . '.csv';
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    $output = fopen('php://output', 'w');
+    $this->writeHeadersToOutput($output);
+
+    // Process nodes in chunks to reduce memory usage
+    $chunk_size = 50;
+    $chunks = array_chunk($nids, $chunk_size);
+
+    foreach ($chunks as $chunk) {
+      $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
+      $this->writeNodesToOutput($nodes, $output);
+      $this->entityTypeManager->getStorage('node')->resetCache($chunk);
+    }
+
+    fclose($output);
+    exit();
+  }
+
+  /**
+   * Write CSV headers to the output stream.
+   */
+  protected function writeHeadersToOutput($output) {
+    $field_definitions = \Drupal::service('entity_field.manager')
+      ->getFieldDefinitions('node', 'permit_3186a');
+
+    $headers = [];
+
+    foreach ($field_definitions as $field_name => $definition) {
+      // Only include custom fields (those starting with 'field_')
+      if (strpos($field_name, 'field_') === 0) {
+        $headers[] = $definition->getLabel();
+      }
+    }
+
+    fputcsv($output, $headers);
+  }
+
+  /**
+   * Write nodes to the CSV output stream.
+   */
+  protected function writeNodesToOutput($nodes, $output) {
+    $field_definitions = \Drupal::service('entity_field.manager')
+      ->getFieldDefinitions('node', 'permit_3186a');
+
+    // Create a list of field names to export (only custom fields)
+    $field_names = [];
+    foreach ($field_definitions as $field_name => $definition) {
+      if (strpos($field_name, 'field_') === 0) {
+        $field_names[] = $field_name;
+      }
+    }
+
+    // Add data rows
+    foreach ($nodes as $node) {
+      $row = [];
+
+      foreach ($field_names as $field_name) {
+        if ($node->hasField($field_name)) {
+          $field = $node->get($field_name);
+
+          if ($field->isEmpty()) {
+            $row[] = '';
+          }
+          elseif ($field->getFieldDefinition()->getType() == 'entity_reference') {
+            $labels = [];
+            foreach ($field as $item) {
+              if ($item->entity && method_exists($item->entity, 'label')) {
+                $labels[] = $item->entity->label();
+              }
+            }
+            $row[] = implode(', ', $labels);
+          }
+          elseif ($field->getFieldDefinition()->getType() == 'datetime') {
+            if (!empty($field->value)) {
+              $date = new \DateTime($field->value);
+              $row[] = $date->format('Y-m-d');
+            } else {
+              $row[] = '';
+            }
+          }
+          elseif ($field->getFieldDefinition()->getType() == 'boolean') {
+            $row[] = $field->value ? 'Yes' : 'No';
+          }
+          elseif (in_array($field->getFieldDefinition()->getType(), ['string', 'string_long', 'text', 'text_long', 'text_with_summary'])) {
+            $row[] = $field->value;
+          }
+          else {
+            $row[] = $field->value;
+          }
+        }
+        else {
+          $row[] = '';
+        }
+      }
+
+      fputcsv($output, $row);
+    }
   }
 
   /**
