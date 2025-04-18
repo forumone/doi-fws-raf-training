@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'System Bird ID'
 vid: system_bird_id
-description: null
+description: 'System Bird ID will be unique to the Falconer'
 weight: 0
 new_revision: false
