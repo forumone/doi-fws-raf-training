@@ -493,4 +493,44 @@
     }
   };
 
+  // Focus-visible polyfill for Safari
+  Drupal.behaviors.focusVisiblePolyfill = {
+    attach: function (context, settings) {
+      once('focus-visible-polyfill', 'body', context).forEach(function (element) {
+        // Track whether the user is using keyboard navigation
+        let usingKeyboard = false;
+
+        // Set keyboard mode when user presses Tab
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Tab') {
+            usingKeyboard = true;
+          }
+        });
+
+        // Set mouse mode when user clicks
+        document.addEventListener('mousedown', function () {
+          usingKeyboard = false;
+          // Remove focus-visible class from any elements when clicking
+          document.querySelectorAll('.focus-visible').forEach(function (el) {
+            el.classList.remove('focus-visible');
+          });
+        });
+
+        // Add focus-visible class to elements when focused via keyboard
+        document.addEventListener('focusin', function (e) {
+          if (usingKeyboard && e.target) {
+            e.target.classList.add('focus-visible');
+          }
+        });
+
+        // Remove focus-visible class when element loses focus
+        document.addEventListener('focusout', function (e) {
+          if (e.target) {
+            e.target.classList.remove('focus-visible');
+          }
+        });
+      });
+    }
+  };
+
 })(jQuery, Drupal, once);
