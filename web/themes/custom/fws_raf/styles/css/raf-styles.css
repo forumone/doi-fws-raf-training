@@ -1537,7 +1537,6 @@ input.form-autocomplete {
 .fws-quiz .timer-svg circle:last-child {
   stroke: #205493;
   stroke-dasharray: 151px;
-  transition: stroke-dashoffset 1s linear;
 }
 .fws-quiz .video-container {
   position: relative;

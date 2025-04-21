@@ -26,15 +26,26 @@
 
         function updateTimerDisplay(secondsLeft, totalSeconds) {
           const $timer = $('.quiz__timer');
-          $timer.html(`<div class="timer-circle">
-            <timer aria-live="assertive" class="timer-number">${secondsLeft}</timer>
-            <svg class="timer-svg">
-              <circle r="24" cx="26" cy="26"></circle>
-              <circle r="24" cx="26" cy="26"
-                style="stroke-dashoffset: ${(secondsLeft / totalSeconds) * 151}px">
-              </circle>
-            </svg>
-          </div>`);
+
+          // Use a dedicated element with aria-live that will be updated with each second change
+          if ($timer.find('.timer-circle').length === 0) {
+            // Initial setup of timer structure
+            $timer.html(`<div class="timer-circle">
+              <span class="sr-only" aria-live="assertive" aria-atomic="true" id="timer-announcement">${secondsLeft} seconds remaining</span>
+              <span class="timer-number">${secondsLeft}</span>
+              <svg class="timer-svg">
+                <circle r="24" cx="26" cy="26"></circle>
+                <circle r="24" cx="26" cy="26"
+                  style="stroke-dashoffset: ${(secondsLeft / totalSeconds) * 151}px">
+                </circle>
+              </svg>
+            </div>`);
+          } else {
+            // Just update the values for subsequent calls
+            $timer.find('#timer-announcement').text(`${secondsLeft} ${secondsLeft === 1 ? 'second' : 'seconds'} remaining`);
+            $timer.find('.timer-number').text(secondsLeft);
+            $timer.find('circle:last-child').css('stroke-dashoffset', `${(secondsLeft / totalSeconds) * 151}px`);
+          }
         }
 
         function startTimer() {
