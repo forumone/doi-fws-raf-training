@@ -1,0 +1,21 @@
+uuid: a18c1b4b-5bd4-4d72-bcf2-e3a5daf0ae5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flood_gate
+    - node.type.species_rescue
+_core:
+  default_config_hash: i7CsFQm86B0rz7t3bMsBSA4CMDNaTVhZyN6XqSou8ZE
+id: node.species_rescue.field_flood_gate
+field_name: field_flood_gate
+entity_type: node
+bundle: species_rescue
+label: 'Navigation Lock/Floodgate/Weir'
+description: 'Identification of flood gate where trapped. Will only be used if primary or secondary cause of rescue was entrapment.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

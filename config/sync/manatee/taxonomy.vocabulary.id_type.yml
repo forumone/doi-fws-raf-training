@@ -1,0 +1,11 @@
+uuid: 6f0719cc-1d07-47e8-bd3c-5c4179d670f6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 8ynkiYiaXmfhKFHgCkQLYtIo6I1ZVRPmXYTzIbpiy5I
+name: 'ID Types'
+vid: id_type
+description: 'Lookup table for categorizing ids from other systems'
+weight: 0
+new_revision: false

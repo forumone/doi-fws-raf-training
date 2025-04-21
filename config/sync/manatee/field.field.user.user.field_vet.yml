@@ -1,0 +1,24 @@
+uuid: c452cad3-ac1d-4a83-ac5e-150741589b21
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_vet
+  module:
+    - user
+_core:
+  default_config_hash: qZWwueG3EnFGzscLBHbQkCcg8NeMxlfir_KspTgQRzs
+id: user.user.field_vet
+field_name: field_vet
+entity_type: user
+bundle: user
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,29 @@
+uuid: 7921efe3-8daf-4f8c-8ab4-c7269fea2993
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+_core:
+  default_config_hash: peIdQe0uE0sAVg9e7uzjl75dS870AdXm4oDErH03AyM
+id: node.field_method
+field_name: field_method
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Ground count'
+      label: 'Ground count'
+    -
+      value: 'Point count'
+      label: 'Point count'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

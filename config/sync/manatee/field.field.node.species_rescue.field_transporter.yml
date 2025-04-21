@@ -1,0 +1,27 @@
+uuid: 771e07c7-a31d-4a11-9354-12a87e36cbfc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_transporter
+    - node.type.species_rescue
+_core:
+  default_config_hash: TmmUxLLE4XCzgTnq41BEsxghTvX3xuu6-yYsWIhntwg
+id: node.species_rescue.field_transporter
+field_name: field_transporter
+entity_type: node
+bundle: species_rescue
+label: Transporter
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
+field_type: entity_reference

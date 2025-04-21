@@ -1,0 +1,11 @@
+uuid: 7ec66cd9-f20b-4b48-8142-422f3fa30b27
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: X6ocxZ1BSSlzFFySQRBLjCzeArlsB7klpoOledRioYA
+name: Sex
+vid: sex
+description: 'Lookup table for sex of species'
+weight: 0
+new_revision: false

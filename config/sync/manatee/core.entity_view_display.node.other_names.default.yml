@@ -1,0 +1,46 @@
+uuid: 69412e96-28ec-4b12-ac5c-7f7a236fc5d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.other_names.field_name
+    - field.field.node.other_names.field_system
+    - field.field.node.other_names.field_system_id
+    - node.type.other_names
+  module:
+    - user
+_core:
+  default_config_hash: owJqAVIJ6IFaxWtb5wKYbKZ1e4nEwpjDtxwzNeuD3UA
+id: node.other_names.default
+targetEntityType: node
+bundle: other_names
+mode: default
+content:
+  field_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_system:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_system_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

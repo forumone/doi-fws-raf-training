@@ -1,0 +1,25 @@
+uuid: 4ef4ba33-dbb3-4b05-83f9-a829a9232d78
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length
+    - node.type.transfer
+_core:
+  default_config_hash: e-rAw8ahIhZhLztmDPznl5HB5v8eY2n6IjS8JqXlovc
+id: node.transfer.field_length
+field_name: field_length
+entity_type: node
+bundle: transfer
+label: Length
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: cm
+field_type: integer

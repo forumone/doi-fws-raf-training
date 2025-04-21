@@ -1,0 +1,14 @@
+uuid: 7f81533f-e693-40ea-a726-a661b1b64974
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.other_researchers
+  module:
+    - user
+id: user_remove_role_action.other_researchers
+label: 'Remove the Other Researchers role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: other_researchers

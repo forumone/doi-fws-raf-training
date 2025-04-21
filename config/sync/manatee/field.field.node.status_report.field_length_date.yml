@@ -1,0 +1,23 @@
+uuid: 4f959ea6-e56d-460b-b71b-7927d101792d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_date
+    - node.type.status_report
+  module:
+    - datetime
+_core:
+  default_config_hash: 2Vxqf84Y0LRncplK0UcSFAJwTgM248vl06j6g9d0dxA
+id: node.status_report.field_length_date
+field_name: field_length_date
+entity_type: node
+bundle: status_report
+label: 'Date Measured'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

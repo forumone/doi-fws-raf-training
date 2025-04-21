@@ -1,0 +1,26 @@
+uuid: b5539a22-c0e1-41cd-a006-7dc62e1475be
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: yVxhMg2VokRTiy4Bkhw7zPO_T0yAyoDStJEFZJkS7_U
+id: fws_raf_sightingcount
+theme: fws_raf
+region: content
+weight: -6
+provider: null
+plugin: fws_sighting_count
+settings:
+  id: fws_sighting_count
+  label: 'Sighting Count'
+  label_display: '0'
+  provider: fws_sighting
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/observations-map*'

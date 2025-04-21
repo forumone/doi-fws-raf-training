@@ -1,0 +1,22 @@
+uuid: 05c1c1d8-bd5d-438a-ae3f-8ac78de05ffd
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws_gov
+_core:
+  default_config_hash: T0wbI6qVdThbbIqXDZFg_1VZ3_ittXBdEoUH7d7ux_E
+id: fws_gov_local_tasks
+theme: fws_gov
+region: content
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: HlN7eAN2N4JIHsYv56V4E7sqC9bS609KwvGFjyD_mgk
+langcode: en
+uuid: 56337c5b-1957-4932-bbc6-95a470ec87a1
+name: 'FWS: Eastern Population Sandhill Crane Data Entry Portal'
+mail: admin@example.com
+slogan: ''
+page:
+  403: /node/5
+  404: /node/4
+  front: /node/3
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

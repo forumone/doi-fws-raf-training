@@ -1,0 +1,226 @@
+uuid: 1c5afdea-b1ed-496a-bd2f-ec87ba0a3540
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.transfer.field_comments
+    - field.field.node.transfer.field_estimated_length
+    - field.field.node.transfer.field_estimated_weight
+    - field.field.node.transfer.field_from_facility
+    - field.field.node.transfer.field_length
+    - field.field.node.transfer.field_length_date
+    - field.field.node.transfer.field_reason
+    - field.field.node.transfer.field_species_ref
+    - field.field.node.transfer.field_to_facility
+    - field.field.node.transfer.field_transfer_date
+    - field.field.node.transfer.field_veterinarian
+    - field.field.node.transfer.field_weight
+    - field.field.node.transfer.field_weight_date
+    - node.type.transfer
+  module:
+    - datetime
+    - field_group
+    - select2
+    - text
+third_party_settings:
+  field_group:
+    group_transfer_info:
+      children:
+        - field_species_ref
+        - field_transfer_date
+        - field_reason
+        - field_from_facility
+        - field_to_facility
+      label: 'Transfer Information'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        required_fields: true
+    group_measurements:
+      children:
+        - field_weight
+        - field_estimated_weight
+        - field_weight_date
+        - field_length
+        - field_estimated_length
+        - field_length_date
+      label: Measurements
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        required_fields: true
+    group_veterinary:
+      children:
+        - field_veterinarian
+        - field_comments
+      label: 'Veterinary Information'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        required_fields: true
+_core:
+  default_config_hash: L74mLqauEfhXpplRhEcfc35R8MPByft8cKp9jEJJ808
+id: node.transfer.default
+targetEntityType: node
+bundle: transfer
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_comments:
+    type: text_textarea
+    weight: -2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_estimated_length:
+    type: boolean_checkbox
+    weight: -5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_estimated_weight:
+    type: boolean_checkbox
+    weight: -8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_from_facility:
+    type: entity_reference_autocomplete
+    weight: -11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_length:
+    type: number
+    weight: -6
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_length_date:
+    type: datetime_default
+    weight: -4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_reason:
+    type: select2_entity_reference
+    weight: -12
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: -14
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_to_facility:
+    type: entity_reference_autocomplete
+    weight: -10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_transfer_date:
+    type: datetime_default
+    weight: -13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_veterinarian:
+    type: entity_reference_autocomplete
+    weight: -3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: -9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight_date:
+    type: datetime_default
+    weight: -7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

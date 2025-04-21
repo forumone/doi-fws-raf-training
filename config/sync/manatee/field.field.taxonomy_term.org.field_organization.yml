@@ -1,0 +1,21 @@
+uuid: bb11e100-defa-4da6-aee2-e6b61fb7b43d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_organization
+    - taxonomy.vocabulary.org
+_core:
+  default_config_hash: oEBXPluhGbGx98flstJ30UR6PHFn6Ohbr2MSgWFc9Ac
+id: taxonomy_term.org.field_organization
+field_name: field_organization
+entity_type: taxonomy_term
+bundle: org
+label: 'Organization Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

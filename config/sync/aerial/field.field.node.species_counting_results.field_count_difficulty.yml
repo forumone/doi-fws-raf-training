@@ -1,0 +1,31 @@
+uuid: a28a5cb2-fc8e-4f95-b68e-6d20c9409ca4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_count_difficulty
+    - node.type.species_counting_results
+    - taxonomy.vocabulary.species_counting_difficulty
+_core:
+  default_config_hash: 1y5JvVHc1CGWWONTgOsauCj-bZERExEXHp0dQM7G-Jk
+id: node.species_counting_results.field_count_difficulty
+field_name: field_count_difficulty
+entity_type: node
+bundle: species_counting_results
+label: 'Difficulty Level'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species_counting_difficulty: species_counting_difficulty
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

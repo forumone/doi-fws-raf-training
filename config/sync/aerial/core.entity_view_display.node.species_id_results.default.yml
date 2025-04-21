@@ -1,0 +1,73 @@
+uuid: ee5a4547-2d70-426d-973f-7f7f14e60736
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_id_results.field_id_difficulty
+    - field.field.node.species_id_results.field_id_questions
+    - field.field.node.species_id_results.field_region
+    - field.field.node.species_id_results.field_species_group
+    - field.field.node.species_id_results.field_test_score
+    - node.type.species_id_results
+  module:
+    - entity_reference_revisions
+    - user
+_core:
+  default_config_hash: 2gWNW52KocrwuNw_KPwlRFijSNqsGp7L8_tWlYpDk_o
+id: node.species_id_results.default
+targetEntityType: node
+bundle: species_id_results
+mode: default
+content:
+  field_id_difficulty:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_id_questions:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_region:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_species_group:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_test_score:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

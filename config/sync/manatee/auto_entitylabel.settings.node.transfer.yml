@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: orx8rQedMOC60hpJTZuQfaMdCU2lBQGbeCqjek2h6DY
+status: 1
+pattern: 'Transfer [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.transfer
+new_content_behavior: 0

@@ -1,0 +1,24 @@
+uuid: be5b9cbc-659d-4a3b-af4e-8beb16fbec4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_health_diag
+    - node.type.status_report
+  module:
+    - text
+_core:
+  default_config_hash: ATfgPpKBa1lLXg_gijByoJlblr65U82RRlXA6ItH5Pg
+id: node.status_report.field_health_diag
+field_name: field_health_diag
+entity_type: node
+bundle: status_report
+label: 'Health Diagnosis'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

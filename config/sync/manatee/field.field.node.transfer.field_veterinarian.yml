@@ -1,0 +1,27 @@
+uuid: 8c42a593-e44e-4d74-9d71-88c35de089c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.transfer
+_core:
+  default_config_hash: EyCUDVujEod9dlIJpAU_bUYFuvomrbwPoC4AFX2KeJM
+id: node.transfer.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: transfer
+label: Veterinarian
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_org_user
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

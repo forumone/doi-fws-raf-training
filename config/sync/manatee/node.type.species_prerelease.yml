@@ -1,0 +1,13 @@
+uuid: b6972613-283e-4ea8-904f-663cd890ab4a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: WMpMGRClIWEBNg1884bi05tVQPAH9Gs161OR1AT4PSg
+name: 'Species Pre-release'
+type: species_prerelease
+description: 'Stores information entered before the release of a species.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

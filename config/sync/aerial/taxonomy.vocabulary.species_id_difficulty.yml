@@ -1,0 +1,11 @@
+uuid: b5e0937b-3617-41f6-b0f9-168699df4db4
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 72pkYVgGfHnclX1IYxK_5Nqnp5OyzDWnnxWJduF-Mx4
+name: 'Species ID Difficulty'
+vid: species_id_difficulty
+description: 'Difficulty levels for species identification'
+weight: 0
+new_revision: false

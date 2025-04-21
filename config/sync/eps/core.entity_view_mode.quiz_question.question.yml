@@ -1,0 +1,16 @@
+uuid: 3171c64b-3393-44bb-945a-add9827dc54a
+langcode: en
+status: true
+dependencies:
+  module:
+    - quiz
+  enforced:
+    module:
+      - quiz
+_core:
+  default_config_hash: NqoxXpAXC_CmzT_-jaULHODJEMRnmOqyHosYpocHUXA
+id: quiz_question.question
+label: Question
+description: ''
+targetEntityType: quiz_question
+cache: true

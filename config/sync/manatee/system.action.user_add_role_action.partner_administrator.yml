@@ -1,0 +1,14 @@
+uuid: a974055a-a533-4940-98bb-214c2fa27e8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.partner_administrator
+  module:
+    - user
+id: user_add_role_action.partner_administrator
+label: 'Add the Partner Administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: partner_administrator

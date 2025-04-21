@@ -1,0 +1,23 @@
+uuid: 40009b61-e557-452f-b570-6211810783a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length_date
+    - node.type.transfer
+  module:
+    - datetime
+_core:
+  default_config_hash: AHYiVT7lUVujFBGaWV7h99gU-DOqaVtQRzgvp_BRbAQ
+id: node.transfer.field_length_date
+field_name: field_length_date
+entity_type: node
+bundle: transfer
+label: 'Length Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

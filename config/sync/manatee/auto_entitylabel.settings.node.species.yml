@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: PBIEqZlyY4ZZc4Bmuj8TWPFDLlcyziA4U1fbYhu6zXI
+status: 1
+pattern: 'MLog [node:field_number]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species
+new_content_behavior: 0

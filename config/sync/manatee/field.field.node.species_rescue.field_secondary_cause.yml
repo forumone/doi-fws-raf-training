@@ -1,0 +1,27 @@
+uuid: 64e94f75-c3e2-4429-b8fd-506d3b7ac80a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_secondary_cause
+    - node.type.species_rescue
+_core:
+  default_config_hash: d9QIkIRYEDltLwk9YXhplCzOYWDrAdfJIPuxgKQsSuo
+id: node.species_rescue.field_secondary_cause
+field_name: field_secondary_cause
+entity_type: node
+bundle: species_rescue
+label: 'Secondary Cause'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_4
+      arguments: {  }
+field_type: entity_reference

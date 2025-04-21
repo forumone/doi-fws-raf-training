@@ -1,0 +1,25 @@
+uuid: 3e070be2-1fa5-46f2-802f-b0e98779b3b1
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fws_gov
+_core:
+  default_config_hash: sG8t_FghbUscJ-GrnQ8zs_vx5YM4bJCfntrK-J5HcAY
+id: fws_gov_branding
+theme: fws_gov
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

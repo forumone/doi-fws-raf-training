@@ -1,0 +1,35 @@
+uuid: 72a37154-c2e7-47d4-bdcd-103c4f74b2e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.tracking_births
+  module:
+    - node
+    - views
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: 48WCEihdt5En6sAc_F25yUpBwpitXUPUixSoHHghj0g
+id: fws_raf_views_block__tracking_births_block_1
+theme: fws_raf
+region: content
+weight: 3
+provider: null
+plugin: 'views_block:tracking_births-block_1'
+settings:
+  id: 'views_block:tracking_births-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      species: species

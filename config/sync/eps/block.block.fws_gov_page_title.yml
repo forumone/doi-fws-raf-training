@@ -1,0 +1,20 @@
+uuid: 2145769a-d6b6-4ad8-abb2-1e7c16915213
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws_gov
+_core:
+  default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
+id: fws_gov_page_title
+theme: fws_gov
+region: content
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

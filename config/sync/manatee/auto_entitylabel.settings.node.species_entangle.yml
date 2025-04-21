@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: 1KQZdq3uR8u-aYyp3pNOaQ28psf2lvuTAlrRqOwfcO0
+status: 1
+pattern: 'Entanglement [node:field_number]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_entangle
+new_content_behavior: 0

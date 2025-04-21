@@ -1,0 +1,23 @@
+uuid: 0ec798c2-10a9-44cc-8d2a-5a0bd6519c41
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.species_rescue
+  module:
+    - datetime
+_core:
+  default_config_hash: b4AhJWSlTCz1JvOQ4armEzxLmxXMpoAV4oUSa0Jddc0
+id: node.species_rescue.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: species_rescue
+label: 'Date Weighed'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,14 @@
+uuid: 40308784-61cf-4c07-ad83-b49dfa00b89b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.spotter
+  module:
+    - user
+id: user_add_role_action.spotter
+label: 'Add the Spotter role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: spotter

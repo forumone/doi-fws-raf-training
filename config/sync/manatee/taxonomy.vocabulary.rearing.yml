@@ -1,0 +1,11 @@
+uuid: eb6a0bf7-78eb-416c-8b1c-424fc25f9256
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Z3vWw0ZVWsJWdchUTMTYB--v-io_bTkMAqQ3t-s4MwE
+name: 'Rearing Types'
+vid: rearing
+description: 'Lookup table for categories of how species were raised'
+weight: 0
+new_revision: false

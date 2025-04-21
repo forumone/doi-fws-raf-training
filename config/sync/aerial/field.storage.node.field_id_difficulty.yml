@@ -1,0 +1,22 @@
+uuid: 78376764-58de-426d-a931-929c58cb6f74
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: Ny7ozgJBWX9OO1OOMsLV4ofTxmkP6f-duTCAkcFWf5A
+id: node.field_id_difficulty
+field_name: field_id_difficulty
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

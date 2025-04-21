@@ -1,0 +1,22 @@
+uuid: 738379b0-f2c3-49a2-8431-f6fe98b9b904
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: TW1Q3rgep5JG0fwkVjx13EyCTACGdPp6sXAVCA_lb18
+id: taxonomy_term.field_difficulty_level
+field_name: field_difficulty_level
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: true
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

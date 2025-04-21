@@ -1,0 +1,27 @@
+uuid: 77cb8bf0-548f-4834-ba3f-de652f3c17a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-menu-legal
+  module:
+    - system
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: OZ3ndgdp-BKm3oIxNPHuSQYrsWbNpIov0sVfqQEMYeE
+id: fws_raf_footermenulegal
+theme: fws_raf
+region: footer_menus
+weight: -6
+provider: null
+plugin: 'system_menu_block:footer-menu-legal'
+settings:
+  id: 'system_menu_block:footer-menu-legal'
+  label: 'Footer Menu - Legal'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,35 @@
+uuid: 3e588942-ff0d-4656-923e-983e3dc4ce03
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.tracking_entanglement
+  module:
+    - node
+    - views
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: DEVy2wkyC9KtSBRCh3cJXM8x4z0oZXHt2jN0E_ABFtM
+id: fws_raf_views_block__tracking_entanglement_block_1
+theme: fws_raf
+region: content
+weight: 8
+provider: null
+plugin: 'views_block:tracking_entanglement-block_1'
+settings:
+  id: 'views_block:tracking_entanglement-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      species: species

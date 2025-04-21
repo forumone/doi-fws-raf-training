@@ -1,0 +1,23 @@
+uuid: 2de2436b-3436-48b7-8c27-ba7464fce7d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_birth_date
+    - node.type.species_birth
+  module:
+    - datetime
+_core:
+  default_config_hash: 4WI-t7_3dn9qkKZFoednewTThRCzmbOE6dkXcDtMWT8
+id: node.species_birth.field_birth_date
+field_name: field_birth_date
+entity_type: node
+bundle: species_birth
+label: 'Birth Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

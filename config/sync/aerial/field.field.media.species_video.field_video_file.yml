@@ -1,0 +1,29 @@
+uuid: 72d83db7-4d2a-4390-a55d-eb30a3a784a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_video_file
+    - media.type.species_video
+  module:
+    - file
+_core:
+  default_config_hash: DKZlsXbvAdWFfLFWCohWtBdHWT08Z8r1QVLdos9VKI8
+id: media.species_video.field_video_file
+field_name: field_video_file
+entity_type: media
+bundle: species_video
+label: 'Video File'
+description: 'The video file for this species'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: videos/test
+  file_extensions: 'mp4 mov'
+  max_filesize: ''
+  description_field: false
+field_type: file

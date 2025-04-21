@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: yttKsZc1KoHIyI-NWtUJR73i8fmXrLvjO7kJA2oNiFM
+status: 1
+pattern: 'Pre-release [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_prerelease
+new_content_behavior: 0

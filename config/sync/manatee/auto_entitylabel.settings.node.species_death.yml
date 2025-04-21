@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: dtNGI_pc0TYQpVhK_kqGWuXkv_xi4qIcqigT03zhsO4
+status: 1
+pattern: 'Death [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_death
+new_content_behavior: 0

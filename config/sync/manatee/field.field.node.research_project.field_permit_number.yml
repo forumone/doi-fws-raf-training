@@ -1,0 +1,21 @@
+uuid: d32fe096-9740-443e-8fc2-f43ea0751ebb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_permit_number
+    - node.type.research_project
+_core:
+  default_config_hash: pZF0u3NLdEVMp9TLpxJ3g0WvkUAT6Xpjf2xFD2gRTBQ
+id: node.research_project.field_permit_number
+field_name: field_permit_number
+entity_type: node
+bundle: research_project
+label: 'Permit Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

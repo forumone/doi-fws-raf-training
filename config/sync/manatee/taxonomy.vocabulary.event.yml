@@ -1,0 +1,11 @@
+uuid: 0f8b8459-1469-4a45-8091-c642d23a1067
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: to3V8IB6YCAKFFmtoBFH5CuK9poEIeeF_HucnLYSGX4
+name: Events
+vid: event
+description: 'Lookup table for events in species life'
+weight: 0
+new_revision: false

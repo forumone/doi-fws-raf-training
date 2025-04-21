@@ -1,0 +1,21 @@
+uuid: 1f9cd058-e016-4e57-bb16-3d2f96865945
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_entanglement_location
+    - node.type.species_entangle
+_core:
+  default_config_hash: en7AkXT420Qf6nWbS0ZQ3FxFjPDYu6otLDeA7jiLceM
+id: node.species_entangle.field_entanglement_location
+field_name: field_entanglement_location
+entity_type: node
+bundle: species_entangle
+label: 'Entanglement Location'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

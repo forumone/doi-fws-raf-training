@@ -1,0 +1,25 @@
+uuid: 2c4d535d-1829-4670-919c-7a99b0e07ad3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_plumage
+    - media.type.species_image
+  module:
+    - options
+_core:
+  default_config_hash: tsYCPrO8_ONGzJVZGxJpS7WA9sIgo5RrVG8N-TG_L2c
+id: media.species_image.field_plumage
+field_name: field_plumage
+entity_type: media
+bundle: species_image
+label: Plumage
+description: 'The plumage type of the species.'
+required: true
+translatable: true
+default_value:
+  -
+    value: uniform
+default_value_callback: ''
+settings: {  }
+field_type: list_string

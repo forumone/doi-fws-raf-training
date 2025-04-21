@@ -1,0 +1,21 @@
+uuid: 75c1442d-75ba-4b10-9c78-8d1f6a0ec05b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pi_name
+    - node.type.pi
+_core:
+  default_config_hash: deydVskrqPhQbcjRKbbJkhbgXNQ31Wm0KA0dcPLVoks
+id: node.pi.field_pi_name
+field_name: field_pi_name
+entity_type: node
+bundle: pi
+label: 'PI Name'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

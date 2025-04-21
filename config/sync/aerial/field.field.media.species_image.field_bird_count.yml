@@ -1,0 +1,27 @@
+uuid: 412ec1cb-c53e-4fbf-8ff2-adfbb4a0033c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_bird_count
+    - media.type.species_image
+_core:
+  default_config_hash: 7ccY7Cd2wswmyjPoe_5O7kGzhdIkC0wioCgyGh7whXI
+id: media.species_image.field_bird_count
+field_name: field_bird_count
+entity_type: media
+bundle: species_image
+label: 'Bird Count'
+description: 'The number of birds visible in the image.'
+required: true
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

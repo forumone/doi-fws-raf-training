@@ -1,0 +1,27 @@
+uuid: a5d358cf-fa3f-439b-adc0-7ee15c0b5c1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.species_rescue
+_core:
+  default_config_hash: 6mJGNHzk_C2yQP51LcSIawvHh0T0yB5293aMxdOKnb4
+id: node.species_rescue.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: species_rescue
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_org_user
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

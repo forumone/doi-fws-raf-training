@@ -1,0 +1,25 @@
+uuid: de7d5333-ab0a-40e4-82d1-ebae41086a57
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: KpfFPyLu7L_Xpbf4HRlF58s_tTlU95TyHOCSnysbaI4
+id: tests
+label: Tests
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  04ee2c5d-58fc-4989-aacb-b1972debef4e:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 04ee2c5d-58fc-4989-aacb-b1972debef4e
+    context_mapping:
+      node: node
+    bundles:
+      species_counting_results: species_counting_results
+      species_id_results: species_id_results
+selection_logic: and
+weight: -5
+relationships: {  }

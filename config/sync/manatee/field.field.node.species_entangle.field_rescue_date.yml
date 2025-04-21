@@ -1,0 +1,23 @@
+uuid: 787876cd-ad22-48e0-9cd0-30425901293e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rescue_date
+    - node.type.species_entangle
+  module:
+    - datetime
+_core:
+  default_config_hash: rExtvy8My0O5OzAFvUqKbffbo1XpcN-fZS4HDnk6MfE
+id: node.species_entangle.field_rescue_date
+field_name: field_rescue_date
+entity_type: node
+bundle: species_entangle
+label: 'Rescue Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

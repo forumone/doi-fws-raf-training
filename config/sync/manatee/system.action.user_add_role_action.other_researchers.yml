@@ -1,0 +1,14 @@
+uuid: 3fb02a22-a9c1-440f-b57e-aacb16ba6d2f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.other_researchers
+  module:
+    - user
+id: user_add_role_action.other_researchers
+label: 'Add the Other Researchers role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: other_researchers

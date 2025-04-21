@@ -1,0 +1,31 @@
+uuid: 8580aaaa-2666-4824-8591-432ceeb82d87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_species_choices
+    - media.type.species_video
+    - taxonomy.vocabulary.species
+_core:
+  default_config_hash: xOCxpG5MRiANdh9GZR5alTuykOg5Gn60M_91r_sFRj8
+id: media.species_video.field_species_choices
+field_name: field_species_choices
+entity_type: media
+bundle: species_video
+label: 'Species Choices'
+description: 'The possible species choices for this video'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species: species
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

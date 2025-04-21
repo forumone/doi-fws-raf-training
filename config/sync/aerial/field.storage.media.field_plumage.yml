@@ -1,0 +1,29 @@
+uuid: 062d293e-73c9-4929-8e73-a354f54fd0fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - options
+_core:
+  default_config_hash: yl-hTqxz__NMe1GJYG3GIzpHUlUC3FD2IOcnlvJDft0
+id: media.field_plumage
+field_name: field_plumage
+entity_type: media
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: uniform
+      label: Uniform
+    -
+      value: dimorphic
+      label: Dimorphic
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

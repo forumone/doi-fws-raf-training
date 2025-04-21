@@ -1,0 +1,11 @@
+uuid: 8720ee85-0fed-4982-b6f4-168688788ee9
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Xe8PxJp0k1mN-Kn_pqEku5sZF9RyPjE3WWX8cPsjuNE
+name: 'Health Status'
+vid: health
+description: 'Lookup table for health status'
+weight: 0
+new_revision: false

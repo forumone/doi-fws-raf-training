@@ -1,0 +1,33 @@
+_core:
+  default_config_hash: xCt60USSruP_xzvTTtyIh9KUUnLccUlHyucmmDM5U3o
+contexts:
+  -
+    context: ''
+    translations:
+      -
+        source: 'Search Species Information'
+        translation: 'Search Manatee Information'
+      -
+        source: Species
+        translation: Manatee
+      -
+        source: species
+        translation: manatee
+      -
+        source: 'Species Births'
+        translation: 'Manatee Births'
+      -
+        source: 'Species ID'
+        translation: 'Animal ID'
+      -
+        source: 'Species Number'
+        translation: 'Manatee Number'
+      -
+        source: 'Tracking ID Information'
+        translation: 'Animal ID Information'
+      -
+        source: 'Tracking Number'
+        translation: MLog
+      -
+        source: 'Tracking ID'
+        translation: 'Animal ID'

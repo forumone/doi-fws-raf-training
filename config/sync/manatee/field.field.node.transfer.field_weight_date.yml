@@ -1,0 +1,23 @@
+uuid: 8aca0b28-b53c-41bd-9fd5-17a5b733e8e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.transfer
+  module:
+    - datetime
+_core:
+  default_config_hash: KsUdp9bVBnwR6c-DKyMU9m5H_KydRWsls5B2L1UTv2M
+id: node.transfer.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: transfer
+label: 'Weight Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,25 @@
+uuid: c9192093-eb0d-47c4-a9b9-8113922a8d7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.species_birth
+_core:
+  default_config_hash: aNIRrCR-tB0GJtLIZIgCrGqYPV9YQ-x56ivS0mV6RCw
+id: node.species_birth.field_weight
+field_name: field_weight
+entity_type: node
+bundle: species_birth
+label: Weight
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ' kg'
+field_type: integer

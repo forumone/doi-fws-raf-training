@@ -1,0 +1,27 @@
+uuid: 7d65b7df-b831-47c9-9c87-13e9e0f0dd3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pregnant
+    - node.type.species_rescue
+_core:
+  default_config_hash: bbI3MYAGeJx_w4krQgsvgu20lcyHL7n0G9QyJHKhJRY
+id: node.species_rescue.field_pregnant
+field_name: field_pregnant
+entity_type: node
+bundle: species_rescue
+label: 'Suspected Pregnant'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_15
+      arguments: {  }
+field_type: entity_reference

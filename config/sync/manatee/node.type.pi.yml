@@ -1,0 +1,13 @@
+uuid: 955dfa76-7f58-44d8-b55d-d2f6af68527a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: nCf_48dzJ5qxva-s89z93vsB1OTtCFEc1Qba_AV2OXc
+name: PI
+type: pi
+description: 'Principal Investigator information'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

@@ -1,0 +1,12 @@
+uuid: 22503d61-3d3e-43a3-bfef-7b066230cbc1
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: iK6eXOeCPCF_lNrvNtSwxeA5ARA_gQPmoXsQxNapMUM
+id: species_name
+label: Name
+icon_uuid: null
+icon_default: null
+description: 'Associated given names of a species.'
+behavior_plugins: {  }

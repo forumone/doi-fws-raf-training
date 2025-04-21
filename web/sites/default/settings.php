@@ -288,7 +288,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '8uy-Sa3mER5Bo-FneOAIX3RKX5XAQRygCs1lgNB0Mt3ldGwp9egq4WoisxTHuU-ylbMEV4IZFw';
+$settings['hash_salt'] = 'POf0NQdpwqLZbUUTNp723_TQn7Sch9Ti3W318fuN5fcUJAhHmoRhY5a1nt7AU8xKvPnWZU3KEw';
 
 /**
  * Deployment identifier.
@@ -911,7 +911,7 @@ if (file_exists('/var/www/site-php')) {
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
-$settings['config_sync_directory'] = '../config/sync';
+$settings['config_sync_directory'] = '../config/sync/manatee';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -928,6 +928,18 @@ $config['system.site']['header_links_auth'] = TRUE;
 
 $settings['replace_species_with_manatee'] = TRUE;
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
+$databases['default']['default'] = array (
+  'database' => 'db',
+  'username' => 'db',
+  'password' => 'db',
+  'prefix' => '',
+  'host' => 'db',
+  'port' => 3306,
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);
 $databases['default']['default'] = array (
   'database' => 'db',
   'username' => 'db',

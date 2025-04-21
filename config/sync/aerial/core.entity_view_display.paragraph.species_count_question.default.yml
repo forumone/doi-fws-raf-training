@@ -1,0 +1,47 @@
+uuid: e773f611-6e87-4d26-9231-1aec71983843
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.species_count_question.field_count_accuracy
+    - field.field.paragraph.species_count_question.field_count_media_reference
+    - field.field.paragraph.species_count_question.field_user_count
+    - paragraphs.paragraphs_type.species_count_question
+_core:
+  default_config_hash: cU4qYwyiQrEy2DufWjdswCnLX6q8PGf6fmRDk5MSdKA
+id: paragraph.species_count_question.default
+targetEntityType: paragraph
+bundle: species_count_question
+mode: default
+content:
+  field_count_accuracy:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_count_media_reference:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_user_count:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

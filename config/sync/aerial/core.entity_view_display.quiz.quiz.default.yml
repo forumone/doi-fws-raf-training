@@ -1,0 +1,40 @@
+uuid: 0b12f4d7-7ff3-4ad4-8b49-6e5c01f08fe0
+langcode: en
+status: true
+dependencies:
+  config:
+    - quiz.type.quiz
+  module:
+    - text
+  enforced:
+    module:
+      - quiz
+_core:
+  default_config_hash: lyotIxAmVKyyZEuMtG5m3WxR9kd5XfOIWcO2-fQ4Nig
+id: quiz.quiz.default
+targetEntityType: quiz
+bundle: quiz
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 0
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  stats:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  take:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  quiz_date: true
+  search_api_excerpt: true
+  takes: true
+  time_limit: true

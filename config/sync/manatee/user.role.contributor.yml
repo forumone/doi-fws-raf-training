@@ -1,0 +1,49 @@
+uuid: 7a4e741c-39bb-4834-9780-c9f0634ea591
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.other_names
+    - node.type.rescue_release
+    - node.type.species
+    - node.type.species_birth
+    - node.type.species_conditioning
+    - node.type.species_death
+    - node.type.species_entangle
+    - node.type.species_id
+    - node.type.species_prerelease
+    - node.type.species_release
+    - node.type.species_rescue
+    - node.type.species_tag
+    - node.type.status_report
+    - node.type.transfer
+  module:
+    - content_moderation
+    - node
+    - system
+    - tracking_reports
+_core:
+  default_config_hash: 70SWyeDFQUYlmEpR6pcnCGpaEEJO-BCHni1d2tiR2_c
+id: contributor
+label: Contributor
+weight: -5
+is_admin: null
+permissions:
+  - 'access content'
+  - 'access tracking reports'
+  - 'access user profiles'
+  - 'create other_names content'
+  - 'create rescue_release content'
+  - 'create species content'
+  - 'create species_birth content'
+  - 'create species_conditioning content'
+  - 'create species_death content'
+  - 'create species_entangle content'
+  - 'create species_id content'
+  - 'create species_prerelease content'
+  - 'create species_release content'
+  - 'create species_rescue content'
+  - 'create species_tag content'
+  - 'create status_report content'
+  - 'create transfer content'
+  - 'view any unpublished content'

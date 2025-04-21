@@ -1,0 +1,23 @@
+uuid: fcf1d817-92a4-4836-bb54-3765eca8282e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_estimated
+    - node.type.species_birth
+_core:
+  default_config_hash: WJA0ZPjr-ghwOGfpHsZQeApVae6VdoPpCwairLPlo0g
+id: node.species_birth.field_weight_estimated
+field_name: field_weight_estimated
+entity_type: node
+bundle: species_birth
+label: 'Estimated Weight'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,35 @@
+uuid: 80d67ae8-c59e-4bac-b0ff-80c9b1582f25
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.tracking_ids
+  module:
+    - node
+    - views
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: LI09-fuQMkS6j1nFXOTqYXH6sUQEDvztn_CROkw3kXs
+id: fws_raf_views_block__tracking_ids_block_1
+theme: fws_raf
+region: content
+weight: 2
+provider: null
+plugin: 'views_block:tracking_ids-block_1'
+settings:
+  id: 'views_block:tracking_ids-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      species: species
