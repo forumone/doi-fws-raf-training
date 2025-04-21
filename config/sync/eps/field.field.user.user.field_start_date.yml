@@ -1,0 +1,26 @@
+uuid: 0dad020b-52ef-4029-96dd-918a330b3cd7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_start_date
+  module:
+    - datetime
+    - user
+_core:
+  default_config_hash: HMQ2XwOE_DuMVyji5re9NRvZVjutyQ1o62oMUBPmhEE
+id: user.user.field_start_date
+field_name: field_start_date
+entity_type: user
+bundle: user
+label: 'Start Date'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

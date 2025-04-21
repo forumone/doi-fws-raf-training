@@ -1,0 +1,26 @@
+uuid: f149eeb3-305f-427a-b007-6376d77f945f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_time
+    - node.type.sighting
+  module:
+    - datetime
+_core:
+  default_config_hash: 1BoKIOjhyjQiFuL7I2BIV6aYjdgSzpuHDZcjXtd2_NE
+id: node.sighting.field_date_time
+field_name: field_date_time
+entity_type: node
+bundle: sighting
+label: 'Date & Time'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

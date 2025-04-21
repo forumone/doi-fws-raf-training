@@ -1,0 +1,23 @@
+uuid: 413d0cb7-930b-4b9f-b919-ccb158134bba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_state
+    - node.type.sighting
+  module:
+    - options
+_core:
+  default_config_hash: GgJK55tygdH6RMuob0D-UMyS9TES0O6ofvFJkPC6aK0
+id: node.sighting.field_state
+field_name: field_state
+entity_type: node
+bundle: sighting
+label: State
+description: 'The US state or territory where the sighting occurred'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

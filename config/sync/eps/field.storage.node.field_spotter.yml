@@ -1,0 +1,23 @@
+uuid: c22a659c-4815-4470-83f5-0e27b93d7a52
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: tQKF9q-pDtCN9iXftCsBN-HNHaj-3QkKFnO6l6uJJ9Q
+id: node.field_spotter
+field_name: field_spotter
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
