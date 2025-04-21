@@ -1,0 +1,21 @@
+uuid: 9c9b94b6-436d-4790-b993-830caf9970dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veg_type
+    - node.type.species_prerelease
+_core:
+  default_config_hash: fmT1LBHcb20WIXPIyncJnfjrQXnVnLNHtvyy3ugz9_M
+id: node.species_prerelease.field_veg_type
+field_name: field_veg_type
+entity_type: node
+bundle: species_prerelease
+label: 'Vegetation Type'
+description: 'Please remember to include the species (e.g. eelgrass).'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

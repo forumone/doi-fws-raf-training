@@ -1,0 +1,23 @@
+uuid: 6c347e40-d995-49ab-b541-00aa13679593
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_form_complete
+    - node.type.species_prerelease
+_core:
+  default_config_hash: AAD3b2JcDBcwFn0ywaWDBYK2N1aYbw3gptSPLMs0Gj4
+id: node.species_prerelease.field_form_complete
+field_name: field_form_complete
+entity_type: node
+bundle: species_prerelease
+label: 'If freeze-branded, Scar, or Cookie applied, was form completed?'
+description: '<a href="http://apps.fws.doi.net/ext-dev/manatee/Document/FB%208%20Scar%20form.pdf" target="_blank">FB & Scar Form</a>'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

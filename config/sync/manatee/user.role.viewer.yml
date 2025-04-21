@@ -1,0 +1,18 @@
+uuid: 24032e7f-8638-4d7c-9f7f-db18682629b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_moderation
+    - system
+    - tracking_reports
+_core:
+  default_config_hash: ZL8mDlbkWN7zrYF5ae0iJZ-dyM44kGBxzuZoZG0Hisw
+id: viewer
+label: Viewer
+weight: -4
+is_admin: null
+permissions:
+  - 'access content'
+  - 'access tracking reports'
+  - 'view any unpublished content'

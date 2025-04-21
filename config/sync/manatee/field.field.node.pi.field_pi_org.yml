@@ -1,0 +1,21 @@
+uuid: 218903de-71d3-458b-9f45-e7fa2793104f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pi_org
+    - node.type.pi
+_core:
+  default_config_hash: AZzUv6CNIbCZFsd74g3UqJwH4_Q7iUGbtacUlNrbu7s
+id: node.pi.field_pi_org
+field_name: field_pi_org
+entity_type: node
+bundle: pi
+label: 'PI Organization'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

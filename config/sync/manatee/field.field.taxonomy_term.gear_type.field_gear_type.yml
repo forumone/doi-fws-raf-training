@@ -1,0 +1,21 @@
+uuid: 9832ef7b-a15a-4612-94e2-668412670146
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_gear_type
+    - taxonomy.vocabulary.gear_type
+_core:
+  default_config_hash: gB24dtK9pw-1jkAMqBmqEE-fV4rsUFY6jFLAII9OXkg
+id: taxonomy_term.gear_type.field_gear_type
+field_name: field_gear_type
+entity_type: taxonomy_term
+bundle: gear_type
+label: 'Gear Type Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

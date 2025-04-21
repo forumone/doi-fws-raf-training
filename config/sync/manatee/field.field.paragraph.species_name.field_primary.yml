@@ -1,0 +1,23 @@
+uuid: 63adf3c8-fbbc-4619-b242-a9565f224a6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_primary
+    - paragraphs.paragraphs_type.species_name
+_core:
+  default_config_hash: InJlvfm_0yH1L0rOvEtQAfGyuU_HQ3gbBaAyJnHeI9M
+id: paragraph.species_name.field_primary
+field_name: field_primary
+entity_type: paragraph
+bundle: species_name
+label: 'Primary Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

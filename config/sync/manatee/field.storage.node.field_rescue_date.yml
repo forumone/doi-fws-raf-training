@@ -1,0 +1,22 @@
+uuid: 340e97e4-efe0-4349-8508-1c0231890e2f
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+_core:
+  default_config_hash: dPrID2kYT603CYAu0hNMbQZEq6MKM-kn_WvFgGsADDM
+id: node.field_rescue_date
+field_name: field_rescue_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

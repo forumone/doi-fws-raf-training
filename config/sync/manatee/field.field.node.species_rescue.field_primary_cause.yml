@@ -1,0 +1,27 @@
+uuid: b9bda15b-7cf4-4817-8fbb-ff783134a896
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_cause
+    - node.type.species_rescue
+_core:
+  default_config_hash: SzyPU7-Hx80EFh2Xdh4VWANENjJnz9MtaTIKovholaQ
+id: node.species_rescue.field_primary_cause
+field_name: field_primary_cause
+entity_type: node
+bundle: species_rescue
+label: 'Primary Cause'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_4
+      arguments: {  }
+field_type: entity_reference

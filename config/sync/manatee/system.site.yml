@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: HlN7eAN2N4JIHsYv56V4E7sqC9bS609KwvGFjyD_mgk
+langcode: en
+uuid: 61afe76b-6cba-47ca-8f35-53c6b09fcc1c
+name: 'FWS: Manatee Rescue and Rehabilitation Database'
+mail: admin@example.com
+slogan: ''
+page:
+  403: /node/8
+  404: /node/6
+  front: /user
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

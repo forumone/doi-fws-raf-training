@@ -1,0 +1,25 @@
+uuid: 44c6c662-a4ba-4cbe-b65c-076727c30655
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.status_report
+_core:
+  default_config_hash: 70xrkc6yHIg8ihDE70aRkHwvedUApgMk2K_Wua9vo2Y
+id: node.status_report.field_weight
+field_name: field_weight
+entity_type: node
+bundle: status_report
+label: Weight
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: kg
+field_type: integer

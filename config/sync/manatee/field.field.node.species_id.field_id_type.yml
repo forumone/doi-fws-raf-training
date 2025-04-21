@@ -1,0 +1,27 @@
+uuid: cbb908bc-7d98-49bc-928f-de0734a3c864
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_id_type
+    - node.type.species_id
+    - taxonomy.vocabulary.id_type
+_core:
+  default_config_hash: ZdWs66Pp_9_d8OvyWabIw2MHpKlvChuR8u-Wh7g_lCo
+id: node.species_id.field_id_type
+field_name: field_id_type
+entity_type: node
+bundle: species_id
+label: 'ID Type'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      id_type: id_type
+    auto_create: false
+field_type: entity_reference

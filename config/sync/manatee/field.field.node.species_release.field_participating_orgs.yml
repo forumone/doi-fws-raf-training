@@ -1,0 +1,27 @@
+uuid: ebcda30b-e0db-4838-b99a-314471d58292
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_participating_orgs
+    - node.type.species_release
+_core:
+  default_config_hash: zBFoxct0XWAWYGxiWbiQ7h1SokVIyzX5x5CGUzbaNDo
+id: node.species_release.field_participating_orgs
+field_name: field_participating_orgs
+entity_type: node
+bundle: species_release
+label: 'Participating Organizations'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
+field_type: entity_reference

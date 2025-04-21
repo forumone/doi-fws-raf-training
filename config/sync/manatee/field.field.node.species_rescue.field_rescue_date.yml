@@ -1,0 +1,23 @@
+uuid: 504f76c1-1bde-4199-85cf-56fda42eef68
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rescue_date
+    - node.type.species_rescue
+  module:
+    - datetime
+_core:
+  default_config_hash: EFkiXPbNc5uL-8lFopX76MJRiOi7tjp-AEVA4lZRoSg
+id: node.species_rescue.field_rescue_date
+field_name: field_rescue_date
+entity_type: node
+bundle: species_rescue
+label: 'Rescue Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,23 @@
+uuid: a9f602db-62fa-48e7-b32a-c77f2e107241
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.species_rescue
+  module:
+    - geolocation
+_core:
+  default_config_hash: TD6DyTAdwRHauBNP2uRcMZAWPJLMIiqjofp-v94M5yk
+id: node.species_rescue.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: species_rescue
+label: Location
+description: 'The geographic location where the rescue took place.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

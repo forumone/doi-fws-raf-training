@@ -1,0 +1,27 @@
+uuid: ded2bda7-9709-4215-9cda-80efcaa1d5fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_system
+    - node.type.other_names
+_core:
+  default_config_hash: Ii-KqZNYi43OkfM9kbQ3Vn8mTtGJOQKZS1fDizW5SJQ
+id: node.other_names.field_system
+field_name: field_system
+entity_type: node
+bundle: other_names
+label: System
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_16
+      arguments: {  }
+field_type: entity_reference

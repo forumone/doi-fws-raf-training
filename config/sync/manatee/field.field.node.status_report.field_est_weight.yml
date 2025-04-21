@@ -1,0 +1,23 @@
+uuid: cd5cb3b8-7289-4f09-bc6c-964afe55d591
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_est_weight
+    - node.type.status_report
+  module:
+    - options
+_core:
+  default_config_hash: wwVnYdTEI9KxBlFCSiWcUtUt5a7T4WvXzkYGHKOK9EY
+id: node.status_report.field_est_weight
+field_name: field_est_weight
+entity_type: node
+bundle: status_report
+label: 'Estimated Weight'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

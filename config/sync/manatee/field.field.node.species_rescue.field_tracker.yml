@@ -1,0 +1,21 @@
+uuid: 74c99350-7c85-4e18-9467-ee5667f561ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tracker
+    - node.type.species_rescue
+_core:
+  default_config_hash: rZ2_LF91ZzE6cmEBK6RhVpVW6WMI3DuCbljgt-1Qw4A
+id: node.species_rescue.field_tracker
+field_name: field_tracker
+entity_type: node
+bundle: species_rescue
+label: Tracker
+description: 'The name of the person who tracked.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,23 @@
+uuid: 7fe9114c-c1ee-4928-b4e0-6a3dfd518a08
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: CmO1BgPDboV9OJ0_R6GwUVh6IF1cpCjYABDFE4rB5g8
+id: taxonomy_term.field_rescue_cause
+field_name: field_rescue_cause
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 30
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: n0Q5s9I9w5ODz4ldkBNPDqk0xCaMYt214V63-5CrOtc
+status: 1
+pattern: 'Status Report [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.status_report
+new_content_behavior: 0

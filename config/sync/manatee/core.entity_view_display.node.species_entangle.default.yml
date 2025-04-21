@@ -1,0 +1,75 @@
+uuid: 4e4b6851-2bc0-4692-a276-29760da56de3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_entangle.field_entanglement_location
+    - field.field.node.species_entangle.field_gear_description
+    - field.field.node.species_entangle.field_gear_type
+    - field.field.node.species_entangle.field_rescue_date
+    - field.field.node.species_entangle.field_rescue_per_day
+    - field.field.node.species_entangle.field_species_ref
+    - node.type.species_entangle
+  module:
+    - datetime
+    - user
+_core:
+  default_config_hash: 32NxvhSQn3vkZkrBEJZWzxRM8vep8J2fVLN5JXfKMH8
+id: node.species_entangle.default
+targetEntityType: node
+bundle: species_entangle
+mode: default
+content:
+  field_entanglement_location:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_gear_description:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_gear_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_rescue_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_rescue_per_day:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

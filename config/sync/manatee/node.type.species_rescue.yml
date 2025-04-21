@@ -1,0 +1,13 @@
+uuid: a5ad34e1-e242-49b1-9c2b-eaa2d3cb33aa
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 6HCmPwZdApG_nutTulJMZ9Auji_Ja_MvlfPZK95I9Ps
+name: 'Species Rescue'
+type: species_rescue
+description: 'Stores information about species rescues'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

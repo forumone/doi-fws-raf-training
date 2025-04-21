@@ -1,0 +1,21 @@
+uuid: 97c34ff5-8d58-4f56-a4f8-ae093b175764
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fund_org
+    - node.type.research_project
+_core:
+  default_config_hash: 8nOOn3el8gkovifEMwZDq7u6hl-kSEog_EIQyc55_o8
+id: node.research_project.field_fund_org
+field_name: field_fund_org
+entity_type: node
+bundle: research_project
+label: 'Funding Organization'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

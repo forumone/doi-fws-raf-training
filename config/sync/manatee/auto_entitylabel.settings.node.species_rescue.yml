@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: NwPCGZwdBW0lLoj-QiLXlUEFKlg3109ZXSZF5t0H6PQ
+status: 1
+pattern: 'Rescue [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_rescue
+new_content_behavior: 0

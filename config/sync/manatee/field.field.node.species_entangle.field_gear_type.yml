@@ -1,0 +1,27 @@
+uuid: c6471620-d614-4411-b578-a1aacca6e6ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gear_type
+    - node.type.species_entangle
+_core:
+  default_config_hash: i7ZOlMC9rb941HgrA-FvZdNSOgoGPCfhf3enISBs4DE
+id: node.species_entangle.field_gear_type
+field_name: field_gear_type
+entity_type: node
+bundle: species_entangle
+label: 'Type of Gear'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_17
+      arguments: {  }
+field_type: entity_reference

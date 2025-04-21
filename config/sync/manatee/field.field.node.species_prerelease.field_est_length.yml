@@ -1,0 +1,23 @@
+uuid: 2c3bbdf2-9c6e-4355-9d6a-7489a6630b50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_est_length
+    - node.type.species_prerelease
+  module:
+    - options
+_core:
+  default_config_hash: 7N0frRmM7Hd7tSjkr0gtQys4Ex2bLswa6UXb7xb-e0k
+id: node.species_prerelease.field_est_length
+field_name: field_est_length
+entity_type: node
+bundle: species_prerelease
+label: 'Estimated Length'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

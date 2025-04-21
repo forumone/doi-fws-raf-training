@@ -1,0 +1,11 @@
+uuid: 110306ca-7db9-45a2-a9ec-f16183065f4e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _dn0-01c-nPvNnmZ0ujwxAEYr2a74Cm8deRY4haWS0w
+name: State
+vid: state
+description: 'Lookup table for State'
+weight: 0
+new_revision: false

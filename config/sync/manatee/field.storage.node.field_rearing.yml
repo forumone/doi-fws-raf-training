@@ -1,0 +1,22 @@
+uuid: c1314996-e02e-4b72-a57b-8036f81fcfc8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: uHFLt2vKGo3249mJ2XWfAFjRt4DUfog4mJDcgCNTQz4
+id: node.field_rearing
+field_name: field_rearing
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

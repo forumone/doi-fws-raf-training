@@ -1,0 +1,21 @@
+uuid: ab4e4628-0809-4e14-bb67-427f8a4ffd90
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+_core:
+  default_config_hash: G86jYwigne1DvGrncvhdZQDuan3CgmkqC1K9mW5cb1A
+id: node.field_secondary_cause_detail
+field_name: field_secondary_cause_detail
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

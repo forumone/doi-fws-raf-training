@@ -1,0 +1,86 @@
+uuid: b86f9f1a-09ab-41b8-b49e-2eb8a3270f4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species_tag.field_date_applied
+    - field.field.node.species_tag.field_event
+    - field.field.node.species_tag.field_event_date
+    - field.field.node.species_tag.field_species_ref
+    - field.field.node.species_tag.field_tag_id
+    - field.field.node.species_tag.field_tag_info
+    - field.field.node.species_tag.field_tag_type
+    - node.type.species_tag
+  module:
+    - datetime
+    - text
+    - user
+_core:
+  default_config_hash: xXw57mS2ZvkzChWPlTWOCuY6gbLtRjhj73U9Pej6Mqw
+id: node.species_tag.default
+targetEntityType: node
+bundle: species_tag
+mode: default
+content:
+  field_date_applied:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_event:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_event_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: m/d/Y
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_tag_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_tag_info:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_tag_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

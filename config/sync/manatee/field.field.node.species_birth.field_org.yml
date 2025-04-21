@@ -1,0 +1,27 @@
+uuid: 554bd1f7-c990-47b3-bd20-510bb8cdb5e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.species_birth
+_core:
+  default_config_hash: X1wl--vGOQDc-n6A4vlGJ_6tJTPSD4uFUIzuiDu_CYA
+id: node.species_birth.field_org
+field_name: field_org
+entity_type: node
+bundle: species_birth
+label: Facility
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
+field_type: entity_reference

@@ -1,0 +1,81 @@
+uuid: 972f07bc-3ef6-454f-a5f3-13c0534c6723
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.pi.field_pi_address
+    - field.field.node.pi.field_pi_email
+    - field.field.node.pi.field_pi_id
+    - field.field.node.pi.field_pi_name
+    - field.field.node.pi.field_pi_org
+    - field.field.node.pi.field_pi_phone
+    - field.field.node.pi.field_species_ref
+    - node.type.pi
+  module:
+    - user
+_core:
+  default_config_hash: X9BkL9kFTTNwQA-_DSQS12fovOH8-lgajve60-pqZdo
+id: node.pi.default
+targetEntityType: node
+bundle: pi
+mode: default
+content:
+  field_pi_address:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pi_email:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_pi_id:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_pi_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_pi_org:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_pi_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_species_ref:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

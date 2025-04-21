@@ -1,0 +1,21 @@
+uuid: c2b25995-a282-4d3b-8b12-c4714bb51caf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pi_email
+    - node.type.pi
+_core:
+  default_config_hash: TzmUBbMUbAI4XXpTG4yM2hjJw0ZGuH0F3mIt2cM1B7s
+id: node.pi.field_pi_email
+field_name: field_pi_email
+entity_type: node
+bundle: pi
+label: 'PI Email'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,23 @@
+uuid: 108c4719-e235-4842-81a9-cf452ab80844
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: it0v9oaK5ZGWM2D3jx4fP97fL3fIQak95qCwBA6ezK8
+id: taxonomy_term.field_blood_text
+field_name: field_blood_text
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 50
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

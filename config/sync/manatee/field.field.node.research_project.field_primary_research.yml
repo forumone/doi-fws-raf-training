@@ -1,0 +1,26 @@
+uuid: cca860b1-86ef-42d4-b83a-227c26684dbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_primary_research
+    - node.type.research_project
+    - taxonomy.vocabulary.research_cat
+_core:
+  default_config_hash: KSJUjz-JfJQBEYEGapiRqkQ52GQAcA6GA46Klk86CpQ
+id: node.research_project.field_primary_research
+field_name: field_primary_research
+entity_type: node
+bundle: research_project
+label: 'Primary Research Category'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      research_cat: research_cat
+field_type: entity_reference

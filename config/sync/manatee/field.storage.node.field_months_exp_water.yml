@@ -1,0 +1,22 @@
+uuid: 5a32483c-28f0-48d2-9fed-c2c52ffc89cb
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: 4F8QEDcuAVzVjkV8dFGvJrxnL6B_NAHCXvYCWIY1LyA
+id: node.field_months_exp_water
+field_name: field_months_exp_water
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
