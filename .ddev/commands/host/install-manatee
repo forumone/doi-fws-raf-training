@@ -7,8 +7,6 @@ ddev drush site:install minimal --verbose -y --site-name="FWS: Manatee Rescue an
 ddev drush scr ../scripts/manatee/install-cleanup.php
 ddev drush recipe ../recipes/fws-manatee-content
 
-ddev drush config:set system.site page.front /node/2 -y
-
 ddev drush cr
 
 # Import taxonomy and nodes.
