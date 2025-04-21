@@ -4,8 +4,9 @@ a:focus {
   outline: none;
   box-shadow: none;
 }
-*:focus:focus-visible,
-a:focus:focus-visible {
+*:focus:focus-visible, *:focus.focus-visible,
+a:focus:focus-visible,
+a:focus.focus-visible {
   box-shadow: 0 0 0 2px #4c76a8, 0 0 0 6px rgba(76, 118, 168, 0.25);
   border-radius: 2px;
 }
