@@ -57,8 +57,8 @@ default:
       pathauto: 1
   body:
     -
-      value: '<p>For support/assistance with this site, please contact us <a href="form/ercgr-contact">via this form</a>.</p><h2>General Migratory Birds Questions</h2><p>If you have questions about migratory birds that are not related to this website, contact the appropriate <a href="/program/migratory-bird-permits/contact-us">Regional Migratory Bird Permit Office</a>.</p>'
-      format: basic_html
+      value: '<p>For support/assistance with this site, please contact us <a href="https://www.fws.gov/form/ercgr-contact" target="_blank">via this form</a>.</p><h2>General Migratory Birds Questions</h2><p>If you have questions about migratory birds that are not related to this website, contact the appropriate <a href="https://www.fws.gov/program/migratory-bird-permits/contact-us" target="_blank">Regional Migratory Bird Permit Office</a>.</p>'
+      format: full_html
       summary: ''
   field_private:
     -
