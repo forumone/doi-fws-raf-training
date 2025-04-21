@@ -1,0 +1,15 @@
+uuid: 680d9430-f88f-47d4-b30d-711d0c8686c3
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 8RBQtEcmyhUAUskoprwBRi5nNXxL8FtIgYjNUPV5tSY
+id: species_video
+label: 'Species Video'
+description: 'Videos of species for aerial surveys'
+source: video_file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_video_file
+field_map: {  }

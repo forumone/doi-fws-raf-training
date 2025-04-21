@@ -1,0 +1,45 @@
+uuid: afc073a5-fcc1-49f0-a062-b1dff28c6517
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.species_id_question.field_is_correct
+    - field.field.paragraph.species_id_question.field_media_reference
+    - field.field.paragraph.species_id_question.field_user_species_selection
+    - paragraphs.paragraphs_type.species_id_question
+_core:
+  default_config_hash: jIB4m-hEk1bU8wB310e-08QuYOsupWUzjJnURNYHw_M
+id: paragraph.species_id_question.default
+targetEntityType: paragraph
+bundle: species_id_question
+mode: default
+content:
+  field_is_correct:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_media_reference:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_user_species_selection:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

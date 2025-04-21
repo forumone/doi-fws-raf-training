@@ -1,0 +1,25 @@
+uuid: 1af03105-303a-44b6-b67c-14e23b58b71c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_user_count
+    - paragraphs.paragraphs_type.species_count_question
+_core:
+  default_config_hash: yyUWVPPZI2cYA7KHp7SeAr83cXuN8J1D_JdStWkFtPs
+id: paragraph.species_count_question.field_user_count
+field_name: field_user_count
+entity_type: paragraph
+bundle: species_count_question
+label: 'User Count'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

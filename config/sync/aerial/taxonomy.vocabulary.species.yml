@@ -1,0 +1,11 @@
+uuid: 81dea5c2-444a-4cae-b02a-13fac01f0150
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: L-ckHPpVq5aYattv6w6lMhZ4H-Orq6zwzYwkVbj2BpQ
+name: Species
+vid: species
+description: 'Bird species for aerial videos'
+weight: 0
+new_revision: false

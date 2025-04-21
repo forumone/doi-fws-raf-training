@@ -1,0 +1,27 @@
+uuid: e698d1bf-fac1-4706-8212-6a471c8cf925
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-menu-employment
+  module:
+    - system
+  theme:
+    - fws_raf
+_core:
+  default_config_hash: 0FFjb-45S9Fne53I3ab-IQKpsDQ8ClTBvZrd77FgtTs
+id: fws_raf_footermenuemployment
+theme: fws_raf
+region: footer_menus
+weight: -8
+provider: null
+plugin: 'system_menu_block:footer-menu-employment'
+settings:
+  id: 'system_menu_block:footer-menu-employment'
+  label: 'Footer Menu - Employment'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

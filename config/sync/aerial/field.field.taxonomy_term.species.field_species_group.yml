@@ -1,0 +1,26 @@
+uuid: 5fa54ab5-431e-4252-98d5-523ac2f7c5d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_species_group
+    - taxonomy.vocabulary.species
+    - taxonomy.vocabulary.species_group
+_core:
+  default_config_hash: 6aF81mCv24RglsK9K0OQWsFnwHnEYS3SdnQ9HPzrs58
+id: taxonomy_term.species.field_species_group
+field_name: field_species_group
+entity_type: taxonomy_term
+bundle: species
+label: 'Species Group'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species_group: species_group
+field_type: entity_reference

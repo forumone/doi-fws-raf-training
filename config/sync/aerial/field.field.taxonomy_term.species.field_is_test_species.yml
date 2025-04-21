@@ -1,0 +1,25 @@
+uuid: f4c0b198-ad50-4276-91ff-a65f81b6fcc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_is_test_species
+    - taxonomy.vocabulary.species
+_core:
+  default_config_hash: wCBuI3EklvyOHLWKSLkW4TcJ809WZecCalcMLicKWqA
+id: taxonomy_term.species.field_is_test_species
+field_name: field_is_test_species
+entity_type: taxonomy_term
+bundle: species
+label: 'For test?'
+description: 'Indicates whether this species is used for testing purposes'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,10 @@
+uuid: 150d060a-c92d-4e8b-839e-04a049f62a0a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 6dR0YmaaUjzz9JEMDp7BOMXyyg_29rtyuYZp3BZgmTs
+id: footer-menu-external-links
+label: 'Footer Menu - External Links'
+description: ''
+locked: false

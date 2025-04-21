@@ -1,0 +1,25 @@
+uuid: 8b545083-8676-4c4c-bab6-4ef911e6b8d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_difficulty_level
+    - taxonomy.vocabulary.species_counting_difficulty
+_core:
+  default_config_hash: OEQac2IlIrJMfNFV6hsoA1KxuXeVyHvsvJgkFqyCbHQ
+id: taxonomy_term.species_counting_difficulty.field_difficulty_level
+field_name: field_difficulty_level
+entity_type: taxonomy_term
+bundle: species_counting_difficulty
+label: 'Difficulty Level ID'
+description: 'The unique identifier for this difficulty level'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: ''
+  max: ''
+  prefix: ''
+  suffix: ''
+field_type: string

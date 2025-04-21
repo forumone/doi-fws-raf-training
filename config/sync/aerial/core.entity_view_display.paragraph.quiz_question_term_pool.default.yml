@@ -1,0 +1,44 @@
+uuid: f9896a94-b222-4097-961e-65ab2aae17d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quiz_question_term_pool.quiz_question_max_score
+    - field.field.paragraph.quiz_question_term_pool.quiz_question_number
+    - field.field.paragraph.quiz_question_term_pool.quiz_question_tid
+    - paragraphs.paragraphs_type.quiz_question_term_pool
+_core:
+  default_config_hash: yrM0YjqbOwY7B1AQmJKOKWsCuE3bwhYM5un1n2UH8zQ
+id: paragraph.quiz_question_term_pool.default
+targetEntityType: paragraph
+bundle: quiz_question_term_pool
+mode: default
+content:
+  quiz_question_max_score:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  quiz_question_number:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  quiz_question_tid:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

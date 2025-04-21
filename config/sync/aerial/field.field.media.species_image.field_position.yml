@@ -1,0 +1,25 @@
+uuid: 68228f46-639b-4abb-9d77-5d5576f5a0aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_position
+    - media.type.species_image
+  module:
+    - options
+_core:
+  default_config_hash: xVSgmft1MDvq9HlURsq8za_9JLF56LqJ438rpP5C2t0
+id: media.species_image.field_position
+field_name: field_position
+entity_type: media
+bundle: species_image
+label: Position
+description: 'The position type of the image.'
+required: true
+translatable: true
+default_value:
+  -
+    value: static
+default_value_callback: ''
+settings: {  }
+field_type: list_string

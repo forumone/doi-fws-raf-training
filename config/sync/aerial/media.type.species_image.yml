@@ -1,0 +1,15 @@
+uuid: 9ee50086-7d1e-4e07-a6fc-476bcaf30c6c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: x7zxEvrLPrT4plW1gml8-6YJ2Bob7FQz0E_09P8-Qhg
+id: species_image
+label: 'Species Image'
+description: 'Images of bird species with additional metadata.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_image
+field_map: {  }

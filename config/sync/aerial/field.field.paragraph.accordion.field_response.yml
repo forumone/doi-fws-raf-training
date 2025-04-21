@@ -1,0 +1,28 @@
+uuid: 3faf7c61-1089-4fe5-9f9b-1ac6a38ad1bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_response
+    - filter.format.basic_html
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.accordion
+  module:
+    - text
+_core:
+  default_config_hash: hkz4bhu3WWeFniAfcCiy0uaSjHC8z7feppO0pRCU7Uw
+id: paragraph.accordion.field_response
+field_name: field_response
+entity_type: paragraph
+bundle: accordion
+label: Body
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+    - full_html
+field_type: text_long

@@ -1,0 +1,31 @@
+uuid: 2b59ab70-970f-4f79-a11a-d310b997c189
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_species
+    - media.type.species_video
+    - taxonomy.vocabulary.species
+_core:
+  default_config_hash: i7C9PyxrbjdzL-1ECc4xW4w24yzhzmHGybbpZo4pt3g
+id: media.species_video.field_species
+field_name: field_species
+entity_type: media
+bundle: species_video
+label: Species
+description: 'The species shown in this video'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      species: species
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

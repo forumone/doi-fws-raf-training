@@ -1,0 +1,28 @@
+uuid: fef5986a-b2f6-482f-a13f-adca1835fd6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_id_questions
+    - node.type.species_id_results
+    - paragraphs.paragraphs_type.species_id_question
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: PJiduOkH8vTbOThK88sh_BBm2sXfId_jVV7SgCHines
+id: node.species_id_results.field_id_questions
+field_name: field_id_questions
+entity_type: node
+bundle: species_id_results
+label: 'ID Questions'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      species_id_question: species_id_question
+field_type: entity_reference_revisions

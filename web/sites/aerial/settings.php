@@ -286,7 +286,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6';
+$settings['hash_salt'] = 'P92BhznG-vfUs0qbJkjMa2JLdg0OyiwEUO1jbVrfN3o1dtdorNWmD_-lTdOuKL_wft0ibfQ7Jg';
 
 /**
  * Deployment identifier.
@@ -889,7 +889,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-$settings['config_sync_directory'] = '../config/aerial/sync';
+$settings['config_sync_directory'] = '../config/sync/aerial';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -916,3 +916,15 @@ $settings['file_private_path'] = "sites/aerial/files/private";
 $settings['file_temp_path'] = "/tmp";
 
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
+$databases['default']['default'] = array (
+  'database' => 'db',
+  'username' => 'db',
+  'password' => 'db',
+  'prefix' => '',
+  'host' => 'db',
+  'port' => 3306,
+  'isolation_level' => 'READ COMMITTED',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+);

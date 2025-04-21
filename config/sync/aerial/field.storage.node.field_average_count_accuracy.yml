@@ -1,0 +1,22 @@
+uuid: cab032d3-a570-4622-b167-0b6b949a7900
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: W71dIr2shjq9w4lyRiuUTDqiXT29dzY8VLKYE6Dqyzc
+id: node.field_average_count_accuracy
+field_name: field_average_count_accuracy
+entity_type: node
+type: decimal
+settings:
+  precision: 10
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,41 @@
+uuid: fe7b3d28-a4e2-4482-99d3-cea39bef0f1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quiz_result_feedback.quiz_feedback
+    - field.field.paragraph.quiz_result_feedback.quiz_feedback_range
+    - paragraphs.paragraphs_type.quiz_result_feedback
+  module:
+    - range
+    - text
+_core:
+  default_config_hash: 5FjvxJZQVU2IvFksVPfQMBwQVvjSiQKHRYN-ag-HjcQ
+id: paragraph.quiz_result_feedback.default
+targetEntityType: paragraph
+bundle: quiz_result_feedback
+mode: default
+content:
+  quiz_feedback:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  quiz_feedback_range:
+    type: range_integer
+    label: above
+    settings:
+      range_separator: '-'
+      thousand_separator: ''
+      range_combine: true
+      field_prefix_suffix: false
+      from_prefix_suffix: false
+      to_prefix_suffix: false
+      combined_prefix_suffix: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

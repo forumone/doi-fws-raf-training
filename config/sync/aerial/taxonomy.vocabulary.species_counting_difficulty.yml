@@ -1,0 +1,11 @@
+uuid: 29055c38-5608-4baf-88c6-d0ac0c027699
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: lgV61ESDsGUUGP5qsHJ8G2fkgixzlHavV_Biovs3Uy0
+name: 'Species Counting Difficulty'
+vid: species_counting_difficulty
+description: 'Difficulty levels for counting species in aerial surveys'
+weight: 0
+new_revision: false

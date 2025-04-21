@@ -1,0 +1,22 @@
+uuid: b46f67e3-e3e8-47a0-8631-d3e00adf3243
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: BoE0rfd1UJUNPUWH4f5uY4DgoArm9QYEzHHKjz7sMk8
+id: taxonomy_term.field_size_range_min
+field_name: field_size_range_min
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
