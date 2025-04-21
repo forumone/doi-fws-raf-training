@@ -50,12 +50,10 @@
         <div class="table-responsive">
           <table class="table table-bordered table-striped">
             <tbody>
-              {% if content.field_system_bird_id %}
-                <tr>
-                  <th class="col-md-4">Please save the number for reference</th>
-                  <td class="col-md-8">{{ content.field_system_bird_id }}</td>
-                </tr>
-              {% endif %}
+              <tr>
+                <th class="col-md-4">Please save the number for reference</th>
+                <td class="col-md-8">{{ content.field_system_bird_id }}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -155,13 +153,6 @@
               <th class="col-md-3">Hatch Year</th>
               <td class="col-md-9">{{ content.field_species_hatch_year }}</td>
             </tr>
-            {% endif %}
-
-            {% if content.field_system_bird_id %}
-              <tr>
-                <th class="col-md-3">System Bird Id</th>
-                <td class="col-md-9">{{ content.field_system_bird_id }}</td>
-              </tr>
             {% endif %}
           </tbody>
         </table>
