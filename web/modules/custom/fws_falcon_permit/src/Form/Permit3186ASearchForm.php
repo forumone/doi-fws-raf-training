@@ -2,13 +2,14 @@
 
 namespace Drupal\fws_falcon_permit\Form;
 
+use Drupal\Core\Url;
 use Drupal\Core\Form\FormBase;
 use Drupal\node\NodeInterface;
+use Drupal\user\UserInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\fws_falcon_permit\Permit3186ASearchHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
 
 /**
  * Provides a search form and results.
@@ -169,6 +170,20 @@ class Permit3186ASearchForm extends FormBase {
       '#title' => $this->t('Recipient Last name'),
     ];
 
+    $form['ownership'] = [
+      '#title' => $this->t('Falcon/Raptor'),
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'user',
+      '#selection_settings' => [
+        'include_anonymous' => FALSE,
+        'filter' => [
+          'role' => ['falconer'],
+        ],
+      ],
+      '#maxlength' => 64,
+      '#size' => 64,
+    ];
+
     return $form;
   }
 
@@ -179,7 +194,17 @@ class Permit3186ASearchForm extends FormBase {
     $filter_values = $this->getFilterValues();
     $form = $this->buildFilterForm($form, $form_state);
 
-    foreach ($filter_values as $filter => $value) {
+    $default_values = $filter_values;
+    $default_values['ownership'] = NULL;
+    if (isset($filter_values['ownership'])) {
+      $user = $this->entityTypeManager
+        ->getStorage('user')
+        ->load($filter_values['ownership']);
+      if ($user instanceof UserInterface && $user->isActive()) {
+        $default_values['ownership'] = $user;
+      }
+    }
+    foreach ($default_values as $filter => $value) {
       if (isset($form[$filter])) {
         $form[$filter]['#default_value'] = $value;
       }
@@ -220,6 +245,10 @@ class Permit3186ASearchForm extends FormBase {
       ];
 
       $form['search_results']['results'] = $this->buildSearchResults($filter_values);
+
+      if (!isset($form['search_results']['results']['table'])) {
+        $form['search_results']['actions']['export_csv']['#access'] = FALSE;
+      }
     }
 
     return $form;

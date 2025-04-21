@@ -110,6 +110,7 @@ class Permit3186ASearchHelper {
       'transaction_number',
       'field_species_cd',
       'field_species_name',
+      'uid',
     ];
 
     $mapping_fields = [
@@ -117,6 +118,7 @@ class Permit3186ASearchHelper {
       'transaction_number' => 'field_question_no',
       'authorized' => 'field_authorized_cd',
       'species_code' => 'field_species_cd',
+      'ownership' => 'uid'
     ];
 
     $query = $this->entityTypeManager
