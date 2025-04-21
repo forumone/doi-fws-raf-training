@@ -60,7 +60,7 @@
                 {% else %}
                   <div class="alert alert-info">
                     No registration number assigned.
-                    <a href="/node/add/location">Add a location</a> to receive a registration number.
+                    <a href="{{ base_path }}node/add/location">Add a location</a> to receive a registration number.
                   </div>
                 {% endif %}
               </td>
@@ -321,7 +321,7 @@
       {% else %}
         <div class="alert alert-info">
           No locations have been added yet.
-          <a href="/node/add/location">Add a location</a>
+          <a href="{{ base_path }}node/add/location">Add a location</a>
         </div>
       {% endif %}
     </div>
@@ -358,7 +358,7 @@
       {% else %}
         <div class="alert alert-info">
           No agents have been added yet.
-          <a href="/node/add/name">Add an agent</a>
+          <a href="{{ base_path }}node/add/name">Add an agent</a>
         </div>
       {% endif %}
     </div>
@@ -370,7 +370,7 @@
       <h3 class="panel-title">Conditions</h3>
     </div>
     <div class="panel-body">
-      <p>You and your agents or employees must comply with the <a href="/resident-canada-goose-nest-egg-depredation-order-conditions">Resident Canada Goose Nest & Egg Depredation Order Conditions</a>.</p>
+      <p>You and your agents or employees must comply with the <a href="{{ base_path }}resident-canada-goose-nest-egg-depredation-order-conditions">Resident Canada Goose Nest & Egg Depredation Order Conditions</a>.</p>
 
       <p>If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.</p>
 
@@ -381,7 +381,7 @@
   </div>
 
   <div class="text-center" style="margin-top: 30px; margin-bottom: 20px;">
-    <a href="/resident-canada-goose-nest-egg-depredation-order-conditions" class="">
+    <a href="{{ base_path }}resident-canada-goose-nest-egg-depredation-order-conditions" class="">
       Proceed to Resident Canada Goose Nest &amp; Egg Depredation Order Conditions
     </a>
   </div>
