@@ -14,24 +14,21 @@ ddev drush -l $SITE_URI site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
   --verbose \
-  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
+  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal" \
+  --config-dir=../config/sync/eps
 
-# Install recipes
-ddev drush -l $SITE_URI recipe ../recipes/fws-core
-ddev drush -l $SITE_URI cr
+# Run install cleanup script
 ddev drush -l $SITE_URI scr ../scripts/eps/install-cleanup.php
-ddev drush -l $SITE_URI cr
-ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-taxonomy
-ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-node
-ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-reports
-ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-blocks
-ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-user
+
+# Install eps content recipe
 ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
-ddev drush -l $SITE_URI en -y fws_sighting
+
+# Set front page
+# ddev drush -l $SITE_URI config:set system.site page.front /node/1 -y
+
+# Import data
 ddev drush -l $SITE_URI scr ../scripts/eps/import-users.php
 ddev drush -l $SITE_URI scr ../scripts/eps/import-sightings.php
 
-# Import users
-# ddev drush -l $SITE_URI scr ./scripts/eps/import-users.php
-
+ddev drush -l $SITE_URI cr
 ddev drush -l $SITE_URI uli
