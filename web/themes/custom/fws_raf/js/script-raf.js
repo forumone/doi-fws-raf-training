@@ -4,6 +4,17 @@
   // Initialize the fws_submenu behavior if it doesn't exist
   Drupal.behaviors.fws_submenu = Drupal.behaviors.fws_submenu || {};
 
+  // File icon accessibility behavior
+  Drupal.behaviors.fileIconAccessibility = {
+    attach: function (context, settings) {
+      // Find all file icon spans within file-link spans
+      once('fileIconAccessibility', '.file-icon > .glyphicon', context).forEach(function (icon) {
+        var $icon = $(icon);
+        $icon.removeAttr('aria-hidden');
+      });
+    }
+  };
+
   Drupal.behaviors.bootstrapDropdowns = {
     attach: function (context, settings) {
       // Debounce function to limit resize event calls
