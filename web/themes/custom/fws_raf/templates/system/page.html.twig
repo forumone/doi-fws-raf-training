@@ -84,7 +84,7 @@
         </div>
         {# Navigation (collapsible) #}
         {% if ((header_links_auth and logged_in) or not header_links_auth) and page.navigation_collapsible %}
-          <div id="navbar-collapse" class="navbar-collapse collapse" role="dialog" aria-modal="true" aria-label="Mobile menu">
+          <div id="navbar-collapse" class="navbar-collapse collapse">
             {{ page.navigation_collapsible }}
           </div>
         {% endif %}

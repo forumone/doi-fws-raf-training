@@ -6,6 +6,41 @@
 
   Drupal.behaviors.bootstrapDropdowns = {
     attach: function (context, settings) {
+      // Debounce function to limit resize event calls
+      const debounce = function(func, wait) {
+        let timeout;
+        return function() {
+          const context = this;
+          const args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            func.apply(context, args);
+          }, wait);
+        };
+      };
+
+      // Function to toggle ARIA attributes based on screen width
+      const toggleNavAriaAttributes = function() {
+        const $navbarCollapse = $('#navbar-collapse');
+        if (window.innerWidth < 992) {
+          $navbarCollapse.attr({
+            'role': 'dialog',
+            'aria-modal': 'true',
+            'aria-label': 'Mobile menu'
+          });
+        } else {
+          $navbarCollapse.removeAttr('role aria-modal aria-label aria-expanded');
+        }
+      };
+
+      // Run on page load
+      toggleNavAriaAttributes();
+
+      // Add resize event listener with debounce
+      once('resize-listener', 'body', context).forEach(function (element) {
+        $(window).on('resize', debounce(toggleNavAriaAttributes, 150));
+      });
+
       // Enable dropdown menus with hover and keyboard functionality
       once('bootstrap-hover', '.dropdown', context).forEach(function (element) {
         const $dropdown = $(element);
