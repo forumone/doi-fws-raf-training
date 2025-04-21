@@ -12,6 +12,7 @@ weight: 3
 is_admin: false
 permissions:
   - 'access content'
+  - 'access falcon search'
   - 'access state based content'
   - 'create permit_3186a content'
   - 'create species_image content'
