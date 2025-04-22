@@ -19,16 +19,12 @@
   <h1>Your Test Results</h1>
   {{ title_suffix }}
 
-  <div class="user-parameters">
-    <h2 class="h3">User Parameters Selected:</h2>
-    <div class="parameter">
-      <strong>Experience Level:</strong> {{ content.field_id_difficulty }}
-    </div>
-    <div class="parameter">
-      <strong>Species Group:</strong> {{ content.field_species_group }}
-    </div>
-    <div class="parameter">
-      <strong>Geographic Region:</strong> {{ content.field_region }}
+  <div class="quiz__parameters">
+    <div class="quiz__info">
+      <h2 class="h3">User Parameters Selected:</h2>
+      <p class="quiz__parameter"><b>Experience Level:</b> {{ content.field_id_difficulty|render|striptags|trim }}</p>
+      <p class="quiz__parameter"><b>Species Group:</b> {{ content.field_species_group|render|striptags|trim }}</p>
+      <p class="quiz__parameter"><b>Geographic Region:</b> {{ content.field_region|render|striptags|trim }}</p>
     </div>
   </div>
 
@@ -37,7 +33,7 @@
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th>Video #</th>
           <th>Your ID</th>
           <th>Actual ID</th>
           <th>Result</th>

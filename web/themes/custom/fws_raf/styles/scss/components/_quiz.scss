@@ -20,139 +20,139 @@
   }
 }
 
-.fws-quiz {
+.quiz {
 
-  .quiz {
+  &__parameters {
+    margin: 0 0 20px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
-    &__parameters {
-      margin: 0 0 20px;
-      padding: 0 0 20px;
-      border-bottom: 1px solid #eeeeee;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
+    @include breakpoint(md) {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
 
-      @include breakpoint(md) {
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-      }
+  &__info {
+
+    h2 {
+      margin-top: 0;
     }
 
-    &__info {
-
-      h2 {
-        margin-top: 0;
-      }
-
-      .quiz__parameter {
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    &__utils {
-      display: flex;
-      align-items: center;
-      align-self: flex-end;
-      padding: 10px 0 0;
-
-      @include breakpoint(md) {
-        padding: 0;
-      }
-    }
-
-    &__tracker {
-      font-size: 20px;
-      font-weight: bold;
-      padding-right: 20px;
-    }
-
-    &__timer {
-      display: flex;
-      justify-content: center;
-    }
-
-    &__container {
-      position: relative;
-    }
-
-    // Hiding quiz content for the intial state
-    &__item:not(:first-child),
-    &__response,
-    &__feedback,
-    &__answer,
-    &__complete {
-      display: none;
-    }
-
-    &__prompt {
-      position: relative;
-    }
-
-    &__media {
-      overflow: hidden; // Ensure the animation doesn't create scrollbars
-      position: relative; // Ensure proper positioning for the image and overlay
-
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('/modules/custom/fws_counting/images/Plane_Overlay.png') no-repeat center center;
-        background-size: cover;
-        z-index: 100;
-      }
-
-      img {
-        width: 100%;
-        animation: aerialView 15s linear 1 forwards; // Default settings, will be overridden by JS
-        transform-origin: center center; // Ensure scaling happens from the center
-        will-change: transform; // Optimize for animation performance
-        transition: transform 0.5s linear; // Smooth transition for any transform changes
-        aspect-ratio: 16 / 10;
-        object-fit: cover;
-        z-index: 50;
-      }
-    }
-
-    &__guess {
-
-      .form-text {
-        max-width: 320px;
-      }
-
-      .form-type-radios {
-        padding: 0 0 20px;
-      }
-
-      legend {
-        border: 0;
-      }
-    }
-
-    &__answer {
-
-      i {
-        margin-right: 4px;
-      }
-    }
-
-    &__help {
-      padding: 20px 0 0;
-    }
-
-    &__results {
-      padding: 0 0 20px;
-    }
-
-    &__answer .quiz__result {
+    .quiz__parameter {
       padding: 0;
       margin: 0;
     }
   }
+
+  &__utils {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    padding: 10px 0 0;
+
+    @include breakpoint(md) {
+      padding: 0;
+    }
+  }
+
+  &__tracker {
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 20px;
+  }
+
+  &__timer {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  // Hiding quiz content for the intial state
+  &__item:not(:first-child),
+  &__response,
+  &__feedback,
+  &__answer,
+  &__complete {
+    display: none;
+  }
+
+  &__prompt {
+    position: relative;
+  }
+
+  &__media {
+    overflow: hidden; // Ensure the animation doesn't create scrollbars
+    position: relative; // Ensure proper positioning for the image and overlay
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('/modules/custom/fws_counting/images/Plane_Overlay.png') no-repeat center center;
+      background-size: cover;
+      z-index: 100;
+    }
+
+    img {
+      width: 100%;
+      animation: aerialView 15s linear 1 forwards; // Default settings, will be overridden by JS
+      transform-origin: center center; // Ensure scaling happens from the center
+      will-change: transform; // Optimize for animation performance
+      transition: transform 0.5s linear; // Smooth transition for any transform changes
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      z-index: 50;
+    }
+  }
+
+  &__guess {
+
+    .form-text {
+      max-width: 320px;
+    }
+
+    .form-type-radios {
+      padding: 0 0 20px;
+    }
+
+    legend {
+      border: 0;
+    }
+  }
+
+  &__answer {
+
+    i {
+      margin-right: 4px;
+    }
+  }
+
+  &__help {
+    padding: 20px 0 0;
+  }
+
+  &__results {
+    padding: 0 0 20px;
+  }
+
+  &__answer .quiz__result {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.fws-quiz {
 
   .timer-circle {
     position: relative;

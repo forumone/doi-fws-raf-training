@@ -1410,7 +1410,7 @@ input.form-autocomplete {
     transform: scale(1.1) translate(3.5%, 0);
   }
 }
-.fws-quiz .quiz__parameters {
+.quiz__parameters {
   margin: 0 0 20px;
   padding: 0 0 20px;
   border-bottom: 1px solid #eeeeee;
@@ -1419,53 +1419,53 @@ input.form-autocomplete {
   width: 100%;
 }
 @media (min-width: 768px) {
-  .fws-quiz .quiz__parameters {
+  .quiz__parameters {
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
   }
 }
-.fws-quiz .quiz__info h2 {
+.quiz__info h2 {
   margin-top: 0;
 }
-.fws-quiz .quiz__info .quiz__parameter {
+.quiz__info .quiz__parameter {
   padding: 0;
   margin: 0;
 }
-.fws-quiz .quiz__utils {
+.quiz__utils {
   display: flex;
   align-items: center;
   align-self: flex-end;
   padding: 10px 0 0;
 }
 @media (min-width: 768px) {
-  .fws-quiz .quiz__utils {
+  .quiz__utils {
     padding: 0;
   }
 }
-.fws-quiz .quiz__tracker {
+.quiz__tracker {
   font-size: 20px;
   font-weight: bold;
   padding-right: 20px;
 }
-.fws-quiz .quiz__timer {
+.quiz__timer {
   display: flex;
   justify-content: center;
 }
-.fws-quiz .quiz__container {
+.quiz__container {
   position: relative;
 }
-.fws-quiz .quiz__item:not(:first-child), .fws-quiz .quiz__response, .fws-quiz .quiz__feedback, .fws-quiz .quiz__answer, .fws-quiz .quiz__complete {
+.quiz__item:not(:first-child), .quiz__response, .quiz__feedback, .quiz__answer, .quiz__complete {
   display: none;
 }
-.fws-quiz .quiz__prompt {
+.quiz__prompt {
   position: relative;
 }
-.fws-quiz .quiz__media {
+.quiz__media {
   overflow: hidden;
   position: relative;
 }
-.fws-quiz .quiz__media:before {
+.quiz__media:before {
   content: "";
   position: absolute;
   top: 0;
@@ -1476,7 +1476,7 @@ input.form-autocomplete {
   background-size: cover;
   z-index: 100;
 }
-.fws-quiz .quiz__media img {
+.quiz__media img {
   width: 100%;
   animation: aerialView 15s linear 1 forwards;
   transform-origin: center center;
@@ -1487,28 +1487,29 @@ input.form-autocomplete {
   object-fit: cover;
   z-index: 50;
 }
-.fws-quiz .quiz__guess .form-text {
+.quiz__guess .form-text {
   max-width: 320px;
 }
-.fws-quiz .quiz__guess .form-type-radios {
+.quiz__guess .form-type-radios {
   padding: 0 0 20px;
 }
-.fws-quiz .quiz__guess legend {
+.quiz__guess legend {
   border: 0;
 }
-.fws-quiz .quiz__answer i {
+.quiz__answer i {
   margin-right: 4px;
 }
-.fws-quiz .quiz__help {
+.quiz__help {
   padding: 20px 0 0;
 }
-.fws-quiz .quiz__results {
+.quiz__results {
   padding: 0 0 20px;
 }
-.fws-quiz .quiz__answer .quiz__result {
+.quiz__answer .quiz__result {
   padding: 0;
   margin: 0;
 }
+
 .fws-quiz .timer-circle {
   position: relative;
   width: 52px;
