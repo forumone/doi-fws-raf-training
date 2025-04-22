@@ -66,7 +66,7 @@ default:
     -
       entity: 39b3a904-f1e5-44ea-8b5b-dc8cc481c22b
       display: true
-      description: ''
+      description: 'View the publications order form from May 2014'
   field_private:
     -
       value: false
