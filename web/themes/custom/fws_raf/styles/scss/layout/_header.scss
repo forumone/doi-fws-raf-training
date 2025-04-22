@@ -188,6 +188,12 @@ header#navbar {
   &:after {
     transition: none;
   }
+
+  &.btn-close {
+    @include breakpoint(md) {
+      display: none;
+    }
+  }
 }
 
 .mb-menuwrapper {
