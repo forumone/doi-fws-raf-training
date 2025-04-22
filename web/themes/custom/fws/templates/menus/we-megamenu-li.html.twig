@@ -2,7 +2,7 @@
   {% if href is empty %}
     <span data-drupal-link-system-path="<front>" class="we-megamenu-nolink">{{ title }}</span>
   {% else %}
-    <a class="we-mega-menu-li" title="{{ attribute(attributes, 'description') }}" href="{{ href }}" target="{{ attribute(attributes, 'data-target') }}">
+    <a id="menu-link-{{ title|lower|replace({' ': '-', '/': '-', '.': '-'}) }}" data-menu-title="{{ title }}" class="we-mega-menu-li" title="{{ attribute(attributes, 'description') }}" href="{{ href }}" target="{{ attribute(attributes, 'data-target') }}">
       {% if (attribute(attributes, 'data-icon') is defined and attribute(attributes, 'data-icon')|trim) %}
         <i class="{{ attribute(attributes, 'data-icon') }}"></i>
       {% endif %}
