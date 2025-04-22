@@ -1537,7 +1537,6 @@ input.form-autocomplete {
 .fws-quiz .timer-svg circle:last-child {
   stroke: #205493;
   stroke-dasharray: 151px;
-  transition: stroke-dashoffset 1s linear;
 }
 .fws-quiz .video-container {
   position: relative;
@@ -1573,7 +1572,6 @@ input.form-autocomplete {
   opacity: 1;
   color: #FFFFFF;
   background: #337ab7;
-  /* $blue-medium from the theme */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1587,24 +1585,15 @@ input.form-autocomplete {
   right: 2px;
   top: 12px;
 }
-
-/* Add the X icon using :before pseudo-element */
-.ui-dialog .ui-dialog-titlebar-close:before {
+.ui-dialog .ui-dialog-titlebar-close::before {
   content: "\e014";
-  /* Glyphicons X symbol */
   font-family: "Glyphicons Halflings";
   font-size: 16px;
 }
-
-/* Hover and focus states */
-.ui-dialog .ui-dialog-titlebar-close:hover,
-.ui-dialog .ui-dialog-titlebar-close:focus {
-  /* $blue-darker from the theme */
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
   transition: all 0.125s ease-out;
   outline: none;
 }
-
-/* Focus-visible state for accessibility */
 .ui-dialog .ui-dialog-titlebar-close:focus-visible {
   box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
   transition: all 0.125s ease-out;
