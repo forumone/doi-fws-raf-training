@@ -341,6 +341,11 @@ header#navbar > .container {
 .menu__toggle:before, .menu__toggle:after {
   transition: none;
 }
+@media (min-width: 768px) {
+  .menu__toggle.btn-close {
+    display: none;
+  }
+}
 
 .mb-menuwrapper {
   height: calc(100% - 88px);
@@ -442,7 +447,13 @@ body.mobile-menu-open {
 .navbar-collapse.collapse.in {
   display: block;
 }
+.navbar-collapse.collapse.in #mobile-nav {
+  display: block;
+}
 
+#mobile-nav {
+  display: none;
+}
 #mobile-nav button.mobile__nav {
   all: unset;
   cursor: pointer;

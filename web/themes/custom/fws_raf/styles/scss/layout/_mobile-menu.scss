@@ -13,11 +13,16 @@ body.mobile-menu-open {
 
     &.in {
       display: block;
+
+      #mobile-nav {
+        display: block;
+      }
     }
   }
 }
 
 #mobile-nav {
+  display: none;
 
   button.mobile__nav {
     all: unset;
