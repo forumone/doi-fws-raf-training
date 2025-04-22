@@ -122,6 +122,17 @@ header#navbar {
   #navbar-collapse {
     border-top: 0;
     box-shadow: none;
+
+    &.in {
+
+      #mobile-menu {
+        display: block;
+      }
+    }
+  }
+
+  #mobile-menu {
+    display: none;
   }
 
   .navbar-header {
