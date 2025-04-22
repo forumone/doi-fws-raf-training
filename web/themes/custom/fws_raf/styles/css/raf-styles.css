@@ -1538,7 +1538,6 @@ input.form-autocomplete {
 .fws-quiz .timer-svg circle:last-child {
   stroke: #205493;
   stroke-dasharray: 151px;
-  transition: stroke-dashoffset 1s linear;
 }
 .fws-quiz .video-container {
   position: relative;
@@ -1567,6 +1566,38 @@ input.form-autocomplete {
 }
 .path-user .main-container .field {
   margin-bottom: 1rem;
+}
+
+/* Style for the dialog close button */
+.ui-dialog .ui-dialog-titlebar-close {
+  opacity: 1;
+  color: #FFFFFF;
+  background: #337ab7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: none;
+  text-shadow: none;
+  transition: all 0.25s ease-out;
+  position: absolute;
+  right: 2px;
+  top: 12px;
+}
+.ui-dialog .ui-dialog-titlebar-close::before {
+  content: "\e014";
+  font-family: "Glyphicons Halflings";
+  font-size: 16px;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
+  transition: all 0.125s ease-out;
+  outline: none;
+}
+.ui-dialog .ui-dialog-titlebar-close:focus-visible {
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 6px rgba(255, 255, 255, 0.25);
+  transition: all 0.125s ease-out;
 }
 
 .page-node-edit .geolocation-map-control .form-item label,

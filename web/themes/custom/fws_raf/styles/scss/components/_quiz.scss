@@ -187,7 +187,7 @@
   .timer-svg circle:last-child {
     stroke: $blue-medium;
     stroke-dasharray: 151px;
-    transition: stroke-dashoffset 1s linear;
+    // transition: stroke-dashoffset 1s linear;
   }
   .video-container {
     position: relative;
