@@ -253,6 +253,12 @@ header#navbar #navbar-collapse {
   border-top: 0;
   box-shadow: none;
 }
+header#navbar #navbar-collapse.in #mobile-menu {
+  display: block;
+}
+header#navbar #mobile-menu {
+  display: none;
+}
 header#navbar .navbar-header {
   margin-bottom: 0;
 }
