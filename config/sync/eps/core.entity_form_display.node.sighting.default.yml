@@ -15,7 +15,6 @@ dependencies:
     - node.type.sighting
   module:
     - datetime
-    - field_token_value
     - geolocation_leaflet
     - path
 _core:
@@ -625,12 +624,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_spotter:
-    type: field_token_value_default
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 2
@@ -677,11 +670,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_spotter: true
   field_state: true
   field_year: true
   status: true
