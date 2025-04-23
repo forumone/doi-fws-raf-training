@@ -3,7 +3,7 @@
  * JavaScript behaviors for Permit 3-186A form.
  */
 
-(function ($, Drupal, once) {
+(function ($, Drupal, once, drupalSettings) {
   'use strict';
 
   /**
@@ -190,6 +190,35 @@
           }
         }
       });
+
+      Drupal.behaviors.permitFieldGroupVisibility.autofill();
+    },
+    autofill: function(context, settings) {
+      const $self = Drupal.behaviors.permitFieldGroupVisibility;
+      once('initAutofillField', 'form#node-permit-3186a-form, form.node-permit-3186a-form', context).forEach(function(form) {
+        const $btnAutoFillSender = $self.createFakeBtn(Drupal.t('I am the sender'));
+        $(form).find('#edit-group-sender--content').prepend($btnAutoFillSender);
+        $('input', $btnAutoFillSender).on('click', () => $self.handlerAutofill(form));
+
+        const $btnAutoFillRecipient = $self.createFakeBtn(Drupal.t('I am the recipient'));
+        $(form).find('#edit-group-recipient--content').prepend($btnAutoFillRecipient);
+        $('input', $btnAutoFillRecipient).on('click', () => $self.handlerAutofill(form, 'recipient'));
+      });
+    },
+    createFakeBtn: function(label) {
+      let $buttonWrapper = $('<div class="form-item form-type-button"></div>');
+      let $button = $('<input type="button" value="' + label + '" class="form-submit btn">');
+      $buttonWrapper.append($button);
+      return $buttonWrapper;
+    },
+    handlerAutofill: function(form, type = 'sender') {
+      const { mapping_fields, profile } = drupalSettings.fws_falcon_permit;
+      for (const [src, desc] of Object.entries(mapping_fields[type])) {
+        if (typeof profile[desc] !== 'undefined') {
+          $(form).find("input[name^='" + src + "[']").val(profile[desc]);
+          $(form).find("select[name='" + src + "']").val(profile[desc]).trigger('change');
+        }
+      }
     }
   };
-})(jQuery, Drupal, once);
+})(jQuery, Drupal, once, drupalSettings);
