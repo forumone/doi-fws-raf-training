@@ -75,12 +75,83 @@
         }
       };
 
+      // Focus trapping functionality for mobile menu
+      const trapFocus = function(e) {
+        const $navbarCollapse = $('#navbar-collapse');
+
+        // Only trap focus if the navbar is expanded and we're in mobile view
+        if (!$navbarCollapse.hasClass('show') || window.innerWidth >= 992) {
+          return;
+        }
+
+        // Find all focusable elements within the navbar
+        const $focusableElements = $navbarCollapse.find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if ($focusableElements.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const $firstFocusable = $focusableElements.first();
+        const $lastFocusable = $focusableElements.last();
+
+        // Add the toggle button to the focus trap (it's outside the navbar-collapse)
+        const $toggleButton = $('.navbar-toggle.menu__toggle');
+
+        // Handle Tab key
+        if (e.key === 'Tab') {
+          // Shift+Tab on first element
+          if (e.shiftKey && (document.activeElement === $firstFocusable[0] || document.activeElement === $toggleButton[0])) {
+            e.preventDefault();
+            $lastFocusable.focus();
+          }
+          // Tab on last element
+          else if (!e.shiftKey && document.activeElement === $lastFocusable[0]) {
+            e.preventDefault();
+            $toggleButton.focus();
+          }
+        }
+
+        // Handle Escape key
+        if (e.key === 'Escape') {
+          // Close the menu
+          $navbarCollapse.removeClass('show');
+          $navbarCollapse.addClass('collapse');
+          $toggleButton.attr('aria-expanded', 'false');
+          $toggleButton.focus();
+          // Remove keydown event handler
+          $(document).off('keydown.navFocusTrap');
+        }
+      };
+
       // Run on page load
       toggleNavAriaAttributes();
 
       // Add resize event listener with debounce
       once('resize-listener', 'body', context).forEach(function (element) {
         $(window).on('resize', debounce(toggleNavAriaAttributes, 150));
+      });
+
+      // Add/remove document keydown listener based on navbar state
+      once('navbar-focus-trap', 'body', context).forEach(function (element) {
+        const $toggleButton = $('.navbar-toggle.menu__toggle');
+
+        $toggleButton.on('click', function() {
+          const $this = $(this);
+          // Wait for the show/hide transition to complete
+          setTimeout(function() {
+            const isExpanded = $('#navbar-collapse').hasClass('show');
+
+            if (isExpanded) {
+              $(document).on('keydown.navFocusTrap', trapFocus);
+              // Focus the first focusable element in the menu
+              $('#navbar-collapse').find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])').first().focus();
+            } else {
+              $(document).off('keydown.navFocusTrap');
+              // Return focus to the toggle button
+              $this.focus();
+            }
+          }, 150);
+        });
       });
 
       // Enable dropdown menus with hover and keyboard functionality
