@@ -5,7 +5,7 @@ dependencies:
   module:
     - login_gov
 id: applications_test
-label: 'Applications Test'
+label: 'Login.gov'
 plugin: login_gov
 settings:
   client_id: 'urn:gov:gsa:openidconnect.profiles:sp:sso:usfws:fwsappstest'

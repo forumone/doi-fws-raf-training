@@ -9,6 +9,7 @@ use Drupal\node\NodeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\UserInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Get state/province from coordinates using Nominatim API.
@@ -306,5 +307,38 @@ function fws_sighting_user_insert(UserInterface $user) {
     else {
       \Drupal::logger('fws_sighting')->error('Could not add spotter role because it does not exist in the system');
     }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fws_sighting_form_openid_connect_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add a notice about Login.gov auto-registration at the top of the form.
+  $form['login_notice'] = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#value' => t('<strong>Need an account?</strong> The Login.gov button below will automatically create an account for you if you do not already have one, or log you in if you do have an account.'),
+    '#attributes' => [
+      'class' => ['alert', 'alert-info', 'margin-bottom-lg'],
+    ],
+    '#weight' => -100,
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fws_sighting_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add spacing between elements in the login form.
+  if (isset($form['fws_terms_conditions'])) {
+    $form['fws_terms_conditions']['#prefix'] = '<div class="margin-top-lg margin-bottom-lg">';
+    $form['fws_terms_conditions']['#suffix'] = '</div>';
+  }
+
+  if (isset($form['saml_login'])) {
+    $form['saml_login']['#attributes']['class'][] = 'margin-top-lg';
+    $form['saml_login']['#prefix'] = '<div class="margin-top-lg">';
+    $form['saml_login']['#suffix'] = '</div>';
   }
 }

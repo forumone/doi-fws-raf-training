@@ -1338,9 +1338,31 @@ select.form-select.form-control:focus-visible,
 .user-login-form .form-control {
   max-width: 500px;
 }
+.user-login-form .fws-terms-conditions-message {
+  margin-bottom: 30px;
+}
+.user-login-form .form-item-fws-terms-conditions {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+.user-login-form .saml-login-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.user-login-form .form-item {
+  margin-bottom: 15px;
+}
 
 .openid-connect-login-form {
   margin-bottom: 40px;
+}
+.openid-connect-login-form .alert {
+  margin-bottom: 25px;
+}
+.openid-connect-login-form input[type=submit] {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .input-group .input-group-addon {
