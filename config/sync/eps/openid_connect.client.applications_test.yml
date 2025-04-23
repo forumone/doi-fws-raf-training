@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: MWCSjB-Y4IbqSeIcHb4FRky3D5l-YtTvy25uXzWeBcw
 id: applications_test
-label: 'Applications Test'
+label: 'Login.gov'
 plugin: login_gov
 settings:
   client_id: 'urn:gov:gsa:openidconnect.profiles:sp:sso:usfws:fwsappstest'

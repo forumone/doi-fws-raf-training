@@ -359,14 +359,47 @@ select.form-select.form-control,
 
 // User login page overrides.
 .user-login-form {
-
   .form-control {
     max-width: 500px;
+  }
+
+  // Add spacing between terms & conditions and related elements
+  .fws-terms-conditions-message {
+    margin-bottom: 30px;
+  }
+
+  // Add spacing for the terms & conditions checkbox
+  .form-item-fws-terms-conditions {
+    margin-top: 20px;
+    margin-bottom: 25px;
+  }
+
+  // Add spacing for the login button
+  .saml-login-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  // Additional general spacing for all form elements
+  .form-item {
+    margin-bottom: 15px;
   }
 }
 
 .openid-connect-login-form {
   margin-bottom: 40px;
+
+  // Add spacing for login notice
+  .alert {
+    margin-bottom: 25px;
+  }
+
+  // Add spacing for login buttons
+  input[type="submit"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
 .input-group .input-group-addon {
