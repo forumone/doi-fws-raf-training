@@ -195,7 +195,7 @@
     },
     autofill: function(context, settings) {
       const $self = Drupal.behaviors.permitFieldGroupVisibility;
-      once('initAutofillField', 'form#node-permit-3186a-form, form.node-permit-3186a-form', context).forEach(function(form) {
+      once('initAutofillField', 'form#node-permit-3186a-form, form#node-permit-3186a-edit-form', context).forEach(function(form) {
         const $btnAutoFillSender = $self.createFakeBtn(Drupal.t('I am the sender'));
         $(form).find('#edit-group-sender--content').prepend($btnAutoFillSender);
         $('input', $btnAutoFillSender).on('click', () => $self.handlerAutofill(form));
@@ -214,10 +214,8 @@
     handlerAutofill: function(form, type = 'sender') {
       const { mapping_fields, profile } = drupalSettings.fws_falcon_permit;
       for (const [src, desc] of Object.entries(mapping_fields[type])) {
-        if (typeof profile[desc] !== 'undefined') {
-          $(form).find("input[name^='" + src + "[']").val(profile[desc]);
-          $(form).find("select[name='" + src + "']").val(profile[desc]).trigger('change');
-        }
+        $(form).find("input[name^='" + src + "[']").val(profile[desc] || '');
+        $(form).find("select[name='" + src + "']").val(profile[desc] || '').trigger('change');
       }
     }
   };
