@@ -8,6 +8,7 @@
 use Drupal\node\NodeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\user\UserInterface;
 
 /**
  * Get state/province from coordinates using Nominatim API.
@@ -259,6 +260,51 @@ function fws_sighting_node_insert(NodeInterface $node) {
     else {
       $node->set('field_spotter', $author->getAccountName());
       $node->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function fws_sighting_user_insert(UserInterface $user) {
+  // Get all roles assigned to the user.
+  $roles = $user->getRoles();
+
+  // Log the current roles for debugging.
+  \Drupal::logger('fws_sighting')->notice('User @uid has roles: @roles', [
+    '@uid' => $user->id(),
+    '@roles' => implode(', ', $roles),
+  ]);
+
+  // All users have the authenticated role by default.
+  // If that's the only role, then add the spotter role.
+  if (count($roles) == 1 && in_array('authenticated', $roles)) {
+    // Check if the spotter role exists.
+    $role_storage = \Drupal::entityTypeManager()->getStorage('user_role');
+    $spotter_role = $role_storage->load('spotter');
+
+    if ($spotter_role) {
+      // Add the spotter role.
+      $user->addRole('spotter');
+
+      // Explicitly save the user to ensure the role is added.
+      $user->save();
+
+      // Log this event.
+      \Drupal::logger('fws_sighting')->notice('Added spotter role to new user @uid during creation', [
+        '@uid' => $user->id(),
+      ]);
+
+      // Verify that the role was actually added.
+      $updated_roles = $user->getRoles();
+      \Drupal::logger('fws_sighting')->notice('After update, user @uid has roles: @roles', [
+        '@uid' => $user->id(),
+        '@roles' => implode(', ', $updated_roles),
+      ]);
+    }
+    else {
+      \Drupal::logger('fws_sighting')->error('Could not add spotter role because it does not exist in the system');
     }
   }
 }
