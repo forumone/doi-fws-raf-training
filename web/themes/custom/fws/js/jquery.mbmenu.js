@@ -94,12 +94,12 @@
       });
 
       // if on home page then set the menu accordingly so it shows
-      if(location.pathname == "/"){
+      // if(location.pathname == "/"){
         var mainul = this.$menucontainer.children('ul.mb-menu');
         if(!!mainul){
           mainul.addClass("home-page");
         }
-      }
+      // }
 
       this.$menucontainer.find('.current-level').each(function (index, element) {
 
