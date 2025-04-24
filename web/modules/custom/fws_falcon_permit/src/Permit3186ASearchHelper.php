@@ -118,7 +118,8 @@ class Permit3186ASearchHelper {
       'transaction_number' => 'field_question_no',
       'authorized' => 'field_authorized_cd',
       'species_code' => 'field_species_cd',
-      'ownership' => 'uid'
+      'ownership' => 'uid',
+      'transfer_type' => 'field_sender_transfer_type_cd',
     ];
 
     $query = $this->entityTypeManager
