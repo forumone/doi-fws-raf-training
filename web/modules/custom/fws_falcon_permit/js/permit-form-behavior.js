@@ -196,26 +196,34 @@
     autofill: function(context, settings) {
       const $self = Drupal.behaviors.permitFieldGroupVisibility;
       once('initAutofillField', 'form#node-permit-3186a-form, form#node-permit-3186a-edit-form', context).forEach(function(form) {
-        const $btnAutoFillSender = $self.createFakeBtn(Drupal.t('I am the sender'));
-        $(form).find('#edit-group-sender--content').prepend($btnAutoFillSender);
-        $('input', $btnAutoFillSender).on('click', () => $self.handlerAutofill(form));
+        const $checkboxAutoFillSender = $self.createFakeCheckbox(Drupal.t('I am the sender'));
+        $(form).find('#edit-group-sender--content').prepend($checkboxAutoFillSender);
+        $('input', $checkboxAutoFillSender).on('click', (e) => {
+          const isChecked = $(e.currentTarget).prop('checked');
+          $self.handlerAutofill(form, 'sender', isChecked);
+        });
 
-        const $btnAutoFillRecipient = $self.createFakeBtn(Drupal.t('I am the recipient'));
-        $(form).find('#edit-group-recipient--content').prepend($btnAutoFillRecipient);
-        $('input', $btnAutoFillRecipient).on('click', () => $self.handlerAutofill(form, 'recipient'));
+        const $checkAutoFillRecipient = $self.createFakeCheckbox(Drupal.t('I am the recipient'));
+        $(form).find('#edit-group-recipient--content').prepend($checkAutoFillRecipient);
+        $('input', $checkAutoFillRecipient).on('click', (e) => {
+          const isChecked = $(e.currentTarget).prop('checked')
+          $self.handlerAutofill(form, 'recipient', isChecked);
+        });
       });
     },
-    createFakeBtn: function(label) {
-      let $buttonWrapper = $('<div class="form-item form-type-button"></div>');
-      let $button = $('<input type="button" value="' + label + '" class="form-submit btn">');
-      $buttonWrapper.append($button);
-      return $buttonWrapper;
+    createFakeCheckbox: function(label, id) {
+      let $checkboxWrapper = $('<div class="form-item form-type-checkbox checkbox"></div>');
+      let $checkbox = $('<input type="checkbox" id="' + id + '" class="form-checkbox">');
+      let $label = $('<label for="' + id + '" class="control-label option"></label>').text(label);
+      $checkboxWrapper.append($checkbox).append($label);
+      return $checkboxWrapper;
     },
-    handlerAutofill: function(form, type = 'sender') {
+    handlerAutofill: function(form, type = 'sender', reset = false) {
       const { mapping_fields, profile } = drupalSettings.fws_falcon_permit;
       for (const [src, desc] of Object.entries(mapping_fields[type])) {
-        $(form).find("input[name^='" + src + "[']").val(profile[desc] || '');
-        $(form).find("select[name='" + src + "']").val(profile[desc] || '').trigger('change');
+        const val = reset ? (profile[desc] || '') : '';
+        $(form).find("input[name^='" + src + "[']").val(val);
+        $(form).find("select[name='" + src + "']").val(val).trigger('change');
       }
     }
   };
