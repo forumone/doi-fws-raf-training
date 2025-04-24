@@ -533,15 +533,29 @@ $_rcgr_import_csv_map = [
   'bi_cd' => array_search('bi_cd', $header),
 ];
 
-// Define field mappings.
+// Define field mappings from CSV columns to Drupal fields.
 $field_mappings = [
   'permit_no' => 'field_permit_no',
-  'version_no' => 'field_version_no',
-  'create_by' => 'field_create_by',
-  'update_by' => 'field_update_by',
   'hid' => 'field_hid',
   'site_id' => 'field_site_id',
   'control_site_id' => 'field_control_site_id',
+  'version_no' => 'field_version_no',
+  'registrant_name' => 'field_applicant_business_name',
+  'registrant_first_name' => 'field_applicant_first_name',
+  'registrant_middle_name' => 'field_applicant_middle_name',
+  'registrant_last_name' => 'field_applicant_last_name',
+  'registrant_prefix' => 'field_applicant_prefix',
+  'registrant_suffix' => 'field_applicant_suffix',
+  'registrant_address_l1' => 'field_applicant_address_l1',
+  'registrant_address_l2' => 'field_applicant_address_l2',
+  'registrant_address_l3' => 'field_applicant_address_l3',
+  'registrant_city' => 'field_applicant_city',
+  'registrant_county' => 'field_applicant_county',
+  'registrant_state' => 'field_applicant_state',
+  'registrant_zip' => 'field_applicant_zip',
+  'registrant_home_phone' => 'field_applicant_home_phone',
+  'registrant_work_phone' => 'field_applicant_work_phone',
+  'registrant_email_address' => 'field_applicant_email_address',
   'principal_name' => 'field_principal_name',
   'principal_first_name' => 'field_principal_first_name',
   'principal_middle_name' => 'field_principal_middle_name',
@@ -549,53 +563,41 @@ $field_mappings = [
   'principal_suffix' => 'field_principal_suffix',
   'principal_title' => 'field_principal_title',
   'principal_telephone' => 'field_principal_telephone',
-  'applicant_business_name' => 'field_applicant_business_name',
-  'applicant_address_l1' => 'field_applicant_address_l1',
-  'applicant_address_l2' => 'field_applicant_address_l2',
-  'applicant_address_l3' => 'field_applicant_address_l3',
-  'applicant_city' => 'field_applicant_city',
-  'applicant_zip' => 'field_applicant_zip',
-  'applicant_home_phone' => 'field_applicant_home_phone',
-  'applicant_work_phone' => 'field_applicant_work_phone',
-  'agency_tracking_id' => 'field_agency_tracking_id',
-  'ep_formid' => 'field_ep_formid',
-  'ep_form_no' => 'field_ep_form_no',
-  'ep_form_title' => 'field_ep_form_title',
-  'applicant_last_name' => 'field_applicant_last_name',
-  'applicant_first_name' => 'field_applicant_first_name',
-  'applicant_middle_name' => 'field_applicant_middle_name',
-  'applicant_prefix' => 'field_applicant_prefix',
-  'applicant_suffix' => 'field_applicant_suffix',
-  'applicant_business_desc' => 'field_applicant_business_desc',
-  'applicant_county' => 'field_applicant_county',
-  'applicant_email_address' => 'field_applicant_email_address',
   'primary_contact_name' => 'field_primary_contact_name',
   'primary_contact_telephone' => 'field_primary_contact_telephone',
-  'primary_contact_email_address' => 'field_primary_contact_email',
-  'offloc_id' => 'field_offloc_id',
+  'primary_contact_email' => 'field_primary_contact_email',
   'issued_by' => 'field_issued_by',
   'issuing_officer_title' => 'field_issuing_officer_title',
   'biologist_initial' => 'field_biologist_initial',
-  'amend_seq_number' => 'field_amend_seq_number',
-  'wildcard_search_option' => 'field_wildcard_search_option',
+  'agency_tracking_id' => 'field_agency_tracking_id',
+  'create_by' => 'field_create_by',
+  'update_by' => 'field_update_by',
+  'ep_formid' => 'field_ep_formid',
+  'ep_form_no' => 'field_ep_form_no',
+  'ep_form_title' => 'field_ep_form_title',
+  'offloc_id' => 'field_offloc_id',
   'program_id' => 'field_program_id',
+  'region' => 'field_region',
   'control_program_id' => 'field_control_program_id',
+  'control_region' => 'field_control_region',
+  'amend_seq_number' => 'field_amend_seq_number',
+  'bi_cd' => 'field_bi_cd',
 ];
 
-// Define date field mappings.
+// Define mappings for date fields.
 $date_field_mappings = [
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
-  'dt_signed' => 'field_dt_signed',
+  'dt_expired' => 'field_dt_expired',
+  'dt_application_received' => 'field_dt_application_received',
   'dt_permit_request' => 'field_dt_permit_request',
+  'dt_applicant_signed' => 'field_dt_applicant_signed',
+  'dt_signed' => 'field_dt_signed',
   'dt_permit_issued' => 'field_dt_permit_issued',
   'dt_effective' => 'field_dt_effective',
-  'dt_expired' => 'field_dt_expired',
-  'dt_applicant_signed' => 'field_dt_applicant_signed',
-  'dt_application_received' => 'field_dt_application_received',
 ];
 
-// Define boolean field mappings (assuming CSV uses '1'/'Y'/'T' for TRUE).
+// Define mappings for boolean fields.
 $boolean_field_mappings = [
   'applicant_agreement1' => 'field_applicant_agreement1',
   'applicant_agreement2' => 'field_applicant_agreement2',
@@ -603,38 +605,27 @@ $boolean_field_mappings = [
   'applicant_signed' => 'field_applicant_signed',
 ];
 
-// Define value mappings for known values like 'U' and 'A'.
-$taxonomy_value_mappings = [
-  'U' => 'Unknown',
-  'A' => 'Active',
-  'I' => 'Inactive',
-];
-
-// Define taxonomy field mappings.
+// Define mappings for taxonomy term fields.
 $taxonomy_field_mappings = [
-  'applicant_state' => [
-    'field' => 'field_applicant_state',
-    'vocabulary' => 'state',
-  ],
-  'registrant_type_cd' => [
-    'field' => 'field_registrant_type_cd',
-    'vocabulary' => 'registrant_type',
-  ],
   'permit_status_cd' => [
     'field' => 'field_permit_status_cd',
-    'vocabulary' => 'application_status',
-  ],
-  'rcf_cd' => [
-    'field' => 'field_rcf_cd',
-    'vocabulary' => 'rcf',
-  ],
-  'xml_cd' => [
-    'field' => 'field_xml_cd',
-    'vocabulary' => 'xml',
+    'vocabulary' => 'permit_status_code',
   ],
   'permit_type_cd' => [
     'field' => 'field_permit_type_cd',
-    'vocabulary' => 'permit_type',
+    'vocabulary' => 'permit_type_code',
+  ],
+  'xml_cd' => [
+    'field' => 'field_xml_cd',
+    'vocabulary' => 'xml_code',
+  ],
+  'rcf_cd' => [
+    'field' => 'field_rcf_cd',
+    'vocabulary' => 'rcf_code',
+  ],
+  'registrant_type_cd' => [
+    'field' => 'field_registrant_type_cd',
+    'vocabulary' => 'registrant_type_code',
   ],
   'applicant_request_type' => [
     'field' => 'field_applicant_request_type',
@@ -644,11 +635,10 @@ $taxonomy_field_mappings = [
     'field' => 'field_issuer_action_cd',
     'vocabulary' => 'issuer_action',
   ],
-  'bi_cd' => [
-    'field' => 'field_bi_cd',
-    'vocabulary' => 'bi_code',
-  ],
 ];
+
+// Define value mappings for taxonomy terms.
+$taxonomy_value_mappings = [];
 
 // Log the fields being used.
 $logger->notice(

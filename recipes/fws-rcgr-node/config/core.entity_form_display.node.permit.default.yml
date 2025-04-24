@@ -120,7 +120,7 @@ third_party_settings:
         required_fields: true
         states:
           visible:
-            ':input[name="field_bi_cd[0][target_id]"]':
+            ':input[name="field_bi_cd"]':
               value: 'I'
     group_business_data:
       children:
@@ -139,7 +139,7 @@ third_party_settings:
         required_fields: true
         states:
           visible:
-            ':input[name="field_bi_cd[0][target_id]"]':
+            ':input[name="field_bi_cd"]':
               value: 'B'
     group_address:
       children:
@@ -335,14 +335,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_bi_cd:
-    type: entity_reference_autocomplete
+    type: options_select
     weight: 2
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_applicant_last_name:
     type: string_textfield

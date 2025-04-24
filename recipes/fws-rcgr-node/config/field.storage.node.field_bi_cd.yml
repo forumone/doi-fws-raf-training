@@ -1,22 +1,29 @@
 uuid: 62461810-db13-4719-aa18-3acd00cc2add
 langcode: en
-status: true
+status: TRUE
 dependencies:
   module:
     - node
-    - taxonomy
+    - options
 _core:
   default_config_hash: TEwrJHNmJIxHoZ9Q894N3miAPWYhttX7LJ6G4V6HHws
 id: node.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
-type: entity_reference
+type: list_string
 settings:
-  target_type: taxonomy_term
-module: core
-locked: false
+  allowed_values:
+    -
+      value: I
+      label: Individual
+    -
+      value: B
+      label: Business
+  allowed_values_function: ''
+module: options
+locked: FALSE
 cardinality: 1
-translatable: true
+translatable: TRUE
 indexes: {  }
-persist_with_no_fields: false
-custom_storage: false
+persist_with_no_fields: FALSE
+custom_storage: FALSE

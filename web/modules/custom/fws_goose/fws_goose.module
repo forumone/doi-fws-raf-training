@@ -995,8 +995,7 @@ function fws_goose_mail($key, &$message, $params) {
       $registrant_name = '';
       $is_business = FALSE;
       // Determine if business from field_bi_cd or field_registrant_type_cd.
-      // Check entity label if it's reference.
-      if ($node->hasField('field_bi_cd') && !$node->get('field_bi_cd')->isEmpty() && $node->get('field_bi_cd')->entity && $node->get('field_bi_cd')->entity->label() == 'B') {
+      if ($node->hasField('field_bi_cd') && !$node->get('field_bi_cd')->isEmpty() && $node->get('field_bi_cd')->value == 'B') {
         $is_business = TRUE;
       }
       elseif ($node->hasField('field_registrant_type_cd') && $node->get('field_registrant_type_cd')->entity && $node->get('field_registrant_type_cd')->entity->label() == 'Business') {
@@ -1042,9 +1041,8 @@ function fws_goose_mail($key, &$message, $params) {
       if ($node->hasField('field_registrant_type_cd') && $node->get('field_registrant_type_cd')->entity) {
         $reg_type_display = $node->get('field_registrant_type_cd')->entity->label();
       }
-      // Check entity if reference.
-      elseif ($node->hasField('field_bi_cd') && $node->get('field_bi_cd')->entity) {
-        $reg_type_display = ($node->get('field_bi_cd')->entity->label() == 'B') ? t('Business') : t('Individual');
+      elseif ($node->hasField('field_bi_cd') && !$node->get('field_bi_cd')->isEmpty()) {
+        $reg_type_display = ($node->get('field_bi_cd')->value == 'B') ? t('Business') : t('Individual');
       }
       $body[] = t('Registrant Type: @type', ['@type' => $reg_type_display]);
 

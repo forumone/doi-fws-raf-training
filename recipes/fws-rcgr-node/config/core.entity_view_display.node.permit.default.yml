@@ -92,10 +92,9 @@ content:
     weight: 4
     region: content
   field_bi_cd:
-    type: entity_reference_label
+    type: list_default
     label: hidden
-    settings:
-      link: TRUE
+    settings: {  }
     third_party_settings: {  }
     weight: 8
     region: content

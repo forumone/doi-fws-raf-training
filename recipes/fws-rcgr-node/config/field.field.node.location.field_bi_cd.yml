@@ -1,16 +1,17 @@
-uuid: f220749b-5464-4730-b3f8-430a58fc6fe5
+uuid: f0b46a30-c73a-4e89-9f71-0cac70f2a5df
 langcode: en
 status: TRUE
 dependencies:
   config:
     - field.storage.node.field_bi_cd
-    - node.type.permit
+    - node.type.location
+    - taxonomy.vocabulary.bi_code
 _core:
-  default_config_hash: Bm7uz4J9CSPMB9z2nw4e72qmrv3VQRIl6MdXc6IT8jI
-id: node.permit.field_bi_cd
+  default_config_hash: Z4UrP9fXLNTvgTvJBD2CQtn8R8LTrqdm7G_rEY9SCUQ
+id: node.location.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
-bundle: permit
+bundle: location
 label: 'BI Code'
 description: 'Business or Individual designation (B or I).'
 required: FALSE
