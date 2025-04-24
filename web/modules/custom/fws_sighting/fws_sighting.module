@@ -251,15 +251,15 @@ function fws_sighting_node_insert(NodeInterface $node) {
         $node->set('field_spotter', $last_name);
         $node->save();
       }
-      // If neither is available, use the username.
+      // If neither first nor last name is available, use the email address.
       else {
-        $node->set('field_spotter', $author->getAccountName());
+        $node->set('field_spotter', $author->getEmail());
         $node->save();
       }
     }
-    // If the author doesn't have first/last name fields, use the username.
+    // If the author doesn't have first/last name fields, use the email address.
     else {
-      $node->set('field_spotter', $author->getAccountName());
+      $node->set('field_spotter', $author->getEmail());
       $node->save();
     }
   }
