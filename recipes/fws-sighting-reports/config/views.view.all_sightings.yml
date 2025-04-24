@@ -29,7 +29,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: KJo5lWztKs_OaOhZKYqk--S2pZ0CbgFOKo0HfUtdMJ8
+  default_config_hash: H9DEOBMz1Aw2qk7mL_GZFJNl0_OeOSJ23tuRYcdkCiI
 id: all_sightings
 label: 'All Observations'
 module: views
@@ -1817,6 +1817,10 @@ display:
     position: 3
     display_options:
       title: 'My Observations'
+      access:
+        type: perm
+        options:
+          perm: 'create sighting content'
       filters:
         combine:
           id: combine
@@ -2214,6 +2218,7 @@ display:
         groups:
           1: AND
       defaults:
+        access: false
         title: false
         relationships: false
         filters: false

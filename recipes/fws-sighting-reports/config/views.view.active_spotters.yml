@@ -2,12 +2,19 @@ uuid: c59d3afd-3d08-437f-8c64-a0f0e3d58500
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.field_bird_count
+    - field.storage.user.field_first_name
+    - field.storage.user.field_last_name
+    - field.storage.user.field_start_date
+    - user.role.spotter
   module:
     - better_exposed_filters
+    - datetime
     - node
     - user
 _core:
-  default_config_hash: fvI3kKhgX0A4KzH1Y-dHD5FnNuMM9RvG6oesMgndM5E
+  default_config_hash: El7_3boFxoQct5zdyDTSsrGhsy-QDoh5AmWvhzG7noM
 id: active_spotters
 label: 'Active Spotters'
 module: views
@@ -599,8 +606,9 @@ display:
           entity_type: user
           entity_field: roles
           plugin_id: user_roles
-          operator: empty
-          value: {  }
+          operator: or
+          value:
+            spotter: spotter
           group: 1
           exposed: false
           expose:
@@ -835,6 +843,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_bird_count'
         - 'config:field.storage.user.field_first_name'
         - 'config:field.storage.user.field_last_name'
         - 'config:field.storage.user.field_start_date'
@@ -864,6 +873,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_bird_count'
         - 'config:field.storage.user.field_first_name'
         - 'config:field.storage.user.field_last_name'
         - 'config:field.storage.user.field_start_date'
