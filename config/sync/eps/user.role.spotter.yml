@@ -1,11 +1,19 @@
 uuid: 65460b49-3bba-48e8-b840-65e6c2738813
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.sighting
+  module:
+    - node
+    - system
 _core:
   default_config_hash: vtH277I_NlCz1sMW7PsisZQ53H3fs2wlUSRBDcNOOjc
 id: spotter
 label: Spotter
 weight: 4
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access content'
+  - 'create sighting content'
+  - 'edit own sighting content'
