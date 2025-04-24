@@ -160,6 +160,14 @@ class Permit3186ASearchForm extends FormBase {
       '#title' => $this->t('Sender Last name'),
     ];
 
+    $form['transfer_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Type of Transfer'),
+      '#options' => $this->searchHelper->getTaxonomyTermOptions('type_of_acquisition'),
+      '#empty_option' => $this->t('- None -'),
+      '#empty_value' => '',
+    ];
+
     $form['recipient_first_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Recipient First name'),
