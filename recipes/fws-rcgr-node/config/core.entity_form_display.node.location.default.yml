@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.location.field_bi_cd
     - field.field.node.location.field_ca_access_key
     - field.field.node.location.field_ca_county_select
     - field.field.node.location.field_control_site_id
@@ -80,12 +79,6 @@ targetEntityType: node
 bundle: location
 mode: default
 content:
-  field_bi_cd:
-    type: options_select
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_ca_access_key:
     type: string_textfield
     weight: 2
@@ -160,6 +153,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_bi_cd: true
   field_control_site_id: true
   field_create_by: true
   field_dt_create: true
