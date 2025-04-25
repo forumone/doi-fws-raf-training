@@ -1,6 +1,6 @@
 uuid: 57724b39-d072-4ac4-a32d-bbd5dc66082a
 langcode: en
-status: true
+status: TRUE
 dependencies:
   config:
     - field.field.node.permit.field_agency_tracking_id
@@ -144,64 +144,6 @@ third_party_settings:
         open: false
         description: ''
         required_fields: true
-    group_administrative:
-      children:
-        - field_applicant_home_phone
-        - field_applicant_work_phone
-        - field_applicant_email_address
-        - field_registrant_type_cd
-        - field_permit_no
-        - field_applicant_business_desc
-        - field_permit_status_cd
-        - field_permit_type_cd
-        - field_dt_permit_issued
-        - field_dt_effective
-        - field_dt_expired
-        - field_applicant_agreement1
-        - field_applicant_agreement2
-        - field_applicant_agreement3
-        - field_applicant_signed
-        - field_dt_applicant_signed
-        - field_hid
-        - field_site_id
-        - field_control_site_id
-        - field_xml_cd
-        - field_version_no
-        - field_rcf_cd
-        - field_dt_application_received
-        - field_dt_permit_request
-        - field_dt_signed
-        - field_agency_tracking_id
-        - field_ep_formid
-        - field_ep_form_no
-        - field_ep_form_title
-        - field_offloc_id
-        - field_applicant_request_type
-        - field_issued_by
-        - field_issuing_officer_title
-        - field_biologist_initial
-        - field_amend_seq_number
-        - field_wildcard_search_option
-        - field_program_id
-        - field_region
-        - field_control_program_id
-        - field_control_region
-        - field_principal_name
-        - field_create_by
-        - field_dt_create
-        - field_dt_update
-        - field_update_by
-      label: Administrative
-      region: content
-      parent_name: ''
-      weight: 6
-      format_type: details
-      format_settings:
-        classes: ''
-        id: group-administrative
-        open: false
-        description: ''
-        required_fields: false
 _core:
   default_config_hash: dREs4V8gg1lXuqp67aDhFoGLqoW9sqJuRVvhhjQnPlw
 id: node.permit.default
@@ -209,23 +151,6 @@ targetEntityType: node
 bundle: permit
 mode: default
 content:
-  field_agency_tracking_id:
-    type: string_textfield
-    weight: 65
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_amend_seq_number:
-    type: number
-    weight: 74
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
   field_applicant_address_l1:
     type: string_textfield
     weight: 30
@@ -253,39 +178,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_address
-  field_applicant_agreement1:
-    type: boolean_checkbox
-    weight: 51
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    group: group_administrative
-  field_applicant_agreement2:
-    type: boolean_checkbox
-    weight: 52
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    group: group_administrative
-  field_applicant_agreement3:
-    type: boolean_checkbox
-    weight: 53
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    group: group_administrative
-  field_applicant_business_desc:
-    type: text_textarea
-    weight: 45
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_business_data
   field_applicant_business_name:
     type: string_textfield
     weight: 22
@@ -313,15 +205,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_address
-  field_applicant_email_address:
-    type: email_default
-    weight: 42
-    region: content
-    settings:
-      placeholder: ''
-      size: 60
-    third_party_settings: {  }
-    group: group_address
   field_applicant_first_name:
     type: string_textfield
     weight: 24
@@ -331,15 +214,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_personal_data
-  field_applicant_home_phone:
-    type: string_textfield
-    weight: 40
-    region: content
-    settings:
-      size: 20
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_address
   field_applicant_last_name:
     type: string_textfield
     weight: 23
@@ -367,25 +241,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_personal_data
-  field_applicant_request_type:
-    type: entity_reference_autocomplete
-    weight: 70
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_applicant_signed:
-    type: boolean_checkbox
-    weight: 54
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    group: group_administrative
   field_applicant_state:
     type: entity_reference_autocomplete
     weight: 34
@@ -406,15 +261,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_personal_data
-  field_applicant_work_phone:
-    type: string_textfield
-    weight: 41
-    region: content
-    settings:
-      size: 20
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_address
   field_applicant_zip:
     type: string_textfield
     weight: 36
@@ -424,191 +270,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_address
-  field_bi_cd:
-    type: options_select
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_biologist_initial:
-    type: string_textfield
-    weight: 73
-    region: content
-    settings:
-      size: 10
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_control_program_id:
-    type: string_textfield
-    weight: 78
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_control_region:
-    type: string_textfield
-    weight: 79
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_control_site_id:
-    type: string_textfield
-    weight: 58
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_applicant_signed:
-    type: datetime_default
-    weight: 55
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_application_received:
-    type: datetime_default
-    weight: 62
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_effective:
-    type: datetime_default
-    weight: 49
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_expired:
-    type: datetime_default
-    weight: 50
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_permit_issued:
-    type: datetime_default
-    weight: 48
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_permit_request:
-    type: datetime_default
-    weight: 63
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_dt_signed:
-    type: datetime_default
-    weight: 64
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    group: group_administrative
-  field_ep_form_no:
-    type: string_textfield
-    weight: 67
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_ep_form_title:
-    type: string_textfield
-    weight: 68
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_ep_formid:
-    type: string_textfield
-    weight: 66
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_hid:
-    type: string_textfield
-    weight: 56
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_issued_by:
-    type: string_textfield
-    weight: 71
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_issuing_officer_title:
-    type: string_textfield
-    weight: 72
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_offloc_id:
-    type: string_textfield
-    weight: 69
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_permit_no:
-    type: string_textfield
-    weight: 44
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_permit_status_cd:
-    type: entity_reference_autocomplete
-    weight: 46
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_permit_type_cd:
-    type: entity_reference_autocomplete
-    weight: 47
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
   field_primary_contact_email:
     type: email_default
     weight: 32
@@ -663,15 +324,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_business_data
-  field_principal_name:
-    type: string_textfield
-    weight: 80
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
   field_principal_suffix:
     type: string_textfield
     weight: 27
@@ -699,81 +351,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     group: group_business_data
-  field_program_id:
-    type: string_textfield
-    weight: 76
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_rcf_cd:
-    type: entity_reference_autocomplete
-    weight: 61
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_region:
-    type: string_textfield
-    weight: 77
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_registrant_type_cd:
-    type: entity_reference_autocomplete
-    weight: 43
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_business_data
-  field_site_id:
-    type: string_textfield
-    weight: 57
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_version_no:
-    type: number
-    weight: 60
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_wildcard_search_option:
-    type: string_textfield
-    weight: 75
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
-  field_xml_cd:
-    type: string_textfield
-    weight: 59
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    group: group_administrative
   path:
     type: path
     weight: 130
@@ -795,10 +372,52 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_agency_tracking_id: true
+  field_amend_seq_number: true
+  field_applicant_agreement1: true
+  field_applicant_agreement2: true
+  field_applicant_agreement3: true
+  field_applicant_business_desc: true
+  field_applicant_email_address: true
+  field_applicant_home_phone: true
+  field_applicant_request_type: true
+  field_applicant_signed: true
+  field_applicant_work_phone: true
+  field_bi_cd: true
+  field_biologist_initial: true
+  field_control_program_id: true
+  field_control_region: true
+  field_control_site_id: true
   field_create_by: true
+  field_dt_applicant_signed: true
+  field_dt_application_received: true
   field_dt_create: true
+  field_dt_effective: true
+  field_dt_expired: true
+  field_dt_permit_issued: true
+  field_dt_permit_request: true
+  field_dt_signed: true
   field_dt_update: true
+  field_ep_form_no: true
+  field_ep_form_title: true
+  field_ep_formid: true
+  field_hid: true
+  field_issued_by: true
+  field_issuing_officer_title: true
+  field_offloc_id: true
+  field_permit_no: true
+  field_permit_status_cd: true
+  field_permit_type_cd: true
+  field_principal_name: true
+  field_program_id: true
+  field_rcf_cd: true
+  field_region: true
+  field_registrant_type_cd: true
+  field_site_id: true
   field_update_by: true
+  field_version_no: true
+  field_wildcard_search_option: true
+  field_xml_cd: true
   langcode: true
   promote: true
   status: true
