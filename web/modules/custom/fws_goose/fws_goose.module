@@ -145,11 +145,33 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       '#default_value' => '',
     ];
 
+    // Add hidden fields to store state and county values to preserve them during validation.
+    $form['_selected_state'] = [
+      '#type' => 'hidden',
+      '#default_value' => $form_state->getValue('_selected_state', ''),
+    ];
+
+    $form['_selected_county'] = [
+      '#type' => 'hidden',
+      '#default_value' => $form_state->getValue('_selected_county', ''),
+    ];
+
     // Wrap the location fields for Ajax updates.
     $form['location_fields_wrapper_start'] = [
       '#markup' => '<div id="report-location-fields-wrapper">',
       '#weight' => -5,
     ];
+
+    // If we have stored values for state and county in form state, restore them to the fields.
+    if (!empty($form_state->getValue('_selected_state'))) {
+      $form['field_location_state']['widget'][0]['value']['#value'] = $form_state->getValue('_selected_state');
+      $form['field_location_state']['widget'][0]['value']['#default_value'] = $form_state->getValue('_selected_state');
+    }
+
+    if (!empty($form_state->getValue('_selected_county'))) {
+      $form['field_location_county']['widget'][0]['value']['#value'] = $form_state->getValue('_selected_county');
+      $form['field_location_county']['widget'][0]['value']['#default_value'] = $form_state->getValue('_selected_county');
+    }
 
     $form['location_fields_wrapper_end'] = [
       '#markup' => '</div>',
@@ -563,6 +585,21 @@ function _fws_goose_report_validate($form, FormStateInterface $form_state) {
         empty($form_state->getValue('field_location_county')[0]['value'])) {
       $form_state->setErrorByName('location_selector', t('You must either select a location or manually enter state and county information.'));
     }
+  }
+
+  // If we have values in our hidden tracking fields, ensure they're preserved on form rebuild.
+  if (!empty($form_state->getValue('_selected_state'))) {
+    $selected_state = $form_state->getValue('_selected_state');
+    // Ensure these values are properly set for the next form build.
+    $form_state->setValue(['field_location_state', 0, 'value'], $selected_state);
+    \Drupal::logger('fws_goose')->notice('Preserved selected state value: @state', ['@state' => $selected_state]);
+  }
+
+  if (!empty($form_state->getValue('_selected_county'))) {
+    $selected_county = $form_state->getValue('_selected_county');
+    // Ensure these values are properly set for the next form build.
+    $form_state->setValue(['field_location_county', 0, 'value'], $selected_county);
+    \Drupal::logger('fws_goose')->notice('Preserved selected county value: @county', ['@county' => $selected_county]);
   }
 }
 
@@ -1866,6 +1903,10 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
           $state = $term->getName();
           // Set the value in the form.
           $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
+          // Also store in our hidden tracking field.
+          $response->addCommand(new InvokeCommand('input[name="_selected_state"]', 'val', [$state]));
+          // Store in form state for server-side handling.
+          $form_state->setValue('_selected_state', $state);
         }
       }
       // Fallback to direct state field if present.
@@ -1873,12 +1914,20 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
         $state = $location_node->get('field_location_state')->value;
         // Set the value in the form.
         $response->addCommand(new InvokeCommand('input[name="field_location_state[0][value]"]', 'val', [$state]));
+        // Also store in our hidden tracking field.
+        $response->addCommand(new InvokeCommand('input[name="_selected_state"]', 'val', [$state]));
+        // Store in form state for server-side handling.
+        $form_state->setValue('_selected_state', $state);
       }
 
       if ($location_node->hasField('field_location_county') && !$location_node->get('field_location_county')->isEmpty()) {
         $county = $location_node->get('field_location_county')->value;
         // Set the value in the form.
         $response->addCommand(new InvokeCommand('input[name="field_location_county[0][value]"]', 'val', [$county]));
+        // Also store in our hidden tracking field.
+        $response->addCommand(new InvokeCommand('input[name="_selected_county"]', 'val', [$county]));
+        // Store in form state for server-side handling.
+        $form_state->setValue('_selected_county', $county);
       }
     }
   }
