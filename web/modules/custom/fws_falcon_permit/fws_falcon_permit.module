@@ -10,6 +10,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Implements hook_theme().
@@ -139,6 +141,40 @@ function fws_falcon_permit_entity_presave(EntityInterface $entity) {
     _fws_falcon_permit_generate_system_bird_id($entity);
 
   }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function fws_falcon_permit_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Only apply to permit_3186a nodes
+  if ($node->bundle() !== 'permit_3186a') {
+    return AccessResult::neutral();
+  }
+
+  // Deny access to anonymous users for all operations
+  if ($account->isAnonymous()) {
+    return AccessResult::forbidden()
+      ->addCacheContexts(['user.roles'])
+      ->addCacheTags(['node:' . $node->id()]);
+  }
+
+  // For falconers, only allow access to their own nodes
+  if (in_array('falconer', $account->getRoles())) {
+    // Allow if they are the author
+    if ($node->getOwnerId() == $account->id()) {
+      return AccessResult::allowed()
+        ->cachePerUser()
+        ->addCacheTags(['node:' . $node->id()]);
+    }
+    // Deny if they are not the author
+    return AccessResult::forbidden()
+      ->cachePerUser()
+      ->addCacheTags(['node:' . $node->id()]);
+  }
+
+  // For other roles, don't interfere with their access
+  return AccessResult::neutral();
 }
 
 /**
