@@ -400,18 +400,12 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
       $form['field_permit_no']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
 
-      // Only pre-fill for new nodes, not when editing.
+      // Don't prefill for new permit nodes - critical fix.
       if ($form_id === 'node_permit_form') {
-        // Try to prefill with user's permit number if available.
-        $current_user = \Drupal::currentUser();
-        if ($current_user->id() > 0) {
-          $user = User::load($current_user->id());
-          if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
-            $permit_number = $user->get('field_permit_no')->value;
-            $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
-            $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
-          }
-        }
+        $form['field_permit_no']['widget'][0]['value']['#value'] = '';
+        $form['field_permit_no']['widget'][0]['value']['#default_value'] = '';
+        // Add logging.
+        \Drupal::logger('fws_goose')->notice('Clearing permit number field for new permit form.');
       }
     }
 
@@ -793,17 +787,75 @@ function fws_goose_entity_presave(EntityInterface $entity) {
     if ($entity->isNew()) {
       // Handle permit nodes.
       if ($entity->bundle() === 'permit' && $entity->hasField('field_permit_no')) {
+        // Debug logging.
+        \Drupal::logger('fws_goose')->notice('Processing new permit node ID: @id, entity is new: @isnew', [
+          '@id' => $entity->id(),
+          '@isnew' => $entity->isNew() ? 'TRUE' : 'FALSE',
+        ]);
+
+        // Check if permit number is already set.
+        $is_empty = $entity->get('field_permit_no')->isEmpty();
+        \Drupal::logger('fws_goose')->notice('Permit number field is empty: @isempty', [
+          '@isempty' => $is_empty ? 'TRUE' : 'FALSE',
+        ]);
+
         // Skip permit number generation if already set.
         if (!$entity->get('field_permit_no')->isEmpty()) {
+          \Drupal::logger('fws_goose')->notice('Skipping permit number generation because field is not empty.');
           return;
         }
 
         // Get or initialize the permit number counter from configuration.
         $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
         $next_number = $config->get('permit_number_counter');
+        \Drupal::logger('fws_goose')->notice('Current permit counter value: @counter', [
+          '@counter' => $next_number ?? 'NULL',
+        ]);
+
         if ($next_number === NULL) {
-          // Initialize with 1 if no counter exists.
-          $next_number = 1;
+          // If no counter exists, find the highest existing permit number.
+          \Drupal::logger('fws_goose')->notice('Counter is NULL, searching for highest existing permit number.');
+          $highest_number = 0;
+
+          // Query for the highest existing permit number.
+          $query = \Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->getQuery()
+            ->condition('type', ['location', 'permit'], 'IN')
+            ->condition('field_permit_no', '', '<>')
+            ->sort('field_permit_no', 'DESC')
+            ->range(0, 1)
+            ->accessCheck(FALSE);
+
+          $results = $query->execute();
+
+          if (!empty($results)) {
+            $nid = reset($results);
+            $node = \Drupal::entityTypeManager()
+              ->getStorage('node')
+              ->load($nid);
+
+            if ($node && $node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+              $highest_permit = $node->get('field_permit_no')->value;
+              \Drupal::logger('fws_goose')->notice('Found highest permit number: @permit', [
+                '@permit' => $highest_permit,
+              ]);
+
+              // Extract the numeric part (remove 'A' suffix).
+              if (preg_match('/^(\d+)A$/', $highest_permit, $matches)) {
+                $highest_number = (int) $matches[1];
+                \Drupal::logger('fws_goose')->notice('Extracted number: @num', [
+                  '@num' => $highest_number,
+                ]);
+              }
+            }
+          }
+
+          // Initialize with highest + 1 or 1 if no existing permits.
+          $next_number = $highest_number + 1;
+          \Drupal::logger('fws_goose')->notice('Setting next number to: @num', [
+            '@num' => $next_number,
+          ]);
         }
         else {
           $next_number++;
@@ -812,18 +864,40 @@ function fws_goose_entity_presave(EntityInterface $entity) {
         // Format the permit number (5 digits + 'A').
         $permit_number = sprintf('%05dA', $next_number);
 
-        // Double check for duplicates.
-        $duplicate_check = \Drupal::entityTypeManager()
-          ->getStorage('node')
-          ->getQuery()
-          ->condition('type', ['location', 'permit'], 'IN')
-          ->condition('field_permit_no', $permit_number)
-          ->accessCheck(FALSE)
-          ->count()
-          ->execute();
+        // Check for duplicates and increment until we find a unique number.
+        $is_duplicate = TRUE;
+        // Prevent infinite loops.
+        $max_attempts = 10;
+        $attempts = 0;
 
-        if ($duplicate_check > 0) {
-          \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
+        while ($is_duplicate && $attempts < $max_attempts) {
+          // Check for duplicates.
+          $duplicate_check = \Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->getQuery()
+            ->condition('type', ['location', 'permit'], 'IN')
+            ->condition('field_permit_no', $permit_number)
+            ->accessCheck(FALSE)
+            ->count()
+            ->execute();
+
+          if ($duplicate_check > 0) {
+            \Drupal::logger('fws_goose')->warning('Duplicate permit number detected: @permit, trying next number.', [
+              '@permit' => $permit_number,
+            ]);
+            $next_number++;
+            $permit_number = sprintf('%05dA', $next_number);
+            $attempts++;
+          }
+          else {
+            $is_duplicate = FALSE;
+          }
+        }
+
+        if ($attempts >= $max_attempts) {
+          \Drupal::logger('fws_goose')->error('Failed to generate unique permit number after @attempts attempts.', [
+            '@attempts' => $max_attempts,
+          ]);
           return;
         }
 
@@ -831,8 +905,15 @@ function fws_goose_entity_presave(EntityInterface $entity) {
         $config->set('permit_number_counter', $next_number)
           ->save(TRUE);
 
+        \Drupal::logger('fws_goose')->notice('Saved new counter value: @num', [
+          '@num' => $next_number,
+        ]);
+
         // Set the permit number on the entity.
         $entity->set('field_permit_no', $permit_number);
+        \Drupal::logger('fws_goose')->notice('Set permit number @permit on entity.', [
+          '@permit' => $permit_number,
+        ]);
 
         // Also save the permit number to the user profile.
         $user = User::load($entity->getOwnerId());
@@ -887,6 +968,9 @@ function fws_goose_entity_presave(EntityInterface $entity) {
 
         // Set the permit number on the entity.
         $entity->set('field_permit_no', $permit_number);
+        \Drupal::logger('fws_goose')->notice('Set permit number @permit on entity.', [
+          '@permit' => $permit_number,
+        ]);
 
         // Also save the permit number to the user profile.
         $current_user = \Drupal::currentUser();
