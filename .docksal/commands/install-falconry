@@ -1,12 +1,13 @@
 #!/bin/bash
 
-## Description: Install the Aerial multisite
+## Description: Install the Falconry multisite
 ## Usage: install-falconry
 ## Example: "fin install-falconry"
 
 fin composer install
 
 # Run the site installation
+# Note: Docksal handles the site URI automatically, so -l is omitted compared to DDEV.
 fin drush site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
@@ -17,9 +18,19 @@ fin drush site:install minimal --yes \
 fin drush recipe ../recipes/fws-core
 fin drush cr
 fin drush scr ../scripts/falcon/install-cleanup.php
-fin drush cr
+fin drush en -y fws_falcon_user fws_falcon_permit
 fin drush recipe ../recipes/fws-falcon-taxonomy
+fin drush recipe ../recipes/fws-falcon-node
 fin drush recipe ../recipes/fws-falcon-user
 fin drush recipe ../recipes/fws-falcon-content
+fin drush recipe ../recipes/fws-falcon-reports
+fin drush cr
+
+# Run import scripts
+fin drush scr ../scripts/falcon/import-taxonomies.php
+fin drush scr ../scripts/falcon/create-users.php
+fin drush scr ../scripts/falcon/import-users.php 10
+fin drush scr ../scripts/falcon/import_species_images.php
+fin drush scr ../scripts/falcon/import_species_3186a.php 1000
 
 fin drush uli
