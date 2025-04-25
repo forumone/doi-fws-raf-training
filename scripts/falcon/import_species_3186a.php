@@ -110,8 +110,8 @@ class ImportSpecies3186a {
     // Location information.
     'state_of_trap_location' => 'field_state_of_trap_location',
     'trap_county' => 'field_trap_county',
-    'latitude_num' => 'field_latitude_num',
-    'longitude_num' => 'field_longitude_num',
+    'latitude_num' => 'field_geolocation.lat',
+    'longitude_num' => 'field_geolocation.lng',
 
     // Falconry applicant information.
     'falc_applicant_name' => 'field_falc_applicant_name',
@@ -312,6 +312,10 @@ class ImportSpecies3186a {
         }
         elseif (str_ends_with($drupal_field, '_agreed')) {
           $value = in_array(strtolower($value), ['true', 'yes', '1', 't']);
+        }
+        elseif (strpos($drupal_field, '.')) {
+          [$drupal_field, $property] = explode('.', $drupal_field);
+          $values[$drupal_field]['value'][$property] = $value;
         }
         else {
           $values[$drupal_field] = ['value' => $value];

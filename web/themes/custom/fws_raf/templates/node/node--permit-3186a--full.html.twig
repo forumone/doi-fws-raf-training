@@ -418,17 +418,14 @@
             </tr>
             {% endif %}
 
-            {% if content.field_latitude_num %}
+            {% if content.field_geolocation %}
             <tr>
               <th class="col-md-3">Latitude</th>
-              <td class="col-md-9">{{ content.field_latitude_num }}</td>
+              <td class="col-md-9">{{ node.field_geolocation.lat }}</td>
             </tr>
-            {% endif %}
-
-            {% if content.field_longitude_num %}
             <tr>
               <th class="col-md-3">Longitude</th>
-              <td class="col-md-9">{{ content.field_longitude_num }}</td>
+              <td class="col-md-9">{{ node.field_geolocation.lng }}</td>
             </tr>
             {% endif %}
           </tbody>

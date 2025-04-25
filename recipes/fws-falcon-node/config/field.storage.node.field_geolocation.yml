@@ -1,17 +1,16 @@
+uuid: 5f97cd75-effc-4d0e-a005-e295ae075774
 langcode: en
 status: true
 dependencies:
   module:
+    - geolocation
     - node
-id: node.field_latitude_num
-field_name: field_latitude_num
+id: node.field_geolocation
+field_name: field_geolocation
 entity_type: node
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
-module: core
+type: geolocation
+settings: {  }
+module: geolocation
 locked: false
 cardinality: 1
 translatable: true
