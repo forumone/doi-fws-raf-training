@@ -1,0 +1,22 @@
+uuid: 7705f97c-105e-4a83-920f-611b728451c6
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: 3Ac9PyNjzuVl8RtBCI85KXjPsa0eY5rPOM4oYvFxN88
+id: taxonomy_term.field_geographic_region_id
+field_name: field_geographic_region_id
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

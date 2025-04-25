@@ -17,9 +17,9 @@
 #}
 {% block content %}
   <div class="branding">
-    <a class="branding__container" href="{{ path('<front>') }}" title="{{ site_name }}" rel="home">
+    <a class="branding__container" href="{{ path('<front>') }}" rel="home">
       {% if site_logo %}
-        <img src="{{ site_logo }}" class="branding__logo" alt="Logo for {{ site_name }}" />
+        <img src="{{ site_logo }}" class="branding__logo" alt="" />
       {% endif %}
       <div class="branding__text">
         {% if site_name %}

@@ -60,9 +60,48 @@ function fws_raf_preprocess_node(&$variables) {
     }
   }
 
-  if (in_array($node->getType(), ['species_counting_results', 'species_id_results']) && $variables['view_mode'] === 'full') {
-    $variables['base_path'] = base_path();
+  // Load locations and agents for permit nodes.
+  if ($node->getType() === 'permit' && $variables['view_mode'] === 'full') {
+    // Get the permit number from the current node.
+    if ($node->hasField('field_permit_no') && !$node->get('field_permit_no')->isEmpty()) {
+      $permit_number = $node->get('field_permit_no')->value;
+
+      // Load all location nodes that share this permit number.
+      $location_query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+        ->condition('type', 'location')
+        ->condition('field_permit_no', $permit_number)
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->accessCheck(TRUE);
+      $location_nids = $location_query->execute();
+
+      if (!empty($location_nids)) {
+        $variables['locations'] = Node::loadMultiple($location_nids);
+      }
+
+      // Load all agent (name) nodes that share this permit number.
+      $agent_query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+        ->condition('type', 'name')
+        ->condition('field_permit_no', $permit_number)
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->accessCheck(TRUE);
+      $agent_nids = $agent_query->execute();
+
+      if (!empty($agent_nids)) {
+        $variables['agents'] = Node::loadMultiple($agent_nids);
+      }
+    }
   }
+
+  $variables['base_path'] = base_path();
+}
+
+/**
+ * Implements hook_preprocess_user().
+ */
+function fws_raf_preprocess_user(&$variables) {
+  $variables['base_path'] = base_path();
 }
 
 /**
@@ -193,6 +232,15 @@ function fws_raf_theme_suggestions_block_alter(array &$suggestions, array $varia
 function fws_raf_preprocess_page(&$variables) {
   // Get the header_links_auth configuration value from settings.
   $variables['header_links_auth'] = \Drupal::config('system.site')->get('header_links_auth') ?? FALSE;
+
+  $route_match = \Drupal::routeMatch();
+  // Check if we're on a node page.
+  if ($route_match->getRouteName() === 'entity.node.canonical') {
+    if ($node = $route_match->getParameter('node')) {
+      $variables['node_title'] = $node->label();
+    }
+  }
+
 }
 
 /**

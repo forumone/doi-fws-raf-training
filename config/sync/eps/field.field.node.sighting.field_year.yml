@@ -1,0 +1,31 @@
+uuid: 2fa30494-67d3-4dea-8f70-56250cf1090d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_year
+    - node.type.sighting
+    - taxonomy.vocabulary.year
+_core:
+  default_config_hash: d59_dbNsF78dOISGtPK8DNtl9C7ifxd7uOVidD1D-s4
+id: node.sighting.field_year
+field_name: field_year
+entity_type: node
+bundle: sighting
+label: Year
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      year: year
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

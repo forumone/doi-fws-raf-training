@@ -1,0 +1,25 @@
+uuid: d4505d16-0809-4a93-8124-51e860dc6778
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_number
+    - node.type.species
+_core:
+  default_config_hash: NVKyVlaf-kVvSI0QSqRtWtk4EAPjzEUP80Z0IKalDTo
+id: node.species.field_number
+field_name: field_number
+entity_type: node
+bundle: species
+label: 'Tracking Number'
+description: 'Unique ID number in Captive Database'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: 100000
+  prefix: ''
+  suffix: ''
+field_type: integer

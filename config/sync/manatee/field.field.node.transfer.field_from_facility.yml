@@ -1,0 +1,27 @@
+uuid: 9150885a-170d-4819-9f08-bd6b088e8dac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_from_facility
+    - node.type.transfer
+_core:
+  default_config_hash: JpLI9HyM62n8Vxk-_4W7ZXToZ1f4rKf2_g0qkETEBvc
+id: node.transfer.field_from_facility
+field_name: field_from_facility
+entity_type: node
+bundle: transfer
+label: 'From Facility'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
+field_type: entity_reference

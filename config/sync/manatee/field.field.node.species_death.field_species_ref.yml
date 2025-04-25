@@ -1,0 +1,31 @@
+uuid: 939285fc-9b44-4668-ba91-e1a9b152978b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_ref
+    - node.type.species
+    - node.type.species_death
+_core:
+  default_config_hash: 67NxqCiHhyaLV1IKf_KYOxXBE8bIJzH83wIUkejI458
+id: node.species_death.field_species_ref
+field_name: field_species_ref
+entity_type: node
+bundle: species_death
+label: Species
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      species: species
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

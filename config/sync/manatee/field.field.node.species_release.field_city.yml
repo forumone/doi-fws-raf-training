@@ -1,0 +1,21 @@
+uuid: cb06b6ab-247c-4e37-a707-89de5d2a75a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_city
+    - node.type.species_release
+_core:
+  default_config_hash: qwnfmqiMmtpB-spGA6oyuAS2PNB2p-ubNczfqpTZAUg
+id: node.species_release.field_city
+field_name: field_city
+entity_type: node
+bundle: species_release
+label: City
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

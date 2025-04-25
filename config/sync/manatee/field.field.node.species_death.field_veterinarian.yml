@@ -1,0 +1,27 @@
+uuid: 01ddfb8e-5341-4a7e-8636-e4d41677aeb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_veterinarian
+    - node.type.species_death
+_core:
+  default_config_hash: bjzW1b1KZG52NVj-d_Tc8jF4jprMU1oUsjlcYqZYRxs
+id: node.species_death.field_veterinarian
+field_name: field_veterinarian
+entity_type: node
+bundle: species_death
+label: Veterinarian
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_org_user
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

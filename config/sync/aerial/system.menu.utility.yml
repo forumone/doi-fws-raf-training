@@ -1,0 +1,10 @@
+uuid: f1e5067a-1573-4768-bfbb-295a630fb55f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ouK2-gAL5cQtx8WBnfg_AzQkJ0y-9fz6nupzJepgPhk
+id: utility
+label: 'Utility (Top) navigation'
+description: 'Contains the menu that is placed at the very top of the website.'
+locked: false

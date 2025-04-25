@@ -498,7 +498,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<a href="/admin/structure/taxonomy/manage/california_access_key/add" class="btn btn-primary">Add CA Access Code</a>'
+          content: '<a href="[site:base-url]/admin/structure/taxonomy/manage/california_access_key/add" class="btn btn-primary">Add CA Access Code</a>'
           tokenize: false
       footer: {  }
       display_extenders: {  }

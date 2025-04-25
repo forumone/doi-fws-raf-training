@@ -1,0 +1,91 @@
+uuid: b6b7180a-440e-42ec-9ad0-b75af15d0de2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.species_image.field_bird_count
+    - field.field.media.species_image.field_image
+    - field.field.media.species_image.field_plumage
+    - field.field.media.species_image.field_position
+    - image.style.thumbnail
+    - media.type.species_image
+  module:
+    - options
+    - svg_image
+    - user
+_core:
+  default_config_hash: WX7fM0afCHe9ns3oIlMzaF9Tv5-eXGfTFJr-dInrAu8
+id: media.species_image.default
+targetEntityType: media
+bundle: species_image
+mode: default
+content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_bird_count:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_plumage:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_position:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: thumbnail
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_image: true
+  langcode: true
+  name: true
+  search_api_excerpt: true

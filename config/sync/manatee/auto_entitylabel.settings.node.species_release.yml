@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: TIe5c6U7HeDzPK4e1pvRNwq2twaZZhX1uU31iKxhIlQ
+status: 1
+pattern: 'Release [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_release
+new_content_behavior: 0

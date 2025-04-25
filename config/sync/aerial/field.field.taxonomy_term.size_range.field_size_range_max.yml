@@ -1,0 +1,25 @@
+uuid: ef485913-26ac-4467-8fea-048f3f5b3b0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_size_range_max
+    - taxonomy.vocabulary.size_range
+_core:
+  default_config_hash: 2wg0zkQ5GjUkzp3_pEF6yA_VoJGnuONp9UbQqELoBmY
+id: taxonomy_term.size_range.field_size_range_max
+field_name: field_size_range_max
+entity_type: taxonomy_term
+bundle: size_range
+label: 'Maximum Size'
+description: 'The maximum size value for this range'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

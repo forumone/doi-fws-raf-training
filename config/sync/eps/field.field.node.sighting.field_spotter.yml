@@ -1,0 +1,21 @@
+uuid: 05ebe408-80e6-49a9-847a-6b9b35aa2bea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_spotter
+    - node.type.sighting
+_core:
+  default_config_hash: Fhd5nG6ZqH18zKSXVis82hZFtIeULwKCFc5gbpydCBY
+id: node.sighting.field_spotter
+field_name: field_spotter
+entity_type: node
+bundle: sighting
+label: Spotter
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

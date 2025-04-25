@@ -1,0 +1,20 @@
+uuid: 6de6250a-cca5-420e-9b3b-b2aa2acc0912
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws
+_core:
+  default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
+id: fws_page_title
+theme: fws
+region: content
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

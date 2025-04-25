@@ -1,0 +1,33 @@
+uuid: b54f1589-f4cf-45a0-aa1e-cf41a52e9227
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.species_name.field_name
+    - field.field.paragraph.species_name.field_primary
+    - paragraphs.paragraphs_type.species_name
+_core:
+  default_config_hash: WJogRb9EV97jDshcn249SSqj0q0F1nRxyZYNPXpN6Sc
+id: paragraph.species_name.default
+targetEntityType: paragraph
+bundle: species_name
+mode: default
+content:
+  field_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_primary:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,266 @@
+uuid: 9e710524-d5f8-4713-ba09-afcabb7d53a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.status_report.field_bloods
+    - field.field.node.status_report.field_est_length
+    - field.field.node.status_report.field_est_weight
+    - field.field.node.status_report.field_health
+    - field.field.node.status_report.field_health_diag
+    - field.field.node.status_report.field_length
+    - field.field.node.status_report.field_length_date
+    - field.field.node.status_report.field_org
+    - field.field.node.status_report.field_release_time
+    - field.field.node.status_report.field_req_half_yr
+    - field.field.node.status_report.field_req_year
+    - field.field.node.status_report.field_species_ref
+    - field.field.node.status_report.field_status
+    - field.field.node.status_report.field_vet_id
+    - field.field.node.status_report.field_weight
+    - field.field.node.status_report.field_weight_date
+    - node.type.status_report
+  module:
+    - allowed_formats
+    - datetime
+    - field_group
+    - select2
+    - text
+third_party_settings:
+  field_group:
+    group_previous_status:
+      children:
+        - field_species_ref
+        - field_health
+        - field_health_diag
+        - field_status
+        - field_release_time
+        - field_vet_id
+        - field_org
+        - field_req_half_yr
+        - field_req_year
+      label: 'Status Information from previous status record'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        required_fields: true
+    group_new_status:
+      children:
+        - field_bloods
+      label: 'New Status Information (Enter for every status record)'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_measurements:
+      children:
+        - field_weight
+        - field_est_weight
+        - field_weight_date
+        - field_length
+        - field_est_length
+        - field_length_date
+      label: 'Measurements (Enter for every status record)'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: zj-q7CxPEutw75sVS4B4fFAndZnre38zQfTT08uNAGg
+id: node.status_report.default
+targetEntityType: node
+bundle: status_report
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bloods:
+    type: select2_entity_reference
+    weight: 9
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_est_length:
+    type: select2
+    weight: 14
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_est_weight:
+    type: select2
+    weight: 11
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_health:
+    type: select2_entity_reference
+    weight: 2
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_health_diag:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
+  field_length:
+    type: number
+    weight: 13
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_length_date:
+    type: datetime_default
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_org:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_release_time:
+    type: select2_entity_reference
+    weight: 5
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_req_half_yr:
+    type: select2
+    weight: 8
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_req_year:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_species_ref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_status:
+    type: select2_entity_reference
+    weight: 4
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_vet_id:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 10
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight_date:
+    type: datetime_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  url_redirects: true

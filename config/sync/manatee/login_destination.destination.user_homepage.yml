@@ -1,0 +1,18 @@
+uuid: 30672bb2-c660-4d34-b3d2-883c504b0881
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dHYRZq7z2lAj4zX7otp5WVc2jqQK9ligHwTEZ2Akk8s
+name: user_homepage
+label: 'User homepage'
+triggers:
+  login: login
+  one-time-login: one-time-login
+roles: {  }
+pages_type: 0
+pages: ''
+language: ''
+enabled: true
+destination_path: 'internal:/tracking/ytd-summary'
+weight: 0

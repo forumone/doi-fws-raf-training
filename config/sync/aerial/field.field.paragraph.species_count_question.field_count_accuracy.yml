@@ -1,0 +1,25 @@
+uuid: 44f381e4-97eb-4812-b593-0bdeae570431
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_count_accuracy
+    - paragraphs.paragraphs_type.species_count_question
+_core:
+  default_config_hash: tXvzMu_TV1nFOpoxi6nr6lBAeYZ05gNse0fxW6dGMlw
+id: paragraph.species_count_question.field_count_accuracy
+field_name: field_count_accuracy
+entity_type: paragraph
+bundle: species_count_question
+label: 'Count Accuracy'
+description: 'The percentage difference between expected and actual count. Negative values indicate undercount, positive values indicate overcount.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: '%'
+field_type: decimal

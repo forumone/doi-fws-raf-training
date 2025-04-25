@@ -1,0 +1,20 @@
+uuid: 3de99879-16af-446e-b4fd-602e372429d9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: TaerwedackhE84nJo23G5luUPAt_M-tp75v5_wl12PA
+id: node.field_euthanasia
+field_name: field_euthanasia
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

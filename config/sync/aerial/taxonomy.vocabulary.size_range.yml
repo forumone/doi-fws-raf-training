@@ -1,0 +1,11 @@
+uuid: e7da74ca-9593-4f5c-84b5-3ebde28dbe28
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: C4ePWWbgrO3tXkBueSsL8mqOtNW8Z7hUXwdipfTMGgo
+name: 'Size Range'
+vid: size_range
+description: 'Size ranges for aerial surveys'
+weight: 0
+new_revision: false

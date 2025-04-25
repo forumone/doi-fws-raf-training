@@ -1,0 +1,21 @@
+uuid: dc107b34-d580-4471-91ca-88294573e041
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.permit_3186a
+  module:
+    - geolocation
+id: node.permit_3186a.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: permit_3186a
+label: Geolocation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

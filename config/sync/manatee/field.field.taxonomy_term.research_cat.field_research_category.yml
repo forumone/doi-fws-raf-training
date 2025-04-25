@@ -1,0 +1,21 @@
+uuid: 7f243ec7-c924-473f-9e95-84cfa3f16123
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_research_category
+    - taxonomy.vocabulary.research_cat
+_core:
+  default_config_hash: ZNuLBCS3R6tBIozX02s5xnguIlzU_6q4J8Ct_TadyxU
+id: taxonomy_term.research_cat.field_research_category
+field_name: field_research_category
+entity_type: taxonomy_term
+bundle: research_cat
+label: 'Research Category'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

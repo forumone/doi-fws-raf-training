@@ -1,0 +1,23 @@
+uuid: eb2ee6b6-7bec-4619-8f99-67c69c47a7e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight_date
+    - node.type.species_birth
+  module:
+    - datetime
+_core:
+  default_config_hash: iIghT1TA74TXoG58WufbOxajGjT4BHezKKxUXuDFY1w
+id: node.species_birth.field_weight_date
+field_name: field_weight_date
+entity_type: node
+bundle: species_birth
+label: 'Date Weighed'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

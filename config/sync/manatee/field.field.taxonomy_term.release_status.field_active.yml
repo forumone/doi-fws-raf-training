@@ -1,0 +1,23 @@
+uuid: af245d0a-659b-46ed-84c3-e4f17a632f15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_active
+    - taxonomy.vocabulary.release_status
+_core:
+  default_config_hash: _ozv1MUFWKHYu1-24PZVz-7c2GRUkpFjCeHBSUM-DKw
+id: taxonomy_term.release_status.field_active
+field_name: field_active
+entity_type: taxonomy_term
+bundle: release_status
+label: Active
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

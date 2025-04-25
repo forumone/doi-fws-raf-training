@@ -1,0 +1,22 @@
+uuid: 8881f5ea-c248-428f-9e33-a5e856b87205
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+_core:
+  default_config_hash: uYYgLn_X63KS5U41ycDKYnXN4hnPwS02gjoDtlny0H4
+id: node.field_transfer_date
+field_name: field_transfer_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

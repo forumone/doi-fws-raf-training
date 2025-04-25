@@ -8,6 +8,8 @@
 use Drupal\node\NodeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\user\UserInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Get state/province from coordinates using Nominatim API.
@@ -249,16 +251,94 @@ function fws_sighting_node_insert(NodeInterface $node) {
         $node->set('field_spotter', $last_name);
         $node->save();
       }
-      // If neither is available, use the username.
+      // If neither first nor last name is available, use the email address.
       else {
-        $node->set('field_spotter', $author->getAccountName());
+        $node->set('field_spotter', $author->getEmail());
         $node->save();
       }
     }
-    // If the author doesn't have first/last name fields, use the username.
+    // If the author doesn't have first/last name fields, use the email address.
     else {
-      $node->set('field_spotter', $author->getAccountName());
+      $node->set('field_spotter', $author->getEmail());
       $node->save();
     }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function fws_sighting_user_insert(UserInterface $user) {
+  // Get all roles assigned to the user.
+  $roles = $user->getRoles();
+
+  // Log the current roles for debugging.
+  \Drupal::logger('fws_sighting')->notice('User @uid has roles: @roles', [
+    '@uid' => $user->id(),
+    '@roles' => implode(', ', $roles),
+  ]);
+
+  // All users have the authenticated role by default.
+  // If that's the only role, then add the spotter role.
+  if (count($roles) == 1 && in_array('authenticated', $roles)) {
+    // Check if the spotter role exists.
+    $role_storage = \Drupal::entityTypeManager()->getStorage('user_role');
+    $spotter_role = $role_storage->load('spotter');
+
+    if ($spotter_role) {
+      // Add the spotter role.
+      $user->addRole('spotter');
+
+      // Explicitly save the user to ensure the role is added.
+      $user->save();
+
+      // Log this event.
+      \Drupal::logger('fws_sighting')->notice('Added spotter role to new user @uid during creation', [
+        '@uid' => $user->id(),
+      ]);
+
+      // Verify that the role was actually added.
+      $updated_roles = $user->getRoles();
+      \Drupal::logger('fws_sighting')->notice('After update, user @uid has roles: @roles', [
+        '@uid' => $user->id(),
+        '@roles' => implode(', ', $updated_roles),
+      ]);
+    }
+    else {
+      \Drupal::logger('fws_sighting')->error('Could not add spotter role because it does not exist in the system');
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fws_sighting_form_openid_connect_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add a notice about Login.gov auto-registration at the top of the form.
+  $form['login_notice'] = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#value' => t('<strong>Need an account?</strong> The Login.gov button below will automatically create an account for you if you do not already have one, or log you in if you do have an account.'),
+    '#attributes' => [
+      'class' => ['alert', 'alert-info', 'margin-bottom-lg'],
+    ],
+    '#weight' => -100,
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fws_sighting_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add spacing between elements in the login form.
+  if (isset($form['fws_terms_conditions'])) {
+    $form['fws_terms_conditions']['#prefix'] = '<div class="margin-top-lg margin-bottom-lg">';
+    $form['fws_terms_conditions']['#suffix'] = '</div>';
+  }
+
+  if (isset($form['saml_login'])) {
+    $form['saml_login']['#attributes']['class'][] = 'margin-top-lg';
+    $form['saml_login']['#prefix'] = '<div class="margin-top-lg">';
+    $form['saml_login']['#suffix'] = '</div>';
   }
 }

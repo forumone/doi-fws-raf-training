@@ -1,0 +1,12 @@
+uuid: a8a234fd-5330-48e4-b357-29c5d20d67cb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: VThPxBq0MnfTRSNITqjKbKXJdOi9FB2f6Jotm6zXZs4
+id: accordion
+label: Accordion
+icon_uuid: null
+icon_default: null
+description: 'Creates prompt and response functionality to allow for collapsible content like a FAQ section.'
+behavior_plugins: {  }

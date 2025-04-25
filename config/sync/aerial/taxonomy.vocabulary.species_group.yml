@@ -1,0 +1,11 @@
+uuid: c6bb38d6-2856-4618-9dd7-86a17775264c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: J4usa4Y8JBFw7jLjJDHRAV-81qqksHJ83iiwADN8Slg
+name: 'Species Group'
+vid: species_group
+description: 'Groups of related species for aerial surveys'
+weight: 0
+new_revision: false

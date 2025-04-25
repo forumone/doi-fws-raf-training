@@ -1,0 +1,22 @@
+uuid: 906828d2-f9ab-404d-ae9e-25e348b1dc3d
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+_core:
+  default_config_hash: q4k-9skcOl5Tpiu0ofnbNEBRxxfrUX2NPT0QcHR_vxU
+id: node.field_captivity_date
+field_name: field_captivity_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

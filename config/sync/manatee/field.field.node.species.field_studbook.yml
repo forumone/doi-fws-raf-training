@@ -1,0 +1,21 @@
+uuid: 0615152d-ea91-4acb-bbfc-65c16f7f1dc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_studbook
+    - node.type.species
+_core:
+  default_config_hash: 2f4m6xb_wXzXpKMaZM41oaf195eLa1_Y2BvphwzpcHw
+id: node.species.field_studbook
+field_name: field_studbook
+entity_type: node
+bundle: species
+label: Studbook
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,14 @@
+uuid: 97523517-7cdf-4f34-8490-283c86d7cdfa
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.partner_administrator
+  module:
+    - user
+id: user_remove_role_action.partner_administrator
+label: 'Remove the Partner Administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: partner_administrator

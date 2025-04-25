@@ -10,6 +10,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Implements hook_theme().
@@ -44,6 +46,50 @@ function fws_falcon_permit_help($route_name, RouteMatchInterface $route_match) {
 function fws_falcon_permit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Attach our JS behavior to the permit node form.
   if (in_array($form_id, ['node_permit_3186a_form', 'node_permit_3186a_edit_form'])) {
+    $current_user = \Drupal::currentUser();
+    $user = \Drupal::entityTypeManager()
+      ->getStorage('user')
+      ->load($current_user->id());
+
+    $mapping_fields = [
+      'sender' => [
+        'field_sender_permit_no' => 'field_permit_no',
+        'field_sender_first_name' => 'field_first_name',
+        'field_sender_middle_name' => 'field_middle_name',
+        'field_sender_last_name' => 'field_last_name',
+        'field_sender_street_address' => 'field_address_l1',
+        'field_sender_city' => 'field_city',
+        'field_sender_st_cd' => 'field_state_cd',
+        'field_sender_zip_cd' => 'field_zip_cd',
+        'field_sender_email_address' => 'mail',
+        'field_sender_phone' => 'field_phone1',
+      ],
+      'recipient' => [
+        'field_recipient_permit_no' => 'field_permit_no',
+        'field_recipient_first_name' => 'field_first_name',
+        'field_recipient_middle_name' => 'field_middle_name',
+        'field_recipient_last_name' => 'field_last_name',
+        'field_recipient_street_address' => 'field_address_l1',
+        'field_recipient_city' => 'field_city',
+        'field_recipient_st_cd' => 'field_state_cd',
+        'field_recipient_zip_cd' => 'field_zip_cd',
+        'field_recipient_email_address' => 'mail',
+        'field_recipient_phone' => 'field_phone1',
+      ],
+    ];
+    $user_fields = array_combine($mapping_fields['sender'], $mapping_fields['recipient']);
+    $profile = [];
+    foreach ($user_fields as $field) {
+      if ($user->hasField($field) && !$user->get($field)->isEmpty()) {
+        $field_definition = $user->getFieldDefinition($field);
+        $field_type = $field_definition->getType();
+        $profile[$field] = $field_type === 'entity_reference' ? $user->get($field)->entity->id() : $user->get($field)->value;
+      }
+    }
+    $form['#attached']['drupalSettings']['fws_falcon_permit'] = [
+      'mapping_fields' => $mapping_fields,
+      'profile' => $profile,
+    ];
     $form['#attached']['library'][] = 'fws_falcon_permit/form_3_186a';
 
     // Make Record ID read-only.
@@ -95,6 +141,40 @@ function fws_falcon_permit_entity_presave(EntityInterface $entity) {
     _fws_falcon_permit_generate_system_bird_id($entity);
 
   }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function fws_falcon_permit_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  // Only apply to permit_3186a nodes
+  if ($node->bundle() !== 'permit_3186a') {
+    return AccessResult::neutral();
+  }
+
+  // Deny access to anonymous users for all operations
+  if ($account->isAnonymous()) {
+    return AccessResult::forbidden()
+      ->addCacheContexts(['user.roles'])
+      ->addCacheTags(['node:' . $node->id()]);
+  }
+
+  // For falconers, only allow access to their own nodes
+  if (in_array('falconer', $account->getRoles())) {
+    // Allow if they are the author
+    if ($node->getOwnerId() == $account->id()) {
+      return AccessResult::allowed()
+        ->cachePerUser()
+        ->addCacheTags(['node:' . $node->id()]);
+    }
+    // Deny if they are not the author
+    return AccessResult::forbidden()
+      ->cachePerUser()
+      ->addCacheTags(['node:' . $node->id()]);
+  }
+
+  // For other roles, don't interfere with their access
+  return AccessResult::neutral();
 }
 
 /**

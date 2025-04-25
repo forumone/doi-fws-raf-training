@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: NlmFJJ-2nN_WvXBSC-MV1GoXEFSiOdaQZO_7YgW0EtU
+status: 1
+pattern: 'Birth [node:field_species_ref]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.species_birth
+new_content_behavior: 0

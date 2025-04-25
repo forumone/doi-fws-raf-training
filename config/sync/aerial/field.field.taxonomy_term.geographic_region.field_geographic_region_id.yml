@@ -1,0 +1,25 @@
+uuid: fe603020-8b34-4dfd-9488-4c8366c696ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_geographic_region_id
+    - taxonomy.vocabulary.geographic_region
+_core:
+  default_config_hash: V9MczKxAi65o8--yW7mi3iGRXCRnsyYZGnsEDaULnn8
+id: taxonomy_term.geographic_region.field_geographic_region_id
+field_name: field_geographic_region_id
+entity_type: taxonomy_term
+bundle: geographic_region
+label: 'Geographic Region ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 99
+  prefix: ''
+  suffix: ''
+field_type: integer

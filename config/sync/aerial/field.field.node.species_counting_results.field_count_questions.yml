@@ -1,0 +1,28 @@
+uuid: 990388b7-8fe2-44fe-aa42-47792d4f90a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_count_questions
+    - node.type.species_counting_results
+    - paragraphs.paragraphs_type.species_count_question
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: N0VW_zgAIarRPeq550kfsvNM3EaOeqHkmctecpXovwY
+id: node.species_counting_results.field_count_questions
+field_name: field_count_questions
+entity_type: node
+bundle: species_counting_results
+label: 'Count Questions'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      species_count_question: species_count_question
+field_type: entity_reference_revisions

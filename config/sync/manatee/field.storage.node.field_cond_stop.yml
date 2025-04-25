@@ -1,0 +1,20 @@
+uuid: 9ba5f0ce-99a4-4159-99c7-7e2f5c08ab96
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: WwohXy5jFnWco8li5lF2xrTzw11JZ_SZ6RGsgxW5vmw
+id: node.field_cond_stop
+field_name: field_cond_stop
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

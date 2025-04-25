@@ -1,0 +1,23 @@
+uuid: 5c052858-e507-4823-b996-7b1d8ea4c1ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.sighting
+  module:
+    - geolocation
+_core:
+  default_config_hash: MjM4d4Y3-E20MoC1rLkIlS9jtm9AZnaKUx5ar4Wj5J4
+id: node.sighting.field_location
+field_name: field_location
+entity_type: node
+bundle: sighting
+label: Location
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

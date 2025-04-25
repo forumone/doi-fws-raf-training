@@ -1,0 +1,71 @@
+uuid: dc03f71d-b978-49b2-a7db-b6f496196d5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - filter.format.basic_html
+    - filter.format.full_html
+  module:
+    - admin_toolbar_search
+    - block_content
+    - bpmn_io
+    - charts
+    - content_moderation
+    - contextual
+    - file
+    - filter
+    - media
+    - node
+    - paragraphs
+    - path
+    - quiz
+    - shortcut
+    - system
+    - taxonomy
+    - toolbar
+_core:
+  default_config_hash: IRcLlDQkERjNTc1-b4f6iJtujCskX1U0qsbYtMqZbH0
+id: content_editor
+label: 'Content editor'
+weight: 2
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access all charts'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access quiz overview'
+  - 'access quiz_question overview'
+  - 'access shortcuts'
+  - 'access site in maintenance mode'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'administer nodes'
+  - 'administer quiz'
+  - 'administer quiz configuration'
+  - 'administer quiz result types'
+  - 'administer quiz_question'
+  - 'administer quiz_result'
+  - 'administer quiz_result_answer'
+  - 'administer taxonomy'
+  - 'bypass node access'
+  - 'create basic block content'
+  - 'create url aliases'
+  - 'delete any file'
+  - 'edit any basic block content'
+  - 'edit bpmn io diagram'
+  - 'update any media'
+  - 'update media'
+  - 'use admin toolbar search'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view the administration theme'
+  - 'view unpublished paragraphs'

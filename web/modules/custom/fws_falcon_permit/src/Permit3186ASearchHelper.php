@@ -2,6 +2,7 @@
 
 namespace Drupal\fws_falcon_permit;
 
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
@@ -17,13 +18,23 @@ class Permit3186ASearchHelper {
   protected $entityTypeManager;
 
   /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
    * Constructs a new TrackingSearchManager.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   The current user.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, AccountProxyInterface $current_user) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->currentUser = $current_user;
   }
 
   /**
@@ -99,6 +110,7 @@ class Permit3186ASearchHelper {
       'transaction_number',
       'field_species_cd',
       'field_species_name',
+      'uid',
     ];
 
     $mapping_fields = [
@@ -106,6 +118,8 @@ class Permit3186ASearchHelper {
       'transaction_number' => 'field_question_no',
       'authorized' => 'field_authorized_cd',
       'species_code' => 'field_species_cd',
+      'ownership' => 'uid',
+      'transfer_type' => 'field_sender_transfer_type_cd',
     ];
 
     $query = $this->entityTypeManager
@@ -118,6 +132,14 @@ class Permit3186ASearchHelper {
     foreach ($filter_values as $filter => $value) {
       $field = $mapping_fields[$filter] ?? "field_{$filter}";
       $query->condition($field, $value, in_array($filter, $equal_filters) ? '=' : 'CONTAINS');
+    }
+
+    if ($this->currentUser->hasRole('state_admin')) {
+      $user = $this->entityTypeManager
+        ->getStorage('user')
+        ->load($this->currentUser->id());
+      $state = $user->get('field_state_cd')?->entity?->id() ?? 'N/A';
+      $query->condition('field_owner_state', $state);
     }
 
     return $query->pager(20)->execute();

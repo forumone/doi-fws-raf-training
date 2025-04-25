@@ -22,7 +22,7 @@
 {% macro menu_links(items, attributes, menu_level, classes, dropdown_classes) %}
   {% if items %}
     {% if menu_level != 0 %}
-    <span class="nav-drilldown"><i class="fa fa-angle-right" aria-hidden="true"></i><span class="visible-hidden">Forward</span></span>
+    <span class="nav-drilldown"><i class="fa fa-angle-right" aria-hidden="true"></i><span class="visible-hidden">submenu</span></span>
     <div class="mb-submenu">
     <div class="mb-back"><a href="#" class="back-icon"><i class="fa fa-angle-left" aria-hidden="true"></i><span class="visible-hidden">Back</span></a><span class="parent-level"></span></div><div class="current-level"></div>
     {% endif %}

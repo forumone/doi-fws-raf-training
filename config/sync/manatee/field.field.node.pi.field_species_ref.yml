@@ -1,0 +1,26 @@
+uuid: a5fc174e-e06f-4de6-ad50-1d088cf23913
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_species_ref
+    - node.type.pi
+    - node.type.species_id
+_core:
+  default_config_hash: '-mivCy0A9bVQPHmCsmQ5VhPbkza6rFzGwLp_kt0lmEE'
+id: node.pi.field_species_ref
+field_name: field_species_ref
+entity_type: node
+bundle: pi
+label: Species
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      species_id: species_id
+field_type: entity_reference

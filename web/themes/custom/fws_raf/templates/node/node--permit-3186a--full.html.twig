@@ -30,16 +30,42 @@
 
 <article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
 
+  {# Initialize section counter #}
+  {% set section_counter = 0 %}
+
   <div class="node__operations">
-    <a role="button" class="btn btn-primary" href="/node/{{ node.id }}/print" target="_blank">
+    <a role="button" class="btn btn-primary" href="{{ base_path }}node/{{ node.id }}/print" target="_blank">
       <i class="fas fa-print" aria-hidden="true"></i> Print Form
     </a>
   </div>
 
   {# Species Info - Group 1 #}
+  {% if content.field_system_bird_id %}
+    {% set section_counter = section_counter + 1 %}
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ section_counter }}. System Bird Id Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tbody>
+              <tr>
+                <th class="col-md-4">Please save the number for reference</th>
+                <td class="col-md-8">{{ content.field_system_bird_id }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {# Species Info - Group 2 #}
+  {% set section_counter = section_counter + 1 %}
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">1. Species Information</h3>
+      <h3 class="panel-title">{{ section_counter }}. Species Information</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -128,23 +154,17 @@
               <td class="col-md-9">{{ content.field_species_hatch_year }}</td>
             </tr>
             {% endif %}
-
-            {% if content.field_system_bird_id %}
-              <tr>
-                <th class="col-md-3">System Bird Id</th>
-                <td class="col-md-9">{{ content.field_system_bird_id }}</td>
-              </tr>
-            {% endif %}
           </tbody>
         </table>
       </div>
     </div>
   </div>
 
-  {# Sender Info - Group 2 #}
+  {# Sender Info - Group 3 #}
+  {% set section_counter = section_counter + 1 %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">2. Sender Information (person transferring bird)</h3>
+      <h3 class="panel-title">{{ section_counter }}. Sender Information (person transferring bird)</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -257,10 +277,11 @@
     </div>
   </div>
 
-  {# Recipient Info - Group 3 #}
-  <div class="panel panel-primary mt-3">
+  {# Recipient Info - Group 4 #}
+  {% set section_counter = section_counter + 1 %}
+  <div class="panel panel-primary mt-4">
     <div class="panel-heading">
-      <h3 class="panel-title">3. Recipient Information (person acquiring bird)</h3>
+      <h3 class="panel-title">{{ section_counter }}. Recipient Information (person acquiring bird)</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -359,10 +380,11 @@
     </div>
   </div>
 
-  {# Capture or Recapture - Group 4 #}
+  {# Capture or Recapture - Group 5 #}
+  {% set section_counter = section_counter + 1 %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">4. Capture or Recapture (If bird taken from the wild)</h3>
+      <h3 class="panel-title">{{ section_counter }}. Capture or Recapture (If bird taken from the wild)</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -396,17 +418,14 @@
             </tr>
             {% endif %}
 
-            {% if content.field_latitude_num %}
+            {% if content.field_geolocation %}
             <tr>
               <th class="col-md-3">Latitude</th>
-              <td class="col-md-9">{{ content.field_latitude_num }}</td>
+              <td class="col-md-9">{{ node.field_geolocation.lat }}</td>
             </tr>
-            {% endif %}
-
-            {% if content.field_longitude_num %}
             <tr>
               <th class="col-md-3">Longitude</th>
-              <td class="col-md-9">{{ content.field_longitude_num }}</td>
+              <td class="col-md-9">{{ node.field_geolocation.lng }}</td>
             </tr>
             {% endif %}
           </tbody>
@@ -415,10 +434,11 @@
     </div>
   </div>
 
-  {# Rebanding - Group 5 #}
+  {# Rebanding - Group 6 #}
+  {% set section_counter = section_counter + 1 %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">5. Re-banding</h3>
+      <h3 class="panel-title">{{ section_counter }}. Re-banding</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -457,10 +477,11 @@
     </div>
   </div>
 
-  {# Certification - Group 6 #}
+  {# Certification - Group 7 #}
+  {% set section_counter = section_counter + 1 %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">6. Certification</h3>
+      <h3 class="panel-title">{{ section_counter }}. Certification</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">

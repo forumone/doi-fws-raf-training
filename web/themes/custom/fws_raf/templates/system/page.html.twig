@@ -84,7 +84,7 @@
         </div>
         {# Navigation (collapsible) #}
         {% if ((header_links_auth and logged_in) or not header_links_auth) and page.navigation_collapsible %}
-          <div id="navbar-collapse" class="navbar-collapse collapse" role="dialog" aria-modal="true" aria-label="Mobile menu">
+          <div id="navbar-collapse" class="navbar-collapse collapse">
             {{ page.navigation_collapsible }}
           </div>
         {% endif %}
@@ -141,7 +141,13 @@
         {# If No Page Title #}
         {% if banner_content is empty %}
           <div class="no-banner-image">
-              {{ drupal_block('page_title_block')}}
+              {% if node_title %}
+                <div class="page-title-wrapper">
+                  <h1 class="page-header">{{ node_title }}</h1>
+                </div>
+              {% else %}
+                {{ drupal_block('page_title_block')}}
+              {% endif %}
           </div>
         {% endif %}
         {# Highlighted #}

@@ -1,0 +1,29 @@
+uuid: 07948a7b-dd96-4d8c-a05a-c5bda4269f5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_org
+    - node.type.species_rescue
+_core:
+  default_config_hash: lbIN1lYpaVYrRWC0_elacvUnTMZejcJWoLam_TxV0-0
+id: node.species_rescue.field_org
+field_name: field_org
+entity_type: node
+bundle: species_rescue
+label: Organization
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: a67c9770-3810-42bd-81a4-24d7653bd3e6
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: tracking_autocomplete
+      display_name: entity_reference_3
+      arguments: {  }
+field_type: entity_reference

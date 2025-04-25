@@ -1,0 +1,46 @@
+uuid: 242b9d56-51cf-49fb-90f6-2ba40b8c5952
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.popup
+    - field.field.media.image.field_image
+    - media.type.image
+  module:
+    - image_popup
+_core:
+  default_config_hash: JdTSZ8EVjZXEdm4C5BtTXMc1t08kJZhUwgWxBUclgDU
+id: media.image.popup
+targetEntityType: media
+bundle: image
+mode: popup
+content:
+  field_image:
+    type: image_popup_field_formatter
+    label: hidden
+    settings:
+      image_style: medium
+      image_style_popup: ''
+      image_link: ''
+      image_title_source: static
+      image_title_static: ''
+      image_title_field: name
+      image_alt_source: static
+      image_alt_static: ''
+      image_alt_field: name
+      image_popup_title_source: static
+      image_popup_title_static: ''
+      image_popup_title_field: name
+      image_popup_alt_source: static
+      image_popup_alt_static: ''
+      image_popup_alt_field: name
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

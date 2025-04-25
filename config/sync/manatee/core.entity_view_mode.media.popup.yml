@@ -1,0 +1,13 @@
+uuid: 35ae7b50-a21b-412f-8e16-1ddf3987f113
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: bQknBeyb4sSufcyOntv1zjzGIwiKZ-Vw9WHEPoDB6bI
+id: media.popup
+label: Popup
+description: ''
+targetEntityType: media
+cache: true

@@ -1,0 +1,21 @@
+uuid: 13276c3d-ac3f-4b56-98df-489690321764
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_type_of_id
+    - taxonomy.vocabulary.id_type
+_core:
+  default_config_hash: IkFUv8NFNAq_WBl5IzE7i4tLAP_TJPTujAnDu1G4Ixg
+id: taxonomy_term.id_type.field_type_of_id
+field_name: field_type_of_id
+entity_type: taxonomy_term
+bundle: id_type
+label: 'Type of ID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

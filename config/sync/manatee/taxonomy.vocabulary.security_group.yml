@@ -1,0 +1,11 @@
+uuid: 64bc6711-3430-495c-b285-180a0b45523d
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7DJewMvDAmI-GS3IVzdHE_ApcvcVdr2ZdzoaXvbkJbU
+name: 'Security Groups'
+vid: security_group
+description: 'Lookup table to define security groups'
+weight: 0
+new_revision: false

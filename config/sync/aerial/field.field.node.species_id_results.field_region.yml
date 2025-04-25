@@ -1,0 +1,26 @@
+uuid: a9c79b39-6839-4820-afb1-9d3a14060cad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region
+    - node.type.species_id_results
+    - taxonomy.vocabulary.geographic_region
+_core:
+  default_config_hash: IJv1Xc5D-51ua0-fwB-fk0bxJbFPOW4YWENRqLnUsiI
+id: node.species_id_results.field_region
+field_name: field_region
+entity_type: node
+bundle: species_id_results
+label: 'Geographic Region'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      geographic_region: geographic_region
+field_type: entity_reference

@@ -1,0 +1,25 @@
+uuid: 0b28a74e-47d3-4b05-ad2e-da934a7d55fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_length
+    - node.type.species_rescue
+_core:
+  default_config_hash: PQGcXzUsczU3sxaGgUNk9z03Kep6WCuTZANSwJVV6zw
+id: node.species_rescue.field_length
+field_name: field_length
+entity_type: node
+bundle: species_rescue
+label: Length
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: cm
+field_type: integer

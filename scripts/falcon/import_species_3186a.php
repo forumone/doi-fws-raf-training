@@ -110,8 +110,8 @@ class ImportSpecies3186a {
     // Location information.
     'state_of_trap_location' => 'field_state_of_trap_location',
     'trap_county' => 'field_trap_county',
-    'latitude_num' => 'field_latitude_num',
-    'longitude_num' => 'field_longitude_num',
+    'latitude_num' => 'field_geolocation.lat',
+    'longitude_num' => 'field_geolocation.lng',
 
     // Falconry applicant information.
     'falc_applicant_name' => 'field_falc_applicant_name',
@@ -313,6 +313,10 @@ class ImportSpecies3186a {
         elseif (str_ends_with($drupal_field, '_agreed')) {
           $value = in_array(strtolower($value), ['true', 'yes', '1', 't']);
         }
+        elseif (strpos($drupal_field, '.')) {
+          [$drupal_field, $property] = explode('.', $drupal_field);
+          $values[$drupal_field]['value'][$property] = $value;
+        }
         else {
           $values[$drupal_field] = ['value' => $value];
         }
@@ -324,6 +328,29 @@ class ImportSpecies3186a {
       $record_no = $row['recno'] ?? 'Unknown';
       $species_code = $row['species_cd'] ?? 'Not provided';
       throw new Exception("Missing required species code for record $record_no (Species code provided: $species_code)");
+    }
+
+    // Look up the user ID based on the created_by field
+    if (!empty($row['created_by'])) {
+      $username = trim($row['created_by']);
+
+      // Look up the user by username
+      $users = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->loadByProperties(['name' => $username]);
+
+      if (!empty($users)) {
+        $user = reset($users);
+        $values['uid'] = $user->id();
+      }
+      else {
+        // If user not found, default to admin (uid=1)
+        $values['uid'] = 1;
+      }
+    }
+    else {
+      // If created_by is empty, default to admin (uid=1)
+      $values['uid'] = 1;
     }
 
     return $values;

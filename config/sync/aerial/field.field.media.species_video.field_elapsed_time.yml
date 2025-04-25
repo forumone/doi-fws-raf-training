@@ -1,0 +1,25 @@
+uuid: 8bc9f077-f265-453e-91af-ec998cc33ef3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_elapsed_time
+    - media.type.species_video
+_core:
+  default_config_hash: ECsv_0dzevCCtsMteT52u6FGGqYpM2b5-gLBhmBElGQ
+id: media.species_video.field_elapsed_time
+field_name: field_elapsed_time
+entity_type: media
+bundle: species_video
+label: 'Elapsed Time'
+description: 'The elapsed time in seconds'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ' seconds'
+field_type: integer

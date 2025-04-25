@@ -1,0 +1,22 @@
+uuid: 97854c55-c3f5-49c5-890d-dcd83692fba9
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+_core:
+  default_config_hash: 7AIgZCR5UTn2drG2HPpXX_MmCRKVJeYpQUNc0w5WW0E
+id: node.field_expire_date
+field_name: field_expire_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

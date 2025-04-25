@@ -1,0 +1,20 @@
+uuid: 772bab7b-e0ad-40ed-9400-19766a00808a
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: '-ndhxIx2cDC2u8UPhHuL_FL9Act4xtjLdHPsUdbzz1w'
+id: user.field_vet
+field_name: field_vet
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

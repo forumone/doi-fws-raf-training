@@ -1,0 +1,35 @@
+uuid: de577387-9f94-4e10-8de0-ff24770faf20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.geographic_region.field_geographic_region_id
+    - taxonomy.vocabulary.geographic_region
+  module:
+    - text
+_core:
+  default_config_hash: vJRHlrSrquUvM9T1BjTdkXPG2i3lUdgsYMFtYNTPC6A
+id: taxonomy_term.geographic_region.default
+targetEntityType: taxonomy_term
+bundle: geographic_region
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_geographic_region_id:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    weight: 1
+    region: content
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

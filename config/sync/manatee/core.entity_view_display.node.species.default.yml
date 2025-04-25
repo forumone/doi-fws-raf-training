@@ -1,0 +1,101 @@
+uuid: e0cb8ada-e775-45f5-ad42-d68f4db0c253
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species.field_dam
+    - field.field.node.species.field_image
+    - field.field.node.species.field_names
+    - field.field.node.species.field_number
+    - field.field.node.species.field_rearing
+    - field.field.node.species.field_sex
+    - field.field.node.species.field_sire
+    - field.field.node.species.field_studbook
+    - node.type.species
+  module:
+    - entity_reference_revisions
+    - user
+_core:
+  default_config_hash: u_CPAxBI22RUS2bhD0Y0NmEF-L6uA3BO9_67h6FisAY
+id: node.species.default
+targetEntityType: node
+bundle: species
+mode: default
+content:
+  field_dam:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: popup
+      link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_names:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_number:
+    type: number_unformatted
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_rearing:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_sex:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_sire:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_species_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_studbook:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,29 @@
+uuid: 301f2f0c-d80a-4602-a247-46142d2b4cc0
+langcode: en
+status: true
+dependencies:
+  module:
+    - login_gov
+_core:
+  default_config_hash: MWCSjB-Y4IbqSeIcHb4FRky3D5l-YtTvy25uXzWeBcw
+id: applications_test
+label: 'Login.gov'
+plugin: login_gov
+settings:
+  client_id: 'urn:gov:gsa:openidconnect.profiles:sp:sso:usfws:fwsappstest'
+  sandbox_mode: true
+  acr_level:
+    ial/1: ial/1
+    ial/2: '0'
+    aal/2: '0'
+    aal/3: '0'
+  require_piv: false
+  userinfo_fields:
+    given_name: given_name
+    family_name: family_name
+    phone: phone
+  force_reauth: false
+  key_private_key: login_gov_private_key
+  verified_within:
+    count: '1'
+    units: 'y'

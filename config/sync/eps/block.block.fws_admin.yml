@@ -1,0 +1,27 @@
+uuid: 80ad4386-7622-4e20-b55d-16382ba1859a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.admin
+  module:
+    - system
+  theme:
+    - fws
+_core:
+  default_config_hash: 5MfnyzXbzrDa_OJuFfZfpiBYkMiuRp4mk4GM7HYc8eM
+id: fws_admin
+theme: fws
+region: sidebar_first
+weight: 1
+provider: null
+plugin: 'system_menu_block:admin'
+settings:
+  id: 'system_menu_block:admin'
+  label: Administration
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

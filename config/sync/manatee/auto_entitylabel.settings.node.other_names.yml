@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: G2eoqEVE7DaDvVNH3-uaR1M4SWmMn7mrrOcnXTUed24
+status: 1
+pattern: 'Other Name [node:field_system_id]'
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.other_names
+new_content_behavior: 0

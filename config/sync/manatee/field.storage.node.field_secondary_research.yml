@@ -1,0 +1,22 @@
+uuid: e00c0e10-4537-41a6-8fd8-d596fef5dd0a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: LBD0XfeuxZ2rCGZh1MuA2lIMHopIH3pP474sIqGsVw8
+id: node.field_secondary_research
+field_name: field_secondary_research
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

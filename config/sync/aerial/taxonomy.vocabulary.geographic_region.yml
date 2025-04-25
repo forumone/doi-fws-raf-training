@@ -1,0 +1,11 @@
+uuid: 421c2311-f11b-4a98-a984-db201a633f98
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sNyW4Y_FYePLfp1cGYiNnpuwm_g2Na8qcXODYB9QVGo
+name: 'Geographic Region'
+vid: geographic_region
+description: 'Geographic regions for aerial surveys'
+weight: 0
+new_revision: false

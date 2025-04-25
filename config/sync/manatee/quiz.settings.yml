@@ -1,0 +1,36 @@
+revisioning: false
+durod: true
+default_close: 0
+use_passfail: true
+remove_partial_quiz_record: null
+remove_invalid_quiz_record: 86400
+autotitle_length: 128
+pager_start: 50
+pager_siblings: 5
+time_limit_buffer: 5
+has_timer: false
+timer_format: '%-H h %M min %S sec'
+admin_review_options_end:
+  attempt: true
+  choice: true
+  correct: true
+  score: true
+  answer_feedback: true
+  question_feedback: true
+  solution: true
+  quiz_feedback: true
+  quiz_question_view_full: false
+  quiz_question_view_question: false
+admin_review_options_question:
+  quiz_question_view_full: false
+  quiz_question_view_question: false
+  attempt: false
+  choice: false
+  correct: false
+  score: false
+  answer_feedback: false
+  question_feedback: false
+  solution: false
+  quiz_feedback: false
+override_admin_feedback: 0
+'\Drupal\quiz\Util\QuizUtil::getQuizName()': Quiz

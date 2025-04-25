@@ -14,22 +14,16 @@ ddev drush -l $SITE_URI site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
   --verbose \
-  --site-name="FWS: Aerial Observer Training and Testing Resources"
+  --site-name="FWS: Aerial Observer Training and Testing Resources" \
+  --config-dir=../config/sync/aerial
 
-# Install recipes
-ddev drush -l $SITE_URI recipe ../recipes/fws-core
-ddev drush -l $SITE_URI cr
+# Run install cleanup script
 ddev drush -l $SITE_URI scr ../scripts/aerial/install-cleanup.php
-ddev drush -l $SITE_URI cr
-ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-taxonomy
-ddev drush -l $SITE_URI en -y aerial_videos
-ddev drush -l $SITE_URI en -y fws_counting
-ddev drush -l $SITE_URI en -y fws_id_test
+
+# Install aerial content recipe
 ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-content
-ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-media
-ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-tests
-ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-user
-ddev drush -l $SITE_URI recipe ../recipes/fws-aerial-reports
+
+# Import data
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-users.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-terms.php
 ddev drush -l $SITE_URI scr ../scripts/aerial/import-species-photos.php

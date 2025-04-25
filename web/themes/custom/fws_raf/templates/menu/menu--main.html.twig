@@ -25,12 +25,13 @@
                aria-controls="{{ submenu_id }}"
                aria-expanded="false"
                aria-haspopup="true"
+               {{ item.in_active_trail ? 'aria-current="page"' : '' }}
                tabindex="0">
               {{ item.title }} <span class="caret" aria-hidden="true"></span>
             </a>
             {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1) }}
           {% else %}
-            <a href="{{ item.url }}" {% if menu_level > 0 %}role="menuitem" tabindex="-1"{% else %}tabindex="0"{% endif %}>{{ item.title }}</a>
+            <a href="{{ item.url }}" {% if menu_level > 0 %}role="menuitem" tabindex="-1"{% else %}tabindex="0"{% endif %} {{ item.in_active_trail ? 'aria-current="page"' : '' }}>{{ item.title }}</a>
           {% endif %}
         </li>
       {% endfor %}

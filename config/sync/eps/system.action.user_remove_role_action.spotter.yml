@@ -1,0 +1,14 @@
+uuid: 47293398-8e2f-4363-a2b4-6b8f0043ba37
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.spotter
+  module:
+    - user
+id: user_remove_role_action.spotter
+label: 'Remove the Spotter role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: spotter

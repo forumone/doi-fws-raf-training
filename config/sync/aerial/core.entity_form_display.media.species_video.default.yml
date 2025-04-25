@@ -1,0 +1,93 @@
+uuid: 48f7edb6-cb99-4805-9afd-ad378e12e34c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.species_video.field_difficulty_level
+    - field.field.media.species_video.field_elapsed_time
+    - field.field.media.species_video.field_location
+    - field.field.media.species_video.field_species
+    - field.field.media.species_video.field_species_choices
+    - field.field.media.species_video.field_video_file
+    - media.type.species_video
+  module:
+    - file
+    - path
+_core:
+  default_config_hash: 3is1pFIHE_hL9WFuyciB4RQ__YCOrBISc7PzYAC2iuw
+id: media.species_video.default
+targetEntityType: media
+bundle: species_video
+mode: default
+content:
+  field_difficulty_level:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_elapsed_time:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_location:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species:
+    type: options_select
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_species_choices:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_video_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  uid: true

@@ -1,0 +1,22 @@
+uuid: b4b4e985-2754-4d4d-b353-94c51f3bbf87
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: jTVCD70lLnaXF_VHBDEL9WHUqfY9PNWdhmnf20jy3d0
+id: node.field_cause_id
+field_name: field_cause_id
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

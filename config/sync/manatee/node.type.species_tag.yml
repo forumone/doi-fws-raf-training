@@ -1,0 +1,13 @@
+uuid: 3596297c-55a7-4fa0-9fb0-20c7a889c3d5
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: gc0PL0jl80lR5uoRmgm6gc2jH3sInwyAE9GDWF9SMag
+name: 'Species Tag'
+type: species_tag
+description: 'Stores information associated with tags placed on species.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

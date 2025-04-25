@@ -1,0 +1,13 @@
+uuid: 34460271-017e-4dfc-a1a1-27b0b454d166
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: tZ4Z3UatPmZtWRIcuUTc5QTVy_wCRYmmGOoQvKgCbNQ
+name: 'Species Birth'
+type: species_birth
+description: 'Records information about species births in captivity'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

@@ -1,0 +1,147 @@
+uuid: bf381e79-3022-414f-a194-5d25fdc41252
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.species.field_dam
+    - field.field.node.species.field_image
+    - field.field.node.species.field_names
+    - field.field.node.species.field_number
+    - field.field.node.species.field_rearing
+    - field.field.node.species.field_sex
+    - field.field.node.species.field_sire
+    - field.field.node.species.field_studbook
+    - node.type.species
+  module:
+    - field_group
+    - media_library
+    - paragraphs
+    - select2
+third_party_settings:
+  field_group:
+    group_basic_information:
+      children:
+        - field_number
+        - field_sex
+        - field_dam
+        - field_sire
+        - field_rearing
+        - field_studbook
+        - field_image
+      label: 'Basic Information'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: sBtGmgsMIA4G22er9vIIEFYDJukjhJwipLHhmRIu16c
+id: node.species.default
+targetEntityType: node
+bundle: species
+mode: default
+content:
+  field_dam:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 8
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_names:
+    type: entity_reference_paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_number:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_rearing:
+    type: select2_entity_reference
+    weight: 6
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_sex:
+    type: select2_entity_reference
+    weight: 3
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_sire:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_studbook:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

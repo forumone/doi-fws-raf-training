@@ -1,0 +1,20 @@
+uuid: ea4a0a50-d612-4b0f-a1e6-99aa91dcf615
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: TgZ7jX2aAGHVkrHlIFsvE9qtHEB9fH0nvHmUJw9k1mA
+name: Observation
+type: sighting
+description: 'Use <em>observations</em> for crane observation events.'
+help: "<html>\r\n<p>\r\n    Please make one observation at a time and <strong>enter</strong> all information marked with an <font color=\"FF0000\">*</font>\r\n</p>\r\n<p>\r\n    <strong><u>To Enter a Survey Location:</u></strong>\r\n</p>\r\n<p>\r\n    1. Find your observation location on the map by placing your cursor over the map, and zooming/panning to your observation location; or by entering the nearest town in the search box and panning to the observation location.\r\n</p>\r\n<p>\r\n    2. Place a marker at the exact location that cranes were observed by clicking on the map. Please <strong>do not</strong> place a marker where you stood or where your vehicle was located at the time of the observation. Don’t worry if you accidently place the marker on the wrong spot. Simply click to move the observation marker to the correct location.\r\n</p>\r\n<p class=\"hang\">\r\n<strong>Example:</strong> If cranes were observed leaving or arriving at the roost, your marker should be placed as close to the roost as possible. If cranes were observed in a field, place the marker as close as possible to where the majority of birds were foraging. If cranes are spread throughout the field, simply place the marker in the center of the field. Use the satellite icon to make roosts or fields easier to identify.\r\n</p>\r\n<p>\r\n    3. If any location you observed had <strong>\"zero cranes\"</strong> please enter that information by placing a “0” in the “Number of Cranes” category.  This information helps us determine annual crane distribution.\r\n</p>\r\n<p>\r\n    4. <strong>Save</strong> your current observation before you continue with additional observations.\r\n</p>\r\n</html>"
+new_revision: false
+preview_mode: 0
+display_submitted: false

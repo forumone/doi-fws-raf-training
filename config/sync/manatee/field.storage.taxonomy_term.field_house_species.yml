@@ -1,0 +1,20 @@
+uuid: 2babc3bd-42af-4272-9f8a-fa1b2e903b0a
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: iDPRXHGev3sBL-Ei_Gry4zur_FHyXHi5eoZeV6Lit4c
+id: taxonomy_term.field_house_species
+field_name: field_house_species
+entity_type: taxonomy_term
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

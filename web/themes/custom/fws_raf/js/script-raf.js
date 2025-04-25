@@ -4,8 +4,156 @@
   // Initialize the fws_submenu behavior if it doesn't exist
   Drupal.behaviors.fws_submenu = Drupal.behaviors.fws_submenu || {};
 
+  Drupal.behaviors.menuAccessibility = {
+    attach: function (context, settings) {
+
+      // Find all submenu buttons
+      $(once('menu-accessibility', '[data-submenu-button]', context)).each(function() {
+        const $submenuButton = $(this);
+        const $menuItem = $submenuButton.closest('.mb-item');
+
+        // Find the associated menu link with the title
+        const $menuLink = $menuItem.find('a.we-mega-menu-li[data-menu-title]');
+
+        if ($menuLink.length) {
+          const menuTitle = $menuLink.data('menu-title');
+          const menuLinkId = $menuLink.attr('id');
+
+          // Create unique IDs for this submenu
+          const submenuTextId = 'submenu-text-' + menuTitle.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '-');
+
+          // Find the span that says "submenu"
+          const $submenuText = $submenuButton.find('.visible-hidden');
+
+          // Set ID on the span
+          $submenuText.attr('id', submenuTextId);
+
+          // Set aria-labelledby to reference both IDs
+          $submenuButton.attr('aria-labelledby', menuLinkId + ' ' + submenuTextId);
+        }
+      });
+    }
+  };
+
+  // File icon accessibility behavior
+  Drupal.behaviors.fileIconAccessibility = {
+    attach: function (context, settings) {
+      // Find all file icon spans within file-link spans
+      once('fileIconAccessibility', '.file-icon > .glyphicon', context).forEach(function (icon) {
+        var $icon = $(icon);
+        $icon.removeAttr('aria-hidden');
+      });
+    }
+  };
+
   Drupal.behaviors.bootstrapDropdowns = {
     attach: function (context, settings) {
+      // Debounce function to limit resize event calls
+      const debounce = function(func, wait) {
+        let timeout;
+        return function() {
+          const context = this;
+          const args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(function() {
+            func.apply(context, args);
+          }, wait);
+        };
+      };
+
+      // Function to toggle ARIA attributes based on screen width
+      const toggleNavAriaAttributes = function() {
+        const $navbarCollapse = $('#navbar-collapse');
+        if (window.innerWidth < 992) {
+          $navbarCollapse.attr({
+            'role': 'dialog',
+            'aria-modal': 'true',
+            'aria-label': 'Mobile menu'
+          });
+        } else {
+          $navbarCollapse.removeAttr('role aria-modal aria-label aria-expanded');
+        }
+      };
+
+      // Focus trapping functionality for mobile menu
+      const trapFocus = function(e) {
+        const $navbarCollapse = $('#navbar-collapse');
+
+        // Only trap focus if the navbar is expanded and we're in mobile view
+        if (!$navbarCollapse.hasClass('show') || window.innerWidth >= 992) {
+          return;
+        }
+
+        // Find all focusable elements within the navbar
+        const $focusableElements = $navbarCollapse.find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if ($focusableElements.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const $firstFocusable = $focusableElements.first();
+        const $lastFocusable = $focusableElements.last();
+
+        // Add the toggle button to the focus trap (it's outside the navbar-collapse)
+        const $toggleButton = $('.navbar-toggle.menu__toggle');
+
+        // Handle Tab key
+        if (e.key === 'Tab') {
+          // Shift+Tab on first element
+          if (e.shiftKey && (document.activeElement === $firstFocusable[0] || document.activeElement === $toggleButton[0])) {
+            e.preventDefault();
+            $lastFocusable.focus();
+          }
+          // Tab on last element
+          else if (!e.shiftKey && document.activeElement === $lastFocusable[0]) {
+            e.preventDefault();
+            $toggleButton.focus();
+          }
+        }
+
+        // Handle Escape key
+        if (e.key === 'Escape') {
+          // Close the menu
+          $navbarCollapse.removeClass('show');
+          $navbarCollapse.addClass('collapse');
+          $toggleButton.attr('aria-expanded', 'false');
+          $toggleButton.focus();
+          // Remove keydown event handler
+          $(document).off('keydown.navFocusTrap');
+        }
+      };
+
+      // Run on page load
+      toggleNavAriaAttributes();
+
+      // Add resize event listener with debounce
+      once('resize-listener', 'body', context).forEach(function (element) {
+        $(window).on('resize', debounce(toggleNavAriaAttributes, 150));
+      });
+
+      // Add/remove document keydown listener based on navbar state
+      once('navbar-focus-trap', 'body', context).forEach(function (element) {
+        const $toggleButton = $('.navbar-toggle.menu__toggle');
+
+        $toggleButton.on('click', function() {
+          const $this = $(this);
+          // Wait for the show/hide transition to complete
+          setTimeout(function() {
+            const isExpanded = $('#navbar-collapse').hasClass('show');
+
+            if (isExpanded) {
+              $(document).on('keydown.navFocusTrap', trapFocus);
+              // Focus the first focusable element in the menu
+              $('#navbar-collapse').find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])').first().focus();
+            } else {
+              $(document).off('keydown.navFocusTrap');
+              // Return focus to the toggle button
+              $this.focus();
+            }
+          }, 150);
+        });
+      });
+
       // Enable dropdown menus with hover and keyboard functionality
       once('bootstrap-hover', '.dropdown', context).forEach(function (element) {
         const $dropdown = $(element);
@@ -452,6 +600,46 @@
                 );
               }
             }
+          }
+        });
+      });
+    }
+  };
+
+  // Focus-visible polyfill for Safari
+  Drupal.behaviors.focusVisiblePolyfill = {
+    attach: function (context, settings) {
+      once('focus-visible-polyfill', 'body', context).forEach(function (element) {
+        // Track whether the user is using keyboard navigation
+        let usingKeyboard = false;
+
+        // Set keyboard mode when user presses Tab
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Tab') {
+            usingKeyboard = true;
+          }
+        });
+
+        // Set mouse mode when user clicks
+        document.addEventListener('mousedown', function () {
+          usingKeyboard = false;
+          // Remove focus-visible class from any elements when clicking
+          document.querySelectorAll('.focus-visible').forEach(function (el) {
+            el.classList.remove('focus-visible');
+          });
+        });
+
+        // Add focus-visible class to elements when focused via keyboard
+        document.addEventListener('focusin', function (e) {
+          if (usingKeyboard && e.target) {
+            e.target.classList.add('focus-visible');
+          }
+        });
+
+        // Remove focus-visible class when element loses focus
+        document.addEventListener('focusout', function (e) {
+          if (e.target) {
+            e.target.classList.remove('focus-visible');
           }
         });
       });

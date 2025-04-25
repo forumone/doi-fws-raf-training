@@ -1,0 +1,25 @@
+uuid: e61d2011-f1ec-4e36-a7e6-9b1331022f6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_size_range_min
+    - taxonomy.vocabulary.size_range
+_core:
+  default_config_hash: D1NqQWWJWuznTxj5YAhNRP0-I8k2qGTMSN9hI7u8-yo
+id: taxonomy_term.size_range.field_size_range_min
+field_name: field_size_range_min
+entity_type: taxonomy_term
+bundle: size_range
+label: 'Minimum Size'
+description: 'The minimum size value for this range'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

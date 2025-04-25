@@ -1,0 +1,23 @@
+uuid: cb4fb795-b5a4-4d52-afc5-2cf24367ae0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_euthanasia
+    - node.type.species_death
+_core:
+  default_config_hash: W81QVrnljTnC6Tqgji1-UcoTkZ37j7mOV6fz-YjoaWc
+id: node.species_death.field_euthanasia
+field_name: field_euthanasia
+entity_type: node
+bundle: species_death
+label: 'Euthanized?'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

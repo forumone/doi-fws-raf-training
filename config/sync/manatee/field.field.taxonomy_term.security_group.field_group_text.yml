@@ -1,0 +1,21 @@
+uuid: 3d7093da-1fc0-4807-add1-0a36875d15d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_group_text
+    - taxonomy.vocabulary.security_group
+_core:
+  default_config_hash: XtlVcG-uFxc5ReRM0pw6_pOQKKr_K3xcKoyzVMhgbAk
+id: taxonomy_term.security_group.field_group_text
+field_name: field_group_text
+entity_type: taxonomy_term
+bundle: security_group
+label: 'Group Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
