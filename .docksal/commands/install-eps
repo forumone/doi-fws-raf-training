@@ -7,29 +7,26 @@
 fin composer install
 
 # Run the site installation
-fin drush -l site:install minimal --yes \
+# Note: Docksal handles the site URI automatically, so -l is omitted compared to DDEV.
+fin drush site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
-  --sites-subdir=eps \
   --verbose \
-  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal"
+  --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal" \
+  --config-dir=../config/sync/eps
 
-# Install recipes
-fin drush -l recipe ../recipes/fws-core
-fin drush -l cr
-fin drush -l scr ../scripts/eps/install-cleanup.php
-fin drush -l cr
-fin drush -l recipe ../recipes/fws-sighting-taxonomy
-fin drush -l recipe ../recipes/fws-sighting-node
-fin drush -l recipe ../recipes/fws-sighting-reports
-fin drush -l recipe ../recipes/fws-sighting-blocks
-fin drush -l recipe ../recipes/fws-sighting-user
-fin drush -l recipe ../recipes/fws-eps-content
-fin drush -l en -y fws_sighting
-fin drush -l scr ../scripts/eps/import-users.php
-fin drush -l scr ../scripts/eps/import-sightings.php
+# Run install cleanup script
+fin drush scr ../scripts/eps/install-cleanup.php
 
-# Import users
-# fin drush -l scr ./scripts/eps/import-users.php
+# Install eps content recipe
+fin drush recipe ../recipes/fws-eps-content
 
-fin drush -l uli
+# Set front page
+# fin drush config:set system.site page.front /node/1 -y
+
+# Import data
+fin drush scr ../scripts/eps/import-users.php
+fin drush scr ../scripts/eps/import-sightings.php
+
+fin drush cr
+fin drush uli
