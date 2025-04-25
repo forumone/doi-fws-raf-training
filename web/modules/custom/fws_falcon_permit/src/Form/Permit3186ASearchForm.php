@@ -408,7 +408,7 @@ class Permit3186ASearchForm extends FormBase {
         'sender_last_name' => $node->field_sender_last_name->value,
         'recipient_first_name' => $node->field_recipient_first_name->value,
         'recipient_last_name' => $node->field_recipient_last_name->value,
-        'date_created' => date('Y-m-d', strtotime($node->field_dt_create->value)),
+        'date_created' => !empty(trim($node->field_dt_create->value)) ? date('Y-m-d', strtotime($node->field_dt_create->value)) : '',
         'actions' => [],
       ];
 
