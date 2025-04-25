@@ -546,6 +546,72 @@ class TrackingSearchForm extends FormBase {
 
       $conditions[] = $condition;
     }
+    // Handle date ranges with "All" event type
+    elseif ((!empty($values['from']) || !empty($values['to'])) &&
+            (empty($values['event_type']) || $values['event_type'] === 'All')) {
+
+      // Get all event types
+      $event_types = $this->searchManager->getEventTypes();
+
+      // Create a list to store species IDs from all event types
+      $all_species_ids = [];
+
+      // For each event type, find species with events in the date range
+      foreach (array_keys($event_types) as $event_type) {
+        $date_fields = [
+          'species_birth' => 'field_birth_date',
+          'species_rescue' => 'field_rescue_date',
+          'transfer' => 'field_transfer_date',
+          'species_release' => 'field_release_date',
+          'species_death' => 'field_death_date',
+        ];
+
+        if (isset($date_fields[$event_type])) {
+          $event_query = $this->entityTypeManager->getStorage('node')->getQuery()
+            ->condition('type', $event_type)
+            ->condition('field_species_ref', NULL, 'IS NOT NULL')
+            ->accessCheck(FALSE);
+
+          if (!empty($values['from'])) {
+            $event_query->condition($date_fields[$event_type], $values['from'], '>=');
+          }
+
+          if (!empty($values['to'])) {
+            $event_query->condition($date_fields[$event_type], $values['to'], '<=');
+          }
+
+          $event_matches = $event_query->execute();
+
+          if (!empty($event_matches)) {
+            $event_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($event_matches);
+            foreach ($event_nodes as $event_node) {
+              if (!$event_node->field_species_ref->isEmpty()) {
+                $all_species_ids[] = $event_node->field_species_ref->target_id;
+              }
+            }
+          }
+        }
+      }
+
+      // If we found any species, add a condition to include them
+      if (!empty($all_species_ids)) {
+        // Remove duplicates
+        $all_species_ids = array_unique($all_species_ids);
+
+        $conditions[] = [
+          'field' => 'nid',
+          'value' => $all_species_ids,
+          'operator' => 'IN',
+        ];
+      }
+      else {
+        // Force no results if no matches found
+        $conditions[] = [
+          'field' => 'nid',
+          'value' => 0,
+        ];
+      }
+    }
 
     // Event detail parameters.
     if (!empty($values['rescue_type']) && $values['rescue_type'] !== 'All') {
@@ -597,12 +663,8 @@ class TrackingSearchForm extends FormBase {
     $to_date = $form_state->getValue('to');
     $event_type = $form_state->getValue('event_type');
 
-    if ((!empty($from_date) || !empty($to_date)) && ($event_type === 'All' || empty($event_type))) {
-      $form_state->setErrorByName(
-        'event_type',
-        $this->t('Event type is required when specifying a date range.')
-      );
-    }
+    // Removed validation that required event type for date ranges
+    // to allow searching with "All" event type and date ranges
 
     if (!empty($from_date) && !empty($to_date)) {
       $from = strtotime($from_date);
