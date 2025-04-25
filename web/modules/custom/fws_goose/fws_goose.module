@@ -12,8 +12,8 @@ use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-// Add this use statement.
 use Drupal\node\NodeInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_form_alter().
@@ -392,6 +392,90 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       '#wrapper' => 'location-county-wrapper',
     ];
   }
+
+  // Handle permit application form.
+  if (in_array($form_id, ['node_permit_form', 'node_permit_edit_form'])) {
+    // Make permit number field read-only.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+
+      // Only pre-fill for new nodes, not when editing.
+      if ($form_id === 'node_permit_form') {
+        // Try to prefill with user's permit number if available.
+        $current_user = \Drupal::currentUser();
+        if ($current_user->id() > 0) {
+          $user = User::load($current_user->id());
+          if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+            $permit_number = $user->get('field_permit_no')->value;
+            $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
+            $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
+          }
+        }
+      }
+    }
+
+    // Call the helper function to prefill other fields from the user entity.
+    // This is the key part that was missing!
+    if ($form_id === 'node_permit_form') {
+      _fws_goose_prefill_user_fields($form, $form_id);
+    }
+  }
+
+  // Handle activity report form.
+  if (in_array($form_id, ['node_report_form', 'node_report_edit_form'])) {
+    // Make permit number read-only and pre-fill with user's permit number.
+    if (isset($form['field_permit_no'])) {
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+      $form['field_permit_no']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
+
+      // Only pre-fill for new nodes, not when editing.
+      if ($form_id === 'node_report_form') {
+        // Try to prefill with user's permit number if available.
+        $current_user = \Drupal::currentUser();
+        if ($current_user->id() > 0) {
+          $user = User::load($current_user->id());
+          if ($user && $user->hasField('field_permit_no') && !$user->get('field_permit_no')->isEmpty()) {
+            $permit_number = $user->get('field_permit_no')->value;
+            $form['field_permit_no']['widget'][0]['value']['#value'] = $permit_number;
+            $form['field_permit_no']['widget'][0]['value']['#default_value'] = $permit_number;
+          }
+        }
+      }
+    }
+
+    // Make report year field default to current year for new reports.
+    if (isset($form['field_report_year']) && $form_id === 'node_report_form') {
+      $form['field_report_year']['widget'][0]['value']['#default_value'] = date('Y');
+    }
+
+    // Add certification section with checkbox.
+    $form['certification_wrapper'] = [
+      '#type' => 'container',
+      '#weight' => 90,
+      '#attributes' => [
+        'class' => ['certification-container'],
+        'style' => 'border: 1px solid #ddd; padding: 15px; background-color: #f8f8f8; margin-top: 20px;',
+      ],
+    ];
+
+    $form['certification_wrapper']['title'] = [
+      '#markup' => '<h2 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Certification</h2>',
+    ];
+
+    $form['certification_wrapper']['certification_text'] = [
+      '#markup' => '<p style="margin-bottom: 15px;">I certify that the information in this report is true and correct to the best of my knowledge. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>',
+    ];
+
+    $form['certification_wrapper']['certification_checkbox'] = [
+      '#type' => 'checkbox',
+      '#title' => t('I Certify'),
+      '#required' => TRUE,
+    ];
+
+    // Add validation and submit handlers.
+    $form['#validate'][] = '_fws_goose_permit_report_validate';
+  }
 }
 
 /**
@@ -702,64 +786,122 @@ function _fws_goose_validate_ca_access_submit($form, FormStateInterface $form_st
 /**
  * Implements hook_entity_presave().
  */
-function fws_goose_entity_presave($entity) {
-  // Only process new location nodes.
-  if ($entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'location' || !$entity->isNew()) {
-    return;
-  }
+function fws_goose_entity_presave(EntityInterface $entity) {
+  // Only process node entities.
+  if ($entity->getEntityTypeId() === 'node' && $entity instanceof NodeInterface) {
+    // Handle permit numbering for new nodes that need permit numbers.
+    if ($entity->isNew()) {
+      // Handle permit nodes.
+      if ($entity->bundle() === 'permit' && $entity->hasField('field_permit_no')) {
+        // Skip permit number generation if already set.
+        if (!$entity->get('field_permit_no')->isEmpty()) {
+          return;
+        }
 
-  // Skip permit number generation if already set.
-  if (!$entity->get('field_permit_no')->isEmpty()) {
-    return;
-  }
+        // Get or initialize the permit number counter from configuration.
+        $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
+        $next_number = $config->get('permit_number_counter');
+        if ($next_number === NULL) {
+          // Initialize with 1 if no counter exists.
+          $next_number = 1;
+        }
+        else {
+          $next_number++;
+        }
 
-  // Get or initialize the permit number counter from configuration.
-  $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
-  $next_number = $config->get('permit_number_counter');
-  if ($next_number === NULL) {
-    // Initialize with 1 if no counter exists.
-    $next_number = 1;
-  }
-  else {
-    $next_number++;
-  }
+        // Format the permit number (5 digits + 'A').
+        $permit_number = sprintf('%05dA', $next_number);
 
-  // Format the permit number (5 digits + 'A').
-  $permit_number = sprintf('%05dA', $next_number);
+        // Double check for duplicates.
+        $duplicate_check = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->getQuery()
+          ->condition('type', ['location', 'permit'], 'IN')
+          ->condition('field_permit_no', $permit_number)
+          ->accessCheck(FALSE)
+          ->count()
+          ->execute();
 
-  // Double check for duplicates.
-  $duplicate_check = \Drupal::entityTypeManager()
-    ->getStorage('node')
-    ->getQuery()
-    ->condition('type', 'location')
-    ->condition('field_permit_no', $permit_number)
-    ->accessCheck(FALSE)
-    ->countQuery()
-    ->execute();
+        if ($duplicate_check > 0) {
+          \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
+          return;
+        }
 
-  if ($duplicate_check > 0) {
-    \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
-    return;
-  }
+        // Save the new counter value.
+        $config->set('permit_number_counter', $next_number)
+          ->save(TRUE);
 
-  // Save the new counter value.
-  $config->set('permit_number_counter', $next_number)
-    ->save(TRUE);
+        // Set the permit number on the entity.
+        $entity->set('field_permit_no', $permit_number);
 
-  // Set the permit number on the entity.
-  $entity->set('field_permit_no', $permit_number);
+        // Also save the permit number to the user profile.
+        $user = User::load($entity->getOwnerId());
+        if ($user && $user->hasField('field_permit_no') && $user->get('field_permit_no')->isEmpty()) {
+          $user->set('field_permit_no', $permit_number);
+          $user->save();
+          \Drupal::logger('fws_goose')->notice('Saved permit number @permit to user @uid', [
+            '@permit' => $permit_number,
+            '@uid' => $entity->getOwnerId(),
+          ]);
+        }
+      }
+      // Handle location nodes.
+      elseif ($entity->bundle() === 'location' && $entity->hasField('field_permit_no')) {
+        // Skip permit number generation if already set.
+        if (!$entity->get('field_permit_no')->isEmpty()) {
+          return;
+        }
 
-  // Also save the permit number to the user profile.
-  $current_user = \Drupal::currentUser();
-  if ($current_user->id() > 0) {
-    $user = User::load($current_user->id());
-    if ($user && $user->hasField('field_permit_no') && $user->get('field_permit_no')->isEmpty()) {
-      $user->set('field_permit_no', $permit_number);
-      $user->save();
-      \Drupal::logger('fws_goose')->notice('Saved permit number @permit to user @uid', [
-        '@permit' => $permit_number,
-        '@uid' => $current_user->id(),
-      ]);
+        // Get or initialize the permit number counter from configuration.
+        $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
+        $next_number = $config->get('permit_number_counter');
+        if ($next_number === NULL) {
+          // Initialize with 1 if no counter exists.
+          $next_number = 1;
+        }
+        else {
+          $next_number++;
+        }
+
+        // Format the permit number (5 digits + 'A').
+        $permit_number = sprintf('%05dA', $next_number);
+
+        // Double check for duplicates.
+        $duplicate_check = \Drupal::entityTypeManager()
+          ->getStorage('node')
+          ->getQuery()
+          ->condition('type', ['location', 'permit'], 'IN')
+          ->condition('field_permit_no', $permit_number)
+          ->accessCheck(FALSE)
+          ->count()
+          ->execute();
+
+        if ($duplicate_check > 0) {
+          \Drupal::logger('fws_goose')->error('Duplicate permit number detected: @permit', ['@permit' => $permit_number]);
+          return;
+        }
+
+        // Save the new counter value.
+        $config->set('permit_number_counter', $next_number)
+          ->save(TRUE);
+
+        // Set the permit number on the entity.
+        $entity->set('field_permit_no', $permit_number);
+
+        // Also save the permit number to the user profile.
+        $current_user = \Drupal::currentUser();
+        if ($current_user->id() > 0) {
+          $user = User::load($current_user->id());
+          if ($user && $user->hasField('field_permit_no') && $user->get('field_permit_no')->isEmpty()) {
+            $user->set('field_permit_no', $permit_number);
+            $user->save();
+            \Drupal::logger('fws_goose')->notice('Saved permit number @permit to user @uid', [
+              '@permit' => $permit_number,
+              '@uid' => $current_user->id(),
+            ]);
+          }
+        }
+      }
     }
   }
 }
@@ -809,7 +951,7 @@ function fws_goose_preprocess_page_title(&$variables) {
 
   // For title display on user pages.
   if ($route_name == 'entity.user.canonical') {
-    $variables['title'] = t('View Registration Form');
+    $variables['title'] = t('Account Profile');
   }
 }
 
@@ -1694,4 +1836,150 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
 
   // Return the AjaxResponse object.
   return $response;
+}
+
+/**
+ * Custom validation for report form.
+ */
+function _fws_goose_permit_report_validate($form, FormStateInterface $form_state) {
+  // Check if certification checkbox is checked.
+  if (empty($form_state->getValue(['certification_wrapper', 'certification_checkbox']))) {
+    $form_state->setErrorByName('certification_wrapper][certification_checkbox', t('You must certify that the information in this report is true and correct.'));
+  }
+}
+
+/**
+ * Helper function to prefill form fields from user entity.
+ *
+ * @param array $form
+ *   The form array to modify.
+ * @param bool $is_new_form
+ *   Whether this is a new form (TRUE) or an edit form (FALSE).
+ */
+function _fws_goose_prefill_fields_from_user(&$form, $is_new_form = TRUE) {
+  // Only prefill for new forms.
+  if (!$is_new_form) {
+    return;
+  }
+
+  // Get current user.
+  $current_user = \Drupal::currentUser();
+  if ($current_user->id() <= 0) {
+    return;
+  }
+
+  // Load full user entity.
+  $user = User::load($current_user->id());
+  if (!$user) {
+    return;
+  }
+
+  // Get all user fields.
+  $user_fields = $user->getFields();
+
+  // Internal/system fields to skip.
+  $system_fields = [
+    'uid',
+    'uuid',
+    'roles',
+    'status',
+    'created',
+    'changed',
+    'access',
+    'login',
+    'init',
+    'timezone',
+    'langcode',
+    'default_langcode',
+    'path',
+  ];
+
+  // Loop through user fields and check for matching fields in the form.
+  foreach ($user_fields as $field_name => $field) {
+    // Skip internal/system fields.
+    if (in_array($field_name, $system_fields)) {
+      continue;
+    }
+
+    // Check if form has this field.
+    if (isset($form[$field_name]) && !$user->get($field_name)->isEmpty()) {
+      $field_value = $user->get($field_name)->value;
+
+      // Set the value in the form - handle typical Drupal form structure.
+      if (isset($form[$field_name]['widget'][0]['value'])) {
+        $form[$field_name]['widget'][0]['value']['#value'] = $field_value;
+        $form[$field_name]['widget'][0]['value']['#default_value'] = $field_value;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for other relevant forms.
+ */
+function fws_goose_form_node_form_alter(&$form, $form_state, $form_id) {
+  // Apply prefill functionality to other form types as needed.
+  $supported_form_types = [
+    'node_fws_application_form',
+    'node_fws_permit_form',
+  ];
+
+  if (in_array($form_id, $supported_form_types)) {
+    $is_new_form = empty($form['nid']['#value']);
+    _fws_goose_prefill_fields_from_user($form, $is_new_form);
+  }
+}
+
+/**
+ * Helper function to prefill form fields from user entity.
+ *
+ * This function checks for matching field names between a user entity and form,
+ * and prefills the form fields with values from the user entity.
+ *
+ * @param array &$form
+ *   The form array being altered.
+ * @param string $form_id
+ *   The form ID.
+ */
+function _fws_goose_prefill_user_fields(&$form, $form_id) {
+  // Only process for new node forms, not edit forms.
+  if (strpos($form_id, '_edit_form') !== FALSE) {
+    return;
+  }
+
+  $current_user = \Drupal::currentUser();
+  if ($current_user->id() > 0) {
+    $user = User::load($current_user->id());
+    if (!$user) {
+      return;
+    }
+
+    // Get all fields from the user entity.
+    $user_fields = $user->getFields();
+
+    // Loop through user fields.
+    foreach ($user_fields as $field_name => $field) {
+      // Skip system fields.
+      $system_fields = [
+        'uid', 'uuid', 'langcode', 'preferred_langcode', 'preferred_admin_langcode',
+        'name', 'pass', 'mail', 'timezone', 'status', 'created', 'changed',
+        'access', 'login', 'init', 'roles', 'default_langcode',
+      ];
+
+      if (in_array($field_name, $system_fields)) {
+        continue;
+      }
+
+      // If the form has a field with the same name and the user field is not empty.
+      if (isset($form[$field_name]) && !$user->get($field_name)->isEmpty()) {
+        $value = $user->get($field_name)->value;
+
+        // Handle widget types: assume single value widgets.
+        if (isset($form[$field_name]['widget'][0]['value'])) {
+          $form[$field_name]['widget'][0]['value']['#value'] = $value;
+          $form[$field_name]['widget'][0]['value']['#default_value'] = $value;
+        }
+      }
+    }
+  }
 }
