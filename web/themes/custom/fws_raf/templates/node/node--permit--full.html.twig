@@ -68,7 +68,7 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {% if content.field_permit_no %}<tr><th class="col-md-3">Registration No.</th><td class="col-md-9">RG-{{ content.field_permit_no }}</td></tr>{% endif %}
+            {% if content.field_permit_no %}<tr><th class="col-md-3">Registration No.</th><td class="col-md-9">{{ content.field_permit_no|field_value }}</td></tr>{% endif %}
             {% if content.field_permit_status_cd %}<tr><th class="col-md-3">Status</th><td class="col-md-9">{{ content.field_permit_status_cd }}</td></tr>{% endif %}
             {% if content.field_permit_type_cd %}<tr><th class="col-md-3">Permit Type</th><td class="col-md-9">{{ content.field_permit_type_cd }}</td></tr>{% endif %}
             <tr>

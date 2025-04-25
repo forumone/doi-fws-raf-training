@@ -45,14 +45,6 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
     // Log when we're setting up the form for debugging.
     \Drupal::logger('fws_goose')->notice('Setting up form for @form_id', ['@form_id' => $form_id]);
 
-    // Debug the form object structure.
-    if (function_exists('kint')) {
-      kint($form_state->getFormObject()->getEntity()->getEntityTypeId());
-      kint($form_state->getFormObject()->getEntity()->bundle());
-      kint($form['actions']);
-      kint($form['#submit']);
-    }
-
     // Add instructions at the top of the form using Bootstrap alert info box.
     $form['form_instructions'] = [
       '#type' => 'markup',
@@ -213,7 +205,6 @@ function fws_goose_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       }
       $form['actions']['submit']['#submit'][] = '_fws_goose_report_submit';
 
-      // Debug the submit handlers on the button.
       if (function_exists('kint')) {
         kint($form['actions']['submit']['#submit']);
       }
@@ -530,10 +521,6 @@ function _fws_goose_report_validate($form, FormStateInterface $form_state) {
   // Get the raw form values to check the certification checkbox.
   $all_values = $form_state->getValues();
 
-  // Debug the structure of form values.
-  \Drupal::logger('fws_goose')->notice('Form values structure: @structure',
-    ['@structure' => print_r(array_keys($all_values), TRUE)]);
-
   if (isset($all_values['certification_wrapper'])) {
     \Drupal::logger('fws_goose')->notice('certification_wrapper structure: @structure',
       ['@structure' => print_r($all_values['certification_wrapper'], TRUE)]);
@@ -563,10 +550,6 @@ function _fws_goose_report_validate($form, FormStateInterface $form_state) {
   }
   else {
     \Drupal::logger('fws_goose')->notice('Certification checkbox not found in any expected path');
-    // Debug the structure of the form.
-    if (function_exists('kint_require')) {
-      \Drupal::logger('fws_goose')->notice('Form values dump: @values', ['@values' => print_r($all_values, TRUE)]);
-    }
   }
 
   if (empty($certification)) {
@@ -787,34 +770,16 @@ function fws_goose_entity_presave(EntityInterface $entity) {
     if ($entity->isNew()) {
       // Handle permit nodes.
       if ($entity->bundle() === 'permit' && $entity->hasField('field_permit_no')) {
-        // Debug logging.
-        \Drupal::logger('fws_goose')->notice('Processing new permit node ID: @id, entity is new: @isnew', [
-          '@id' => $entity->id(),
-          '@isnew' => $entity->isNew() ? 'TRUE' : 'FALSE',
-        ]);
-
-        // Check if permit number is already set.
-        $is_empty = $entity->get('field_permit_no')->isEmpty();
-        \Drupal::logger('fws_goose')->notice('Permit number field is empty: @isempty', [
-          '@isempty' => $is_empty ? 'TRUE' : 'FALSE',
-        ]);
-
         // Skip permit number generation if already set.
         if (!$entity->get('field_permit_no')->isEmpty()) {
-          \Drupal::logger('fws_goose')->notice('Skipping permit number generation because field is not empty.');
           return;
         }
 
         // Get or initialize the permit number counter from configuration.
         $config = \Drupal::configFactory()->getEditable('fws_goose.settings');
         $next_number = $config->get('permit_number_counter');
-        \Drupal::logger('fws_goose')->notice('Current permit counter value: @counter', [
-          '@counter' => $next_number ?? 'NULL',
-        ]);
 
         if ($next_number === NULL) {
-          // If no counter exists, find the highest existing permit number.
-          \Drupal::logger('fws_goose')->notice('Counter is NULL, searching for highest existing permit number.');
           $highest_number = 0;
 
           // Query for the highest existing permit number.

@@ -504,7 +504,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: true
-          content: "<div class=\"alert alert-info\">When you have completed adding locations and agents, please proceed to the <a href=\"/user\">View Registration Form</a> page to review and certify your registration.</div>\r\n<a href=\"/node/add/location\" class=\"btn btn-primary\">Add Location</a>"
+          content: "<div class=\"alert alert-info\">When you have completed adding locations and agents, please proceed to the <a href=\"/user/my-registration\">View Registration Form</a> page to review and certify your registration.</div>\r\n<a href=\"/node/add/location\" class=\"btn btn-primary\">Add Location</a>"
           tokenize: false
       footer: {  }
       display_extenders: {  }

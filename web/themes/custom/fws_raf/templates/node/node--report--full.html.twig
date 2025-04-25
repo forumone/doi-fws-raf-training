@@ -107,12 +107,5 @@
         </div>
       </div>
     </div>
-
-    <!-- Admin Actions Link -->
-    {% if logged_in %}
-      <div class="text-right">
-        <a href="{{ path('entity.node.edit_form', {'node': node.id}) }}" class="btn btn-primary">Edit Report</a>
-      </div>
-    {% endif %}
   </div>
 </article>
