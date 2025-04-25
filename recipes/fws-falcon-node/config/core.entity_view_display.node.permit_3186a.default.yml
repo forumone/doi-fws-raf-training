@@ -13,10 +13,9 @@ dependencies:
     - field.field.node.permit_3186a.field_falc_applicant_name
     - field.field.node.permit_3186a.field_falc_applicant_phone
     - field.field.node.permit_3186a.field_falc_dt_signed
+    - field.field.node.permit_3186a.field_geolocation
     - field.field.node.permit_3186a.field_hid
     - field.field.node.permit_3186a.field_last_action
-    - field.field.node.permit_3186a.field_latitude_num
-    - field.field.node.permit_3186a.field_longitude_num
     - field.field.node.permit_3186a.field_owner_access_cd
     - field.field.node.permit_3186a.field_owner_state
     - field.field.node.permit_3186a.field_question_no
@@ -72,9 +71,10 @@ dependencies:
     - node.type.permit_3186a
   module:
     - datetime
+    - geolocation
     - user
 _core:
-  default_config_hash: BJUxWkv8YE2-AyEhFTTAW90qOa1LAo1JDyeC7hBrhFY
+  default_config_hash: FoZdLtN-uZiKjdXU_kK7wamnys9DZF0wJRysV6Fo3BA
 id: node.permit_3186a.default
 targetEntityType: node
 bundle: permit_3186a
@@ -164,6 +164,13 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
+  field_geolocation:
+    type: geolocation_latlng
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 67
+    region: content
   field_hid:
     type: string
     label: hidden
@@ -179,22 +186,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 11
-    region: content
-  field_latitude_num:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  field_longitude_num:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 14
     region: content
   field_owner_access_cd:
     type: string

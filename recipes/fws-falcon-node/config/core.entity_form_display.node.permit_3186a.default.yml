@@ -13,10 +13,9 @@ dependencies:
     - field.field.node.permit_3186a.field_falc_applicant_name
     - field.field.node.permit_3186a.field_falc_applicant_phone
     - field.field.node.permit_3186a.field_falc_dt_signed
+    - field.field.node.permit_3186a.field_geolocation
     - field.field.node.permit_3186a.field_hid
     - field.field.node.permit_3186a.field_last_action
-    - field.field.node.permit_3186a.field_latitude_num
-    - field.field.node.permit_3186a.field_longitude_num
     - field.field.node.permit_3186a.field_owner_access_cd
     - field.field.node.permit_3186a.field_owner_state
     - field.field.node.permit_3186a.field_question_no
@@ -73,6 +72,7 @@ dependencies:
   module:
     - datetime
     - field_group
+    - geolocation
     - path
     - select2
 third_party_settings:
@@ -172,6 +172,7 @@ third_party_settings:
         - field_trap_county
         - field_latitude_num
         - field_longitude_num
+        - field_geolocation
       label: '4. Capture or Recapture'
       region: content
       parent_name: ''
@@ -249,7 +250,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: iREJ6qNGrgVNkcOWeFVnUj7ZL6p2Nq92me5pM93rSlE
+  default_config_hash: Ogtb_OBp3vqnzUL7-i4S8Sum-9fJcv1f9eITD6NGxEg
 id: node.permit_3186a.default
 targetEntityType: node
 bundle: permit_3186a
@@ -336,6 +337,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_geolocation:
+    type: geolocation_latlng
+    weight: 47
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_hid:
     type: string_textfield
     weight: 2
@@ -347,22 +354,6 @@ content:
   field_last_action:
     type: string_textfield
     weight: 7
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_latitude_num:
-    type: string_textfield
-    weight: 47
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_longitude_num:
-    type: string_textfield
-    weight: 48
     region: content
     settings:
       size: 60
