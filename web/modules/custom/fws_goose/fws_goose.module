@@ -1891,8 +1891,33 @@ function _fws_goose_location_selected($form, FormStateInterface $form_state) {
  * Custom validation for report form.
  */
 function _fws_goose_permit_report_validate($form, FormStateInterface $form_state) {
-  // Check if certification checkbox is checked.
-  if (empty($form_state->getValue(['certification_wrapper', 'certification_checkbox']))) {
+  // Get all form values to check different possible paths for the checkbox.
+  $all_values = $form_state->getValues();
+
+  // Try different paths to find the certification checkbox value.
+  $is_certified = FALSE;
+
+  // Check direct path first.
+  if (isset($all_values['certification_checkbox'])) {
+    $is_certified = !empty($all_values['certification_checkbox']);
+  }
+  // Check nested path.
+  elseif (isset($all_values['certification_wrapper']['certification_checkbox'])) {
+    $is_certified = !empty($all_values['certification_wrapper']['certification_checkbox']);
+  }
+  // Check form state with different possible paths.
+  elseif ($form_state->hasValue('certification_checkbox')) {
+    $is_certified = !empty($form_state->getValue('certification_checkbox'));
+  }
+  elseif ($form_state->hasValue(['certification_wrapper', 'certification_checkbox'])) {
+    $is_certified = !empty($form_state->getValue(['certification_wrapper', 'certification_checkbox']));
+  }
+
+  // Add debug logging.
+  \Drupal::logger('fws_goose')->notice('Certification checkbox state: @state', ['@state' => $is_certified ? 'checked' : 'not checked']);
+
+  // Set error if not certified.
+  if (!$is_certified) {
     $form_state->setErrorByName('certification_wrapper][certification_checkbox', t('You must certify that the information in this report is true and correct.'));
   }
 }
