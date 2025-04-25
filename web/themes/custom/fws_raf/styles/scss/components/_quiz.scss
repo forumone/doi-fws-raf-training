@@ -150,7 +150,16 @@
     padding: 0;
     margin: 0;
   }
+
+  &__actions a.btn {
+    margin-bottom: 15px;
+    width: 100%;
+    @include breakpoint(md) {
+      width: auto;
+    }
+  }
 }
+
 
 .fws-quiz {
 

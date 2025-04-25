@@ -1548,6 +1548,15 @@ input.form-autocomplete {
   padding: 0;
   margin: 0;
 }
+.quiz__actions a.btn {
+  margin-bottom: 15px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .quiz__actions a.btn {
+    width: auto;
+  }
+}
 
 .fws-quiz .timer-circle {
   position: relative;
