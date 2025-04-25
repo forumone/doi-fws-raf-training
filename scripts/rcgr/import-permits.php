@@ -631,10 +631,6 @@ $taxonomy_field_mappings = [
     'field' => 'field_applicant_request_type',
     'vocabulary' => 'applicant_request_type',
   ],
-  'issuer_action_cd' => [
-    'field' => 'field_issuer_action_cd',
-    'vocabulary' => 'issuer_action',
-  ],
 ];
 
 // Define value mappings for taxonomy terms.
