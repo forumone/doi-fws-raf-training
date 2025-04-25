@@ -157,6 +157,15 @@ function fws_raf_theme_suggestions_block_alter(array &$suggestions, array $varia
 function fws_raf_preprocess_page(&$variables) {
   // Get the header_links_auth configuration value from settings.
   $variables['header_links_auth'] = \Drupal::config('system.site')->get('header_links_auth') ?? FALSE;
+
+  $route_match = \Drupal::routeMatch();
+  // Check if we're on a node page
+  if ($route_match->getRouteName() === 'entity.node.canonical') {
+    if ($node = $route_match->getParameter('node')) {
+      $variables['node_title'] = $node->label();
+    }
+  }
+
 }
 
 /**
