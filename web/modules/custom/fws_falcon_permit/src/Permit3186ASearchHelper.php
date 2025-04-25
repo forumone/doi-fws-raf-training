@@ -139,7 +139,7 @@ class Permit3186ASearchHelper {
         ->getStorage('user')
         ->load($this->currentUser->id());
       $state = $user->get('field_state_cd')?->entity?->id() ?? 'N/A';
-      $query->condition('uid.entity.field_state_cd', $state);
+      $query->condition('field_owner_state', $state);
     }
 
     return $query->pager(20)->execute();
