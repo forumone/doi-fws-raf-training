@@ -1,9 +1,14 @@
+uuid: 2ece5622-56e9-4bb0-8220-1b9e93a78f55
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_dt_create
     - node.type.permit
+  module:
+    - datetime
+_core:
+  default_config_hash: XdgdIjEosry3dYdj7Ab7ymidlEpNIWQ72koY2urBGJg
 id: node.permit.field_dt_create
 field_name: field_dt_create
 entity_type: node

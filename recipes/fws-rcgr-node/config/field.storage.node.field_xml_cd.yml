@@ -1,8 +1,11 @@
+uuid: 2e60dfe3-a533-49e1-814a-d7745bf02ee7
 langcode: en
 status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: RGBJRX7XAxGzGzXKSx2rNjYkK9vL9rDt0kpmZQkCE0U
 id: node.field_xml_cd
 field_name: field_xml_cd
 entity_type: node

@@ -1,19 +1,22 @@
+uuid: 07aa4a7b-630c-4ca9-8968-b54bea0e1d53
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_dt_applicant_signed
     - node.type.permit
   module:
     - datetime
+_core:
+  default_config_hash: YfOD3eER8syckTjYatapFbE_-0z4fJYf6EDsI_c3VB0
 id: node.permit.field_dt_applicant_signed
 field_name: field_dt_applicant_signed
 entity_type: node
 bundle: permit
 label: 'Applicant Signature Date'
 description: 'The date when the applicant signed the permit.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

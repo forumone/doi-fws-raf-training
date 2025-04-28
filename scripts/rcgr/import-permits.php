@@ -492,10 +492,6 @@ $_rcgr_import_csv_map = [
   'update_by' => array_search('update_by', $header),
   'xml_cd' => array_search('xml_cd', $header),
   'rcf_cd' => array_search('rcf_cd', $header),
-  'applicant_agreement1' => array_search('applicant_agreement1', $header),
-  'applicant_agreement2' => array_search('applicant_agreement2', $header),
-  'applicant_agreement3' => array_search('applicant_agreement3', $header),
-  'applicant_signed' => array_search('applicant_signed', $header),
   'principal_name' => array_search('principal_name', $header),
   'principal_first_name' => array_search('principal_first_name', $header),
   'principal_middle_name' => array_search('principal_middle_name', $header),
@@ -503,21 +499,63 @@ $_rcgr_import_csv_map = [
   'principal_suffix' => array_search('principal_suffix', $header),
   'principal_title' => array_search('principal_title', $header),
   'principal_telephone' => array_search('principal_telephone', $header),
+  'agency_tracking_id' => array_search('agency_tracking_id', $header),
+  'ep_formid' => array_search('ep_formid', $header),
+  'ep_form_no' => array_search('ep_form_no', $header),
+  'ep_form_title' => array_search('ep_form_title', $header),
+  'applicant_last_name' => array_search('applicant_last_name', $header),
+  'applicant_first_name' => array_search('applicant_first_name', $header),
+  'applicant_middle_name' => array_search('applicant_middle_name', $header),
+  'applicant_prefix' => array_search('applicant_prefix', $header),
+  'applicant_suffix' => array_search('applicant_suffix', $header),
+  'applicant_business_desc' => array_search('applicant_business_desc', $header),
+  'applicant_county' => array_search('applicant_county', $header),
+  'primary_contact_name' => array_search('primary_contact_name', $header),
+  'primary_contact_telephone' => array_search('primary_contact_telephone', $header),
+  'primary_contact_email_address' => array_search('primary_contact_email_address', $header),
+  'applicant_agreement1' => array_search('applicant_agreement1', $header),
+  'applicant_agreement2' => array_search('applicant_agreement2', $header),
+  'applicant_agreement3' => array_search('applicant_agreement3', $header),
+  'applicant_signed' => array_search('applicant_signed', $header),
+  'offloc_id' => array_search('offloc_id', $header),
+  'permit_type_cd' => array_search('permit_type_cd', $header),
+  'applicant_request_type' => array_search('applicant_request_type', $header),
+  'issuer_action_cd' => array_search('issuer_action_cd', $header),
+  'issued_by' => array_search('issued_by', $header),
+  'issuing_officer_title' => array_search('issuing_officer_title', $header),
+  'biologist_initial' => array_search('biologist_initial', $header),
+  'amend_seq_number' => array_search('amend_seq_number', $header),
+  'wildcard_search_option' => array_search('wildcard_search_option', $header),
+  'program_id' => array_search('program_id', $header),
+  'region' => array_search('region', $header),
+  'control_program_id' => array_search('control_program_id', $header),
+  'control_region' => array_search('control_region', $header),
+  'bi_cd' => array_search('bi_cd', $header),
 ];
 
-// Define field mappings.
+// Define field mappings from CSV columns to Drupal fields.
 $field_mappings = [
   'permit_no' => 'field_permit_no',
-  'version_no' => 'field_version_no',
-  'create_by' => 'field_create_by',
-  'update_by' => 'field_update_by',
-  'xml_cd' => 'field_xml_cd',
-  'rcf_cd' => 'field_rcf_cd',
   'hid' => 'field_hid',
   'site_id' => 'field_site_id',
   'control_site_id' => 'field_control_site_id',
-  'dt_create' => 'field_dt_create',
-  'dt_update' => 'field_dt_update',
+  'version_no' => 'field_version_no',
+  'registrant_name' => 'field_applicant_business_name',
+  'registrant_first_name' => 'field_applicant_first_name',
+  'registrant_middle_name' => 'field_applicant_middle_name',
+  'registrant_last_name' => 'field_applicant_last_name',
+  'registrant_prefix' => 'field_applicant_prefix',
+  'registrant_suffix' => 'field_applicant_suffix',
+  'registrant_address_l1' => 'field_applicant_address_l1',
+  'registrant_address_l2' => 'field_applicant_address_l2',
+  'registrant_address_l3' => 'field_applicant_address_l3',
+  'registrant_city' => 'field_applicant_city',
+  'registrant_county' => 'field_applicant_county',
+  'registrant_state' => 'field_applicant_state',
+  'registrant_zip' => 'field_applicant_zip',
+  'registrant_home_phone' => 'field_applicant_home_phone',
+  'registrant_work_phone' => 'field_applicant_work_phone',
+  'registrant_email_address' => 'field_applicant_email_address',
   'principal_name' => 'field_principal_name',
   'principal_first_name' => 'field_principal_first_name',
   'principal_middle_name' => 'field_principal_middle_name',
@@ -525,56 +563,78 @@ $field_mappings = [
   'principal_suffix' => 'field_principal_suffix',
   'principal_title' => 'field_principal_title',
   'principal_telephone' => 'field_principal_telephone',
+  'primary_contact_name' => 'field_primary_contact_name',
+  'primary_contact_telephone' => 'field_primary_contact_telephone',
+  'primary_contact_email' => 'field_primary_contact_email',
+  'issued_by' => 'field_issued_by',
+  'issuing_officer_title' => 'field_issuing_officer_title',
+  'biologist_initial' => 'field_biologist_initial',
+  'agency_tracking_id' => 'field_agency_tracking_id',
+  'create_by' => 'field_create_by',
+  'update_by' => 'field_update_by',
+  'ep_formid' => 'field_ep_formid',
+  'ep_form_no' => 'field_ep_form_no',
+  'ep_form_title' => 'field_ep_form_title',
+  'offloc_id' => 'field_offloc_id',
+  'program_id' => 'field_program_id',
+  'region' => 'field_region',
+  'control_program_id' => 'field_control_program_id',
+  'control_region' => 'field_control_region',
+  'amend_seq_number' => 'field_amend_seq_number',
+  'bi_cd' => 'field_bi_cd',
 ];
 
-// Define special field mappings that need to be validated.
-$special_field_mappings = [
-  'applicant_address_l1' => 'field_location_address',
-  'applicant_address_l2' => 'field_location_address',
-  'applicant_address_l3' => 'field_location_address',
-  // Using this as a proxy for certification.
-  'applicant_signed' => 'field_is_location_certified',
-];
-
-// Define date field mappings.
+// Define mappings for date fields.
 $date_field_mappings = [
   'dt_create' => 'field_dt_create',
   'dt_update' => 'field_dt_update',
-  'dt_signed' => 'field_dt_signed',
+  'dt_expired' => 'field_dt_expired',
+  'dt_application_received' => 'field_dt_application_received',
   'dt_permit_request' => 'field_dt_permit_request',
+  'dt_applicant_signed' => 'field_dt_applicant_signed',
+  'dt_signed' => 'field_dt_signed',
   'dt_permit_issued' => 'field_dt_permit_issued',
   'dt_effective' => 'field_dt_effective',
-  'dt_expired' => 'field_dt_expired',
-  'dt_applicant_signed' => 'field_dt_applicant_signed',
-  'dt_application_received' => 'field_dt_application_received',
 ];
 
-// Define value mappings for known values like 'U' and 'A'.
-$taxonomy_value_mappings = [
-  'U' => 'Unknown',
-  'A' => 'Active',
-  'I' => 'Inactive',
+// Define mappings for boolean fields.
+$boolean_field_mappings = [
+  'applicant_agreement1' => 'field_applicant_agreement1',
+  'applicant_agreement2' => 'field_applicant_agreement2',
+  'applicant_agreement3' => 'field_applicant_agreement3',
+  'applicant_signed' => 'field_applicant_signed',
 ];
 
-// Define taxonomy field mappings.
+// Define mappings for taxonomy term fields.
 $taxonomy_field_mappings = [
-  'applicant_state' => [
-    'field' => 'field_applicant_state',
-    'vocabulary' => 'state',
-  ],
-  'registrant_type_cd' => [
-    'field' => 'field_registrant_type_cd',
-    'vocabulary' => 'registrant_type',
-  ],
   'permit_status_cd' => [
     'field' => 'field_permit_status_cd',
-    'vocabulary' => 'application_status',
+    'vocabulary' => 'permit_status_code',
+  ],
+  'permit_type_cd' => [
+    'field' => 'field_permit_type_cd',
+    'vocabulary' => 'permit_type_code',
+  ],
+  'xml_cd' => [
+    'field' => 'field_xml_cd',
+    'vocabulary' => 'xml_code',
   ],
   'rcf_cd' => [
     'field' => 'field_rcf_cd',
-    'vocabulary' => 'rcf',
+    'vocabulary' => 'rcf_code',
+  ],
+  'registrant_type_cd' => [
+    'field' => 'field_registrant_type_cd',
+    'vocabulary' => 'registrant_type_code',
+  ],
+  'applicant_request_type' => [
+    'field' => 'field_applicant_request_type',
+    'vocabulary' => 'applicant_request_type',
   ],
 ];
+
+// Define value mappings for taxonomy terms.
+$taxonomy_value_mappings = [];
 
 // Log the fields being used.
 $logger->notice(
@@ -583,6 +643,10 @@ $logger->notice(
 $logger->notice(
   'Using the following date field mappings: ' .
   implode(', ', array_values($date_field_mappings))
+);
+$logger->notice(
+  'Using the following boolean field mappings: ' .
+  implode(', ', array_values($boolean_field_mappings))
 );
 $logger->notice(
   'Using the following taxonomy field mappings: ' .
@@ -658,17 +722,63 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
     // Set basic fields.
     foreach ($field_mappings as $csv_field => $drupal_field) {
       if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
-        $value = trim($row[$_rcgr_import_csv_map[$csv_field]], '"');
-
-        // Handle date fields.
-        if (isset($date_field_mappings[$csv_field])) {
-          $value = format_datetime_for_drupal($value);
-          if ($value === FALSE) {
-            continue;
+        $csv_index = $_rcgr_import_csv_map[$csv_field];
+        if (isset($row[$csv_index])) {
+          $value = trim($row[$csv_index], '"');
+          // Skip empty values unless it's explicitly allowed or needed.
+          if (!empty($value) || $value === '0') {
+            $node->set($drupal_field, $value);
           }
         }
+      }
+    }
 
-        $node->set($drupal_field, $value);
+    // Set date fields.
+    foreach ($date_field_mappings as $csv_field => $drupal_field) {
+      if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+        $csv_index = $_rcgr_import_csv_map[$csv_field];
+        if (isset($row[$csv_index])) {
+          $value = trim($row[$csv_index], '"');
+          $formatted_date = format_datetime_for_drupal($value);
+          if ($formatted_date !== FALSE) {
+            $node->set($drupal_field, $formatted_date);
+          }
+        }
+      }
+    }
+
+    // Set boolean fields.
+    foreach ($boolean_field_mappings as $csv_field => $drupal_field) {
+      if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+        $csv_index = $_rcgr_import_csv_map[$csv_field];
+        if (isset($row[$csv_index])) {
+          $value = strtoupper(trim($row[$csv_index], '"'));
+          // Assuming '1', 'Y', 'T' represent TRUE.
+          $bool_value = in_array($value, ['1', 'Y', 'T', 'TRUE']) ? TRUE : FALSE;
+          $node->set($drupal_field, $bool_value);
+        }
+      }
+    }
+
+    // Set taxonomy reference fields.
+    foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
+      if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($mapping['field'])) {
+        $csv_index = $_rcgr_import_csv_map[$csv_field];
+        if (isset($row[$csv_index])) {
+          $term_name = trim($row[$csv_index], '"');
+          if (!empty($term_name)) {
+            $tid = get_permit_taxonomy_term_id(
+              $term_name,
+              $mapping['vocabulary'],
+              TRUE,
+              $term_cache,
+              $taxonomy_value_mappings
+            );
+            if ($tid !== NULL) {
+              $node->set($mapping['field'], ['target_id' => $tid]);
+            }
+          }
+        }
       }
     }
 
@@ -705,17 +815,59 @@ while (($row = fgetcsv($handle)) !== FALSE && $stats['processed'] < $limit) {
         // Set fields from historical record.
         foreach ($field_mappings as $csv_field => $drupal_field) {
           if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
-            $value = trim($hist_row[$_rcgr_import_csv_map[$csv_field]], '"');
+            $csv_index = $_rcgr_import_csv_map[$csv_field];
+            if (isset($hist_row[$csv_index])) {
+              $value = trim($hist_row[$csv_index], '"');
+              $node->set($drupal_field, $value);
+            }
+          }
+        }
 
-            // Handle date fields.
-            if (isset($date_field_mappings[$csv_field])) {
-              $value = format_datetime_for_drupal($value);
-              if ($value === FALSE) {
-                continue;
+        // Set date fields from historical record.
+        foreach ($date_field_mappings as $csv_field => $drupal_field) {
+          if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+            $csv_index = $_rcgr_import_csv_map[$csv_field];
+            if (isset($hist_row[$csv_index])) {
+              $value = trim($hist_row[$csv_index], '"');
+              $formatted_date = format_datetime_for_drupal($value);
+              if ($formatted_date !== FALSE) {
+                $node->set($drupal_field, $formatted_date);
               }
             }
+          }
+        }
 
-            $node->set($drupal_field, $value);
+        // Set boolean fields from historical record.
+        foreach ($boolean_field_mappings as $csv_field => $drupal_field) {
+          if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($drupal_field)) {
+            $csv_index = $_rcgr_import_csv_map[$csv_field];
+            if (isset($hist_row[$csv_index])) {
+              $value = strtoupper(trim($hist_row[$csv_index], '"'));
+              $bool_value = in_array($value, ['1', 'Y', 'T', 'TRUE']) ? TRUE : FALSE;
+              $node->set($drupal_field, $bool_value);
+            }
+          }
+        }
+
+        // Set taxonomy fields from historical record.
+        foreach ($taxonomy_field_mappings as $csv_field => $mapping) {
+          if (isset($_rcgr_import_csv_map[$csv_field]) && field_exists_for_permit($mapping['field'])) {
+            $csv_index = $_rcgr_import_csv_map[$csv_field];
+            if (isset($hist_row[$csv_index])) {
+              $term_name = trim($hist_row[$csv_index], '"');
+              if (!empty($term_name)) {
+                $tid = get_permit_taxonomy_term_id(
+                  $term_name,
+                  $mapping['vocabulary'],
+                  TRUE,
+                  $term_cache,
+                  $taxonomy_value_mappings
+                );
+                if ($tid !== NULL) {
+                  $node->set($mapping['field'], ['target_id' => $tid]);
+                }
+              }
+            }
           }
         }
 

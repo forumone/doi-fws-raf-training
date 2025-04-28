@@ -22,3 +22,11 @@ fws_goose.certification_form:
     _title: 'Certification Form'
   requirements:
     _user_is_logged_in: 'TRUE'
+
+fws_goose.view_print_registration:
+  path: '/user/my-registration'
+  defaults:
+    _controller: '\Drupal\fws_goose\Controller\PermitRedirectController::redirectUser'
+    _title: 'View / Print Registration Form'
+  requirements:
+    _user_is_logged_in: 'TRUE'

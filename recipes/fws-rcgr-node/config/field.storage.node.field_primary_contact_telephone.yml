@@ -1,0 +1,21 @@
+uuid: b1a2c3d4-e5f6-4a7b-8c9d-a00000000014
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_primary_contact_telephone
+field_name: field_primary_contact_telephone
+entity_type: node
+type: string
+settings:
+  max_length: 20
+  case_sensitive: FALSE
+  is_ascii: FALSE
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

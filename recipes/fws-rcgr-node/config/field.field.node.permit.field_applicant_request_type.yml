@@ -1,0 +1,29 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000022
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_applicant_request_type
+    - node.type.permit
+    - taxonomy.vocabulary.applicant_request_type # Assumed vocabulary name
+id: node.permit.field_applicant_request_type
+field_name: field_applicant_request_type
+entity_type: node
+bundle: permit
+label: 'Applicant Request Type'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      applicant_request_type: applicant_request_type # Assumed vocabulary name
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE
+    auto_create_bundle: ''
+field_type: entity_reference

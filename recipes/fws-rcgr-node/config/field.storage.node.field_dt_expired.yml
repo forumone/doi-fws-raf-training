@@ -1,9 +1,12 @@
+uuid: f234a824-3237-42c3-bfe7-37b77c8f63be
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: ZN4cEEDwXL3U4335c8H1fWcLBeiDavtmfTD8n_ANnKE
 id: node.field_dt_expired
 field_name: field_dt_expired
 entity_type: node
@@ -11,9 +14,9 @@ type: datetime
 settings:
   datetime_type: datetime
 module: datetime
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false

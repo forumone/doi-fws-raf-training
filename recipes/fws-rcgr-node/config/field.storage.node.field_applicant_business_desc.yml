@@ -1,14 +1,16 @@
+uuid: b1a2c3d4-e5f6-4a7b-8c9d-a00000000010
 langcode: en
 status: TRUE
 dependencies:
   module:
     - node
-id: node.field_is_location_certified
-field_name: field_is_location_certified
+    - text
+id: node.field_applicant_business_desc
+field_name: field_applicant_business_desc
 entity_type: node
-type: boolean
+type: text_long
 settings: {  }
-module: core
+module: text
 locked: FALSE
 cardinality: 1
 translatable: TRUE

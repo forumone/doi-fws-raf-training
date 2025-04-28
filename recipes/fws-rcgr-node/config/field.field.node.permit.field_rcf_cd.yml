@@ -1,18 +1,21 @@
+uuid: 8122d941-07f6-4a30-b74e-5f7162f713ea
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_rcf_cd
     - node.type.permit
     - taxonomy.vocabulary.rcf_cd
+_core:
+  default_config_hash: 26O7MXIQaPMLXi7P7GMcFfInyrDLnn5Qe1M88BIBChw
 id: node.permit.field_rcf_cd
 field_name: field_rcf_cd
 entity_type: node
 bundle: permit
 label: 'RCF Code'
 description: 'The Regional Control Facility code associated with this permit.'
-required: FALSE
-translatable: FALSE
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -23,6 +26,6 @@ settings:
     sort:
       field: name
       direction: asc
-    auto_create: FALSE
+    auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

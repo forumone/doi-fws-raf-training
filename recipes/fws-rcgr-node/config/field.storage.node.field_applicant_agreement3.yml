@@ -1,0 +1,18 @@
+uuid: b1a2c3d4-e5f6-4a7b-8c9d-a00000000018
+langcode: en
+status: TRUE
+dependencies:
+  module:
+    - node
+id: node.field_applicant_agreement3
+field_name: field_applicant_agreement3
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: FALSE
+cardinality: 1
+translatable: TRUE
+indexes: {  }
+persist_with_no_fields: FALSE
+custom_storage: FALSE

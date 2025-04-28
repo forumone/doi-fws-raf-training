@@ -1,19 +1,22 @@
-uuid: eb6b5a28-9888-48b6-beda-fb86165a8bbe
+uuid: f0b46a30-c73a-4e89-9f71-0cac70f2a5df
 langcode: en
 status: TRUE
 dependencies:
   config:
     - field.storage.node.field_bi_cd
     - node.type.location
+    - taxonomy.vocabulary.bi_code
+_core:
+  default_config_hash: Z4UrP9fXLNTvgTvJBD2CQtn8R8LTrqdm7G_rEY9SCUQ
 id: node.location.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
 bundle: location
 label: 'BI Code'
-description: 'The BI code associated with this location.'
-required: false
-translatable: false
+description: 'Business or Individual designation (B or I).'
+required: FALSE
+translatable: TRUE
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: list_string

@@ -1,8 +1,11 @@
+uuid: 94e33d10-8160-4df0-87f4-5ab6cd9b1a1a
 langcode: en
 status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: yE69lLet7SDpt9irHF2TD4Hk3N3B1MjBFYg1PPmryq4
 id: node.field_control_site_id
 field_name: field_control_site_id
 entity_type: node

@@ -1,0 +1,22 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000018
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_applicant_agreement3
+    - node.type.permit
+id: node.permit.field_applicant_agreement3
+field_name: field_applicant_agreement3
+entity_type: node
+bundle: permit
+label: 'Applicant Agreement 3'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value:
+  - value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

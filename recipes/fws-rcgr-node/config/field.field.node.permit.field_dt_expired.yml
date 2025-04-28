@@ -1,19 +1,22 @@
+uuid: c43c3be2-e2d7-4e0d-bb37-45190a40dbf4
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_dt_expired
     - node.type.permit
   module:
     - datetime
+_core:
+  default_config_hash: zoGXL0PbAmBYjVMbGvyrztD_vZnqzf7TBqT2pHVkKmg
 id: node.permit.field_dt_expired
 field_name: field_dt_expired
 entity_type: node
 bundle: permit
 label: 'Expiration Date'
 description: 'The date when the permit expires.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

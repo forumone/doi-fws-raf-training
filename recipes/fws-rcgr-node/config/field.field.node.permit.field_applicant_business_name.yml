@@ -1,0 +1,21 @@
+uuid: d0c58e6d-d84b-46a3-be46-ce9016e60aac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_applicant_business_name
+    - node.type.permit
+_core:
+  default_config_hash: 2Sa9E1ipsGDjyB_uqeT3ILY7R9MP3YihMAXKDPNqmUg
+id: node.permit.field_applicant_business_name
+field_name: field_applicant_business_name
+entity_type: node
+bundle: permit
+label: 'Business Name'
+description: 'The business name associated with the permit.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

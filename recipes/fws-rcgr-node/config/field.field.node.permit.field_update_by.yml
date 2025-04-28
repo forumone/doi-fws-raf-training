@@ -1,9 +1,12 @@
+uuid: 358e066d-f488-47f8-a64c-7db90b74b8f6
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_update_by
     - node.type.permit
+_core:
+  default_config_hash: T1mTEHSpPpSc_p8uw1K1BsJaRtJE6SCsjhS6LclTgNc
 id: node.permit.field_update_by
 field_name: field_update_by
 entity_type: node

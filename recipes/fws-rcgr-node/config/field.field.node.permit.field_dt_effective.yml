@@ -1,19 +1,22 @@
+uuid: 75edc766-ac9c-431a-a909-1b8bac719fa3
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_dt_effective
     - node.type.permit
   module:
     - datetime
+_core:
+  default_config_hash: 9ne8w9JSZRYSqJAMj8M-TqENzpCkT5IewZkBTao7gB0
 id: node.permit.field_dt_effective
 field_name: field_dt_effective
 entity_type: node
 bundle: permit
 label: 'Effective Date'
 description: 'The date when the permit becomes effective.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

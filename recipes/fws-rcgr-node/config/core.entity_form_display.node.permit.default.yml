@@ -1,15 +1,40 @@
+uuid: 57724b39-d072-4ac4-a32d-bbd5dc66082a
 langcode: en
 status: TRUE
 dependencies:
   config:
+    - field.field.node.permit.field_agency_tracking_id
+    - field.field.node.permit.field_amend_seq_number
+    - field.field.node.permit.field_applicant_address_l1
+    - field.field.node.permit.field_applicant_address_l2
+    - field.field.node.permit.field_applicant_address_l3
+    - field.field.node.permit.field_applicant_agreement1
+    - field.field.node.permit.field_applicant_agreement2
+    - field.field.node.permit.field_applicant_agreement3
+    - field.field.node.permit.field_applicant_business_desc
+    - field.field.node.permit.field_applicant_business_name
+    - field.field.node.permit.field_applicant_city
+    - field.field.node.permit.field_applicant_county
+    - field.field.node.permit.field_applicant_email_address
+    - field.field.node.permit.field_applicant_first_name
+    - field.field.node.permit.field_applicant_home_phone
+    - field.field.node.permit.field_applicant_last_name
+    - field.field.node.permit.field_applicant_middle_name
+    - field.field.node.permit.field_applicant_prefix
+    - field.field.node.permit.field_applicant_request_type
+    - field.field.node.permit.field_applicant_signed
     - field.field.node.permit.field_applicant_state
+    - field.field.node.permit.field_applicant_suffix
+    - field.field.node.permit.field_applicant_work_phone
+    - field.field.node.permit.field_applicant_zip
     - field.field.node.permit.field_bi_cd
-    - field.field.node.permit.field_business_name
-    - field.field.node.permit.field_ca_access_key
+    - field.field.node.permit.field_biologist_initial
+    - field.field.node.permit.field_control_program_id
+    - field.field.node.permit.field_control_region
     - field.field.node.permit.field_control_site_id
     - field.field.node.permit.field_create_by
-    - field.field.node.permit.field_dt_application_received
     - field.field.node.permit.field_dt_applicant_signed
+    - field.field.node.permit.field_dt_application_received
     - field.field.node.permit.field_dt_create
     - field.field.node.permit.field_dt_effective
     - field.field.node.permit.field_dt_expired
@@ -17,243 +42,170 @@ dependencies:
     - field.field.node.permit.field_dt_permit_request
     - field.field.node.permit.field_dt_signed
     - field.field.node.permit.field_dt_update
+    - field.field.node.permit.field_ep_form_no
+    - field.field.node.permit.field_ep_form_title
+    - field.field.node.permit.field_ep_formid
     - field.field.node.permit.field_hid
-    - field.field.node.permit.field_home_phone
-    - field.field.node.permit.field_is_location_certified
-    - field.field.node.permit.field_is_removed
-    - field.field.node.permit.field_location_address
-    - field.field.node.permit.field_location_city
+    - field.field.node.permit.field_issued_by
+    - field.field.node.permit.field_issuing_officer_title
+    - field.field.node.permit.field_offloc_id
     - field.field.node.permit.field_permit_no
     - field.field.node.permit.field_permit_status_cd
-    - field.field.node.permit.field_person_name
-    - field.field.node.permit.field_principal_name
+    - field.field.node.permit.field_permit_type_cd
+    - field.field.node.permit.field_primary_contact_email
+    - field.field.node.permit.field_primary_contact_name
+    - field.field.node.permit.field_primary_contact_telephone
     - field.field.node.permit.field_principal_first_name
-    - field.field.node.permit.field_principal_middle_name
     - field.field.node.permit.field_principal_last_name
+    - field.field.node.permit.field_principal_middle_name
+    - field.field.node.permit.field_principal_name
     - field.field.node.permit.field_principal_suffix
-    - field.field.node.permit.field_principal_title
     - field.field.node.permit.field_principal_telephone
-    - field.field.node.permit.field_qty_nest_egg_destroyed
+    - field.field.node.permit.field_principal_title
+    - field.field.node.permit.field_program_id
     - field.field.node.permit.field_rcf_cd
-    - field.field.node.permit.field_recno
+    - field.field.node.permit.field_region
     - field.field.node.permit.field_registrant_type_cd
-    - field.field.node.permit.field_report_year
     - field.field.node.permit.field_site_id
     - field.field.node.permit.field_update_by
     - field.field.node.permit.field_version_no
-    - field.field.node.permit.field_work_phone
+    - field.field.node.permit.field_wildcard_search_option
     - field.field.node.permit.field_xml_cd
-    - field.field.node.permit.field_zip
     - node.type.permit
   module:
     - datetime
+    - field_group
     - path
     - text
+third_party_settings:
+  field_group:
+    group_personal_data:
+      children:
+        - field_applicant_last_name
+        - field_applicant_first_name
+        - field_applicant_middle_name
+        - field_applicant_prefix
+        - field_applicant_suffix
+      label: 'Personal data'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        id: group-personal-data
+        open: true
+        description: ''
+        required_fields: true
+    group_business_data:
+      children:
+        - field_applicant_business_name
+        - field_principal_last_name
+        - field_principal_first_name
+        - field_principal_middle_name
+        - field_principal_suffix
+        - field_principal_title
+        - field_principal_telephone
+        - field_primary_contact_name
+        - field_primary_contact_telephone
+        - field_primary_contact_email
+      label: 'Business data'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-business-data
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+    group_address:
+      children:
+        - field_applicant_address_l1
+        - field_applicant_address_l2
+        - field_applicant_address_l3
+        - field_applicant_city
+        - field_applicant_state
+        - field_applicant_county
+        - field_applicant_zip
+      label: Address
+      region: content
+      parent_name: ''
+      weight: 5
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: group-address
+        label_as_html: false
+        open: false
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: dREs4V8gg1lXuqp67aDhFoGLqoW9sqJuRVvhhjQnPlw
 id: node.permit.default
 targetEntityType: node
 bundle: permit
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_applicant_state:
-    type: entity_reference_autocomplete
-    weight: 4
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_bi_cd:
+  field_applicant_address_l1:
     type: string_textfield
-    weight: 8
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_business_name:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_ca_access_key:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_control_site_id:
-    type: string_textfield
-    weight: 19
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_create_by:
-    type: string_textfield
-    weight: 20
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_dt_application_received:
-    type: datetime_default
     weight: 30
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_dt_applicant_signed:
-    type: datetime_default
+    group: group_address
+  field_applicant_address_l2:
+    type: string_textfield
     weight: 31
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_dt_create:
-    type: datetime_default
-    weight: 21
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_effective:
-    type: datetime_default
-    weight: 33
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_expired:
-    type: datetime_default
+    group: group_address
+  field_applicant_address_l3:
+    type: string_textfield
     weight: 32
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_dt_permit_issued:
-    type: datetime_default
-    weight: 34
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_permit_request:
-    type: datetime_default
-    weight: 35
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_signed:
-    type: datetime_default
-    weight: 29
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_dt_update:
-    type: datetime_default
+    group: group_address
+  field_applicant_business_name:
+    type: string_textfield
     weight: 22
     region: content
-    settings: {  }
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-  field_hid:
+    group: group_business_data
+  field_applicant_city:
     type: string_textfield
-    weight: 23
+    weight: 33
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_home_phone:
+    group: group_address
+  field_applicant_county:
     type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 20
-      placeholder: ''
-    third_party_settings: {  }
-  field_is_location_certified:
-    type: boolean_checkbox
-    weight: 14
-    region: content
-    settings:
-      display_label: TRUE
-    third_party_settings: {  }
-  field_is_removed:
-    type: boolean_checkbox
-    weight: 17
-    region: content
-    settings:
-      display_label: TRUE
-    third_party_settings: {  }
-  field_location_address:
-    type: string_textfield
-    weight: 2
+    weight: 35
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_location_city:
-    type: string_textfield
-    weight: 3
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_no:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_permit_status_cd:
-    type: entity_reference_autocomplete
-    weight: 12
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_person_name:
-    type: string_textfield
-    weight: 18
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_qty_nest_egg_destroyed:
-    type: number
-    weight: 15
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_rcf_cd:
-    type: entity_reference_autocomplete
-    weight: 13
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_recno:
+    group: group_address
+  field_applicant_first_name:
     type: string_textfield
     weight: 24
     region: content
@@ -261,17 +213,17 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_registrant_type_cd:
-    type: entity_reference_autocomplete
-    weight: 11
+    group: group_personal_data
+  field_applicant_last_name:
+    type: string_textfield
+    weight: 23
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_site_id:
+    group: group_personal_data
+  field_applicant_middle_name:
     type: string_textfield
     weight: 25
     region: content
@@ -279,7 +231,91 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_update_by:
+    group: group_personal_data
+  field_applicant_prefix:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_personal_data
+  field_applicant_state:
+    type: entity_reference_autocomplete
+    weight: 34
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_address
+  field_applicant_suffix:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_personal_data
+  field_applicant_zip:
+    type: string_textfield
+    weight: 36
+    region: content
+    settings:
+      size: 10
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_address
+  field_primary_contact_email:
+    type: email_default
+    weight: 32
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+    group: group_business_data
+  field_primary_contact_name:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_business_data
+  field_primary_contact_telephone:
+    type: string_textfield
+    weight: 31
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_business_data
+  field_principal_first_name:
+    type: string_textfield
+    weight: 25
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_business_data
+  field_principal_last_name:
+    type: string_textfield
+    weight: 24
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    group: group_business_data
+  field_principal_middle_name:
     type: string_textfield
     weight: 26
     region: content
@@ -287,22 +323,26 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_version_no:
-    type: number
+    group: group_business_data
+  field_principal_suffix:
+    type: string_textfield
     weight: 27
     region: content
     settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_work_phone:
+    group: group_business_data
+  field_principal_telephone:
     type: string_textfield
-    weight: 7
+    weight: 29
     region: content
     settings:
-      size: 20
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_xml_cd:
+    group: group_business_data
+  field_principal_title:
     type: string_textfield
     weight: 28
     region: content
@@ -310,73 +350,10 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_zip:
-    type: string_textfield
-    weight: 5
-    region: content
-    settings:
-      size: 10
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_name:
-    type: string_textfield
-    weight: 36
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_first_name:
-    type: string_textfield
-    weight: 37
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_middle_name:
-    type: string_textfield
-    weight: 38
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_last_name:
-    type: string_textfield
-    weight: 39
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_suffix:
-    type: string_textfield
-    weight: 40
-    region: content
-    settings:
-      size: 20
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_title:
-    type: string_textfield
-    weight: 41
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_principal_telephone:
-    type: string_textfield
-    weight: 42
-    region: content
-    settings:
-      size: 20
-      placeholder: ''
-    third_party_settings: {  }
+    group: group_business_data
   path:
     type: path
-    weight: 36
+    weight: 130
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -388,4 +365,61 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_agency_tracking_id: true
+  field_amend_seq_number: true
+  field_applicant_agreement1: true
+  field_applicant_agreement2: true
+  field_applicant_agreement3: true
+  field_applicant_business_desc: true
+  field_applicant_email_address: true
+  field_applicant_home_phone: true
+  field_applicant_request_type: true
+  field_applicant_signed: true
+  field_applicant_work_phone: true
+  field_bi_cd: true
+  field_biologist_initial: true
+  field_control_program_id: true
+  field_control_region: true
+  field_control_site_id: true
+  field_create_by: true
+  field_dt_applicant_signed: true
+  field_dt_application_received: true
+  field_dt_create: true
+  field_dt_effective: true
+  field_dt_expired: true
+  field_dt_permit_issued: true
+  field_dt_permit_request: true
+  field_dt_signed: true
+  field_dt_update: true
+  field_ep_form_no: true
+  field_ep_form_title: true
+  field_ep_formid: true
+  field_hid: true
+  field_issued_by: true
+  field_issuing_officer_title: true
+  field_offloc_id: true
+  field_permit_no: true
+  field_permit_status_cd: true
+  field_permit_type_cd: true
+  field_principal_name: true
+  field_program_id: true
+  field_rcf_cd: true
+  field_region: true
+  field_registrant_type_cd: true
+  field_site_id: true
+  field_update_by: true
+  field_version_no: true
+  field_wildcard_search_option: true
+  field_xml_cd: true
+  langcode: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

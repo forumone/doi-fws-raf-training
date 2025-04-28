@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.location.field_bi_cd
     - field.field.node.location.field_ca_access_key
     - field.field.node.location.field_ca_county_select
     - field.field.node.location.field_control_site_id

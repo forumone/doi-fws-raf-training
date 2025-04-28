@@ -1,20 +1,21 @@
+uuid: e66af5ba-0160-47b8-9c2e-89a96028757e
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_principal_middle_name
     - node.type.permit
+_core:
+  default_config_hash: OmI_M5ikrq5tuU6PD1zxqqxkh15IQX60AjyP0Y87_2M
 id: node.permit.field_principal_middle_name
 field_name: field_principal_middle_name
 entity_type: node
 bundle: permit
 label: 'Principal Middle Name'
 description: 'Middle name of the principal contact.'
-required: FALSE
-translatable: FALSE
+required: false
+translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 255
-  case_sensitive: FALSE
+settings: {  }
 field_type: string

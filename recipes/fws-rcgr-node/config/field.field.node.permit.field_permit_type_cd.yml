@@ -1,0 +1,29 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000021
+langcode: en
+status: TRUE
+dependencies:
+  config:
+    - field.storage.node.field_permit_type_cd
+    - node.type.permit
+    - taxonomy.vocabulary.permit_type # Assumed vocabulary name
+id: node.permit.field_permit_type_cd
+field_name: field_permit_type_cd
+entity_type: node
+bundle: permit
+label: 'Permit Type Code'
+description: ''
+required: FALSE
+translatable: FALSE
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      permit_type: permit_type # Assumed vocabulary name
+    sort:
+      field: name
+      direction: asc
+    auto_create: FALSE # Set to TRUE if terms should be created automatically
+    auto_create_bundle: ''
+field_type: entity_reference

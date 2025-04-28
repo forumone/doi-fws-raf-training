@@ -1,9 +1,12 @@
+uuid: 38ec027d-e547-460a-8ae4-ec41f47a54ca
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_permit_no
     - node.type.permit
+_core:
+  default_config_hash: SWZqvQ-T4FpJ5Ot_uQwjHOzl1WCId-32LAt-n10ZULc
 id: node.permit.field_permit_no
 field_name: field_permit_no
 entity_type: node

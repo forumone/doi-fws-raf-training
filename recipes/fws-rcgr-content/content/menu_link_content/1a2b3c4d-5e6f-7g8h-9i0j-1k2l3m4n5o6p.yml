@@ -18,8 +18,8 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/profile/locations-agents'
-      title: ''
+      uri: 'internal:/node/add/permit'
+      title: 'New Registration'
       options: {  }
   external:
     -

@@ -25,97 +25,40 @@
 %}
 
 <article{{ attributes.addClass(classes) }} style="margin-bottom: 22px;">
-  {% if user.field_applicant_agree_to_certify.value %}
-    <div class="alert alert-success">
-      <strong>You have now completed your registration.</strong> This registration is valid ONLY from March 1 – June 30, 2025 for control activities.
-    </div>
-  {% endif %}
 
-  {# Certification Section - Moved to the very top #}
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Registrant Certification</h3>
-    </div>
-    <div class="panel-body">
-      <p>I hereby certify that I have read and am familiar with the regulations contained in Title 50, Part 21, section 50, of the Code of Federal Regulations (50 CFR 21.50), and that the information submitted in this registration is complete and accurate to the best of my knowledge and belief. I understand that any false statement herein may subject me to the criminal penalties of 18 U.S.C. 1001.</p>
-
-      {{ drupal_block('certification_form_block') }}
-    </div>
-  </div>
-
+  {# Individual Account Information - shown for non-business registrants or always? Assuming shown when NOT business #}
+  {% if user.field_bi_cd is not defined or user.field_bi_cd.value != 'B' %}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">Registration Information</h3>
+      <h3 class="panel-title">Personal Information</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {# Registration No. #}
+            {# Applicant Name #}
             <tr>
-              <th class="col-md-3">Registration No.</th>
+              <th class="col-md-3">Applicant Name</th>
               <td class="col-md-9">
-                {% if user.field_permit_no is defined and user.field_permit_no.value is not empty %}
-                  RG-{{ user.field_permit_no.value }}
-                {% else %}
-                  <div class="alert alert-info">
-                    No registration number assigned.
-                    <a href="{{ base_path }}node/add/location">Add a location</a> to receive a registration number.
-                  </div>
-                {% endif %}
-              </td>
-            </tr>
+                {% set applicant_name_parts = [] %}
+                {% if user.field_applicant_first_name.value %}{% set applicant_name_parts = applicant_name_parts|merge([user.field_applicant_first_name.value]) %}{% endif %}
+                {% if user.field_applicant_middle_name.value %}{% set applicant_name_parts = applicant_name_parts|merge([user.field_applicant_middle_name.value]) %}{% endif %}
+                {% if user.field_applicant_last_name.value %}{% set applicant_name_parts = applicant_name_parts|merge([user.field_applicant_last_name.value]) %}{% endif %}
+                {% if user.field_applicant_suffix.value %}{% set applicant_name_parts = applicant_name_parts|merge([user.field_applicant_suffix.value]) %}{% endif %}
 
-            {# Date of Registration #}
-            <tr>
-              <th class="col-md-3">Date of Registration</th>
-              <td class="col-md-9">{{ user.created.value|date('n/j/Y') }}</td>
-            </tr>
-
-            {# Date Amended #}
-            <tr>
-              <th class="col-md-3">Date Amended</th>
-              <td class="col-md-9">{{ user.changed.value|date('n/j/Y') }}</td>
-            </tr>
-
-            {# Registrant Name #}
-            <tr>
-              <th class="col-md-3">Registrant (Landowner) Name</th>
-              <td class="col-md-9">
-                {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' and user.field_applicant_business_name.value is not empty %}
-                  {{ user.field_applicant_business_name.value }}
-                {% elseif user.field_applicant_last_name.value or user.field_applicant_first_name.value %}
-                  {% if user.field_applicant_last_name.value %}{{ user.field_applicant_last_name.value }}{% endif %}
-                  {% if user.field_applicant_first_name.value %}, {{ user.field_applicant_first_name.value }}{% endif %}
+                {% if applicant_name_parts is not empty %}
+                  {{ applicant_name_parts|join(' ') }}
                 {% else %}
                   N/A
                 {% endif %}
               </td>
             </tr>
-
-            {# Business Contact Person - only shown for business registrants #}
-            {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' and (user.field_applicant_last_name.value or user.field_applicant_first_name.value) %}
+            {# Applicant Telephone #}
             <tr>
-              <th class="col-md-3">Business Contact Person</th>
+              <th class="col-md-3">Telephone</th>
               <td class="col-md-9">
-                {% if user.field_applicant_last_name.value %}{{ user.field_applicant_last_name.value }}{% endif %}
-                {% if user.field_applicant_first_name.value %}, {{ user.field_applicant_first_name.value }}{% endif %}
-              </td>
-            </tr>
-            {% endif %}
-
-            {# Registrant Type #}
-            <tr>
-              <th class="col-md-3">Registrant Type</th>
-              <td class="col-md-9">
-                {% if user.field_bi_cd is defined and user.field_bi_cd.value is not empty %}
-                  {% if user.field_bi_cd.value == 'I' %}
-                    Individual
-                  {% elseif user.field_bi_cd.value == 'B' %}
-                    Business
-                  {% else %}
-                    {{ user.field_bi_cd.value }}
-                  {% endif %}
+                {% if user.field_applicant_telephone.value %}
+                  {{ user.field_applicant_telephone.value }}
                 {% else %}
                   N/A
                 {% endif %}
@@ -126,6 +69,8 @@
       </div>
     </div>
   </div>
+  {% endif %}
+
 
   {# Business Information - only shown for business registrants #}
   {% if user.field_bi_cd is defined and user.field_bi_cd.value == 'B' %}
@@ -137,49 +82,46 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tbody>
-            {# Primary Contact Information #}
-            {% if user.field_primary_contact_name.value is not empty or user.field_primary_contact_phone.value is not empty or user.field_primary_contact_email.value is not empty %}
+            {# Business Name #}
             <tr>
-              <th class="col-md-3">Primary Contact Name</th>
+              <th class="col-md-3">Business Name</th>
               <td class="col-md-9">
-                {% if user.field_primary_contact_name.value %}
-                  {{ user.field_primary_contact_name.value }}
+                {% if user.field_applicant_business_name.value %}
+                  {{ user.field_applicant_business_name.value }}
                 {% else %}
                   N/A
                 {% endif %}
               </td>
             </tr>
-            <tr>
-              <th class="col-md-3">Primary Contact Phone</th>
+
+            {# Registrant Type Code #}
+             <tr>
+              <th class="col-md-3">Registrant Type</th>
               <td class="col-md-9">
-                {% if user.field_primary_contact_phone.value %}
-                  {{ user.field_primary_contact_phone.value }}
+                {% if user.field_registrant_type_cd.value %}
+                  {{ user.field_registrant_type_cd.value }} {# Consider mapping code to label if needed #}
                 {% else %}
                   N/A
                 {% endif %}
               </td>
             </tr>
-            <tr>
-              <th class="col-md-3">Primary Contact Email</th>
-              <td class="col-md-9">
-                {% if user.field_primary_contact_email.value %}
-                  {{ user.field_primary_contact_email.value }}
-                {% else %}
-                  N/A
-                {% endif %}
-              </td>
-            </tr>
-            {% endif %}
 
             {# Principal Information #}
-            {% if user.field_principal_last_name.value is not empty or user.field_principal_first_name.value is not empty %}
+            {% if user.field_principal_last_name.value is not empty or user.field_principal_first_name.value is not empty or user.field_principal_middle_name.value is not empty or user.field_principal_suffix.value is not empty %}
             <tr>
               <th class="col-md-3">Principal Name</th>
               <td class="col-md-9">
-                {% if user.field_principal_last_name.value %}{{ user.field_principal_last_name.value }}{% endif %}
-                {% if user.field_principal_first_name.value %}, {{ user.field_principal_first_name.value }}{% endif %}
-                {% if user.field_principal_middle_name.value %} {{ user.field_principal_middle_name.value }}{% endif %}
-                {% if user.field_principal_suffix.value %} {{ user.field_principal_suffix.value }}{% endif %}
+                {% set principal_name_parts = [] %}
+                {% if user.field_principal_first_name.value %}{% set principal_name_parts = principal_name_parts|merge([user.field_principal_first_name.value]) %}{% endif %}
+                {% if user.field_principal_middle_name.value %}{% set principal_name_parts = principal_name_parts|merge([user.field_principal_middle_name.value]) %}{% endif %}
+                {% if user.field_principal_last_name.value %}{% set principal_name_parts = principal_name_parts|merge([user.field_principal_last_name.value]) %}{% endif %}
+                {% if user.field_principal_suffix.value %}{% set principal_name_parts = principal_name_parts|merge([user.field_principal_suffix.value]) %}{% endif %}
+
+                {% if principal_name_parts is not empty %}
+                  {{ principal_name_parts|join(' ') }}
+                {% else %}
+                  N/A {# Should not happen if any part exists, but safe fallback #}
+                {% endif %}
               </td>
             </tr>
             {% endif %}
@@ -189,6 +131,11 @@
               <th class="col-md-3">Principal Title</th>
               <td class="col-md-9">{{ user.field_principal_title.value }}</td>
             </tr>
+            {% else %}
+             <tr>
+              <th class="col-md-3">Principal Title</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
             {% endif %}
 
             {% if user.field_principal_telephone.value is not empty %}
@@ -196,14 +143,62 @@
               <th class="col-md-3">Principal Telephone</th>
               <td class="col-md-9">{{ user.field_principal_telephone.value }}</td>
             </tr>
+             {% else %}
+             <tr>
+              <th class="col-md-3">Principal Telephone</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
             {% endif %}
 
-            {% if user.field_principal_email.value is not empty %}
+             {% if user.field_principal_email.value is not empty %}
             <tr>
               <th class="col-md-3">Principal Email</th>
               <td class="col-md-9">{{ user.field_principal_email.value }}</td>
             </tr>
+            {% else %}
+             <tr>
+              <th class="col-md-3">Principal Email</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
             {% endif %}
+
+            {# Primary Contact Information #}
+            {% if user.field_primary_contact_name.value is not empty %}
+            <tr>
+              <th class="col-md-3">Primary Contact Name</th>
+              <td class="col-md-9">{{ user.field_primary_contact_name.value }}</td>
+            </tr>
+            {% else %}
+             <tr>
+              <th class="col-md-3">Primary Contact Name</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
+            {% endif %}
+
+            {% if user.field_primary_contact_phone.value is not empty %}
+            <tr>
+              <th class="col-md-3">Primary Contact Phone</th>
+              <td class="col-md-9">{{ user.field_primary_contact_phone.value }}</td>
+            </tr>
+             {% else %}
+             <tr>
+              <th class="col-md-3">Primary Contact Phone</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
+            {% endif %}
+
+            {% if user.field_primary_contact_email.value is not empty %}
+            <tr>
+              <th class="col-md-3">Primary Contact Email</th>
+              <td class="col-md-9">{{ user.field_primary_contact_email.value }}</td>
+            </tr>
+            {% else %}
+             <tr>
+              <th class="col-md-3">Primary Contact Email</th>
+              <td class="col-md-9">N/A</td>
+            </tr>
+            {% endif %}
+
           </tbody>
         </table>
       </div>
@@ -211,10 +206,10 @@
   </div>
   {% endif %}
 
-  {# Address and Contact Information #}
+  {# Address Information #}
   <div class="panel panel-primary mt-3">
     <div class="panel-heading">
-      <h3 class="panel-title">Registrant Address and Contact Information</h3>
+      <h3 class="panel-title">Address Information</h3>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
@@ -223,10 +218,13 @@
             <tr>
               <th class="col-md-3">Address</th>
               <td class="col-md-9">
-                {% if user.field_applicant_address_l1.value or user.field_applicant_address_l2.value or user.field_applicant_address_l3.value %}
-                  <div>{{ user.field_applicant_address_l1.value }}</div>
-                  {% if user.field_applicant_address_l2.value %}<div>{{ user.field_applicant_address_l2.value }}</div>{% endif %}
-                  {% if user.field_applicant_address_l3.value %}<div>{{ user.field_applicant_address_l3.value }}</div>{% endif %}
+                {% set address_lines = [] %}
+                {% if user.field_applicant_address_l1.value %}{% set address_lines = address_lines|merge([user.field_applicant_address_l1.value]) %}{% endif %}
+                {% if user.field_applicant_address_l2.value %}{% set address_lines = address_lines|merge([user.field_applicant_address_l2.value]) %}{% endif %}
+                {% if user.field_applicant_address_l3.value %}{% set address_lines = address_lines|merge([user.field_applicant_address_l3.value]) %}{% endif %}
+
+                {% if address_lines is not empty %}
+                  {% for line in address_lines %}<div>{{ line }}</div>{% endfor %}
                 {% else %}
                   N/A
                 {% endif %}
@@ -238,6 +236,18 @@
               <td class="col-md-9">
                 {% if user.field_applicant_city.value %}
                   {{ user.field_applicant_city.value }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+
+            {# County #}
+            <tr>
+              <th class="col-md-3">County</th>
+              <td class="col-md-9">
+                {% if user.field_applicant_county.value %}
+                  {{ user.field_applicant_county.value }}
                 {% else %}
                   N/A
                 {% endif %}
@@ -265,124 +275,10 @@
                 {% endif %}
               </td>
             </tr>
-
-            <tr>
-              <th class="col-md-3">Telephone</th>
-              <td class="col-md-9">
-                {% if user.field_applicant_telephone.value %}
-                  {{ user.field_applicant_telephone.value }}
-                {% else %}
-                  N/A
-                {% endif %}
-              </td>
-            </tr>
+            {# Removed Telephone from here as it's in Individual group #}
           </tbody>
         </table>
       </div>
     </div>
-  </div>
-
-  {# Locations Section #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Location of Properties where Activity will occur</h3>
-    </div>
-    <div class="panel-body">
-      {% set location_count = 0 %}
-
-      {% if locations is not empty %}
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>County</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>ZIP</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for location in locations %}
-                {% set location_count = location_count + 1 %}
-                <tr>
-                  <td>{{ location_count }}</td>
-                  <td>{% if location.field_location_county.value %}{{ location.field_location_county.value }}{% endif %}</td>
-                  <td>{% if location.field_location_address.value %}{{ location.field_location_address.value }}{% endif %}</td>
-                  <td>{% if location.field_location_city.value %}{{ location.field_location_city.value }}{% endif %}</td>
-                  <td>{% if location.field_location_state.value %}{{ location.field_location_state.value }}{% endif %}</td>
-                  <td>{% if location.field_location_zip.value %}{{ location.field_location_zip.value }}{% endif %}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <div class="alert alert-info">
-          No locations have been added yet.
-          <a href="{{ base_path }}node/add/location">Add a location</a>
-        </div>
-      {% endif %}
-    </div>
-  </div>
-
-  {# Agents Section #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Agent/Employee</h3>
-    </div>
-    <div class="panel-body">
-      {% set agent_count = 0 %}
-
-      {% if agents is not empty %}
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for agent in agents %}
-                {% set agent_count = agent_count + 1 %}
-                <tr>
-                  <td>{{ agent_count }}</td>
-                  <td>{{ agent.label }}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <div class="alert alert-info">
-          No agents have been added yet.
-          <a href="{{ base_path }}node/add/name">Add an agent</a>
-        </div>
-      {% endif %}
-    </div>
-  </div>
-
-  {# Conditions #}
-  <div class="panel panel-primary mt-3">
-    <div class="panel-heading">
-      <h3 class="panel-title">Conditions</h3>
-    </div>
-    <div class="panel-body">
-      <p>You and your agents or employees must comply with the <a href="{{ base_path }}resident-canada-goose-nest-egg-depredation-order-conditions">Resident Canada Goose Nest & Egg Depredation Order Conditions</a>.</p>
-
-      <p>If agents or employees will conduct the nest and egg work on your behalf, you may sign this registration confirmation and provide them a copy as evidence of your authorization to perform the work.</p>
-
-      <div class="well well-sm signature-line">
-        <p>Signature of Registrant (Landowner): ______________________________________________</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="text-center" style="margin-top: 30px; margin-bottom: 20px;">
-    <a href="{{ base_path }}resident-canada-goose-nest-egg-depredation-order-conditions" class="">
-      Proceed to Resident Canada Goose Nest &amp; Egg Depredation Order Conditions
-    </a>
   </div>
 </article>

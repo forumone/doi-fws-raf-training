@@ -1,9 +1,12 @@
+uuid: e5446361-7df5-4095-8fac-60ed4d5c6ba4
 langcode: en
 status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: '-b8tUvqzQ4o1zlv6ynrnyBL54Tym-FJzFBm77LBALxM'
 id: node.field_dt_create
 field_name: field_dt_create
 entity_type: node

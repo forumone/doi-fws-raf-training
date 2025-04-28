@@ -2,6 +2,7 @@
 
 namespace Drupal\fws_goose\Plugin\Block;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -9,6 +10,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\node\NodeInterface;
 
 /**
  * Provides a certification form block.
@@ -83,30 +85,38 @@ class CertificationBlock extends BlockBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    */
   public function build() {
-    // Only show content on user canonical routes.
-    if ($this->routeMatch->getRouteName() !== 'entity.user.canonical') {
+    $node = $this->routeMatch->getParameter('node');
+
+    // Only show on permit node pages.
+    if (!($node instanceof NodeInterface) || $node->bundle() !== 'permit') {
       return [];
     }
 
-    $user = $this->routeMatch->getParameter('user');
-    if (!$user) {
-      return [];
-    }
-
-    // Check if the user already has certified.
-    if ($user->hasField('field_applicant_agree_to_certify') &&
-        $user->get('field_applicant_agree_to_certify')->value) {
-      return [
+    // Check if the permit node is already certified.
+    // Use field_applicant_signed on the node.
+    if ($node->hasField('field_applicant_signed') && $node->get('field_applicant_signed')->value) {
+      $build = [
         '#type' => 'container',
-        '#attributes' => ['class' => ['alert', 'alert-info']],
+        '#attributes' => ['class' => ['alert', 'alert-success']],
         'content' => [
-          '#markup' => '<i class="fa fa-check-circle"></i> You have certified this registration.',
+          '#markup' => '<i class="fa fa-check-circle"></i> ' . $this->t('This permit has been certified.'),
         ],
       ];
+      // Add certified date if available.
+      if ($node->hasField('field_dt_applicant_signed') && !$node->get('field_dt_applicant_signed')->isEmpty()) {
+        // Get the timestamp directly from the DateTime object.
+        $date_object = $node->get('field_dt_applicant_signed')->date;
+        if ($date_object) {
+          $timestamp = $date_object->getTimestamp();
+          $formatted_date = \Drupal::service('date.formatter')->format($timestamp, 'medium');
+          $build['content']['#markup'] .= '<br />' . $this->t('Certified on: @date', ['@date' => $formatted_date]);
+        }
+      }
+      return $build;
     }
 
-    // Build and return the certification form.
-    $form = $this->formBuilder->getForm('Drupal\fws_goose\Form\InlineCertificationForm', $user->id());
+    // Build and return the certification form, passing the NODE ID.
+    $form = $this->formBuilder->getForm('\Drupal\fws_goose\Form\InlineCertificationForm', $node->id());
 
     return [
       'form' => $form,
@@ -117,29 +127,52 @@ class CertificationBlock extends BlockBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account) {
-    // Only allow access on user canonical routes.
-    if ($this->routeMatch->getRouteName() !== 'entity.user.canonical') {
+    $node = $this->routeMatch->getParameter('node');
+
+    // Only allow access on permit node routes.
+    if (!($node instanceof NodeInterface) || $node->bundle() !== 'permit') {
       return AccessResult::forbidden();
     }
 
-    $user = $this->routeMatch->getParameter('user');
-    if (!$user) {
-      return AccessResult::forbidden();
+    // Allow access if the current user is the owner of the permit node or has admin permissions.
+    if ($node->getOwnerId() == $account->id() || $account->hasPermission('administer nodes')) {
+      return AccessResult::allowed();
     }
 
-    // If viewing someone else's profile and not an admin.
-    if ($user->id() != $account->id() && !$account->hasPermission('administer users')) {
-      return AccessResult::forbidden();
-    }
+    return AccessResult::forbidden();
+  }
 
-    return AccessResult::allowed();
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    // Vary cache by the node and user permissions.
+    return ['route', 'user.permissions'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $node = $this->routeMatch->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      // Invalidate cache if the node changes.
+      return ['node:' . $node->id()];
+    }
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCacheMaxAge() {
-    // Disable caching for this block.
+    // Set cache max age to 0 if the node is not certified, allow caching if certified.
+    $node = $this->routeMatch->getParameter('node');
+    if ($node instanceof NodeInterface && $node->hasField('field_applicant_signed') && $node->get('field_applicant_signed')->value) {
+      // Cache permanently if certified.
+      return Cache::PERMANENT;
+    }
+    // No cache if not certified (form needs to be fresh)
     return 0;
   }
 

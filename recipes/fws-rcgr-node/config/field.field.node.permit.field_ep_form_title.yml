@@ -1,15 +1,16 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000004
 langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.storage.node.field_home_phone
+    - field.storage.node.field_ep_form_title
     - node.type.permit
-id: node.permit.field_home_phone
-field_name: field_home_phone
+id: node.permit.field_ep_form_title
+field_name: field_ep_form_title
 entity_type: node
 bundle: permit
-label: 'Home Phone'
-description: 'The home phone number associated with the permit.'
+label: 'EP Form Title'
+description: ''
 required: FALSE
 translatable: FALSE
 default_value: {  }

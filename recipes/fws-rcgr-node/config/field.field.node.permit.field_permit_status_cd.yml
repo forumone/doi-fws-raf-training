@@ -1,3 +1,4 @@
+uuid: 51adbffe-e553-49d4-b336-b560385e9a11
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - field.storage.node.field_permit_status_cd
     - node.type.permit
     - taxonomy.vocabulary.application_status
+_core:
+  default_config_hash: cn8rCxEVji_QZu558NvDQbz5DLMqljF56HQhLfRQ3O4
 id: node.permit.field_permit_status_cd
 field_name: field_permit_status_cd
 entity_type: node

@@ -1,21 +1,23 @@
+uuid: f220749b-5464-4730-b3f8-430a58fc6fe5
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_bi_cd
     - node.type.permit
+  module:
+    - options
+_core:
+  default_config_hash: AfYK4A4_7O5AbGtWg_wR4K5Kc5CuUICxxkkKJtapvCE
 id: node.permit.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
 bundle: permit
-label: 'BI Code'
-description: 'The BI code associated with this permit.'
-required: FALSE
-translatable: FALSE
+label: 'Registrant Type'
+description: 'The type of registrant (Individual or Business)'
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  max_length: 255
-  case_sensitive: FALSE
-  is_ascii: FALSE
-field_type: string
+settings: {  }
+field_type: list_string

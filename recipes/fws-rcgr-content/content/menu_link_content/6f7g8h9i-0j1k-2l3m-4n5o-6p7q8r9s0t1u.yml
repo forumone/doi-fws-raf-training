@@ -18,7 +18,7 @@ default:
       value: main
   link:
     -
-      uri: 'internal:/user'
+      uri: 'internal:/user/my-registration'
       title: ''
       options: {  }
   external:

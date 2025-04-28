@@ -1,9 +1,12 @@
+uuid: f46056f8-abe1-45bd-b19d-c3de4828738c
 langcode: en
-status: TRUE
+status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: KCBH20CJIViZTyTxeiCWzZfiRSZv8DbtWD9qQL2XqdA
 id: node.field_dt_permit_issued
 field_name: field_dt_permit_issued
 entity_type: node
@@ -11,9 +14,9 @@ type: datetime
 settings:
   datetime_type: datetime
 module: datetime
-locked: FALSE
+locked: false
 cardinality: 1
-translatable: TRUE
+translatable: true
 indexes: {  }
-persist_with_no_fields: FALSE
-custom_storage: FALSE
+persist_with_no_fields: false
+custom_storage: false

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.location.field_bi_cd
     - field.field.node.location.field_ca_access_key
     - field.field.node.location.field_ca_county_select
     - field.field.node.location.field_control_site_id
@@ -74,7 +73,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: ygPLV8c6s-jR-wWeAZO7ACvSmvQc_s5CHrauekJrR9E
+  default_config_hash: 2YnLY9D5V7q8DSuwvWcXlHfpf7AHMEAr7Kt_UampgT4
 id: node.location.default
 targetEntityType: node
 bundle: location

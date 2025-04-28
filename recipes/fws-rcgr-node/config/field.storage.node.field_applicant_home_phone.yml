@@ -1,0 +1,23 @@
+uuid: b4b51c57-1702-4d8f-91cd-d50ef6f5c02a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: _RXkX6dNQgWMhK5isiAsSOr-M_cDXpcE8Xko9c259eY
+id: node.field_applicant_home_phone
+field_name: field_applicant_home_phone
+entity_type: node
+type: string
+settings:
+  max_length: 20
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

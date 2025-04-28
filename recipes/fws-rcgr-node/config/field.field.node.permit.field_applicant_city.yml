@@ -1,0 +1,21 @@
+uuid: 3fd28a7f-f4d0-410b-85df-0a058f858c01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_applicant_city
+    - node.type.permit
+_core:
+  default_config_hash: 6RS9wGUQcO6GmNsgY4iaP4vrH_NRk2pdvI71z0YmKSg
+id: node.permit.field_applicant_city
+field_name: field_applicant_city
+entity_type: node
+bundle: permit
+label: 'Applicant City'
+description: 'The city associated with this permit location.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

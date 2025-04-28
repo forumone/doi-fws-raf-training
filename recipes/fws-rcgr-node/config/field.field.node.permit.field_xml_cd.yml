@@ -1,9 +1,12 @@
+uuid: 3a416138-8b4a-40db-8ea0-f19774cf9ff2
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_xml_cd
     - node.type.permit
+_core:
+  default_config_hash: nVSjR0d5o46Y04I9HQy1NzuZpKHV6IMivGEBONx7Kxw
 id: node.permit.field_xml_cd
 field_name: field_xml_cd
 entity_type: node

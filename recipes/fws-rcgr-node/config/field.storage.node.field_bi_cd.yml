@@ -1,17 +1,26 @@
+uuid: 62461810-db13-4719-aa18-3acd00cc2add
 langcode: en
 status: TRUE
 dependencies:
   module:
     - node
+    - options
+_core:
+  default_config_hash: TEwrJHNmJIxHoZ9Q894N3miAPWYhttX7LJ6G4V6HHws
 id: node.field_bi_cd
 field_name: field_bi_cd
 entity_type: node
-type: string
+type: list_string
 settings:
-  max_length: 255
-  case_sensitive: FALSE
-  is_ascii: FALSE
-module: core
+  allowed_values:
+    -
+      value: I
+      label: Individual
+    -
+      value: B
+      label: Business
+  allowed_values_function: ''
+module: options
 locked: FALSE
 cardinality: 1
 translatable: TRUE

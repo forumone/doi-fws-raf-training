@@ -1,15 +1,16 @@
+uuid: c1d2e3f4-a5b6-4c7d-8e9f-b00000000009
 langcode: en
 status: TRUE
 dependencies:
   config:
-    - field.storage.node.field_zip
+    - field.storage.node.field_applicant_suffix
     - node.type.permit
-id: node.permit.field_zip
-field_name: field_zip
+id: node.permit.field_applicant_suffix
+field_name: field_applicant_suffix
 entity_type: node
 bundle: permit
-label: 'ZIP Code'
-description: 'The ZIP code associated with the permit.'
+label: 'Applicant Suffix'
+description: ''
 required: FALSE
 translatable: FALSE
 default_value: {  }

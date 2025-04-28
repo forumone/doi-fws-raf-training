@@ -1,19 +1,22 @@
+uuid: f975301e-3d28-4bc4-9195-f652370916ef
 langcode: en
-status: TRUE
+status: true
 dependencies:
   config:
     - field.storage.node.field_dt_permit_issued
     - node.type.permit
   module:
     - datetime
+_core:
+  default_config_hash: '-ppmSkt2vG1UKHni003J2DrIj9TFRCpqV4Y2MVdjWKI'
 id: node.permit.field_dt_permit_issued
 field_name: field_dt_permit_issued
 entity_type: node
 bundle: permit
 label: 'Permit Issue Date'
 description: 'The date when the permit was issued.'
-required: FALSE
-translatable: TRUE
+required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
