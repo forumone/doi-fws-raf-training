@@ -30,7 +30,7 @@ ddev drush -l $SITE_URI en fws_goose -y
 
 # Run import scripts
 
-Import states and flyways vocabularies in the correct order
+# Import states and flyways vocabularies in the correct order
 echo "Importing states vocabulary..."
 ddev drush -l $SITE_URI scr ../scripts/rcgr/import-vocab.php states 100 1
 

@@ -7,7 +7,6 @@
 fin composer install
 
 # Run the site installation
-# Note: Docksal handles the site URI automatically, so -l is omitted compared to DDEV.
 fin drush site:install minimal --yes \
   --account-name=admin \
   --account-pass=admin \
