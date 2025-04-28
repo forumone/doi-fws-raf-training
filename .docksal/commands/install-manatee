@@ -10,7 +10,7 @@ fin drush recipe ../recipes/fws-manatee-content
 fin drush cr
 
 # Import taxonomy and nodes.
-../scripts/manatee/import-taxonomy.sh && ../scripts/manatee/import-nodes.sh
+./scripts/manatee/import-taxonomy.sh && ./scripts/manatee/import-nodes.sh
 
 # fin drush webform-libraries-download
 

@@ -1,0 +1,66 @@
+#!/bin/bash
+
+## Description: Install the RCGR multisite
+## Usage: install-rcgr
+## Example: "fin install-rcgr"
+
+fin composer install
+
+# Run the site installation
+fin drush site:install minimal --yes \
+  --account-name=admin \
+  --account-pass=admin \
+  --verbose \
+  --site-name="FWS: Resident Canada Goose Registration"
+
+# Install recipes
+fin drush recipe ../recipes/fws-core
+fin drush cr
+fin drush scr ../scripts/rcgr/install-cleanup.php
+fin drush cr
+fin drush recipe ../recipes/fws-rcgr-content
+fin drush recipe ../recipes/fws-rcgr-taxonomy
+fin drush recipe ../recipes/fws-rcgr-node
+fin drush recipe ../recipes/fws-rcgr-reports
+fin drush recipe ../recipes/fws-rcgr-user
+fin drush en fws_goose -y
+
+# Run import scripts
+
+# Import states and flyways vocabularies in the correct order
+echo "Importing states vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php states 100 1
+
+echo "Importing flyways vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php flyways 100 1
+
+# Run states again to update with flyway references that now exist
+echo "Updating states with flyway references..."
+fin drush scr ../scripts/rcgr/import-vocab.php states 100 1
+
+# Import other vocabularies
+echo "Importing application_status vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php application_status 100 1
+
+echo "Importing applicant_request_type vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php applicant_request_type 100 1
+
+echo "Importing country vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php country 100 1
+
+echo "Importing registrant_type vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php registrant_type 100 1
+
+echo "Importing restricted_counties vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php restricted_counties 100 1
+
+echo "Importing california_access_key vocabulary..."
+fin drush scr ../scripts/rcgr/import-vocab.php california_access_key 100 1
+
+# echo "Importing permits..."
+fin drush scr ../scripts/rcgr/import-reports.php 100
+
+# Clear the cache to ensure all entities are properly registered
+fin drush cr
+
+fin drush uli
