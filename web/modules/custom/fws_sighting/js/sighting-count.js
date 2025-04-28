@@ -71,26 +71,27 @@
           if (selectedYear) {
             updateSightingCount(selectedYear);
           }
+          // When using the year filter, reset the dates filters.
+          $('#edit-field-date-time-value--2').val('');
+          $('#edit-field-date-time-value-2--2').val('');
         });
       });
 
       // Handle start date filter changes
       once('startDateFilter', '#edit-field-date-time-value--2', context).forEach(function (element) {
         $(element).on('change', function () {
-          const yearId = $('#edit-field-year-target-id--2').val();
-          if (yearId) {
-            updateSightingCount(yearId);
-          }
+          // When using the dates filters, reset the year filter to All.
+          $('#edit-field-year-target-id--2').val('All');
+          updateSightingCount('All');
         });
       });
 
       // Handle end date filter changes
       once('endDateFilter', '#edit-field-date-time-value-2--2', context).forEach(function (element) {
         $(element).on('change', function () {
-          const yearId = $('#edit-field-year-target-id--2').val();
-          if (yearId) {
-            updateSightingCount(yearId);
-          }
+          // When using the dates filters, reset the year filter to All.
+          $('#edit-field-year-target-id--2').val('All');
+          updateSightingCount('All');
         });
       });
     }
