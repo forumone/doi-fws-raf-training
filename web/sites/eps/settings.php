@@ -921,15 +921,3 @@ $settings['file_private_path'] = "sites/eps/files/private";
 $settings['file_temp_path'] = "/tmp";
 
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
-$databases['default']['default'] = array (
-  'database' => 'eps',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => '3306',
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
