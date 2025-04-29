@@ -51,7 +51,7 @@
         }
       };
 
-      // Handle video playback when a species is selected
+      // Handle video playback when the submit button is clicked
       this.playVideo = function () {
         const $selectedOption = $('#selectedSpecies option:selected');
         if ($selectedOption.length && $selectedOption.attr('data-video-url')) {
@@ -73,9 +73,10 @@
         });
       });
 
-      // Attach the change handler to the species select
-      once('aerial-videos-species', '#selectedSpecies', context).forEach(function (element) {
-        $(element).on('change', function () {
+      // Attach the click handler to the view video button
+      once('aerial-videos-button', '#viewVideoButton', context).forEach(function (element) {
+        $(element).on('click', function (e) {
+          e.preventDefault();
           Drupal.behaviors.aerialVideos.playVideo();
         });
       });
