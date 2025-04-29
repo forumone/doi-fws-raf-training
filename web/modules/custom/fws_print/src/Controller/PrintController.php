@@ -71,7 +71,6 @@ class PrintController extends ControllerBase {
 
     // Add our custom libraries.
     $build['#attached']['library'][] = 'fws_raf/global-styling';
-    $build['#attached']['library'][] = 'fws_print/print-styles';
 
     // Add print-specific attributes to the page
     $build['#attributes']['class'][] = 'node-view-mode-print';
