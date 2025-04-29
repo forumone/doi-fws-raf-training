@@ -4,22 +4,22 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_applicant_state
-    - field.storage.node.field_location_qty_nest_egg_apr
-    - field.storage.node.field_location_qty_nest_egg_jun
-    - field.storage.node.field_location_qty_nest_egg_mar
-    - field.storage.node.field_location_qty_nest_egg_may
-    - field.storage.node.field_location_qty_nest_egg_tot
+    - field.storage.node.field_qty_nest_egg_destroyed_apr
+    - field.storage.node.field_qty_nest_egg_destroyed_jun
+    - field.storage.node.field_qty_nest_egg_destroyed_mar
+    - field.storage.node.field_qty_nest_egg_destroyed_may
+    - field.storage.node.field_qty_nest_egg_destroyed_tot
     - field.storage.node.field_report_year
     - field.storage.user.field_applicant_first_name
     - field.storage.user.field_applicant_last_name
-    - node.type.permit
+    - node.type.report
     - user.role.administrator
   module:
     - better_exposed_filters
     - node
     - user
 _core:
-  default_config_hash: notPAnQpGCLTJXXUjxGJIck1XN1g81QUoZ3uEzMy7zg
+  default_config_hash: tlk_eWPvAgcR74aPYt9tPrDzIn67nseZjDUBq-gXEfQ
 id: summary_report
 label: 'Summary Report'
 module: views
@@ -401,15 +401,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_qty_nest_egg_mar:
-          id: field_location_qty_nest_egg_mar
-          table: node__field_location_qty_nest_egg_mar
-          field: field_location_qty_nest_egg_mar
+        field_qty_nest_egg_destroyed_mar:
+          id: field_qty_nest_egg_destroyed_mar
+          table: node__field_qty_nest_egg_destroyed_mar
+          field: field_qty_nest_egg_destroyed_mar
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'March Quantity'
+          label: March
           exclude: false
           alter:
             alter_text: false
@@ -465,15 +465,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_qty_nest_egg_apr:
-          id: field_location_qty_nest_egg_apr
-          table: node__field_location_qty_nest_egg_apr
-          field: field_location_qty_nest_egg_apr
+        field_qty_nest_egg_destroyed_apr:
+          id: field_qty_nest_egg_destroyed_apr
+          table: node__field_qty_nest_egg_destroyed_apr
+          field: field_qty_nest_egg_destroyed_apr
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'April Quantity'
+          label: April
           exclude: false
           alter:
             alter_text: false
@@ -529,15 +529,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_qty_nest_egg_may:
-          id: field_location_qty_nest_egg_may
-          table: node__field_location_qty_nest_egg_may
-          field: field_location_qty_nest_egg_may
+        field_qty_nest_egg_destroyed_may:
+          id: field_qty_nest_egg_destroyed_may
+          table: node__field_qty_nest_egg_destroyed_may
+          field: field_qty_nest_egg_destroyed_may
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'May Quantity'
+          label: May
           exclude: false
           alter:
             alter_text: false
@@ -593,15 +593,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_qty_nest_egg_jun:
-          id: field_location_qty_nest_egg_jun
-          table: node__field_location_qty_nest_egg_jun
-          field: field_location_qty_nest_egg_jun
+        field_qty_nest_egg_destroyed_jun:
+          id: field_qty_nest_egg_destroyed_jun
+          table: node__field_qty_nest_egg_destroyed_jun
+          field: field_qty_nest_egg_destroyed_jun
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'June Quantity'
+          label: June
           exclude: false
           alter:
             alter_text: false
@@ -657,15 +657,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_location_qty_nest_egg_tot:
-          id: field_location_qty_nest_egg_tot
-          table: node__field_location_qty_nest_egg_tot
-          field: field_location_qty_nest_egg_tot
+        field_qty_nest_egg_destroyed_tot:
+          id: field_qty_nest_egg_destroyed_tot
+          table: node__field_qty_nest_egg_destroyed_tot
+          field: field_qty_nest_egg_destroyed_tot
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Total Quantity'
+          label: Total
           exclude: false
           alter:
             alter_text: false
@@ -902,11 +902,44 @@ display:
           id: type
           table: node_field_data
           field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          operator: in
           value:
-            permit: permit
+            report: report
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -920,11 +953,11 @@ display:
             field_applicant_last_name: field_applicant_last_name
             mail: mail
             field_applicant_state: field_applicant_state
-            field_location_qty_nest_egg_mar: field_location_qty_nest_egg_mar
-            field_location_qty_nest_egg_apr: field_location_qty_nest_egg_apr
-            field_location_qty_nest_egg_may: field_location_qty_nest_egg_may
-            field_location_qty_nest_egg_jun: field_location_qty_nest_egg_jun
-            field_location_qty_nest_egg_tot: field_location_qty_nest_egg_tot
+            field_qty_nest_egg_destroyed_mar: field_qty_nest_egg_destroyed_mar
+            field_qty_nest_egg_destroyed_apr: field_qty_nest_egg_destroyed_apr
+            field_qty_nest_egg_destroyed_may: field_qty_nest_egg_destroyed_may
+            field_qty_nest_egg_destroyed_jun: field_qty_nest_egg_destroyed_jun
+            field_qty_nest_egg_destroyed_tot: field_qty_nest_egg_destroyed_tot
             field_report_year: field_report_year
           default: title
           info:
@@ -970,35 +1003,35 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_location_qty_nest_egg_mar:
+            field_qty_nest_egg_destroyed_mar:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_location_qty_nest_egg_apr:
+            field_qty_nest_egg_destroyed_apr:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_location_qty_nest_egg_may:
+            field_qty_nest_egg_destroyed_may:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_location_qty_nest_egg_jun:
+            field_qty_nest_egg_destroyed_jun:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_location_qty_nest_egg_tot:
+            field_qty_nest_egg_destroyed_tot:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1055,11 +1088,11 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_applicant_state'
-        - 'config:field.storage.node.field_location_qty_nest_egg_apr'
-        - 'config:field.storage.node.field_location_qty_nest_egg_jun'
-        - 'config:field.storage.node.field_location_qty_nest_egg_mar'
-        - 'config:field.storage.node.field_location_qty_nest_egg_may'
-        - 'config:field.storage.node.field_location_qty_nest_egg_tot'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_apr'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_jun'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_mar'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_may'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_tot'
         - 'config:field.storage.node.field_report_year'
         - 'config:field.storage.user.field_applicant_first_name'
         - 'config:field.storage.user.field_applicant_last_name'
@@ -1083,11 +1116,11 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_applicant_state'
-        - 'config:field.storage.node.field_location_qty_nest_egg_apr'
-        - 'config:field.storage.node.field_location_qty_nest_egg_jun'
-        - 'config:field.storage.node.field_location_qty_nest_egg_mar'
-        - 'config:field.storage.node.field_location_qty_nest_egg_may'
-        - 'config:field.storage.node.field_location_qty_nest_egg_tot'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_apr'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_jun'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_mar'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_may'
+        - 'config:field.storage.node.field_qty_nest_egg_destroyed_tot'
         - 'config:field.storage.node.field_report_year'
         - 'config:field.storage.user.field_applicant_first_name'
         - 'config:field.storage.user.field_applicant_last_name'
