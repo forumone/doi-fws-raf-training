@@ -99,6 +99,15 @@ class AerialSpeciesBlock extends BlockBase {
           'name' => 'selectedSpecies',
         ],
       ],
+      'submit_button' => [
+        '#type' => 'button',
+        '#value' => $this->t('View Video'),
+        '#attributes' => [
+          'class' => ['btn', 'btn-primary'],
+          'id' => 'viewVideoButton',
+          'name' => 'viewVideo',
+        ],
+      ],
     ];
 
     return $form;
