@@ -1,5 +1,7 @@
 print-body-class:
   version: 1.x
+  js:
+    js/print-body-class.js: {}
   dependencies:
     - core/jquery
     - core/drupal

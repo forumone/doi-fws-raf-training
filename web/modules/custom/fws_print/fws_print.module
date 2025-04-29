@@ -18,7 +18,15 @@ function fws_print_preprocess_html(&$variables) {
 
   // More direct approach to ensure the route is correctly detected
   $current_path = \Drupal::service('path.current')->getPath();
-  if (preg_match('#^/node/(\d+)/print$#', $current_path, $matches)) {
+
+  // Get base path to handle subdirectory installations
+  $base_path = base_path();
+  // Remove trailing slash from base path if present
+  $base_path = rtrim($base_path, '/');
+
+  // If site is in subdirectory, the current path will include the full path
+  // Use a pattern that works with or without subdirectory
+  if (preg_match('#/node/(\d+)/print$#', $current_path, $matches)) {
     \Drupal::logger('fws_print')->notice('Detected print path: @path', ['@path' => $current_path]);
     $variables['attributes']['class'][] = 'direct-path-detection';
     $variables['attributes']['class'][] = 'node-view-mode-print';
@@ -76,7 +84,9 @@ function fws_print_page_attachments(array &$attachments) {
 function fws_print_theme_suggestions_html_alter(array &$suggestions, array $variables) {
   // Use path-based detection to add the print template suggestion
   $current_path = \Drupal::service('path.current')->getPath();
-  if (preg_match('#^/node/(\d+)/print$#', $current_path)) {
+
+  // Updated pattern to work with subdirectory installations
+  if (preg_match('#/node/(\d+)/print$#', $current_path)) {
     $suggestions[] = 'html__node__print';
   }
 }
