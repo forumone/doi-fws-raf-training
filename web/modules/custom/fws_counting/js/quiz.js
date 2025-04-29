@@ -84,11 +84,6 @@
               focusOnInput(); // Focus on the input field when the response is shown
             }
           }, 1000);
-
-          // Set the timeout for showing the response
-          timerInstance = setTimeout(function () {
-            clearInterval(countdownInterval);
-          }, totalSeconds * 1000);
         }
 
         function saveQuizAnswer(questionIndex, userCount, actualCount, isCorrect) {
