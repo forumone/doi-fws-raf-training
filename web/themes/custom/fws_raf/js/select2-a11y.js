@@ -143,10 +143,19 @@
 
           // Update aria-selected attribute when selection changes
           const selectedValue = e.params.data.id;
-          $('.select2-results__option').each(function() {
-            const $option = $(this);
-            $option.attr('aria-selected', $option.attr('data-select2-id') === selectedValue ? 'true' : 'false');
-          });
+          const $dropdown = $('.select2-dropdown');
+          if ($dropdown.length) {
+            const $results = $dropdown.find('.select2-results__options');
+
+            if ($results.length) {
+              // Set aria-selected="true" on all selected options, "false" otherwise
+              $results.find('li[role="option"]').each(function() {
+                const $option = $(this);
+                const isSelected = $option.hasClass('select2-results__option--selected');
+                $option.attr('aria-selected', isSelected ? 'true' : 'false');
+              });
+            }
+          }
 
           // Make sure the clear button is keyboard accessible after selection
           updateClearButton($(this));
@@ -192,11 +201,38 @@
               .attr('aria-controls', resultsId);
           }
 
-          // Add ARIA attributes to each option and ensure the selected option has aria-selected="true"
-          $results.find('li[role="option"]').each(function () {
-            const $option = $(this);
-            $option.attr('aria-selected', $option.hasClass('select2-results__option--selected') ? 'true' : 'false');
-          });
+          // Function to update aria-selected attributes
+          const updateAriaSelected = function() {
+            // Get the currently selected value
+            const selectedValue = $select.val();
+
+            // Update all options in the dropdown
+            $results.find('li[role="option"]').each(function() {
+              const $option = $(this);
+              // Check if this option is selected (has the selected class)
+              const isSelected = $option.hasClass('select2-results__option--selected');
+              // Set aria-selected accordingly
+              $option.attr('aria-selected', isSelected ? 'true' : 'false');
+            });
+          };
+
+          // Run immediately when dropdown opens
+          updateAriaSelected();
+
+          // Also add an observer for Select2's results rendering
+          if (window.MutationObserver && !window.select2ResultsObserver) {
+            window.select2ResultsObserver = new MutationObserver(function() {
+              updateAriaSelected();
+            });
+
+            // Observe the results container for changes
+            window.select2ResultsObserver.observe($results[0], {
+              childList: true,
+              subtree: true,
+              attributes: true,
+              attributeFilter: ['class']
+            });
+          }
 
           // Make sure the clear button is keyboard accessible
           updateClearButton($(this));
@@ -207,6 +243,11 @@
           const $search = $('.select2-search__field');
           if ($search.length) {
             $search.attr('aria-expanded', 'false');
+          }
+
+          // Disconnect the observer when dropdown closes
+          if (window.select2ResultsObserver) {
+            window.select2ResultsObserver.disconnect();
           }
 
           // Make sure the clear button is keyboard accessible
