@@ -520,45 +520,45 @@ display:
           centre:
             fit_bounds:
               enable: true
-              weight: 0
+              weight: -10
               settings:
                 reset_zoom: false
                 min_zoom: null
               map_center_id: fit_bounds
-            first_row:
-              enable: true
-              weight: 0
-              settings:
-                location_option_id: first_row
-              map_center_id: location_plugins
-            ipstack:
-              enable: false
-              weight: 0
-              settings:
-                location_option_id: ipstack
-                access_key: ''
-              map_center_id: location_plugins
             fixed_value:
               enable: true
-              weight: 0
+              weight: -9
               settings:
                 location_option_id: fixed_value
-                latitude: null
-                longitude: null
+                latitude: 41.70701
+                longitude: -84.846059
               map_center_id: location_plugins
             client_location:
               enable: false
-              weight: 0
+              weight: -8
               map_center_id: client_location
             fixed_boundaries:
               enable: false
-              weight: 0
+              weight: -7
               settings:
                 south: ''
                 west: ''
                 north: ''
                 east: ''
               map_center_id: fixed_boundaries
+            first_row:
+              enable: true
+              weight: -6
+              settings:
+                location_option_id: first_row
+              map_center_id: location_plugins
+            ipstack:
+              enable: false
+              weight: -5
+              settings:
+                location_option_id: ipstack
+                access_key: ''
+              map_center_id: location_plugins
           map_provider_id: leaflet
           map_provider_settings:
             map_features:
