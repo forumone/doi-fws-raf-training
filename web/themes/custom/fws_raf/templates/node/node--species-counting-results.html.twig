@@ -27,7 +27,7 @@
     <div class="quiz__info">
       <h2 class="h3">User Parameters Selected:</h2>
         <p class="quiz__parameter"><b>Experience Level:</b> {{ content.field_count_difficulty|render|striptags|trim }}</p>
-        <p class="quiz__parameter"><b>Flock Size Range(s):</b> {{ content.field_size_range|render|striptags|trim }}</p>
+        <p class="quiz__parameter"><b>Flock Size Range(s):</b> {{ content.field_size_range|render|striptags|trim|replace({'&gt;': '>', '&lt;': '<'}) }}</p>
       </div>
     </div>
   </div>
