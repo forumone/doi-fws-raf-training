@@ -346,7 +346,7 @@ function fws_sighting_form_user_login_form_alter(&$form, FormStateInterface $for
 /**
  * Implements hook_form_views_exposed_form_alter().
  */
-function fws_sighting_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function fws_sighting_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $view = $form_state->get('view');
   if ($view->id() == 'sightings_map') {
 
