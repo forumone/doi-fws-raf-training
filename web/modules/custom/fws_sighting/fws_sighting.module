@@ -342,3 +342,55 @@ function fws_sighting_form_user_login_form_alter(&$form, FormStateInterface $for
     $form['saml_login']['#suffix'] = '</div>';
   }
 }
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ */
+function fws_sighting_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $view = $form_state->get('view');
+  if ($view->id() == 'sightings_map') {
+
+    if (isset($form['field_year_target_id'])) {
+      // Get the cutoff date.
+      $cutoff_date = _fws_sighting_get_cutoff_date();
+      // Loop through all year names to return the ones later than this date.
+      foreach ($form['field_year_target_id']['#options'] as $key => $option) {
+        if (is_numeric($option) && $option < $cutoff_date) {
+          unset($form['field_year_target_id']['#options'][$key]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function fws_sighting_views_query_alter($view, $query) {
+  if ($view->id() == 'sightings_map') {
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as $key => &$condition) {
+        // Look for the condition that filters the date after 2010.
+        if (is_array($condition) &&
+            !empty($condition['field'] &&
+            strpos($condition['field'], 'field_date_time_value') !== FALSE &&
+            $condition['operator'] == 'formula')) {
+          $cutoff_date = _fws_sighting_get_cutoff_date() . '-01-01';
+          $condition['field'] = str_replace('2010-01-01', $cutoff_date, $condition['field']);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Get the cutoff date for sightings in observation map.
+ *
+ * @return string
+ *   The year.
+ */
+function _fws_sighting_get_cutoff_date() {
+  $date = new DateTime();
+  $date->modify('-15 years');
+  return $date->format('Y');
+}
