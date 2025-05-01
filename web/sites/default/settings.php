@@ -908,10 +908,10 @@ if (file_exists('/var/www/site-php')) {
 }
 
 #
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
-$settings['config_sync_directory'] = '../config/sync/manatee';
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
+
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -926,29 +926,7 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
  */
 $config['system.site']['header_links_auth'] = TRUE;
 
+$settings['config_sync_directory'] = '../config/sync/manatee';
+
 $settings['replace_species_with_manatee'] = TRUE;
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
-$databases['default']['default'] = array (
-  'database' => 'db',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
-$databases['default']['default'] = array (
-  'database' => 'db',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);

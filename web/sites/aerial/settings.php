@@ -889,8 +889,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-$settings['config_sync_directory'] = '../config/sync/aerial';
-
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
 if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
@@ -909,6 +907,8 @@ if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_aerial-settings.inc';
 }
 
+$settings['config_sync_directory'] = '../config/sync/aerial';
+
 # in production this will be over-ridden by platform-settings.php
 $settings['session.cookie_path'] = '/aerial';
 $settings['file_public_path'] = "sites/aerial/files";
@@ -916,15 +916,3 @@ $settings['file_private_path'] = "sites/aerial/files/private";
 $settings['file_temp_path'] = "/tmp";
 
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
-$databases['default']['default'] = array (
-  'database' => 'db',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);

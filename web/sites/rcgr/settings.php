@@ -889,7 +889,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-$settings['config_sync_directory'] = '../config/rcgr/sync';
 
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
@@ -909,24 +908,13 @@ if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_rcgr-settings.inc';
 }
 
+$settings['config_sync_directory'] = '../config/rcgr/sync';
+
 # in production this will be over-ridden by platform-settings.php
 $settings['session.cookie_path'] = '/rcgr';
 $settings['file_public_path'] = "sites/rcgr/files";
 $settings['file_private_path'] = "sites/rcgr/files/private";
 $settings['file_temp_path'] = "/tmp";
-
-$databases['default']['default'] = array (
-  'database' => 'db',
-  'username' => 'db',
-  'password' => 'db',
-  'prefix' => '',
-  'host' => 'db',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
 
 $settings['hide_standard_login'] = TRUE;
 

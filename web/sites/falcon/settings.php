@@ -889,8 +889,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
-$settings['config_sync_directory'] = '../config/falcon/sync';
-
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
 if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
@@ -908,6 +906,8 @@ $config['system.site']['header_links_auth'] = FALSE;
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_falcon-settings.inc';
 }
+
+$settings['config_sync_directory'] = '../config/falcon/sync';
 
 # in production this will be over-ridden by platform-settings.php
 $settings['session.cookie_path'] = '/falcon';
