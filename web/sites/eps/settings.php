@@ -914,6 +914,8 @@ if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/doifws/fws_eps-settings.inc';
 }
 
+$settings['config_sync_directory'] = '../config/sync/eps';
+
 # in production this will be over-ridden by platform-settings.php
 $settings['session.cookie_path'] = '/epsandhill';
 $settings['file_public_path'] = "sites/eps/files";
