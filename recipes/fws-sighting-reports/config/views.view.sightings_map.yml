@@ -520,7 +520,7 @@ display:
               weight: -10
               settings:
                 reset_zoom: false
-                min_zoom: null
+                min_zoom: 5
               map_center_id: fit_bounds
             fixed_value:
               enable: true
