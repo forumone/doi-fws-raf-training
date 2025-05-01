@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6c1ff6802da6d3bce7a4e5a0c3219d9",
+    "content-hash": "01c17826a659b78e4ecc54c8082cd7f2",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -6320,6 +6320,90 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/rules",
                 "issues": "https://www.drupal.org/project/issues/rules"
+            }
+        },
+        {
+            "name": "drupal/saml_sp",
+            "version": "4.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/saml_sp.git",
+                "reference": "4.3.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/saml_sp-4.3.3.zip",
+                "reference": "4.3.3",
+                "shasum": "4f519707ba3d4b77fb99ccfbfa66480e46cdc1b7"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11",
+                "onelogin/php-saml": "^3.7.0 | ^4.2.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.3.3",
+                    "datestamp": "1717607114",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "James Glasgow (jrglasgow)",
+                    "homepage": "https://www.drupal.org/u/jrglasgow",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "jproctor",
+                    "homepage": "https://www.drupal.org/user/1194192"
+                },
+                {
+                    "name": "jrglasgow",
+                    "homepage": "https://www.drupal.org/user/36590"
+                },
+                {
+                    "name": "lakesta",
+                    "homepage": "https://www.drupal.org/user/2587378"
+                },
+                {
+                    "name": "Lukey",
+                    "homepage": "https://www.drupal.org/user/255347"
+                },
+                {
+                    "name": "manarth",
+                    "homepage": "https://www.drupal.org/user/321496"
+                },
+                {
+                    "name": "merilainen",
+                    "homepage": "https://www.drupal.org/user/304437"
+                },
+                {
+                    "name": "RunePhilosof",
+                    "homepage": "https://www.drupal.org/user/629892"
+                },
+                {
+                    "name": "safetypin",
+                    "homepage": "https://www.drupal.org/user/120508"
+                },
+                {
+                    "name": "scott_earnest",
+                    "homepage": "https://www.drupal.org/user/416158"
+                }
+            ],
+            "description": "API module to validate SAML IdP (Identity Provider) credentials.",
+            "homepage": "https://drupal.org/project/saml_sp",
+            "support": {
+                "source": "http://cgit.drupalcode.org/saml_sp",
+                "issues": "https://drupal.org/project/issues/saml_sp",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
             }
         },
         {
