@@ -60,27 +60,12 @@ content:
       hide_textfield_form: true
       centre:
         fit_bounds:
-          enable: true
+          enable: false
           weight: 0
           settings:
             reset_zoom: false
             min_zoom: null
           map_center_id: fit_bounds
-        ipstack:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: ipstack
-            access_key: ''
-          map_center_id: location_plugins
-        fixed_value:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: fixed_value
-            latitude: 44.44
-            longitude: -83.16
-          map_center_id: location_plugins
         client_location:
           enable: true
           weight: 0
@@ -94,6 +79,21 @@ content:
             north: ''
             east: ''
           map_center_id: fixed_boundaries
+        fixed_value:
+          enable: true
+          weight: 0
+          settings:
+            location_option_id: fixed_value
+            latitude: 41.70701
+            longitude: -84.846059
+          map_center_id: location_plugins
+        ipstack:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: ipstack
+            access_key: ''
+          map_center_id: location_plugins
       leaflet_settings:
         map_features:
           leaflet_control_geocoder:
@@ -571,7 +571,7 @@ content:
               transparent: false
               identify: false
             enabled: false
-        zoom: '10'
+        zoom: '7'
         height: 400px
         width: 100%
         minZoom: '0'
