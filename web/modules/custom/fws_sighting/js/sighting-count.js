@@ -67,13 +67,14 @@
 
         // Update count when year changes
         $element.on('change', function () {
+          // When using the year filter, reset the dates filters.
+          $('#edit-field-date-time-value--2').val('');
+          $('#edit-field-date-time-value-2--2').val('');
+          // Get the count.
           const selectedYear = $(this).val();
           if (selectedYear) {
             updateSightingCount(selectedYear);
           }
-          // When using the year filter, reset the dates filters.
-          $('#edit-field-date-time-value--2').val('');
-          $('#edit-field-date-time-value-2--2').val('');
         });
       });
 
@@ -82,6 +83,7 @@
         $(element).on('change', function () {
           // When using the dates filters, reset the year filter to All.
           $('#edit-field-year-target-id--2').val('All');
+          // Get the count.
           updateSightingCount('All');
         });
       });
@@ -91,6 +93,7 @@
         $(element).on('change', function () {
           // When using the dates filters, reset the year filter to All.
           $('#edit-field-year-target-id--2').val('All');
+          // Get the count.
           updateSightingCount('All');
         });
       });
