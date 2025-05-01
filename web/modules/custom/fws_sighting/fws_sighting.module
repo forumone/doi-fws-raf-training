@@ -176,6 +176,8 @@ function fws_sighting_node_presave(NodeInterface $node) {
         'name' => $year,
         'vid' => 'year',
       ]);
+      $weight = -1 * $year;
+      $term->setWeight($weight);
       $term->save();
       $term_id = $term->id();
     }
