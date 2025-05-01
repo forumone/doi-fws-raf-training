@@ -1,4 +1,3 @@
-uuid: f7865e4a-b22a-4ad4-89fc-6c523c8baae0
 langcode: en
 status: true
 dependencies:
@@ -15,11 +14,8 @@ dependencies:
     - node.type.sighting
   module:
     - datetime
-    - field_token_value
     - geolocation_leaflet
     - path
-_core:
-  default_config_hash: 8iVVOExRrHtLudYpOyZEWvgCwuRfs8ZWl-PmOihSTls
 id: node.sighting.default
 targetEntityType: node
 bundle: sighting
@@ -61,27 +57,12 @@ content:
       hide_textfield_form: true
       centre:
         fit_bounds:
-          enable: true
+          enable: false
           weight: 0
           settings:
             reset_zoom: false
             min_zoom: null
           map_center_id: fit_bounds
-        ipstack:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: ipstack
-            access_key: ''
-          map_center_id: location_plugins
-        fixed_value:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: fixed_value
-            latitude: 44.44
-            longitude: -83.16
-          map_center_id: location_plugins
         client_location:
           enable: true
           weight: 0
@@ -95,6 +76,21 @@ content:
             north: ''
             east: ''
           map_center_id: fixed_boundaries
+        fixed_value:
+          enable: true
+          weight: 0
+          settings:
+            location_option_id: fixed_value
+            latitude: 41.70701
+            longitude: -84.846059
+          map_center_id: location_plugins
+        ipstack:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: ipstack
+            access_key: ''
+          map_center_id: location_plugins
       leaflet_settings:
         map_features:
           leaflet_control_geocoder:
@@ -572,7 +568,7 @@ content:
               transparent: false
               identify: false
             enabled: false
-        zoom: '10'
+        zoom: '7'
         height: 400px
         width: 100%
         minZoom: '0'
@@ -625,12 +621,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_spotter:
-    type: field_token_value_default
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 2
@@ -677,11 +667,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_spotter: true
   field_state: true
   field_year: true
   status: true
