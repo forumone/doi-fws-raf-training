@@ -606,23 +606,15 @@ display:
                 weight: 0
                 settings:
                   position: topright
-                  geocoder: google_geocoding_api
+                  geocoder: photon
                   settings:
                     label: Address
                     description: 'Enter an address to be localized.'
                     autocomplete_min_length: 1
-                    component_restrictions:
-                      route: ''
-                      country: ''
-                      administrative_area: ''
-                      locality: ''
-                      postal_code: ''
-                    boundary_restriction:
-                      south: ''
-                      west: ''
-                      north: ''
-                      east: ''
-                    region: ''
+                    location_priority:
+                      lat: null
+                      lng: null
+                    remove_duplicates: false
                 enabled: false
               leaflet_control_locate:
                 weight: 0
@@ -1045,7 +1037,7 @@ display:
                   transparent: false
                   identify: false
                 enabled: false
-            zoom: '10'
+            zoom: '5'
             height: 400px
             width: 100%
             minZoom: '0'
