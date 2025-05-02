@@ -31,6 +31,10 @@ class SightingCountController extends ControllerBase {
       ->condition('status', 1)
       ->accessCheck(TRUE);
 
+    // Add cutoff date no matter what.
+    $cutoff_date = _fws_sighting_get_cutoff_date() . '-01-01';
+    $query->condition('field_date_time.value', $cutoff_date, '>=');
+
     // Add year filter if provided and not "null" string.
     if ($year !== NULL && $year !== 'null' && $year !== '' && $year !== 'All') {
       // Load the term to verify it exists.
