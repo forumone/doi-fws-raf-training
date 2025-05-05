@@ -72,85 +72,226 @@
           });
         } else {
           $navbarCollapse.removeAttr('role aria-modal aria-label aria-expanded');
+          // Ensure any tabindex adjustments are reset if user resizes browser while menu is open
+          if (tabIndexStore.size > 0) {
+            manageFocusTrap(false);
+          }
         }
       };
 
-      // Focus trapping functionality for mobile menu
-      const trapFocus = function(e) {
+      // Store the original tabindex values
+      const tabIndexStore = new Map();
+
+      // Variable to track last focused element before mobile menu opened
+      let lastFocusedElement = null;
+
+      // Cache frequently used selectors
+      const footerSelectors = [
+        '.region-footer-menus a',
+        '.region-footer a',
+        'footer a',
+        '.footer a',
+        '#footer a',
+        '.site-footer a',
+        '[role="contentinfo"] a'
+      ];
+
+      // All focusable elements selector
+      const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+      /**
+       * Manages focus trapping within the mobile menu.
+       */
+      const manageFocusTrap = function(isTrapping) {
         const $navbarCollapse = $('#navbar-collapse');
-
-        // Only trap focus if the navbar is expanded and we're in mobile view
-        if (!$navbarCollapse.hasClass('show') || window.innerWidth >= 992) {
-          return;
-        }
-
-        // Find all focusable elements within the navbar
-        const $focusableElements = $navbarCollapse.find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if ($focusableElements.length === 0) {
-          e.preventDefault();
-          return;
-        }
-
-        const $firstFocusable = $focusableElements.first();
-        const $lastFocusable = $focusableElements.last();
-
-        // Add the toggle button to the focus trap (it's outside the navbar-collapse)
         const $toggleButton = $('.navbar-toggle.menu__toggle');
 
-        // Handle Tab key
-        if (e.key === 'Tab') {
-          // Shift+Tab on first element
-          if (e.shiftKey && (document.activeElement === $firstFocusable[0] || document.activeElement === $toggleButton[0])) {
-            e.preventDefault();
-            $lastFocusable.focus();
+        if (isTrapping === true && window.innerWidth < 992) {
+          // Store the element that had focus before opening the menu
+          if (document.activeElement && document.activeElement !== document.body) {
+            lastFocusedElement = document.activeElement;
           }
-          // Tab on last element
-          else if (!e.shiftKey && document.activeElement === $lastFocusable[0]) {
-            e.preventDefault();
-            $toggleButton.focus();
-          }
-        }
 
-        // Handle Escape key
-        if (e.key === 'Escape') {
-          // Close the menu
-          $navbarCollapse.removeClass('show');
-          $navbarCollapse.addClass('collapse');
-          $toggleButton.attr('aria-expanded', 'false');
-          $toggleButton.focus();
-          // Remove keydown event handler
-          $(document).off('keydown.navFocusTrap');
+          // First disable footer links as a priority (since they're causing issues)
+          footerSelectors.forEach(selector => {
+            const $elements = $(selector);
+            if ($elements.length) {
+              $elements.attr('tabindex', '-1').attr('aria-hidden', 'true');
+            }
+          });
+
+          // Store all focusable elements outside the navbar-collapse and toggle button
+          let outsideElementCount = 0;
+          $('body').find(focusableSelector).each(function() {
+            const $element = $(this);
+
+            // Skip elements within navbar-collapse or the toggle button itself
+            if (!$element.closest('#navbar-collapse').length && !$element.is($toggleButton)) {
+              outsideElementCount++;
+
+              // Store original tabindex if it exists
+              if ($element.attr('tabindex') !== undefined) {
+                tabIndexStore.set(this, $element.attr('tabindex'));
+              } else {
+                tabIndexStore.set(this, null);
+              }
+
+              // Set tabindex to -1 to prevent keyboard focus
+              $element.attr('tabindex', '-1').attr('aria-hidden', 'true');
+            }
+          });
+
+          // Announce that a modal dialog is open for screen reader users
+          $navbarCollapse.attr('aria-hidden', 'false');
+
+          // Focus the first focusable element in the menu
+          setTimeout(function() {
+            const $firstFocusable = $navbarCollapse.find(focusableSelector).first();
+            if ($firstFocusable.length) {
+              $firstFocusable.focus();
+            } else {
+              // If no focusable elements, focus the menu container itself
+              $navbarCollapse.attr('tabindex', '-1').focus();
+            }
+          }, 100);
+
+          // Add escape key handler
+          $(document).off('keydown.mobileMenuEscape').on('keydown.mobileMenuEscape', function(e) {
+            if (e.key === 'Escape') {
+              closeMobileMenu();
+            }
+          });
+
+          // Add a keydown handler to handle Tab and Shift+Tab to keep focus within the modal
+          $(document).off('keydown.mobileFocusTrap').on('keydown.mobileFocusTrap', function(e) {
+            // Only handle Tab key
+            if (e.key !== 'Tab') return;
+
+            // Get all focusable elements in the mobile menu
+            const $menuFocusableElements = $navbarCollapse.find(focusableSelector).add($toggleButton);
+            if ($menuFocusableElements.length === 0) return;
+
+            const $firstFocusable = $menuFocusableElements.first();
+            const $lastFocusable = $menuFocusableElements.last();
+
+            // Handle shift+tab from first element or tab from last element
+            if ((e.shiftKey && (document.activeElement === $firstFocusable[0] || document.activeElement === $toggleButton[0])) ||
+                (!e.shiftKey && document.activeElement === $lastFocusable[0])) {
+              e.preventDefault();
+
+              if (e.shiftKey) {
+                // If going backwards, go to the last element
+                $lastFocusable.focus();
+              } else {
+                // If going forwards, go to the first element
+                $firstFocusable.focus();
+              }
+            }
+
+            // Extra protection for footer menus - check if focus is outside menu
+            if (!$(document.activeElement).closest('#navbar-collapse').length &&
+                !$(document.activeElement).is($toggleButton)) {
+              e.preventDefault();
+              $firstFocusable.focus();
+            }
+          });
+        } else {
+          // First, ensure all event handlers are removed
+          $(document).off('keydown.mobileMenuEscape keydown.mobileFocusTrap');
+
+          // Restore original tabindex values
+          tabIndexStore.forEach(function(value, element) {
+            const $element = $(element);
+            if (value === null) {
+              $element.removeAttr('tabindex');
+            } else {
+              $element.attr('tabindex', value);
+            }
+            $element.removeAttr('aria-hidden');
+          });
+
+          // Specifically restore footer menu items using all selector patterns
+          footerSelectors.forEach(selector => {
+            $(selector).removeAttr('tabindex').removeAttr('aria-hidden');
+          });
+
+          // Clear the store
+          tabIndexStore.clear();
+
+          // Return focus to the last focused element
+          if (lastFocusedElement && document.body.contains(lastFocusedElement)) {
+            lastFocusedElement.focus();
+          }
         }
+      };
+
+      // Helper function to close the mobile menu
+      const closeMobileMenu = function() {
+        const $navbarCollapse = $('#navbar-collapse');
+        const $toggleButton = $('.navbar-toggle.menu__toggle');
+
+        // Close the menu
+        $navbarCollapse.removeClass('show');
+        $navbarCollapse.addClass('collapse');
+        $toggleButton.attr('aria-expanded', 'false');
+
+        // Restore tabindex values
+        manageFocusTrap(false);
+
+        // Make absolutely sure all cleanup happens
+        $(document).off('keydown.mobileMenuEscape keydown.mobileFocusTrap');
       };
 
       // Run on page load
       toggleNavAriaAttributes();
+
+      // On page load, if the menu is already open, enable the focus trap
+      $(window).on('load', function() {
+        const $navbarCollapse = $('#navbar-collapse');
+        if ($navbarCollapse.hasClass('show') && window.innerWidth < 992) {
+          manageFocusTrap(true);
+        }
+      });
 
       // Add resize event listener with debounce
       once('resize-listener', 'body', context).forEach(function (element) {
         $(window).on('resize', debounce(toggleNavAriaAttributes, 150));
       });
 
-      // Add/remove document keydown listener based on navbar state
+      // Add/remove focus trap based on navbar state
       once('navbar-focus-trap', 'body', context).forEach(function (element) {
         const $toggleButton = $('.navbar-toggle.menu__toggle');
 
-        $toggleButton.on('click', function() {
-          const $this = $(this);
-          // Wait for the show/hide transition to complete
-          setTimeout(function() {
-            const isExpanded = $('#navbar-collapse').hasClass('show');
+        $toggleButton.on('click', function(e) {
+          // Get reference to navbar collapse
+          const $navbarCollapse = $('#navbar-collapse');
 
-            if (isExpanded) {
-              $(document).on('keydown.navFocusTrap', trapFocus);
-              // Focus the first focusable element in the menu
-              $('#navbar-collapse').find('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])').first().focus();
-            } else {
-              $(document).off('keydown.navFocusTrap');
-              // Return focus to the toggle button
-              $this.focus();
+          // Determine if the menu will be expanded after this click
+          // Look at aria-expanded attribute on the toggle button
+          const isCurrentlyExpanded = $toggleButton.attr('aria-expanded') === 'true';
+
+          // After click, the state will be the opposite
+          const willBeExpanded = !isCurrentlyExpanded;
+
+          // Apply focus trap with a slight delay to ensure DOM is updated
+          setTimeout(function() {
+            // Apply focus trap based on the menu's future state (opposite of current)
+            manageFocusTrap(willBeExpanded);
+          }, 50);
+        });
+
+        // Also handle clicks on the overlay background to close the menu
+        $(document).on('click', function(e) {
+          const $navbarCollapse = $('#navbar-collapse');
+
+          // Only proceed if menu is open and we're in mobile view
+          if ($navbarCollapse.hasClass('show') && window.innerWidth < 992) {
+            // If click is outside the menu and not on the toggle button
+            if (!$(e.target).closest('#navbar-collapse').length &&
+                !$(e.target).closest('.navbar-toggle.menu__toggle').length) {
+              closeMobileMenu();
             }
-          }, 150);
+          }
         });
       });
 
