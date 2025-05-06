@@ -286,7 +286,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '4EbInmUyoAgXbOouo9h6M_olRGCMEI-UttzNMIzRk9EP5I6YRI-41xRh1-rdN34nb89T6hQg3A';
+$settings['hash_salt'] = 'jUfoPkWWd7kSySS6mVA0rs-qxmR8aD-cbehzirIIAiTqZvVW0TSm36BwrJKVD7mfckHF1-uypw';
 
 /**
  * Deployment identifier.
@@ -916,6 +916,6 @@ $settings['file_public_path'] = "sites/rcgr/files";
 $settings['file_private_path'] = "sites/rcgr/files/private";
 $settings['file_temp_path'] = "/tmp";
 
-$settings['hide_standard_login'] = TRUE;
+//$settings['hide_standard_login'] = TRUE;
+//$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
 
-$config['doi_login.settings_form']['hide_standard_login'] = TRUE;

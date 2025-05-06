@@ -929,4 +929,5 @@ $config['system.site']['header_links_auth'] = TRUE;
 $settings['config_sync_directory'] = '../config/sync/manatee';
 
 $settings['replace_species_with_manatee'] = TRUE;
-$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
+
+//$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
