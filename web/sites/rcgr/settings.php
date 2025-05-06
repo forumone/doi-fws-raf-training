@@ -916,6 +916,6 @@ $settings['file_public_path'] = "sites/rcgr/files";
 $settings['file_private_path'] = "sites/rcgr/files/private";
 $settings['file_temp_path'] = "/tmp";
 
-//$settings['hide_standard_login'] = TRUE;
-//$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
+$settings['hide_standard_login'] = TRUE;
+$config['doi_login.settings_form']['hide_standard_login'] = TRUE;
 
