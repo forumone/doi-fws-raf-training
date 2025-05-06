@@ -237,7 +237,7 @@ default:
               value: 'What if my choice is not in the drop-down box?'
           field_response:
             -
-              value: '<p>Call or email Nicole Adimey or Donna Szemer and they will add it to the list for you. You will then see the new item in the list. You may need to back out of your data entry screen and re-enter the data.</p>'
+              value: '<p>Call or email Nadia Lentz or Terri Calleson and they will add it to the list for you. You will then see the new item in the list. You may need to back out of your data entry screen and re-enter the data.</p>'
               format: basic_html
     -
       entity:
@@ -290,7 +290,7 @@ default:
               value: 'How can I get help?'
           field_response:
             -
-              value: '<p><a href="mailto:teresa_calleson@fws.gov">Terri Calleson</a>, USFWS Florida Manatee Recovery Lead: <strong>teresa_calleson@fws.gov</strong><br><a href="mailto:Nadia.Lentz@MyFWC.com">Nicole Adimey</a>, FWC Marine Mammal Assistant Research Scientist: <strong>Nadia.Lentz@MyFWC.com</strong></p>'
+              value: '<p><a href="mailto:teresa_calleson@fws.gov">Terri Calleson</a>, USFWS Florida Manatee Recovery Lead: <strong>teresa_calleson@fws.gov</strong><br><a href="mailto:Nadia.Lentz@MyFWC.com">Nadia Lentz</a>, FWC Marine Mammal Assistant Research Scientist: <strong>Nadia.Lentz@MyFWC.com</strong></p>'
               format: basic_html
     -
       entity:
