@@ -54,6 +54,6 @@ default:
     -
       value: |-
         <p>We're sorry, but you do not have permission to access this page. Please contact the site administrator if you believe this is an error, or click the button below to return to the homepage.</p>
-              <a href="/">Return to homepage</a>
+              <a href="/manatee">Return to homepage</a>
       format: full_html
       summary: ''

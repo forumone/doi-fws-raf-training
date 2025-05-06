@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SITE_URI="manatee.ddev.site"
+
 # Array of script paths
 scripts=(
 "../scripts/manatee/import-users.php"
@@ -43,7 +45,7 @@ echo "$1" | sed 's/\x1b\[[0-9;]*m//g' >> "$log_file"
 for script in "${scripts[@]}"; do
 log_message "\nRunning: ddev drush scr $script"
 
-if output=$(ddev drush scr "$script" 2>&1); then
+if output=$(ddev drush -l $SITE_URI scr "$script" 2>&1); then
 log_message "${GREEN}✓ Successfully executed $script${NC}"
 log_message "$output"
 ((success_count++))

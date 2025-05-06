@@ -54,6 +54,6 @@ default:
     -
       value: |-
         <p>We're sorry, but the page you requested could not be found. Please check the URL and try again, or click the button below to return to the homepage.</p>
-              <a href="/">Return to homepage</a>
+              <a href="/manatee">Return to homepage</a>
       format: full_html
       summary: ''

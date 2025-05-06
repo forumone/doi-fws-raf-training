@@ -1,7 +1,7 @@
 <?php
 
 $databases['default']['default'] = [
-  'database' => 'falcon',
+  'database' => 'manatee',
   'username' => 'db',
   'password' => 'db',
   'host' => 'db',

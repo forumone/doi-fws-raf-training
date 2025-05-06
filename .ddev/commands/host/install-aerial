@@ -6,6 +6,8 @@
 
 ddev composer install
 
+ddev import-db --database=aerial --file=./scripts/empty.sql
+
 # Ensure we're using the correct site URI
 SITE_URI="aerial.ddev.site"
 

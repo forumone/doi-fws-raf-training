@@ -3,15 +3,21 @@
 ## Description: Installs FWS Manatee.
 
 ddev composer install
-ddev drush site:install minimal --verbose -y --site-name="FWS: Manatee Rescue and Rehabilitation Database" --account-name=admin --account-pass=admin --config-dir=../config/sync/manatee
-ddev drush scr ../scripts/manatee/install-cleanup.php
-ddev drush recipe ../recipes/fws-manatee-content
 
-ddev drush cr
+ddev import-db --database=manatee --file=./scripts/empty.sql
+
+# Ensure we're using the correct site URI
+SITE_URI="manatee.ddev.site"
+
+ddev drush -l $SITE_URI site:install minimal --verbose -y --site-name="FWS: Manatee Rescue and Rehabilitation Database" --account-name=admin --account-pass=admin --config-dir=../config/sync/manatee
+ddev drush -l $SITE_URI scr ../scripts/manatee/install-cleanup.php
+ddev drush -l $SITE_URI recipe ../recipes/fws-manatee-content
+
+ddev drush -l $SITE_URI cr
 
 # Import taxonomy and nodes.
 ./scripts/manatee/import-taxonomy.sh && ./scripts/manatee/import-nodes.sh
 
 # ddev drush webform-libraries-download
 
-ddev drush uli
+ddev drush -l $SITE_URI uli
