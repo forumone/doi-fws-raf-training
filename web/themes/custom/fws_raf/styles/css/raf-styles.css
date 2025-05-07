@@ -913,10 +913,12 @@ footer.footer .footer-menus .region-footer-menus {
 .btn {
   font-weight: 700;
   font-family: "Source Sans Pro", Arial, sans-serif;
+  text-align: center;
   font-size: 1.15em;
   text-transform: uppercase;
   padding: 16px 24px;
   line-height: 1;
+  border-radius: 4px;
   letter-spacing: 0.015em;
   transition: all 0.25s ease-out;
 }
@@ -924,9 +926,29 @@ footer.footer .footer-menus .region-footer-menus {
   outline: none;
   transition: all 0.125s ease-out;
 }
+.btn i {
+  margin-right: 8px;
+}
 .btn-default, .btn--default {
+  font-weight: 700;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  text-align: center;
+  font-size: 1.15em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  line-height: 1;
+  border-radius: 4px;
+  letter-spacing: 0.015em;
+  transition: all 0.25s ease-out;
   color: #3F3E46;
   border: 2px solid #8E8C99;
+}
+.btn-default:focus, .btn-default:hover, .btn--default:focus, .btn--default:hover {
+  outline: none;
+  transition: all 0.125s ease-out;
+}
+.btn-default i, .btn--default i {
+  margin-right: 8px;
 }
 .btn-default:focus, .btn-default:hover, .btn--default:focus, .btn--default:hover {
   color: #000000;
@@ -934,22 +956,54 @@ footer.footer .footer-menus .region-footer-menus {
   border: 2px solid #202022;
 }
 .btn-primary, .btn--primary {
+  font-weight: 700;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  text-align: center;
+  font-size: 1.15em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  line-height: 1;
+  border-radius: 4px;
+  letter-spacing: 0.015em;
+  transition: all 0.25s ease-out;
+  color: #FFFFFF;
   background: #205493;
   border: 2px solid rgba(2, 29, 68, 0.5);
+}
+.btn-primary:focus, .btn-primary:hover, .btn--primary:focus, .btn--primary:hover {
+  outline: none;
+  transition: all 0.125s ease-out;
+}
+.btn-primary i, .btn--primary i {
+  margin-right: 8px;
 }
 .btn-primary:focus, .btn-primary:hover, .btn--primary:focus, .btn--primary:hover {
   background: #021d44;
 }
 .btn-secondary, .btn--secondary {
+  font-weight: 700;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  text-align: center;
+  font-size: 1.15em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  line-height: 1;
+  border-radius: 4px;
+  letter-spacing: 0.015em;
+  transition: all 0.25s ease-out;
   color: #205493;
   border: 2px solid #205493;
 }
 .btn-secondary:focus, .btn-secondary:hover, .btn--secondary:focus, .btn--secondary:hover {
+  outline: none;
+  transition: all 0.125s ease-out;
+}
+.btn-secondary i, .btn--secondary i {
+  margin-right: 8px;
+}
+.btn-secondary:focus, .btn-secondary:hover, .btn--secondary:focus, .btn--secondary:hover {
   color: #021d44;
   border: 2px solid #021d44;
-}
-.btn i {
-  margin-right: 8px;
 }
 
 .btn-success {
@@ -1826,6 +1880,45 @@ input.form-autocomplete {
 
 #node-species-edit-form {
   margin-bottom: 50px;
+}
+
+.path-user .menu--profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 0 10px;
+}
+@media (min-width: 768px) {
+  .path-user .menu--profile-menu {
+    flex-direction: row;
+    padding: 0 0 20px;
+  }
+}
+.path-user .menu--profile-menu a {
+  font-weight: 700;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  text-align: center;
+  font-size: 1.15em;
+  text-transform: uppercase;
+  padding: 16px 24px;
+  line-height: 1;
+  border-radius: 4px;
+  letter-spacing: 0.015em;
+  transition: all 0.25s ease-out;
+  color: #FFFFFF;
+  background: #205493;
+  border: 2px solid rgba(2, 29, 68, 0.5);
+  font-size: 1em;
+}
+.path-user .menu--profile-menu a:focus, .path-user .menu--profile-menu a:hover {
+  outline: none;
+  transition: all 0.125s ease-out;
+}
+.path-user .menu--profile-menu a i {
+  margin-right: 8px;
+}
+.path-user .menu--profile-menu a:focus, .path-user .menu--profile-menu a:hover {
+  background: #021d44;
 }
 
 .view .view-header--hybrid {

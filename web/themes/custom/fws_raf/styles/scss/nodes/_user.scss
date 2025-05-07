@@ -1,0 +1,22 @@
+@use '../components/buttons' as *;
+@use 'utils/breakpoints' as *;
+
+.path-user {
+
+  .menu--profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 0 10px;
+
+    @include breakpoint(md) {
+      flex-direction: row;
+      padding: 0 0 20px;
+    }
+
+    a {
+      @include btn-primary;
+      font-size: 1em;
+    }
+  }
+}

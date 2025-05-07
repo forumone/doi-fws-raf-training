@@ -1,0 +1,37 @@
+uuid: e885a502-0ac9-4623-8e3c-a94191d55129
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.profile-menu
+  module:
+    - system
+    - user
+  theme:
+    - fws_raf
+id: fws_raf_profilemenu
+theme: fws_raf
+region: content
+weight: 0
+provider: null
+plugin: 'system_menu_block:profile-menu'
+settings:
+  id: 'system_menu_block:profile-menu'
+  label: 'Profile Menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: true
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
