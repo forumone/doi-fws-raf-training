@@ -6,6 +6,7 @@
 @forward 'layout/footer';
 @forward 'layout/layout';
 @forward 'layout/print';
+
 @forward 'components/accordion';
 @forward 'components/blocks';
 @forward 'components/buttons';
@@ -18,6 +19,7 @@
 @forward 'nodes/author';
 @forward 'nodes/node';
 @forward 'nodes/species';
+@forward 'nodes/user';
 
 @forward 'views/views';
 @forward 'views/tracking';

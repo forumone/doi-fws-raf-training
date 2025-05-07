@@ -47,4 +47,4 @@ default:
       tag: link
       attributes:
         rel: canonical
-        href: '/page/about-aerial-observer-training'
+        href: 'https://falcon.ddev.site/main'

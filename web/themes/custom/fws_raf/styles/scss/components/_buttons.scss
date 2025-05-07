@@ -1,12 +1,15 @@
 @use '../utils/typography' as *;
 @use '../utils/colors' as *;
 
-.btn {
+// Base button mixin with common styles
+@mixin btn-base {
   @include font--primary(700);
+  text-align: center;
   font-size: 1.15em;
   text-transform: uppercase;
   padding: 16px 24px;
   line-height: 1;
+  border-radius: 4px;
   letter-spacing: 0.015em;
   transition: all 0.25s ease-out;
 
@@ -16,45 +19,68 @@
     transition: all 0.125s ease-out;
   }
 
+  i {
+    margin-right: 8px;
+  }
+}
+
+// Default button mixin
+@mixin btn-default {
+  @include btn-base;
+  color: $gray-dark;
+  border: 2px solid $gray-medium;
+
+  &:focus,
+  &:hover {
+    color: $black;
+    background: $gray-light;
+    border: 2px solid $gray-darker;
+  }
+}
+
+// Primary button mixin
+@mixin btn-primary {
+  @include btn-base;
+  color: $white;
+  background: $blue-medium;
+  border: 2px solid rgba($blue-dark, 0.5);
+
+  &:focus,
+  &:hover {
+    background: $blue-dark;
+  }
+}
+
+// Secondary button mixin
+@mixin btn-secondary {
+  @include btn-base;
+  color: $blue-medium;
+  border: 2px solid $blue-medium;
+
+  &:focus,
+  &:hover {
+    color: $blue-dark;
+    border: 2px solid $blue-dark;
+  }
+}
+
+.btn {
+  @include btn-base;
+
   &-default,
   &--default {
-    color: $gray-dark;
-    border: 2px solid $gray-medium;
-
-    &:focus,
-    &:hover {
-      color: $black;
-      background: $gray-light;
-      border: 2px solid $gray-darker;
-    }
+    @include btn-default;
   }
 
   &-primary,
   &--primary {
-    background: $blue-medium;
-    border: 2px solid rgba($blue-dark, 0.5);
-
-    &:focus,
-    &:hover {
-      background: $blue-dark;
-    }
+    @include btn-primary;
   }
 
   &-secondary,
   &--secondary {
-    color: $blue-medium;
-    border: 2px solid $blue-medium;
-
-    &:focus,
-    &:hover {
-      color: $blue-dark;
-      border: 2px solid $blue-dark;
-    }
+    @include btn-secondary;
   }
-
-   i {
-    margin-right: 8px;
-   }
 }
 
 // Legacy accessible color overrides from Jay

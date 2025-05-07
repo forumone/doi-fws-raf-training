@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 1e30e8bb-46be-488e-a1c8-62d1d4996fc1
+  uuid: 07b71bbd-8bbb-435c-8f2e-0dfb6b6c9f24
   bundle: menu_link_content
   default_langcode: en
 default:
@@ -10,13 +10,13 @@ default:
       value: true
   title:
     -
-      value: Help
+      value: 'View Inactive Birds'
   menu_name:
     -
-      value: main
+      value: profile-menu
   link:
     -
-      uri: 'internal:/help'
+      uri: 'internal:#'
       title: ''
       options: {  }
   external:
@@ -27,10 +27,10 @@ default:
       value: true
   weight:
     -
-      value: -30
+      value: -49
   expanded:
     -
-      value: true
+      value: false
   revision_translation_affected:
     -
       value: true
