@@ -5,6 +5,8 @@
  * Creates users with specific roles if they don't already exist.
  */
 
+use Drupal\user\Entity\User;
+
 // Small cleanup to delete erroneous folder.
 if (file_exists('public:') && is_writable('public:')) {
   rmdir('public:');
