@@ -137,10 +137,15 @@ else {
 
 // Create users with specific roles if they don't already exist.
 $users = [
+  'sonal@prometsource.com' => 'administrator',
   'daniel@prometsource.com' => 'administrator',
   'iryna.lemeha@prometsource.com' => 'administrator',
   'keith_setliff@fws.gov' => 'administrator',
   'carl_chitwood@fws.gov' => 'administrator',
+  'daniel+admin@prometsource.com' => 'administrator',
+  'daniel+contentpublisher@prometsource.com' => 'content_publisher',
+  'daniel+contenteditor@prometsource.com' => 'content_editor',
+  'daniel+spotter@prometsource.com' => 'spotter',
 ];
 
 foreach ($users as $username => $role) {
@@ -152,13 +157,7 @@ foreach ($users as $username => $role) {
   if (empty($existing_user)) {
     $user = User::create([
       'name' => $username,
-      'mail' => match($username) {
-        'daniel@prometsource.com' => 'daniel@prometsource.com',
-        'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
-        'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
-        'carl_chitwood@fws.gov' => 'carl_chitwood@fws.gov',
-        default => $username . '@example.com'
-      },
+      'mail' => $username,
       'status' => 1,
       'roles' => [$role],
     ]);

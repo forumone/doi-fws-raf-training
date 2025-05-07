@@ -96,3 +96,40 @@ try {
 catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
 }
+
+// Create users with specific roles if they don't already exist.
+$users = [
+  'sonal@prometsource.com' => 'administrator',
+  'daniel@prometsource.com' => 'administrator',
+  'iryna.lemeha@prometsource.com' => 'administrator',
+  'keith_setliff@fws.gov' => 'administrator',
+  'carl_chitwood@fws.gov' => 'administrator',
+  'daniel+admin@prometsource.com' => 'administrator',
+  'daniel+contentpublisher@prometsource.com' => 'content_publisher',
+  'daniel+contenteditor@prometsource.com' => 'content_editor',
+  'daniel+falconer@prometsource.com' => 'falconer',
+  'daniel+stateadmin@prometsource.com' => 'state_admin',
+  'daniel+statelaw@prometsource.com' => 'state_law',
+  'daniel+federallaw@prometsource.com' => 'federal_law',
+];
+
+foreach ($users as $username => $role) {
+  // Check if user already exists.
+  $existing_user = \Drupal::entityTypeManager()
+    ->getStorage('user')
+    ->loadByProperties(['name' => $username]);
+
+  if (empty($existing_user)) {
+    $user = User::create([
+      'name' => $username,
+      'mail' => $username,
+      'status' => 1,
+      'roles' => [$role],
+    ]);
+    $user->save();
+    echo "User '$username' with role '$role' has been created.\n";
+  }
+  else {
+    echo "User '$username' already exists, skipping creation.\n";
+  }
+}

@@ -97,18 +97,22 @@ catch (Exception $e) {
   echo "Error updating WE Megamenu configuration: " . $e->getMessage() . "\n";
 }
 
+
 // Create users with specific roles if they don't already exist.
 $users = [
-  'contributor' => 'contributor',
-  'researcher' => 'other_researchers',
-  'partner' => 'partner_administrator',
-  'viewer' => 'viewer',
-  'sonal' => 'administrator',
+  'sonal@prometsource.com' => 'administrator',
+  'daniel@prometsource.com' => 'administrator',
+  'iryna.lemeha@prometsource.com' => 'administrator',
   'keith_setliff@fws.gov' => 'administrator',
   'carl_chitwood@fws.gov' => 'administrator',
   'Nadia.Lentz@myfwc.com' => 'partner_administrator',
-  'daniel@prometsource.com' => 'administrator',
-  'iryna.lemeha@prometsource.com' => 'administrator',
+  'daniel+admin@prometsource.com' => 'administrator',
+  'daniel+contentpublisher@prometsource.com' => 'content_publisher',
+  'daniel+contenteditor@prometsource.com' => 'content_editor',
+  'daniel+contributor@prometsource.com' => 'contributor',
+  'daniel+otherresearchers@prometsource.com' => 'other_researchers',
+  'daniel+partner_admin@prometsource.com' => 'partner_administrator',
+  'daniel+viewer@prometsource.com' => 'viewer',
 ];
 
 foreach ($users as $username => $role) {
@@ -120,15 +124,7 @@ foreach ($users as $username => $role) {
   if (empty($existing_user)) {
     $user = User::create([
       'name' => $username,
-      'mail' => match($username) {
-        'sonal' => 'sonal@prometsource.com',
-        'Nadia.Lentz@myfwc.com' => 'Nadia.Lentz@myfwc.com',
-        'keith_setliff@fws.gov' => 'keith_setliff@fws.gov',
-        'daniel@prometsource.com' => 'daniel@prometsource.com',
-        'iryna.lemeha@prometsource.com' => 'iryna.lemeha@prometsource.com',
-        'carl_chitwood@fws.gov' => 'carl_chitwood@fws.gov',
-        default => $username . '@example.com'
-      },
+      'mail' => $username,
       'status' => 1,
       'roles' => [$role],
     ]);
