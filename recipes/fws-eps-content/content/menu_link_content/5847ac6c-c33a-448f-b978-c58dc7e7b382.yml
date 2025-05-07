@@ -10,7 +10,7 @@ default:
       value: true
   title:
     -
-      value: 'Log in'
+      value: 'Login/Register'
   menu_name:
     -
       value: utility
