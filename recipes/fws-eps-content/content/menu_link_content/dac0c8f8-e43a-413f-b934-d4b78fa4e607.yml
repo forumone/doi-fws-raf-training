@@ -16,7 +16,7 @@ default:
       value: footer
   link:
     -
-      uri: 'internal:/'
+      uri: 'https://www.usa.gov'
       title: ''
       options: {  }
   external:
@@ -24,7 +24,7 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -45
