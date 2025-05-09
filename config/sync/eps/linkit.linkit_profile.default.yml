@@ -1,4 +1,4 @@
-uuid: 72e762f3-f9bc-4887-83db-0eb693f338fc
+uuid: ba8b5d0b-4f9e-466d-87a3-6ccc049bccba
 langcode: en
 status: true
 dependencies:
@@ -17,7 +17,7 @@ matchers:
       metadata: '[node:content-type:name] #[node:nid] | [node:created:medium] by [node:author]'
       bundles: {  }
       group_by_bundle: false
+      include_unpublished: false
       substitution_type: canonical
       limit: 100
-      include_unpublished: false
     weight: 0

@@ -1,4 +1,4 @@
-uuid: f7865e4a-b22a-4ad4-89fc-6c523c8baae0
+uuid: 65f31508-01eb-4616-af8d-994ef848bb19
 langcode: en
 status: true
 dependencies:
@@ -18,7 +18,7 @@ dependencies:
     - geolocation_leaflet
     - path
 _core:
-  default_config_hash: ES3vRSho69tkD1J72nDg3Ugq0r8s4FkoRL7HtOUxEP4
+  default_config_hash: '-bidsP5xodiAkpUzxZOi7CC-KYqq7b8bDzoYR5EJ71E'
 id: node.sighting.default
 targetEntityType: node
 bundle: sighting

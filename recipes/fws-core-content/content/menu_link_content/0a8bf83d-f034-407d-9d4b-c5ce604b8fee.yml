@@ -1,24 +1,22 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: a5cc4c9f-7477-4ff1-9494-5abe49ae7122
+  uuid: 0a8bf83d-f034-407d-9d4b-c5ce604b8fee
   bundle: menu_link_content
   default_langcode: en
-  depends:
-    cee21f9d-fbb4-4546-90e6-5406d9f1e427: menu_link_content
 default:
   enabled:
     -
       value: true
   title:
     -
-      value: 'Active Spotters'
+      value: FWS
   menu_name:
     -
-      value: main
+      value: footer-menu-legal
   link:
     -
-      uri: 'internal:/active-spotters'
+      uri: 'https://www.fws.gov'
       title: ''
       options: {  }
   external:
@@ -26,16 +24,13 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
       value: -48
   expanded:
     -
       value: false
-  parent:
-    -
-      value: 'menu_link_content:cee21f9d-fbb4-4546-90e6-5406d9f1e427'
   revision_translation_affected:
     -
       value: true

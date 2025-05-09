@@ -5,7 +5,7 @@ dependencies:
   module:
     - login_gov
 _core:
-  default_config_hash: MWCSjB-Y4IbqSeIcHb4FRky3D5l-YtTvy25uXzWeBcw
+  default_config_hash: g8vXfQ7kap2f0At3zhtTC8V1rydokHKYgogBryDBfck
 id: applications_test
 label: Login.gov
 plugin: login_gov

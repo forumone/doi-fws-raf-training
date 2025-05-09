@@ -8,7 +8,7 @@ dependencies:
     - node
     - system
 _core:
-  default_config_hash: vtH277I_NlCz1sMW7PsisZQ53H3fs2wlUSRBDcNOOjc
+  default_config_hash: VL9ijD0EluoUrMVoASkNBV6o1k8pwls0n65QdO2I2WE
 id: spotter
 label: Spotter
 weight: 4

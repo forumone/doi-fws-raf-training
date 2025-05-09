@@ -1,4 +1,4 @@
-uuid: 0073a6d9-9925-406e-b2f9-24e84c325ebf
+uuid: cd5beda1-fa9b-44af-b583-08cff077162b
 langcode: en
 status: true
 dependencies:
@@ -19,29 +19,29 @@ bundle: quiz_question_term_pool
 mode: default
 content:
   quiz_question_max_score:
-    type: number
     weight: 2
-    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-  quiz_question_number:
     type: number
-    weight: 1
     region: content
+  quiz_question_number:
+    weight: 1
     settings:
       placeholder: ''
     third_party_settings: {  }
-  quiz_question_tid:
-    type: entity_reference_autocomplete
-    weight: 0
+    type: number
     region: content
+  quiz_question_tid:
+    weight: 0
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
 hidden:
   created: true
   status: true

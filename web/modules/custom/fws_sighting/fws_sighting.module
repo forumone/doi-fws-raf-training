@@ -405,7 +405,6 @@ function fws_sighting_views_query_alter($view, $query) {
  *   The year.
  */
 function _fws_sighting_get_cutoff_date() {
-  $date = new DateTime();
-  $date->modify('-15 years');
+  $date = new DateTime('2010-01-01');
   return $date->format('Y');
 }

@@ -1,5 +1,5 @@
 name: 'FWS Core'
-description: 'FWS base configuration, content types, permissions and sample content.'
+description: 'FWS base configuration, content types, and permissions.'
 type: 'Site'
 recipes:
   # Core recipes with basic functionality

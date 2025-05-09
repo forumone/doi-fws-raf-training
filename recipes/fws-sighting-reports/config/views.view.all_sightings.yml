@@ -11,8 +11,6 @@ dependencies:
     - field.storage.node.field_notes
     - field.storage.node.field_spotter
     - field.storage.node.field_state
-    - field.storage.user.field_first_name
-    - field.storage.user.field_last_name
     - node.type.sighting
     - taxonomy.vocabulary.year
   module:
@@ -29,7 +27,7 @@ dependencies:
     - user
     - views_data_export
 _core:
-  default_config_hash: H9DEOBMz1Aw2qk7mL_GZFJNl0_OeOSJ23tuRYcdkCiI
+  default_config_hash: DVGF2uKpPCUpB9pPiyJJfJ7AiqBKwUNSlC5YQ2U3l9o
 id: all_sightings
 label: 'All Observations'
 module: views
