@@ -9,12 +9,16 @@ dependencies:
     - field.storage.node.field_test_score
     - node.type.species_id_results
     - system.menu.main
+    - taxonomy.vocabulary.geographic_region
+    - taxonomy.vocabulary.species_group
+    - taxonomy.vocabulary.species_id_difficulty
   module:
     - better_exposed_filters
     - node
+    - taxonomy
     - user
 _core:
-  default_config_hash: FFyYLgNzcdJL5dEuLYN0ILrw6jD97Z5mK1blotS5v4A
+  default_config_hash: QsGo8DyqtvI0BJx21nO002BfqK43SkkSL1bNlqwdtbk
 id: species_id_results_table
 label: 'Species ID Results Table'
 module: views
@@ -551,6 +555,153 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_species_group_target_id:
+          id: field_species_group_target_id
+          table: node__field_species_group
+          field: field_species_group_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_species_group_target_id_op
+            label: 'Species Group'
+            description: ''
+            use_operator: false
+            operator: field_species_group_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: species_group
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: species_group
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        field_id_difficulty_target_id:
+          id: field_id_difficulty_target_id
+          table: node__field_id_difficulty
+          field: field_id_difficulty_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_id_difficulty_target_id_op
+            label: 'Difficulty Level'
+            description: ''
+            use_operator: false
+            operator: field_id_difficulty_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: difficulty
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: species_id_difficulty
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        field_region_target_id:
+          id: field_region_target_id
+          table: node__field_region
+          field: field_region_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_region_target_id_op
+            label: 'Geographic Region'
+            description: ''
+            use_operator: false
+            operator: field_region_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: region
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              content_publisher: '0'
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: geographic_region
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -638,6 +789,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
@@ -645,6 +797,106 @@ display:
         - 'config:field.storage.node.field_id_difficulty'
         - 'config:field.storage.node.field_region'
         - 'config:field.storage.node.field_species_group'
+        - 'config:field.storage.node.field_test_score'
+  attachment_1:
+    id: attachment_1
+    display_title: Attachment
+    display_plugin: attachment
+    position: 1
+    display_options:
+      title: 'Species Counting Results'
+      fields:
+        field_test_score:
+          id: field_test_score
+          table: node__field_test_score
+          field: field_test_score
+          relationship: none
+          group_type: avg
+          admin_label: ''
+          plugin_id: field
+          label: 'Average Test Score'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ''
+            decimal_separator: .
+            scale: 0
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      pager:
+        type: none
+        options:
+          offset: 0
+      empty: {  }
+      defaults:
+        empty: false
+        title: true
+        group_by: false
+        fields: false
+      group_by: true
+      display_extenders: {  }
+      displays:
+        page: page
+      inherit_exposed_filters: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
         - 'config:field.storage.node.field_test_score'
   page:
     id: page
@@ -656,7 +908,7 @@ display:
       defaults:
         title: true
       display_extenders: {  }
-      path: /reports/species-id-results
+      path: reports/species-id-results
       menu:
         type: normal
         title: 'Species ID Results'
@@ -671,6 +923,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
