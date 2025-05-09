@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: menu_link_content
-  uuid: 64cd3c0d-1df4-4e4a-a593-e14d74c26da0
+  uuid: 0a8bf83d-f034-407d-9d4b-c5ce604b8fee
   bundle: menu_link_content
   default_langcode: en
 default:
@@ -10,13 +10,13 @@ default:
       value: true
   title:
     -
-      value: Accessibility
+      value: FWS
   menu_name:
     -
       value: footer-menu-legal
   link:
     -
-      uri: 'internal:/'
+      uri: 'https://www.fws.gov'
       title: ''
       options: {  }
   external:
@@ -24,10 +24,10 @@ default:
       value: false
   rediscover:
     -
-      value: true
+      value: false
   weight:
     -
-      value: -50
+      value: -48
   expanded:
     -
       value: false

@@ -579,7 +579,7 @@ footer.footer .footer-menus .region-footer-menus {
   footer.footer .footer-menus .region-footer-menus {
     padding: 60px 0 0;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 50px;
   }
 }
 

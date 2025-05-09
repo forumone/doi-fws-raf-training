@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: L3DzivcPKQKze6ohfYtKu-1BTYeTXebgXEScoUck-ks
 status: 1
 pattern: 'Observation [node:nid]'
 escape: false

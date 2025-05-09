@@ -1,4 +1,4 @@
-uuid: dfd1990f-aa5e-4849-99e2-2ecd7d174760
+uuid: 81c90f77-aa91-4190-8e6b-e3fe076a66b4
 langcode: en
 status: true
 dependencies:
@@ -20,58 +20,58 @@ mode: default
 content:
   allow_change:
     type: boolean_checkbox
-    weight: 18
     region: content
+    weight: 18
     settings:
       display_label: true
     third_party_settings: {  }
   allow_change_blank:
     type: boolean_checkbox
-    weight: 19
     region: content
+    weight: 19
     settings:
       display_label: true
     third_party_settings: {  }
   allow_jumping:
     type: boolean_checkbox
-    weight: 17
     region: content
+    weight: 17
     settings:
       display_label: true
     third_party_settings: {  }
   allow_resume:
     type: boolean_checkbox
-    weight: 16
     region: content
+    weight: 16
     settings:
       display_label: true
     third_party_settings: {  }
   allow_skipping:
     type: boolean_checkbox
-    weight: 15
     region: content
+    weight: 15
     settings:
       display_label: true
     third_party_settings: {  }
   backwards_navigation:
     type: boolean_checkbox
-    weight: 8
     region: content
+    weight: 8
     settings:
       display_label: true
     third_party_settings: {  }
   body:
     type: text_textarea
-    weight: 1
     region: content
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   build_on_last:
     type: options_buttons
-    weight: 23
     region: content
+    weight: 23
     settings: {  }
     third_party_settings: {  }
   keep_results:
@@ -82,61 +82,61 @@ content:
     third_party_settings: {  }
   mark_doubtful:
     type: boolean_checkbox
-    weight: 20
     region: content
+    weight: 20
     settings:
       display_label: true
     third_party_settings: {  }
   max_score_for_random:
     type: number
-    weight: 4
     region: content
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
   number_of_random_questions:
     type: number
-    weight: 3
     region: content
+    weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
   pass_rate:
     type: number
-    weight: 5
     region: content
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
   quiz_always:
     type: boolean_checkbox
-    weight: 12
     region: content
+    weight: 12
     settings:
       display_label: true
     third_party_settings: {  }
   quiz_close:
     type: datetime_timestamp
-    weight: 14
     region: content
+    weight: 14
     settings: {  }
     third_party_settings: {  }
   quiz_date:
     type: daterange_default
-    weight: 27
     region: content
+    weight: 27
     settings: {  }
     third_party_settings: {  }
   quiz_open:
     type: datetime_timestamp
-    weight: 13
     region: content
+    weight: 13
     settings: {  }
     third_party_settings: {  }
   quiz_terms:
     type: entity_reference_paragraphs
-    weight: 28
     region: content
+    weight: 28
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -153,15 +153,15 @@ content:
     third_party_settings: {  }
   repeat_until_correct:
     type: boolean_checkbox
-    weight: 9
     region: content
+    weight: 9
     settings:
       display_label: true
     third_party_settings: {  }
   result_options:
     type: entity_reference_paragraphs
-    weight: 24
     region: content
+    weight: 24
     settings:
       title: 'Result range'
       title_plural: 'Result ranges'
@@ -178,15 +178,15 @@ content:
     third_party_settings: {  }
   show_attempt_stats:
     type: boolean_checkbox
-    weight: 21
     region: content
+    weight: 21
     settings:
       display_label: true
     third_party_settings: {  }
   show_passed:
     type: boolean_checkbox
-    weight: 22
     region: content
+    weight: 22
     settings:
       display_label: true
     third_party_settings: {  }
@@ -199,31 +199,31 @@ content:
     third_party_settings: {  }
   summary_default:
     type: text_textarea
-    weight: 7
     region: content
+    weight: 7
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   summary_pass:
     type: text_textarea
-    weight: 6
     region: content
+    weight: 6
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   takes:
     type: number
-    weight: 10
     region: content
+    weight: 10
     settings:
       placeholder: ''
     third_party_settings: {  }
   time_limit:
     type: number
-    weight: 11
     region: content
+    weight: 11
     settings:
       placeholder: ''
     third_party_settings: {  }

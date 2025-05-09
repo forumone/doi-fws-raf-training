@@ -1,4 +1,4 @@
-uuid: af2e66d0-500b-4fb1-9492-a970d91e7e52
+uuid: c4bc7f6e-4aaa-4650-b514-4b64a1268afa
 langcode: en
 status: true
 dependencies:
@@ -15,7 +15,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: ILCwESwe5GyW3SXrhv9GIpKUPL_LDjXB1ukQilIlIZU
+  default_config_hash: 03vydsxD63K5EcJEBn0Mp4-4GblZBNEr_KrWZF_GDlU
 id: sightings_map
 label: 'Observations Map'
 module: views

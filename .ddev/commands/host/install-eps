@@ -19,11 +19,22 @@ ddev drush -l $SITE_URI site:install minimal --yes \
   --site-name="FWS: Eastern Population Sandhill Crane Data Entry Portal" \
   --config-dir=../config/sync/eps
 
+#ddev drush -l $SITE_URI recipe ../recipes/fws-core
+ddev drush -l $SITE_URI recipe ../recipes/fws-core-content
+ddev drush -l $SITE_URI cr
+
 # Run install cleanup script
 ddev drush -l $SITE_URI scr ../scripts/eps/install-cleanup.php
+ddev drush -l $SITE_URI cr
 
 # Install eps content recipe
+#ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-taxonomy
+#ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-node
+#ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-reports
+#ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-blocks
+#ddev drush -l $SITE_URI recipe ../recipes/fws-sighting-user
 ddev drush -l $SITE_URI recipe ../recipes/fws-eps-content
+#ddev drush -l $SITE_URI en -y fws_sighting
 
 # Set front page
 # ddev drush -l $SITE_URI config:set system.site page.front /node/1 -y

@@ -4,17 +4,12 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_bird_count
-    - field.storage.user.field_first_name
-    - field.storage.user.field_last_name
-    - field.storage.user.field_start_date
-    - user.role.spotter
   module:
     - better_exposed_filters
-    - datetime
     - node
     - user
 _core:
-  default_config_hash: El7_3boFxoQct5zdyDTSsrGhsy-QDoh5AmWvhzG7noM
+  default_config_hash: _iru5EzFmimhZdMnSBlAP0joihoniKo9AJ6toMChKAM
 id: active_spotters
 label: 'Active Spotters'
 module: views

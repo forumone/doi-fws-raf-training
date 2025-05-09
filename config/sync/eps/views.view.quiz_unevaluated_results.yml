@@ -1,4 +1,4 @@
-uuid: 159dc043-c929-4a44-bdbf-4dd182fecd7d
+uuid: 944b2232-ed80-454d-b999-29d09d08829e
 langcode: en
 status: true
 dependencies:
@@ -18,12 +18,104 @@ base_table: quiz_result
 base_field: result_id
 display:
   default:
+    display_plugin: default
     id: default
     display_title: Master
-    display_plugin: default
     position: 0
     display_options:
-      title: 'Attempts awaiting score'
+      access:
+        type: perm
+        options:
+          perm: 'score own quiz'
+      cache:
+        type: none
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: mini
+        options:
+          items_per_page: 10
+          offset: 0
+          id: 0
+          total_pages: null
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          tags:
+            previous: ‹‹
+            next: ››
+          pagination_heading_level: h4
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            title: title
+            name: name
+            time_end: time_end
+            edit_quiz_result: edit_quiz_result
+          info:
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            time_end:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_quiz_result:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: time_end
+          empty_table: false
+      row:
+        type: fields
       fields:
         title:
           id: title
@@ -32,9 +124,6 @@ display:
           relationship: qid
           group_type: group
           admin_label: ''
-          entity_type: quiz
-          entity_field: title
-          plugin_id: field
           label: Quiz
           exclude: false
           alter:
@@ -90,6 +179,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: quiz
+          entity_field: title
+          plugin_id: field
         name:
           id: name
           table: users_field_data
@@ -97,9 +189,6 @@ display:
           relationship: uid
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: User
           exclude: false
           alter:
@@ -155,6 +244,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         time_end:
           id: time_end
           table: quiz_result
@@ -162,9 +254,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: quiz_result
-          entity_field: time_end
-          plugin_id: field
           label: 'Date finished'
           exclude: false
           alter:
@@ -231,6 +320,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: quiz_result
+          entity_field: time_end
+          plugin_id: field
         edit_quiz_result:
           id: edit_quiz_result
           table: quiz_result
@@ -238,8 +330,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: quiz_result
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -284,56 +374,8 @@ display:
           text: Score
           output_url_as_text: false
           absolute: false
-      pager:
-        type: mini
-        options:
-          offset: 0
-          pagination_heading_level: h4
-          items_per_page: 10
-          total_pages: null
-          id: 0
-          tags:
-            next: ››
-            previous: ‹‹
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      access:
-        type: perm
-        options:
-          perm: 'score own quiz'
-      cache:
-        type: none
-        options: {  }
-      empty:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: true
-          content: 'There are no attempts that need to be scored.'
-          tokenize: false
-      sorts: {  }
-      arguments: {  }
+          entity_type: quiz_result
+          plugin_id: entity_link_edit
       filters:
         is_evaluated:
           id: is_evaluated
@@ -364,8 +406,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -396,6 +436,8 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: user
+          plugin_id: user_current
         uid_current_1:
           id: uid_current_1
           table: users
@@ -403,8 +445,6 @@ display:
           relationship: uid_2
           group_type: group
           admin_label: ''
-          entity_type: user
-          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -435,67 +475,24 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            title: title
-            name: name
-            time_end: time_end
-            edit_quiz_result: edit_quiz_result
-          default: time_end
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            time_end:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_quiz_result:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: false
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
-      row:
-        type: fields
-      query:
-        type: views_query
-        options:
-          query_comment: ''
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_tags: {  }
+          entity_type: user
+          plugin_id: user_current
+      sorts: {  }
+      title: 'Attempts awaiting score'
+      header: {  }
+      footer: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content: 'There are no attempts that need to be scored.'
+          plugin_id: text_custom
       relationships:
         qid:
           id: qid
@@ -504,10 +501,10 @@ display:
           relationship: none
           group_type: group
           admin_label: Quiz
+          required: false
           entity_type: quiz_result
           entity_field: qid
           plugin_id: standard
-          required: false
         uid:
           id: uid
           table: quiz_result
@@ -515,10 +512,10 @@ display:
           relationship: none
           group_type: group
           admin_label: User
+          required: false
           entity_type: quiz_result
           entity_field: uid
           plugin_id: standard
-          required: false
         uid_1:
           id: uid_1
           table: quiz
@@ -526,10 +523,10 @@ display:
           relationship: qid
           group_type: group
           admin_label: 'Quiz author'
+          required: false
           entity_type: quiz
           entity_field: uid
           plugin_id: standard
-          required: false
         uid_2:
           id: uid_2
           table: quiz_result
@@ -537,13 +534,16 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Quiz taker'
+          required: false
           entity_type: quiz_result
           entity_field: uid
           plugin_id: standard
-          required: false
-      header: {  }
-      footer: {  }
+      arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -554,15 +554,31 @@ display:
         - user.permissions
       tags: {  }
   page_1:
+    display_plugin: page
     id: page_1
     display_title: 'Score any quiz'
-    display_plugin: page
     position: 1
     display_options:
+      display_extenders: {  }
+      path: admin/quiz/reports/unevaluated
+      display_description: ''
+      menu:
+        type: normal
+        title: 'Score quizzes'
+        description: 'List un-scored quizzes.'
+        expanded: false
+        parent: quiz.admin.reports
+        weight: 0
+        context: '0'
+        menu_name: admin
       access:
         type: perm
         options:
           perm: 'update any quiz_result'
+      defaults:
+        access: false
+        filters: false
+        filter_groups: false
       filters:
         is_evaluated:
           id: is_evaluated
@@ -590,22 +606,6 @@ display:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: false
-        filters: false
-        filter_groups: false
-      display_description: ''
-      display_extenders: {  }
-      path: admin/quiz/reports/unevaluated
-      menu:
-        type: normal
-        title: 'Score quizzes'
-        description: 'List un-scored quizzes.'
-        weight: 0
-        expanded: false
-        menu_name: admin
-        parent: quiz.admin.reports
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
@@ -615,15 +615,31 @@ display:
         - user.permissions
       tags: {  }
   page_2:
+    display_plugin: page
     id: page_2
     display_title: 'Score own quiz'
-    display_plugin: page
     position: 2
     display_options:
+      display_extenders: {  }
+      display_description: ''
+      path: user/%user/quiz-score
+      menu:
+        type: tab
+        title: 'Score quizzes'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
       access:
         type: perm
         options:
           perm: 'score own quiz'
+      defaults:
+        access: false
+        filters: false
+        filter_groups: false
       filters:
         is_evaluated:
           id: is_evaluated
@@ -654,8 +670,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -686,26 +700,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: user
+          plugin_id: user_current
       filter_groups:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: false
-        filters: false
-        filter_groups: false
-      display_description: ''
-      display_extenders: {  }
-      path: user/%user/quiz-score
-      menu:
-        type: tab
-        title: 'Score quizzes'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: main
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
@@ -716,15 +716,31 @@ display:
         - user.permissions
       tags: {  }
   page_3:
+    display_plugin: page
     id: page_3
     display_title: 'Score taken quiz answer'
-    display_plugin: page
     position: 3
     display_options:
+      display_extenders: {  }
+      display_description: ''
       access:
         type: perm
         options:
           perm: 'update own quiz_result'
+      defaults:
+        access: false
+        filters: false
+        filter_groups: false
+      path: user/%user/quiz-result-score
+      menu:
+        type: tab
+        title: 'Score quiz attempts'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
       filters:
         is_evaluated:
           id: is_evaluated
@@ -755,8 +771,6 @@ display:
           relationship: uid_2
           group_type: group
           admin_label: ''
-          entity_type: user
-          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -787,26 +801,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: user
+          plugin_id: user_current
       filter_groups:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: false
-        filters: false
-        filter_groups: false
-      display_description: ''
-      display_extenders: {  }
-      path: user/%user/quiz-result-score
-      menu:
-        type: tab
-        title: 'Score quiz attempts'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: main
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
