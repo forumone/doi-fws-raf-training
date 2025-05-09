@@ -17,39 +17,39 @@ bundle: size_range
 mode: default
 content:
   description:
-    label: hidden
     type: text_default
-    weight: 0
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_size_range_id:
     type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
+    third_party_settings: {  }
     weight: 1
     region: content
-    third_party_settings: {  }
   field_size_range_max:
     type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
+    third_party_settings: {  }
     weight: 3
     region: content
-    third_party_settings: {  }
   field_size_range_min:
     type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
+    third_party_settings: {  }
     weight: 2
     region: content
-    third_party_settings: {  }
 hidden:
   langcode: true
   search_api_excerpt: true
