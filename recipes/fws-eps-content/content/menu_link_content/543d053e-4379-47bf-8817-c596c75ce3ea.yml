@@ -1,0 +1,52 @@
+_meta:
+  version: '1.0'
+  entity_type: menu_link_content
+  uuid: 543d053e-4379-47bf-8817-c596c75ce3ea
+  bundle: menu_link_content
+  default_langcode: en
+  depends:
+    cee21f9d-fbb4-4546-90e6-5406d9f1e427: menu_link_content
+default:
+  enabled:
+    -
+      value: true
+  title:
+    -
+      value: 'Active Spotters'
+  menu_name:
+    -
+      value: main
+  link:
+    -
+      uri: 'internal:/active-spotters'
+      title: ''
+      options: {  }
+  external:
+    -
+      value: false
+  rediscover:
+    -
+      value: true
+  weight:
+    -
+      value: -48
+  expanded:
+    -
+      value: false
+  parent:
+    -
+      value: 'menu_link_content:cee21f9d-fbb4-4546-90e6-5406d9f1e427'
+  revision_translation_affected:
+    -
+      value: true
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| FWS: Eastern Population Sandhill Crane Data Entry Portal'
+    -
+      tag: link
+      attributes:
+        rel: canonical
+        href: 'http://eps/welcome'
