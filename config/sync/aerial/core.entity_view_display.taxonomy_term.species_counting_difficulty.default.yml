@@ -17,18 +17,18 @@ content:
   description:
     type: text_default
     label: hidden
-    weight: 1
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_difficulty_level:
     type: string
     label: above
-    weight: 0
-    region: content
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   langcode: true
   search_api_excerpt: true

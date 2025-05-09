@@ -34,9 +34,9 @@ content:
       format: default
       format_custom_false: ''
       format_custom_true: ''
+    third_party_settings: {  }
     weight: 2
     region: content
-    third_party_settings: {  }
   field_species_video:
     type: file_url_plain
     label: above
