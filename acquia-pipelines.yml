@@ -1,15 +1,27 @@
 version: 1.3.0
 
 services:
-  - mysql
   - php:
       version: 8.3
+  - mysql
   - memcached
 
 events:
   build:
+    when:
+      branch:
+        - integration
+        - main
     steps:
       - setup:
           type: script
           script:
+            - echo "🏗 Auto-deploying branch: $PIPELINES_BRANCH"
             - composer install
+            - vendor/bin/drush deploy
+            - cd web/themes/custom/mytheme
+            - npm ci
+            - npm run build
+            - cd $SOURCE_DIR
+            - rsync -av web/themes/custom/mytheme $BUILD_DIR/web/themes/custom/ --exclude=node_modules
+
