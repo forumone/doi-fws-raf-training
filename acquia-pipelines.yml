@@ -12,16 +12,17 @@ events:
       branch:
         - integration
         - main
+        - live
     steps:
       - setup:
           type: script
           script:
-            - echo "🏗 Auto-deploying branch: $PIPELINES_BRANCH"
+            - echo "Building for branch: $PIPELINES_BRANCH"
             - composer install
             - vendor/bin/drush deploy
-            - cd web/themes/custom/mytheme
+            - cd web/themes/custom/fws_raf
             - npm ci
             - npm run build
             - cd $SOURCE_DIR
-            - rsync -av web/themes/custom/mytheme $BUILD_DIR/web/themes/custom/ --exclude=node_modules
-
+            - rsync -av web/themes/custom/fws_raf $BUILD_DIR/web/themes/custom/ --exclude=node_modules
+            
