@@ -8,11 +8,6 @@ services:
 
 events:
   build:
-    when:
-      branch:
-        - integration
-        - main
-        - live
     steps:
       - setup:
           type: script
