@@ -14,4 +14,7 @@ events:
           script:
             - composer validate --no-check-all --ansi
             - composer install
+            - cd web/themes/custom/fws_raf
+            - npm install
+            - npm run build
             
