@@ -19,6 +19,7 @@ $sites['fws-raf.ddev.site.rcgr'] = 'rcgr';
 
 // Acquia environment configurations.
 $sites['doifwsrafdev.prod.acquia-sites.com'] = 'default';
+$sites['fws-raf.dev.com'] = 'default';
 // Handle /manatee paths on Acquia.
 $sites['doifwsrafdev.prod.acquia-sites.com.manatee'] = 'manatee';
 // Handle /epsandhill paths on Acquia.

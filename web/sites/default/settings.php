@@ -779,6 +779,7 @@ $settings['trusted_host_patterns'] = [
   '^doifwsrafdev\.prod\.acquia-sites\.com$',
   '^doifwsrafstage\.prod\.acquia-sites\.com$',
   '^doifwsrafprod\.prod\.acquia-sites\.com$',
+  '^fws-raf\.dev\.com$',
 ];
 
 /**
