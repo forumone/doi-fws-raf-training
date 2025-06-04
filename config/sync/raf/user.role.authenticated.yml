@@ -1,0 +1,26 @@
+uuid: aed4b07b-c79a-4761-b5bc-3c857e1be452
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.webform_default
+  module:
+    - filter
+    - media
+    - quiz
+    - system
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access quiz'
+  - 'use text format basic_html'
+  - 'use text format webform_default'
+  - 'view any quiz'
+  - 'view media'
+  - 'view own quiz_result'

@@ -1,0 +1,20 @@
+uuid: c95b532e-3762-410f-b059-23b7fe6a218f
+langcode: en
+status: true
+dependencies:
+  theme:
+    - fws
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: fws_local_actions
+theme: fws
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

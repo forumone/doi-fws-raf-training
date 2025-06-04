@@ -907,12 +907,6 @@ if (file_exists('/var/www/site-php')) {
   }
 }
 
-#
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
-
 // Automatically generated include for settings managed by ddev.
 $ddev_settings = __DIR__ . '/settings.ddev.php';
 if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
@@ -925,9 +919,10 @@ error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
  * Show header authentication links.
  */
 $config['system.site']['header_links_auth'] = TRUE;
-
-$settings['config_sync_directory'] = '../config/sync/manatee';
-
-$settings['replace_species_with_manatee'] = TRUE;
-
 $config['doi_login.settings_form']['hide_standard_login'] = TRUE;
+
+$settings['config_sync_directory'] = '../config/sync/raf';
+
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}

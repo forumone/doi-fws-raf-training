@@ -1,0 +1,40 @@
+uuid: 66062534-5616-4a43-b7b3-da68b3029fe8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.quiz_feedback_range
+    - paragraphs.paragraphs_type.quiz_result_feedback
+  module:
+    - range
+  enforced:
+    module:
+      - quiz
+_core:
+  default_config_hash: pcDStXMmZnxmPxira7WdB3Yfa8E2y6kTbWM7ttqix8M
+id: paragraph.quiz_result_feedback.quiz_feedback_range
+field_name: quiz_feedback_range
+entity_type: paragraph
+bundle: quiz_result_feedback
+label: 'Grade range'
+description: 'Show this result for scored Quiz in this range (0-100).'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 100
+  field:
+    prefix: ''
+    suffix: ''
+  from:
+    prefix: ''
+    suffix: '%'
+  to:
+    prefix: ''
+    suffix: '%'
+  combined:
+    prefix: ''
+    suffix: ''
+field_type: range_integer

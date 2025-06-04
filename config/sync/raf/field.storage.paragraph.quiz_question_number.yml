@@ -1,0 +1,25 @@
+uuid: a6a46ab6-5daa-45ec-aab3-113e411ba1e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+  enforced:
+    module:
+      - quiz
+_core:
+  default_config_hash: jO_97zwUPYvyUetxPu8TkgyZDwvYDs4wHH1QZnVJkbE
+id: paragraph.quiz_question_number
+field_name: quiz_question_number
+entity_type: paragraph
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
