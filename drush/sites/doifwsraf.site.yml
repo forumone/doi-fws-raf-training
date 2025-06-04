@@ -1,0 +1,39 @@
+# Application 'doifwsraf', environment 'dev'.
+dev:
+  root: /var/www/html/docroot
+  ac-site: doifwsraf
+  ac-env: dev
+  ac-realm: prod
+  uri: doifwsrafdev.prod.acquia-sites.com
+  host: doifwsrafdev.ssh.prod.acquia-sites.com
+  user: doifwsraf.dev
+  paths:
+    drush-script: drush
+
+
+# Application 'doifwsraf', environment 'prod'.
+prod:
+  root: /var/www/html/docroot
+  ac-site: doifwsraf
+  ac-env: prod
+  ac-realm: prod
+  uri: doifwsrafprod.prod.acquia-sites.com
+  host: doifwsrafprod.ssh.prod.acquia-sites.com
+  user: doifwsraf.prod
+  paths:
+    drush-script: drush
+
+
+# Application 'doifwsraf', environment 'stage'.
+stage:
+  root: /var/www/html/docroot
+  ac-site: doifwsraf
+  ac-env: stage
+  ac-realm: prod
+  uri: doifwsrafstage.prod.acquia-sites.com
+  host: doifwsrafstage.ssh.prod.acquia-sites.com
+  user: doifwsraf.stage
+  paths:
+    drush-script: drush
+
+

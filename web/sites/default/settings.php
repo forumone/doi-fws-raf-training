@@ -895,7 +895,7 @@ if (file_exists('/var/www/site-php')) {
   // Workaround for database error.
   $class_loader->addPsr4('Drupal\\mysql\\', 'core/modules/mysql/src/');
 
-  require_once('/var/www/site-php/doifws/doifws-settings.inc');
+  require_once('/var/www/site-php/doifwsraf/doifwsraf-settings.inc');
   $projectroot = "/var/www/html/" . $_ENV['AH_SITE_GROUP'] . '.' . $_ENV['AH_SITE_ENVIRONMENT'];
   $settings['simplesamlphp_dir'] = $projectroot . '/vendor/simplesamlphp/simplesamlphp';
   // Configure File folders
