@@ -249,7 +249,7 @@
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
-        "php-stan": [
+        "phpstan": [
             "./vendor/bin/phpstan --memory-limit=1024M"
         ],
         "phpcs": [
