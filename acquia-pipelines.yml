@@ -23,5 +23,5 @@ events:
           type: script
           script:
             - echo "Running PHPSTAN scans"
-            - composer phpstan
+            - ./vendor/bin/phpstan
             
