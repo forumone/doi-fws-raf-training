@@ -22,6 +22,8 @@ events:
             - echo "Running PHPSTAN scans"
             - composer phpstan
       - setup-theme:
+          type: script
+          script:
             - cd web/themes/custom/fws_raf
             - echo "Installing npm dependencies"
             - npm install
