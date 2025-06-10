@@ -13,8 +13,15 @@ events:
           type: script
           script:
             - composer validate --no-check-all --ansi
+            - echo "Installing composer dependencies"
             - composer install
             - cd web/themes/custom/fws_raf
+            - echo "Installing npm dependencies"
             - npm install
             - npm run build
+      - test:
+          type: script
+          script:
+            - echo "Running PHPSTAN scans"
+            - composer phpstan
             

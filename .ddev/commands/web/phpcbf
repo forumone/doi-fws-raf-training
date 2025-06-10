@@ -1,0 +1,7 @@
+#!/bin/sh
+
+## Description: Runs the PHP Code Beautifier and Fixer using the PHP_CodeSniffer configuration.
+## Usage: phpcbf
+## Example: "ddev phpcbf"
+
+composer phpcbf "$@"

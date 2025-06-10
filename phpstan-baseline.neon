@@ -1,0 +1,3016 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Function aerial_videos_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/aerial_videos/aerial_videos.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:createFileUrl\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 3
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\aerial_videos\\\\Plugin\\\\Block\\\\AerialSpeciesBlock\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\aerial_videos\\\\Plugin\\\\Block\\\\AerialSpeciesBlock\\:\\:getSpeciesByGroup\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: web/modules/custom/aerial_videos/src/Plugin/Block/AerialSpeciesBlock.php
+
+		-
+			message: "#^Function doi_login_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/doi_login.module
+
+		-
+			message: "#^Function doi_login_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/doi_login.module
+
+		-
+			message: "#^Function doi_login_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/doi_login.module
+
+		-
+			message: "#^Class Drupal\\\\doi_login\\\\Form\\\\DOILoginForm extends @internal class Drupal\\\\user\\\\Form\\\\UserLoginForm\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginForm.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$flood$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Form\\\\DOILoginSettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Form\\\\DOILoginSettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Form\\\\DOILoginSettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Form\\\\DOILoginSettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Form\\\\DOILoginSettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Form/DOILoginSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Routing\\\\RouteSubscriber\\:\\:alterRoutes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Routing/RouteSubscriber.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Routing/RouteSubscriber.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginclear\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginclear\\(\\) has parameter \\$identifier with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginclear\\(\\) has parameter \\$name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginregister\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginregister\\(\\) has parameter \\$identifier with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginregister\\(\\) has parameter \\$name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Method Drupal\\\\doi_login\\\\Services\\\\DOILoginFlood\\:\\:doi_loginregister\\(\\) has parameter \\$window with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/doi_login/src/Services/DOILoginFlood.php
+
+		-
+			message: "#^Class Drupal\\\\fws_core\\\\Plugin\\\\Field\\\\FieldFormatter\\\\PhoneNumberFormatter extends generic class Drupal\\\\Core\\\\Field\\\\FormatterBase but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/fws_core/src/Plugin/Field/FieldFormatter/PhoneNumberFormatter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_core\\\\Plugin\\\\Field\\\\FieldFormatter\\\\PhoneNumberFormatter\\:\\:viewElements\\(\\) has parameter \\$items with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/fws_core/src/Plugin/Field/FieldFormatter/PhoneNumberFormatter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_core\\\\Plugin\\\\Field\\\\FieldFormatter\\\\PhoneNumberFormatter\\:\\:viewElements\\(\\) has parameter \\$items with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/fws_core/src/Plugin/Field/FieldFormatter/PhoneNumberFormatter.php
+
+		-
+			message: "#^Function fws_counting_preprocess_counting_quiz\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/fws_counting.module
+
+		-
+			message: "#^Function fws_counting_preprocess_counting_quiz\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/fws_counting.module
+
+		-
+			message: "#^Function fws_counting_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/fws_counting.module
+
+		-
+			message: "#^Function fws_counting_preprocess_html\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/fws_counting.module
+
+		-
+			message: "#^Function fws_counting_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/fws_counting.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getFileUri\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Controller\\\\CountingQuizController\\:\\:display\\(\\) has parameter \\$experience_level with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Controller\\\\CountingQuizController\\:\\:display\\(\\) has parameter \\$size_range with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Controller\\\\CountingQuizController\\:\\:display\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Controller\\\\CountingQuizController\\:\\:getResults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 7
+			path: web/modules/custom/fws_counting/src/Controller/CountingQuizController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Controller\\\\CountingSkillsController\\:\\:content\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Controller/CountingSkillsController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:buildForm\\(\\) should return array but returns Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingConfirmationForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/fws_counting/src/Form/CountingConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingExperienceForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingExperienceForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingExperienceForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingExperienceForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingExperienceForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingExperienceForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingExperienceForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingExperienceForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: web/modules/custom/fws_counting/src/Form/CountingExperienceForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingSettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingSettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingSettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingSettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Form\\\\CountingSettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Form/CountingSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Service\\\\QuizResultsService\\:\\:createResultsNode\\(\\) has parameter \\$images with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Service/QuizResultsService.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Service\\\\QuizResultsService\\:\\:createResultsNode\\(\\) has parameter \\$size_ranges with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Service/QuizResultsService.php
+
+		-
+			message: "#^Method Drupal\\\\fws_counting\\\\Service\\\\QuizResultsService\\:\\:updateAverageAccuracy\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_counting/src/Service/QuizResultsService.php
+
+		-
+			message: "#^Function _fws_falcon_permit_generate_system_bird_id\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_entity_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_help\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_help\\(\\) has parameter \\$route_name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_node_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_node_access\\(\\) has parameter \\$op with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Function fws_falcon_permit_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<1, max\\> given\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/fws_falcon_permit.module
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Controller\\\\Permit3186AAutocompleteController\\:\\:handle\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Controller/Permit3186AAutocompleteController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Controller\\\\Permit3186AAutocompleteController\\:\\:handle\\(\\) has parameter \\$field with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Controller/Permit3186AAutocompleteController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Controller/Permit3186AAutocompleteController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:backSubmit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:backSubmit\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:exitSubmit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:exitSubmit\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Form3186A\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Form3186A.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildFilterForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildFilterForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildSearchResults\\(\\) has parameter \\$filter_values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:buildSearchResults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:exportCsvSubmit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:exportCsvSubmit\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:getFilterValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:writeHeadersToOutput\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:writeHeadersToOutput\\(\\) has parameter \\$output with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:writeNodesToOutput\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:writeNodesToOutput\\(\\) has parameter \\$nodes with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Form\\\\Permit3186ASearchForm\\:\\:writeNodesToOutput\\(\\) has parameter \\$output with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/fws_falcon_permit/src/Form/Permit3186ASearchForm.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Session\\\\AccountProxyInterface\\:\\:hasRole\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Permit3186ASearchHelper\\:\\:getFieldValueContains\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Permit3186ASearchHelper\\:\\:getSearchResults\\(\\) has parameter \\$filter_values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Permit3186ASearchHelper\\:\\:getSearchResults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Method Drupal\\\\fws_falcon_permit\\\\Permit3186ASearchHelper\\:\\:getTaxonomyTermOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Using nullsafe method call on non\\-nullable type Drupal\\\\Core\\\\Entity\\\\EntityInterface\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Using nullsafe property access on non\\-nullable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\<Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\>\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_permit/src/Permit3186ASearchHelper.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_entity_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_entity_view_display_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_entity_view_display_alter\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_help\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Function fws_falcon_user_help\\(\\) has parameter \\$route_name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<1, max\\> given\\.$#"
+			count: 1
+			path: web/modules/custom/fws_falcon_user/fws_falcon_user.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between 1\\|2\\|3\\|4\\|5\\|6\\|7\\|8\\|9\\|10\\|11\\|12 and 1 is always true\\.$#"
+			count: 3
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_ca_county_changed\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_ca_county_changed\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_get_user_locations\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_location_selected\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_location_selected\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_permit_report_validate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_permit_report_validate\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_prefill_fields_from_user\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_prefill_fields_from_user\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_prefill_user_fields\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_prefill_user_fields\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_report_submit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_report_submit\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_report_validate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_report_validate\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_state_changed\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_state_changed\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_validate_ca_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_validate_ca_access\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_validate_ca_access_submit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function _fws_goose_validate_ca_access_submit\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_can_register_or_renew\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_entity_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_entity_type_build\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_entity_type_build\\(\\) has parameter \\$entity_types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_node_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_node_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_node_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_form_node_form_alter\\(\\) has parameter \\$form_state with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_mail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_mail\\(\\) has parameter \\$key with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_mail\\(\\) has parameter \\$message with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_mail\\(\\) has parameter \\$params with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_node\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_node\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_page\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_page\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_page_title\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_preprocess_page_title\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Function fws_goose_send_certification_notification\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 3
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 4
+			path: web/modules/custom/fws_goose/fws_goose.module
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Controller/GooseProfileController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Controller/PermitRedirectController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:buildForm\\(\\) has parameter \\$node_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\InlineCertificationForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: web/modules/custom/fws_goose/src/Form/InlineCertificationForm.php
+
+		-
+			message: "#^Class Drupal\\\\fws_goose\\\\Form\\\\NameNodeForm extends @internal class Drupal\\\\node\\\\NodeForm\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/NameNodeForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\NameNodeForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/NameNodeForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Form\\\\NameNodeForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Form/NameNodeForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/fws_goose/src/Form/NameNodeForm.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\<Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\>\\:\\:\\$date\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:getForm\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Plugin\\\\Block\\\\CertificationBlock\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Plugin\\\\Block\\\\CertificationBlock\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Method Drupal\\\\fws_goose\\\\Plugin\\\\Block\\\\CertificationBlock\\:\\:create\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/fws_goose/src/Plugin/Block/CertificationBlock.php
+
+		-
+			message: "#^Function fws_id_test_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_preprocess_html\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_preprocess_id_test_quiz\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_preprocess_id_test_quiz\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_preprocess_page\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_preprocess_page\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Function fws_id_test_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/fws_id_test.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\:\\:\\$entity\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:createFileUrl\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Controller\\\\IdTestController\\:\\:content\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Controller\\\\IdTestController\\:\\:test\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/fws_id_test/src/Controller/IdTestController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestConfirmationForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestConfirmationForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestConfirmationForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestConfirmationForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestConfirmationForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestConfirmationForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestSettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestSettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestSettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestSettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestSettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:getDifficultyOptions\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:getRegionOptions\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:getSpeciesGroupOptions\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Form\\\\IdTestStartForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 5
+			path: web/modules/custom/fws_id_test/src/Form/IdTestStartForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Service\\\\IdTestResultsService\\:\\:createResultsNode\\(\\) has parameter \\$questions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Service/IdTestResultsService.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Service\\\\IdTestResultsService\\:\\:createResultsNode\\(\\) should return Drupal\\\\node\\\\NodeInterface but returns null\\.$#"
+			count: 3
+			path: web/modules/custom/fws_id_test/src/Service/IdTestResultsService.php
+
+		-
+			message: "#^Method Drupal\\\\fws_id_test\\\\Service\\\\IdTestResultsService\\:\\:updateTestScore\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_id_test/src/Service/IdTestResultsService.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 13
+			path: web/modules/custom/fws_id_test/src/Service/IdTestResultsService.php
+
+		-
+			message: "#^Function fws_lock_updates_node_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/fws_lock_updates.module
+
+		-
+			message: "#^Function fws_lock_updates_node_access\\(\\) has parameter \\$op with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/fws_lock_updates.module
+
+		-
+			message: "#^Method Drupal\\\\fws_lock_updates\\\\Form\\\\LockUpdatesSettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/src/Form/LockUpdatesSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_lock_updates\\\\Form\\\\LockUpdatesSettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/src/Form/LockUpdatesSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_lock_updates\\\\Form\\\\LockUpdatesSettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/src/Form/LockUpdatesSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_lock_updates\\\\Form\\\\LockUpdatesSettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/src/Form/LockUpdatesSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_lock_updates\\\\Form\\\\LockUpdatesSettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_lock_updates/src/Form/LockUpdatesSettingsForm.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$original\\.$#"
+			count: 3
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getFieldDefinition\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getFields\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setRevisionLogMessage\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function _fws_notifications_send_notification\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_entity_insert\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_entity_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_mail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_mail\\(\\) has parameter \\$key with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_mail\\(\\) has parameter \\$message with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Function fws_notifications_mail\\(\\) has parameter \\$params with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/fws_notifications.module
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_notifications\\\\Form\\\\NotificationSettingsForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/fws_notifications/src/Form/NotificationSettingsForm.php
+
+		-
+			message: "#^Function fws_print_page_attachments\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_page_attachments\\(\\) has parameter \\$attachments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_preprocess_html\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme\\(\\) has parameter \\$existing with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme\\(\\) has parameter \\$path with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme\\(\\) has parameter \\$theme with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme\\(\\) has parameter \\$type with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme_suggestions_html_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme_suggestions_html_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Function fws_print_theme_suggestions_html_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/fws_print.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\fws_print\\\\Controller\\\\PrintController\\:\\:createNotFoundException\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/src/Controller/PrintController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_print\\\\Controller\\\\PrintController\\:\\:printNode\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/src/Controller/PrintController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_print/src/Controller/PrintController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/fws_print/src/Controller/PrintController.php
+
+		-
+			message: "#^Function fws_private_pages_node_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_private_pages/fws_private_pages.module
+
+		-
+			message: "#^Function fws_private_pages_node_access\\(\\) has parameter \\$op with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_private_pages/fws_private_pages.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$lat\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$lng\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_openid_connect_login_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_openid_connect_login_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_openid_connect_login_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_user_login_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_user_login_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_user_login_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_views_exposed_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_views_exposed_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_form_views_exposed_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_node_insert\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_node_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_page_attachments\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_page_attachments\\(\\) has parameter \\$attachments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_user_insert\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_views_query_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_views_query_alter\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Function fws_sighting_views_query_alter\\(\\) has parameter \\$view with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Property Drupal\\\\node\\\\NodeInterface\\:\\:\\$field_state \\(Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\) does not accept null\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Property Drupal\\\\node\\\\NodeInterface\\:\\:\\$field_state \\(Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Property Drupal\\\\node\\\\NodeInterface\\:\\:\\$field_year \\(Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\) does not accept null\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/fws_sighting.module
+
+		-
+			message: "#^Undefined variable\\: \\$base_url$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Controller/ObservationsMapController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/fws_sighting/src/Controller/ObservationsMapController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 11
+			path: web/modules/custom/fws_sighting/src/Controller/SightingCountController.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Form\\\\SettingsForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Form/SettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Form\\\\SettingsForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Form/SettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Form\\\\SettingsForm\\:\\:getEditableConfigNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Form/SettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Form\\\\SettingsForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Form/SettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Form\\\\SettingsForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Form/SettingsForm.php
+
+		-
+			message: "#^Method Drupal\\\\fws_sighting\\\\Plugin\\\\Block\\\\SightingCountBlock\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_sighting/src/Plugin/Block/SightingCountBlock.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 4
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:hasField\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function _fws_state_access_alter_state_field\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function _fws_state_access_alter_state_field\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_entity_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_entity_access\\(\\) has parameter \\$operation with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_entity_create_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_entity_create_access\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_entity_create_access\\(\\) has parameter \\$entity_bundle with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_register_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_register_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_form_user_register_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_menu_local_tasks_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_menu_local_tasks_alter\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_menu_local_tasks_alter\\(\\) has parameter \\$route_name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_access\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_access\\(\\) has parameter \\$op with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_form_submit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_form_submit\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_form_validate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_node_form_validate\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_preprocess_node\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_preprocess_node\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.module
+
+		-
+			message: "#^Function fws_state_access_views_data_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.views.inc
+
+		-
+			message: "#^Function fws_state_access_views_data_alter\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/fws_state_access.views.inc
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$route with type Drupal\\\\Core\\\\Route\\\\Route is not subtype of native type Symfony\\\\Component\\\\Routing\\\\Route\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Access/StateAccessChecker.php
+
+		-
+			message: "#^Parameter \\$route of method Drupal\\\\fws_state_access\\\\Access\\\\StateAccessChecker\\:\\:access\\(\\) has invalid type Drupal\\\\Core\\\\Route\\\\Route\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Access/StateAccessChecker.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\views\\\\Plugin\\\\views\\\\query\\\\QueryPluginBase\\:\\:addWhere\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\views\\\\Plugin\\\\views\\\\query\\\\QueryPluginBase\\:\\:ensureTable\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:adminSummary\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:buildOptionsForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:buildOptionsForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:canExpose\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:create\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:query\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:valueForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Method Drupal\\\\fws_state_access\\\\Plugin\\\\views\\\\filter\\\\StateUserFilter\\:\\:valueForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_state_access/src/Plugin/views/filter/StateUserFilter.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getEmail\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Form\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_form_user_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_form_user_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_form_user_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_user_format_name_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_user_format_name_alter\\(\\) has parameter \\$account with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_user_format_name_alter\\(\\) has parameter \\$name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_user_view_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Function fws_user_user_view_alter\\(\\) has parameter \\$build with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/fws_user/fws_user.module
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getName\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:hasField\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\CurrentCaptivesController\\:\\:content\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Variable \\$species_entity_ids in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: web/modules/custom/tracking_reports/src/Controller/CurrentCaptivesController.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_health_status\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_rescue_cause\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getName\\(\\)\\.$#"
+			count: 3
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:hasField\\(\\)\\.$#"
+			count: 3
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\FacilityInventoryController\\:\\:content\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\FacilityInventoryController\\:\\:getYearOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/FacilityInventoryController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\PreReleaseReportController\\:\\:content\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/PreReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\PreReleaseReportController\\:\\:sortRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/PreReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\PreReleaseReportController\\:\\:sortRows\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/PreReleaseReportController.php
+
+		-
+			message: "#^Offset 'field' on array\\{data\\: Drupal\\\\Core\\\\StringTranslation\\\\TranslatableMarkup, field\\: 'email'\\|'entered_by'\\|'facility'\\|'name'\\|'number'\\|'phone'\\|'release_date'\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/PreReleaseReportController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/PreReleaseReportController.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_rescue_cause_detail\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:buildRowData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:buildSortLink\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:content\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getLengthString\\(\\) has parameter \\$length with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getLengthString\\(\\) has parameter \\$length with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getLengthValue\\(\\) has parameter \\$length with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getLengthValue\\(\\) has parameter \\$length with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getMatchingCauseIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getMatchingCountyIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getMatchingSpeciesIdNodeIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getMatchingSpeciesNodeIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getPreReleaseMetrics\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getReferencedSpeciesIds\\(\\) has parameter \\$species_id_nids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getReferencedSpeciesIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getWeightString\\(\\) has parameter \\$weight with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getWeightString\\(\\) has parameter \\$weight with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getWeightValue\\(\\) has parameter \\$weight with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:getWeightValue\\(\\) has parameter \\$weight with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:sortRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:sortRows\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Parameter \\#1 \\$species_entity of method Drupal\\\\tracking_reports\\\\Controller\\\\ReleaseReportController\\:\\:buildRowData\\(\\) expects Drupal\\\\node\\\\NodeInterface, Drupal\\\\Core\\\\Entity\\\\EntityInterface given\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between float\\|string and \\-1 will always evaluate to false\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: web/modules/custom/tracking_reports/src/Controller/ReleaseReportController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingAutocompleteController\\:\\:handleNumberAutocomplete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingAutocompleteController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingAutocompleteController\\:\\:handleSpeciesIdAutocomplete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingAutocompleteController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingAutocompleteController\\:\\:handleTagIdAutocomplete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingAutocompleteController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingAutocompleteController\\:\\:handleWaterwayAutocomplete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingAutocompleteController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingAutocompleteController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:condition\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:execute\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:fields\\(\\)\\.$#"
+			count: 5
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:leftJoin\\(\\)\\.$#"
+			count: 4
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:limit\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:orderByHeader\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutEventsController\\:\\:content\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutEventsController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:addField\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:condition\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:distinct\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:execute\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:fields\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:join\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:leftJoin\\(\\)\\.$#"
+			count: 4
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:limit\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:notExists\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:orConditionGroup\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:orderByHeader\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryIdController\\:\\:content\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryIdController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:condition\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:execute\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:fields\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:groupBy\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:leftJoin\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:limit\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Database\\\\Query\\\\ExtendableInterface\\:\\:orderByHeader\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryNameController\\:\\:content\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryNameController\\:\\:getAllSpeciesIds\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryNameController\\:\\:getAllSpeciesIds\\(\\) has parameter \\$species_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryNameController\\:\\:getNonPrimaryNames\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\TrackingWithoutPrimaryNameController\\:\\:getNonPrimaryNames\\(\\) has parameter \\$species_node with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/TrackingWithoutPrimaryNameController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\YtdSummaryController\\:\\:content\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/YtdSummaryController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Controller\\\\YtdSummaryController\\:\\:getRecentRecords\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/YtdSummaryController.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Drupal\\\\Core\\\\Entity\\\\Query\\\\QueryInterface\\:\\:condition\\(\\) expects array\\|bool\\|int\\|string\\|null, Drupal\\\\Core\\\\Entity\\\\Query\\\\QueryInterface given\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/YtdSummaryController.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/YtdSummaryController.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Controller/YtdSummaryController.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\FacilityFilterForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Form/FacilityFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\ReleaseFilterForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 4
+			path: web/modules/custom/tracking_reports/src/Form/ReleaseFilterForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:hasActualSearchValues\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:hasActualSearchValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:processSearchParameters\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:processSearchParameters\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Form\\\\TrackingSearchForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Offset 'tag_type' on array\\<'cause_of_death'\\|'county'\\|'event_type'\\|'from'\\|'number'\\|'organization'\\|'rescue_cause'\\|'rescue_type'\\|'species_id'\\|'species_name'\\|'state'\\|'tag_id'\\|'to'\\|'waterway', mixed\\> on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 3
+			path: web/modules/custom/tracking_reports/src/Form/TrackingSearchForm.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesEventsBlock\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesEventsBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesEventsBlock\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesEventsBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesEventsBlock\\:\\:create\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesEventsBlock.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesEventsBlock.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$field_rescue_cause_detail\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:buildRowData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:buildSortLink\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:create\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:getMetricsString\\(\\) has parameter \\$length with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:getMetricsString\\(\\) has parameter \\$length with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:getMetricsString\\(\\) has parameter \\$weight with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:getMetricsString\\(\\) has parameter \\$weight with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:sortRows\\(\\) has parameter \\$rows with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:sortRows\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Parameter \\#1 \\$species_entity of method Drupal\\\\tracking_reports\\\\Plugin\\\\Block\\\\SpeciesReleasesBlock\\:\\:buildRowData\\(\\) expects Drupal\\\\node\\\\NodeInterface, Drupal\\\\Core\\\\Entity\\\\EntityInterface given\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/Plugin/Block/SpeciesReleasesBlock.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildChronologicalEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildSearchResults\\(\\) has parameter \\$conditions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildSearchResults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildSortableData\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildSortableData\\(\\) has parameter \\$event_type with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:buildSortableData\\(\\) has parameter \\$species_nodes with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getCounties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getDeathCauses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getEventTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getLatestEvent\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getLatestEvent\\(\\) has parameter \\$species_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getLatestEvent\\(\\) has parameter \\$specific_type with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getNumber\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getNumber\\(\\) has parameter \\$species_entity with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getOrganizations\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getPrimaryName\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getPrimaryName\\(\\) has parameter \\$species_id with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getRescueCauses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getRescueTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getSpeciesIdMatches\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getSpeciesNameMatches\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getStates\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getTagIdMatches\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getTagTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getTrackingNumberMatches\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getWaterwayMatches\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:searchSpecies\\(\\) has parameter \\$criteria with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:searchSpecies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$org_id of method Drupal\\\\tracking_reports\\\\TrackingSearchManager\\:\\:getOrganizationName\\(\\) expects int, string given\\.$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: web/modules/custom/tracking_reports/src/TrackingSearchManager.php
+
+		-
+			message: "#^Function tracking_reports_help\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/tracking_reports.module
+
+		-
+			message: "#^Function tracking_reports_help\\(\\) has parameter \\$route_name with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/tracking_reports.module
+
+		-
+			message: "#^Function tracking_reports_theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/tracking_reports/tracking_reports.module
+
+		-
+			message: "#^Class Drupal\\\\taxonomy\\\\Entity\\\\Term referenced with incorrect case\\: Drupal\\\\taxonomy\\\\entity\\\\term\\.$#"
+			count: 2
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function _fws_gov_assign_mime_type_icon\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function _fws_gov_assign_mime_type_icon\\(\\) has parameter \\$mime_type with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_field\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_field\\(\\) has parameter \\$hook with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_field\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_html\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_layout__onecol__species_characteristics\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_layout__onecol__species_characteristics\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_mimemail_message\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_mimemail_message\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_page\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_page\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_paragraph__get_started_document\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_paragraph__get_started_document\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_taxonomy_term\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_taxonomy_term\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_views_view_fullcalendar\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_preprocess_views_view_fullcalendar\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_theme_suggestions_taxonomy_term_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_theme_suggestions_taxonomy_term_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_theme_suggestions_taxonomy_term_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_views_post_render\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_gov_views_post_render\\(\\) has parameter \\$output with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_gov/fws_gov.theme
+
+		-
+			message: "#^Function fws_raf_form_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_form_alter\\(\\) has parameter \\$form with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_form_alter\\(\\) has parameter \\$form_id with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess\\(\\) has parameter \\$hook with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_bootstrap_panel\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_bootstrap_panel\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_html\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_node\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_node\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_page\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_page\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_page_title\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_page_title\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_user\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_preprocess_user\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_block_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_block_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_block_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_user_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_user_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme
+
+		-
+			message: "#^Function fws_raf_theme_suggestions_user_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/fws_raf/fws_raf.theme

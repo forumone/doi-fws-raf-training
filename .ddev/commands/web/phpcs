@@ -1,0 +1,7 @@
+#!/bin/sh
+
+## Description: Runs PHP_CodeSniffer to check for codeing standards.
+## Usage: phpcs
+## Example: "ddev phpcs"
+
+composer phpcs "$@"
