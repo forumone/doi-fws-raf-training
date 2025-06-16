@@ -102,6 +102,25 @@ You can run `ddev composer install` to run composer through ddev when you need t
 
 ## Testing
 
+PHP Code Quality Tests:
+
+The acquia-pipeline.yml has been configured with PHP code quality tests to ensure we are enforcing baseline Drupal coding standards. Right now, only [PHPStan](https://phpstan.org/) is being tested for. [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer) has been installed via Composer but due to the amount of pre-existing technical debt it has not been an enforced test in the pipeline. You can run the following tests locally view any existing code issues.
+
+1. Run PHPStan linting test
+   ```bash
+   ddev composer phpstan
+   ```
+
+2. Run PHPCS scan
+   ```bash
+   ddev composer phpcs
+   ```
+
+3. Automatically fix programmatically resolvable issues in PHPCS
+   ```bash
+   ddev composer phpcbf
+   ```
+
 To run Cypress tests:
 
 1. Navigate to the Cypress test directory:
