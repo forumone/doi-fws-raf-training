@@ -6,6 +6,19 @@ services:
   - mysql
   - memcached
 
+## When needing to pass environment variables, license keys, athentication tokens 
+## or passwords into your pipeline, you can store them in your variables object using
+## your chosen name for the variable. Below, the chosen name is "EXAMPLESECURECREDENTIAL".
+#variables:
+  #global:
+    #EXAMPLESECURECREDENTIAL:
+      #secure: exampleencryptedvalue
+
+## SSH Keys should be stored in the ssh-key object.
+#ssh-keys:
+  #mykey:
+    #secure: exampleencrytedvalue
+
 events:
   build:
     steps:
@@ -16,11 +29,14 @@ events:
             - echo "Installing composer dependencies"
             - composer install
             - echo "$PWD"
-      - test-composer:
+      - php-linting:
           type: script
           script:
             - echo "Running PHPSTAN scans"
             - composer phpstan
+            ## We are leaving this commented out until we have the chance to resolve historical syntax issues in codebase.
+            #- echo "Running PHPCS scans"
+            #- composer phpcs
       - setup-theme:
           type: script
           script:
